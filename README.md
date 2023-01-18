@@ -5,11 +5,11 @@ This boilerplate is designed to help you quickly set up a npm package using Vite
 
 ## Tech Stack
 
-**Framework:** React
-**Type Checking:** Typescript
-**Tooling:** Es-lint, prettier, lint-staged, husky 
-**Component Documentation:** Storybook
-
+ - **Framework:** React
+ - **Type Checking:** Typescript
+ - **Tooling:** Es-lint, prettier, lint-staged, husky 
+ - **Component Documentation:** Storybook
+ - **Build Tool:** Vite
 
 ## To Run Locally
 
