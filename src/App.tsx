@@ -1,10 +1,10 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
-import { Button } from '@components';
+import { useState } from 'react';
+import reactLogo from './assets/react.svg';
+import './App.css';
+import { Button } from '../dist';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <div className="App">
@@ -18,13 +18,13 @@ function App() {
       </div>
       <h1>Vite + React NPM Package Boilerplate</h1>
       <div className="card">
-       <Button label="Let's Get Started" primary/>
+        <Button label="Let's Get Started" />
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
