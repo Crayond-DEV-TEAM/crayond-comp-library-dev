@@ -18,19 +18,11 @@ export default defineConfig({
         find: '@components',
         replacement: path.join(__dirname, './src/components'),
       },
-      {
-        find: '@lib',
-        replacement: path.join(__dirname, './src/lib'),
-      },
-      {
-        find: '@utils',
-        replacement: path.join(__dirname, './src/utils'),
-      },
     ],
   },
   build: {
     lib: {
-      entry: 'src/components/index.jsx',
+      entry: 'src/components/index.tsx',
       fileName: 'index',
       formats: ['es'],
     },
