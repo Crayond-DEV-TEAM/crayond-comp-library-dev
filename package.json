@@ -22,14 +22,16 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "test": "echo \"No test specified\"",
     "preview": "vite preview",
-    "publish": "np",
     "prepare": "husky install",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "preview-storybook": "serve storybook-static -p 8001",
+    "publish": "np"
   },
   "dependencies": {
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "serve": "^14.1.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",
