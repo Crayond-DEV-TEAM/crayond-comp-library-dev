@@ -1,25 +1,18 @@
 interface ButtonProps {
   primary?: boolean;
-  size?: 'small' | 'medium' | 'large';
   label: string;
   onClick?: () => void;
 }
 
-export const Button = ({
-  primary = false,
-  size = 'medium',
-  label,
-  ...props
-}: ButtonProps) => {
+export const Button = ({ primary = false, label, ...props }: ButtonProps) => {
   return (
     <button
       type="button"
       style={{
-        fontFamily:
-          "'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif",
-        fontWeight: 700,
+        fontWeight: 500,
         border: '0',
-        borderRadius: '3em',
+        borderRadius: '10px',
+        padding: '8px 16px',
         cursor: 'pointer',
         display: 'inline-block',
         lineHeight: 1,
