@@ -3,7 +3,7 @@ module.exports = {
     browser: true,
     es2021: true
   },
-  extends: ['plugin:react/recommended', 'standard-with-typescript'],
+  extends: ['plugin:react/recommended', 'standard-with-typescript', 'plugin:storybook/recommended'],
   overrides: [],
   parserOptions: {
     ecmaVersion: 'latest',
@@ -28,12 +28,9 @@ module.exports = {
     'react/prop-types': 'off',
     'react/button-has-type': 'off',
     'react/jsx-no-useless-fragment': 'off',
-    'react/jsx-filename-extension': [
-      1,
-      {
-        extensions: ['.jsx']
-      }
-    ],
+    'react/jsx-filename-extension': [1, {
+      extensions: ['.jsx']
+    }],
     'react/jsx-key': 'warn',
     // Proptypes
     'react/require-default-props': 'off',
