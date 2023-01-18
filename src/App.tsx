@@ -18,7 +18,7 @@ function App() {
       </div>
       <h1>Vite + React NPM Package Boilerplate</h1>
       <div className="card">
-       <Button/>
+       <Button label="Let's Get Started" primary/>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
