@@ -4,7 +4,7 @@ import {ButtonProps} from './props';
 
 export const BasicButtons = ({ ...props }: ButtonProps) => {
   return (
-    <Button {...props}>{props?.children}</Button>
+    <Button style={props.inLineStyles}{...props}>{props?.children}</Button>
   );
 };
 
@@ -13,7 +13,7 @@ BasicButtons.defaultProps = {
   type: "",
   name: "",
   onClick: ()=> {},
-  inLineStyles: "",
+  inLineStyles: {},
   size: "medium",
   variant: "contained",
   color: "primary",
