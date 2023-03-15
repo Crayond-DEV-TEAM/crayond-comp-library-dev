@@ -17,7 +17,7 @@ export const CustomSwitch = styled((props: SwitchProps) => (
       transform: 'translateX(16px)',
       color: '#fff',
       '& + .MuiSwitch-track': {
-        backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
+        backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : 'primary.main',
         opacity: 1,
         border: 0,
       },
@@ -26,7 +26,7 @@ export const CustomSwitch = styled((props: SwitchProps) => (
       },
     },
     '&.Mui-focusVisible .MuiSwitch-thumb': {
-      color: '#33cf4d',
+      color: 'primary.main',
       border: '6px solid #fff',
     },
     '&.Mui-disabled .MuiSwitch-thumb': {
@@ -57,7 +57,7 @@ export const CustomSwitch = styled((props: SwitchProps) => (
 export const CustomizedSwitches = (props: any) => { 
   return(
     <FormControlLabel
-        control={<CustomSwitch sx={{ m: 1 }} defaultChecked />}
+        control={<CustomSwitch sx={{ m: 1 }}  checked={props?.value} />}
         label={props.label}
       />
   )

@@ -1,4 +1,5 @@
 interface TableBody {
+    map(arg0: ({ id }: any) => any): unknown;
     [index: number]: object
 }
 
@@ -19,5 +20,7 @@ export interface TableProps  {
     Header: TableHeader;
     dataList: TableBody;
     tableData: TableData;
+    setSelectedCheckbox:any;
+    selectedCheckbox:any;
   };
   
