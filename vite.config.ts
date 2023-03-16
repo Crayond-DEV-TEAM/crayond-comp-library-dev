@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { dependencies } from './package.json';
 import path, { resolve } from 'path';
-import dts from 'vite-plugin-dts';
+// import dts from 'vite-plugin-dts';
 // A vite plugin that generates declaration files (*.d.ts) from .ts(x) when using vite in library mode.
 
 // .d.ts files are used to provide type information for JavaScript libraries
@@ -11,7 +11,7 @@ import dts from 'vite-plugin-dts';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [dts(), react()],
+  plugins: [react()],
   server: {
     port: 3000,
   },
