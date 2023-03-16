@@ -11,41 +11,25 @@ import { CustomCheckbox } from '../checkbox';
 import Avatar from '@mui/material/Avatar';
 
 
-const BodyRowLogic = ({val,rowIndex, i, Celldata,  selectedCheckbox, setSelectedCheckbox }: any) => {
- 
- const checkboxHandleChange = (data:any) => {
-    if(!selectedCheckbox.includes(Celldata?.id)){
-    setSelectedCheckbox([
-      ...selectedCheckbox,
-      data
-    ]);
-  }else{
-    const array = selectedCheckbox;
-    const index = array.indexOf(data);
-    if (index > -1) {
-     array.splice(index, 1)
-      setSelectedCheckbox(array);
-    }
-}
-  };
+const BodyRowLogic = ({val,rowIndex, i, Celldata,  selectedCheckbox,switchList, checkboxHandleChange, handleSwitch }: any) => {
  
   switch (val?.type?.[0]) {
     case 'INCREMENT':
-      return <TableCell key={i}> {rowIndex + 1} </TableCell>;
+      return <TableCell key={i}> {Celldata?.id} </TableCell>;
 
     case 'CHECKBOX':
-      return <TableCell key={i}><CustomCheckbox value={selectedCheckbox} name={Celldata?.id} onChange={checkboxHandleChange} /> </TableCell>;
+      return <TableCell key={i}><CustomCheckbox value={selectedCheckbox?.includes(Celldata?.id)} name={Celldata?.id} onChange={checkboxHandleChange} /> </TableCell>;
 
     case 'TEXT':
       return <TableCell key={i}> {Celldata[val.name]} </TableCell>;
 
     case 'SWITCH':
-      return <TableCell key={i}> <CustomizedSwitches value={Celldata[val.name]} label={Celldata[val.name] ? "Active" : "Inactive"} /> </TableCell>;
+      return <TableCell key={i}> <CustomizedSwitches onChange={handleSwitch} id={Celldata?.id} value={switchList?.includes(Celldata?.id)} label={switchList?.includes(Celldata?.id) ? val?.switchText?.[0]?.lable_2 : val?.switchText?.[0]?.lable_1} /> </TableCell>;
 
     case 'LABLE':
       return <TableCell key={i}>
-        <Box sx={Cusmstyle.labelBackground}>
-          <Typography sx={Cusmstyle.labelText}>{Celldata[val.name]}</Typography>
+        <Box sx={{...Cusmstyle.labelBackground, backgroundColor:Celldata[val.name]?.bgColor ? Celldata[val.name]?.bgColor: "#e2eafa" }}>
+          <Typography sx={{...Cusmstyle.labelText,color:Celldata[val.name]?.color ? Celldata[val.name]?.color : "#7692cc" }}>{Celldata[val.name]?.label}</Typography>
         </Box>
       </TableCell>;
 
@@ -66,16 +50,7 @@ const BodyRowLogic = ({val,rowIndex, i, Celldata,  selectedCheckbox, setSelected
   }
 }
 
-export const EnhancedTableBody = ({ Body, TableData, selectedCheckbox, setSelectedCheckbox }: any) => {
-
-  // const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (event.target.checked) {
-  //     const newSelected = Body.map((n) => n.name);
-  //     setSelectedCheckbox(newSelected);
-  //     return;
-  //   }
-  //   setSelectedCheckbox([]);
-  // };
+export const EnhancedTableBody = ({ Body, TableData, selectedCheckbox, switchList, handleSwitch, checkboxHandleChange }: any) => {
 
     return (
       <TableBody>
@@ -84,7 +59,7 @@ export const EnhancedTableBody = ({ Body, TableData, selectedCheckbox, setSelect
             <TableRow>
                 {TableData.map((val: any, i: number)=>{                                                                                                 
                     return(
-                        <BodyRowLogic rowIndex={rowIndex} val={val} i={i} Celldata={data} setSelectedCheckbox={setSelectedCheckbox} selectedCheckbox={selectedCheckbox}/>
+                        <BodyRowLogic rowIndex={rowIndex} val={val} i={i} Celldata={data} switchList={switchList} handleSwitch={handleSwitch} checkboxHandleChange={checkboxHandleChange} selectedCheckbox={selectedCheckbox}/>
                     )
                 })}
             </TableRow>

@@ -1,4 +1,6 @@
 interface TableBody {
+    slice(arg0: number, arg1: number): unknown;
+    length: number;
     map(arg0: ({ id }: any) => any): unknown;
     [index: number]: object
 }
@@ -22,5 +24,10 @@ export interface TableProps  {
     tableData: TableData;
     setSelectedCheckbox:any;
     selectedCheckbox:any;
+    checkboxHandleChange:any;
+    handleSwitch:any;
+    switchList:any;
+    SelectAll: any;
+    tableMinWidth:any;
   };
   

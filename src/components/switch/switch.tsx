@@ -57,7 +57,7 @@ export const CustomSwitch = styled((props: SwitchProps) => (
 export const CustomizedSwitches = (props: any) => { 
   return(
     <FormControlLabel
-        control={<CustomSwitch sx={{ m: 1 }}  checked={props?.value} />}
+        control={<CustomSwitch sx={{ m: 1 }}  onChange={(event)=>props?.onChange(props?.id, event)} checked={props?.value} />}
         label={props.label}
       />
   )

@@ -20,5 +20,10 @@ export const Cusmstyle = {
         width:"32px",
         height:"32px",
         objectFit:"cover",
+    },
+    customCheckbox:{
+      "&   .MuiSvgIcon-root path":{
+        stroke:"#EAEAEA"
+      }
     }
 }
