@@ -1,10 +1,10 @@
-// import './App.css';
+import React from 'react';
 import { CommonTable } from '@components';
-import { useState } from 'react';
+// import './App.css';
 
 function App() {
-  const [selectedCheckbox, setSelectedCheckbox] = useState([1,2]);
-  const [switchList, setSwitchList] = useState([1,4]);
+  const [selectedCheckbox, setSelectedCheckbox] = React.useState([1,2]);
+  const [switchList, setSwitchList] = React.useState([1,4]);
   const checkboxHandleChange = (data:any) => {
     if(!selectedCheckbox.includes(data)){
     setSelectedCheckbox([
@@ -115,6 +115,12 @@ const handleSwitch = (id:any) => {
             disablePadding: false,
             label: 'Status',
           },
+          {
+            id: 'performance',
+            align: "center",
+            disablePadding: false,
+            label: 'Performance',
+          },
         ]}
         dataList={[
           {
@@ -135,6 +141,7 @@ const handleSwitch = (id:any) => {
               bgColor:"#e2eafa",
             },
             status:true,
+            performance:"Completely away",
           },
           {
             id: 2,
@@ -154,6 +161,7 @@ const handleSwitch = (id:any) => {
               bgColor:"#FCEDDD",
             },
             status:false,
+            performance:"Need to improve a lot",
           },
           {
             id: 3,
@@ -173,6 +181,7 @@ const handleSwitch = (id:any) => {
               bgColor:"#e2eafa",
             },
             status:true,
+            performance:"Impactful",
           },
           {
             id: 4,
@@ -192,6 +201,7 @@ const handleSwitch = (id:any) => {
               bgColor:"#FCEDDD",
             },
             status:false,
+            performance:"Need to improve",
           },
           {
             id: 5,
@@ -211,6 +221,7 @@ const handleSwitch = (id:any) => {
               bgColor:"#e2eafa",
             },
             status:true,
+            performance:"Good",
           },
           {
             id: 6,
@@ -230,6 +241,7 @@ const handleSwitch = (id:any) => {
               bgColor:"#FCEDDD",
             },
             status:false,
+            performance:"Very Good",
           },
           {
             id: 7,
@@ -249,177 +261,7 @@ const handleSwitch = (id:any) => {
               bgColor:"#e2eafa",
             },
             status:true,
-          },
-          {
-            id: 8,
-            name: 'Pie',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Kumar"
-            },
-            overall_progress:"98",
-            production:{
-              label:"Insufficient",
-              color:"#AE7330",
-              bgColor:"#FCEDDD",
-            },
-            status:false,
-          },
-          {
-            id: 9,
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            profile:{
-              image: "sample.jpg",
-              label:"Hariharan"
-            },
-            overall_progress:"45",
-            production:{
-              label:"Sufficient",
-              color:"#7692cc",
-              bgColor:"#e2eafa",
-            },
-            status:true,
-          },
-          {
-            id: 10,
-            name: 'cake',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Hari Ram"
-            },
-            overall_progress:"35",
-            production:{
-              label:"Insufficient",
-              color:"#AE7330",
-              bgColor:"#FCEDDD",
-            },
-            status:false,
-          },
-          {
-            id: 11,
-            name: 'T',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Siva"
-            },
-            overall_progress:"67",
-            production:{
-              label:"Sufficient",
-              color:"#7692cc",
-              bgColor:"#e2eafa",
-            },
-            status:true,
-          },
-          {
-            id: 12,
-            name: 'Pie',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Kumar"
-            },
-            overall_progress:"98",
-            production:{
-              label:"Insufficient",
-              color:"#AE7330",
-              bgColor:"#FCEDDD",
-            },
-            status:false,
-          },
-          {
-            id: 13,
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            profile:{
-              image: "sample.jpg",
-              label:"Hariharan"
-            },
-            overall_progress:"45",
-            production:{
-              label:"Sufficient",
-              color:"#7692cc",
-              bgColor:"#e2eafa",
-            },
-            status:true,
-          },
-          {
-            id: 14,
-            name: 'cake',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Hari Ram"
-            },
-            overall_progress:"35",
-            production:{
-              label:"Insufficient",
-              color:"#AE7330",
-              bgColor:"#FCEDDD",
-            },
-            status:false,
-          },
-          {
-            id: 15,
-            name: 'T',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Siva"
-            },
-            overall_progress:"67",
-            production:{
-              label:"Sufficient",
-              color:"#7692cc",
-              bgColor:"#e2eafa",
-            },
-            status:true,
-          },
-          {
-            id: 16,
-            name: 'Pie',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Kumar"
-            },
-            overall_progress:"98",
-            production:{
-              label:"Insufficient",
-              color:"#AE7330",
-              bgColor:"#FCEDDD",
-            },
-            status:false,
+            performance:"Spectacular",
           },
         ]}
         tableData={[
@@ -434,6 +276,7 @@ const handleSwitch = (id:any) => {
           { type: ['PROGRESS'], name: 'overall_progress' },
           { type: ['LABLE'], name: 'production' },
           { type: ['SWITCH'], name: 'status', switchText:[{lable_1: "No", lable_2: "Yes"}] },
+          { type: ['PERFORMANCE'], name: 'performance' },
         ]}
         selectedCheckbox={selectedCheckbox}
         switchList={switchList}
