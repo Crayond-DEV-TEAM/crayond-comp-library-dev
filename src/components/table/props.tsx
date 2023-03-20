@@ -29,5 +29,7 @@ export interface TableProps  {
     switchList:any;
     SelectAll: any;
     tableMinWidth:any;
+    tableName:string;
+    component:any;
   };
   

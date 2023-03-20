@@ -13,7 +13,7 @@ import { TableProps } from './props';
 
 import EnhancedTableBody from './tableRow';
 import { CustomCheckbox } from '../checkbox';
-import { TablePagination } from '@mui/material';
+import { TablePagination, Typography } from '@mui/material';
 
 const EnhancedTableHead = ({ Header, selectAllCheckbox }: any) => {
   return (
@@ -26,11 +26,12 @@ const EnhancedTableHead = ({ Header, selectAllCheckbox }: any) => {
               align={val?.align}
               padding={val.disablePadding ? 'none' : 'normal'}
             >
-              
-              {val?.varient ==="CHECKBOX" &&
-               <CustomCheckbox name="selectAll" onChange={selectAllCheckbox}/>
-              }
-              <TableSortLabel>{val?.label}</TableSortLabel>
+              {val?.varient === 'CHECKBOX' && (
+                <CustomCheckbox name="selectAll" onChange={selectAllCheckbox} />
+              )}
+              <TableSortLabel>
+                <Typography sx={Cusmstyle.tableHeader}>{val?.label}</Typography>
+              </TableSortLabel>
             </TableCell>
           );
         })}
@@ -39,52 +40,75 @@ const EnhancedTableHead = ({ Header, selectAllCheckbox }: any) => {
   );
 };
 
-
 export default function EnhancedTable({
   Header,
   dataList,
-  tableData, 
+  tableData,
   setSelectedCheckbox,
   selectedCheckbox,
   checkboxHandleChange,
   handleSwitch,
   switchList,
   SelectAll,
-  tableMinWidth
+  tableMinWidth,
+  tableName,
+  component,
 }: TableProps) {
- const [page, setPage] = React.useState(0);
- const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const selectAllCheckbox = (data:any,e:any) => {
-    let ids = dataList?.map(({id}:any)=>id);
-    SelectAll(ids, !e.target.checked)
-  }
- 
-  const handleChangePage = (event:any, newPage:any) => {
+  const [page, setPage] = React.useState(0);
+  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const selectAllCheckbox = (data: any, e: any) => {
+    let ids = dataList?.map(({ id }: any) => id);
+    SelectAll(ids, !e.target.checked);
+  };
+
+  const handleChangePage = (event: any, newPage: any) => {
     setPage(newPage);
   };
-  const handleChangeRowsPerPage = (event:any) => {
+  const handleChangeRowsPerPage = (event: any) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
 
   return (
-    <Box>
-      <Paper sx={{...Cusmstyle.tablePaper, minWidth:tableMinWidth}}>
+    <Box height={'100%'}>
+      <Box sx={Cusmstyle.titleContainer}>
+          <Typography sx={Cusmstyle.tableTitle}>{tableName}</Typography>
+          <Box>{component}</Box>
+        </Box>
+      <Paper sx={Cusmstyle.tablePaper}>
         <TableContainer>
-          <Table aria-labelledby="tableTitle">
-            <EnhancedTableHead Header={Header} selectAllCheckbox={selectAllCheckbox} />
-            <EnhancedTableBody Body={dataList?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)} TableData={tableData} handleSwitch={handleSwitch} switchList={switchList} checkboxHandleChange={checkboxHandleChange} setSelectedCheckbox={setSelectedCheckbox} selectedCheckbox={selectedCheckbox} />
+          <Table
+            stickyHeader
+            sx={{ ...Cusmstyle.tableContiner, minWidth: tableMinWidth }}
+            aria-labelledby="tableTitle"
+          >
+            <EnhancedTableHead
+              Header={Header}
+              selectAllCheckbox={selectAllCheckbox}
+            />
+            <EnhancedTableBody
+              Body={dataList?.slice(
+                page * rowsPerPage,
+                page * rowsPerPage + rowsPerPage
+              )}
+              TableData={tableData}
+              handleSwitch={handleSwitch}
+              switchList={switchList}
+              checkboxHandleChange={checkboxHandleChange}
+              setSelectedCheckbox={setSelectedCheckbox}
+              selectedCheckbox={selectedCheckbox}
+            />
           </Table>
         </TableContainer>
         <TablePagination
-            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-            component="div"
-            count={dataList?.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+          rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+          component="div"
+          count={dataList?.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+        />
       </Paper>
     </Box>
   );

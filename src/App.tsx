@@ -1,5 +1,7 @@
 import React from 'react';
 import { CommonTable } from '@components';
+import TextField from '@mui/material/TextField';
+import Box from '@mui/material/Box';
 // import './App.css';
 
 function App() {
@@ -36,7 +38,7 @@ function App() {
     }
   };
   return (
-    <div className="App" style={{ width: '100vw', height: '100vh' }}>
+    <div className="App" style={{ width: '99vw', height: '100vh' }}>
       <CommonTable
         Header={[
           {
@@ -124,6 +126,18 @@ function App() {
             disablePadding: false,
             label: 'Reporting to',
           },
+          {
+            id: 'globle_rating',
+            align: 'center',
+            disablePadding: false,
+            label: 'Globle Rating',
+          },
+          {
+            id: 'growth',
+            align: 'center',
+            disablePadding: false,
+            label: 'Growth',
+          },
         ]}
         dataList={[
           {
@@ -194,6 +208,11 @@ function App() {
                 label: 'Siva',
               },
             ],
+            globle_rating:4,
+            growth:{
+              value:2.50,
+              variant:"POSITIVE"
+            }
           },
           {
             id: 2,
@@ -260,6 +279,11 @@ function App() {
                 label: 'Siva',
               },
             ],
+            globle_rating:3,
+            growth:{
+              value:0.50,
+              variant:"NEGATIVE"
+            }
           },
           {
             id: 3,
@@ -321,6 +345,11 @@ function App() {
                 label: 'Hariharan',
               },
             ],
+            globle_rating:1,
+            growth:{
+              value:0.10,
+              variant:"NEGATIVE"
+            }
           },
           {
             id: 4,
@@ -378,6 +407,11 @@ function App() {
                 label: 'Hariharan',
               },
             ],
+            globle_rating:3.5,
+            growth:{
+              value:3.20,
+              variant:"POSITIVE"
+            }
           },
           {
             id: 5,
@@ -431,6 +465,11 @@ function App() {
                 label: 'Hariharan',
               },
             ],
+            globle_rating:4.5,
+            growth:{
+              value:1.20,
+              variant:"POSITIVE"
+            }
           },
           {
             id: 6,
@@ -484,6 +523,11 @@ function App() {
                 label: 'Hariharan',
               },
             ],
+            globle_rating:4,
+            growth:{
+              value:0.74,
+              variant:"NEGATIVE"
+            }
           },
           {
             id: 7,
@@ -542,6 +586,11 @@ function App() {
               },
 
             ],
+            globle_rating:2,
+            growth:{
+              value:0.63,
+              variant:"NEGATIVE"
+            }
           },
         ]}
         tableData={[
@@ -563,6 +612,8 @@ function App() {
           { type: ['PERFORMANCE'], name: 'performance' },
           { type: ['AVATER_TEXT'], name: 'signals' },
           { type: ['IMAGE_WITH_PROFILES'], name: 'reporting_to', variant: 'circular'},
+          { type: ['STAR_RATING'], name: 'globle_rating'},
+          { type: ['GROWTH'], name: 'growth'},
         ]}
         selectedCheckbox={selectedCheckbox}
         switchList={switchList}
@@ -570,7 +621,11 @@ function App() {
         setSelectedCheckbox={setSelectedCheckbox}
         SelectAll={SelectAll}
         handleSwitch={handleSwitch}
-        tableMinWidth={'2050px'}
+        tableMinWidth={'2350px'}
+        tableName={"Teme Member"}
+        component={<Box>
+         <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+        </Box>}
       />
     </div>
   );

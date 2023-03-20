@@ -10,8 +10,12 @@ import { Progress } from '../progress';
 import { CustomCheckbox } from '../checkbox';
 import Avatar from '@mui/material/Avatar';
 import Performance from '../../assets/performance';
-import { Tooltip } from '@mui/material';
-
+import  Tooltip from '@mui/material/Tooltip';
+import  Rating from '@mui/material/Rating';
+import StartFill from '../../assets/startFill';
+import StarOutline from '../../assets/startOutline';
+import SouthIcon from '@mui/icons-material/South';
+import NorthIcon from '@mui/icons-material/North';
 const BodyRowLogic = ({
   val,
   i,
@@ -23,7 +27,11 @@ const BodyRowLogic = ({
 }: any) => {
   switch (val?.type?.[0]) {
     case 'INCREMENT':
-      return <TableCell key={i}> {Celldata?.id} </TableCell>;
+      return (
+        <TableCell key={i}>
+          <Typography> {Celldata?.id}</Typography>{' '}
+        </TableCell>
+      );
 
     case 'CHECKBOX':
       return (
@@ -32,17 +40,20 @@ const BodyRowLogic = ({
             value={selectedCheckbox?.includes(Celldata?.id)}
             name={Celldata?.id}
             onChange={checkboxHandleChange}
-          />{' '}
+          />
         </TableCell>
       );
 
     case 'TEXT':
-      return <TableCell key={i}> {Celldata[val.name]} </TableCell>;
+      return (
+        <TableCell key={i}>
+          <Typography> {Celldata[val.name]}</Typography>
+        </TableCell>
+      );
 
     case 'SWITCH':
       return (
         <TableCell key={i}>
-          {' '}
           <CustomizedSwitches
             onChange={handleSwitch}
             id={Celldata?.id}
@@ -52,7 +63,7 @@ const BodyRowLogic = ({
                 ? val?.switchText?.[0]?.lable_2
                 : val?.switchText?.[0]?.lable_1
             }
-          />{' '}
+          />
         </TableCell>
       );
 
@@ -104,7 +115,7 @@ const BodyRowLogic = ({
     case 'IMAGE_WITH_PROFILES':
       return (
         <TableCell key={i}>
-          <Box display={'flex'} alignItems={'center'} gap={'10px'}>
+          <Box display={'flex'} alignItems={'center'} gap={'8px'}>
             <Avatar
               variant={val?.variant}
               sx={Cusmstyle.labelImage}
@@ -114,43 +125,49 @@ const BodyRowLogic = ({
             <Box sx={Cusmstyle.imageAndProfiles}>
               <Typography>{Celldata[val.name]?.[0]?.label}</Typography>
               {Celldata[val.name]?.length > 1 && (
-                 <Tooltip
-                 title={
-                  <Box sx={Cusmstyle.popoverProfile}>
-                  {Celldata[val.name]?.map((profile: any, index: number) => (
-                    <>
-                    {index !== 0 && 
-                    <Box display={'flex'} alignItems={'center'} gap={'10px'} mb={0.5}>
-                      <Avatar
-                        variant={val?.variant}
-                        sx={Cusmstyle.profileImage}
-                        alt=""
-                        src={profile?.image}
-                      />
-                      <Typography>{profile?.label}</Typography>
-                    </Box>}
-                    </>
-                  ))}
-                </Box>
-                 }
-                 placement={'bottom'}
-                 componentsProps={{
-                   tooltip: {
-                     sx: {
-                       bgcolor: 'primary.main',
-                       '& .MuiTooltip-arrow': {
-                         color: 'primary.main',
-                       },
-                     },
-                   },
-                 }}
-               >
-                <Typography sx={Cusmstyle.moreProfile}>
-                  +{Celldata[val.name]?.length - 1} More
-                </Typography>
+                <Tooltip
+                  title={
+                    <Box sx={Cusmstyle.popoverProfile}>
+                      {Celldata[val.name]?.map(
+                        (profile: any, index: number) => (
+                          <>
+                            {index !== 0 && (
+                              <Box
+                                display={'flex'}
+                                alignItems={'center'}
+                                gap={'10px'}
+                                mb={
+                                  Celldata[val.name]?.length - 1 === index
+                                    ? 0
+                                    : 1.5
+                                }
+                              >
+                                <Avatar
+                                  variant={val?.variant}
+                                  sx={Cusmstyle.profileImage}
+                                  alt=""
+                                  src={profile?.image}
+                                />
+                                <Typography>{profile?.label}</Typography>
+                              </Box>
+                            )}
+                          </>
+                        )
+                      )}
+                    </Box>
+                  }
+                  placement={'bottom'}
+                  componentsProps={{
+                    tooltip: {
+                      sx: { ...Cusmstyle.imageAndProfilesTooltip },
+                    },
+                  }}
+                >
+                  <Typography sx={Cusmstyle.moreProfile}>
+                    +{Celldata[val.name]?.length - 1} More
+                  </Typography>
                 </Tooltip>
               )}
-             
             </Box>
           </Box>
         </TableCell>
@@ -195,7 +212,7 @@ const BodyRowLogic = ({
             {Celldata[val.name]?.map((avater: any, index: number) => (
               <Tooltip
                 key={index}
-                title={avater?.label}
+                title={avater?.label ?? avater?.name}
                 placement={'bottom'}
                 componentsProps={{
                   tooltip: {
@@ -215,15 +232,64 @@ const BodyRowLogic = ({
                     backgroundColor: avater?.color,
                   }}
                 >
-                  {avater?.name?.[0]}
+                  <Typography component={'h6'}>{avater?.name?.[0]}</Typography>
                 </Avatar>
               </Tooltip>
             ))}
           </Box>
         </TableCell>
       );
+    case 'STAR_RATING':
+      return (
+        <TableCell key={i}>
+          <Tooltip
+            title={Celldata[val.name]}
+            placement={'top'}
+            componentsProps={{
+              tooltip: {
+                sx: {
+                  bgcolor: '#ffc43b',
+                  '& .MuiTooltip-arrow': {
+                    color: '#ffc43b',
+                  },
+                },
+              },
+            }}
+            arrow
+          >
+            <Box>
+            <Rating
+              defaultValue={Celldata[val.name]}
+              readOnly
+              precision={0.5}
+              // icon={<StartFill />}
+              // emptyIcon={<StarOutline />}
+            />
+          </Box>
+          </Tooltip>
+        </TableCell>
+      );
+      case 'GROWTH':
+        return (
+          <TableCell key={i}>
+            {Celldata[val.name]?.variant === "NEGATIVE" && 
+            <Box display={'flex'} alignItems={'center'} justifyContent="center" gap={'3px'}>
+            <Typography sx={Cusmstyle.negativeGrowth}>{Celldata[val.name]?.value ?? 0} % </Typography> <SouthIcon fontSize='inherit'  sx={{color:"#F44F5A"}} />
+          </Box>
+            }
+             {Celldata[val.name]?.variant === "POSITIVE" && 
+             <Box display={'flex'} alignItems={'center'} justifyContent="center" gap={'3px'}>
+             <Typography sx={Cusmstyle.positiveGrowth}>{Celldata[val.name]?.value ?? 0} % <NorthIcon fontSize='inherit' sx={{color:"#25C460"}} /> </Typography>
+             </Box>
+          }
+          </TableCell>
+        );
     default:
-      return <TableCell key={i}> {Celldata[val.name]} </TableCell>;
+      return (
+        <TableCell key={i}>
+          <Typography> {Celldata?.[val.name]} </Typography>
+        </TableCell>
+      );
   }
 };
 
