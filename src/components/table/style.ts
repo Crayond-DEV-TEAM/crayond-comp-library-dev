@@ -25,5 +25,31 @@ export const Cusmstyle = {
       "&   .MuiSvgIcon-root path":{
         stroke:"#EAEAEA"
       }
-    }
+    },
+    avaterText:{
+    width:"28px",
+    height:"28px",
+    fontSize:"14px",
+    },
+    moreProfile:{
+      color:"primary.main",
+      fontSize:"12px",
+      fontWeight:"600",
+      cursor:"pointer"
+    },
+    imageAndProfiles:{
+      display:"flex",
+      alignItems:"center",
+      gap:'10px',
+    },
+    popoverProfile:{
+      backgrundColor:"#fff",
+      padding:"8px",
+      boxShadow:""
+    },
+    profileImage:{
+      width:"28px",
+      height:"28px",
+      objectFit:"cover",
+  },
 }
