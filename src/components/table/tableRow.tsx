@@ -118,6 +118,8 @@ const BodyRowLogic = ({
                  title={
                   <Box sx={Cusmstyle.popoverProfile}>
                   {Celldata[val.name]?.map((profile: any, index: number) => (
+                    <>
+                    {index !== 0 && 
                     <Box display={'flex'} alignItems={'center'} gap={'10px'} mb={0.5}>
                       <Avatar
                         variant={val?.variant}
@@ -126,7 +128,8 @@ const BodyRowLogic = ({
                         src={profile?.image}
                       />
                       <Typography>{profile?.label}</Typography>
-                    </Box>
+                    </Box>}
+                    </>
                   ))}
                 </Box>
                  }
