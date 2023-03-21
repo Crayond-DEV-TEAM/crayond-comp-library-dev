@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
 import { CommonTable } from '@components';
-import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
+import DeleteIcon from './assets/deleteIcon';
+import FunnelIcon from './assets/funnelIcon';
+import SearchIcon from './assets/searchIcon';
+import DownloadIcon from './assets/downloadIcon';
+import DocsIcon from './assets/docsIcon';
 // import './App.css';
 
 function App() {
+  const [isSelectedAll, setIsSelectedAll] = React.useState(false)
   const [selectedCheckbox, setSelectedCheckbox] = React.useState([1, 2]);
   const [switchList, setSwitchList] = React.useState([1, 4]);
+  const [headerSelect, setHederSelect] = React.useState('status');
+  const [headerSearch, setHederSearch] = React.useState('');
+  const [headerCheckbox, setHederCheckbox] = React.useState(true);
   const checkboxHandleChange = (data: any) => {
     if (!selectedCheckbox.includes(data)) {
       setSelectedCheckbox([...selectedCheckbox, data]);
@@ -22,8 +31,10 @@ function App() {
   const SelectAll = (data: any, isRestSet: boolean) => {
     if (!isRestSet) {
       setSelectedCheckbox([...data]);
+      setIsSelectedAll(true);
     } else {
       setSelectedCheckbox([]);
+      setIsSelectedAll(false);
     }
   };
   const handleSwitch = (id: any) => {
@@ -37,6 +48,18 @@ function App() {
       }
     }
   };
+  const downloadMethod =()=>{
+    console.log("Download Method working!");
+  }
+  const fillerMethod =()=>{
+    console.log("Filter Method working!");
+  }
+  const primaryBtnMethod =()=>{
+    console.log("primary Btn Method working!");
+  }
+  const secondaryBtnMethod =()=>{
+    console.log("secondary Btn Method working!");
+  }
   return (
     <div className="App" style={{ width: '99vw', height: '100vh' }}>
       <CommonTable
@@ -199,7 +222,7 @@ function App() {
                 image: 'sample.jpg',
                 label: 'Hariharan',
               },
-              { 
+              {
                 image: 'sample.jpg',
                 label: 'Babu',
               },
@@ -208,11 +231,11 @@ function App() {
                 label: 'Siva',
               },
             ],
-            globle_rating:4,
-            growth:{
-              value:2.50,
-              variant:"POSITIVE"
-            }
+            globle_rating: 4,
+            growth: {
+              value: 2.5,
+              variant: 'POSITIVE',
+            },
           },
           {
             id: 2,
@@ -261,7 +284,6 @@ function App() {
               },
             ],
             reporting_to: [
-             
               {
                 image: 'sample.jpg',
                 label: 'Ram',
@@ -279,11 +301,11 @@ function App() {
                 label: 'Siva',
               },
             ],
-            globle_rating:3,
-            growth:{
-              value:0.50,
-              variant:"NEGATIVE"
-            }
+            globle_rating: 3,
+            growth: {
+              value: 0.5,
+              variant: 'NEGATIVE',
+            },
           },
           {
             id: 3,
@@ -345,11 +367,11 @@ function App() {
                 label: 'Hariharan',
               },
             ],
-            globle_rating:1,
-            growth:{
-              value:0.10,
-              variant:"NEGATIVE"
-            }
+            globle_rating: 1,
+            growth: {
+              value: 0.1,
+              variant: 'NEGATIVE',
+            },
           },
           {
             id: 4,
@@ -407,11 +429,11 @@ function App() {
                 label: 'Hariharan',
               },
             ],
-            globle_rating:3.5,
-            growth:{
-              value:3.20,
-              variant:"POSITIVE"
-            }
+            globle_rating: 3.5,
+            growth: {
+              value: 3.2,
+              variant: 'POSITIVE',
+            },
           },
           {
             id: 5,
@@ -465,11 +487,11 @@ function App() {
                 label: 'Hariharan',
               },
             ],
-            globle_rating:4.5,
-            growth:{
-              value:1.20,
-              variant:"POSITIVE"
-            }
+            globle_rating: 4.5,
+            growth: {
+              value: 1.2,
+              variant: 'POSITIVE',
+            },
           },
           {
             id: 6,
@@ -523,11 +545,11 @@ function App() {
                 label: 'Hariharan',
               },
             ],
-            globle_rating:4,
-            growth:{
-              value:0.74,
-              variant:"NEGATIVE"
-            }
+            globle_rating: 4,
+            growth: {
+              value: 0.74,
+              variant: 'NEGATIVE',
+            },
           },
           {
             id: 7,
@@ -584,48 +606,100 @@ function App() {
                 image: 'sample.jpg',
                 label: 'Hariharan',
               },
-
             ],
-            globle_rating:2,
-            growth:{
-              value:0.63,
-              variant:"NEGATIVE"
-            }
+            globle_rating: 2,
+            growth: {
+              value: 0.63,
+              variant: 'NEGATIVE',
+            },
           },
         ]}
+        // tableData={{ slno: 'INCREMENT', checkbox: 'CHECKBOX',  name: 'TEXT', calories: 'TEXT',  fat: 'TEXT', carbs: 'TEXT',  protein: 'TEXT', profile: {profile: 'IMAGE_WITH_LABEL', variant: 'circular'},  overall_progress: 'PROGRESS' }}
         tableData={[
-          { type: ['INCREMENT'], name: '' },
+          { type: ['INCREMENT'], name: 'sl_no' },
           { type: ['CHECKBOX'], name: 'checkbox' },
           { type: ['TEXT'], name: 'name' },
           { type: ['TEXT'], name: 'calories' },
           { type: ['TEXT'], name: 'fat' },
           { type: ['TEXT'], name: 'carbs' },
           { type: ['TEXT'], name: 'protein' },
-          { type: ['IMAGE_WITH_LABLE'], name: 'profile', variant: 'circular' },
+          { type: ['IMAGE_WITH_LABEL'], name: 'profile', variant: 'circular' },
           { type: ['PROGRESS'], name: 'overall_progress' },
-          { type: ['LABLE'], name: 'production' },
+          { type: ['LABEL'], name: 'production' },
           {
             type: ['SWITCH'],
             name: 'status',
             switchText: [{ lable_1: 'No', lable_2: 'Yes' }],
           },
           { type: ['PERFORMANCE'], name: 'performance' },
-          { type: ['AVATER_TEXT'], name: 'signals' },
-          { type: ['IMAGE_WITH_PROFILES'], name: 'reporting_to', variant: 'circular'},
-          { type: ['STAR_RATING'], name: 'globle_rating'},
-          { type: ['GROWTH'], name: 'growth'},
+          { type: ['AVATAR_NAME'], name: 'signals' },
+          {
+            type: ['IMAGE_WITH_PROFILES'],
+            name: 'reporting_to',
+            variant: 'circular',
+          },
+          { type: ['STAR_RATING'], name: 'globle_rating' },
+          { type: ['GROWTH'], name: 'growth' },
+          // { type: ['DATE'], name: 'experience'},
         ]}
         selectedCheckbox={selectedCheckbox}
         switchList={switchList}
         checkboxHandleChange={checkboxHandleChange}
         setSelectedCheckbox={setSelectedCheckbox}
         SelectAll={SelectAll}
+        isSelectedAll={isSelectedAll}
         handleSwitch={handleSwitch}
-        tableMinWidth={'2350px'}
-        tableName={"Teme Member"}
-        component={<Box>
-         <TextField id="outlined-basic" label="Outlined" variant="outlined" />
-        </Box>}
+        tableMinWidth={'2550px'}
+        tableMinHeight={'465px'}
+        tableName={'Team Member'}
+        paddingAll={'0px'}
+        padding={['12px', '12px', '12px', '12px']}
+        marginAll={'12px'}
+        margin={['0px', '12px', '0px', '12px']}
+        HeaderComponent={{
+          variant: 1,
+          headerSelect: headerSelect,
+          setHederSelect: setHederSelect,
+          searchPlaceholder:"Search",
+          selectOption: [
+            {
+              label: 'Status',
+              value: 'status',
+            },
+            {
+              label: 'Active',
+              value: 'active',
+            },
+            {
+              label: 'Inactive',
+              value: 'inactive',
+            },
+          ],
+          headerSearch:headerSearch,
+          setHederSearch:setHederSearch,
+          deleteIcon:<DeleteIcon/>,
+          downloadIcon:<DownloadIcon/>,
+          funnelIcon:<FunnelIcon/>,
+          searchIcon:<SearchIcon/>,
+          fillerMethod:fillerMethod,
+          downloadMethod:downloadMethod,
+        }}
+        // HeaderComponent={{
+        //   variant: 2,         
+        //   searchPlaceholder:"Search by name, email",          
+        //   headerSearch:headerSearch,
+        //   setHederSearch:setHederSearch,
+        //   checkboxLabel:"Show only my reportees",
+        //   primaryBtnText:"Add Member",
+        //   secondaryBtnText:"Import",
+        //   secondaryBtnIcon:<DocsIcon color={"#357968"}/>,
+        //   funnelIcon:<FunnelIcon color={"#fff"}/>,
+        //   searchIcon:<SearchIcon/>,
+        //   fillerMethod:fillerMethod,
+        //   primaryBtnMethod:primaryBtnMethod,
+        //   secondaryBtnMethod:secondaryBtnMethod,
+        //   headerCheckbox:headerCheckbox, setHederCheckbox:setHederCheckbox
+        // }}
       />
     </div>
   );

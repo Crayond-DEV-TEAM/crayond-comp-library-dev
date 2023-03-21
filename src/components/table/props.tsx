@@ -21,7 +21,7 @@ export interface TableProps  {
     id?: any;
     Header: TableHeader;
     dataList: TableBody;
-    tableData: TableData;
+    tableData: any;
     setSelectedCheckbox:any;
     selectedCheckbox:any;
     checkboxHandleChange:any;
@@ -29,7 +29,13 @@ export interface TableProps  {
     switchList:any;
     SelectAll: any;
     tableMinWidth:any;
+    tableMinHeight:any,
     tableName:string;
-    component:any;
+    paddingAll:any;
+    padding:Array<string>;
+    marginAll:any,
+    margin:Array<string>;
+    HeaderComponent:any;
+    isSelectedAll:boolean;
   };
   

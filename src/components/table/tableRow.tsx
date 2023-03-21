@@ -3,19 +3,18 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 import CustomizedSwitches from '../switch/switch';
-import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import { Cusmstyle } from './style';
 import { Progress } from '../progress';
 import { CustomCheckbox } from '../checkbox';
-import Avatar from '@mui/material/Avatar';
-import Performance from '../../assets/performance';
-import  Tooltip from '@mui/material/Tooltip';
-import  Rating from '@mui/material/Rating';
-import StartFill from '../../assets/startFill';
-import StarOutline from '../../assets/startOutline';
-import SouthIcon from '@mui/icons-material/South';
-import NorthIcon from '@mui/icons-material/North';
+import { Label } from '../label';
+import { ImageWithLabel } from '../imageWithLabel';
+import { ImageWithProfiles } from '../imageWithProfiles';
+import { Performance } from '../performance';
+import { AvatarName } from '../avatarName';
+import { StarRating } from '../starRating';
+import { Text } from '../text';
+import { Growth } from '../growth';
+
 const BodyRowLogic = ({
   val,
   i,
@@ -47,7 +46,7 @@ const BodyRowLogic = ({
     case 'TEXT':
       return (
         <TableCell key={i}>
-          <Typography> {Celldata[val.name]}</Typography>
+          <Text Celldata={Celldata} val={val} />
         </TableCell>
       );
 
@@ -67,28 +66,10 @@ const BodyRowLogic = ({
         </TableCell>
       );
 
-    case 'LABLE':
+    case 'LABEL':
       return (
         <TableCell key={i}>
-          <Box
-            sx={{
-              ...Cusmstyle.labelBackground,
-              backgroundColor: Celldata[val.name]?.bgColor
-                ? Celldata[val.name]?.bgColor
-                : '#e2eafa',
-            }}
-          >
-            <Typography
-              sx={{
-                ...Cusmstyle.labelText,
-                color: Celldata[val.name]?.color
-                  ? Celldata[val.name]?.color
-                  : '#7692cc',
-              }}
-            >
-              {Celldata[val.name]?.label}
-            </Typography>
-          </Box>
+          <Label Celldata={Celldata} val={val} />
         </TableCell>
       );
 
@@ -98,196 +79,46 @@ const BodyRowLogic = ({
           <Progress value={Celldata[val.name]} />
         </TableCell>
       );
-    case 'IMAGE_WITH_LABLE':
+    case 'IMAGE_WITH_LABEL':
       return (
         <TableCell key={i}>
-          <Box display={'flex'} alignItems={'center'} gap={'10px'}>
-            <Avatar
-              variant={val?.variant}
-              sx={Cusmstyle.labelImage}
-              alt=""
-              src={Celldata[val.name]?.image}
-            />
-            <Typography>{Celldata[val.name]?.label}</Typography>
-          </Box>
+          <ImageWithLabel Celldata={Celldata} val={val} />
         </TableCell>
       );
     case 'IMAGE_WITH_PROFILES':
       return (
         <TableCell key={i}>
-          <Box display={'flex'} alignItems={'center'} gap={'8px'}>
-            <Avatar
-              variant={val?.variant}
-              sx={Cusmstyle.labelImage}
-              alt=""
-              src={Celldata[val.name]?.[0]?.image}
-            />
-            <Box sx={Cusmstyle.imageAndProfiles}>
-              <Typography>{Celldata[val.name]?.[0]?.label}</Typography>
-              {Celldata[val.name]?.length > 1 && (
-                <Tooltip
-                  title={
-                    <Box sx={Cusmstyle.popoverProfile}>
-                      {Celldata[val.name]?.map(
-                        (profile: any, index: number) => (
-                          <>
-                            {index !== 0 && (
-                              <Box
-                                display={'flex'}
-                                alignItems={'center'}
-                                gap={'10px'}
-                                mb={
-                                  Celldata[val.name]?.length - 1 === index
-                                    ? 0
-                                    : 1.5
-                                }
-                              >
-                                <Avatar
-                                  variant={val?.variant}
-                                  sx={Cusmstyle.profileImage}
-                                  alt=""
-                                  src={profile?.image}
-                                />
-                                <Typography>{profile?.label}</Typography>
-                              </Box>
-                            )}
-                          </>
-                        )
-                      )}
-                    </Box>
-                  }
-                  placement={'bottom'}
-                  componentsProps={{
-                    tooltip: {
-                      sx: { ...Cusmstyle.imageAndProfilesTooltip },
-                    },
-                  }}
-                >
-                  <Typography sx={Cusmstyle.moreProfile}>
-                    +{Celldata[val.name]?.length - 1} More
-                  </Typography>
-                </Tooltip>
-              )}
-            </Box>
-          </Box>
+          <ImageWithProfiles Celldata={Celldata} val={val} />
         </TableCell>
       );
     case 'PERFORMANCE':
       return (
         <TableCell key={i}>
-          <Tooltip
-            title={Celldata[val.name]}
-            placement={'bottom'}
-            componentsProps={{
-              tooltip: {
-                sx: {
-                  bgcolor: 'primary.main',
-                  '& .MuiTooltip-arrow': {
-                    color: 'primary.main',
-                  },
-                },
-              },
-            }}
-            arrow
-          >
-            <Box
-              display={'flex'}
-              alignItems={'center'}
-              justifyContent={'center'}
-            >
-              <Performance variant={Celldata[val.name]} />
-            </Box>
-          </Tooltip>
+          <Performance Celldata={Celldata} val={val} />
         </TableCell>
       );
-    case 'AVATER_TEXT':
+    case 'AVATAR_NAME':
       return (
         <TableCell key={i}>
-          <Box
-            display={'flex'}
-            alignItems={'center'}
-            justifyContent={'center'}
-            gap={'8px'}
-          >
-            {Celldata[val.name]?.map((avater: any, index: number) => (
-              <Tooltip
-                key={index}
-                title={avater?.label ?? avater?.name}
-                placement={'bottom'}
-                componentsProps={{
-                  tooltip: {
-                    sx: {
-                      bgcolor: 'primary.main',
-                      '& .MuiTooltip-arrow': {
-                        color: 'primary.main',
-                      },
-                    },
-                  },
-                }}
-                arrow
-              >
-                <Avatar
-                  sx={{
-                    ...Cusmstyle.avaterText,
-                    backgroundColor: avater?.color,
-                  }}
-                >
-                  <Typography component={'h6'}>{avater?.name?.[0]}</Typography>
-                </Avatar>
-              </Tooltip>
-            ))}
-          </Box>
+          <AvatarName Celldata={Celldata} val={val} />
         </TableCell>
       );
     case 'STAR_RATING':
       return (
         <TableCell key={i}>
-          <Tooltip
-            title={Celldata[val.name]}
-            placement={'top'}
-            componentsProps={{
-              tooltip: {
-                sx: {
-                  bgcolor: '#ffc43b',
-                  '& .MuiTooltip-arrow': {
-                    color: '#ffc43b',
-                  },
-                },
-              },
-            }}
-            arrow
-          >
-            <Box>
-            <Rating
-              defaultValue={Celldata[val.name]}
-              readOnly
-              precision={0.5}
-              // icon={<StartFill />}
-              // emptyIcon={<StarOutline />}
-            />
-          </Box>
-          </Tooltip>
+          <StarRating Celldata={Celldata} val={val} />
         </TableCell>
       );
-      case 'GROWTH':
-        return (
-          <TableCell key={i}>
-            {Celldata[val.name]?.variant === "NEGATIVE" && 
-            <Box display={'flex'} alignItems={'center'} justifyContent="center" gap={'3px'}>
-            <Typography sx={Cusmstyle.negativeGrowth}>{Celldata[val.name]?.value ?? 0} % </Typography> <SouthIcon fontSize='inherit'  sx={{color:"#F44F5A"}} />
-          </Box>
-            }
-             {Celldata[val.name]?.variant === "POSITIVE" && 
-             <Box display={'flex'} alignItems={'center'} justifyContent="center" gap={'3px'}>
-             <Typography sx={Cusmstyle.positiveGrowth}>{Celldata[val.name]?.value ?? 0} % <NorthIcon fontSize='inherit' sx={{color:"#25C460"}} /> </Typography>
-             </Box>
-          }
-          </TableCell>
-        );
+    case 'GROWTH':
+      return (
+        <TableCell key={i}>
+          <Growth Celldata={Celldata} val={val} />
+        </TableCell>
+      );
     default:
       return (
         <TableCell key={i}>
-          <Typography> {Celldata?.[val.name]} </Typography>
+          <Text Celldata={Celldata} val={val} />
         </TableCell>
       );
   }

@@ -1,4 +1,4 @@
-const Performance = (props: any) => (
+const PerformanceIcon = (props: any) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={45.581}
@@ -113,4 +113,4 @@ const Performance = (props: any) => (
   </svg>
 );
 
-export default Performance;
+export default PerformanceIcon;
