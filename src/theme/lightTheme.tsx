@@ -18,6 +18,9 @@ const lightTheme = {
       main: "#25C460"
     }
   },
+  typography: {
+    fontFamily: "Poppins, sans-serif",
+  }
 };
 
 export default lightTheme;

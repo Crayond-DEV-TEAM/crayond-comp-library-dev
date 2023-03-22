@@ -1,7 +1,7 @@
 {
   "name": "crayond-components-library-1",
   "private": false,
-  "version": "0.0.10",
+  "version": "0.0.13",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/components/index.d.ts",
@@ -29,11 +29,22 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
+    "@fontsource/poppins": "^4.5.10",
+    "@mui/icons-material": "^5.11.11",
+    "@mui/material": "^5.11.6",
+    "moment": "^2.29.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "serve": "^14.1.2"
+  },
+  "peerDependencies": {
+    "@emotion/react": "^11.10.5",
+    "@emotion/styled": "^11.10.5",
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "serve": "^14.1.2"
+    "moment": "^2.29.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.12",

@@ -1,119 +1,172 @@
-// import './App.css';
+import React, { useState } from 'react';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
 import { CommonTable } from '@components';
-import { useState } from 'react';
+import DeleteIcon from './assets/deleteIcon';
+import FunnelIcon from './assets/funnelIcon';
+import SearchIcon from './assets/searchIcon';
+import DownloadIcon from './assets/downloadIcon';
+import DocsIcon from './assets/docsIcon';
+// import './App.css';
 
 function App() {
-  const [selectedCheckbox, setSelectedCheckbox] = useState([1,2]);
-  const [switchList, setSwitchList] = useState([1,4]);
-  const checkboxHandleChange = (data:any) => {
-    if(!selectedCheckbox.includes(data)){
-    setSelectedCheckbox([
-      ...selectedCheckbox,
-      data
-    ]);
-  }else{
-    const index = selectedCheckbox.indexOf(data);
-    if (index > -1) {
-      selectedCheckbox.splice(index, 1)
-      setSelectedCheckbox([...selectedCheckbox]);
+  const [isSelectedAll, setIsSelectedAll] = React.useState(false)
+  const [selectedCheckbox, setSelectedCheckbox] = React.useState([1, 2]);
+  const [switchList, setSwitchList] = React.useState([1, 4]);
+  const [headerSelect, setHederSelect] = React.useState('status');
+  const [headerCheckbox, setHederCheckbox] = React.useState(true);
+  const checkboxHandleChange = (data: any) => {
+    if (!selectedCheckbox.includes(data)) {
+      setSelectedCheckbox([...selectedCheckbox, data]);
+    } else {
+      const index = selectedCheckbox.indexOf(data);
+      if (index > -1) {
+        selectedCheckbox.splice(index, 1);
+        setSelectedCheckbox([...selectedCheckbox]);
+      }
     }
-} 
   };
-
-const SelectAll = (data: any, isRestSet: boolean) => {
-  if(!isRestSet){
-    setSelectedCheckbox([ 
-      ...data
-    ]);
-  }else{
-    setSelectedCheckbox([]);
-  }
+const setHederSearch = (value:any) => {
+  console.log("🚀 ~ file: App.tsx:31 ~ setHederSearch ~ value:", value)
 }
-const handleSwitch = (id:any) => {
-  if(!switchList.includes(id)){
-    setSwitchList([
-      ...switchList,
-      id
-    ]);
-
-  }else{
-    const index = switchList.indexOf(id);
-    if (index > -1) {
-      switchList.splice(index, 1)
-      setSwitchList([...switchList]);
+  const SelectAll = (data: any, isRestSet: boolean) => {
+    if (!isRestSet) {
+      setSelectedCheckbox([...data]);
+      setIsSelectedAll(true);
+    } else {
+      setSelectedCheckbox([]);
+      setIsSelectedAll(false);
     }
-}
-}
+  };
+  const handleSwitch = (id: any) => {
+    if (!switchList.includes(id)) {
+      setSwitchList([...switchList, id]);
+    } else {
+      const index = switchList.indexOf(id);
+      if (index > -1) {
+        switchList.splice(index, 1);
+        setSwitchList([...switchList]);
+      }
+    }
+  };
+  const downloadMethod =()=>{
+    console.log("Download Method working!");
+  }
+  const fillerMethod =()=>{
+    console.log("Filter Method working!");
+  }
+  const primaryBtnMethod =()=>{
+    console.log("primary Btn Method working!");
+  }
+  const secondaryBtnMethod =()=>{
+    console.log("secondary Btn Method working!");
+  }
   return (
-    <div className="App" style={{ width: '100vw', height: '100vh' }}>
+    <div className="App" style={{ width: '99vw', height: '100vh' }}>
       <CommonTable
         Header={[
           {
             id: 'no',
-            align: "left",
+            align: 'left',
             disablePadding: false,
             label: 'Sl no',
           },
           {
             id: 'select',
-            align: "left",
+            align: 'left',
             disablePadding: false,
             label: 'Select',
-            varient:"CHECKBOX"
+            varient: 'CHECKBOX',
           },
           {
             id: 'name',
-            align: "left",
+            align: 'left',
             disablePadding: false,
             label: 'Dessert',
           },
           {
             id: 'calories',
-            align: "left",
+            align: 'left',
             disablePadding: false,
             label: 'Calories',
           },
           {
             id: 'fat',
-            align: "left",
+            align: 'left',
             disablePadding: false,
             label: 'Fat (g)',
           },
           {
             id: 'carbs',
-            align: "left",
+            align: 'left',
             disablePadding: false,
             label: 'Carbs (g)',
           },
           {
             id: 'protein',
-            align: "left",
+            align: 'left',
             disablePadding: false,
             label: 'Protein (g)',
           },
           {
             id: 'profile',
-            align: "center",
+            align: 'center',
             disablePadding: false,
             label: 'Profile',
           },
           {
             id: 'overall_progress',
-            align: "left",
+            align: 'left',
             disablePadding: false,
             label: 'Overall Progress',
           },
           {
             id: 'production',
-            align: "left",
+            align: 'left',
             disablePadding: false,
             label: 'Production',
           },
           {
             id: 'status',
-            align: "left",
+            align: 'left',
             disablePadding: false,
             label: 'Status',
+          },
+          {
+            id: 'performance',
+            align: 'center',
+            disablePadding: false,
+            label: 'Performance',
+          },
+          {
+            id: 'signals',
+            align: 'center',
+            disablePadding: false,
+            label: 'Signals',
+          },
+          {
+            id: 'reporting_to',
+            align: 'center',
+            disablePadding: false,
+            label: 'Reporting to',
+          },
+          {
+            id: 'global_rating',
+            align: 'center',
+            disablePadding: false,
+            label: 'Global Rating',
+          },
+          {
+            id: 'growth',
+            align: 'center',
+            disablePadding: false,
+            label: 'Growth',
+          },
+          {
+            id: 'experience',
+            align: 'center',
+            disablePadding: false,
+            label: 'Experience',
           },
         ]}
         dataList={[
@@ -124,17 +177,73 @@ const handleSwitch = (id:any) => {
             fat: 3.7,
             carbs: 67,
             protein: 4.3,
-            profile:{
-              image: "sample.jpg",
-              label:"Hariharan"
+            profile: {
+              image: 'sample.jpg',
+              label: 'Hariharan',
             },
-            overall_progress:"45",
-            production:{
-              label:"Sufficient",
-              color:"#7692cc",
-              bgColor:"#e2eafa",
+            overall_progress: '45',
+            production: {
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
             },
-            status:true,
+            status: true,
+            performance: 'Completely away',
+            signals: [
+              {
+                name: 'Hari',
+                label: 'Excelent',
+                color: '#007C32',
+              },
+              {
+                name: 'Anbu',
+                label: 'Very Good',
+                color: '#4C9E29',
+              },
+              {
+                name: 'Ram',
+                label: 'Good',
+                color: '#F2B824',
+              },
+              {
+                name: 'Babu',
+                label: 'Good',
+                color: '#F2EB24',
+              },
+              {
+                name: 'S',
+                label: 'Bad',
+                color: '#DE1010',
+              },
+            ],
+            reporting_to: [
+              {
+                image: 'sample.jpg',
+                label: 'Hariharan',
+              },
+              {
+                image: 'sample.jpg',
+                label: 'Ram',
+              },
+              {
+                image: 'sample.jpg',
+                label: 'Hariharan',
+              },
+              {
+                image: 'sample.jpg',
+                label: 'Babu',
+              },
+              {
+                image: 'sample.jpg',
+                label: 'Siva',
+              },
+            ],
+            global_rating: 4,
+            growth: {
+              value: 2.5,
+              variant: 'POSITIVE',
+            },
+            experience: "2023-03-15T18:43:21.055Z",
           },
           {
             id: 2,
@@ -143,17 +252,69 @@ const handleSwitch = (id:any) => {
             fat: 7,
             carbs: 167,
             protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Hari Ram"
+            profile: {
+              image: 'sample.jpg',
+              label: 'Hari Ram',
             },
-            overall_progress:"35",
-            production:{
-              label:"Insufficient",
-              color:"#AE7330",
-              bgColor:"#FCEDDD",
+            overall_progress: '35',
+            production: {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
             },
-            status:false,
+            status: false,
+            performance: 'Need to improve a lot',
+            signals: [
+              {
+                name: 'Hari',
+                label: 'Excelent',
+                color: '#007C32',
+              },
+              {
+                name: 'Ram',
+                label: 'Good',
+                color: '#F2B824',
+              },
+              {
+                name: 'Anbu',
+                label: 'Very Good',
+                color: '#4C9E29',
+              },
+              {
+                name: 'S',
+                label: 'Bad',
+                color: '#DE1010',
+              },
+              {
+                name: 'Babu',
+                label: 'Good',
+                color: '#F2EB24',
+              },
+            ],
+            reporting_to: [
+              {
+                image: 'sample.jpg',
+                label: 'Ram',
+              },
+              {
+                image: 'sample.jpg',
+                label: 'Hariharan',
+              },
+              {
+                image: 'sample.jpg',
+                label: 'Hariharan',
+              },
+              {
+                image: 'sample.jpg',
+                label: 'Siva',
+              },
+            ],
+            global_rating: 3,
+            growth: {
+              value: 0.5,
+              variant: 'NEGATIVE',
+            },
+            experience: "2023-03-05T18:43:21.055Z",
           },
           {
             id: 3,
@@ -162,17 +323,65 @@ const handleSwitch = (id:any) => {
             fat: 7,
             carbs: 167,
             protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Siva"
+            profile: {
+              image: 'sample.jpg',
+              label: 'Siva',
             },
-            overall_progress:"67",
-            production:{
-              label:"Sufficient",
-              color:"#7692cc",
-              bgColor:"#e2eafa",
+            overall_progress: '67',
+            production: {
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
             },
-            status:true,
+            status: true,
+            performance: 'Impactful',
+            signals: [
+              {
+                name: 'S',
+                label: 'Bad',
+                color: '#DE1010',
+              },
+              {
+                name: 'Ram',
+                label: 'Good',
+                color: '#F2B824',
+              },
+              {
+                name: 'Anbu',
+                label: 'Very Good',
+                color: '#4C9E29',
+              },
+              {
+                name: 'Hari',
+                label: 'Excelent',
+                color: '#007C32',
+              },
+              {
+                name: 'Babu',
+                label: 'Good',
+                color: '#F2EB24',
+              },
+            ],
+            reporting_to: [
+              {
+                image: 'sample.jpg',
+                label: 'Siva',
+              },
+              {
+                image: 'sample.jpg',
+                label: 'Ram',
+              },
+              {
+                image: 'sample.jpg',
+                label: 'Hariharan',
+              },
+            ],
+            global_rating: 1,
+            growth: {
+              value: 0.1,
+              variant: 'NEGATIVE',
+            },
+            experience: "2022-01-15T18:43:21.055Z",
           },
           {
             id: 4,
@@ -181,17 +390,61 @@ const handleSwitch = (id:any) => {
             fat: 7,
             carbs: 167,
             protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Kumar"
+            profile: {
+              image: 'sample.jpg',
+              label: 'Kumar',
             },
-            overall_progress:"98",
-            production:{
-              label:"Insufficient",
-              color:"#AE7330",
-              bgColor:"#FCEDDD",
+            overall_progress: '98',
+            production: {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
             },
-            status:false,
+            status: false,
+            performance: 'Need to improve',
+            signals: [
+              {
+                name: 'S',
+                label: 'Bad',
+                color: '#DE1010',
+              },
+              {
+                name: 'Babu',
+                label: 'Good',
+                color: '#F2EB24',
+              },
+              {
+                name: 'Anbu',
+                label: 'Very Good',
+                color: '#4C9E29',
+              },
+              {
+                name: 'Hari',
+                label: 'Excelent',
+                color: '#007C32',
+              },
+              {
+                name: 'Ram',
+                label: 'Good',
+                color: '#F2B824',
+              },
+            ],
+            reporting_to: [
+              {
+                image: 'sample.jpg',
+                label: 'Ram',
+              },
+              {
+                image: 'sample.jpg',
+                label: 'Hariharan',
+              },
+            ],
+            global_rating: 3.5,
+            growth: {
+              value: 3.2,
+              variant: 'POSITIVE',
+            },
+            experience: "2023-01-11T18:43:21.055Z",
           },
           {
             id: 5,
@@ -200,17 +453,57 @@ const handleSwitch = (id:any) => {
             fat: 3.7,
             carbs: 67,
             protein: 4.3,
-            profile:{
-              image: "sample.jpg",
-              label:"Hariharan"
+            profile: {
+              image: 'sample.jpg',
+              label: 'Hariharan',
             },
-            overall_progress:"45",
-            production:{
-              label:"Sufficient",
-              color:"#7692cc",
-              bgColor:"#e2eafa",
+            overall_progress: '45',
+            production: {
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
             },
-            status:true,
+            status: true,
+            performance: 'Good',
+            signals: [
+              {
+                name: 'Hari',
+                label: 'Excelent',
+                color: '#007C32',
+              },
+              {
+                name: 'Ram',
+                label: 'Good',
+                color: '#F2B824',
+              },
+              {
+                name: 'Anbu',
+                label: 'Very Good',
+                color: '#4C9E29',
+              },
+              {
+                name: 'S',
+                label: 'Bad',
+                color: '#DE1010',
+              },
+              {
+                name: 'Babu',
+                label: 'Good',
+                color: '#F2EB24',
+              },
+            ],
+            reporting_to: [
+              {
+                image: 'sample.jpg',
+                label: 'Hariharan',
+              },
+            ],
+            global_rating: 4.5,
+            growth: {
+              value: 1.2,
+              variant: 'POSITIVE',
+            },
+            experience: "2023-02-25T18:43:21.055Z",
           },
           {
             id: 6,
@@ -219,17 +512,57 @@ const handleSwitch = (id:any) => {
             fat: 7,
             carbs: 167,
             protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Hari Ram"
+            profile: {
+              image: 'sample.jpg',
+              label: 'Hari Ram',
             },
-            overall_progress:"35",
-            production:{
-              label:"Insufficient",
-              color:"#AE7330",
-              bgColor:"#FCEDDD",
+            overall_progress: '35',
+            production: {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
             },
-            status:false,
+            status: false,
+            performance: 'Very Good',
+            signals: [
+              {
+                name: 'Hari',
+                label: 'Excelent',
+                color: '#007C32',
+              },
+              {
+                name: 'Anbu',
+                label: 'Very Good',
+                color: '#4C9E29',
+              },
+              {
+                name: 'Ram',
+                label: 'Good',
+                color: '#F2B824',
+              },
+              {
+                name: 'Babu',
+                label: 'Good',
+                color: '#F2EB24',
+              },
+              {
+                name: 'S',
+                label: 'Bad',
+                color: '#DE1010',
+              },
+            ],
+            reporting_to: [
+              {
+                image: 'sample.jpg',
+                label: 'Hariharan',
+              },
+            ],
+            global_rating: 4,
+            growth: {
+              value: 0.74,
+              variant: 'NEGATIVE',
+            },
+            experience: "2022-12-15T18:43:21.055Z",
           },
           {
             id: 7,
@@ -238,213 +571,173 @@ const handleSwitch = (id:any) => {
             fat: 7,
             carbs: 167,
             protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Siva"
+            profile: {
+              image: 'sample.jpg',
+              label: 'Siva',
             },
-            overall_progress:"67",
-            production:{
-              label:"Sufficient",
-              color:"#7692cc",
-              bgColor:"#e2eafa",
+            overall_progress: '67',
+            production: {
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
             },
-            status:true,
-          },
-          {
-            id: 8,
-            name: 'Pie',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Kumar"
+            status: true,
+            performance: 'Spectacular',
+            signals: [
+              {
+                name: 'Hari',
+                label: 'Excelent',
+                color: '#007C32',
+              },
+              {
+                name: 'Ram',
+                label: 'Good',
+                color: '#F2B824',
+              },
+              {
+                name: 'Anbu',
+                label: 'Very Good',
+                color: '#4C9E29',
+              },
+              {
+                name: 'S',
+                label: 'Bad',
+                color: '#DE1010',
+              },
+              {
+                name: 'Babu',
+                label: 'Good',
+                color: '#F2EB24',
+              },
+            ],
+            reporting_to: [
+              {
+                image: 'sample.jpg',
+                label: 'Hari Ram',
+              },
+              {
+                image: 'sample.jpg',
+                label: 'Hariharan',
+              },
+            ],
+            global_rating: 2,
+            growth: {
+              value: 0.63,
+              variant: 'NEGATIVE',
             },
-            overall_progress:"98",
-            production:{
-              label:"Insufficient",
-              color:"#AE7330",
-              bgColor:"#FCEDDD",
-            },
-            status:false,
-          },
-          {
-            id: 9,
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            profile:{
-              image: "sample.jpg",
-              label:"Hariharan"
-            },
-            overall_progress:"45",
-            production:{
-              label:"Sufficient",
-              color:"#7692cc",
-              bgColor:"#e2eafa",
-            },
-            status:true,
-          },
-          {
-            id: 10,
-            name: 'cake',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Hari Ram"
-            },
-            overall_progress:"35",
-            production:{
-              label:"Insufficient",
-              color:"#AE7330",
-              bgColor:"#FCEDDD",
-            },
-            status:false,
-          },
-          {
-            id: 11,
-            name: 'T',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Siva"
-            },
-            overall_progress:"67",
-            production:{
-              label:"Sufficient",
-              color:"#7692cc",
-              bgColor:"#e2eafa",
-            },
-            status:true,
-          },
-          {
-            id: 12,
-            name: 'Pie',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Kumar"
-            },
-            overall_progress:"98",
-            production:{
-              label:"Insufficient",
-              color:"#AE7330",
-              bgColor:"#FCEDDD",
-            },
-            status:false,
-          },
-          {
-            id: 13,
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            profile:{
-              image: "sample.jpg",
-              label:"Hariharan"
-            },
-            overall_progress:"45",
-            production:{
-              label:"Sufficient",
-              color:"#7692cc",
-              bgColor:"#e2eafa",
-            },
-            status:true,
-          },
-          {
-            id: 14,
-            name: 'cake',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Hari Ram"
-            },
-            overall_progress:"35",
-            production:{
-              label:"Insufficient",
-              color:"#AE7330",
-              bgColor:"#FCEDDD",
-            },
-            status:false,
-          },
-          {
-            id: 15,
-            name: 'T',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Siva"
-            },
-            overall_progress:"67",
-            production:{
-              label:"Sufficient",
-              color:"#7692cc",
-              bgColor:"#e2eafa",
-            },
-            status:true,
-          },
-          {
-            id: 16,
-            name: 'Pie',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile:{
-              image:"sample.jpg",
-              label:"Kumar"
-            },
-            overall_progress:"98",
-            production:{
-              label:"Insufficient",
-              color:"#AE7330",
-              bgColor:"#FCEDDD",
-            },
-            status:false,
+            experience: "2022-06-02T18:43:21.055Z",
           },
         ]}
         tableData={[
-          { type: ['INCREMENT'], name: '' },
+          { type: ['INCREMENT'], name: 'sl_no' },
           { type: ['CHECKBOX'], name: 'checkbox' },
           { type: ['TEXT'], name: 'name' },
           { type: ['TEXT'], name: 'calories' },
           { type: ['TEXT'], name: 'fat' },
           { type: ['TEXT'], name: 'carbs' },
           { type: ['TEXT'], name: 'protein' },
-          { type: ['IMAGE_WITH_LABLE'], name: 'profile', variant:"circular"},
+          { type: ['IMAGE_WITH_LABEL'], name: 'profile', variant: 'circular' },
           { type: ['PROGRESS'], name: 'overall_progress' },
-          { type: ['LABLE'], name: 'production' },
-          { type: ['SWITCH'], name: 'status', switchText:[{lable_1: "No", lable_2: "Yes"}] },
+          { type: ['LABEL'], name: 'production' },
+          {
+            type: ['SWITCH'],
+            name: 'status',
+            switchText: [{ lable_1: 'No', lable_2: 'Yes' }],
+          },
+          { type: ['PERFORMANCE'], name: 'performance' },
+          { type: ['AVATAR_NAME'], name: 'signals' },
+          {
+            type: ['IMAGE_WITH_PROFILES'],
+            name: 'reporting_to',
+            variant: 'circular',
+          },
+          { type: ['STAR_RATING'], name: 'global_rating' },
+          { type: ['GROWTH'], name: 'growth' },
+          { type: ['DATE'], name: 'experience', format:"YYYY MMM DD"},
         ]}
         selectedCheckbox={selectedCheckbox}
         switchList={switchList}
         checkboxHandleChange={checkboxHandleChange}
         setSelectedCheckbox={setSelectedCheckbox}
         SelectAll={SelectAll}
+        isSelectedAll={isSelectedAll}
         handleSwitch={handleSwitch}
-        tableMinWidth={"1350px"}
+        tableMinWidth={'2750px'}
+        tableMinHeight={'465px'}
+        tableName={'Team Member'}
+        paddingAll={'0px'}
+        padding={['1px', '1px', '1px', '1px']}
+        marginAll={'0px'}
+        margin={['0px', '1px', '0px', '1px']}
+        dense ={"medium"} 
+        HeaderComponent={{
+          variant: 1,
+          headerSelect: headerSelect,
+          setHederSelect: setHederSelect,
+          searchPlaceholder:"Search",
+          selectOption: [
+            {
+              label: 'Status',
+              value: 'status',
+            },
+            {
+              label: 'Active',
+              value: 'active',
+            },
+            {
+              label: 'Inactive',
+              value: 'inactive',
+            },
+          ],
+          setHederSearch:setHederSearch,
+          deleteIcon:<DeleteIcon/>,
+          downloadIcon:<DownloadIcon/>,
+          funnelIcon:<FunnelIcon/>,
+          searchIcon:<SearchIcon/>,
+          fillerMethod:fillerMethod,
+          downloadMethod:downloadMethod,
+        }}
+        // HeaderComponent={{
+        //   variant: 2,         
+        //   searchPlaceholder:"Search by name, email",          
+        //   setHederSearch:setHederSearch,
+        //   checkboxLabel:"Show only my reportees",
+        //   primaryBtnText:"Add Member",
+        //   secondaryBtnText:"Import",
+        //   secondaryBtnIcon:<DocsIcon color={"#357968"}/>,
+        //   funnelIcon:<FunnelIcon color={"#fff"}/>,
+        //   searchIcon:<SearchIcon/>,
+        //   fillerMethod:fillerMethod,
+        //   primaryBtnMethod:primaryBtnMethod,
+        //   secondaryBtnMethod:secondaryBtnMethod,
+        //   headerCheckbox:headerCheckbox, setHederCheckbox:setHederCheckbox
+        // }}
       />
     </div>
   );
 }
 
 export default App;
+
+// App.defaultProps = {
+//   Header:[],
+//   dataList:[],
+//   tableData:[],
+//   setSelectedCheckbox:()=>{},
+//   selectedCheckbox:[],
+//   checkboxHandleChange:()=>{},
+//   handleSwitch:()=>{},
+//   switchList:[],
+//   SelectAll:()=>{},
+//   tableMinWidth:"100%",
+//   tableMinHeight:"100%",
+//   tableName:"",
+//   paddingAll:0,
+//   padding:[],
+//   marginAll:0,
+//   margin:[],
+//   HeaderComponent:{},
+//   isSelectedAll:false,
+//   densePadding:false,
+//   densePaddingValue:0,
+// }

@@ -1,30 +1,43 @@
 import * as React from 'react';
-import LinearProgress, { LinearProgressProps } from '@mui/material/LinearProgress';
+import LinearProgress, {
+  LinearProgressProps,
+} from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Tooltip } from '@mui/material';
 import { Cusmstyle } from '../table/style';
 
-function LinearProgressWithLabel(props: LinearProgressProps & { value: number }) {
+function LinearProgressWithLabel(
+  props: LinearProgressProps & { value: number }
+) {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Box sx={{ width: '100%', mr: 1 }}>
-      <Tooltip title={props.value} placement={"top"} componentsProps={{
-        tooltip: {
-          sx: {
-            bgcolor: 'primary.main',
-            '& .MuiTooltip-arrow': {
-              color: 'primary.main',
+        <Tooltip
+          title={props.value}
+          placement={'top'}
+          componentsProps={{
+            tooltip: {
+              sx: {
+                bgcolor: 'primary.main',
+                '& .MuiTooltip-arrow': {
+                  color: 'primary.main',
+                },
+              },
             },
-          },
-    },
-  }} arrow>
-        <LinearProgress sx={Cusmstyle.progressBar} variant="determinate" {...props} />
+          }}
+          arrow
+        >
+          <LinearProgress
+            sx={Cusmstyle.progressBar}
+            variant="determinate"
+            {...props}
+          />
         </Tooltip>
       </Box>
       <Box sx={{ minWidth: 35 }}>
         <Typography variant="body2" color="secondary">{`${Math.round(
-          props.value,
+          props.value
         )}%`}</Typography>
       </Box>
     </Box>
@@ -32,10 +45,13 @@ function LinearProgressWithLabel(props: LinearProgressProps & { value: number })
 }
 
 export default function Progress(props: any) {
-   
   return (
     <Box sx={{ width: '100%' }}>
-      <LinearProgressWithLabel value={props?.value ?? 0} />
+      <LinearProgressWithLabel value={Number(props?.value) ?? 0} />
     </Box>
   );
 }
+
+Progress.defaultProps = {
+  value: 0,
+};
