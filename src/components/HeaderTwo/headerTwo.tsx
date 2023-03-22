@@ -1,16 +1,9 @@
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { style } from './style';
-import {
-  Divider,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  Stack,
-  TextField,
-  FormControlLabel,
-} from '@mui/material';
-import Checkbox from '@mui/material/Checkbox';
+import Divider from '@mui/material/Divider';
+import Stack  from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Button from '@mui/material/Button';
 import { CustomCheckbox } from '../checkbox';
 

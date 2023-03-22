@@ -15,7 +15,7 @@ export default function AvatarName(props: any) {
   >
     {Celldata[val.name]?.map((avater: any, index: number) => (
       <Tooltip
-        key={index}
+        key={"AvatarNameList"+index}
         title={avater?.label ?? avater?.name}
         placement={'bottom'}
         componentsProps={{
@@ -43,3 +43,8 @@ export default function AvatarName(props: any) {
   </Box>
   );
 }
+
+AvatarName.defaultProps = {
+  Celldata: {},
+  val: {},
+};

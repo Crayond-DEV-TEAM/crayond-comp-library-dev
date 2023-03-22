@@ -14,7 +14,6 @@ function App() {
   const [selectedCheckbox, setSelectedCheckbox] = React.useState([1, 2]);
   const [switchList, setSwitchList] = React.useState([1, 4]);
   const [headerSelect, setHederSelect] = React.useState('status');
-  const [headerSearch, setHederSearch] = React.useState('');
   const [headerCheckbox, setHederCheckbox] = React.useState(true);
   const checkboxHandleChange = (data: any) => {
     if (!selectedCheckbox.includes(data)) {
@@ -27,7 +26,9 @@ function App() {
       }
     }
   };
-
+const setHederSearch = (value:any) => {
+  console.log("🚀 ~ file: App.tsx:31 ~ setHederSearch ~ value:", value)
+}
   const SelectAll = (data: any, isRestSet: boolean) => {
     if (!isRestSet) {
       setSelectedCheckbox([...data]);
@@ -150,16 +151,22 @@ function App() {
             label: 'Reporting to',
           },
           {
-            id: 'globle_rating',
+            id: 'global_rating',
             align: 'center',
             disablePadding: false,
-            label: 'Globle Rating',
+            label: 'Global Rating',
           },
           {
             id: 'growth',
             align: 'center',
             disablePadding: false,
             label: 'Growth',
+          },
+          {
+            id: 'experience',
+            align: 'center',
+            disablePadding: false,
+            label: 'Experience',
           },
         ]}
         dataList={[
@@ -231,11 +238,12 @@ function App() {
                 label: 'Siva',
               },
             ],
-            globle_rating: 4,
+            global_rating: 4,
             growth: {
               value: 2.5,
               variant: 'POSITIVE',
             },
+            experience: "2023-03-15T18:43:21.055Z",
           },
           {
             id: 2,
@@ -301,11 +309,12 @@ function App() {
                 label: 'Siva',
               },
             ],
-            globle_rating: 3,
+            global_rating: 3,
             growth: {
               value: 0.5,
               variant: 'NEGATIVE',
             },
+            experience: "2023-03-05T18:43:21.055Z",
           },
           {
             id: 3,
@@ -367,11 +376,12 @@ function App() {
                 label: 'Hariharan',
               },
             ],
-            globle_rating: 1,
+            global_rating: 1,
             growth: {
               value: 0.1,
               variant: 'NEGATIVE',
             },
+            experience: "2022-01-15T18:43:21.055Z",
           },
           {
             id: 4,
@@ -429,11 +439,12 @@ function App() {
                 label: 'Hariharan',
               },
             ],
-            globle_rating: 3.5,
+            global_rating: 3.5,
             growth: {
               value: 3.2,
               variant: 'POSITIVE',
             },
+            experience: "2023-01-11T18:43:21.055Z",
           },
           {
             id: 5,
@@ -487,11 +498,12 @@ function App() {
                 label: 'Hariharan',
               },
             ],
-            globle_rating: 4.5,
+            global_rating: 4.5,
             growth: {
               value: 1.2,
               variant: 'POSITIVE',
             },
+            experience: "2023-02-25T18:43:21.055Z",
           },
           {
             id: 6,
@@ -545,11 +557,12 @@ function App() {
                 label: 'Hariharan',
               },
             ],
-            globle_rating: 4,
+            global_rating: 4,
             growth: {
               value: 0.74,
               variant: 'NEGATIVE',
             },
+            experience: "2022-12-15T18:43:21.055Z",
           },
           {
             id: 7,
@@ -607,14 +620,14 @@ function App() {
                 label: 'Hariharan',
               },
             ],
-            globle_rating: 2,
+            global_rating: 2,
             growth: {
               value: 0.63,
               variant: 'NEGATIVE',
             },
+            experience: "2022-06-02T18:43:21.055Z",
           },
         ]}
-        // tableData={{ slno: 'INCREMENT', checkbox: 'CHECKBOX',  name: 'TEXT', calories: 'TEXT',  fat: 'TEXT', carbs: 'TEXT',  protein: 'TEXT', profile: {profile: 'IMAGE_WITH_LABEL', variant: 'circular'},  overall_progress: 'PROGRESS' }}
         tableData={[
           { type: ['INCREMENT'], name: 'sl_no' },
           { type: ['CHECKBOX'], name: 'checkbox' },
@@ -638,9 +651,9 @@ function App() {
             name: 'reporting_to',
             variant: 'circular',
           },
-          { type: ['STAR_RATING'], name: 'globle_rating' },
+          { type: ['STAR_RATING'], name: 'global_rating' },
           { type: ['GROWTH'], name: 'growth' },
-          // { type: ['DATE'], name: 'experience'},
+          { type: ['DATE'], name: 'experience', format:"YYYY MMM DD"},
         ]}
         selectedCheckbox={selectedCheckbox}
         switchList={switchList}
@@ -649,13 +662,14 @@ function App() {
         SelectAll={SelectAll}
         isSelectedAll={isSelectedAll}
         handleSwitch={handleSwitch}
-        tableMinWidth={'2550px'}
+        tableMinWidth={'2750px'}
         tableMinHeight={'465px'}
         tableName={'Team Member'}
         paddingAll={'0px'}
-        padding={['12px', '12px', '12px', '12px']}
-        marginAll={'12px'}
-        margin={['0px', '12px', '0px', '12px']}
+        padding={['1px', '1px', '1px', '1px']}
+        marginAll={'0px'}
+        margin={['0px', '1px', '0px', '1px']}
+        dense ={"medium"} 
         HeaderComponent={{
           variant: 1,
           headerSelect: headerSelect,
@@ -675,7 +689,6 @@ function App() {
               value: 'inactive',
             },
           ],
-          headerSearch:headerSearch,
           setHederSearch:setHederSearch,
           deleteIcon:<DeleteIcon/>,
           downloadIcon:<DownloadIcon/>,
@@ -687,7 +700,6 @@ function App() {
         // HeaderComponent={{
         //   variant: 2,         
         //   searchPlaceholder:"Search by name, email",          
-        //   headerSearch:headerSearch,
         //   setHederSearch:setHederSearch,
         //   checkboxLabel:"Show only my reportees",
         //   primaryBtnText:"Add Member",
@@ -706,3 +718,26 @@ function App() {
 }
 
 export default App;
+
+// App.defaultProps = {
+//   Header:[],
+//   dataList:[],
+//   tableData:[],
+//   setSelectedCheckbox:()=>{},
+//   selectedCheckbox:[],
+//   checkboxHandleChange:()=>{},
+//   handleSwitch:()=>{},
+//   switchList:[],
+//   SelectAll:()=>{},
+//   tableMinWidth:"100%",
+//   tableMinHeight:"100%",
+//   tableName:"",
+//   paddingAll:0,
+//   padding:[],
+//   marginAll:0,
+//   margin:[],
+//   HeaderComponent:{},
+//   isSelectedAll:false,
+//   densePadding:false,
+//   densePaddingValue:0,
+// }

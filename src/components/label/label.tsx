@@ -26,3 +26,8 @@ export default function Label(props: any) {
   </Box>
   );
 }
+
+Label.defaultProps = {
+  Celldata: {},
+  val: {},
+};

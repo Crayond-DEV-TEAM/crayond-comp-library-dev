@@ -4,7 +4,8 @@ export const style = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
-    gap:"12px"
+    gap:"12px",
+    flexWrap:"wrap",
   },
   outlineBtn:{
    borderRadius:"4px",

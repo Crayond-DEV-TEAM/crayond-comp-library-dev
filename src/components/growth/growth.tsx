@@ -37,3 +37,8 @@ export default function Growth(props: any) {
     </>
   );
 }
+
+Growth.defaultProps = {
+  Celldata: {},
+  val: {},
+};

@@ -30,3 +30,8 @@ export default function Performance(props: any) {
   </Tooltip>
   );
 }
+
+Performance.defaultProps = {
+  Celldata: {},
+  val: {},
+};

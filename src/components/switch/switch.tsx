@@ -64,3 +64,8 @@ export const CustomizedSwitches = (props: any) => {
 }
 
 export default CustomizedSwitches;
+
+CustomizedSwitches.defaultProps = {
+  onChange: () => {},
+  value: false,
+};

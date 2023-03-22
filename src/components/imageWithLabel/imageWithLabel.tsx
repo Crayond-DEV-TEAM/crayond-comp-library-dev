@@ -17,3 +17,8 @@ export default function ImageWithLabel(props: any) {
     </Box>
   );
 }
+
+ImageWithLabel.defaultProps = {
+  Celldata: {},
+  val: {},
+};

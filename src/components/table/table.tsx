@@ -23,7 +23,7 @@ const EnhancedTableHead = ({ Header, selectAllCheckbox, isSelectedAll }: any) =>
         {Header?.map((val: any, i: number) => {
           return (
             <TableCell
-              key={i}
+              key={"Header"+i}
               align={val?.align}
               padding={val.disablePadding ? 'none' : 'normal'}
             >
@@ -59,7 +59,8 @@ export default function EnhancedTable({
   marginAll,
   margin,
   HeaderComponent,
-  isSelectedAll
+  isSelectedAll,
+  dense,
 }: TableProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -100,11 +101,12 @@ export default function EnhancedTable({
             <EnhancedHeader selectedCheckbox={selectedCheckbox} SelectAll={SelectAll} HeaderComponent={HeaderComponent} />
           </Box>
         </Box>
-        <TableContainer sx={{ minHeight: tableMinHeight }}>
+        <TableContainer className='tableContainer' sx={{ minHeight: tableMinHeight }}>
           <Table
             stickyHeader
             sx={{ ...Cusmstyle.tableContainer, minWidth: tableMinWidth }}
             aria-labelledby="tableTitle"
+            size={dense}
           >
             <EnhancedTableHead
               Header={Header}
@@ -115,7 +117,7 @@ export default function EnhancedTable({
               Body={dataList?.slice(
                 page * rowsPerPage,
                 page * rowsPerPage + rowsPerPage
-              )}
+              )} 
               TableData={tableData}
               handleSwitch={handleSwitch}
               switchList={switchList}
@@ -152,3 +154,36 @@ const EnhancedHeader = (props: any) => {
       return <HeaderOne />;
   }
 };
+
+EnhancedTable.defaultProps = { 
+  Header:[], selectAllCheckbox:()=>{}, isSelectedAll:false,
+}
+
+EnhancedTableHead.defaultProps = {
+  Header:[],
+  dataList:[],
+  tableData:[],
+  setSelectedCheckbox:()=>{},
+  selectedCheckbox:[],
+  checkboxHandleChange:()=>{},
+  handleSwitch:()=>{},
+  switchList:[],
+  SelectAll:()=>{},
+  tableMinWidth:"100%",
+  tableMinHeight:"100%",
+  tableName:"",
+  paddingAll:0,
+  padding:[],
+  marginAll:0,
+  margin:[],
+  HeaderComponent:{},
+  isSelectedAll:false,
+  dense:"small",
+}
+
+EnhancedHeader.defaultProps = {
+  HeaderComponent:{},
+  selectedCheckbox:[],
+  SelectAll:()=>{},
+  component:<></>,
+}

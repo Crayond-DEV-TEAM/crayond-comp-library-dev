@@ -14,6 +14,7 @@ import { AvatarName } from '../avatarName';
 import { StarRating } from '../starRating';
 import { Text } from '../text';
 import { Growth } from '../growth';
+import { Date } from '../date';
 
 const BodyRowLogic = ({
   val,
@@ -27,14 +28,14 @@ const BodyRowLogic = ({
   switch (val?.type?.[0]) {
     case 'INCREMENT':
       return (
-        <TableCell key={i}>
+        <TableCell key={i + 'INCREMENT'}>
           <Typography> {Celldata?.id}</Typography>{' '}
         </TableCell>
       );
 
     case 'CHECKBOX':
       return (
-        <TableCell key={i}>
+        <TableCell key={i + 'CHECKBOX'}>
           <CustomCheckbox
             value={selectedCheckbox?.includes(Celldata?.id)}
             name={Celldata?.id}
@@ -45,85 +46,99 @@ const BodyRowLogic = ({
 
     case 'TEXT':
       return (
-        <TableCell key={i}>
+        <TableCell key={i + 'TEXT'}>
           <Text Celldata={Celldata} val={val} />
         </TableCell>
       );
 
     case 'SWITCH':
       return (
-        <TableCell key={i}>
+        <TableCell key={i + 'SWITCH'}>
           <CustomizedSwitches
             onChange={handleSwitch}
             id={Celldata?.id}
             value={switchList?.includes(Celldata?.id)}
             label={
               switchList?.includes(Celldata?.id)
-                ? val?.switchText?.[0]?.lable_2
-                : val?.switchText?.[0]?.lable_1
+              ? val?.switchText?.[0]?.lable_2
+              : val?.switchText?.[0]?.lable_1
             }
-          />
+            />
         </TableCell>
       );
 
     case 'LABEL':
       return (
-        <TableCell key={i}>
+        <TableCell key={i + 'LABEL'}>
           <Label Celldata={Celldata} val={val} />
         </TableCell>
       );
 
     case 'PROGRESS':
       return (
-        <TableCell key={i}>
+        <TableCell key={i + 'PROGRESS'}>
           <Progress value={Celldata[val.name]} />
         </TableCell>
       );
     case 'IMAGE_WITH_LABEL':
       return (
-        <TableCell key={i}>
+        <TableCell key={i + 'IMAGE_WITH_LABEL'}>
           <ImageWithLabel Celldata={Celldata} val={val} />
         </TableCell>
       );
     case 'IMAGE_WITH_PROFILES':
       return (
-        <TableCell key={i}>
+        <TableCell key={i + 'IMAGE_WITH_PROFILES'}>
           <ImageWithProfiles Celldata={Celldata} val={val} />
         </TableCell>
       );
     case 'PERFORMANCE':
       return (
-        <TableCell key={i}>
+        <TableCell key={i + 'PERFORMANCE'}>
           <Performance Celldata={Celldata} val={val} />
         </TableCell>
       );
     case 'AVATAR_NAME':
       return (
-        <TableCell key={i}>
+        <TableCell key={i + 'AVATAR_NAME'}>
           <AvatarName Celldata={Celldata} val={val} />
         </TableCell>
       );
     case 'STAR_RATING':
       return (
-        <TableCell key={i}>
+        <TableCell key={i + 'STAR_RATING'}>
           <StarRating Celldata={Celldata} val={val} />
         </TableCell>
       );
     case 'GROWTH':
       return (
-        <TableCell key={i}>
+        <TableCell key={i + 'GROWTH'}>
           <Growth Celldata={Celldata} val={val} />
+        </TableCell>
+      );
+    case 'DATE':
+      return (
+        <TableCell key={i + 'DATE'}>
+          <Date Celldata={Celldata} val={val} />
         </TableCell>
       );
     default:
       return (
-        <TableCell key={i}>
+        <TableCell key={i + 'default'}>
           <Text Celldata={Celldata} val={val} />
         </TableCell>
       );
   }
 };
-
+BodyRowLogic.defaultProps = {
+  val: {},
+  i: 0,
+  Celldata: {},
+  selectedCheckbox: [],
+  switchList: [],
+  handleSwitch: () => {},
+  checkboxHandleChange: () => {},
+};
 export const EnhancedTableBody = ({
   Body,
   TableData,
@@ -136,10 +151,13 @@ export const EnhancedTableBody = ({
     <TableBody>
       {Body?.map((data: any, rowIndex: number) => {
         return (
-          <TableRow>
+          <TableRow
+            key={'Row' + rowIndex}
+          >
             {TableData.map((val: any, i: number) => {
               return (
                 <BodyRowLogic
+                  key={i + 'cell'}
                   rowIndex={rowIndex}
                   val={val}
                   i={i}
@@ -159,3 +177,14 @@ export const EnhancedTableBody = ({
 };
 
 export default EnhancedTableBody;
+
+EnhancedTableBody.defaultProps = {
+  Body: [],
+  TableData: [],
+  selectedCheckbox: [],
+  switchList: [],
+  handleSwitch: () => {},
+  checkboxHandleChange: () => {},
+  densePadding: false,
+  densePaddingValue: 0,
+};

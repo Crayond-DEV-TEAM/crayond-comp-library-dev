@@ -17,6 +17,7 @@ export const Cusmstyle = {
     justifyContent: 'space-between',
     gap: '8px',
     padding: '10px 12px',
+    flexWrap:"wrap",
   },
   tableTitle: {
     fontSize: '20px',

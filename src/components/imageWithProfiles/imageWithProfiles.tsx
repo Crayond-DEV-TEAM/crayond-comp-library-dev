@@ -22,7 +22,7 @@ export default function ImageWithProfile(props: any) {
             <Box sx={Cusmstyle.popoverProfile}>
               {Celldata[val.name]?.map(
                 (profile: any, index: number) => (
-                  <>
+                  <Box key={"ImageWithProfileList"+index}>
                     {index !== 0 && (
                       <Box
                         display={'flex'}
@@ -43,7 +43,7 @@ export default function ImageWithProfile(props: any) {
                         <Typography>{profile?.label}</Typography>
                       </Box>
                     )}
-                  </>
+                  </Box>
                 )
               )}
             </Box>
@@ -64,3 +64,8 @@ export default function ImageWithProfile(props: any) {
   </Box>
   );
 }
+
+ImageWithProfile.defaultProps = {
+  Celldata: {},
+  val: {},
+};
