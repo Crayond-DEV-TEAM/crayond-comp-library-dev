@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
-import { CommonTable } from '@components';
+import { BasicButtons, CommonTable } from '@components';
 import DeleteIcon from './assets/deleteIcon';
 import FunnelIcon from './assets/funnelIcon';
 import SearchIcon from './assets/searchIcon';
 import DownloadIcon from './assets/downloadIcon';
 import DocsIcon from './assets/docsIcon';
+import EditIcon from './assets/editIcon';
 // import './App.css';
 
 function App() {
-  const [isSelectedAll, setIsSelectedAll] = React.useState(false)
+  const [isSelectedAll, setIsSelectedAll] = React.useState(false);
   const [selectedCheckbox, setSelectedCheckbox] = React.useState([1, 2]);
   const [switchList, setSwitchList] = React.useState([1, 4]);
-  const [headerSelect, setHederSelect] = React.useState('status');
+  const [headerSelect, setHederSelect] = React.useState('');
   const [headerCheckbox, setHederCheckbox] = React.useState(true);
   const checkboxHandleChange = (data: any) => {
     if (!selectedCheckbox.includes(data)) {
@@ -26,9 +27,9 @@ function App() {
       }
     }
   };
-const setHederSearch = (value:any) => {
-  console.log("🚀 ~ file: App.tsx:31 ~ setHederSearch ~ value:", value)
-}
+  const setHederSearch = (value: any) => {
+    console.log('🚀 ~ file: App.tsx:31 ~ setHederSearch ~ value:', value);
+  };
   const SelectAll = (data: any, isRestSet: boolean) => {
     if (!isRestSet) {
       setSelectedCheckbox([...data]);
@@ -49,18 +50,18 @@ const setHederSearch = (value:any) => {
       }
     }
   };
-  const downloadMethod =()=>{
-    console.log("Download Method working!");
-  }
-  const fillerMethod =()=>{
-    console.log("Filter Method working!");
-  }
-  const primaryBtnMethod =()=>{
-    console.log("primary Btn Method working!");
-  }
-  const secondaryBtnMethod =()=>{
-    console.log("secondary Btn Method working!");
-  }
+  const downloadMethod = () => {
+    console.log('Download Method working!');
+  };
+  const fillerMethod = () => {
+    console.log('Filter Method working!');
+  };
+  const primaryBtnMethod = () => {
+    console.log('primary Btn Method working!');
+  };
+  const secondaryBtnMethod = () => {
+    console.log('secondary Btn Method working!');
+  };
   return (
     <div className="App" style={{ width: '99vw', height: '100vh' }}>
       <CommonTable
@@ -168,6 +169,24 @@ const setHederSearch = (value:any) => {
             disablePadding: false,
             label: 'Experience',
           },
+          {
+            id: 'link',
+            align: 'center',
+            disablePadding: false,
+            label: 'Link',
+          },
+          {
+            id: 'custom',
+            align: 'center',
+            disablePadding: false,
+            label: 'Custom',
+          },
+          {
+            id: 'action',
+            align: 'center',
+            disablePadding: false,
+            label: 'Action',
+          },
         ]}
         dataList={[
           {
@@ -243,7 +262,8 @@ const setHederSearch = (value:any) => {
               value: 2.5,
               variant: 'POSITIVE',
             },
-            experience: "2023-03-15T18:43:21.055Z",
+            experience: '2023-03-15T18:43:21.055Z',
+            custom:<BasicButtons >Button 1</BasicButtons>
           },
           {
             id: 2,
@@ -314,7 +334,8 @@ const setHederSearch = (value:any) => {
               value: 0.5,
               variant: 'NEGATIVE',
             },
-            experience: "2023-03-05T18:43:21.055Z",
+            experience: '2023-03-05T18:43:21.055Z',
+            custom:<BasicButtons >Button 2</BasicButtons>
           },
           {
             id: 3,
@@ -381,7 +402,8 @@ const setHederSearch = (value:any) => {
               value: 0.1,
               variant: 'NEGATIVE',
             },
-            experience: "2022-01-15T18:43:21.055Z",
+            experience: '2022-01-15T18:43:21.055Z',
+            custom:<BasicButtons >Button 3</BasicButtons>,
           },
           {
             id: 4,
@@ -444,7 +466,8 @@ const setHederSearch = (value:any) => {
               value: 3.2,
               variant: 'POSITIVE',
             },
-            experience: "2023-01-11T18:43:21.055Z",
+            experience: '2023-01-11T18:43:21.055Z',
+            custom:<BasicButtons >Button 4</BasicButtons>,
           },
           {
             id: 5,
@@ -503,7 +526,8 @@ const setHederSearch = (value:any) => {
               value: 1.2,
               variant: 'POSITIVE',
             },
-            experience: "2023-02-25T18:43:21.055Z",
+            experience: '2023-02-25T18:43:21.055Z',
+            custom:<BasicButtons >Button 5</BasicButtons>,
           },
           {
             id: 6,
@@ -562,7 +586,8 @@ const setHederSearch = (value:any) => {
               value: 0.74,
               variant: 'NEGATIVE',
             },
-            experience: "2022-12-15T18:43:21.055Z",
+            experience: '2022-12-15T18:43:21.055Z',
+            custom:<BasicButtons >Button 6</BasicButtons>,
           },
           {
             id: 7,
@@ -625,7 +650,8 @@ const setHederSearch = (value:any) => {
               value: 0.63,
               variant: 'NEGATIVE',
             },
-            experience: "2022-06-02T18:43:21.055Z",
+            experience: '2022-06-02T18:43:21.055Z',
+            custom:<BasicButtons >Button 7</BasicButtons>,
           },
         ]}
         tableData={[
@@ -653,7 +679,18 @@ const setHederSearch = (value:any) => {
           },
           { type: ['STAR_RATING'], name: 'global_rating' },
           { type: ['GROWTH'], name: 'growth' },
-          { type: ['DATE'], name: 'experience', format:"YYYY MMM DD"},
+          { type: ['DATE'], name: 'experience', format: 'YYYY MMM DD' },
+          { type: ['LINK'], name: 'link', label:"view", viewHandel:(id:any)=>{console.log(id)}},
+          { type: ['CUSTOM'], name: 'custom',},
+          {
+            type: ['ACTION'],
+            name: 'action',
+            variant: 'EDIT_WITH_DELETE',
+            editHandel:(id:any)=>{console.log(id)},
+            deleteHandel:(id:any)=>{console.log(id)},
+            editIcon: <EditIcon />,
+            deleteIcon: <DeleteIcon width={'16px'} height={'16px'} />,
+          },
         ]}
         selectedCheckbox={selectedCheckbox}
         switchList={switchList}
@@ -662,23 +699,23 @@ const setHederSearch = (value:any) => {
         SelectAll={SelectAll}
         isSelectedAll={isSelectedAll}
         handleSwitch={handleSwitch}
-        tableMinWidth={'2750px'}
+        tableMinWidth={'3350px'}
         tableMinHeight={'465px'}
         tableName={'Team Member'}
         paddingAll={'0px'}
         padding={['1px', '1px', '1px', '1px']}
         marginAll={'0px'}
         margin={['0px', '1px', '0px', '1px']}
-        dense ={"medium"} 
+        dense={'medium'}
         HeaderComponent={{
           variant: 1,
           headerSelect: headerSelect,
           setHederSelect: setHederSelect,
-          searchPlaceholder:"Search",
+          searchPlaceholder: 'Search',
           selectOption: [
             {
               label: 'Status',
-              value: 'status',
+              value: '',
             },
             {
               label: 'Active',
@@ -689,17 +726,17 @@ const setHederSearch = (value:any) => {
               value: 'inactive',
             },
           ],
-          setHederSearch:setHederSearch,
-          deleteIcon:<DeleteIcon/>,
-          downloadIcon:<DownloadIcon/>,
-          funnelIcon:<FunnelIcon/>,
-          searchIcon:<SearchIcon/>,
-          fillerMethod:fillerMethod,
-          downloadMethod:downloadMethod,
+          setHederSearch: setHederSearch,
+          deleteIcon: <DeleteIcon />,
+          downloadIcon: <DownloadIcon />,
+          funnelIcon: <FunnelIcon />,
+          searchIcon: <SearchIcon />,
+          fillerMethod: fillerMethod,
+          downloadMethod: downloadMethod,
         }}
         // HeaderComponent={{
-        //   variant: 2,         
-        //   searchPlaceholder:"Search by name, email",          
+        //   variant: 2,
+        //   searchPlaceholder:"Search by name, email",
         //   setHederSearch:setHederSearch,
         //   checkboxLabel:"Show only my reportees",
         //   primaryBtnText:"Add Member",

@@ -15,6 +15,8 @@ import { StarRating } from '../starRating';
 import { Text } from '../text';
 import { Growth } from '../growth';
 import { Date } from '../date';
+import { Action } from '../action';
+import { Link } from '../link';
 
 const BodyRowLogic = ({
   val,
@@ -60,10 +62,10 @@ const BodyRowLogic = ({
             value={switchList?.includes(Celldata?.id)}
             label={
               switchList?.includes(Celldata?.id)
-              ? val?.switchText?.[0]?.lable_2
-              : val?.switchText?.[0]?.lable_1
+                ? val?.switchText?.[0]?.lable_2
+                : val?.switchText?.[0]?.lable_1
             }
-            />
+          />
         </TableCell>
       );
 
@@ -122,6 +124,24 @@ const BodyRowLogic = ({
           <Date Celldata={Celldata} val={val} />
         </TableCell>
       );
+    case 'ACTION':
+      return (
+        <TableCell key={i + 'ACTION'}>
+          <Action Celldata={Celldata} val={val} />
+        </TableCell>
+      );
+      case 'LINK':
+        return (
+          <TableCell key={i + 'LINK'}>
+            <Link Celldata={Celldata} val={val} />
+          </TableCell>
+        );
+        case 'LINK':
+          return (
+            <TableCell key={i + 'LINK'}>
+             { Celldata[val.name]}
+            </TableCell>
+          );
     default:
       return (
         <TableCell key={i + 'default'}>
@@ -151,9 +171,7 @@ export const EnhancedTableBody = ({
     <TableBody>
       {Body?.map((data: any, rowIndex: number) => {
         return (
-          <TableRow
-            key={'Row' + rowIndex}
-          >
+          <TableRow key={'Row' + rowIndex}>
             {TableData.map((val: any, i: number) => {
               return (
                 <BodyRowLogic

@@ -96,4 +96,10 @@ export const Cusmstyle = {
     fontSize: '14px',
     color: '#25C460',
   },
+  link:{
+    color:"primary.main",
+    fontSize: '16px',
+    textDecoration:"underline",
+    cursor:"pointer"
+  }
 };
