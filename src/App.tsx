@@ -788,18 +788,18 @@ function App() {
           },
         ]}
         headerOptions={{
-         fontSize:"18px",
-         fontWeight:"600",
-         color:"#353448",
-         bgColor:"#fff",
-         borderBottom:"1px solid #E6E6E6"
+          fontSize: '18px',
+          fontWeight: '600',
+          color: '#353448',
+          bgColor: '#fff',
+          borderBottom: '1px solid #E6E6E6',
         }}
         cellOptions={{
-          fontSize:"14px",
-          fontWeight:"500",
-          color:"#353448",
-          bgColor:"#fff",
-          borderBottom:"1px solid #E6E6E6"
+          fontSize: '14px',
+          fontWeight: '500',
+          color: '#353448',
+          bgColor: '#fff',
+          borderBottom: '1px solid #E6E6E6',
         }}
         selectedCheckbox={selectedCheckbox}
         switchList={switchList}

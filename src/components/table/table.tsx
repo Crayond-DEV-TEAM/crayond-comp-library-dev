@@ -11,8 +11,8 @@ import { Cusmstyle } from './style';
 import { TableProps } from './props';
 import EnhancedTableBody from './tableRow';
 import { CustomCheckbox } from '../checkbox';
-import  FormControlLabel from '@mui/material/FormControlLabel';
-import  TablePagination from '@mui/material/TablePagination';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import TablePagination from '@mui/material/TablePagination';
 import Typography from '@mui/material/Typography';
 import { HeaderOne } from '../headerOne';
 import { HeaderTwo } from '../HeaderTwo';
@@ -21,7 +21,7 @@ const EnhancedTableHead = ({
   Header,
   selectAllCheckbox,
   isSelectedAll,
-  headerOptions
+  headerOptions,
 }: any) => {
   return (
     <TableHead>
@@ -33,16 +33,16 @@ const EnhancedTableHead = ({
               align={val?.align}
               padding={val.disablePadding ? 'none' : 'normal'}
               sx={{
-                fontSize:headerOptions?.fontSize,
-                color:headerOptions?.color,
-                fontWeight:headerOptions?.fontWeight,
-                backgroundColor:headerOptions?.bgColor,
-                borderBottom:headerOptions?.borderBottom,
+                fontSize: headerOptions?.fontSize,
+                color: headerOptions?.color,
+                fontWeight: headerOptions?.fontWeight,
+                backgroundColor: headerOptions?.bgColor,
+                borderBottom: headerOptions?.borderBottom,
               }}
             >
               {val?.varient === 'CHECKBOX' ? (
                 <FormControlLabel
-                style={{marginLeft:"0px"}}
+                  style={{ marginLeft: '0px' }}
                   control={
                     <CustomCheckbox
                       name="selectAll"
@@ -58,12 +58,14 @@ const EnhancedTableHead = ({
                     </TableSortLabel>
                   }
                 />
-              ) : 
-              <TableSortLabel>
-                <Typography sx={Cusmstyle.tableHeader}>{val?.label}</Typography>
-              </TableSortLabel>
-          }
-          </TableCell>
+              ) : (
+                <TableSortLabel>
+                  <Typography sx={Cusmstyle.tableHeader}>
+                    {val?.label}
+                  </Typography>
+                </TableSortLabel>
+              )}
+            </TableCell>
           );
         })}
       </TableRow>
@@ -206,8 +208,8 @@ EnhancedTable.defaultProps = {
   Header: [],
   selectAllCheckbox: () => {},
   isSelectedAll: false,
-  cellOptions:{},
-  headerOptions:{},
+  cellOptions: {},
+  headerOptions: {},
 };
 
 EnhancedTableHead.defaultProps = {
@@ -230,8 +232,8 @@ EnhancedTableHead.defaultProps = {
   HeaderComponent: {},
   isSelectedAll: false,
   dense: 'small',
-  headerOptions:{},
-  cellOptions:{},
+  headerOptions: {},
+  cellOptions: {},
 };
 
 EnhancedHeader.defaultProps = {
