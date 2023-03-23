@@ -67,7 +67,7 @@ function App() {
       <CommonTable
         Header={[
           {
-            id: 'no',
+            id: 'id',
             align: 'left',
             disablePadding: false,
             label: 'Sl no',
@@ -189,7 +189,7 @@ function App() {
           },
           {
             id: 'response',
-            align: 'center',
+            align: 'left',
             disablePadding: false,
             label: 'Response',
           },
@@ -788,18 +788,24 @@ function App() {
           },
         ]}
         headerOptions={{
-          fontSize: '18px',
-          fontWeight: '600',
-          color: '#353448',
-          bgColor: '#fff',
-          borderBottom: '1px solid #E6E6E6',
+          fontSize: '16px',
+          fontWeight: '500',
+          color: '#818181',
+          bgColor: '#EAEAEA',
+          borderBottom: '0px solid #E6E6E6',
+          padding:"12px",
+        }}
+        rowOptions={{
+          rowOddBgColor:"#fff",
+          rowEvenBgColor:"#F7F7F7",
         }}
         cellOptions={{
-          fontSize: '14px',
+          fontSize: '16px',
           fontWeight: '500',
           color: '#353448',
-          bgColor: '#fff',
-          borderBottom: '1px solid #E6E6E6',
+          // bgColor: '#fff',
+          borderBottom: '0px solid #E6E6E6',
+          padding:"12px",
         }}
         selectedCheckbox={selectedCheckbox}
         switchList={switchList}
@@ -815,6 +821,7 @@ function App() {
         padding={['1px', '1px', '1px', '1px']}
         marginAll={'0px'}
         margin={['0px', '1px', '0px', '1px']}
+        tableBorderRadius={"12px"}
         dense={'medium'}
         HeaderComponent={{
           variant: 1,

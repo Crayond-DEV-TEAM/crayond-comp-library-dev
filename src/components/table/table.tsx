@@ -16,6 +16,8 @@ import TablePagination from '@mui/material/TablePagination';
 import Typography from '@mui/material/Typography';
 import { HeaderOne } from '../headerOne';
 import { HeaderTwo } from '../HeaderTwo';
+import * as excelJS from 'exceljs';
+import { saveAs } from 'file-saver';
 
 const EnhancedTableHead = ({
   Header,
@@ -38,6 +40,7 @@ const EnhancedTableHead = ({
                 fontWeight: headerOptions?.fontWeight,
                 backgroundColor: headerOptions?.bgColor,
                 borderBottom: headerOptions?.borderBottom,
+                padding: headerOptions?.padding,
               }}
             >
               {val?.varient === 'CHECKBOX' ? (
@@ -95,6 +98,8 @@ export default function EnhancedTable({
   dense,
   headerOptions,
   cellOptions,
+  rowOptions,
+  tableBorderRadius,
 }: TableProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -111,6 +116,77 @@ export default function EnhancedTable({
     setPage(0);
   };
 
+  const workbook = new excelJS.Workbook();
+  workbook.creator = 'test';
+  workbook.lastModifiedBy = 'test';
+  workbook.created = new Date();
+  workbook.modified = new Date();
+
+  let sheet:any = workbook.addWorksheet('TABLE');
+
+  // 添加表头
+  sheet.getRow(1).values = Header?.map((val: any) => val.id);
+
+  // const datas = dataList?.map((list: any) => {
+  //   console.log('🚀 ~ file: table.tsx:128 ~ datas ~ head:', list);
+
+  //   return (Header?.map((val: any) => {
+  //     return { [val?.id]: list?.[val?.id] };
+  //   })).flat(2)
+  // });
+  // console.log('🚀 ~ file: table.tsx:135 ~ column:', datas);
+
+  sheet.columns = Header?.map((val: any) => ({ key: val.id, width: 35 }));
+  // [
+  //   { key: "category", width: 30 },
+  //   { key: "2018-05", width: 30 },
+  //   { key: "2018-06", width: 30 },
+  //   { key: "2018-07", width: 30 },
+  //   { key: "2018-08", width: 30 },
+  //   { key: "store", width: 30 }
+  // ];
+  const data = [
+    {
+      category: '衣服',
+      '2018-05': 300,
+      '2018-06': 230,
+      '2018-07': 730,
+      '2018-08': 630,
+      store: '王小二旗舰店',
+    },
+    {
+      category: '零食',
+      '2018-05': 672,
+      '2018-06': 826,
+      '2018-07': 302,
+      '2018-08': 389,
+      store: '吃吃货',
+    },
+  ];
+  const dataLists:any = dataList?.map(({calories,id, name, fat, carbs,protein,overall_progress, status,performance,global_rating,experience }) => {
+    	return {calories, id, name, fat, carbs,protein,overall_progress, status,performance,global_rating,experience };
+   
+  })
+  sheet.addRows(dataLists);
+  console.log("🚀 ~ file: table.tsx:164 ~ dataList:====", dataLists)
+
+  const row = sheet.getRow(1);
+  row.eachCell((cell:any, rowNumber:any) => {
+    sheet.getColumn(rowNumber).alignment = {
+      vertical: 'middle',
+      horizontal: 'center',
+    };
+    sheet.getColumn(rowNumber).font = { size: 14, family: 2 };
+  });
+
+  console.log(workbook.xlsx);
+
+  const handelDownload = () => {
+    workbook.xlsx.writeBuffer().then(function (buffer: any) {
+      const blob = new Blob([buffer], { type: 'applicationi/xlsx' });
+      saveAs(blob, 'myexcel.xlsx');
+    });
+  };
   return (
     <Box
       sx={{
@@ -136,15 +212,15 @@ export default function EnhancedTable({
               selectedCheckbox={selectedCheckbox}
               SelectAll={SelectAll}
               HeaderComponent={HeaderComponent}
+              handelDownload={handelDownload}
             />
           </Box>
         </Box>
         <TableContainer
           className="tableContainer"
-          sx={{ minHeight: tableMinHeight }}
+          sx={{ minHeight: tableMinHeight, borderRadius:tableBorderRadius }}
         >
           <Table
-            stickyHeader
             sx={{ ...Cusmstyle.tableContainer, minWidth: tableMinWidth }}
             aria-labelledby="tableTitle"
             size={dense}
@@ -167,6 +243,7 @@ export default function EnhancedTable({
               setSelectedCheckbox={setSelectedCheckbox}
               selectedCheckbox={selectedCheckbox}
               cellOptions={cellOptions}
+              rowOptions={rowOptions}
             />
           </Table>
         </TableContainer>
@@ -193,6 +270,7 @@ const EnhancedHeader = (props: any) => {
           HeaderComponent={props?.HeaderComponent}
           selectedCheckbox={props?.selectedCheckbox}
           SelectAll={props?.SelectAll}
+          handelDownload={props?.handelDownload}
         />
       );
     case 2:
@@ -200,7 +278,7 @@ const EnhancedHeader = (props: any) => {
     case 'CUSTOM':
       return props?.HeaderComponent?.component;
     default:
-      return <HeaderOne />;
+      return;
   }
 };
 
@@ -233,6 +311,7 @@ EnhancedTableHead.defaultProps = {
   isSelectedAll: false,
   dense: 'small',
   headerOptions: {},
+  rowOptions:{},
   cellOptions: {},
 };
 

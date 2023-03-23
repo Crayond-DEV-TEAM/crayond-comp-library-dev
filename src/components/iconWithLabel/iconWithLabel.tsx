@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 import { Cusmstyle } from '../table/style';
 
 export default function IconWithLabel(props: any) {
-   const {Celldata, val} = props;
+   const {Celldata, val, cellStyle} = props;
   return (
     <Box display={"flex"}>
     <Box
@@ -21,6 +21,8 @@ export default function IconWithLabel(props: any) {
         color: Celldata[val.name]?.color
           ? Celldata[val.name]?.color
           : '#7692cc',
+        fontSize: cellStyle?.fontSize,
+        fontWeight: cellStyle?.fontWeight
       }}
     >
       {Celldata[val.name]?.label}
@@ -33,4 +35,5 @@ export default function IconWithLabel(props: any) {
 IconWithLabel.defaultProps = {
   Celldata: {},
   val: {},
+  cellStyle:{}
 };

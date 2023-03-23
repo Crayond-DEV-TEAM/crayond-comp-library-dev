@@ -36,6 +36,7 @@ const BodyRowLogic = ({
     fontWeight: cellOptions?.fontWeight,
     backgroundColor: cellOptions?.bgColor,
     borderBottom: cellOptions?.borderBottom,
+    padding:cellOptions?.padding
   };
   switch (val?.type?.[0]) {
     case 'INCREMENT':
@@ -88,7 +89,7 @@ const BodyRowLogic = ({
     case 'ICON_WITH_LABEL':
       return (
         <TableCell sx={cellStyle} key={i + 'LABEL'}>
-          <IconWithLabel Celldata={Celldata} val={val} />
+          <IconWithLabel cellStyle={cellStyle} Celldata={Celldata} val={val} />
         </TableCell>
       );
     case 'ICON_WITH_TEXT':
@@ -188,12 +189,24 @@ export const EnhancedTableBody = ({
   handleSwitch,
   checkboxHandleChange,
   cellOptions,
+  rowOptions,
 }: any) => {
   return (
     <TableBody>
       {Body?.map((data: any, rowIndex: number) => {
         return (
-          <TableRow key={'Row' + rowIndex}>
+          <TableRow key={'Row' + rowIndex} sx={{
+            '&:nth-of-type(odd)': {
+              background : rowOptions?.rowOddBgColor,
+            },
+            '&:nth-of-type(even)': {
+              background : rowOptions?.rowEvenBgColor,
+            },
+            // hide last border
+            '&:last-child td, &:last-child th': {
+              border: 0,
+            },
+          }}>
             {TableData.map((val: any, i: number) => {
               return (
                 <BodyRowLogic
