@@ -21,13 +21,9 @@ export default function StarRating(props: any) {
       }}
       arrow
     >
-      <Box>
-        <Rating
-          defaultValue={Celldata[val.name]}
-          readOnly
-          precision={0.5}
-        />
-      </Box>
+      <span>
+      <Rating defaultValue={Celldata[val.name]} readOnly precision={0.5} />
+      </span>
     </Tooltip>
   );
 }

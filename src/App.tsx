@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
-import { CommonTable } from '@components';
+import { BasicButtons, CommonTable } from '@components';
 import DeleteIcon from './assets/deleteIcon';
 import FunnelIcon from './assets/funnelIcon';
 import SearchIcon from './assets/searchIcon';
 import DownloadIcon from './assets/downloadIcon';
 import DocsIcon from './assets/docsIcon';
+import EditIcon from './assets/editIcon';
 // import './App.css';
 
 function App() {
-  const [isSelectedAll, setIsSelectedAll] = React.useState(false)
+  const [isSelectedAll, setIsSelectedAll] = React.useState(false);
   const [selectedCheckbox, setSelectedCheckbox] = React.useState([1, 2]);
   const [switchList, setSwitchList] = React.useState([1, 4]);
-  const [headerSelect, setHederSelect] = React.useState('status');
+  const [headerSelect, setHederSelect] = React.useState('');
   const [headerCheckbox, setHederCheckbox] = React.useState(true);
   const checkboxHandleChange = (data: any) => {
     if (!selectedCheckbox.includes(data)) {
@@ -26,9 +27,9 @@ function App() {
       }
     }
   };
-const setHederSearch = (value:any) => {
-  console.log("🚀 ~ file: App.tsx:31 ~ setHederSearch ~ value:", value)
-}
+  const setHederSearch = (value: any) => {
+    console.log('🚀 ~ file: App.tsx:31 ~ setHederSearch ~ value:', value);
+  };
   const SelectAll = (data: any, isRestSet: boolean) => {
     if (!isRestSet) {
       setSelectedCheckbox([...data]);
@@ -49,18 +50,18 @@ const setHederSearch = (value:any) => {
       }
     }
   };
-  const downloadMethod =()=>{
-    console.log("Download Method working!");
-  }
-  const fillerMethod =()=>{
-    console.log("Filter Method working!");
-  }
-  const primaryBtnMethod =()=>{
-    console.log("primary Btn Method working!");
-  }
-  const secondaryBtnMethod =()=>{
-    console.log("secondary Btn Method working!");
-  }
+  const downloadMethod = () => {
+    console.log('Download Method working!');
+  };
+  const fillerMethod = () => {
+    console.log('Filter Method working!');
+  };
+  const primaryBtnMethod = () => {
+    console.log('primary Btn Method working!');
+  };
+  const secondaryBtnMethod = () => {
+    console.log('secondary Btn Method working!');
+  };
   return (
     <div className="App" style={{ width: '99vw', height: '100vh' }}>
       <CommonTable
@@ -168,6 +169,36 @@ const setHederSearch = (value:any) => {
             disablePadding: false,
             label: 'Experience',
           },
+          {
+            id: 'link',
+            align: 'center',
+            disablePadding: false,
+            label: 'Link',
+          },
+          {
+            id: 'custom',
+            align: 'center',
+            disablePadding: false,
+            label: 'Custom',
+          },
+          {
+            id: 'alert_type',
+            align: 'center',
+            disablePadding: false,
+            label: 'Alert Type',
+          },
+          {
+            id: 'response',
+            align: 'center',
+            disablePadding: false,
+            label: 'Response',
+          },
+          {
+            id: 'action',
+            align: 'center',
+            disablePadding: false,
+            label: 'Action',
+          },
         ]}
         dataList={[
           {
@@ -243,7 +274,18 @@ const setHederSearch = (value:any) => {
               value: 2.5,
               variant: 'POSITIVE',
             },
-            experience: "2023-03-15T18:43:21.055Z",
+            experience: '2023-03-15T18:43:21.055Z',
+            custom: <BasicButtons>Button 1</BasicButtons>,
+            alert_type: {
+              label: 'Filter',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
+              icon: <FunnelIcon />,
+            },
+            response: {
+              label: 'sent',
+              icon: <FunnelIcon />,
+            },
           },
           {
             id: 2,
@@ -314,7 +356,18 @@ const setHederSearch = (value:any) => {
               value: 0.5,
               variant: 'NEGATIVE',
             },
-            experience: "2023-03-05T18:43:21.055Z",
+            experience: '2023-03-05T18:43:21.055Z',
+            custom: <BasicButtons>Button 2</BasicButtons>,
+            alert_type: {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+              icon: <FunnelIcon />,
+            },
+            response: {
+              label: 'sent',
+              icon: <FunnelIcon />,
+            },
           },
           {
             id: 3,
@@ -381,7 +434,18 @@ const setHederSearch = (value:any) => {
               value: 0.1,
               variant: 'NEGATIVE',
             },
-            experience: "2022-01-15T18:43:21.055Z",
+            experience: '2022-01-15T18:43:21.055Z',
+            custom: <BasicButtons>Button 3</BasicButtons>,
+            alert_type: {
+              label: 'Delete',
+              color: '#F44F5A',
+              bgColor: '#FCCACD',
+              icon: <DeleteIcon />,
+            },
+            response: {
+              label: 'Not Delivered',
+              icon: <DeleteIcon />,
+            },
           },
           {
             id: 4,
@@ -444,7 +508,18 @@ const setHederSearch = (value:any) => {
               value: 3.2,
               variant: 'POSITIVE',
             },
-            experience: "2023-01-11T18:43:21.055Z",
+            experience: '2023-01-11T18:43:21.055Z',
+            custom: <BasicButtons>Button 4</BasicButtons>,
+            alert_type: {
+              label: 'Edit',
+              color: '#6f6f6f',
+              bgColor: '#DEDEDE',
+              icon: <EditIcon />,
+            },
+            response: {
+              label: 'sent',
+              icon: <FunnelIcon />,
+            },
           },
           {
             id: 5,
@@ -503,7 +578,18 @@ const setHederSearch = (value:any) => {
               value: 1.2,
               variant: 'POSITIVE',
             },
-            experience: "2023-02-25T18:43:21.055Z",
+            experience: '2023-02-25T18:43:21.055Z',
+            custom: <BasicButtons>Button 5</BasicButtons>,
+            alert_type: {
+              label: 'Delete',
+              color: '#F44F5A',
+              bgColor: '#FCCACD',
+              icon: <DeleteIcon />,
+            },
+            response: {
+              label: 'sent',
+              icon: <FunnelIcon />,
+            },
           },
           {
             id: 6,
@@ -562,7 +648,18 @@ const setHederSearch = (value:any) => {
               value: 0.74,
               variant: 'NEGATIVE',
             },
-            experience: "2022-12-15T18:43:21.055Z",
+            experience: '2022-12-15T18:43:21.055Z',
+            custom: <BasicButtons>Button 6</BasicButtons>,
+            alert_type: {
+              label: 'Delete',
+              color: '#F44F5A',
+              bgColor: '#FCCACD',
+              icon: <DeleteIcon />,
+            },
+            response: {
+              label: 'sent',
+              icon: <FunnelIcon />,
+            },
           },
           {
             id: 7,
@@ -625,7 +722,18 @@ const setHederSearch = (value:any) => {
               value: 0.63,
               variant: 'NEGATIVE',
             },
-            experience: "2022-06-02T18:43:21.055Z",
+            experience: '2022-06-02T18:43:21.055Z',
+            custom: <BasicButtons>Button 7</BasicButtons>,
+            alert_type: {
+              label: 'Delete',
+              color: '#F44F5A',
+              bgColor: '#FCCACD',
+              icon: <DeleteIcon />,
+            },
+            response: {
+              label: 'sent',
+              icon: <FunnelIcon />,
+            },
           },
         ]}
         tableData={[
@@ -653,8 +761,46 @@ const setHederSearch = (value:any) => {
           },
           { type: ['STAR_RATING'], name: 'global_rating' },
           { type: ['GROWTH'], name: 'growth' },
-          { type: ['DATE'], name: 'experience', format:"YYYY MMM DD"},
+          { type: ['DATE'], name: 'experience', format: 'YYYY MMM DD' },
+          {
+            type: ['LINK'],
+            name: 'link',
+            label: 'view',
+            viewHandel: (id: any) => {
+              console.log(id);
+            },
+          },
+          { type: ['CUSTOM'], name: 'custom' },
+          { type: ['ICON_WITH_LABEL'], name: 'alert_type' },
+          { type: ['ICON_WITH_TEXT'], name: 'response' },
+          {
+            type: ['ACTION'],
+            name: 'action',
+            variant: 'EDIT_WITH_DELETE',
+            editHandel: (id: any) => {
+              console.log(id);
+            },
+            deleteHandel: (id: any) => {
+              console.log(id);
+            },
+            editIcon: <EditIcon />,
+            deleteIcon: <DeleteIcon width={'16px'} height={'16px'} />,
+          },
         ]}
+        headerOptions={{
+          fontSize: '18px',
+          fontWeight: '600',
+          color: '#353448',
+          bgColor: '#fff',
+          borderBottom: '1px solid #E6E6E6',
+        }}
+        cellOptions={{
+          fontSize: '14px',
+          fontWeight: '500',
+          color: '#353448',
+          bgColor: '#fff',
+          borderBottom: '1px solid #E6E6E6',
+        }}
         selectedCheckbox={selectedCheckbox}
         switchList={switchList}
         checkboxHandleChange={checkboxHandleChange}
@@ -662,23 +808,23 @@ const setHederSearch = (value:any) => {
         SelectAll={SelectAll}
         isSelectedAll={isSelectedAll}
         handleSwitch={handleSwitch}
-        tableMinWidth={'2750px'}
+        tableMinWidth={'3350px'}
         tableMinHeight={'465px'}
         tableName={'Team Member'}
         paddingAll={'0px'}
         padding={['1px', '1px', '1px', '1px']}
         marginAll={'0px'}
         margin={['0px', '1px', '0px', '1px']}
-        dense ={"medium"} 
+        dense={'medium'}
         HeaderComponent={{
           variant: 1,
           headerSelect: headerSelect,
           setHederSelect: setHederSelect,
-          searchPlaceholder:"Search",
+          searchPlaceholder: 'Search',
           selectOption: [
             {
               label: 'Status',
-              value: 'status',
+              value: '',
             },
             {
               label: 'Active',
@@ -689,17 +835,17 @@ const setHederSearch = (value:any) => {
               value: 'inactive',
             },
           ],
-          setHederSearch:setHederSearch,
-          deleteIcon:<DeleteIcon/>,
-          downloadIcon:<DownloadIcon/>,
-          funnelIcon:<FunnelIcon/>,
-          searchIcon:<SearchIcon/>,
-          fillerMethod:fillerMethod,
-          downloadMethod:downloadMethod,
+          setHederSearch: setHederSearch,
+          deleteIcon: <DeleteIcon />,
+          downloadIcon: <DownloadIcon />,
+          funnelIcon: <FunnelIcon />,
+          searchIcon: <SearchIcon />,
+          fillerMethod: fillerMethod,
+          downloadMethod: downloadMethod,
         }}
         // HeaderComponent={{
-        //   variant: 2,         
-        //   searchPlaceholder:"Search by name, email",          
+        //   variant: 2,
+        //   searchPlaceholder:"Search by name, email",
         //   setHederSearch:setHederSearch,
         //   checkboxLabel:"Show only my reportees",
         //   primaryBtnText:"Add Member",

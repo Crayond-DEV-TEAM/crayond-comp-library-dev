@@ -38,4 +38,6 @@ export interface TableProps {
   HeaderComponent: any;
   isSelectedAll: boolean;
   dense: 'small' | 'medium' | undefined;
+  headerOptions: object;
+  cellOptions: object;
 }

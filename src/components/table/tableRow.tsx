@@ -15,6 +15,10 @@ import { StarRating } from '../starRating';
 import { Text } from '../text';
 import { Growth } from '../growth';
 import { Date } from '../date';
+import { Action } from '../action';
+import { Link } from '../link';
+import { IconWithLabel } from '../iconWithLabel';
+import { IconWithText } from '../iconWithText';
 
 const BodyRowLogic = ({
   val,
@@ -24,18 +28,26 @@ const BodyRowLogic = ({
   switchList,
   checkboxHandleChange,
   handleSwitch,
+  cellOptions,
 }: any) => {
+  const cellStyle = {
+    fontSize: cellOptions?.fontSize,
+    color: cellOptions?.color,
+    fontWeight: cellOptions?.fontWeight,
+    backgroundColor: cellOptions?.bgColor,
+    borderBottom: cellOptions?.borderBottom,
+  };
   switch (val?.type?.[0]) {
     case 'INCREMENT':
       return (
-        <TableCell key={i + 'INCREMENT'}>
+        <TableCell sx={cellStyle} key={i + 'INCREMENT'}>
           <Typography> {Celldata?.id}</Typography>{' '}
         </TableCell>
       );
 
     case 'CHECKBOX':
       return (
-        <TableCell key={i + 'CHECKBOX'}>
+        <TableCell sx={cellStyle} key={i + 'CHECKBOX'}>
           <CustomCheckbox
             value={selectedCheckbox?.includes(Celldata?.id)}
             name={Celldata?.id}
@@ -46,85 +58,114 @@ const BodyRowLogic = ({
 
     case 'TEXT':
       return (
-        <TableCell key={i + 'TEXT'}>
+        <TableCell sx={cellStyle} key={i + 'TEXT'}>
           <Text Celldata={Celldata} val={val} />
         </TableCell>
       );
 
     case 'SWITCH':
       return (
-        <TableCell key={i + 'SWITCH'}>
+        <TableCell sx={cellStyle} key={i + 'SWITCH'}>
           <CustomizedSwitches
             onChange={handleSwitch}
             id={Celldata?.id}
             value={switchList?.includes(Celldata?.id)}
             label={
               switchList?.includes(Celldata?.id)
-              ? val?.switchText?.[0]?.lable_2
-              : val?.switchText?.[0]?.lable_1
+                ? val?.switchText?.[0]?.lable_2
+                : val?.switchText?.[0]?.lable_1
             }
-            />
+          />
         </TableCell>
       );
 
     case 'LABEL':
       return (
-        <TableCell key={i + 'LABEL'}>
+        <TableCell sx={cellStyle} key={i + 'LABEL'}>
           <Label Celldata={Celldata} val={val} />
         </TableCell>
       );
-
+    case 'ICON_WITH_LABEL':
+      return (
+        <TableCell sx={cellStyle} key={i + 'LABEL'}>
+          <IconWithLabel Celldata={Celldata} val={val} />
+        </TableCell>
+      );
+    case 'ICON_WITH_TEXT':
+      return (
+        <TableCell sx={cellStyle} key={i + 'LABEL'}>
+          <IconWithText Celldata={Celldata} val={val} />
+        </TableCell>
+      );
     case 'PROGRESS':
       return (
-        <TableCell key={i + 'PROGRESS'}>
+        <TableCell sx={cellStyle} key={i + 'PROGRESS'}>
           <Progress value={Celldata[val.name]} />
         </TableCell>
       );
     case 'IMAGE_WITH_LABEL':
       return (
-        <TableCell key={i + 'IMAGE_WITH_LABEL'}>
+        <TableCell sx={cellStyle} key={i + 'IMAGE_WITH_LABEL'}>
           <ImageWithLabel Celldata={Celldata} val={val} />
         </TableCell>
       );
     case 'IMAGE_WITH_PROFILES':
       return (
-        <TableCell key={i + 'IMAGE_WITH_PROFILES'}>
+        <TableCell sx={cellStyle} key={i + 'IMAGE_WITH_PROFILES'}>
           <ImageWithProfiles Celldata={Celldata} val={val} />
         </TableCell>
       );
     case 'PERFORMANCE':
       return (
-        <TableCell key={i + 'PERFORMANCE'}>
+        <TableCell sx={cellStyle} key={i + 'PERFORMANCE'}>
           <Performance Celldata={Celldata} val={val} />
         </TableCell>
       );
     case 'AVATAR_NAME':
       return (
-        <TableCell key={i + 'AVATAR_NAME'}>
+        <TableCell sx={cellStyle} key={i + 'AVATAR_NAME'}>
           <AvatarName Celldata={Celldata} val={val} />
         </TableCell>
       );
     case 'STAR_RATING':
       return (
-        <TableCell key={i + 'STAR_RATING'}>
+        <TableCell sx={cellStyle} key={i + 'STAR_RATING'}>
           <StarRating Celldata={Celldata} val={val} />
         </TableCell>
       );
     case 'GROWTH':
       return (
-        <TableCell key={i + 'GROWTH'}>
+        <TableCell sx={cellStyle} key={i + 'GROWTH'}>
           <Growth Celldata={Celldata} val={val} />
         </TableCell>
       );
     case 'DATE':
       return (
-        <TableCell key={i + 'DATE'}>
+        <TableCell sx={cellStyle} key={i + 'DATE'}>
           <Date Celldata={Celldata} val={val} />
         </TableCell>
       );
+    case 'ACTION':
+      return (
+        <TableCell sx={cellStyle} key={i + 'ACTION'}>
+          <Action Celldata={Celldata} val={val} />
+        </TableCell>
+      );
+    case 'LINK':
+      return (
+        <TableCell sx={cellStyle} key={i + 'LINK'}>
+          <Link Celldata={Celldata} val={val} />
+        </TableCell>
+      );
+    // case 'LINK':
+    //   return (
+    //     <TableCell sx={cellStyle} key={i + 'LINK'}>
+    //      { Celldata[val.name]}
+    //     </TableCell>
+    //   );
     default:
       return (
-        <TableCell key={i + 'default'}>
+        <TableCell sx={cellStyle} key={i + 'default'}>
           <Text Celldata={Celldata} val={val} />
         </TableCell>
       );
@@ -146,14 +187,13 @@ export const EnhancedTableBody = ({
   switchList,
   handleSwitch,
   checkboxHandleChange,
+  cellOptions,
 }: any) => {
   return (
     <TableBody>
       {Body?.map((data: any, rowIndex: number) => {
         return (
-          <TableRow
-            key={'Row' + rowIndex}
-          >
+          <TableRow key={'Row' + rowIndex}>
             {TableData.map((val: any, i: number) => {
               return (
                 <BodyRowLogic
@@ -166,6 +206,7 @@ export const EnhancedTableBody = ({
                   handleSwitch={handleSwitch}
                   checkboxHandleChange={checkboxHandleChange}
                   selectedCheckbox={selectedCheckbox}
+                  cellOptions={cellOptions}
                 />
               );
             })}

@@ -24,12 +24,12 @@ export const Cusmstyle = {
     fontWeight: '600',
   },
   tableHeader: {
-    fontSize: '18px',
-    fontWeight: '600',
+    fontSize: 'inherit',
+    fontWeight: 'inherit',
   },
   cellText:{
-  fontSize:"16px",
-  fontWeight:"500",
+  fontSize:"inherit",
+  fontWeight:"inherit",
   },
   labelBackground: {
     display: 'inline-block',
@@ -37,9 +37,23 @@ export const Cusmstyle = {
     backgroundColor: '#e2eafa',
     borderRadius: '4px',
   },
+  iconText: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+  },
+  labelIconBackground: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    
+    padding: '2px 8px',
+    backgroundColor: '#e2eafa',
+    borderRadius: '4px',
+  },
   labelText: {
     color: '#7692cc',
-    fontSize: '14px',
+    fontSize: 'inherit',
   },
   progressBar: {
     height: '6px',
@@ -55,7 +69,7 @@ export const Cusmstyle = {
       stroke: '#EAEAEA',
     },
   },
-  avaterText: {
+  avatarText: {
     width: '28px',
     height: '28px',
     '& h6': {
@@ -74,7 +88,7 @@ export const Cusmstyle = {
     gap: '4px',
   },
   popoverProfile: {
-    backgrundColor: '#fff',
+    backgroundColor: '#fff',
     padding: '8px',
   },
   profileImage: {
@@ -89,11 +103,17 @@ export const Cusmstyle = {
     padding: '0px',
   },
   negativeGrowth: {
-    fontSize: '14px',
+    fontSize: 'inherit',
     color: '#F44F5A',
   },
   positiveGrowth: {
-    fontSize: '14px',
+    fontSize: 'inherit',
     color: '#25C460',
   },
+  link:{
+    color:"primary.main",
+    fontSize: 'inherit',
+    textDecoration:"underline",
+    cursor:"pointer"
+  }
 };
