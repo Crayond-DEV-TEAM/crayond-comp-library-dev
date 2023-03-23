@@ -182,6 +182,18 @@ function App() {
             label: 'Custom',
           },
           {
+            id: 'alert_type',
+            align: 'center',
+            disablePadding: false,
+            label: 'Alert Type',
+          },
+          {
+            id: 'response',
+            align: 'center',
+            disablePadding: false,
+            label: 'Response',
+          },
+          {
             id: 'action',
             align: 'center',
             disablePadding: false,
@@ -263,7 +275,17 @@ function App() {
               variant: 'POSITIVE',
             },
             experience: '2023-03-15T18:43:21.055Z',
-            custom:<BasicButtons >Button 1</BasicButtons>
+            custom: <BasicButtons>Button 1</BasicButtons>,
+            alert_type: {
+              label: 'Filter',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
+              icon: <FunnelIcon />,
+            },
+            response: {
+              label: 'sent',
+              icon: <FunnelIcon />,
+            },
           },
           {
             id: 2,
@@ -335,7 +357,17 @@ function App() {
               variant: 'NEGATIVE',
             },
             experience: '2023-03-05T18:43:21.055Z',
-            custom:<BasicButtons >Button 2</BasicButtons>
+            custom: <BasicButtons>Button 2</BasicButtons>,
+            alert_type: {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+              icon: <FunnelIcon />,
+            },
+            response: {
+              label: 'sent',
+              icon: <FunnelIcon />,
+            },
           },
           {
             id: 3,
@@ -403,7 +435,17 @@ function App() {
               variant: 'NEGATIVE',
             },
             experience: '2022-01-15T18:43:21.055Z',
-            custom:<BasicButtons >Button 3</BasicButtons>,
+            custom: <BasicButtons>Button 3</BasicButtons>,
+            alert_type: {
+              label: 'Delete',
+              color: '#F44F5A',
+              bgColor: '#FCCACD',
+              icon: <DeleteIcon />,
+            },
+            response: {
+              label: 'Not Delivered',
+              icon: <DeleteIcon />,
+            },
           },
           {
             id: 4,
@@ -467,7 +509,17 @@ function App() {
               variant: 'POSITIVE',
             },
             experience: '2023-01-11T18:43:21.055Z',
-            custom:<BasicButtons >Button 4</BasicButtons>,
+            custom: <BasicButtons>Button 4</BasicButtons>,
+            alert_type: {
+              label: 'Edit',
+              color: '#6f6f6f',
+              bgColor: '#DEDEDE',
+              icon: <EditIcon />,
+            },
+            response: {
+              label: 'sent',
+              icon: <FunnelIcon />,
+            },
           },
           {
             id: 5,
@@ -527,7 +579,17 @@ function App() {
               variant: 'POSITIVE',
             },
             experience: '2023-02-25T18:43:21.055Z',
-            custom:<BasicButtons >Button 5</BasicButtons>,
+            custom: <BasicButtons>Button 5</BasicButtons>,
+            alert_type: {
+              label: 'Delete',
+              color: '#F44F5A',
+              bgColor: '#FCCACD',
+              icon: <DeleteIcon />,
+            },
+            response: {
+              label: 'sent',
+              icon: <FunnelIcon />,
+            },
           },
           {
             id: 6,
@@ -587,7 +649,17 @@ function App() {
               variant: 'NEGATIVE',
             },
             experience: '2022-12-15T18:43:21.055Z',
-            custom:<BasicButtons >Button 6</BasicButtons>,
+            custom: <BasicButtons>Button 6</BasicButtons>,
+            alert_type: {
+              label: 'Delete',
+              color: '#F44F5A',
+              bgColor: '#FCCACD',
+              icon: <DeleteIcon />,
+            },
+            response: {
+              label: 'sent',
+              icon: <FunnelIcon />,
+            },
           },
           {
             id: 7,
@@ -651,7 +723,17 @@ function App() {
               variant: 'NEGATIVE',
             },
             experience: '2022-06-02T18:43:21.055Z',
-            custom:<BasicButtons >Button 7</BasicButtons>,
+            custom: <BasicButtons>Button 7</BasicButtons>,
+            alert_type: {
+              label: 'Delete',
+              color: '#F44F5A',
+              bgColor: '#FCCACD',
+              icon: <DeleteIcon />,
+            },
+            response: {
+              label: 'sent',
+              icon: <FunnelIcon />,
+            },
           },
         ]}
         tableData={[
@@ -680,18 +762,45 @@ function App() {
           { type: ['STAR_RATING'], name: 'global_rating' },
           { type: ['GROWTH'], name: 'growth' },
           { type: ['DATE'], name: 'experience', format: 'YYYY MMM DD' },
-          { type: ['LINK'], name: 'link', label:"view", viewHandel:(id:any)=>{console.log(id)}},
-          { type: ['CUSTOM'], name: 'custom',},
+          {
+            type: ['LINK'],
+            name: 'link',
+            label: 'view',
+            viewHandel: (id: any) => {
+              console.log(id);
+            },
+          },
+          { type: ['CUSTOM'], name: 'custom' },
+          { type: ['ICON_WITH_LABEL'], name: 'alert_type' },
+          { type: ['ICON_WITH_TEXT'], name: 'response' },
           {
             type: ['ACTION'],
             name: 'action',
             variant: 'EDIT_WITH_DELETE',
-            editHandel:(id:any)=>{console.log(id)},
-            deleteHandel:(id:any)=>{console.log(id)},
+            editHandel: (id: any) => {
+              console.log(id);
+            },
+            deleteHandel: (id: any) => {
+              console.log(id);
+            },
             editIcon: <EditIcon />,
             deleteIcon: <DeleteIcon width={'16px'} height={'16px'} />,
           },
         ]}
+        headerOptions={{
+         fontSize:"18px",
+         fontWeight:"600",
+         color:"#353448",
+         bgColor:"#fff",
+         borderBottom:"1px solid #E6E6E6"
+        }}
+        cellOptions={{
+          fontSize:"14px",
+          fontWeight:"500",
+          color:"#353448",
+          bgColor:"#fff",
+          borderBottom:"1px solid #E6E6E6"
+        }}
         selectedCheckbox={selectedCheckbox}
         switchList={switchList}
         checkboxHandleChange={checkboxHandleChange}

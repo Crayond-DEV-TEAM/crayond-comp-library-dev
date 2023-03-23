@@ -32,7 +32,7 @@ export default function AvatarName(props: any) {
       >
         <Avatar
           sx={{
-            ...Cusmstyle.avaterText,
+            ...Cusmstyle.avatarText,
             backgroundColor: avater?.color,
           }}
         >

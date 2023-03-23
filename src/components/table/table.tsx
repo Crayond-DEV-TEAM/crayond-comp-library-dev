@@ -21,6 +21,7 @@ const EnhancedTableHead = ({
   Header,
   selectAllCheckbox,
   isSelectedAll,
+  headerOptions
 }: any) => {
   return (
     <TableHead>
@@ -31,6 +32,13 @@ const EnhancedTableHead = ({
               key={'Header' + i}
               align={val?.align}
               padding={val.disablePadding ? 'none' : 'normal'}
+              sx={{
+                fontSize:headerOptions?.fontSize,
+                color:headerOptions?.color,
+                fontWeight:headerOptions?.fontWeight,
+                backgroundColor:headerOptions?.bgColor,
+                borderBottom:headerOptions?.borderBottom,
+              }}
             >
               {val?.varient === 'CHECKBOX' ? (
                 <FormControlLabel
@@ -83,6 +91,8 @@ export default function EnhancedTable({
   HeaderComponent,
   isSelectedAll,
   dense,
+  headerOptions,
+  cellOptions,
 }: TableProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -103,15 +113,15 @@ export default function EnhancedTable({
     <Box
       sx={{
         margin: marginAll,
-        marginTop: margin[0],
-        marginRight: margin[1],
-        marginBottom: margin[2],
-        marginLeft: margin[3],
+        marginTop: margin?.[0],
+        marginRight: margin?.[1],
+        marginBottom: margin?.[2],
+        marginLeft: margin?.[3],
         padding: paddingAll,
-        paddingTop: padding[0],
-        paddingRight: padding[1],
-        paddingBottom: padding[2],
-        paddingLeft: padding[3],
+        paddingTop: padding?.[0],
+        paddingRight: padding?.[1],
+        paddingBottom: padding?.[2],
+        paddingLeft: padding?.[3],
       }}
     >
       <Paper sx={Cusmstyle.tablePaper}>
@@ -141,6 +151,7 @@ export default function EnhancedTable({
               Header={Header}
               selectAllCheckbox={selectAllCheckbox}
               isSelectedAll={isSelectedAll}
+              headerOptions={headerOptions}
             />
             <EnhancedTableBody
               Body={dataList?.slice(
@@ -153,6 +164,7 @@ export default function EnhancedTable({
               checkboxHandleChange={checkboxHandleChange}
               setSelectedCheckbox={setSelectedCheckbox}
               selectedCheckbox={selectedCheckbox}
+              cellOptions={cellOptions}
             />
           </Table>
         </TableContainer>
@@ -194,6 +206,8 @@ EnhancedTable.defaultProps = {
   Header: [],
   selectAllCheckbox: () => {},
   isSelectedAll: false,
+  cellOptions:{},
+  headerOptions:{},
 };
 
 EnhancedTableHead.defaultProps = {
@@ -216,6 +230,8 @@ EnhancedTableHead.defaultProps = {
   HeaderComponent: {},
   isSelectedAll: false,
   dense: 'small',
+  headerOptions:{},
+  cellOptions:{},
 };
 
 EnhancedHeader.defaultProps = {
