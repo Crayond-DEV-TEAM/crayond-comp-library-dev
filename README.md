@@ -13,6 +13,8 @@ This boilerplate is designed to help you quickly set up a npm package using Vite
 
 ## To Run Locally
 
+[Storybook link https://common-table.netlify.app](https://common-table.netlify.app/?path=/story/commontable-action--primary)
+
 Clone the project
 
 ```bash
