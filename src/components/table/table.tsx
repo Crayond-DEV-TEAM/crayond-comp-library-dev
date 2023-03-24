@@ -100,6 +100,7 @@ export default function EnhancedTable({
   cellOptions,
   rowOptions,
   tableBorderRadius,
+  tableBackground,
 }: TableProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -200,9 +201,10 @@ export default function EnhancedTable({
         paddingRight: padding?.[1],
         paddingBottom: padding?.[2],
         paddingLeft: padding?.[3],
+        backgroundColor: tableBackground
       }}
     >
-      <Paper sx={Cusmstyle.tablePaper} className={'TABLE_PAPER'}>
+      <Paper sx={{...Cusmstyle.tablePaper,backgroundColor: tableBackground }} className={'TABLE_PAPER'}>
         <Box sx={Cusmstyle.titleContainer} className={'TABLE_BOX'}>
           <Box>
             <Typography className={'TABLE_TITLE'} sx={Cusmstyle.tableTitle}>
@@ -317,6 +319,7 @@ EnhancedTable.defaultProps = {
   headerOptions: {},
   rowOptions: {},
   cellOptions: {},
+  tableBackground:"",
 };
 
 EnhancedHeader.defaultProps = {

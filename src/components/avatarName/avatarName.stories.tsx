@@ -5,9 +5,6 @@ import { AvatarName } from './index';
 export default {
   title: 'CommonTable/AvatarName',
   component: AvatarName,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
 } as ComponentMeta<typeof AvatarName>;
 
 const Template: ComponentStory<typeof AvatarName> = (args) => (

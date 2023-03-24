@@ -5,9 +5,7 @@ import { CustomCheckbox } from './index';
 export default {
   title: 'CommonTable/CustomCheckbox',
   component: CustomCheckbox,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+ 
 } as ComponentMeta<typeof CustomCheckbox>;
 
 const Template: ComponentStory<typeof CustomCheckbox> = (args) => (

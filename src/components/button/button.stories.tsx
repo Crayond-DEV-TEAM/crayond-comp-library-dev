@@ -8,9 +8,6 @@ export default {
   title: 'CommonTable/Button',
   component: BasicButtons,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
 } as ComponentMeta<typeof BasicButtons>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args

@@ -7,9 +7,6 @@ import { Action } from './index';
 export default {
   title: 'CommonTable/Action',
   component: Action,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
 } as ComponentMeta<typeof Action>;
 
 const Template: ComponentStory<typeof Action> = (args) => (

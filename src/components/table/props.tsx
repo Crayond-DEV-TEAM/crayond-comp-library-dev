@@ -43,4 +43,5 @@ export interface TableProps {
   rowOptions: object;
   cellOptions: object;
   tableBorderRadius:any;
+  tableBackground:string;
 }

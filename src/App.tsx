@@ -65,7 +65,7 @@ function App() {
     console.log('secondary Btn Method working!');
   };
   return (
-    <div className="App" style={{ width: '99vw', height: '100vh' }}>
+    <div className="App" style={{ width: '100vw', height: '100vh' }}>
       <CommonTable
         Header={[
           {
@@ -809,6 +809,7 @@ function App() {
           borderBottom: '0px solid #E6E6E6',
           padding:"12px",
         }}
+        tableBackground={"#ffffff"}
         selectedCheckbox={selectedCheckbox}
         switchList={switchList}
         checkboxHandleChange={checkboxHandleChange}

@@ -7,7 +7,6 @@ export const Cusmstyle = {
     minHeight: '100%',
     boxShadow: 'none',
     overflow: 'hidden',
-    backgroundColor: 'transparent',
   },
   tableContainer: {
     overflow: 'auto',

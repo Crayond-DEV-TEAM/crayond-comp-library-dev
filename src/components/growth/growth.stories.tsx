@@ -4,9 +4,7 @@ import { Growth } from './index';
 export default {
   title: 'CommonTable/Growth',
   component: Growth,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+ 
 } as ComponentMeta<typeof Growth>;
 
 const Template: ComponentStory<typeof Growth> = (args) => <Growth {...args} />;

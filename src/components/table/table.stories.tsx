@@ -10,9 +10,7 @@ import { CommonTable } from './index';
 export default {
   title: 'CommonTable/CommonTable',
   component: CommonTable,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+ 
 } as ComponentMeta<typeof CommonTable>;
 
 const Template: ComponentStory<typeof CommonTable> = (args) => (
@@ -769,6 +767,7 @@ Primary.args = {
   handleSwitch: () => {},
   switchList: [],
   SelectAll: () => {},
+  tableBackground:"#ffffff",
   tableMinWidth:'3350px',
   tableMinHeight:'465px',
   tableName:'Team Member',

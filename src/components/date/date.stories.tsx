@@ -7,9 +7,7 @@ import { Date } from './index';
 export default {
   title: 'CommonTable/Date',
   component: Date,
-  argTypes: {
-    backgroundColor: { control: 'color' },
-  },
+ 
 } as ComponentMeta<typeof Date>;
 
 const Template: ComponentStory<typeof Date> = (args) => (
