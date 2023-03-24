@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
 import { BasicButtons, CommonTable } from '@components';
 import DeleteIcon from './assets/deleteIcon';
 import FunnelIcon from './assets/funnelIcon';
@@ -63,11 +65,11 @@ function App() {
     console.log('secondary Btn Method working!');
   };
   return (
-    <div className="App" style={{ width: '99vw', height: '100vh' }}>
+    <div className="App" style={{ width: '100vw', height: '100vh' }}>
       <CommonTable
         Header={[
           {
-            id: 'no',
+            id: 'id',
             align: 'left',
             disablePadding: false,
             label: 'Sl no',
@@ -189,7 +191,7 @@ function App() {
           },
           {
             id: 'response',
-            align: 'center',
+            align: 'left',
             disablePadding: false,
             label: 'Response',
           },
@@ -750,7 +752,7 @@ function App() {
           {
             type: ['SWITCH'],
             name: 'status',
-            switchText: [{ lable_1: 'No', lable_2: 'Yes' }],
+            switchText: [{ label_1: 'No', label_2: 'Yes' }],
           },
           { type: ['PERFORMANCE'], name: 'performance' },
           { type: ['AVATAR_NAME'], name: 'signals' },
@@ -788,19 +790,26 @@ function App() {
           },
         ]}
         headerOptions={{
-          fontSize: '18px',
-          fontWeight: '600',
-          color: '#353448',
-          bgColor: '#fff',
-          borderBottom: '1px solid #E6E6E6',
+          fontSize: '16px',
+          fontWeight: '500',
+          color: '#818181',
+          bgColor: '#EAEAEA',
+          borderBottom: '0px solid #E6E6E6',
+          padding:"12px",
+        }}
+        rowOptions={{
+          rowOddBgColor:"#fff",
+          rowEvenBgColor:"#F7F7F7",
         }}
         cellOptions={{
-          fontSize: '14px',
+          fontSize: '16px',
           fontWeight: '500',
           color: '#353448',
-          bgColor: '#fff',
-          borderBottom: '1px solid #E6E6E6',
+          // bgColor: '#fff',
+          borderBottom: '0px solid #E6E6E6',
+          padding:"12px",
         }}
+        tableBackground={"#ffffff"}
         selectedCheckbox={selectedCheckbox}
         switchList={switchList}
         checkboxHandleChange={checkboxHandleChange}
@@ -815,6 +824,7 @@ function App() {
         padding={['1px', '1px', '1px', '1px']}
         marginAll={'0px'}
         margin={['0px', '1px', '0px', '1px']}
+        tableBorderRadius={"12px"}
         dense={'medium'}
         HeaderComponent={{
           variant: 1,

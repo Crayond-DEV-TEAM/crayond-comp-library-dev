@@ -13,7 +13,7 @@ export default function ImageWithLabel(props: any) {
         alt=""
         src={Celldata[val.name]?.image}
       />
-      <Typography>{Celldata[val.name]?.label}</Typography>
+      <Typography sx={Cusmstyle.fontStyle}>{Celldata[val.name]?.label}</Typography>
     </Box>
   );
 }

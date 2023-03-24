@@ -4,8 +4,8 @@ export const Cusmstyle = {
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    minHeight:"100%",
-    boxShadow:"none",
+    minHeight: '100%',
+    boxShadow: 'none',
     overflow: 'hidden',
   },
   tableContainer: {
@@ -17,7 +17,7 @@ export const Cusmstyle = {
     justifyContent: 'space-between',
     gap: '8px',
     padding: '10px 12px',
-    flexWrap:"wrap",
+    flexWrap: 'wrap',
   },
   tableTitle: {
     fontSize: '20px',
@@ -27,10 +27,7 @@ export const Cusmstyle = {
     fontSize: 'inherit',
     fontWeight: 'inherit',
   },
-  cellText:{
-  fontSize:"inherit",
-  fontWeight:"inherit",
-  },
+
   labelBackground: {
     display: 'inline-block',
     padding: '2px 8px',
@@ -46,7 +43,7 @@ export const Cusmstyle = {
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
-    
+
     padding: '2px 8px',
     backgroundColor: '#e2eafa',
     borderRadius: '4px',
@@ -54,6 +51,10 @@ export const Cusmstyle = {
   labelText: {
     color: '#7692cc',
     fontSize: 'inherit',
+  },
+  fontStyle: {
+    fontSize: 'inherit',
+    fontWeight: 'inherit',
   },
   progressBar: {
     height: '6px',
@@ -110,10 +111,11 @@ export const Cusmstyle = {
     fontSize: 'inherit',
     color: '#25C460',
   },
-  link:{
-    color:"primary.main",
+  link: {
+    color: 'primary.main',
     fontSize: 'inherit',
-    textDecoration:"underline",
-    cursor:"pointer"
-  }
+    fontWeight: 'inherit',
+    textDecoration: 'underline',
+    cursor: 'pointer',
+  },
 };

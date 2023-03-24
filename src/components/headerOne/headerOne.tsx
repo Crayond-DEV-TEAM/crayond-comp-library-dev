@@ -12,6 +12,7 @@ import {
 
 export default function HeaderOne(props: any) {
   const {HeaderComponent} = props;
+  
   return (
     <>
       <Box sx={style.container}>
@@ -96,7 +97,7 @@ export default function HeaderOne(props: any) {
           <Box sx={style.iconContainer} onClick={()=>HeaderComponent?.fillerMethod()}>
           {HeaderComponent?.funnelIcon}
           </Box>
-          <Box sx={style.iconContainer} onClick={()=>HeaderComponent?.downloadMethod()}>
+          <Box sx={style.iconContainer} onClick={()=>{HeaderComponent?.downloadMethod(); props?.handelDownload()}}>
            {HeaderComponent?.downloadIcon}
           </Box>
         </Box>

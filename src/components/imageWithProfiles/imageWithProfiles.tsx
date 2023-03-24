@@ -15,7 +15,7 @@ export default function ImageWithProfile(props: any) {
       src={Celldata[val.name]?.[0]?.image}
     />
     <Box sx={Cusmstyle.imageAndProfiles}>
-      <Typography>{Celldata[val.name]?.[0]?.label}</Typography>
+      <Typography  sx={Cusmstyle.fontStyle}>{Celldata[val.name]?.[0]?.label}</Typography>
       {Celldata[val.name]?.length > 1 && (
         <Tooltip
           title={

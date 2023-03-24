@@ -6,6 +6,7 @@ import  Tooltip from '@mui/material/Tooltip';
 
 export default function AvatarName(props: any) {
   const { Celldata, val } = props;
+  console.log("🚀 ~ file: avatarName.tsx:9 ~ AvatarName ~ Celldata, val:", Celldata,)
   return (
     <Box
     display={'flex'}

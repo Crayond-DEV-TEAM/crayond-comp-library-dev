@@ -6,6 +6,7 @@ interface TableBody {
 }
 
 interface TableHeader {
+  map(arg0: (val: any) => { key: any; width: number; }): any;
   [index: number]: object;
   // disablePadding: boolean;
   // id: keyof TableBody;
@@ -39,5 +40,8 @@ export interface TableProps {
   isSelectedAll: boolean;
   dense: 'small' | 'medium' | undefined;
   headerOptions: object;
+  rowOptions: object;
   cellOptions: object;
+  tableBorderRadius:any;
+  tableBackground:string;
 }

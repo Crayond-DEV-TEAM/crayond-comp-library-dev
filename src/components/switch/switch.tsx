@@ -3,7 +3,7 @@ import Switch, { SwitchProps } from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
-export const CustomSwitch = styled((props: SwitchProps) => (
+const CustomSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
 ))(({ theme }) => ({
   width: 42,
@@ -63,9 +63,9 @@ export const CustomizedSwitches = (props: any) => {
   )
 }
 
-export default CustomizedSwitches;
-
 CustomizedSwitches.defaultProps = {
   onChange: () => {},
   value: false,
 };
+
+

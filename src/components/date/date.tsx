@@ -5,7 +5,7 @@ import moment from 'moment';
 export default function Date(props: any) {
    const {Celldata, val} = props;
   return (
-    <Typography sx={Cusmstyle.cellText}>{moment(Celldata[val.name]).format(val.format)} </Typography>
+    <Typography sx={Cusmstyle.fontStyle}>{moment(Celldata[val.name]).format(val.format)} </Typography>
   );
 }
 
