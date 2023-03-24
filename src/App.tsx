@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
 import { BasicButtons, CommonTable } from '@components';
 import DeleteIcon from './assets/deleteIcon';
 import FunnelIcon from './assets/funnelIcon';
@@ -750,7 +752,7 @@ function App() {
           {
             type: ['SWITCH'],
             name: 'status',
-            switchText: [{ lable_1: 'No', lable_2: 'Yes' }],
+            switchText: [{ label_1: 'No', label_2: 'Yes' }],
           },
           { type: ['PERFORMANCE'], name: 'performance' },
           { type: ['AVATAR_NAME'], name: 'signals' },

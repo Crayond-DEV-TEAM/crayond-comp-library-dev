@@ -16,8 +16,8 @@ import TablePagination from '@mui/material/TablePagination';
 import Typography from '@mui/material/Typography';
 import { HeaderOne } from '../headerOne';
 import { HeaderTwo } from '../HeaderTwo';
-import * as excelJS from 'exceljs';
-import { saveAs } from 'file-saver';
+// import * as excelJS from 'exceljs';
+// import { saveAs } from 'file-saver';
 
 const EnhancedTableHead = ({
   Header,
@@ -116,76 +116,76 @@ export default function EnhancedTable({
     setPage(0);
   };
 
-  const workbook = new excelJS.Workbook();
-  workbook.creator = 'test';
-  workbook.lastModifiedBy = 'test';
-  workbook.created = new Date();
-  workbook.modified = new Date();
+  // const workbook = new excelJS.Workbook();
+  // workbook.creator = 'test';
+  // workbook.lastModifiedBy = 'test';
+  // workbook.created = new Date();
+  // workbook.modified = new Date();
 
-  let sheet:any = workbook.addWorksheet('TABLE');
+  // let sheet:any = workbook.addWorksheet('TABLE');
 
-  // 添加表头
-  sheet.getRow(1).values = Header?.map((val: any) => val.id);
+  // // 添加表头
+  // sheet.getRow(1).values = Header?.map((val: any) => val.id);
 
-  // const datas = dataList?.map((list: any) => {
-  //   console.log('🚀 ~ file: table.tsx:128 ~ datas ~ head:', list);
+  // // const datas = dataList?.map((list: any) => {
+  // //   console.log('🚀 ~ file: table.tsx:128 ~ datas ~ head:', list);
 
-  //   return (Header?.map((val: any) => {
-  //     return { [val?.id]: list?.[val?.id] };
-  //   })).flat(2)
-  // });
-  // console.log('🚀 ~ file: table.tsx:135 ~ column:', datas);
+  // //   return (Header?.map((val: any) => {
+  // //     return { [val?.id]: list?.[val?.id] };
+  // //   })).flat(2)
+  // // });
+  // // console.log('🚀 ~ file: table.tsx:135 ~ column:', datas);
 
-  sheet.columns = Header?.map((val: any) => ({ key: val.id, width: 35 }));
-  // [
-  //   { key: "category", width: 30 },
-  //   { key: "2018-05", width: 30 },
-  //   { key: "2018-06", width: 30 },
-  //   { key: "2018-07", width: 30 },
-  //   { key: "2018-08", width: 30 },
-  //   { key: "store", width: 30 }
+  // sheet.columns = Header?.map((val: any) => ({ key: val.id, width: 35 }));
+  // // [
+  // //   { key: "category", width: 30 },
+  // //   { key: "2018-05", width: 30 },
+  // //   { key: "2018-06", width: 30 },
+  // //   { key: "2018-07", width: 30 },
+  // //   { key: "2018-08", width: 30 },
+  // //   { key: "store", width: 30 }
+  // // ];
+  // const data = [
+  //   {
+  //     category: '衣服',
+  //     '2018-05': 300,
+  //     '2018-06': 230,
+  //     '2018-07': 730,
+  //     '2018-08': 630,
+  //     store: '王小二旗舰店',
+  //   },
+  //   {
+  //     category: '零食',
+  //     '2018-05': 672,
+  //     '2018-06': 826,
+  //     '2018-07': 302,
+  //     '2018-08': 389,
+  //     store: '吃吃货',
+  //   },
   // ];
-  const data = [
-    {
-      category: '衣服',
-      '2018-05': 300,
-      '2018-06': 230,
-      '2018-07': 730,
-      '2018-08': 630,
-      store: '王小二旗舰店',
-    },
-    {
-      category: '零食',
-      '2018-05': 672,
-      '2018-06': 826,
-      '2018-07': 302,
-      '2018-08': 389,
-      store: '吃吃货',
-    },
-  ];
-  const dataLists:any = dataList?.map(({calories,id, name, fat, carbs,protein,overall_progress, status,performance,global_rating,experience }) => {
-    	return {calories, id, name, fat, carbs,protein,overall_progress, status,performance,global_rating,experience };
+  // const dataLists:any = dataList?.map(({calories,id, name, fat, carbs,protein,overall_progress, status,performance,global_rating,experience }) => {
+  //   	return {calories, id, name, fat, carbs,protein,overall_progress, status,performance,global_rating,experience };
    
-  })
-  sheet.addRows(dataLists);
-  console.log("🚀 ~ file: table.tsx:164 ~ dataList:====", dataLists)
+  // })
+  // sheet.addRows(dataLists);
+  // console.log("🚀 ~ file: table.tsx:164 ~ dataList:====", dataLists)
 
-  const row = sheet.getRow(1);
-  row.eachCell((cell:any, rowNumber:any) => {
-    sheet.getColumn(rowNumber).alignment = {
-      vertical: 'middle',
-      horizontal: 'center',
-    };
-    sheet.getColumn(rowNumber).font = { size: 14, family: 2 };
-  });
+  // const row = sheet.getRow(1);
+  // row.eachCell((cell:any, rowNumber:any) => {
+  //   sheet.getColumn(rowNumber).alignment = {
+  //     vertical: 'middle',
+  //     horizontal: 'center',
+  //   };
+  //   sheet.getColumn(rowNumber).font = { size: 14, family: 2 };
+  // });
 
-  console.log(workbook.xlsx);
+  // console.log(workbook.xlsx);
 
   const handelDownload = () => {
-    workbook.xlsx.writeBuffer().then(function (buffer: any) {
-      const blob = new Blob([buffer], { type: 'applicationi/xlsx' });
-      saveAs(blob, 'myexcel.xlsx');
-    });
+    // workbook.xlsx.writeBuffer().then(function (buffer: any) {
+    //   const blob = new Blob([buffer], { type: 'applicationi/xlsx' });
+    //   saveAs(blob, 'myexcel.xlsx');
+    // });
   };
   return (
     <Box
@@ -282,7 +282,7 @@ const EnhancedHeader = (props: any) => {
   }
 };
 
-EnhancedTable.defaultProps = {
+EnhancedTableHead.defaultProps = {
   Header: [],
   selectAllCheckbox: () => {},
   isSelectedAll: false,
@@ -290,7 +290,7 @@ EnhancedTable.defaultProps = {
   headerOptions: {},
 };
 
-EnhancedTableHead.defaultProps = {
+EnhancedTable.defaultProps = {
   Header: [],
   dataList: [],
   tableData: [],

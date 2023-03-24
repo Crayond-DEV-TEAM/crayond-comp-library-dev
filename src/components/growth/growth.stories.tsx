@@ -1,7 +1,4 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import DeleteIcon from '../../assets/deleteIcon';
-import EditIcon from '../../assets/editIcon';
-
 import { Growth } from './index';
 
 export default {
