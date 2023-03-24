@@ -165,7 +165,7 @@ export default function EnhancedTable({
   // ];
   // const dataLists:any = dataList?.map(({calories,id, name, fat, carbs,protein,overall_progress, status,performance,global_rating,experience }) => {
   //   	return {calories, id, name, fat, carbs,protein,overall_progress, status,performance,global_rating,experience };
-   
+
   // })
   // sheet.addRows(dataLists);
   // console.log("🚀 ~ file: table.tsx:164 ~ dataList:====", dataLists)
@@ -202,10 +202,12 @@ export default function EnhancedTable({
         paddingLeft: padding?.[3],
       }}
     >
-      <Paper sx={Cusmstyle.tablePaper} className={"TABLE_PAPER"}>
-        <Box sx={Cusmstyle.titleContainer} className={"TABLE_BOX"}>
+      <Paper sx={Cusmstyle.tablePaper} className={'TABLE_PAPER'}>
+        <Box sx={Cusmstyle.titleContainer} className={'TABLE_BOX'}>
           <Box>
-            <Typography className={"TABLE_TITLE"} sx={Cusmstyle.tableTitle}>{tableName}</Typography>
+            <Typography className={'TABLE_TITLE'} sx={Cusmstyle.tableTitle}>
+              {tableName}
+            </Typography>
           </Box>
           <Box flexGrow={1}>
             <EnhancedHeader
@@ -217,14 +219,14 @@ export default function EnhancedTable({
           </Box>
         </Box>
         <TableContainer
-         className={"TABLE_CONTAINER"}
-          sx={{ minHeight: tableMinHeight, borderRadius:tableBorderRadius }}
+          className={'TABLE_CONTAINER'}
+          sx={{ minHeight: tableMinHeight, borderRadius: tableBorderRadius }}
         >
           <Table
             sx={{ ...Cusmstyle.tableContainer, minWidth: tableMinWidth }}
             aria-labelledby="tableTitle"
             size={dense}
-            className={"TABLE"}
+            className={'TABLE'}
           >
             <EnhancedTableHead
               Header={Header}
@@ -249,7 +251,7 @@ export default function EnhancedTable({
           </Table>
         </TableContainer>
         <TablePagination
-        className={"TABLE_PAGINATION"}
+          className={'TABLE_PAGINATION'}
           sx={{ alignSelf: 'flex-end' }}
           rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
           component="div"
@@ -313,7 +315,7 @@ EnhancedTable.defaultProps = {
   isSelectedAll: false,
   dense: 'small',
   headerOptions: {},
-  rowOptions:{},
+  rowOptions: {},
   cellOptions: {},
 };
 
