@@ -1,25 +1,26 @@
 import Button from '@mui/material/Button';
-import {ButtonProps} from './props';
+import { ButtonProps } from './props';
 
-
-export const BasicButtons = ({ inLineStyles,...props }: ButtonProps) => {
+export const BasicButtons = ({ inLineStyles, ...props }: ButtonProps) => {
   return (
-    <Button style={inLineStyles}{...props}>{props?.children}</Button>
+    <Button style={inLineStyles} {...props}>
+      {props?.children}
+    </Button>
   );
 };
 
 BasicButtons.defaultProps = {
-  id: "",
-  type: "",
-  name: "",
-  onClick: ()=> {},
+  id: '',
+  type: '',
+  name: '',
+  onClick: () => {},
   inLineStyles: {},
-  size: "medium",
-  variant: "contained",
-  color: "primary",
+  size: 'medium',
+  variant: 'contained',
+  color: 'primary',
   children: null,
-  className: "button",
+  className: 'button',
   disabled: false,
   backgroundColor: null,
-  href: ""
+  href: '',
 };

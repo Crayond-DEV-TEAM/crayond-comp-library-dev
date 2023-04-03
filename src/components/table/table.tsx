@@ -16,6 +16,7 @@ import TablePagination from '@mui/material/TablePagination';
 import Typography from '@mui/material/Typography';
 import { HeaderOne } from '../headerOne';
 import { HeaderTwo } from '../HeaderTwo';
+import { NoDataFound } from '../noDataFound';
 // import * as excelJS from 'exceljs';
 // import { saveAs } from 'file-saver';
 
@@ -24,6 +25,9 @@ const EnhancedTableHead = ({
   selectAllCheckbox,
   isSelectedAll,
   headerOptions,
+  orderBy,
+  order,
+  createSortHandler,
 }: any) => {
   return (
     <TableHead>
@@ -42,6 +46,7 @@ const EnhancedTableHead = ({
                 borderBottom: headerOptions?.borderBottom,
                 padding: headerOptions?.padding,
               }}
+              sortDirection={false}
             >
               {val?.varient === 'CHECKBOX' ? (
                 <FormControlLabel
@@ -54,17 +59,24 @@ const EnhancedTableHead = ({
                     />
                   }
                   label={
-                    <TableSortLabel>
                       <Typography sx={Cusmstyle.tableHeader}>
                         {val?.label}
                       </Typography>
-                    </TableSortLabel>
                   }
                 />
               ) : (
-                <TableSortLabel>
+                <TableSortLabel
+                  active={orderBy === val?.id}
+                  direction={orderBy === val?.id ? order : 'asc'}
+                  onClick={createSortHandler(val?.id)}
+                >
                   <Typography sx={Cusmstyle.tableHeader}>
                     {val?.label}
+                    {/* {orderBy === val?.id ? (
+                <Box component="span" sx={{visibility:'hidden'}} >
+                  {order === "asc" ? "asc" : "des"}
+                </Box>
+              ) : null} */}
                   </Typography>
                 </TableSortLabel>
               )}
@@ -101,6 +113,7 @@ export default function EnhancedTable({
   rowOptions,
   tableBorderRadius,
   tableBackground,
+  noDataFound,
 }: TableProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -188,6 +201,72 @@ export default function EnhancedTable({
     //   saveAs(blob, 'myexcel.xlsx');
     // });
   };
+  const [order, setOrder] = React.useState('asc');
+  const [orderBy, setOrderBy] = React.useState('name');
+
+  const handleRequestSort = (event: any, property: any) => {
+    console.log(event, property, 'reqestClick');
+    const isAsc = orderBy === property && order === 'desc';
+    setOrder(isAsc ? 'asc' : 'desc');
+    setOrderBy(property);
+  };
+  const descendingComparator = (a: any, b: any, orderBy: any) => {
+    // console.log('🚀 ~ file: table.tsx:217 ~ descendingComparator ~ a:', a);
+    // if (b[orderBy] < a[orderBy]) {
+    //   return -1;
+    // }
+    // if (b[orderBy] > a[orderBy]) {
+    //   return 1;
+    // }
+    // console.log("🚀 ~ file: table.tsx:228 ~ descendingComparator ~ typeof a?.[orderBy] === 'string':", typeof a?.[orderBy])
+    if (
+      typeof a?.[orderBy] !== 'object' &&
+      typeof b?.[orderBy] !== 'object' &&
+      typeof a?.[orderBy] !== 'number' &&
+      typeof b?.[orderBy] !== 'number'
+    ) {
+      if (b?.[orderBy]?.toLowerCase() < a?.[orderBy]?.toLowerCase()) {
+        return -1;
+      }
+      if (b?.[orderBy]?.toLowerCase() > a?.[orderBy]?.toLowerCase()) {
+        return 1;
+      }
+    }
+    if (typeof a?.[orderBy] === 'number' && typeof b?.[orderBy] === 'number') {
+      if (b[orderBy] < a[orderBy]) {
+        return -1;
+      }
+      if (b[orderBy] > a[orderBy]) {
+        return 1;
+      }
+    }
+    return 0;
+  };
+  const getComparator = (order: any, orderBy: any) => {
+    return order === 'asc'
+      ? (a: any, b: any) => descendingComparator(a, b, orderBy)
+      : (a: any, b: any) => -descendingComparator(a, b, orderBy);
+  };
+  const stableSort = (array: any, comparator: any) => {
+    const removeFormValuesKey = array.map((it: any) => it);
+    const stabilizedThis = removeFormValuesKey.map((el: any, index: any) => [
+      el,
+      index,
+    ]);
+    stabilizedThis.sort((a: any, b: any) => {
+      const order = comparator(a[0], b[0]);
+      if (order !== 0) {
+        return order;
+      }
+      return a[1] - b[1];
+    });
+    return stabilizedThis.map((el: any) => el[0]);
+  };
+
+  const createSortHandler = (property: any) => (event: any) => {
+    handleRequestSort(event, property);
+  };
+
   return (
     <Box
       sx={{
@@ -201,10 +280,13 @@ export default function EnhancedTable({
         paddingRight: padding?.[1],
         paddingBottom: padding?.[2],
         paddingLeft: padding?.[3],
-        backgroundColor: tableBackground
+        backgroundColor: tableBackground,
       }}
     >
-      <Paper sx={{...Cusmstyle.tablePaper,backgroundColor: tableBackground }} className={'TABLE_PAPER'}>
+      <Paper
+        sx={{ ...Cusmstyle.tablePaper, backgroundColor: tableBackground }}
+        className={'TABLE_PAPER'}
+      >
         <Box sx={Cusmstyle.titleContainer} className={'TABLE_BOX'}>
           <Box>
             <Typography className={'TABLE_TITLE'} sx={Cusmstyle.tableTitle}>
@@ -222,47 +304,60 @@ export default function EnhancedTable({
         </Box>
         <TableContainer
           className={'TABLE_CONTAINER'}
-          sx={{ minHeight: tableMinHeight, borderRadius: tableBorderRadius }}
+          sx={{
+            minHeight: tableMinHeight,
+            borderRadius: tableBorderRadius,
+            position: 'relative',
+          }}
         >
-          <Table
-            sx={{ ...Cusmstyle.tableContainer, minWidth: tableMinWidth }}
-            aria-labelledby="tableTitle"
-            size={dense}
-            className={'TABLE'}
-          >
-            <EnhancedTableHead
-              Header={Header}
-              selectAllCheckbox={selectAllCheckbox}
-              isSelectedAll={isSelectedAll}
-              headerOptions={headerOptions}
-            />
-            <EnhancedTableBody
-              Body={dataList?.slice(
-                page * rowsPerPage,
-                page * rowsPerPage + rowsPerPage
-              )}
-              TableData={tableData}
-              handleSwitch={handleSwitch}
-              switchList={switchList}
-              checkboxHandleChange={checkboxHandleChange}
-              setSelectedCheckbox={setSelectedCheckbox}
-              selectedCheckbox={selectedCheckbox}
-              cellOptions={cellOptions}
-              rowOptions={rowOptions}
-            />
-          </Table>
+          {dataList?.length > 0 ? (
+            <Table
+              sx={{ ...Cusmstyle.tableContainer, minWidth: tableMinWidth }}
+              aria-labelledby="tableTitle"
+              size={dense}
+              className={'TABLE'}
+            >
+              <EnhancedTableHead
+                Header={Header}
+                selectAllCheckbox={selectAllCheckbox}
+                isSelectedAll={isSelectedAll}
+                headerOptions={headerOptions}
+                createSortHandler={createSortHandler}
+                order={order}
+                orderBy={orderBy}
+              />
+              <EnhancedTableBody
+                Body={stableSort(dataList, getComparator(order, orderBy)).slice(
+                  page * rowsPerPage,
+                  page * rowsPerPage + rowsPerPage
+                )}
+                TableData={tableData}
+                handleSwitch={handleSwitch}
+                switchList={switchList}
+                checkboxHandleChange={checkboxHandleChange}
+                setSelectedCheckbox={setSelectedCheckbox}
+                selectedCheckbox={selectedCheckbox}
+                cellOptions={cellOptions}
+                rowOptions={rowOptions}
+              />
+            </Table>
+          ) : (
+            <NoDataFound data={noDataFound} />
+          )}
         </TableContainer>
-        <TablePagination
-          className={'TABLE_PAGINATION'}
-          sx={{ alignSelf: 'flex-end' }}
-          rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-          component="div"
-          count={dataList?.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        {dataList?.length > 0 && (
+          <TablePagination
+            className={'TABLE_PAGINATION'}
+            sx={{ alignSelf: 'flex-end' }}
+            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+            component="div"
+            count={dataList?.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        )}
       </Paper>
     </Box>
   );
@@ -319,7 +414,15 @@ EnhancedTable.defaultProps = {
   headerOptions: {},
   rowOptions: {},
   cellOptions: {},
-  tableBackground:"",
+  tableBackground: '',
+  noDataFound: {
+    fontSize: '16px',
+    fontWeight: '600',
+    color: '#353448',
+    bgColor: '#F7F7F7',
+    text: 'No Data Found!',
+    // component:<>Hii</>
+  },
 };
 
 EnhancedHeader.defaultProps = {

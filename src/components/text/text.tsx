@@ -1,14 +1,16 @@
 import Typography from '@mui/material/Typography';
 import { Cusmstyle } from '../table/style';
 
-export default function Text(props: any) {
-  const { Celldata, val } = props;
+interface TextProps  {
+  value:string
+}
+export default function Text(props: TextProps) {
+  const { value } = props;
   return (
-    <Typography sx={Cusmstyle.fontStyle}>{Celldata?.[val.name]} </Typography>
+    <Typography sx={Cusmstyle.fontStyle}>{value} </Typography>
   );
 }
 
 Text.defaultProps = {
-  Celldata: {},
-  val: {},
+  value: "",
 };

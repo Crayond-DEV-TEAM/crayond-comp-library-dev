@@ -1,15 +1,27 @@
 import { Typography } from '@mui/material';
 import { Cusmstyle } from '../table/style';
- 
-export default function Link(props: any) {
-  const { Celldata, val } = props;
-  
+
+interface LinkProps {
+  id: string | number;
+  label: string;
+  viewHandel:Function;
+}
+export default function Link(props: LinkProps) {
+  const { id, label, viewHandel } = props;
+
   return (
-     <Typography component={"span"} sx={Cusmstyle.link} onClick={()=>val?.viewHandel(Celldata?.id)}>{val?.label}</Typography>
+    <Typography
+      component={'span'}
+      sx={Cusmstyle.link}
+      onClick={() =>viewHandel(id)}
+    >
+      {label}
+    </Typography>
   );
 }
 
 Link.defaultProps = {
-  Celldata: {},
-  val: {},
+  id: '',
+  label: '',
+  viewHandel:()=>{}
 };

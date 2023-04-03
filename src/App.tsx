@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
@@ -826,6 +826,14 @@ function App() {
         margin={['0px', '1px', '0px', '1px']}
         tableBorderRadius={"12px"}
         dense={'medium'}
+        noDataFound={{
+          fontSize: '16px',
+          fontWeight: '600',
+          color: '#353448',
+          bgColor: '#F7F7F7',
+          text:"No Data Found",
+          // component:<>Hii</>
+        }}
         HeaderComponent={{
           variant: 1,
           headerSelect: headerSelect,
