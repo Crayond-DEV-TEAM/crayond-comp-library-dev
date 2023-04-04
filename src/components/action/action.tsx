@@ -8,19 +8,34 @@ interface ActionProps {
   editIcon: React.ReactNode;
   deleteIcon: React.ReactNode;
   id: string | number;
+  rowData: object;
 }
-export default function Action(props: any) {
-  const { variant, editHandel, deleteHandel, editIcon, deleteIcon, id } = props;
+export default function Action(props: ActionProps) {
+  const {
+    variant,
+    editHandel,
+    deleteHandel,
+    editIcon,
+    deleteIcon,
+    id,
+    rowData,
+  } = props;
 
-  const actions = (key: string) => {
-    switch (key) {
+  const actions = (key: 'EDIT_WITH_DELETE' | 'EDIT' | 'DELETE' | undefined) => {
+    switch (key) { 
       case 'EDIT_WITH_DELETE':
         return (
           <>
-            <Box sx={{ cursor: 'pointer' }} onClick={() => editHandel(id)}>
+            <Box
+              sx={{ cursor: 'pointer' }}
+              onClick={(e) => editHandel(id, rowData, e)}
+            >
               {editIcon}
             </Box>
-            <Box sx={{ cursor: 'pointer' }} onClick={() => deleteHandel(id)}>
+            <Box
+              sx={{ cursor: 'pointer' }}
+              onClick={(e) => deleteHandel(id, rowData, e)}
+            >
               {deleteIcon}
             </Box>
           </>
@@ -28,13 +43,19 @@ export default function Action(props: any) {
 
       case 'EDIT':
         return (
-          <Box sx={{ cursor: 'pointer' }} onClick={() => editHandel(id)}>
+          <Box
+            sx={{ cursor: 'pointer' }}
+            onClick={(e) => editHandel(id, rowData, e)}
+          >
             {editIcon}
           </Box>
         );
       case 'DELETE':
         return (
-          <Box sx={{ cursor: 'pointer' }} onClick={() => deleteHandel(id)}>
+          <Box
+            sx={{ cursor: 'pointer' }}
+            onClick={(e) => deleteHandel(id, rowData, e)}
+          >
             {deleteIcon}
           </Box>
         );
@@ -62,4 +83,5 @@ Action.defaultProps = {
   editIcon: <></>,
   deleteIcon: <></>,
   id: '',
+  rowData:{}
 };

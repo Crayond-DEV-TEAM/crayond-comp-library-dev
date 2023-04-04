@@ -1,9 +1,9 @@
 import Button from '@mui/material/Button';
 import { ButtonProps } from './props';
 
-export const BasicButtons = ({ inLineStyles, ...props }: ButtonProps) => {
+export const BasicButtons = ({ inLineStyles, bgColor, ...props }: ButtonProps) => {
   return (
-    <Button style={inLineStyles} {...props}>
+    <Button style={inLineStyles} sx={{backgroundColor: bgColor}} {...props} >
       {props?.children}
     </Button>
   );
@@ -21,6 +21,6 @@ BasicButtons.defaultProps = {
   children: null,
   className: 'button',
   disabled: false,
-  backgroundColor: null,
+  bgColor: "",
   href: '',
 };

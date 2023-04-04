@@ -48,7 +48,7 @@ const EnhancedTableHead = ({
               }}
               sortDirection={false}
             >
-              {val?.varient === 'CHECKBOX' ? (
+              {val?.variant === 'CHECKBOX' ? (
                 <FormControlLabel
                   style={{ marginLeft: '0px' }}
                   control={
@@ -59,26 +59,23 @@ const EnhancedTableHead = ({
                     />
                   }
                   label={
-                      <Typography sx={Cusmstyle.tableHeader}>
-                        {val?.label}
-                      </Typography>
+                    <Typography sx={Cusmstyle.tableHeader}>
+                      {val?.label}
+                    </Typography>
                   }
                 />
-              ) : (
+              ) : val?.isSortable ? (
                 <TableSortLabel
                   active={orderBy === val?.id}
                   direction={orderBy === val?.id ? order : 'asc'}
-                  onClick={createSortHandler(val?.id)}
+                  onClick={(e)=>createSortHandler(val?.id , e)}
                 >
                   <Typography sx={Cusmstyle.tableHeader}>
                     {val?.label}
-                    {/* {orderBy === val?.id ? (
-                <Box component="span" sx={{visibility:'hidden'}} >
-                  {order === "asc" ? "asc" : "des"}
-                </Box>
-              ) : null} */}
                   </Typography>
                 </TableSortLabel>
+              ) : (
+                <Typography sx={Cusmstyle.tableHeader}>{val?.label}</Typography>
               )}
             </TableCell>
           );
@@ -202,10 +199,9 @@ export default function EnhancedTable({
     // });
   };
   const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('name');
+  const [orderBy, setOrderBy] = React.useState('');
 
-  const handleRequestSort = (event: any, property: any) => {
-    console.log(event, property, 'reqestClick');
+  const handleRequestSort = (event: any, property: any) => { 
     const isAsc = orderBy === property && order === 'desc';
     setOrder(isAsc ? 'asc' : 'desc');
     setOrderBy(property);
@@ -342,7 +338,14 @@ export default function EnhancedTable({
               />
             </Table>
           ) : (
-            <NoDataFound data={noDataFound} />
+            <NoDataFound
+              fontSize={noDataFound?.fontSize}
+              fontWeight={noDataFound?.fontWeight}
+              color={noDataFound?.color}
+              bgColor={noDataFound?.bgColor}
+              text={noDataFound?.text}
+              component={noDataFound?.component}
+            />
           )}
         </TableContainer>
         {dataList?.length > 0 && (

@@ -38,6 +38,7 @@ const BodyRowLogic = ({
     borderBottom: cellOptions?.borderBottom,
     padding: cellOptions?.padding,
   };
+  
   switch (val?.type?.[0]) {
     case 'INCREMENT':
       return (
@@ -76,6 +77,7 @@ const BodyRowLogic = ({
                 ? val?.switchText?.[0]?.label_2
                 : val?.switchText?.[0]?.label_1
             }
+            rowData={Celldata}
           />
         </TableCell>
       );
@@ -197,13 +199,13 @@ const BodyRowLogic = ({
     case 'ACTION':
       return (
         <TableCell sx={cellStyle} key={i + 'ACTION'} className={'ACTION'}>
-          <Action Celldata={Celldata} val={val} id={Celldata?.id} editIcon={val?.deleteIcon} deleteIcon={val?.deleteIcon} editHandel={val?.editHandel} deleteHandel={val?.deleteHandel}/>
+          <Action  rowData={Celldata} id={Celldata?.id} editIcon={val?.editIcon} deleteIcon={val?.deleteIcon} editHandel={val?.editHandel} deleteHandel={val?.deleteHandel}/>
         </TableCell>
       );
     case 'LINK':
       return (
         <TableCell sx={cellStyle} key={i + 'LINK'} className={'LINK'}>
-          <Link id={Celldata?.id} label={val?.label} viewHandel={val?.viewHandel}/>
+          <Link id={Celldata?.id} label={val?.label} viewHandel={val?.viewHandel} rowData={Celldata}/>
         </TableCell>
       );
     case 'CUSTOM':
@@ -215,7 +217,7 @@ const BodyRowLogic = ({
     default:
       return (
         <TableCell sx={cellStyle} key={i + 'TEXT'} className={'TEXT'}>
-          <Text value={Celldata?.[val.name]} />
+          <Text value={Celldata} />
         </TableCell>
       );
   }
@@ -262,7 +264,7 @@ export const EnhancedTableBody = ({
               return (
                 <BodyRowLogic
                   key={i + 'cell'}
-                  rowIndex={rowIndex}
+                  rowIndex={rowIndex} 
                   val={val}
                   i={i}
                   Celldata={data}

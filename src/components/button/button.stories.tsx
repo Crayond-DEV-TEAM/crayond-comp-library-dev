@@ -17,11 +17,11 @@ export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
   children: "button",
-  backgroundColor: ""
+  bgColor: "#fff000"
 };
 
 export const Secondary = Template.bind({});
 Secondary.args = {
   children: "button 1",
-  backgroundColor: "#0F4"
+  bgColor: "#0F4000"
 };

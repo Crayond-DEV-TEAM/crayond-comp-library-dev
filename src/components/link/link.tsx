@@ -5,15 +5,16 @@ interface LinkProps {
   id: string | number;
   label: string;
   viewHandel:Function;
+  rowData: object | undefined;
 }
 export default function Link(props: LinkProps) {
-  const { id, label, viewHandel } = props;
+  const { id, label, viewHandel, rowData } = props;
 
   return (
     <Typography
       component={'span'}
       sx={Cusmstyle.link}
-      onClick={() =>viewHandel(id)}
+      onClick={(e) =>viewHandel(id, rowData, e)}
     >
       {label}
     </Typography>

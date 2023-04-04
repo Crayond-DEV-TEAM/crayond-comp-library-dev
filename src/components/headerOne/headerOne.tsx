@@ -1,18 +1,16 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { style } from './style';
-import {
-  Divider,
-  MenuItem,
-  OutlinedInput,
-  Select,
-  Stack,
-  TextField,
-} from '@mui/material';
+import Divider from '@mui/material/Divider';
+import MenuItem from '@mui/material/MenuItem';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Select from '@mui/material/Select';
+import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 
 export default function HeaderOne(props: any) {
-  const {HeaderComponent} = props;
-  
+  const { HeaderComponent } = props;
+
   return (
     <>
       <Box sx={style.container}>
@@ -24,7 +22,7 @@ export default function HeaderOne(props: any) {
                 spacing={1}
                 divider={
                   <Divider
-                    sx={{ borderColor: '#818181', borderWidth:"0.07em" }}
+                    sx={{ borderColor: '#818181', borderWidth: '0.07em' }}
                     flexItem
                     orientation="vertical"
                     variant="middle"
@@ -56,7 +54,7 @@ export default function HeaderOne(props: any) {
                       borderColor: '#818181',
                       height: '16px',
                       margin: 'auto 0 !important',
-                      borderWidth:"0.07em"
+                      borderWidth: '0.07em',
                     }}
                     variant="middle"
                     flexItem
@@ -69,18 +67,18 @@ export default function HeaderOne(props: any) {
                   displayEmpty
                   value={HeaderComponent?.headerSelect}
                   onChange={(e) =>
-                   HeaderComponent?.setHederSelect(e.target.value)
+                    HeaderComponent?.setHederSelect(e.target.value)
                   }
                   input={<OutlinedInput />}
                 >
-                  {HeaderComponent?.selectOption?.map((option:any) => (
+                  {HeaderComponent?.selectOption?.map((option: any) => (
                     <MenuItem key={option?.value} value={option?.value}>
                       {option?.label}
                     </MenuItem>
                   ))}
                 </Select>
                 <Box onClick={() => HeaderComponent?.setHederSelect('')}>
-                {HeaderComponent?.deleteIcon}
+                  {HeaderComponent?.deleteIcon}
                 </Box>
               </Stack>
             </Box>
@@ -92,13 +90,22 @@ export default function HeaderOne(props: any) {
             InputProps={{ startAdornment: HeaderComponent?.searchIcon }}
             placeholder={HeaderComponent?.searchPlaceholder}
             // value={HeaderComponent?.headerSearch}
-            onChange={(e)=>HeaderComponent?.setHederSearch(e.target.value)}
+            onChange={(e) => HeaderComponent?.setHederSearch(e.target.value, e)}
           />
-          <Box sx={style.iconContainer} onClick={()=>HeaderComponent?.fillerMethod()}>
-          {HeaderComponent?.funnelIcon}
+          <Box
+            sx={style.iconContainer}
+            onClick={(e) => HeaderComponent?.fillerMethod(e)}
+          >
+            {HeaderComponent?.funnelIcon}
           </Box>
-          <Box sx={style.iconContainer} onClick={()=>{HeaderComponent?.downloadMethod(); props?.handelDownload()}}>
-           {HeaderComponent?.downloadIcon}
+          <Box
+            sx={style.iconContainer}
+            onClick={(e) => {
+              HeaderComponent?.downloadMethod(e);
+              props?.handelDownload(e);
+            }}
+          >
+            {HeaderComponent?.downloadIcon}
           </Box>
         </Box>
       </Box>

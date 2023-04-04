@@ -52,8 +52,8 @@ function App() {
       }
     }
   };
-  const downloadMethod = () => {
-    console.log('Download Method working!');
+  const downloadMethod = ( e:Event) => {
+    console.log('Download Method working!', e);
   };
   const fillerMethod = () => {
     console.log('Filter Method working!');
@@ -73,133 +73,155 @@ function App() {
             align: 'left',
             disablePadding: false,
             label: 'Sl no',
+            isSortable:true,
           },
           {
             id: 'select',
             align: 'left',
             disablePadding: false,
             label: 'Select',
-            varient: 'CHECKBOX',
+            variant: 'CHECKBOX',
+            isSortable:false,
           },
           {
             id: 'name',
             align: 'left',
             disablePadding: false,
             label: 'Dessert',
+            isSortable:true,
           },
           {
             id: 'calories',
             align: 'left',
             disablePadding: false,
             label: 'Calories',
+            isSortable:true,
           },
           {
             id: 'fat',
             align: 'left',
             disablePadding: false,
             label: 'Fat (g)',
+            isSortable:true,
           },
           {
             id: 'carbs',
             align: 'left',
             disablePadding: false,
             label: 'Carbs (g)',
+            isSortable:true,
           },
           {
             id: 'protein',
             align: 'left',
             disablePadding: false,
             label: 'Protein (g)',
+            isSortable:true,
           },
           {
             id: 'profile',
             align: 'center',
             disablePadding: false,
             label: 'Profile',
+            isSortable:false,
           },
           {
             id: 'overall_progress',
             align: 'left',
             disablePadding: false,
             label: 'Overall Progress',
+            isSortable:false,
           },
           {
             id: 'production',
             align: 'left',
             disablePadding: false,
             label: 'Production',
+            isSortable:false,
           },
           {
             id: 'status',
             align: 'left',
             disablePadding: false,
             label: 'Status',
+            isSortable:false,
           },
           {
             id: 'performance',
             align: 'center',
             disablePadding: false,
             label: 'Performance',
+            isSortable:false,
           },
           {
             id: 'signals',
             align: 'center',
             disablePadding: false,
             label: 'Signals',
+            isSortable:false,
           },
           {
             id: 'reporting_to',
             align: 'center',
             disablePadding: false,
             label: 'Reporting to',
+            isSortable:false,
           },
           {
             id: 'global_rating',
             align: 'center',
             disablePadding: false,
             label: 'Global Rating',
+            isSortable:false,
           },
           {
             id: 'growth',
             align: 'center',
             disablePadding: false,
             label: 'Growth',
+            isSortable:false,
           },
           {
             id: 'experience',
             align: 'center',
             disablePadding: false,
             label: 'Experience',
+            isSortable:false,
           },
           {
             id: 'link',
             align: 'center',
             disablePadding: false,
             label: 'Link',
+            isSortable:false,
           },
           {
             id: 'custom',
             align: 'center',
             disablePadding: false,
             label: 'Custom',
+            isSortable:false,
           },
           {
             id: 'alert_type',
             align: 'center',
             disablePadding: false,
             label: 'Alert Type',
+            isSortable:false,
           },
           {
             id: 'response',
             align: 'left',
             disablePadding: false,
             label: 'Response',
+            isSortable:false,
           },
           {
             id: 'action',
             align: 'center',
             disablePadding: false,
             label: 'Action',
+            isSortable:false,
           },
         ]}
         dataList={[
@@ -768,8 +790,8 @@ function App() {
             type: ['LINK'],
             name: 'link',
             label: 'view',
-            viewHandel: (id: any) => {
-              console.log(id);
+            viewHandel: (id:string |number , rowData:object, e:Event) => {
+              console.log(id , rowData , e);
             },
           },
           { type: ['CUSTOM'], name: 'custom' },
@@ -779,11 +801,11 @@ function App() {
             type: ['ACTION'],
             name: 'action',
             variant: 'EDIT_WITH_DELETE',
-            editHandel: (id: any) => {
-              console.log(id);
+            editHandel: (id:string |number , rowData:object, e:Event) => {
+              console.log(id , rowData , e);
             },
-            deleteHandel: (id: any) => {
-              console.log(id);
+            deleteHandel: (id:string |number , rowData:object, e:Event) => {
+              console.log(id , rowData , e);
             },
             editIcon: <EditIcon />,
             deleteIcon: <DeleteIcon width={'16px'} height={'16px'} />,
@@ -832,7 +854,7 @@ function App() {
           color: '#353448',
           bgColor: '#F7F7F7',
           text:"No Data Found",
-          // component:<>Hii</>
+          component:null
         }}
         HeaderComponent={{
           variant: 1,

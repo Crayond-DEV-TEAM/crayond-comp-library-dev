@@ -11,7 +11,7 @@ interface AvatarNameProps {
     color: string;
   }[];
 }
-export default function AvatarName(props: any) {
+export default function AvatarName(props: AvatarNameProps) {
   const { profiles } = props;
   return (
     <Box
