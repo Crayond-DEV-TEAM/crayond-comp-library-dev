@@ -69,7 +69,7 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
- .TABLE_CONTAINER::-webkit-scrollbar {
+ /* .TABLE_CONTAINER::-webkit-scrollbar {
   width: 8px;
   height:8px;       
 }
@@ -81,4 +81,4 @@ button:focus-visible {
 .TABLE_CONTAINER::-webkit-scrollbar-thumb {
   background-color: #C2C1C7;  
   border-radius: 8px;
-}
+} */

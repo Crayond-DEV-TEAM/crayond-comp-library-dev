@@ -199,7 +199,7 @@ const BodyRowLogic = ({
     case 'ACTION':
       return (
         <TableCell sx={cellStyle} key={i + 'ACTION'} className={'ACTION'}>
-          <Action  rowData={Celldata} id={Celldata?.id} editIcon={val?.editIcon} deleteIcon={val?.deleteIcon} editHandel={val?.editHandel} deleteHandel={val?.deleteHandel}/>
+          <Action  rowData={Celldata} id={Celldata?.id} actionList={val.variant} />
         </TableCell>
       );
     case 'LINK':

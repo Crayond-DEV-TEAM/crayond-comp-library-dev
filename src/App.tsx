@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
@@ -10,6 +10,7 @@ import SearchIcon from './assets/searchIcon';
 import DownloadIcon from './assets/downloadIcon';
 import DocsIcon from './assets/docsIcon';
 import EditIcon from './assets/editIcon';
+import NotificationIcon from './assets/notificationIcon';
 // import './App.css';
 
 function App() {
@@ -52,7 +53,7 @@ function App() {
       }
     }
   };
-  const downloadMethod = ( e:Event) => {
+  const downloadMethod = (e: Event) => {
     console.log('Download Method working!', e);
   };
   const fillerMethod = () => {
@@ -73,7 +74,7 @@ function App() {
             align: 'left',
             disablePadding: false,
             label: 'Sl no',
-            isSortable:true,
+            isSortable: true,
           },
           {
             id: 'select',
@@ -81,147 +82,147 @@ function App() {
             disablePadding: false,
             label: 'Select',
             variant: 'CHECKBOX',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'name',
             align: 'left',
             disablePadding: false,
             label: 'Dessert',
-            isSortable:true,
+            isSortable: true,
           },
           {
             id: 'calories',
             align: 'left',
             disablePadding: false,
             label: 'Calories',
-            isSortable:true,
+            isSortable: true,
           },
           {
             id: 'fat',
             align: 'left',
             disablePadding: false,
             label: 'Fat (g)',
-            isSortable:true,
+            isSortable: true,
           },
           {
             id: 'carbs',
             align: 'left',
             disablePadding: false,
             label: 'Carbs (g)',
-            isSortable:true,
+            isSortable: true,
           },
           {
             id: 'protein',
             align: 'left',
             disablePadding: false,
             label: 'Protein (g)',
-            isSortable:true,
+            isSortable: true,
           },
           {
             id: 'profile',
             align: 'center',
             disablePadding: false,
             label: 'Profile',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'overall_progress',
             align: 'left',
             disablePadding: false,
             label: 'Overall Progress',
-            isSortable:false,
+            isSortable: true,
           },
           {
             id: 'production',
             align: 'left',
             disablePadding: false,
             label: 'Production',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'status',
             align: 'left',
             disablePadding: false,
             label: 'Status',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'performance',
             align: 'center',
             disablePadding: false,
             label: 'Performance',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'signals',
             align: 'center',
             disablePadding: false,
             label: 'Signals',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'reporting_to',
             align: 'center',
             disablePadding: false,
             label: 'Reporting to',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'global_rating',
             align: 'center',
             disablePadding: false,
             label: 'Global Rating',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'growth',
             align: 'center',
             disablePadding: false,
             label: 'Growth',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'experience',
             align: 'center',
             disablePadding: false,
             label: 'Experience',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'link',
             align: 'center',
             disablePadding: false,
             label: 'Link',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'custom',
             align: 'center',
             disablePadding: false,
             label: 'Custom',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'alert_type',
             align: 'center',
             disablePadding: false,
             label: 'Alert Type',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'response',
             align: 'left',
             disablePadding: false,
             label: 'Response',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'action',
             align: 'center',
             disablePadding: false,
             label: 'Action',
-            isSortable:false,
+            isSortable: false,
           },
         ]}
         dataList={[
@@ -790,8 +791,8 @@ function App() {
             type: ['LINK'],
             name: 'link',
             label: 'view',
-            viewHandel: (id:string |number , rowData:object, e:Event) => {
-              console.log(id , rowData , e);
+            viewHandel: (id: string | number, rowData: object, e: Event) => {
+              console.log(id, rowData, e);
             },
           },
           { type: ['CUSTOM'], name: 'custom' },
@@ -800,15 +801,26 @@ function App() {
           {
             type: ['ACTION'],
             name: 'action',
-            variant: 'EDIT_WITH_DELETE',
-            editHandel: (id:string |number , rowData:object, e:Event) => {
-              console.log(id , rowData , e);
-            },
-            deleteHandel: (id:string |number , rowData:object, e:Event) => {
-              console.log(id , rowData , e);
-            },
-            editIcon: <EditIcon />,
-            deleteIcon: <DeleteIcon width={'16px'} height={'16px'} />,
+            variant: [
+              {
+                icon: <EditIcon />,
+                method: (id: string | number, rowData: object, e: Event) => {
+                  console.log(id, rowData, e);
+                },
+              },
+              {
+                icon: <DeleteIcon width={'16px'} height={'16px'} />,
+                method: (id: string | number, rowData: object, e: Event) => {
+                  console.log(id, rowData, e);
+                },
+              },
+              {
+                icon: <NotificationIcon />,
+                method: (id: string | number, rowData: object, e: Event) => {
+                  console.log(id, rowData, e);
+                },
+              },
+            ],
           },
         ]}
         headerOptions={{
@@ -817,11 +829,11 @@ function App() {
           color: '#818181',
           bgColor: '#EAEAEA',
           borderBottom: '0px solid #E6E6E6',
-          padding:"12px",
+          padding: '12px',
         }}
         rowOptions={{
-          rowOddBgColor:"#fff",
-          rowEvenBgColor:"#F7F7F7",
+          rowOddBgColor: '#fff',
+          rowEvenBgColor: '#F7F7F7',
         }}
         cellOptions={{
           fontSize: '16px',
@@ -829,9 +841,9 @@ function App() {
           color: '#353448',
           // bgColor: '#fff',
           borderBottom: '0px solid #E6E6E6',
-          padding:"12px",
+          padding: '12px',
         }}
-        tableBackground={"#ffffff"}
+        tableBackground={'#ffffff'}
         selectedCheckbox={selectedCheckbox}
         switchList={switchList}
         checkboxHandleChange={checkboxHandleChange}
@@ -846,15 +858,15 @@ function App() {
         padding={['1px', '1px', '1px', '1px']}
         marginAll={'0px'}
         margin={['0px', '1px', '0px', '1px']}
-        tableBorderRadius={"12px"}
+        tableBorderRadius={'12px'}
         dense={'medium'}
         noDataFound={{
           fontSize: '16px',
           fontWeight: '600',
           color: '#353448',
           bgColor: '#F7F7F7',
-          text:"No Data Found",
-          component:null
+          text: 'No Data Found',
+          component: null,
         }}
         HeaderComponent={{
           variant: 1,
@@ -904,26 +916,3 @@ function App() {
 }
 
 export default App;
-
-// App.defaultProps = {
-//   Header:[],
-//   dataList:[],
-//   tableData:[],
-//   setSelectedCheckbox:()=>{},
-//   selectedCheckbox:[],
-//   checkboxHandleChange:()=>{},
-//   handleSwitch:()=>{},
-//   switchList:[],
-//   SelectAll:()=>{},
-//   tableMinWidth:"100%",
-//   tableMinHeight:"100%",
-//   tableName:"",
-//   paddingAll:0,
-//   padding:[],
-//   marginAll:0,
-//   margin:[],
-//   HeaderComponent:{},
-//   isSelectedAll:false,
-//   densePadding:false,
-//   densePaddingValue:0,
-// }
