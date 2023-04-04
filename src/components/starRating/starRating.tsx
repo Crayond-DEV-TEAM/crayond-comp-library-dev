@@ -25,7 +25,7 @@ export default function StarRating(props: StarRatingProps) {
       arrow
     >
       <span>
-        <Rating defaultValue={value} readOnly precision={0.5} />
+        <Rating value={value} readOnly precision={0.5} />
       </span>
     </Tooltip>
   );

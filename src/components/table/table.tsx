@@ -64,11 +64,12 @@ const EnhancedTableHead = ({
                     </Typography>
                   }
                 />
-              ) : val?.isSortable ? (
+              ) : ( 
+                val?.isSortable ? (
                 <TableSortLabel
                   active={orderBy === val?.id}
                   direction={orderBy === val?.id ? order : 'asc'}
-                  onClick={(e)=>createSortHandler(val?.id , e)}
+                  onClick={(e)=>createSortHandler(val?.id, e)}
                 >
                   <Typography sx={Cusmstyle.tableHeader}>
                     {val?.label}
@@ -76,7 +77,7 @@ const EnhancedTableHead = ({
                 </TableSortLabel>
               ) : (
                 <Typography sx={Cusmstyle.tableHeader}>{val?.label}</Typography>
-              )}
+              ))}
             </TableCell>
           );
         })}
@@ -259,7 +260,7 @@ export default function EnhancedTable({
     return stabilizedThis.map((el: any) => el[0]);
   };
 
-  const createSortHandler = (property: any) => (event: any) => {
+  const createSortHandler = (property: any, event: any) => {
     handleRequestSort(event, property);
   };
 
