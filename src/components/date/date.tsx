@@ -2,14 +2,20 @@ import Typography from '@mui/material/Typography';
 import { Cusmstyle } from '../table/style';
 import moment from 'moment';
 
-export default function Date(props: any) {
-   const {Celldata, val} = props;
+interface DateProps {
+  format: string;
+  value: any;
+}
+export default function Date(props: DateProps) {
+  const { format, value } = props;
   return (
-    <Typography sx={Cusmstyle.fontStyle}>{moment(Celldata[val.name]).format(val.format)} </Typography>
+    <Typography sx={Cusmstyle.fontStyle}>
+      {moment(format).format(value)}
+    </Typography>
   );
 }
 
 Date.defaultProps = {
-  Celldata: {},
-  val: {},
+  value: '',
+  format: 'YYYY MMM DD',
 };

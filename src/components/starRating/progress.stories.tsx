@@ -1,0 +1,16 @@
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { StarRating } from './index';
+
+export default {
+  title: 'CommonTable/StarRating',
+  component: StarRating,
+} as ComponentMeta<typeof StarRating>;
+
+const Template: ComponentStory<typeof StarRating> = (args) => (
+  <StarRating {...args} />
+);
+
+export const Primary = Template.bind({});
+Primary.args = {
+  value: 3,
+};

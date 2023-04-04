@@ -1,24 +1,42 @@
 import Box from '@mui/material/Box';
- 
-export default function Action(props: any) {
-  const { Celldata, val } = props;
+import React from 'react';
 
-  const actions = (key: string) => {
-    switch (key) {
+interface ActionProps {
+  variant: 'EDIT_WITH_DELETE' | 'EDIT' | 'DELETE' | undefined;
+  editHandel: Function;
+  deleteHandel: Function;
+  editIcon: React.ReactNode;
+  deleteIcon: React.ReactNode;
+  id: string | number;
+  rowData: object;
+}
+export default function Action(props: ActionProps) {
+  const {
+    variant,
+    editHandel,
+    deleteHandel,
+    editIcon,
+    deleteIcon,
+    id,
+    rowData,
+  } = props;
+
+  const actions = (key: 'EDIT_WITH_DELETE' | 'EDIT' | 'DELETE' | undefined) => {
+    switch (key) { 
       case 'EDIT_WITH_DELETE':
         return (
           <>
             <Box
               sx={{ cursor: 'pointer' }}
-              onClick={() => val?.editHandel(Celldata?.id)}
+              onClick={(e) => editHandel(id, rowData, e)}
             >
-              {val?.editIcon}
+              {editIcon}
             </Box>
             <Box
               sx={{ cursor: 'pointer' }}
-              onClick={() => val?.deleteHandel(Celldata?.id)}
+              onClick={(e) => deleteHandel(id, rowData, e)}
             >
-              {val?.deleteIcon}
+              {deleteIcon}
             </Box>
           </>
         );
@@ -27,18 +45,18 @@ export default function Action(props: any) {
         return (
           <Box
             sx={{ cursor: 'pointer' }}
-            onClick={() => val?.editHandel(Celldata?.id)}
+            onClick={(e) => editHandel(id, rowData, e)}
           >
-            {val?.editIcon}
+            {editIcon}
           </Box>
         );
       case 'DELETE':
         return (
           <Box
             sx={{ cursor: 'pointer' }}
-            onClick={() => val?.deleteHandel(Celldata?.id)}
+            onClick={(e) => deleteHandel(id, rowData, e)}
           >
-            {val?.deleteIcon}
+            {deleteIcon}
           </Box>
         );
 
@@ -53,12 +71,17 @@ export default function Action(props: any) {
       justifyContent={'center'}
       gap={'14px'}
     >
-      {actions(val?.variant)}
+      {actions(variant)}
     </Box>
   );
 }
 
 Action.defaultProps = {
-  Celldata: {},
-  val: {},
+  variant: 'EDIT_WITH_DELETE',
+  editHandel: () => {},
+  deleteHandel: () => {},
+  editIcon: <></>,
+  deleteIcon: <></>,
+  id: '',
+  rowData:{}
 };

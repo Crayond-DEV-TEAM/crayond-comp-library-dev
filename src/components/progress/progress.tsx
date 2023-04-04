@@ -6,7 +6,10 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { Tooltip } from '@mui/material';
 import { Cusmstyle } from '../table/style';
-
+ 
+interface ProgressProps {
+  value:number;
+}
 function LinearProgressWithLabel(
   props: LinearProgressProps & { value: number }
 ) {
@@ -44,7 +47,7 @@ function LinearProgressWithLabel(
   );
 }
 
-export default function Progress(props: any) {
+export default function Progress(props: ProgressProps) {
   return (
     <Box sx={{ width: '100%' }}>
       <LinearProgressWithLabel value={Number(props?.value) ?? 0} />

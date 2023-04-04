@@ -11,6 +11,6 @@ export interface ButtonProps  {
   children: React.ReactNode | undefined,
   className?: string,
   disabled?: boolean,
-  backgroundColor?:string,
+  bgColor?:string,
   href: string
 };

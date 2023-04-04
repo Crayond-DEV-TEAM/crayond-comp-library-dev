@@ -13,18 +13,11 @@ const Template: ComponentStory<typeof AvatarName> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  Celldata: {
-    signals: [
-      { name: 'Hari', label: 'Excelent', color: '#007C32' },
-      { name: 'Ram', label: 'Good', color: '#F2B824' },
-      { name: 'Anbu', label: 'Very Good', color: '#4C9E29' },
-      { name: 'S', label: 'Bad', color: '#DE1010' },
-      { name: 'Babu', label: 'Good', color: '#F2EB24' },
-    ],
-  },
-  val: {
-    type: ['AVATAR_NAME'],
-    name: 'signals',
-  },
+  profiles: [
+    { name: 'Hari', label: 'Excelent', color: '#007C32' },
+    { name: 'Ram', label: 'Good', color: '#F2B824' },
+    { name: 'Anbu', label: 'Very Good', color: '#4C9E29' },
+    { name: 'S', label: 'Bad', color: '#DE1010' },
+    { name: 'Babu', label: 'Good', color: '#F2EB24' },
+  ],
 };
-
