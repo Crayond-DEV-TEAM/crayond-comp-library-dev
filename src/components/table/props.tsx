@@ -1,12 +1,12 @@
 interface TableBody {
   slice(arg0: number, arg1: number): unknown;
   length: number;
-  map(arg0: ({ id }: any) => any): unknown;
+  map(arg0: ({ id }: any | object, i:number) => any): unknown;
   [index: number]: object;
 }
 
 interface TableHeader {
-  map(arg0: (val: any) => { key: any; width: number; }): any;
+  map(arg0: (val: any) => { key: any; width: number }): any;
   [index: number]: object;
   // disablePadding: boolean;
   // id: keyof TableBody;
@@ -15,7 +15,8 @@ interface TableHeader {
 }
 
 interface TableData {
-  [index: number]: object;
+  map(arg0: (data: any, i: number) => any): unknown;
+  [index: number]:  any  ;
 }
 
 export interface TableProps {
@@ -42,8 +43,12 @@ export interface TableProps {
   headerOptions: object;
   rowOptions: object;
   cellOptions: object;
-  tableBorderRadius:any;
-  tableBackground:string;
+  tableBorderRadius: any;
+  tableBackground: string;
+  paginationOption: {
+    rowPerPage: number;
+    rowsPerPageOptions?: Array<number | { value: number; label: string }>;
+  };
   noDataFound: {
     fontSize: string;
     fontWeight: string;
@@ -52,5 +57,8 @@ export interface TableProps {
     text: string;
     component: React.ReactNode | null;
   };
-
+  stickyColumns:{
+    stickyRight:Array<any>;
+    stickyLeft:Array<any>;
+  }
 }

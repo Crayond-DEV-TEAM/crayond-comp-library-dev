@@ -17,8 +17,9 @@ import Typography from '@mui/material/Typography';
 import { HeaderOne } from '../headerOne';
 import { HeaderTwo } from '../HeaderTwo';
 import { NoDataFound } from '../noDataFound';
-// import * as excelJS from 'exceljs';
-// import { saveAs } from 'file-saver';
+import * as excelJS from 'exceljs';
+import { saveAs } from 'file-saver';
+import moment from 'moment';
 
 const EnhancedTableHead = ({
   Header,
@@ -28,13 +29,41 @@ const EnhancedTableHead = ({
   orderBy,
   order,
   createSortHandler,
+  stickyColumns,
 }: any) => {
+  const getClassName = (id: any) => {
+
+    // const stickyLeftList:HTMLCollectionOf<Element> = document.getElementsByClassName('stickyLeft');
+    // const stickyLeftListArr =  [...stickyLeftList];
+    // console.log(
+    //   '🚀 ~ file: table.tsx:36 ~ getClassName ~ stickyLeftList:',
+    //   [...stickyLeftList]  
+
+    // );
+    // let leftWidth = 0;
+    // stickyLeftList?.map(
+    //   ({ scrollWidth }: any) => (leftWidth = leftWidth + scrollWidth)
+    // );
+    // console.log(
+    //   '🚀 ~ file: table.tsx:37 ~ getClassName ~ leftWidth:',
+    //   leftWidth
+    // );
+
+    if (stickyColumns?.stickyLeft.includes(id)) {
+      return 'stickyLeft';
+    }
+    if (stickyColumns?.stickyRight.includes(id)) {
+      return 'stickyRight';
+    }
+  };
+ 
   return (
     <TableHead>
       <TableRow>
         {Header?.map((val: any, i: number) => {
           return (
             <TableCell
+              // className={getClassName(val?.id)}
               key={'Header' + i}
               align={val?.align}
               padding={val.disablePadding ? 'none' : 'normal'}
@@ -64,12 +93,11 @@ const EnhancedTableHead = ({
                     </Typography>
                   }
                 />
-              ) : ( 
-                val?.isSortable ? (
+              ) : val?.isSortable ? (
                 <TableSortLabel
                   active={orderBy === val?.id}
                   direction={orderBy === val?.id ? order : 'asc'}
-                  onClick={(e)=>createSortHandler(val?.id, e)}
+                  onClick={(e) => createSortHandler(val?.id, e)}
                 >
                   <Typography sx={Cusmstyle.tableHeader}>
                     {val?.label}
@@ -77,7 +105,7 @@ const EnhancedTableHead = ({
                 </TableSortLabel>
               ) : (
                 <Typography sx={Cusmstyle.tableHeader}>{val?.label}</Typography>
-              ))}
+              )}
             </TableCell>
           );
         })}
@@ -112,9 +140,16 @@ export default function EnhancedTable({
   tableBorderRadius,
   tableBackground,
   noDataFound,
+  paginationOption,
+  stickyColumns,
 }: TableProps) {
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState<number>(
+    paginationOption?.rowPerPage
+  );
+  const [order, setOrder] = React.useState('asc');
+  const [orderBy, setOrderBy] = React.useState('');
+
   const selectAllCheckbox = (data: any, e: any) => {
     let ids = dataList?.map(({ id }: any) => id);
     SelectAll(ids, !e.target.checked);
@@ -123,99 +158,198 @@ export default function EnhancedTable({
   const handleChangePage = (event: any, newPage: any) => {
     setPage(newPage);
   };
-  const handleChangeRowsPerPage = (event: any) => {
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
 
-  // const workbook = new excelJS.Workbook();
-  // workbook.creator = 'test';
-  // workbook.lastModifiedBy = 'test';
-  // workbook.created = new Date();
-  // workbook.modified = new Date();
-
-  // let sheet:any = workbook.addWorksheet('TABLE');
-
-  // // 添加表头
-  // sheet.getRow(1).values = Header?.map((val: any) => val.id);
-
-  // // const datas = dataList?.map((list: any) => {
-  // //   console.log('🚀 ~ file: table.tsx:128 ~ datas ~ head:', list);
-
-  // //   return (Header?.map((val: any) => {
-  // //     return { [val?.id]: list?.[val?.id] };
-  // //   })).flat(2)
-  // // });
-  // // console.log('🚀 ~ file: table.tsx:135 ~ column:', datas);
-
-  // sheet.columns = Header?.map((val: any) => ({ key: val.id, width: 35 }));
-  // // [
-  // //   { key: "category", width: 30 },
-  // //   { key: "2018-05", width: 30 },
-  // //   { key: "2018-06", width: 30 },
-  // //   { key: "2018-07", width: 30 },
-  // //   { key: "2018-08", width: 30 },
-  // //   { key: "store", width: 30 }
-  // // ];
-  // const data = [
-  //   {
-  //     category: '衣服',
-  //     '2018-05': 300,
-  //     '2018-06': 230,
-  //     '2018-07': 730,
-  //     '2018-08': 630,
-  //     store: '王小二旗舰店',
+  // const valueList= {
+  //   id:null,
+  //   name: null,
+  //   calories: null,
+  //   fat: null,
+  //   carbs: null,
+  //   protein: null,
+  //   profile:  "label",
+  //   overall_progress: null,
+  //   production: "label",
+  //   status: "status",
+  //   performance: 'Very Good',
+  //   signals: [
+  //     {
+  //       name: 'Hari',
+  //       label: 'Excelent',
+  //       color: '#007C32',
+  //     },
+  //     {
+  //       name: 'Anbu',
+  //       label: 'Very Good',
+  //       color: '#4C9E29',
+  //     },
+  //     {
+  //       name: 'Ram',
+  //       label: 'Good',
+  //       color: '#F2B824',
+  //     },
+  //     {
+  //       name: 'Babu',
+  //       label: 'Good',
+  //       color: '#F2EB24',
+  //     },
+  //     {
+  //       name: 'S',
+  //       label: 'Bad',
+  //       color: '#DE1010',
+  //     },
+  //   ],
+  //   reporting_to: [
+  //     {
+  //       image: 'sample.jpg',
+  //       label: 'Hariharan',
+  //     },
+  //   ],
+  //   global_rating: 4,
+  //   growth: {
+  //     value: 0.74,
+  //     variant: 'NEGATIVE',
   //   },
-  //   {
-  //     category: '零食',
-  //     '2018-05': 672,
-  //     '2018-06': 826,
-  //     '2018-07': 302,
-  //     '2018-08': 389,
-  //     store: '吃吃货',
+  //   experience: '2022-12-15T18:43:21.055Z',
+  //   custom: <BasicButtons>Button 6</BasicButtons>,
+  //   alert_type: {
+  //     label: 'Delete',
+  //     color: '#F44F5A',
+  //     bgColor: '#FCCACD',
+  //     icon: <DeleteIcon />,
   //   },
-  // ];
-  // const dataLists:any = dataList?.map(({calories,id, name, fat, carbs,protein,overall_progress, status,performance,global_rating,experience }) => {
-  //   	return {calories, id, name, fat, carbs,protein,overall_progress, status,performance,global_rating,experience };
+  //   response: {
+  //     label: 'sent',
+  //     icon: <FunnelIcon />,
+  //   },
+  // }
+  const workbook = new excelJS.Workbook();
+  workbook.creator = 'test';
+  workbook.lastModifiedBy = 'test';
+  workbook.created = new Date();
+  workbook.modified = new Date();
 
-  // })
-  // sheet.addRows(dataLists);
-  // console.log("🚀 ~ file: table.tsx:164 ~ dataList:====", dataLists)
+  let sheet: any = workbook.addWorksheet('TABLE');
+  sheet.getRow(1).values = Header?.map((val: any) => val.id);
 
-  // const row = sheet.getRow(1);
-  // row.eachCell((cell:any, rowNumber:any) => {
-  //   sheet.getColumn(rowNumber).alignment = {
-  //     vertical: 'middle',
-  //     horizontal: 'center',
+  sheet.columns = Header?.map((val: any) => ({ key: val.id, width: 35 }));
+
+  // const dataLists = dataList?.map((data: object, i: number) => {
+  //   const {
+  //     id,
+  //     calories,
+  //     name,
+  //     fat,
+  //     carbs,
+  //     protein,
+  //     overall_progress,
+  //     status,
+  //     performance,
+  //     global_rating,
+  //     experience,
+  //   }: any = data;
+  //   console.log(tableData?.[i]?.type[0], '=========');
+
+  //   // switch (key) {
+  //   //   case value:
+  //   //     break;
+
+  //   //   default:
+  //   //     break;
+  //   // }
+  //   return {
+  //     calories: typeof calories !== 'object' ? calories : '',
+  //     id,
+  //     name,
+  //     fat,
+  //     carbs,
+  //     protein,
+  //     overall_progress,
+  //     status,
+  //     performance,
+  //     global_rating,
+  //     experience,
   //   };
-  //   sheet.getColumn(rowNumber).font = { size: 14, family: 2 };
   // });
 
-  // console.log(workbook.xlsx);
+  const tableDataClone = dataList?.map((Celldata: any, rows: number) => {
+    return tableData?.map((val: any, i: number) => {
+      switch (val?.type?.[0]) {
+        case 'INCREMENT':
+          return Celldata?.id;
+        case 'CHECKBOX':
+          return selectedCheckbox?.includes(Celldata?.id);
+        case 'TEXT':
+          return Celldata?.[val.name];
+        case 'SWITCH':
+          return switchList?.includes(Celldata?.id)
+            ? val?.switchText?.[0]?.label_2
+            : val?.switchText?.[0]?.label_1;
+        case 'LABEL':
+          return Celldata[val.name]?.label;
+        case 'ICON_WITH_LABEL':
+          return Celldata[val.name]?.label;
+        case 'ICON_WITH_TEXT':
+          return Celldata[val.name]?.label;
+        case 'PROGRESS':
+          return Celldata[val.name];
+        case 'IMAGE_WITH_LABEL':
+          return Celldata[val.name]?.label;
+        case 'IMAGE_WITH_PROFILES':
+          return Celldata[val.name]?.map(({ label }: any) => label);
+        case 'PERFORMANCE':
+          return Celldata[val.name];
+        case 'AVATAR_NAME':
+          return Celldata[val.name]?.map(
+            ({ name, label }: any) => name + ' - ' + label
+          );
+        case 'STAR_RATING':
+          return Celldata[val.name];
+        case 'GROWTH':
+          return Celldata[val.name]?.value;
+        case 'DATE':
+          return moment(Celldata[val.name]).format(val.format);
+        case 'ACTION':
+          return '';
+        case 'LINK':
+          return val?.label;
+        case 'CUSTOM':
+          return '';
+        default:
+          return Celldata[val.name];
+      }
+    });
+  });
+
+  sheet.addRows(tableDataClone);
+
+  const row = sheet.getRow(1);
+  row.eachCell((cell: any, rowNumber: any) => {
+    sheet.getColumn(rowNumber).alignment = {
+      vertical: 'middle',
+      horizontal: 'center',
+    };
+    sheet.getColumn(rowNumber).font = { size: 14, family: 2 };
+  });
 
   const handelDownload = () => {
-    // workbook.xlsx.writeBuffer().then(function (buffer: any) {
-    //   const blob = new Blob([buffer], { type: 'applicationi/xlsx' });
-    //   saveAs(blob, 'myexcel.xlsx');
-    // });
+    workbook.xlsx.writeBuffer().then(function (buffer: any) {
+      const blob = new Blob([buffer], { type: 'application/xlsx' });
+      saveAs(blob, tableName + '.xlsx' ?? 'TableData' + '.xlsx');
+    });
   };
-  const [order, setOrder] = React.useState('asc');
-  const [orderBy, setOrderBy] = React.useState('');
 
-  const handleRequestSort = (event: any, property: any) => { 
+  const handleRequestSort = (event: any, property: any) => {
     const isAsc = orderBy === property && order === 'desc';
     setOrder(isAsc ? 'asc' : 'desc');
     setOrderBy(property);
   };
   const descendingComparator = (a: any, b: any, orderBy: any) => {
-    // console.log('🚀 ~ file: table.tsx:217 ~ descendingComparator ~ a:', a);
-    // if (b[orderBy] < a[orderBy]) {
-    //   return -1;
-    // }
-    // if (b[orderBy] > a[orderBy]) {
-    //   return 1;
-    // }
-    // console.log("🚀 ~ file: table.tsx:228 ~ descendingComparator ~ typeof a?.[orderBy] === 'string':", typeof a?.[orderBy])
     if (
       typeof a?.[orderBy] !== 'object' &&
       typeof b?.[orderBy] !== 'object' &&
@@ -263,7 +397,10 @@ export default function EnhancedTable({
   const createSortHandler = (property: any, event: any) => {
     handleRequestSort(event, property);
   };
-
+  const rowsPer = [
+    ...(paginationOption?.rowsPerPageOptions ?? []),
+    { label: 'All', value: dataList?.length },
+  ];
   return (
     <Box
       sx={{
@@ -322,6 +459,7 @@ export default function EnhancedTable({
                 createSortHandler={createSortHandler}
                 order={order}
                 orderBy={orderBy}
+                stickyColumns={stickyColumns}
               />
               <EnhancedTableBody
                 Body={stableSort(dataList, getComparator(order, orderBy)).slice(
@@ -336,6 +474,7 @@ export default function EnhancedTable({
                 selectedCheckbox={selectedCheckbox}
                 cellOptions={cellOptions}
                 rowOptions={rowOptions}
+                stickyColumns={stickyColumns}
               />
             </Table>
           ) : (
@@ -353,7 +492,7 @@ export default function EnhancedTable({
           <TablePagination
             className={'TABLE_PAGINATION'}
             sx={{ alignSelf: 'flex-end' }}
-            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+            rowsPerPageOptions={rowsPer}
             component="div"
             count={dataList?.length}
             rowsPerPage={rowsPerPage}

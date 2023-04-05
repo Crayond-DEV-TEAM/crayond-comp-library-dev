@@ -77,7 +77,7 @@ function App() {
             isSortable: true,
           },
           {
-            id: 'select',
+            id: 'checkbox',
             align: 'left',
             disablePadding: false,
             label: 'Select',
@@ -762,7 +762,7 @@ function App() {
           },
         ]}
         tableData={[
-          { type: ['INCREMENT'], name: 'sl_no' },
+          { type: ['INCREMENT'], name: 'id' },
           { type: ['CHECKBOX'], name: 'checkbox' },
           { type: ['TEXT'], name: 'name' },
           { type: ['TEXT'], name: 'calories' },
@@ -843,6 +843,10 @@ function App() {
           borderBottom: '0px solid #E6E6E6',
           padding: '12px',
         }}
+        paginationOption={{
+          rowPerPage:5,
+          rowsPerPageOptions:[5, 10, 25],       
+        }}
         tableBackground={'#ffffff'}
         selectedCheckbox={selectedCheckbox}
         switchList={switchList}
@@ -867,6 +871,10 @@ function App() {
           bgColor: '#F7F7F7',
           text: 'No Data Found',
           component: null,
+        }}
+        stickyColumns={{
+          stickyLeft:["id", "checkbox"],
+          stickyRight:["action"],
         }}
         HeaderComponent={{
           variant: 1,

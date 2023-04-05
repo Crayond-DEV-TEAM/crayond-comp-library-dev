@@ -193,7 +193,7 @@ const BodyRowLogic = ({
     case 'DATE':
       return (
         <TableCell sx={cellStyle} key={i + 'DATE'} className={'DATE'}>
-          <Date format={Celldata[val.name]} value={val.format}  />
+          <Date format={val.format} value={Celldata[val.name]} />
         </TableCell>
       );
     case 'ACTION':
@@ -217,7 +217,7 @@ const BodyRowLogic = ({
     default:
       return (
         <TableCell sx={cellStyle} key={i + 'TEXT'} className={'TEXT'}>
-          <Text value={Celldata} />
+          <Text value={Celldata?.[val.name]} />
         </TableCell>
       );
   }
