@@ -1,7 +1,5 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { InputField } from './index'
-import SearchIcon from 'src/assets/searchIcon';
-import DeleteIcon from 'src/assets/deleteIcon';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { InputField } from './index';
 
 export default {
   title: 'components/InputField',
@@ -50,7 +48,5 @@ const Template: ComponentStory<typeof InputField> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  startAdornments: <SearchIcon />,
-  endAdornments: <DeleteIcon />
 };
 
