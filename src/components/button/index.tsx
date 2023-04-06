@@ -4,7 +4,7 @@ import {ButtonProps} from './props';
 
 export const BasicButtons = ({ inLineStyles,...props }: ButtonProps) => {
   return (
-    <Button style={inLineStyles}{...props}>{props?.children}</Button>
+    <Button style={inLineStyles}{...props} fullWidth>{props?.children}</Button>
   );
 };
 
