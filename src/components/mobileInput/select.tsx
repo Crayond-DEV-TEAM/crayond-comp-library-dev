@@ -7,6 +7,7 @@ export function SimpleSelect(props: any) {
     id = '',
     value,
     options = [],
+    flag = {},
     disabled = false,
     handleChangeSelect = () => false,
     className = '',
@@ -19,7 +20,7 @@ export function SimpleSelect(props: any) {
     return value;
   };
 
-  const giveMeValueLabel = (option: any) => `${option?.value}`;
+  const giveMeValueLabel = (option: any) => `${option?.emoji} ${option?.dial_code}`;
 
   return (
     <Box sx={mobileInput_style.rootStyle} className={`${className}`} {...rest}>
@@ -36,6 +37,7 @@ export function SimpleSelect(props: any) {
         disableClearable
         renderInput={(params) => (
           <TextField
+
             {...params}
             label=""
             variant="outlined"

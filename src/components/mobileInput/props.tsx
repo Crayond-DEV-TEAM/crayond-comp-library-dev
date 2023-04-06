@@ -24,8 +24,12 @@ export interface MobileInputProps {
   selectValue?: any;
   limits?: any,
   isError?: string;
+  flag: any;
   className?: object;
   maxLength?: number;
   mobileInputStyle?: object;
   rootWapperstyle?: object;
+  code: string;
+  phone: string;
+  suggested?: boolean;
 }

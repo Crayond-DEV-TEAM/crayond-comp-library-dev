@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, FormControl, Grid, TextField, Typography } from "@mui/material";
 import { getMobileLimitBasedOnCC } from "../../utils/validation";
-import { countryCode } from '../../utils/constants'
+import { Sample } from '../../utils/constants'
 import { SimpleSelect } from "./select";
 import { MobileInputProps } from './props';
 import { mobileInput_style } from "./style";
@@ -120,7 +120,7 @@ export default function MobileInput(props: MobileInputProps) {
             >
                 <Box sx={mobileInput_style.NumberSx}>
                     <SimpleSelect
-                        options={countryCode}
+                        options={Sample}
                         handleChangeSelect={handleChangeSelect}
                         value={selectValue?.mobile_code ?? ""}
                         disabled={props.isReadonly || props.disabled}
