@@ -31,24 +31,8 @@ const EnhancedTableHead = ({
   createSortHandler,
   stickyColumns,
 }: any) => {
+  const [stickyStyle, setStickyStyle] = React.useState<any>([]);
   const getClassName = (id: any) => {
-
-    // const stickyLeftList:HTMLCollectionOf<Element> = document.getElementsByClassName('stickyLeft');
-    // const stickyLeftListArr =  [...stickyLeftList];
-    // console.log(
-    //   '🚀 ~ file: table.tsx:36 ~ getClassName ~ stickyLeftList:',
-    //   [...stickyLeftList]  
-
-    // );
-    // let leftWidth = 0;
-    // stickyLeftList?.map(
-    //   ({ scrollWidth }: any) => (leftWidth = leftWidth + scrollWidth)
-    // );
-    // console.log(
-    //   '🚀 ~ file: table.tsx:37 ~ getClassName ~ leftWidth:',
-    //   leftWidth
-    // );
-
     if (stickyColumns?.stickyLeft.includes(id)) {
       return 'stickyLeft';
     }
@@ -56,14 +40,57 @@ const EnhancedTableHead = ({
       return 'stickyRight';
     }
   };
- 
+  React.useEffect(() => {
+    const stickyLeftList: any = document.getElementsByClassName('stickyLeft');
+    let leftWidth = 0;
+    let leftWidthList: any[] = [];
+    const leftGenerateStyle = [...stickyLeftList]?.map(
+      ({ scrollWidth }: any, i: number) => {
+        leftWidthList = [...leftWidthList, scrollWidth];
+        if (i !== 0) {
+          leftWidth = leftWidth + leftWidthList[i - 1];
+        }
+
+        return {
+          ['& .stickyLeft:nth-child(' + (i + 1) + ')']: {
+            position: 'sticky',
+            left: i === 0 ? 0 : leftWidth ,
+            zIndex: '5',
+          },
+        };
+      }
+    );
+    // setStickyStyle((pre: any)=>[...pre, ...leftGenerateStyle]);
+//right
+    const stickyRightList: any = document.getElementsByClassName('stickyRight');
+    let RightWidth = 0;
+    let RightWidthList: any[] = [];
+    const RightGenerateStyle = [...stickyRightList]?.map(
+      ({ scrollWidth }: any, i: number) => {
+        RightWidthList = [...RightWidthList, scrollWidth];
+        if (i !== 0) {
+          RightWidth = RightWidth + RightWidthList[i - 1];
+        }
+
+        return {
+          ['& .stickyRight:nth-last-of-type(' + (i + 1) + 'n)']: {
+            position: 'sticky',
+            right: i === 0 ? 0 : RightWidth,
+            zIndex: '5',
+            borderLeft: '1px solid' + headerOptions?.bgColor,
+          },
+        };
+      }
+    );
+    setStickyStyle((pre: any)=>[...pre, ...leftGenerateStyle, ...RightGenerateStyle]);
+  }, []);
   return (
     <TableHead>
-      <TableRow>
+      <TableRow sx={stickyStyle}>
         {Header?.map((val: any, i: number) => {
           return (
             <TableCell
-              // className={getClassName(val?.id)}
+              className={getClassName(val?.id)}
               key={'Header' + i}
               align={val?.align}
               padding={val.disablePadding ? 'none' : 'normal'}

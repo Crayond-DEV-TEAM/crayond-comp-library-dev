@@ -29,6 +29,7 @@ const BodyRowLogic = ({
   checkboxHandleChange,
   handleSwitch,
   cellOptions,
+  stickyColumns
 }: any) => {
   const cellStyle = {
     fontSize: cellOptions?.fontSize,
@@ -38,18 +39,26 @@ const BodyRowLogic = ({
     borderBottom: cellOptions?.borderBottom,
     padding: cellOptions?.padding,
   };
-  
+  const getClassName = (id: any) => {
+    if (stickyColumns?.stickyLeft.includes(id)) {
+      return 'stickyLeftTd';
+    }
+    if (stickyColumns?.stickyRight.includes(id)) {
+      return 'stickyRightTd';
+    }
+  };
+
   switch (val?.type?.[0]) {
     case 'INCREMENT':
       return (
-        <TableCell sx={cellStyle} key={i + 'INCREMENT'} className={'INCREMENT'}>
+        <TableCell sx={cellStyle} key={i + 'INCREMENT'} className={'INCREMENT ' + getClassName(val.name) }>
           <Typography> {Celldata?.id}</Typography>
         </TableCell>
       );
 
     case 'CHECKBOX':
       return (
-        <TableCell sx={cellStyle} key={i + 'CHECKBOX'} className={'CHECKBOX'}>
+        <TableCell sx={cellStyle} key={i + 'CHECKBOX'} className={'CHECKBOX ' + getClassName(val.name) }>
           <CustomCheckbox
             value={selectedCheckbox?.includes(Celldata?.id)}
             name={Celldata?.id}
@@ -60,7 +69,7 @@ const BodyRowLogic = ({
 
     case 'TEXT':
       return (
-        <TableCell sx={cellStyle} key={i + 'TEXT'} className={'TEXT'}>
+        <TableCell sx={cellStyle} key={i + 'TEXT'} className={'TEXT '+ getClassName(val.name) }>
           <Text value={Celldata?.[val.name]} />
         </TableCell>
       );
@@ -198,7 +207,7 @@ const BodyRowLogic = ({
       );
     case 'ACTION':
       return (
-        <TableCell sx={cellStyle} key={i + 'ACTION'} className={'ACTION'}>
+        <TableCell sx={cellStyle} key={i + 'ACTION'} className={'ACTION '+ getClassName(val.name) }>
           <Action  rowData={Celldata} id={Celldata?.id} actionList={val.variant} />
         </TableCell>
       );
@@ -240,25 +249,80 @@ export const EnhancedTableBody = ({
   checkboxHandleChange,
   cellOptions,
   rowOptions,
+  stickyColumns
 }: any) => {
+
+  const [stickyStyle, setStickyStyle] = React.useState<any>([]);
+  
+  React.useEffect(() => {
+    const stickyLeftList: any = document.getElementsByClassName('stickyLeftTd');
+    let leftWidth = 0;
+    let leftWidthList: any[] = [];
+    const leftGenerateStyle = [...stickyLeftList]?.map(
+      ({ scrollWidth }: any, i: number) => {
+        leftWidthList = [...leftWidthList, scrollWidth];
+        if (i !== 0) {
+          leftWidth = leftWidth + leftWidthList[i - 1];
+        }
+
+        return {
+          ['& .stickyLeftTd:nth-child(' + (i + 1) + ')']: {
+            position: 'sticky',
+            left: i === 0 ? 0 : leftWidth,
+            zIndex: '5',
+          },
+        };
+      }
+    );
+    // setStickyStyle((pre: any)=>[...pre, ...leftGenerateStyle]);
+//right
+    const stickyRightList: any = document.getElementsByClassName('stickyRightTd');
+    let RightWidth = 0;
+    let RightWidthList: any[] = [];
+    console.log("🚀 ~ file: table.tsx:79 ~ React.useEffect ~ [...stickyRightList]:", [...stickyRightList])
+    const RightGenerateStyle = [...stickyRightList]?.map(
+      ({ scrollWidth }: any, i: number) => {
+        RightWidthList = [...RightWidthList, scrollWidth];
+        if (i !== 0) {
+          RightWidth = RightWidth + RightWidthList[i - 1];
+        }
+
+        return {
+          ['& .stickyRightTd:nth-last-of-type(' + (i + 1) + 'n)']: {
+            position: 'sticky',
+            right: i === 0 ? 0 : RightWidth,
+            zIndex: '6',
+          },
+        };
+      }
+    );
+    setStickyStyle((pre: any)=>[...pre, ...leftGenerateStyle, ...RightGenerateStyle]);
+  }, []);
   return (
     <TableBody>
       {Body?.map((data: any, rowIndex: number) => {
         return (
           <TableRow
             key={'Row' + rowIndex}
-            sx={{
-              '&:nth-of-type(odd)': {
-                background: rowOptions?.rowOddBgColor,
+            // style={stickyStyle}
+            sx={[...stickyStyle, {
+              '&:nth-of-type(odd):nth-of-type(odd) td': {
+                background: rowOptions?.rowOddBgColor+" !important",
+              },
+              '&:nth-of-type(odd) td': {
+                background: rowOptions?.rowOddBgColor +" !important",
               },
               '&:nth-of-type(even)': {
-                background: rowOptions?.rowEvenBgColor,
+                background: rowOptions?.rowEvenBgColor +" !important",
+              },
+              '&:nth-of-type(even) td': {
+                background: rowOptions?.rowEvenBgColor +" !important",
               },
               // hide last border
               '&:last-child td, &:last-child th': {
                 border: 0,
               },
-            }}
+            }]}
           >
             {TableData.map((val: any, i: number) => {
               return (
@@ -273,6 +337,7 @@ export const EnhancedTableBody = ({
                   checkboxHandleChange={checkboxHandleChange}
                   selectedCheckbox={selectedCheckbox}
                   cellOptions={cellOptions}
+                  stickyColumns={stickyColumns}
                 />
               );
             })}

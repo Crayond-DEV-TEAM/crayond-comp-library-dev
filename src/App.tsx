@@ -874,7 +874,7 @@ function App() {
         }}
         stickyColumns={{
           stickyLeft:["id", "checkbox"],
-          stickyRight:["action"],
+          stickyRight:["action", "response"],
         }}
         HeaderComponent={{
           variant: 1,

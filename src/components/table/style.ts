@@ -21,15 +21,15 @@ export const Cusmstyle = {
       borderRadius: '8px',
     },
 
-    '& .stickyLeft': {
-      position: 'sticky',
-      left: '0',
-    },
+    // '& .stickyLeft': {
+    //   position: 'sticky',
+    //   left: '0',
+    // },
 
-    '& .stickyRight': {
-      position: 'sticky',
-      right: '0',
-    },
+    // '& .stickyRight': {
+    //   position: 'sticky',
+    //   right: '0',
+    // },
   },
   tableContainer: {
     overflow: 'auto',
