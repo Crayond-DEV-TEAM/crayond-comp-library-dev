@@ -3,22 +3,23 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Cusmstyle } from '../table/style';
 
-export default function ImageWithLabel(props: any) {
-  const { Celldata, val } = props;
+interface ImageWithLabel {
+  variant: 'circular' | 'rounded' | 'square' | undefined;
+  label: string;
+  image: string | undefined;
+}
+export default function ImageWithLabel(props: ImageWithLabel) {
+  const { image, variant, label } = props;
   return (
     <Box display={'flex'} alignItems={'center'} gap={'10px'}>
-      <Avatar
-        variant={val?.variant}
-        sx={Cusmstyle.labelImage}
-        alt=""
-        src={Celldata[val.name]?.image}
-      />
-      <Typography sx={Cusmstyle.fontStyle}>{Celldata[val.name]?.label}</Typography>
+      <Avatar variant={variant} sx={Cusmstyle.labelImage} alt="" src={image} />
+      <Typography sx={Cusmstyle.fontStyle}>{label}</Typography>
     </Box>
   );
 }
 
 ImageWithLabel.defaultProps = {
-  Celldata: {},
-  val: {},
+  image: '',
+  label: '',
+  variant: 'circular',
 };

@@ -22,7 +22,7 @@ export interface TableProps {
   id?: any;
   Header: TableHeader;
   dataList: TableBody;
-  tableData: any;
+  tableData: TableData;
   setSelectedCheckbox: any;
   selectedCheckbox: any;
   checkboxHandleChange: any;
@@ -44,4 +44,13 @@ export interface TableProps {
   cellOptions: object;
   tableBorderRadius:any;
   tableBackground:string;
+  noDataFound: {
+    fontSize: string;
+    fontWeight: string;
+    color: string;
+    bgColor: string;
+    text: string;
+    component: React.ReactNode | null;
+  };
+
 }
