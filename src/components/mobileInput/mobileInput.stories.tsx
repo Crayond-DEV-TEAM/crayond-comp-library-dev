@@ -1,4 +1,4 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { MobileInput } from './index';
 
 export default {
@@ -10,7 +10,5 @@ const Template: ComponentStory<typeof MobileInput> = (args) => (
   <MobileInput {...args} />
 );
 
-export const Primary = Template.bind({});
-Primary.args = {
-};
-
+export const Default = Template.bind({});
+Default.args = {};
