@@ -19,7 +19,7 @@ export default function BasicCard(props: CardProps) {
           </Typography>
           <Typography sx={{ fontSize: 14, }} color="text.secondary" gutterBottom>
             {props?.description}
-          </Typography>{props?.button ? (<BasicButtons type='submit' inLineStyles={Card_Style.buttonSx}>{props?.buttonText}</BasicButtons>) : ''}        </CardContent>
+          </Typography>{props?.button ? (<BasicButtons type='submit' inLineStyles={Card_Style.buttonSx}>{props?.buttonText}</BasicButtons>) : ''}</CardContent>
         <CardActions>
           <Typography sx={Card_Style.actionsSx}>{props?.bottomText} <span style={{ color: '#665CD7', fontWeight: 600, textDecoration: 'underline', cursor: 'pointer' }} onClick={() => { }}>{props.actionText}</span></Typography>
         </CardActions>
