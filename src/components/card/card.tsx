@@ -35,4 +35,4 @@ BasicCard.defaultProps = {
   bottomText: '',
   actionText: '',
   button:'',
-};
+}; 
