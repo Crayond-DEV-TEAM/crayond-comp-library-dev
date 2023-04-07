@@ -1,29 +1,24 @@
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Cusmstyle } from '../table/style';
-
-export default function IconWithText(props: any) {
-  const { Celldata, val } = props;
+import FunnelIcon from '../../assets/funnelIcon';
+interface IconWithLabelProps {
+  label: string;
+  icon: React.ReactNode;
+}
+export default function IconWithText(props: IconWithLabelProps) {
+  const { label, icon } = props;
   return (
-    <Box display={"flex"} justifyContent={Celldata[val.name]?.label ? "" : "center"}>
-    <Box
-    sx={Cusmstyle.iconText}
-  >
-    { Celldata[val.name]?.icon}
-    {Celldata[val.name]?.label && 
-    <Typography
-    sx={Cusmstyle.fontStyle}
-    >
-      {Celldata[val.name]?.label}
-    </Typography>
-    }
-  </Box>
-  </Box>
+    <Box display={'flex'} justifyContent={label ? '' : 'center'}>
+      <Box sx={Cusmstyle.iconText}>
+        {icon}
+        {label && <Typography sx={Cusmstyle.fontStyle}>{label}</Typography>}
+      </Box>
+    </Box>
   );
 }
 
 IconWithText.defaultProps = {
-  Celldata: {},
-  val: {},
+  label: 'Sent',
+  icon: <FunnelIcon />,
 };

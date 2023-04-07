@@ -1,37 +1,35 @@
 import Box from '@mui/material/Box';
-import  Tooltip from '@mui/material/Tooltip';
+import Tooltip from '@mui/material/Tooltip';
 import PerformanceIcon from '../../assets/performanceIcon';
 
-export default function Performance(props: any) {
-   const {Celldata, val} = props;
+interface PerformanceProps {
+  value: string;
+}
+export default function Performance(props: PerformanceProps) {
+  const { value } = props;
   return (
     <Tooltip
-    title={Celldata[val.name]}
-    placement={'bottom'}
-    componentsProps={{
-      tooltip: {
-        sx: {
-          bgcolor: 'primary.main',
-          '& .MuiTooltip-arrow': {
-            color: 'primary.main',
+      title={value}
+      placement={'bottom'}
+      componentsProps={{
+        tooltip: {
+          sx: {
+            bgcolor: 'primary.main',
+            '& .MuiTooltip-arrow': {
+              color: 'primary.main',
+            },
           },
         },
-      },
-    }}
-    arrow
-  >
-    <Box
-      display={'flex'}
-      alignItems={'center'}
-      justifyContent={'center'}
+      }}
+      arrow
     >
-      <PerformanceIcon variant={Celldata[val.name]} />
-    </Box>
-  </Tooltip>
+      <Box display={'flex'} alignItems={'center'} justifyContent={'center'}>
+        <PerformanceIcon variant={value} />
+      </Box>
+    </Tooltip>
   );
 }
 
 Performance.defaultProps = {
-  Celldata: {},
-  val: {},
+  value: 'Good',
 };

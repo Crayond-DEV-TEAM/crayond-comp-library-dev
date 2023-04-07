@@ -18,7 +18,7 @@ export default function HeaderTwo(props: any) {
           InputProps={{ startAdornment: HeaderComponent?.searchIcon }}
           placeholder={HeaderComponent?.searchPlaceholder}
           // value={HeaderComponent?.headerSearch}
-          onChange={(e) => HeaderComponent?.setHederSearch(e.target.value)}
+          onChange={(e) => HeaderComponent?.setHederSearch(e.target.value, e)}
         />
         <Stack
           direction={'row'}
@@ -35,13 +35,13 @@ export default function HeaderTwo(props: any) {
         >
           <Box
             sx={style.iconContainer}
-            onClick={() => HeaderComponent?.fillerMethod()}
+            onClick={(e) => HeaderComponent?.fillerMethod(e)}
           >
             {HeaderComponent?.funnelIcon}
           </Box>
           <Box>
             <Button
-            onClick={()=>HeaderComponent?.secondaryBtnMethod()}
+            onClick={(e)=>HeaderComponent?.secondaryBtnMethod(e)}
               startIcon={HeaderComponent?.secondaryBtnIcon}
               variant="outlined"
               sx={style.outlineBtn}
@@ -50,7 +50,7 @@ export default function HeaderTwo(props: any) {
             </Button>
           </Box>
         </Stack>
-        <Button onClick={()=>HeaderComponent?.primaryBtnMethod()} variant="contained" sx={style.containedBtn}>
+        <Button onClick={(e)=>HeaderComponent?.primaryBtnMethod(e)} variant="contained" sx={style.containedBtn}>
           {HeaderComponent?.primaryBtnText}
         </Button>
       </Box>

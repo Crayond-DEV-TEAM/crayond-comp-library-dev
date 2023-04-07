@@ -3,11 +3,14 @@ import { Cusmstyle } from '../table/style';
 import Tooltip from '@mui/material/Tooltip';
 import Rating from '@mui/material/Rating';
 
-export default function StarRating(props: any) {
-  const { Celldata, val } = props;
+interface StarRatingProps {
+  value: number;
+}
+export default function StarRating(props: StarRatingProps) {
+  const { value } = props;
   return (
     <Tooltip
-      title={Celldata[val.name]}
+      title={value}
       placement={'top'}
       componentsProps={{
         tooltip: {
@@ -22,13 +25,12 @@ export default function StarRating(props: any) {
       arrow
     >
       <span>
-      <Rating defaultValue={Celldata[val.name]} readOnly precision={0.5} />
+        <Rating value={value} readOnly precision={0.5} />
       </span>
     </Tooltip>
   );
 }
 
 StarRating.defaultProps = {
-  Celldata: {},
-  val: {},
+  value: 0,
 };
