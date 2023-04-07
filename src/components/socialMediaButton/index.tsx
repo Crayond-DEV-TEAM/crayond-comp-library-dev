@@ -34,7 +34,7 @@ export const SocialMediaButton = (props: SocialMediaButtonProps) => {
       }}
       onClick={onClick}>
       <IconButton>
-        {props?.startIcon}
+        {startIcon}
         {/* <DeleteIcon /> */}
       </IconButton>
       <Typography

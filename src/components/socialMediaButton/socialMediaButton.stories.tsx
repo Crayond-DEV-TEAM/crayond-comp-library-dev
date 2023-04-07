@@ -5,7 +5,7 @@ import DeleteIcon from '../../assets/deleteIcon';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'components/Button',
+  title: 'components/SocialMediaButton',
   component: SocialMediaButton,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
 } as ComponentMeta<typeof SocialMediaButton>;
@@ -28,6 +28,6 @@ Primary.args = {
   width: '100%',
   color: '#3B3B3B',
   fontSize: '16px',
-  fontWeight: 'medium'
+  fontWeight: 'medium',
   // startIcon: <DeleteIcon />
 };
