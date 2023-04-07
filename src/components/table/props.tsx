@@ -57,7 +57,7 @@ export interface TableProps {
     text: string;
     component: React.ReactNode | null;
   };
-  stickyColumns:{
+  stickyColumns?:{
     stickyRight:Array<any>;
     stickyLeft:Array<any>;
   }
