@@ -445,7 +445,7 @@ export default function EnhancedTable({
       }}
     >
       <Paper
-        sx={{ ...Cusmstyle.tablePaper, backgroundColor: tableBackground }}
+        sx={{ ...Cusmstyle.tablePaper, backgroundColor: tableBackground,  padding: HeaderComponent?.styles?.padding, margin: HeaderComponent?.styles?.margin }}
         className={'TABLE_PAPER'}
       >
         <Box sx={Cusmstyle.titleContainer} className={'TABLE_BOX'}>

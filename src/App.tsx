@@ -872,12 +872,16 @@ function App() {
           text: 'No Data Found',
           component: null,
         }}
-        stickyColumns={{
-          stickyLeft:["id", "checkbox"],
-          stickyRight:["action", "response"],
-        }}
+        // stickyColumns={{
+        //   stickyLeft:["id", "checkbox"],
+        //   stickyRight:["action", "response"],
+        // }}
         HeaderComponent={{
           variant: 1,
+          styles:{
+            padding:"10px 0",
+            margin:"0"
+          },
           headerSelect: headerSelect,
           setHederSelect: setHederSelect,
           searchPlaceholder: 'Search',
