@@ -16,6 +16,8 @@ import TablePagination from '@mui/material/TablePagination';
 import Typography from '@mui/material/Typography';
 import { HeaderOne } from '../headerOne';
 import { HeaderTwo } from '../HeaderTwo';
+import CompanyLogo from '../../assets/companyLogo.png';
+import { BasicCard } from '../card';
 // import * as excelJS from 'exceljs';
 // import { saveAs } from 'file-saver';
 
@@ -204,7 +206,13 @@ export default function EnhancedTable({
         backgroundColor: tableBackground
       }}
     >
-      <Paper sx={{...Cusmstyle.tablePaper,backgroundColor: tableBackground }} className={'TABLE_PAPER'}>
+      <BasicCard title='Welcome!'
+        description='One positive feedback per day or week can make us grow exponentially'
+        buttonText='Log in'
+        companyLogo={CompanyLogo}
+        bottomText=' Dont have an account?'
+        actionText='Sign in' />
+      <Paper sx={{ ...Cusmstyle.tablePaper, backgroundColor: tableBackground }} className={'TABLE_PAPER'}>
         <Box sx={Cusmstyle.titleContainer} className={'TABLE_BOX'}>
           <Box>
             <Typography className={'TABLE_TITLE'} sx={Cusmstyle.tableTitle}>
@@ -290,7 +298,7 @@ const EnhancedHeader = (props: any) => {
 
 EnhancedTableHead.defaultProps = {
   Header: [],
-  selectAllCheckbox: () => {},
+  selectAllCheckbox: () => { },
   isSelectedAll: false,
   cellOptions: {},
   headerOptions: {},
@@ -300,12 +308,12 @@ EnhancedTable.defaultProps = {
   Header: [],
   dataList: [],
   tableData: [],
-  setSelectedCheckbox: () => {},
+  setSelectedCheckbox: () => { },
   selectedCheckbox: [],
-  checkboxHandleChange: () => {},
-  handleSwitch: () => {},
+  checkboxHandleChange: () => { },
+  handleSwitch: () => { },
   switchList: [],
-  SelectAll: () => {},
+  SelectAll: () => { },
   tableMinWidth: '100%',
   tableMinHeight: '100%',
   tableName: '',
@@ -319,12 +327,12 @@ EnhancedTable.defaultProps = {
   headerOptions: {},
   rowOptions: {},
   cellOptions: {},
-  tableBackground:"",
+  tableBackground: "",
 };
 
 EnhancedHeader.defaultProps = {
   HeaderComponent: {},
   selectedCheckbox: [],
-  SelectAll: () => {},
+  SelectAll: () => { },
   component: <></>,
 };

@@ -20,6 +20,7 @@ Primary.args = {
   buttonText: 'Log in',
   companyLogo: CompanyLogo,
   bottomText: ' Dont have an account?',
-  actionText: 'Sign in'
+  actionText: 'Sign in',
+  button:true
 };
 

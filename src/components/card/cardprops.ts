@@ -7,6 +7,7 @@ export interface CardProps {
   logo?: any;
   description: string;
   buttonText: string;
+  button:any;
   companyLogo: any;
   bottomText: string;
   actionText: string;
