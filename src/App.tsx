@@ -73,7 +73,7 @@ function App() {
             id: 'id',
             align: 'left',
             disablePadding: false,
-            label: 'Sl no',
+            label: 'Sl No',
             isSortable: true,
           },
           {
@@ -856,7 +856,8 @@ function App() {
         isSelectedAll={isSelectedAll}
         handleSwitch={handleSwitch}
         tableMinWidth={'3350px'}
-        tableMinHeight={'465px'}
+        tableMinHeight={'265px'}
+        tableMaxHeight={'265px'}
         tableName={'Team Member'}
         paddingAll={'0px'}
         padding={['1px', '1px', '1px', '1px']}
@@ -872,9 +873,10 @@ function App() {
           text: 'No Data Found',
           component: null,
         }}
-        stickyColumns={{
+        stickyOptions={{
+          stickyHeader:false,
           stickyLeft:["id", "checkbox"],
-          stickyRight:["action", "response"],
+          stickyRight:["action", "response", ],
         }}
         HeaderComponent={{
           variant: 1,

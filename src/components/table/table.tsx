@@ -29,14 +29,14 @@ const EnhancedTableHead = ({
   orderBy,
   order,
   createSortHandler,
-  stickyColumns,
+  stickyOptions,
 }: any) => {
   const [stickyStyle, setStickyStyle] = React.useState<any>([]);
   const getClassName = (id: any) => {
-    if (stickyColumns?.stickyLeft.includes(id)) {
+    if (stickyOptions?.stickyLeft.includes(id)) {
       return 'stickyLeft';
     }
-    if (stickyColumns?.stickyRight.includes(id)) {
+    if (stickyOptions?.stickyRight.includes(id)) {
       return 'stickyRight';
     }
   };
@@ -44,45 +44,50 @@ const EnhancedTableHead = ({
     const stickyLeftList: any = document.getElementsByClassName('stickyLeft');
     let leftWidth = 0;
     let leftWidthList: any[] = [];
+
     const leftGenerateStyle = [...stickyLeftList]?.map(
-      ({ scrollWidth }: any, i: number) => {
-        leftWidthList = [...leftWidthList, scrollWidth];
+      ({ clientWidth }: any, i: number) => {
+        leftWidthList = [...leftWidthList, clientWidth];
         if (i !== 0) {
           leftWidth = leftWidth + leftWidthList[i - 1];
         }
-
+        let hr = leftWidth * 5 /100;
         return {
-          ['& .stickyLeft:nth-child(' + (i + 1) + ')']: {
+          ['& .stickyLeft:nth-of-type(' + (i + 1) + 'n)']: {
             position: 'sticky',
-            left: i === 0 ? 0 : leftWidth ,
+            left: i === 0 ? 0 : leftWidth-hr,
             zIndex: '5',
           },
         };
       }
     );
     // setStickyStyle((pre: any)=>[...pre, ...leftGenerateStyle]);
-//right
+    //right
     const stickyRightList: any = document.getElementsByClassName('stickyRight');
-    let RightWidth = 0;
-    let RightWidthList: any[] = [];
-    const RightGenerateStyle = [...stickyRightList]?.map(
-      ({ scrollWidth }: any, i: number) => {
-        RightWidthList = [...RightWidthList, scrollWidth];
+    const RightGenerateStyleDummy =[...stickyRightList];
+    const RightGenerateStyleDummy2 =RightGenerateStyleDummy.reverse();
+    let rightWidth = 0;
+    let rightWidthList: any[] = [];
+    const RightGenerateStyle = RightGenerateStyleDummy2?.map(
+      ({ clientWidth }: any, i: number) => {
+        rightWidthList = [...rightWidthList, clientWidth];
         if (i !== 0) {
-          RightWidth = RightWidth + RightWidthList[i - 1];
+          rightWidth = rightWidth + rightWidthList[i-1];
         }
-
+        let hr = rightWidth * 5 /100;
         return {
           ['& .stickyRight:nth-last-of-type(' + (i + 1) + 'n)']: {
             position: 'sticky',
-            right: i === 0 ? 0 : RightWidth,
+            right: i === 0 ? 0 : rightWidth-hr,
             zIndex: '5',
-            borderLeft: '1px solid' + headerOptions?.bgColor,
           },
         };
       }
     );
-    setStickyStyle((pre: any)=>[...pre, ...leftGenerateStyle, ...RightGenerateStyle]);
+    setStickyStyle([
+      ...leftGenerateStyle,
+      ...RightGenerateStyle,
+    ]);
   }, []);
   return (
     <TableHead>
@@ -153,6 +158,7 @@ export default function EnhancedTable({
   SelectAll,
   tableMinWidth,
   tableMinHeight,
+  tableMaxHeight,
   tableName,
   paddingAll,
   padding,
@@ -168,7 +174,7 @@ export default function EnhancedTable({
   tableBackground,
   noDataFound,
   paginationOption,
-  stickyColumns,
+  stickyOptions,
 }: TableProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState<number>(
@@ -280,7 +286,6 @@ export default function EnhancedTable({
   //     global_rating,
   //     experience,
   //   }: any = data;
-  //   console.log(tableData?.[i]?.type[0], '=========');
 
   //   // switch (key) {
   //   //   case value:
@@ -467,12 +472,14 @@ export default function EnhancedTable({
           className={'TABLE_CONTAINER'}
           sx={{
             minHeight: tableMinHeight,
+            maxHeight: tableMaxHeight,
             borderRadius: tableBorderRadius,
             position: 'relative',
           }}
         >
           {dataList?.length > 0 ? (
             <Table
+            stickyHeader={stickyOptions?.stickyHeader}
               sx={{ ...Cusmstyle.tableContainer, minWidth: tableMinWidth }}
               aria-labelledby="tableTitle"
               size={dense}
@@ -486,7 +493,7 @@ export default function EnhancedTable({
                 createSortHandler={createSortHandler}
                 order={order}
                 orderBy={orderBy}
-                stickyColumns={stickyColumns}
+                stickyOptions={stickyOptions}
               />
               <EnhancedTableBody
                 Body={stableSort(dataList, getComparator(order, orderBy)).slice(
@@ -501,7 +508,7 @@ export default function EnhancedTable({
                 selectedCheckbox={selectedCheckbox}
                 cellOptions={cellOptions}
                 rowOptions={rowOptions}
-                stickyColumns={stickyColumns}
+                stickyOptions={stickyOptions}
               />
             </Table>
           ) : (

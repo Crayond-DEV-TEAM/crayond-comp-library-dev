@@ -29,7 +29,7 @@ const BodyRowLogic = ({
   checkboxHandleChange,
   handleSwitch,
   cellOptions,
-  stickyColumns
+  stickyOptions
 }: any) => {
   const cellStyle = {
     fontSize: cellOptions?.fontSize,
@@ -40,10 +40,10 @@ const BodyRowLogic = ({
     padding: cellOptions?.padding,
   };
   const getClassName = (id: any) => {
-    if (stickyColumns?.stickyLeft.includes(id)) {
+    if (stickyOptions?.stickyLeft.includes(id)) {
       return 'stickyLeftTd';
     }
-    if (stickyColumns?.stickyRight.includes(id)) {
+    if (stickyOptions?.stickyRight.includes(id)) {
       return 'stickyRightTd';
     }
   };
@@ -76,7 +76,7 @@ const BodyRowLogic = ({
 
     case 'SWITCH':
       return (
-        <TableCell sx={cellStyle} key={i + 'SWITCH'} className={'SWITCH'}>
+        <TableCell sx={cellStyle} key={i + 'SWITCH'} className={'SWITCH ' + getClassName(val.name)}>
           <Switch
             onChange={handleSwitch}
             id={Celldata?.id}
@@ -93,7 +93,7 @@ const BodyRowLogic = ({
 
     case 'LABEL':
       return (
-        <TableCell sx={cellStyle} key={i + 'LABEL'} className={'LABEL'}>
+        <TableCell sx={cellStyle} key={i + 'LABEL'} className={'LABEL ' + getClassName(val.name)}>
           <Label
             bgColor={Celldata[val.name]?.bgColor}
             color={Celldata[val.name]?.color}
@@ -106,7 +106,7 @@ const BodyRowLogic = ({
         <TableCell
           sx={cellStyle}
           key={i + 'ICON_WITH_LABEL'}
-          className={'ICON_WITH_LABEL'}
+          className={'ICON_WITH_LABEL ' + getClassName(val.name)}
         >
           <IconWithLabel
             cellStyle={cellStyle}
@@ -122,7 +122,7 @@ const BodyRowLogic = ({
         <TableCell
           sx={cellStyle}
           key={i + 'ICON_WITH_TEXT'}
-          className={'ICON_WITH_LABEL'}
+          className={'ICON_WITH_LABEL ' + getClassName(val.name)}
         >
           <IconWithText
             label={Celldata[val.name]?.label}
@@ -132,7 +132,7 @@ const BodyRowLogic = ({
       );
     case 'PROGRESS':
       return (
-        <TableCell sx={cellStyle} key={i + 'PROGRESS'} className={'PROGRESS'}>
+        <TableCell sx={cellStyle} key={i + 'PROGRESS'} className={'PROGRESS ' + getClassName(val.name)}>
           <Progress value={Celldata[val.name]} />
         </TableCell>
       );
@@ -141,7 +141,7 @@ const BodyRowLogic = ({
         <TableCell
           sx={cellStyle}
           key={i + 'IMAGE_WITH_LABEL'}
-          className={'IMAGE_WITH_LABEL'}
+          className={'IMAGE_WITH_LABEL ' + getClassName(val.name)}
         >
           <ImageWithLabel
             image={Celldata[val.name]?.image}
@@ -155,7 +155,7 @@ const BodyRowLogic = ({
         <TableCell
           sx={cellStyle}
           key={i + 'IMAGE_WITH_PROFILES'}
-          className={'IMAGE_WITH_PROFILES'}
+          className={'IMAGE_WITH_PROFILES ' + getClassName(val.name)}
         >
           <ImageWithProfiles
             variant={val?.variant}
@@ -168,7 +168,7 @@ const BodyRowLogic = ({
         <TableCell
           sx={cellStyle}
           key={i + 'PERFORMANCE'}
-          className={'PERFORMANCE'}
+          className={'PERFORMANCE ' + getClassName(val.name)}
         >
           <Performance value={Celldata[val.name]} />
         </TableCell>
@@ -178,7 +178,7 @@ const BodyRowLogic = ({
         <TableCell
           sx={cellStyle}
           key={i + 'AVATAR_NAME'}
-          className={'AVATAR_NAME'}
+          className={'AVATAR_NAME ' + getClassName(val.name)}
         >
           <AvatarName profiles={Celldata[val.name]} />
         </TableCell>
@@ -188,20 +188,20 @@ const BodyRowLogic = ({
         <TableCell
           sx={cellStyle}
           key={i + 'STAR_RATING'}
-          className={'STAR_RATING'}
+          className={'STAR_RATING ' + getClassName(val.name)}
         >
           <StarRating value={Celldata[val.name]} />
         </TableCell>
       );
     case 'GROWTH':
       return (
-        <TableCell sx={cellStyle} key={i + 'GROWTH'} className={'GROWTH'}>
+        <TableCell sx={cellStyle} key={i + 'GROWTH'} className={'GROWTH ' + getClassName(val.name)}>
           <Growth variant={Celldata[val.name]?.variant} value={Celldata[val.name]?.value}/>
         </TableCell>
       );
     case 'DATE':
       return (
-        <TableCell sx={cellStyle} key={i + 'DATE'} className={'DATE'}>
+        <TableCell sx={cellStyle} key={i + 'DATE'} className={'DATE ' + getClassName(val.name)}>
           <Date format={val.format} value={Celldata[val.name]} />
         </TableCell>
       );
@@ -213,19 +213,19 @@ const BodyRowLogic = ({
       );
     case 'LINK':
       return (
-        <TableCell sx={cellStyle} key={i + 'LINK'} className={'LINK'}>
+        <TableCell sx={cellStyle} key={i + 'LINK'} className={'LINK ' + getClassName(val.name)}>
           <Link id={Celldata?.id} label={val?.label} viewHandel={val?.viewHandel} rowData={Celldata}/>
         </TableCell>
       );
     case 'CUSTOM':
       return (
-        <TableCell sx={cellStyle} key={i + 'CUSTOM'} className={'CUSTOM'}>
+        <TableCell sx={cellStyle} key={i + 'CUSTOM'} className={'CUSTOM ' + getClassName(val.name)}>
           {Celldata[val?.name]}
         </TableCell>
       );
     default:
       return (
-        <TableCell sx={cellStyle} key={i + 'TEXT'} className={'TEXT'}>
+        <TableCell sx={cellStyle} key={i + 'TEXT'} className={'TEXT ' + getClassName(val.name)}>
           <Text value={Celldata?.[val.name]} />
         </TableCell>
       );
@@ -249,54 +249,59 @@ export const EnhancedTableBody = ({
   checkboxHandleChange,
   cellOptions,
   rowOptions,
-  stickyColumns
+  stickyOptions
 }: any) => {
 
   const [stickyStyle, setStickyStyle] = React.useState<any>([]);
   
   React.useEffect(() => {
+    // debugger;
+
     const stickyLeftList: any = document.getElementsByClassName('stickyLeftTd');
     let leftWidth = 0;
     let leftWidthList: any[] = [];
     const leftGenerateStyle = [...stickyLeftList]?.map(
-      ({ scrollWidth }: any, i: number) => {
-        leftWidthList = [...leftWidthList, scrollWidth];
+      ({ offsetWidth }: any, i: number) => {
+
+        leftWidthList = [...leftWidthList, offsetWidth];
         if (i !== 0) {
           leftWidth = leftWidth + leftWidthList[i - 1];
         }
-
+              let hr = leftWidth * 5 /100;
         return {
-          ['& .stickyLeftTd:nth-child(' + (i + 1) + ')']: {
+          ['& .stickyLeftTd:nth-of-type(' + (i + 1) + 'n)']: {
             position: 'sticky',
-            left: i === 0 ? 0 : leftWidth,
-            zIndex: '5',
+            left: i === 0 ? 0 : leftWidth - hr,
+            zIndex: '2',
           },
         };
       }
     );
     // setStickyStyle((pre: any)=>[...pre, ...leftGenerateStyle]);
 //right
-    const stickyRightList: any = document.getElementsByClassName('stickyRightTd');
-    let RightWidth = 0;
-    let RightWidthList: any[] = [];
-    console.log("🚀 ~ file: table.tsx:79 ~ React.useEffect ~ [...stickyRightList]:", [...stickyRightList])
-    const RightGenerateStyle = [...stickyRightList]?.map(
-      ({ scrollWidth }: any, i: number) => {
-        RightWidthList = [...RightWidthList, scrollWidth];
-        if (i !== 0) {
-          RightWidth = RightWidth + RightWidthList[i - 1];
-        }
+const stickyRightList: any = document.getElementsByClassName('stickyRight');
+const RightGenerateStyleDummy =[...stickyRightList];
+const RightGenerateStyleDummy2 =RightGenerateStyleDummy.reverse();
+let rightWidth = 0;
+let rightWidthList: any[] = [];
+const RightGenerateStyle = RightGenerateStyleDummy2?.map(
+  ({ offsetWidth }: any, i: number) => {
+    rightWidthList = [...rightWidthList, offsetWidth];
+    if (i !== 0) {
+      rightWidth = rightWidth + rightWidthList[i-1];
+    }
+    let hr = rightWidth * 5 /100;
+    return {
+      ['& .stickyRightTd:nth-last-of-type(' + (i + 1) + 'n)']: {
+        position: 'sticky',
+        right: i === 0 ? 0 : rightWidth -hr,
+        zIndex: '2',
+      },
+    };
+  }
+);
 
-        return {
-          ['& .stickyRightTd:nth-last-of-type(' + (i + 1) + 'n)']: {
-            position: 'sticky',
-            right: i === 0 ? 0 : RightWidth,
-            zIndex: '6',
-          },
-        };
-      }
-    );
-    setStickyStyle((pre: any)=>[...pre, ...leftGenerateStyle, ...RightGenerateStyle]);
+    setStickyStyle( [ ...leftGenerateStyle, ...RightGenerateStyle]);
   }, []);
   return (
     <TableBody>
@@ -304,7 +309,6 @@ export const EnhancedTableBody = ({
         return (
           <TableRow
             key={'Row' + rowIndex}
-            // style={stickyStyle}
             sx={[...stickyStyle, {
               '&:nth-of-type(odd):nth-of-type(odd) td': {
                 background: rowOptions?.rowOddBgColor+" !important",
@@ -322,6 +326,12 @@ export const EnhancedTableBody = ({
               '&:last-child td, &:last-child th': {
                 border: 0,
               },
+              '& .stickyLeftTd:nth-last-of-type(1)': {
+                borderRight: "1px solid red !important",
+              },
+              '& .stickyRightTd:nth-of-type(1)': {
+                borderLeft: "1px solid red !important",
+              },
             }]}
           >
             {TableData.map((val: any, i: number) => {
@@ -337,7 +347,7 @@ export const EnhancedTableBody = ({
                   checkboxHandleChange={checkboxHandleChange}
                   selectedCheckbox={selectedCheckbox}
                   cellOptions={cellOptions}
-                  stickyColumns={stickyColumns}
+                  stickyOptions={stickyOptions}
                 />
               );
             })}
