@@ -28,6 +28,7 @@ export default function EnhancedTable({
   tableMinWidth,
   tableMinHeight,
   tableMaxHeight,
+  tableMaxWidth,
   tableName,
   paddingAll,
   padding,
@@ -226,6 +227,7 @@ export default function EnhancedTable({
         paddingBottom: padding?.[2],
         paddingLeft: padding?.[3],
         backgroundColor: tableBackground,
+        maxWidth:tableMaxWidth,
       }}
     >
       <Paper

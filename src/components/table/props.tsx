@@ -54,6 +54,8 @@ export interface TableProps {
     | ((data: any | undefined, isRestSet: boolean | undefined) => {});
   tableMinWidth?: string;
   tableMinHeight?: string;
+  tableMaxWidth?: string;
+  tableMaxHeight?: string;
   tableName: string;
   paddingAll?: string;
   padding?: Array<string>;
@@ -123,7 +125,8 @@ export interface TableProps {
     text: string;
     component: React.ReactNode | null;
   };
-  stickyColumns?: {
+  stickyOptions?: {
+    stickyHeader:boolean | undefined;
     stickyRight: Array<string>;
     stickyLeft: Array<string>;
   };

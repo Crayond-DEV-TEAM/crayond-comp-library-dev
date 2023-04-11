@@ -858,6 +858,7 @@ function App() {
         tableMinWidth={'3350px'}
         tableMinHeight={'265px'}
         tableMaxHeight={'265px'}
+        // tableMaxWidth={'500px'}
         tableName={'Team Member'}
         paddingAll={'0px'}
         padding={['1px', '1px', '1px', '1px']}
@@ -873,10 +874,11 @@ function App() {
           text: 'No Data Found',
           component: null,
         }}
-        // stickyColumns={{
-        //   stickyLeft:["id", "checkbox"],
-        //   stickyRight:["action", "response"],
-        // }}
+        stickyOptions={{
+          stickyHeader:true,
+          stickyLeft:["id", "checkbox"],
+          stickyRight:["action", "response"],
+        }}
         HeaderComponent={{
           variant: 1,
           styles:{
