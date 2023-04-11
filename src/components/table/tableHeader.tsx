@@ -101,57 +101,6 @@ export const TableHeader = ({
     ]);
   }, []);
 
-
-  // React.useEffect(() => {
-  //    //sticky Left CSS Generator
-  //   const stickyLeftList: any = document.getElementsByClassName('stickyLeft');
-  //   let leftWidth = 0;
-  //   let leftWidthList: any[] = [];
-  //   const leftGenerateStyle = [...stickyLeftList]?.map(
-  //     ({ scrollWidth }: any, i: number) => {
-  //       leftWidthList = [...leftWidthList, scrollWidth];
-  //       if (i !== 0) {
-  //         leftWidth = leftWidth + leftWidthList[i - 1];
-  //       }
-
-  //       return {
-  //         ['& .stickyLeft:nth-child(' + (i + 1) + ')']: {
-  //           position: 'sticky',
-  //           left: i === 0 ? 0 : leftWidth,
-  //           zIndex: '5',
-  //         },
-  //       };
-  //     }
-  //   );
-  //    //sticky Right CSS Generator
-  //   const stickyRightList: any = document.getElementsByClassName('stickyRight');
-  //   let RightWidth = 0;
-  //   let RightWidthList: any[] = [];
-  //   const RightGenerateStyle = [...stickyRightList]?.map(
-  //     ({ scrollWidth }: any, i: number) => {
-  //       RightWidthList = [...RightWidthList, scrollWidth];
-  //       if (i !== 0) {
-  //         RightWidth = RightWidth + RightWidthList[i - 1];
-  //       }
-
-  //       return {
-  //         ['& .stickyRight:nth-last-of-type(' + (i + 1) + 'n)']: {
-  //           position: 'sticky',
-  //           right: i === 0 ? 0 : RightWidth,
-  //           zIndex: '5',
-  //           borderLeft: '1px solid' + headerOptions?.bgColor,
-  //         },
-  //       };
-  //     }
-  //   );
-
-  //   //style push state
-  //   setStickyStyle((pre: any) => [
-  //     ...pre,
-  //     ...leftGenerateStyle,
-  //     ...RightGenerateStyle,
-  //   ]);
-  // }, []);
   return (
     <TableHead>
       <TableRow sx={stickyStyle}>

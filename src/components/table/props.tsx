@@ -113,7 +113,7 @@ export interface TableProps {
   tableBorderRadius?: string;
   tableBackground?: string | any;
   paginationOption: {
-    isShow:boolean;
+    isEnable:boolean;
     rowPerPage: number;
     rowsPerPageOptions?: Array<number | { value: number; label: string }>;
   };

@@ -309,6 +309,8 @@ export default function EnhancedTable({
           )}
         </TableContainer>
         {dataList?.length > 0 && (
+          <>
+          {paginationOption?.isEnable &&
           <TablePagination
             className={'TABLE_PAGINATION'}
             sx={{ alignSelf: 'flex-end' }}
@@ -319,7 +321,8 @@ export default function EnhancedTable({
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
-          />
+          />}
+          </>
         )}
       </Paper>
     </Box>
@@ -350,6 +353,11 @@ EnhancedTable.defaultProps = {
   rowOptions: {},
   cellOptions: {},
   tableBackground: '',
+  paginationOption:{
+    isEnable:true,
+    rowPerPage:5,
+    rowsPerPageOptions:[5, 10, 25],       
+  },
   noDataFound: {
     fontSize: '16px',
     fontWeight: '600',
