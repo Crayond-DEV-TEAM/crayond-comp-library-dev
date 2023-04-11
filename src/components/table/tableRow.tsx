@@ -39,6 +39,7 @@ const BodyRowLogic = ({
     borderBottom: cellOptions?.borderBottom,
     padding: cellOptions?.padding,
   };
+  //get ID based class name
   const getClassName = (id: any) => {
     if (stickyOptions?.stickyLeft.includes(id)) {
       return 'stickyLeftTd';
@@ -48,6 +49,7 @@ const BodyRowLogic = ({
     }
   };
 
+  //Return cell type component
   switch (val?.type?.[0]) {
     case 'INCREMENT':
       return (
@@ -240,6 +242,8 @@ BodyRowLogic.defaultProps = {
   handleSwitch: () => {},
   checkboxHandleChange: () => {},
 };
+
+
 export const EnhancedTableBody = ({
   Body,
   TableData,
@@ -255,8 +259,7 @@ export const EnhancedTableBody = ({
   const [stickyStyle, setStickyStyle] = React.useState<any>([]);
   
   React.useEffect(() => {
-    // debugger;
-
+     //sticky Left CSS Generator
     const stickyLeftList: any = document.getElementsByClassName('stickyLeftTd');
     let leftWidth = 0;
     let leftWidthList: any[] = [];
@@ -277,31 +280,28 @@ export const EnhancedTableBody = ({
         };
       }
     );
-    // setStickyStyle((pre: any)=>[...pre, ...leftGenerateStyle]);
-//right
-const stickyRightList: any = document.getElementsByClassName('stickyRight');
-const RightGenerateStyleDummy =[...stickyRightList];
-const RightGenerateStyleDummy2 =RightGenerateStyleDummy.reverse();
-let rightWidth = 0;
-let rightWidthList: any[] = [];
-const RightGenerateStyle = RightGenerateStyleDummy2?.map(
-  ({ offsetWidth }: any, i: number) => {
-    rightWidthList = [...rightWidthList, offsetWidth];
-    if (i !== 0) {
-      rightWidth = rightWidth + rightWidthList[i-1];
-    }
-    let hr = rightWidth * 5 /100;
-    return {
-      ['& .stickyRightTd:nth-last-of-type(' + (i + 1) + 'n)']: {
-        position: 'sticky',
-        right: i === 0 ? 0 : rightWidth -hr,
-        zIndex: '2',
-      },
-    };
-  }
-);
+     //sticky Right CSS Generator
+    const stickyRightList: any = document.getElementsByClassName('stickyRightTd');
+    let RightWidth = 0;
+    let RightWidthList: any[] = [];
+    console.log("🚀 ~ file: table.tsx:79 ~ React.useEffect ~ [...stickyRightList]:", [...stickyRightList])
+    const RightGenerateStyle = [...stickyRightList]?.map(
+      ({ scrollWidth }: any, i: number) => {
+        RightWidthList = [...RightWidthList, scrollWidth];
+        if (i !== 0) {
+          RightWidth = RightWidth + RightWidthList[i - 1];
+        }
 
-    setStickyStyle( [ ...leftGenerateStyle, ...RightGenerateStyle]);
+        return {
+          ['& .stickyRightTd:nth-last-of-type(' + (i + 1) + 'n)']: {
+            position: 'sticky',
+            right: i === 0 ? 0 : RightWidth,
+            zIndex: '6',
+          },
+        };
+      }
+    );
+    setStickyStyle((pre: any)=>[...pre, ...leftGenerateStyle, ...RightGenerateStyle]);
   }, []);
   return (
     <TableBody>

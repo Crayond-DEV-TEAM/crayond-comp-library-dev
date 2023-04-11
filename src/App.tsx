@@ -11,7 +11,6 @@ import DownloadIcon from './assets/downloadIcon';
 import DocsIcon from './assets/docsIcon';
 import EditIcon from './assets/editIcon';
 import NotificationIcon from './assets/notificationIcon';
-// import './App.css';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -33,7 +32,7 @@ function App() {
   const setHederSearch = (value: any) => {
     console.log('🚀 ~ file: App.tsx:31 ~ setHederSearch ~ value:', value);
   };
-  const SelectAll = (data: any, isRestSet: boolean) => {
+  const SelectAll = (data: any | undefined, isRestSet: boolean | undefined) => {
     if (!isRestSet) {
       setSelectedCheckbox([...data]);
       setIsSelectedAll(true);
@@ -844,6 +843,7 @@ function App() {
           padding: '12px',
         }}
         paginationOption={{
+          isShow:true,
           rowPerPage:5,
           rowsPerPageOptions:[5, 10, 25],       
         }}
@@ -873,13 +873,16 @@ function App() {
           text: 'No Data Found',
           component: null,
         }}
-        stickyOptions={{
-          stickyHeader:false,
-          stickyLeft:["id", "checkbox"],
-          stickyRight:["action", "response", ],
-        }}
+        // stickyColumns={{
+        //   stickyLeft:["id", "checkbox"],
+        //   stickyRight:["action", "response"],
+        // }}
         HeaderComponent={{
           variant: 1,
+          styles:{
+            padding:"10px 0",
+            margin:"0"
+          },
           headerSelect: headerSelect,
           setHederSelect: setHederSelect,
           searchPlaceholder: 'Search',
@@ -907,6 +910,10 @@ function App() {
         }}
         // HeaderComponent={{
         //   variant: 2,
+        // styles:{
+        //   padding:"10px 0",
+        //   margin:"0"
+        // },
         //   searchPlaceholder:"Search by name, email",
         //   setHederSearch:setHederSearch,
         //   checkboxLabel:"Show only my reportees",
