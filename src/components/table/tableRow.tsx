@@ -240,6 +240,8 @@ BodyRowLogic.defaultProps = {
   handleSwitch: () => {},
   checkboxHandleChange: () => {},
 };
+
+
 export const EnhancedTableBody = ({
   Body,
   TableData,

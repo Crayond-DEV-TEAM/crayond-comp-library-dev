@@ -1,145 +1,19 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Table from '@mui/material/Table';
-import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import TableSortLabel from '@mui/material/TableSortLabel';
 import Paper from '@mui/material/Paper';
 import { Cusmstyle } from './style';
 import { TableProps } from './props';
 import EnhancedTableBody from './tableRow';
-import { CustomCheckbox } from '../checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
 import TablePagination from '@mui/material/TablePagination';
 import Typography from '@mui/material/Typography';
-import { HeaderOne } from '../headerOne';
-import { HeaderTwo } from '../HeaderTwo';
 import { NoDataFound } from '../noDataFound';
 import * as excelJS from 'exceljs';
 import { saveAs } from 'file-saver';
 import moment from 'moment';
-
-const EnhancedTableHead = ({
-  Header,
-  selectAllCheckbox,
-  isSelectedAll,
-  headerOptions,
-  orderBy,
-  order,
-  createSortHandler,
-  stickyColumns,
-}: any) => {
-  const [stickyStyle, setStickyStyle] = React.useState<any>([]);
-  const getClassName = (id: any) => {
-    if (stickyColumns?.stickyLeft.includes(id)) {
-      return 'stickyLeft';
-    }
-    if (stickyColumns?.stickyRight.includes(id)) {
-      return 'stickyRight';
-    }
-  };
-  React.useEffect(() => {
-    const stickyLeftList: any = document.getElementsByClassName('stickyLeft');
-    let leftWidth = 0;
-    let leftWidthList: any[] = [];
-    const leftGenerateStyle = [...stickyLeftList]?.map(
-      ({ scrollWidth }: any, i: number) => {
-        leftWidthList = [...leftWidthList, scrollWidth];
-        if (i !== 0) {
-          leftWidth = leftWidth + leftWidthList[i - 1];
-        }
-
-        return {
-          ['& .stickyLeft:nth-child(' + (i + 1) + ')']: {
-            position: 'sticky',
-            left: i === 0 ? 0 : leftWidth ,
-            zIndex: '5',
-          },
-        };
-      }
-    );
-    // setStickyStyle((pre: any)=>[...pre, ...leftGenerateStyle]);
-//right
-    const stickyRightList: any = document.getElementsByClassName('stickyRight');
-    let RightWidth = 0;
-    let RightWidthList: any[] = [];
-    const RightGenerateStyle = [...stickyRightList]?.map(
-      ({ scrollWidth }: any, i: number) => {
-        RightWidthList = [...RightWidthList, scrollWidth];
-        if (i !== 0) {
-          RightWidth = RightWidth + RightWidthList[i - 1];
-        }
-
-        return {
-          ['& .stickyRight:nth-last-of-type(' + (i + 1) + 'n)']: {
-            position: 'sticky',
-            right: i === 0 ? 0 : RightWidth,
-            zIndex: '5',
-            borderLeft: '1px solid' + headerOptions?.bgColor,
-          },
-        };
-      }
-    );
-    setStickyStyle((pre: any)=>[...pre, ...leftGenerateStyle, ...RightGenerateStyle]);
-  }, []);
-  return (
-    <TableHead>
-      <TableRow sx={stickyStyle}>
-        {Header?.map((val: any, i: number) => {
-          return (
-            <TableCell
-              className={getClassName(val?.id)}
-              key={'Header' + i}
-              align={val?.align}
-              padding={val.disablePadding ? 'none' : 'normal'}
-              sx={{
-                fontSize: headerOptions?.fontSize,
-                color: headerOptions?.color,
-                fontWeight: headerOptions?.fontWeight,
-                backgroundColor: headerOptions?.bgColor,
-                borderBottom: headerOptions?.borderBottom,
-                padding: headerOptions?.padding,
-              }}
-              sortDirection={false}
-            >
-              {val?.variant === 'CHECKBOX' ? (
-                <FormControlLabel
-                  style={{ marginLeft: '0px' }}
-                  control={
-                    <CustomCheckbox
-                      name="selectAll"
-                      value={isSelectedAll}
-                      onChange={selectAllCheckbox}
-                    />
-                  }
-                  label={
-                    <Typography sx={Cusmstyle.tableHeader}>
-                      {val?.label}
-                    </Typography>
-                  }
-                />
-              ) : val?.isSortable ? (
-                <TableSortLabel
-                  active={orderBy === val?.id}
-                  direction={orderBy === val?.id ? order : 'asc'}
-                  onClick={(e) => createSortHandler(val?.id, e)}
-                >
-                  <Typography sx={Cusmstyle.tableHeader}>
-                    {val?.label}
-                  </Typography>
-                </TableSortLabel>
-              ) : (
-                <Typography sx={Cusmstyle.tableHeader}>{val?.label}</Typography>
-              )}
-            </TableCell>
-          );
-        })}
-      </TableRow>
-    </TableHead>
-  );
-};
+import { TableHeader } from './tableHeader';
+import VariantHeaderComponent from './variantHeaderComponent';
 
 export default function EnhancedTable({
   Header,
@@ -174,12 +48,14 @@ export default function EnhancedTable({
   const [rowsPerPage, setRowsPerPage] = React.useState<number>(
     paginationOption?.rowPerPage
   );
-  const [order, setOrder] = React.useState('asc');
+  const [order, setOrder] = React.useState<"asc" | "desc" | undefined>('asc');
   const [orderBy, setOrderBy] = React.useState('');
 
   const selectAllCheckbox = (data: any, e: any) => {
     let ids = dataList?.map(({ id }: any) => id);
-    SelectAll(ids, !e.target.checked);
+    if(SelectAll){
+      SelectAll(ids, !e.target.checked);
+    }
   };
 
   const handleChangePage = (event: any, newPage: any) => {
@@ -192,69 +68,6 @@ export default function EnhancedTable({
     setPage(0);
   };
 
-  // const valueList= {
-  //   id:null,
-  //   name: null,
-  //   calories: null,
-  //   fat: null,
-  //   carbs: null,
-  //   protein: null,
-  //   profile:  "label",
-  //   overall_progress: null,
-  //   production: "label",
-  //   status: "status",
-  //   performance: 'Very Good',
-  //   signals: [
-  //     {
-  //       name: 'Hari',
-  //       label: 'Excelent',
-  //       color: '#007C32',
-  //     },
-  //     {
-  //       name: 'Anbu',
-  //       label: 'Very Good',
-  //       color: '#4C9E29',
-  //     },
-  //     {
-  //       name: 'Ram',
-  //       label: 'Good',
-  //       color: '#F2B824',
-  //     },
-  //     {
-  //       name: 'Babu',
-  //       label: 'Good',
-  //       color: '#F2EB24',
-  //     },
-  //     {
-  //       name: 'S',
-  //       label: 'Bad',
-  //       color: '#DE1010',
-  //     },
-  //   ],
-  //   reporting_to: [
-  //     {
-  //       image: 'sample.jpg',
-  //       label: 'Hariharan',
-  //     },
-  //   ],
-  //   global_rating: 4,
-  //   growth: {
-  //     value: 0.74,
-  //     variant: 'NEGATIVE',
-  //   },
-  //   experience: '2022-12-15T18:43:21.055Z',
-  //   custom: <BasicButtons>Button 6</BasicButtons>,
-  //   alert_type: {
-  //     label: 'Delete',
-  //     color: '#F44F5A',
-  //     bgColor: '#FCCACD',
-  //     icon: <DeleteIcon />,
-  //   },
-  //   response: {
-  //     label: 'sent',
-  //     icon: <FunnelIcon />,
-  //   },
-  // }
   const workbook = new excelJS.Workbook();
   workbook.creator = 'test';
   workbook.lastModifiedBy = 'test';
@@ -265,44 +78,6 @@ export default function EnhancedTable({
   sheet.getRow(1).values = Header?.map((val: any) => val.id);
 
   sheet.columns = Header?.map((val: any) => ({ key: val.id, width: 35 }));
-
-  // const dataLists = dataList?.map((data: object, i: number) => {
-  //   const {
-  //     id,
-  //     calories,
-  //     name,
-  //     fat,
-  //     carbs,
-  //     protein,
-  //     overall_progress,
-  //     status,
-  //     performance,
-  //     global_rating,
-  //     experience,
-  //   }: any = data;
-  //   console.log(tableData?.[i]?.type[0], '=========');
-
-  //   // switch (key) {
-  //   //   case value:
-  //   //     break;
-
-  //   //   default:
-  //   //     break;
-  //   // }
-  //   return {
-  //     calories: typeof calories !== 'object' ? calories : '',
-  //     id,
-  //     name,
-  //     fat,
-  //     carbs,
-  //     protein,
-  //     overall_progress,
-  //     status,
-  //     performance,
-  //     global_rating,
-  //     experience,
-  //   };
-  // });
 
   const tableDataClone = dataList?.map((Celldata: any, rows: number) => {
     return tableData?.map((val: any, i: number) => {
@@ -445,7 +220,12 @@ export default function EnhancedTable({
       }}
     >
       <Paper
-        sx={{ ...Cusmstyle.tablePaper, backgroundColor: tableBackground,  padding: HeaderComponent?.styles?.padding, margin: HeaderComponent?.styles?.margin }}
+        sx={{
+          ...Cusmstyle.tablePaper,
+          backgroundColor: tableBackground,
+          padding: HeaderComponent?.styles?.padding,
+          margin: HeaderComponent?.styles?.margin,
+        }}
         className={'TABLE_PAPER'}
       >
         <Box sx={Cusmstyle.titleContainer} className={'TABLE_BOX'}>
@@ -455,7 +235,7 @@ export default function EnhancedTable({
             </Typography>
           </Box>
           <Box flexGrow={1}>
-            <EnhancedHeader
+            <VariantHeaderComponent
               selectedCheckbox={selectedCheckbox}
               SelectAll={SelectAll}
               HeaderComponent={HeaderComponent}
@@ -478,7 +258,7 @@ export default function EnhancedTable({
               size={dense}
               className={'TABLE'}
             >
-              <EnhancedTableHead
+              <TableHeader
                 Header={Header}
                 selectAllCheckbox={selectAllCheckbox}
                 isSelectedAll={isSelectedAll}
@@ -533,34 +313,6 @@ export default function EnhancedTable({
   );
 }
 
-const EnhancedHeader = (props: any) => {
-  switch (props?.HeaderComponent?.variant) {
-    case 1:
-      return (
-        <HeaderOne
-          HeaderComponent={props?.HeaderComponent}
-          selectedCheckbox={props?.selectedCheckbox}
-          SelectAll={props?.SelectAll}
-          handelDownload={props?.handelDownload}
-        />
-      );
-    case 2:
-      return <HeaderTwo HeaderComponent={props?.HeaderComponent} />;
-    case 'CUSTOM':
-      return props?.HeaderComponent?.component;
-    default:
-      return;
-  }
-};
-
-EnhancedTableHead.defaultProps = {
-  Header: [],
-  selectAllCheckbox: () => {},
-  isSelectedAll: false,
-  cellOptions: {},
-  headerOptions: {},
-};
-
 EnhancedTable.defaultProps = {
   Header: [],
   dataList: [],
@@ -593,11 +345,4 @@ EnhancedTable.defaultProps = {
     text: 'No Data Found!',
     // component:<>Hii</>
   },
-};
-
-EnhancedHeader.defaultProps = {
-  HeaderComponent: {},
-  selectedCheckbox: [],
-  SelectAll: () => {},
-  component: <></>,
 };

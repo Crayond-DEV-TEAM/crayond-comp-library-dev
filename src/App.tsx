@@ -11,7 +11,6 @@ import DownloadIcon from './assets/downloadIcon';
 import DocsIcon from './assets/docsIcon';
 import EditIcon from './assets/editIcon';
 import NotificationIcon from './assets/notificationIcon';
-// import './App.css';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -33,7 +32,7 @@ function App() {
   const setHederSearch = (value: any) => {
     console.log('🚀 ~ file: App.tsx:31 ~ setHederSearch ~ value:', value);
   };
-  const SelectAll = (data: any, isRestSet: boolean) => {
+  const SelectAll = (data: any | undefined, isRestSet: boolean | undefined) => {
     if (!isRestSet) {
       setSelectedCheckbox([...data]);
       setIsSelectedAll(true);
