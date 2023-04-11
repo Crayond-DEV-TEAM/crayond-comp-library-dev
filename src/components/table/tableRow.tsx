@@ -39,6 +39,7 @@ const BodyRowLogic = ({
     borderBottom: cellOptions?.borderBottom,
     padding: cellOptions?.padding,
   };
+  //get ID based class name
   const getClassName = (id: any) => {
     if (stickyColumns?.stickyLeft.includes(id)) {
       return 'stickyLeftTd';
@@ -48,6 +49,7 @@ const BodyRowLogic = ({
     }
   };
 
+  //Return cell type component
   switch (val?.type?.[0]) {
     case 'INCREMENT':
       return (
@@ -257,6 +259,7 @@ export const EnhancedTableBody = ({
   const [stickyStyle, setStickyStyle] = React.useState<any>([]);
   
   React.useEffect(() => {
+     //sticky Left CSS Generator
     const stickyLeftList: any = document.getElementsByClassName('stickyLeftTd');
     let leftWidth = 0;
     let leftWidthList: any[] = [];
@@ -276,8 +279,7 @@ export const EnhancedTableBody = ({
         };
       }
     );
-    // setStickyStyle((pre: any)=>[...pre, ...leftGenerateStyle]);
-//right
+     //sticky Right CSS Generator
     const stickyRightList: any = document.getElementsByClassName('stickyRightTd');
     let RightWidth = 0;
     let RightWidthList: any[] = [];

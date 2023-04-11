@@ -843,6 +843,7 @@ function App() {
           padding: '12px',
         }}
         paginationOption={{
+          isShow:true,
           rowPerPage:5,
           rowsPerPageOptions:[5, 10, 25],       
         }}

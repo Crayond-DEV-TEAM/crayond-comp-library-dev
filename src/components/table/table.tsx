@@ -51,6 +51,7 @@ export default function EnhancedTable({
   const [order, setOrder] = React.useState<"asc" | "desc" | undefined>('asc');
   const [orderBy, setOrderBy] = React.useState('');
 
+  //switch box set selected state
   const selectAllCheckbox = (data: any, e: any) => {
     let ids = dataList?.map(({ id }: any) => id);
     if(SelectAll){
@@ -68,6 +69,7 @@ export default function EnhancedTable({
     setPage(0);
   };
 
+  //Excel Download Function --- START
   const workbook = new excelJS.Workbook();
   workbook.creator = 'test';
   workbook.lastModifiedBy = 'test';
@@ -138,13 +140,16 @@ export default function EnhancedTable({
     };
     sheet.getColumn(rowNumber).font = { size: 14, family: 2 };
   });
-
+  
   const handelDownload = () => {
     workbook.xlsx.writeBuffer().then(function (buffer: any) {
       const blob = new Blob([buffer], { type: 'application/xlsx' });
       saveAs(blob, tableName + '.xlsx' ?? 'TableData' + '.xlsx');
     });
   };
+//Excel Download Function --- END
+
+  //Columns Sorting Function --- START
 
   const handleRequestSort = (event: any, property: any) => {
     const isAsc = orderBy === property && order === 'desc';
@@ -199,10 +204,13 @@ export default function EnhancedTable({
   const createSortHandler = (property: any, event: any) => {
     handleRequestSort(event, property);
   };
+  //Columns Sorting Function --- END
+
   const rowsPer = [
     ...(paginationOption?.rowsPerPageOptions ?? []),
     { label: 'All', value: dataList?.length },
   ];
+
   return (
     <Box
       sx={{

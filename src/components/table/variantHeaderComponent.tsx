@@ -22,15 +22,12 @@ interface VariantHeaderComponentProps {
     fillerMethod?: Function;
     downloadMethod?: Function;
   }
-  //  {
-  //   variant: string | number;
-  //   component: React.ReactNode | undefined;
-  // };
   selectedCheckbox: Array<string | number>;
   SelectAll: Function;
   handelDownload: Function;
 }
 const VariantHeaderComponent = (props: VariantHeaderComponentProps) => {
+  //Get variant component
   switch (props?.HeaderComponent?.variant) {
     case 1:
       return (

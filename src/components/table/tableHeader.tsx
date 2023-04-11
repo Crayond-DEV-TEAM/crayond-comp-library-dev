@@ -49,6 +49,7 @@ export const TableHeader = ({
     }
   };
   React.useEffect(() => {
+     //sticky Left CSS Generator
     const stickyLeftList: any = document.getElementsByClassName('stickyLeft');
     let leftWidth = 0;
     let leftWidthList: any[] = [];
@@ -68,8 +69,7 @@ export const TableHeader = ({
         };
       }
     );
-    // setStickyStyle((pre: any)=>[...pre, ...leftGenerateStyle]);
-    //right
+     //sticky Right CSS Generator
     const stickyRightList: any = document.getElementsByClassName('stickyRight');
     let RightWidth = 0;
     let RightWidthList: any[] = [];
@@ -90,6 +90,8 @@ export const TableHeader = ({
         };
       }
     );
+
+    //style push state
     setStickyStyle((pre: any) => [
       ...pre,
       ...leftGenerateStyle,
