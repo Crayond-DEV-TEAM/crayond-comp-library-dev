@@ -803,8 +803,16 @@ Primary.args = {
   margin:['0px', '1px', '0px', '1px'],
   tableBorderRadius:"12px",
   dense:'medium',
+ stickyColumns:{
+          stickyLeft:["id", "checkbox"],
+          stickyRight:["action", "response"],
+ },
   HeaderComponent:{
     variant: 1,
+    styles:{
+      padding:"10px 0",
+      margin:"0"
+    },
     headerSelect: [],
     setHederSelect: ()=>{},
     searchPlaceholder: 'Search',

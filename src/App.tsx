@@ -909,6 +909,10 @@ function App() {
         }}
         // HeaderComponent={{
         //   variant: 2,
+        // styles:{
+        //   padding:"10px 0",
+        //   margin:"0"
+        // },
         //   searchPlaceholder:"Search by name, email",
         //   setHederSearch:setHederSearch,
         //   checkboxLabel:"Show only my reportees",
