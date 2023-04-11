@@ -115,7 +115,7 @@ export interface TableProps {
     rowPerPage: number;
     rowsPerPageOptions?: Array<number | { value: number; label: string }>;
   };
-  noDataFound: {
+  noDataFound?: {
     fontSize: string;
     fontWeight: string;
     color: string;
