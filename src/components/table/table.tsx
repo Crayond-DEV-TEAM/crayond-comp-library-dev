@@ -14,6 +14,7 @@ import { saveAs } from 'file-saver';
 import moment from 'moment';
 import { TableHeader } from './tableHeader';
 import VariantHeaderComponent from './variantHeaderComponent';
+import { AlertBox } from '../alertBox';
 
 export default function EnhancedTable({
   Header,
@@ -325,6 +326,7 @@ export default function EnhancedTable({
           </>
         )}
       </Paper>
+      <AlertBox />
     </Box>
   );
 }
