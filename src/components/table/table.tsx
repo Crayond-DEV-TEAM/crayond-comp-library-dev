@@ -48,7 +48,7 @@ export default function EnhancedTable({
 }: TableProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState<number>(
-    paginationOption?.rowPerPage
+    paginationOption?.rowPerPage ?? 5
   );
   const [order, setOrder] = React.useState<"asc" | "desc" | undefined>('asc');
   const [orderBy, setOrderBy] = React.useState('');
@@ -310,7 +310,7 @@ export default function EnhancedTable({
         </TableContainer>
         {dataList?.length > 0 && (
           <>
-          {paginationOption?.isEnable &&
+          {paginationOption?.isEnable  &&
           <TablePagination
             className={'TABLE_PAGINATION'}
             sx={{ alignSelf: 'flex-end' }}
