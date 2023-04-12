@@ -46,18 +46,20 @@ export default function EnhancedTable({
   noDataFound,
   paginationOption,
   stickyOptions,
+  alertOptions,
 }: TableProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState<number>(
     paginationOption?.rowPerPage
   );
-  const [order, setOrder] = React.useState<"asc" | "desc" | undefined>('asc');
+  const [order, setOrder] = React.useState<'asc' | 'desc' | undefined>('asc');
   const [orderBy, setOrderBy] = React.useState('');
+  const [alertOpen, setAlertOpen] = React.useState(true);
 
   //switch box set selected state
   const selectAllCheckbox = (data: any, e: any) => {
     let ids = dataList?.map(({ id }: any) => id);
-    if(SelectAll){
+    if (SelectAll) {
       SelectAll(ids, !e.target.checked);
     }
   };
@@ -143,14 +145,14 @@ export default function EnhancedTable({
     };
     sheet.getColumn(rowNumber).font = { size: 14, family: 2 };
   });
-  
+
   const handelDownload = () => {
     workbook.xlsx.writeBuffer().then(function (buffer: any) {
       const blob = new Blob([buffer], { type: 'application/xlsx' });
       saveAs(blob, tableName + '.xlsx' ?? 'TableData' + '.xlsx');
     });
   };
-//Excel Download Function --- END
+  //Excel Download Function --- END
 
   //Columns Sorting Function --- START
 
@@ -214,6 +216,10 @@ export default function EnhancedTable({
     { label: 'All', value: dataList?.length },
   ];
 
+  //Alert Box Function
+  const handleAlertClose = (status:boolean)=>{
+    setAlertOpen(false);
+  }
   return (
     <Box
       sx={{
@@ -228,7 +234,7 @@ export default function EnhancedTable({
         paddingBottom: padding?.[2],
         paddingLeft: padding?.[3],
         backgroundColor: tableBackground,
-        maxWidth:tableMaxWidth,
+        maxWidth: tableMaxWidth,
       }}
     >
       <Paper
@@ -266,7 +272,7 @@ export default function EnhancedTable({
         >
           {dataList?.length > 0 ? (
             <Table
-            stickyHeader={stickyOptions?.stickyHeader}
+              stickyHeader={stickyOptions?.stickyHeader}
               sx={{ ...Cusmstyle.tableContainer, minWidth: tableMinWidth }}
               aria-labelledby="tableTitle"
               size={dense}
@@ -311,22 +317,31 @@ export default function EnhancedTable({
         </TableContainer>
         {dataList?.length > 0 && (
           <>
-          {paginationOption?.isEnable &&
-          <TablePagination
-            className={'TABLE_PAGINATION'}
-            sx={{ alignSelf: 'flex-end' }}
-            rowsPerPageOptions={rowsPer}
-            component="div"
-            count={dataList?.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />}
+            {paginationOption?.isEnable && (
+              <TablePagination
+                className={'TABLE_PAGINATION'}
+                sx={{ alignSelf: 'flex-end' }}
+                rowsPerPageOptions={rowsPer}
+                component="div"
+                count={dataList?.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            )}
           </>
         )}
       </Paper>
-      <AlertBox />
+      <AlertBox
+        title={alertOptions?.title}
+        description={alertOptions?.description}
+        primaryText={alertOptions?.primaryText}
+        secondaryText={alertOptions?.secondaryText}
+        icon={alertOptions?.icon}
+        alertOpen={alertOpen}
+        handleAlertClose={handleAlertClose}
+      />
     </Box>
   );
 }
@@ -355,10 +370,10 @@ EnhancedTable.defaultProps = {
   rowOptions: {},
   cellOptions: {},
   tableBackground: '',
-  paginationOption:{
-    isEnable:true,
-    rowPerPage:5,
-    rowsPerPageOptions:[5, 10, 25],       
+  paginationOption: {
+    isEnable: true,
+    rowPerPage: 5,
+    rowsPerPageOptions: [5, 10, 25],
   },
   noDataFound: {
     fontSize: '16px',

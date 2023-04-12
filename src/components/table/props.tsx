@@ -130,4 +130,12 @@ export interface TableProps {
     stickyRight: Array<string>;
     stickyLeft: Array<string>;
   };
+  alertOptions?:{
+    isEnable?:boolean,
+    title?:string,
+    description?:string,
+    primaryText?:string,
+    secondaryText?:string,
+    icon?:React.ReactNode;
+  }
 }

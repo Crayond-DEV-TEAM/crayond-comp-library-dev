@@ -11,6 +11,7 @@ import DownloadIcon from './assets/downloadIcon';
 import DocsIcon from './assets/docsIcon';
 import EditIcon from './assets/editIcon';
 import NotificationIcon from './assets/notificationIcon';
+import AlertIcon from './assets/alertIcon';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -878,6 +879,14 @@ function App() {
           stickyHeader:true,
           stickyLeft:["id", "checkbox"],
           stickyRight:["action", "response"],
+        }}
+        alertOptions={{
+          isEnable:true,
+          title:"Are you sure, would you like to deactivate?",
+          description:"",
+          primaryText:"Yess",
+          secondaryText:"Noo",
+          icon:<AlertIcon />
         }}
         HeaderComponent={{
           variant: 1,

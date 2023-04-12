@@ -13,41 +13,48 @@ import { TransitionProps } from '@mui/material/transitions';
 
 interface AlertBoxProps {}
 export default function AlertBox(props: any) {
-  const [open, setOpen] = React.useState(true);
-
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const { title, description, primaryText, secondaryText, icon, handleAlertClose, alertOpen } = props;
 
   return (
     <div>
       <Dialog
-        open={open}
+        open={alertOpen}
         TransitionComponent={Transition}
         keepMounted
-        onClose={handleClose}
+        onClose={()=>handleAlertClose(false)}
         aria-describedby="alert-dialog-slide-description"
         sx={styles.modal}
       >
         <Box sx={styles.modalContainer}>
-          <DialogTitle sx={styles.modalTitle}>
-            {"Are you sure, would you like to deactivate?"}
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText
-              sx={styles.modalDes}
-              id="alert-dialog-slide-description"
+          {icon && (
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: '12px',
+              }}
             >
-              Are you sure, would you like to deactivate team member?
-            </DialogContentText>
-          </DialogContent>
+              {icon}
+            </Box>
+          )}
+          <DialogTitle sx={styles.modalTitle}>{title}</DialogTitle>
+          {description && (
+            <DialogContent>
+              <DialogContentText
+                sx={styles.modalDes}
+                id="alert-dialog-slide-description"
+              >
+                {description}
+              </DialogContentText>
+            </DialogContent>
+          )}
           <DialogActions sx={{ justifyContent: 'center' }}>
-            <Button sx={styles.modalSecBtn} onClick={handleClose}>Disagree</Button>
-            <Button sx={styles.modalPriBtn} onClick={handleClose}>Agree</Button>
+            <Button sx={styles.modalPriBtn} onClick={()=>handleAlertClose(true)}>
+              {primaryText}
+            </Button>
+            <Button sx={styles.modalSecBtn} onClick={()=>handleAlertClose(false)}>
+              {secondaryText}
+            </Button>
           </DialogActions>
         </Box>
       </Dialog>
