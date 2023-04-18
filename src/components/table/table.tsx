@@ -389,7 +389,7 @@ const EnhancedHeader = (props: any) => {
 
 EnhancedTableHead.defaultProps = {
   Header: [],
-  selectAllCheckbox: () => {},
+  selectAllCheckbox: () => { },
   isSelectedAll: false,
   cellOptions: {},
   headerOptions: {},
@@ -399,12 +399,12 @@ EnhancedTable.defaultProps = {
   Header: [],
   dataList: [],
   tableData: [],
-  setSelectedCheckbox: () => {},
+  setSelectedCheckbox: () => { },
   selectedCheckbox: [],
-  checkboxHandleChange: () => {},
-  handleSwitch: () => {},
+  checkboxHandleChange: () => { },
+  handleSwitch: () => { },
   switchList: [],
-  SelectAll: () => {},
+  SelectAll: () => { },
   tableMinWidth: '100%',
   tableMinHeight: '100%',
   tableName: '',
@@ -432,6 +432,6 @@ EnhancedTable.defaultProps = {
 EnhancedHeader.defaultProps = {
   HeaderComponent: {},
   selectedCheckbox: [],
-  SelectAll: () => {},
+  SelectAll: () => { },
   component: <></>,
 };
