@@ -7,6 +7,29 @@ export const Cusmstyle = {
     minHeight: '100%',
     boxShadow: 'none',
     overflow: 'hidden',
+
+    '& .TABLE_CONTAINER::-webkit-scrollbar': {
+      width: '8px',
+      height: '8px',
+    },
+    '& .TABLE_CONTAINER::-webkit-scrollbar-track': {
+      backgroundColor: '#F0F0F0',
+      borderRadius: '8px',
+    },
+    '& .TABLE_CONTAINER::-webkit-scrollbar-thumb': {
+      backgroundColor: '#C2C1C7',
+      borderRadius: '8px',
+    },
+
+    // '& .stickyLeft': {
+    //   position: 'sticky',
+    //   left: '0',
+    // },
+
+    // '& .stickyRight': {
+    //   position: 'sticky',
+    //   right: '0',
+    // },
   },
   tableContainer: {
     overflow: 'auto',

@@ -6,11 +6,12 @@ import FunnelIcon from '../../assets/funnelIcon';
 import SearchIcon from '../../assets/searchIcon';
 import { BasicButtons } from '../button';
 import { CommonTable } from './index';
+import NotificationIcon from '../../assets/notificationIcon';
 
 export default {
   title: 'CommonTable/CommonTable',
   component: CommonTable,
- 
+  tags: ['autodocs'],
 } as ComponentMeta<typeof CommonTable>;
 
 const Template: ComponentStory<typeof CommonTable> = (args) => (
@@ -19,142 +20,164 @@ const Template: ComponentStory<typeof CommonTable> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  Header:[
+  Header: [
     {
       id: 'id',
       align: 'left',
       disablePadding: false,
       label: 'Sl no',
+      isSortable: true,
     },
     {
       id: 'select',
       align: 'left',
       disablePadding: false,
       label: 'Select',
-      varient: 'CHECKBOX',
+      variant: 'CHECKBOX',
+      isSortable: false,
     },
     {
       id: 'name',
       align: 'left',
       disablePadding: false,
       label: 'Dessert',
+      isSortable: true,
     },
     {
       id: 'calories',
       align: 'left',
       disablePadding: false,
       label: 'Calories',
+      isSortable: true,
     },
     {
       id: 'fat',
       align: 'left',
       disablePadding: false,
       label: 'Fat (g)',
+      isSortable: true,
     },
     {
       id: 'carbs',
       align: 'left',
       disablePadding: false,
       label: 'Carbs (g)',
+      isSortable: true,
     },
     {
       id: 'protein',
       align: 'left',
       disablePadding: false,
       label: 'Protein (g)',
+      isSortable: true,
     },
     {
       id: 'profile',
       align: 'center',
       disablePadding: false,
       label: 'Profile',
+      isSortable: false,
     },
     {
       id: 'overall_progress',
       align: 'left',
       disablePadding: false,
       label: 'Overall Progress',
+      isSortable: false,
     },
     {
       id: 'production',
       align: 'left',
       disablePadding: false,
       label: 'Production',
+      isSortable: false,
     },
     {
       id: 'status',
       align: 'left',
       disablePadding: false,
       label: 'Status',
+      isSortable: false,
     },
     {
       id: 'performance',
       align: 'center',
       disablePadding: false,
       label: 'Performance',
+      isSortable: false,
     },
     {
       id: 'signals',
       align: 'center',
       disablePadding: false,
       label: 'Signals',
+      isSortable: false,
     },
     {
       id: 'reporting_to',
       align: 'center',
       disablePadding: false,
       label: 'Reporting to',
+      isSortable: false,
     },
     {
       id: 'global_rating',
       align: 'center',
       disablePadding: false,
       label: 'Global Rating',
+      isSortable: false,
     },
     {
       id: 'growth',
       align: 'center',
       disablePadding: false,
       label: 'Growth',
+      isSortable: false,
     },
     {
       id: 'experience',
       align: 'center',
       disablePadding: false,
       label: 'Experience',
+      isSortable: false,
     },
     {
       id: 'link',
       align: 'center',
       disablePadding: false,
       label: 'Link',
+      isSortable: false,
     },
     {
       id: 'custom',
       align: 'center',
       disablePadding: false,
       label: 'Custom',
+      isSortable: false,
     },
     {
       id: 'alert_type',
       align: 'center',
       disablePadding: false,
       label: 'Alert Type',
+      isSortable: false,
     },
     {
       id: 'response',
       align: 'left',
       disablePadding: false,
       label: 'Response',
+      isSortable: false,
     },
     {
       id: 'action',
       align: 'center',
       disablePadding: false,
       label: 'Action',
+      isSortable: false,
     },
   ],
-  dataList:[
+  dataList: [
     {
       id: 1,
       name: 'Cupcake',
@@ -172,7 +195,6 @@ Primary.args = {
         color: '#7692cc',
         bgColor: '#e2eafa',
       },
-      status: true,
       performance: 'Completely away',
       signals: [
         {
@@ -340,7 +362,6 @@ Primary.args = {
         color: '#7692cc',
         bgColor: '#e2eafa',
       },
-      status: true,
       performance: 'Impactful',
       signals: [
         {
@@ -492,7 +513,6 @@ Primary.args = {
         color: '#7692cc',
         bgColor: '#e2eafa',
       },
-      status: true,
       performance: 'Good',
       signals: [
         {
@@ -632,7 +652,6 @@ Primary.args = {
         color: '#7692cc',
         bgColor: '#e2eafa',
       },
-      status: true,
       performance: 'Spectacular',
       signals: [
         {
@@ -690,7 +709,7 @@ Primary.args = {
       },
     },
   ],
-  tableData:[ 
+  tableData: [
     { type: ['INCREMENT'], name: 'sl_no' },
     { type: ['CHECKBOX'], name: 'checkbox' },
     { type: ['TEXT'], name: 'name' },
@@ -730,36 +749,55 @@ Primary.args = {
     {
       type: ['ACTION'],
       name: 'action',
-      variant: 'EDIT_WITH_DELETE',
-      editHandel: (id: any) => {
-        console.log(id);
-      },
-      deleteHandel: (id: any) => {
-        console.log(id);
-      },
-      editIcon: <EditIcon />,
-      deleteIcon: <DeleteIcon width={'16px'} height={'16px'} />,
+      variant: [
+        {
+          icon: <EditIcon />,
+          method: (id: string | number, rowData: object, e: Event) => {
+            console.log(id, rowData, e);
+          },
+        },
+        {
+          icon: <DeleteIcon width={'16px'} height={'16px'} />,
+          method: (id: string | number, rowData: object, e: Event) => {
+            console.log(id, rowData, e);
+          },
+        },
+        {
+          icon: <NotificationIcon />,
+          method: (id: string | number, rowData: object, e: Event) => {
+            console.log(id, rowData, e);
+          },
+        },
+      ],
     },
   ],
-  headerOptions:{
+  headerOptions: {
     fontSize: '16px',
     fontWeight: '500',
     color: '#818181',
     bgColor: '#EAEAEA',
     borderBottom: '0px solid #E6E6E6',
-    padding:"12px",
+    padding: '12px',
   },
-  rowOptions:{
-    rowOddBgColor:"#fff",
-    rowEvenBgColor:"#F7F7F7",
+  rowOptions: {
+    rowOddBgColor: '#fff',
+    rowEvenBgColor: '#F7F7F7',
   },
-  cellOptions:{
+  cellOptions: {
     fontSize: '16px',
     fontWeight: '500',
     color: '#353448',
     // bgColor: '#fff',
     borderBottom: '0px solid #E6E6E6',
-    padding:"12px",
+    padding: '12px',
+  },
+  noDataFound: {
+    fontSize: '16px',
+    fontWeight: '600',
+    color: '#353448',
+    bgColor: '#F7F7F7',
+    text: 'No Data Found',
+    component: null,
   },
   setSelectedCheckbox: () => {},
   selectedCheckbox: [],
@@ -767,20 +805,32 @@ Primary.args = {
   handleSwitch: () => {},
   switchList: [],
   SelectAll: () => {},
-  tableBackground:"#ffffff",
-  tableMinWidth:'3350px',
-  tableMinHeight:'465px',
-  tableName:'Team Member',
-  paddingAll:'0px',
-  padding:['1px', '1px', '1px', '1px'],
-  marginAll:'0px',
-  margin:['0px', '1px', '0px', '1px'],
-  tableBorderRadius:"12px",
-  dense:'medium',
-  HeaderComponent:{
+  tableBackground: '#ffffff',
+  tableMinWidth: '3350px',
+  tableMinHeight: '465px',
+  tableName: 'Team Member',
+  paddingAll: '0px',
+  padding: ['1px', '1px', '1px', '1px'],
+  marginAll: '0px',
+  margin: ['0px', '1px', '0px', '1px'],
+  tableBorderRadius: '12px',
+  dense: 'medium',
+  stickyColumns: {
+    stickyLeft: [],
+    stickyRight: [],
+  },
+  paginationOption: {
+    rowPerPage: 5,
+    rowsPerPageOptions: [5, 10, 25],
+  },
+  HeaderComponent: {
     variant: 1,
+    styles: {
+      padding: '10px 0',
+      margin: '0',
+    },
     headerSelect: [],
-    setHederSelect: ()=>{},
+    setHederSelect: () => {},
     searchPlaceholder: 'Search',
     selectOption: [
       {
@@ -796,13 +846,12 @@ Primary.args = {
         value: 'inactive',
       },
     ],
-    setHederSearch: ()=>{},
+    setHederSearch: () => {},
     deleteIcon: <DeleteIcon />,
     downloadIcon: <DownloadIcon />,
     funnelIcon: <FunnelIcon />,
     searchIcon: <SearchIcon />,
-    fillerMethod: ()=>{},
-    downloadMethod: ()=>{},
-  }
+    fillerMethod: () => {},
+    downloadMethod: () => {},
+  },
 };
-
