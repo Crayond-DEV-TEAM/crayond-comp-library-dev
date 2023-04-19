@@ -1,9 +1,5 @@
-export interface ImageProps {
-  imageWidth: 'string' | number | undefined;
-  imageHeight: 'string' | number | undefined;
+export interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   inLineStyles?: object;
   className?: string;
-  altText?: string;
-  imageSrc: string;
-  imageStyle: object;
+  imageStyle?:object;
 }

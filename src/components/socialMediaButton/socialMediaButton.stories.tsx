@@ -1,7 +1,5 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { SocialMediaButton } from './index'
-import DeleteIcon from '../../assets/deleteIcon';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { SocialMediaButton } from './index';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -29,5 +27,5 @@ Primary.args = {
   color: '#3B3B3B',
   fontSize: '16px',
   fontWeight: 'medium',
-  // startIcon: <DeleteIcon />
+  startIcon: ''
 };

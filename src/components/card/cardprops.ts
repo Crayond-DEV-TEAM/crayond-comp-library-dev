@@ -1,15 +1,26 @@
-export interface CardProps {
-  inLineStyles?: object;
-  variant?: 'text' | 'outlined' | 'contained';
-  className?: string;
-  raised?: boolean;
+import { CardProps as MuiCardProps } from '@mui/material';
+export interface CardProps extends MuiCardProps {
   title?: string;
-  logo?: any;
-  description: string;
+  subtitle?: string;
+  logo?: string;
+  alt?: string;
+  description?: string;
+  inlinestyle?: object;
+  cardStyle?: object;
+  imgStyle: object;
+  logoWidth: 'string' | number | undefined;
+  logoHeight: 'string' | number | undefined;
   buttonText: string;
-  button:any;
-  companyLogo: any;
+  button: boolean;
+  btnClick: any;
   bottomText: string;
   actionText: string;
-  cardStyle: object;
+  actions:object;
+  onActionClick:any;
+  actionstyle:object;
+  children:any;
+  titleStyle:object,
+  btnStyle:object,
+  bottomTextStyle:object,
+  
 }

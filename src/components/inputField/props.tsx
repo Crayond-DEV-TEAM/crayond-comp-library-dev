@@ -1,4 +1,7 @@
-export interface InputFieldProps {
+import { TextFieldProps } from "@mui/material";
+
+export interface InputFieldProps extends Omit<TextFieldProps, 'variant'> {
+  label: string;
   type?: 'text' | 'number' | 'password';
   variant?: 'outlined' | 'filled' | 'standard';
   endIcon: null;

@@ -1,21 +1,11 @@
 import { Box } from '@mui/material';
-import { ImageProps } from './imageProps';
-import { Image_Style } from './style';
-
-
+import { ImageProps } from "./imageProps";
 export default function Image(props: ImageProps) {
+    const { inLineStyles, className, imageStyle, ...imgProps } = props;
+
     return (
-        <Box sx={{ ...Image_Style.imageSx, ...props?.imageStyle }}>
-            <img src={props?.imageSrc} alt={props?.altText} width={props?.imageWidth} height={props?.imageHeight} />
-        </Box>
+        <Box sx={inLineStyles} className={className}>
+            <img style={imageStyle} {...imgProps} />
+        </Box >
     );
 }
-Image.defaultProps = {
-    imageSrc: '',
-    imageWidth: 0,
-    imageHeight: 0,
-    altText: '',
-    className: "image",
-
-
-};

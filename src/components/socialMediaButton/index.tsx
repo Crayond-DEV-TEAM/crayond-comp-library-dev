@@ -1,8 +1,5 @@
-import Button from '@mui/material/Button';
-import { SocialMediaButtonProps } from './props';
 import { Box, IconButton, Typography } from '@mui/material';
-import { socialMediaButton_style } from './style'
-import DeleteIcon from '../../assets/deleteIcon';
+import { SocialMediaButtonProps } from './props';
 
 export const SocialMediaButton = (props: SocialMediaButtonProps) => {
   const
@@ -53,7 +50,6 @@ export const SocialMediaButton = (props: SocialMediaButtonProps) => {
 };
 
 SocialMediaButton.defaultProps = {
-
   onClick: () => { },
   cursor: '',
   bgColor: '',

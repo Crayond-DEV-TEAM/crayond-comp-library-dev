@@ -15,10 +15,9 @@ const Template: ComponentStory<typeof Image> = (args) => (
 export const Primary = Template.bind({});
 
 Primary.args = {
-    imageSrc: CompanyLogo,
-    imageWidth: 445,
-    imageHeight: 768,
-    altText: 'login image',
-
+    width: 445,
+    height: 768,
+    alt: 'login image',
+    src:CompanyLogo,
 };
 

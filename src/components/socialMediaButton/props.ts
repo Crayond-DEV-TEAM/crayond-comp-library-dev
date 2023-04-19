@@ -3,7 +3,7 @@ import React from 'react';
 
 export interface SocialMediaButtonProps {
   sx?: SxProps<Theme>;
-  startIcon: React.ReactNode;
+  startIcon: any;
   icon?: any;
   buttonText: string;
   id?: any;

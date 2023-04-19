@@ -48,5 +48,8 @@ const Template: ComponentStory<typeof InputField> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
+  fullWidth:true,
+  variant:'outlined',
+  size:'small',
 };
 

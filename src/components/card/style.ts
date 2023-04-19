@@ -10,6 +10,7 @@ export const Card_Style = {
   titleSx: {
     fontSize: 20,
     fontWeight: 600,
+    mt:'20px'
   },
   buttonSx: {
     fontSize: '12px',
