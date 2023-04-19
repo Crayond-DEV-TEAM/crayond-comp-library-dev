@@ -1,9 +1,8 @@
+import { Box, Grid, TextField, Typography } from "@mui/material";
 import React from "react";
-import { Box, FormControl, Grid, TextField, Typography } from "@mui/material";
-import { getMobileLimitBasedOnCC } from "../../utils/validation";
-import { Sample } from '../../utils/constants'
-import { SimpleSelect } from "./select";
+import { Sample } from '../../utils/constants';
 import { MobileInputProps } from './props';
+import { SimpleSelect } from "./select";
 import { mobileInput_style } from "./style";
 
 export default function MobileInput(props: MobileInputProps) {
@@ -25,6 +24,7 @@ export default function MobileInput(props: MobileInputProps) {
         isError = false,
         mobileInputStyle = {},
         rootWapperstyle = {},
+        helperTextStyle = {},
         className = '',
         maxLength = 10,
     } = props;
@@ -60,10 +60,6 @@ export default function MobileInput(props: MobileInputProps) {
         setSelectValue(newState);
         props?.handleChange(newState);
 
-        if (Object.keys(mobile_code)?.length > 0) {
-            const limit = getMobileLimitBasedOnCC(mobile_code);
-            setLimits(limit);
-        }
     };
 
     const handleChange = (mobile: string) => {
@@ -77,13 +73,6 @@ export default function MobileInput(props: MobileInputProps) {
             props?.handleChange(newState);
         }
     };
-
-    React.useEffect(() => {
-        const limit = getMobileLimitBasedOnCC(props?.value?.mobile_code);
-        mobileNoValidation(limit);
-
-        // eslint-disable-next-line
-    }, [selectValue]);
 
     React.useEffect(() => {
         if (props?.value) {
@@ -114,7 +103,6 @@ export default function MobileInput(props: MobileInputProps) {
             <Box
                 sx={{
                     ...mobileInput_style.rootWapperSx,
-                    border: `1.5px solid ${isError ? 'red' : '#DBEAE8'}`,
                     ...rootWapperstyle,
                 }}
             >
@@ -160,20 +148,14 @@ export default function MobileInput(props: MobileInputProps) {
             </Box>
             {/* Warning Message */}
             <Grid container direction="row">
-                {/* {isvalid === false && limits !== null && selectValue?.mobile?.length > 0 && (
-            <Grid item xs={12} sm={12} md={12}>
-              <Typography variant="caption" color="error">
-                {`Please enter ${limits} digits`}
-              </Typography>
-            </Grid>
-          )} */}
-
                 {/* Field required Message */}
                 {helperText?.length > 0 && (
                     <Typography
-                        sx={{ mt: 0.5 }}
+                        sx={{
+                            ...mobileInput_style.helperTextStyleSx,
+                            ...helperTextStyle
+                        }}
                         variant="caption"
-                        color={`${isError ? '#F44F5A' : '#DBEAE8'}`}
                     >
                         {helperText}
                     </Typography>

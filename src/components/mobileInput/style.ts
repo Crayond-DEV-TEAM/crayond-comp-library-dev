@@ -23,6 +23,10 @@ export const mobileInput_style = {
     },
   },
   rootWapperSx: {
+    border: '1.5px solid #DBEAE8',
+    '&.Mui-error': {
+      borderColor: 'red',
+    },
     borderRadius: '8px',
     backgroundColor: '#fff',
     alignItems: 'center',
@@ -57,4 +61,12 @@ export const mobileInput_style = {
       padding: '7px 0px',
     },
   },
+  helperTextStyleSx:{
+    mt: 0.5,
+    color: '#DBEAE8',
+    '&.Mui-error': {
+      color: '#F44F5A',
+    },
+
+  }
 };

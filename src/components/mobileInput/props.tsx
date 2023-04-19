@@ -32,4 +32,5 @@ export interface MobileInputProps {
   code: string;
   phone: string;
   suggested?: boolean;
+  helperTextStyle?:string;
 }
