@@ -15,6 +15,8 @@ import moment from 'moment';
 import { TableHeader } from './tableHeader';
 import VariantHeaderComponent from './variantHeaderComponent';
 import { AlertBox } from '../alertBox';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 export default function EnhancedTable({
   Header,
   dataList,
@@ -79,7 +81,8 @@ export default function EnhancedTable({
   workbook.modified = new Date();
 
   let sheet: any = workbook.addWorksheet('TABLE');
-  sheet.getRow(1).values = Header?.map((val: any) => val.id);
+  const header = Header?.map((val: any) => val.id);
+  sheet.getRow(1).values = header;
 
   sheet.columns = Header?.map((val: any) => ({ key: val.id, width: 35 }));
 
@@ -107,13 +110,13 @@ export default function EnhancedTable({
         case 'IMAGE_WITH_LABEL':
           return Celldata[val.name]?.label;
         case 'IMAGE_WITH_PROFILES':
-          return Celldata[val.name]?.map(({ label }: any) => label);
+          return Celldata[val.name]?.map(({ label }: any) => label).toString();
         case 'PERFORMANCE':
           return Celldata[val.name];
         case 'AVATAR_NAME':
-          return Celldata[val.name]?.map(
-            ({ name, label }: any) => name + ' - ' + label
-          );
+          return Celldata[val.name]
+            ?.map(({ name, label }: any) => name + ' - ' + label)
+            .toString();
         case 'STAR_RATING':
           return Celldata[val.name];
         case 'GROWTH':
@@ -131,6 +134,54 @@ export default function EnhancedTable({
       }
     });
   });
+  // const tableDataClone2 = dataList?.map((Celldata: any, rows: number) => {
+  //   return tableData?.map((val: any, i: number) => {
+  //     switch (val?.type?.[0]) {
+  //       case 'INCREMENT':
+  //         return {[val.name]:Celldata?.id};
+  //       case 'CHECKBOX':
+  //         return {[val.name]: selectedCheckbox?.includes(Celldata?.id)};
+  //       case 'TEXT':
+  //         return Celldata?.[val.name];
+  //       case 'SWITCH':
+  //         return switchList?.includes(Celldata?.id)
+  //           ? val?.switchText?.[0]?.label_2
+  //           : val?.switchText?.[0]?.label_1;
+  //       case 'LABEL':
+  //         return Celldata[val.name]?.label;
+  //       case 'ICON_WITH_LABEL':
+  //         return Celldata[val.name]?.label;
+  //       case 'ICON_WITH_TEXT':
+  //         return Celldata[val.name]?.label;
+  //       case 'PROGRESS':
+  //         return Celldata[val.name];
+  //       case 'IMAGE_WITH_LABEL':
+  //         return Celldata[val.name]?.label;
+  //       case 'IMAGE_WITH_PROFILES':
+  //         return Celldata[val.name]?.map(({ label }: any) => label).toString();
+  //       case 'PERFORMANCE':
+  //         return Celldata[val.name];
+  //       case 'AVATAR_NAME':
+  //         return Celldata[val.name]?.map(
+  //           ({ name, label }: any) => name + ' - ' + label
+  //         );
+  //       case 'STAR_RATING':
+  //         return Celldata[val.name];
+  //       case 'GROWTH':
+  //         return Celldata[val.name]?.value;
+  //       case 'DATE':
+  //         return moment(Celldata[val.name]).format(val.format).toString();
+  //       case 'ACTION':
+  //         return '';
+  //       case 'LINK':
+  //         return val?.label;
+  //       case 'CUSTOM':
+  //         return '';
+  //       default:
+  //         return Celldata[val.name];
+  //     }
+  //   });
+  // });
 
   sheet.addRows(tableDataClone);
 
@@ -142,12 +193,23 @@ export default function EnhancedTable({
     };
     sheet.getColumn(rowNumber).font = { size: 14, family: 2 };
   });
-
+  //PDF Functions
+  const generatePDF = () => {
+    const doc = new jsPDF({
+      orientation: 'landscape', 
+      format: 'a1'
+        });
+    doc.autoTable({ head: [header], body: tableDataClone,tableWidth:"wrap", styles:{ minCellWidth:20, overflow:"linebreak" }});
+    
+    doc.save('data.pdf');
+  };
+  //Download PDF and Excel
   const handelDownload = () => {
-    workbook.xlsx.writeBuffer().then(function (buffer: any) {
-      const blob = new Blob([buffer], { type: 'application/xlsx' });
-      saveAs(blob, tableName + '.xlsx' ?? 'TableData' + '.xlsx');
-    });
+    // workbook.xlsx.writeBuffer().then(function (buffer: any) {
+    //   const blob = new Blob([buffer], { type: 'application/xlsx' });
+    //   saveAs(blob, tableName + '.xlsx' ?? 'TableData' + '.xlsx');
+    // });
+    generatePDF();
   };
   //Excel Download Function --- END
 
