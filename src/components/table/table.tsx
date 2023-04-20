@@ -15,7 +15,6 @@ import moment from 'moment';
 import { TableHeader } from './tableHeader';
 import VariantHeaderComponent from './variantHeaderComponent';
 import { AlertBox } from '../alertBox';
-import './style.css'
 export default function EnhancedTable({
   Header,
   dataList,
@@ -59,7 +58,7 @@ export default function EnhancedTable({
   //switch box set all selected state
   const selectAllCheckbox = (data: any, e: any) => {
     alertOptions?.setAlertOpen(true);
-    setTempAlertData({data, state: !e.target.checked});
+    setTempAlertData({ data, state: !e.target.checked });
   };
 
   const handleChangePage = (event: any, newPage: any) => {
@@ -217,14 +216,21 @@ export default function EnhancedTable({
   //Alert Box Function
   const handleAlertClose = (status: boolean) => {
     if (status) {
-      console.log("🚀 ~ file: table.tsx:226 ~ handleAlertClose ~ tempAlertData:", tempAlertData)
+      console.log(
+        '🚀 ~ file: table.tsx:226 ~ handleAlertClose ~ tempAlertData:',
+        tempAlertData
+      );
 
-      if(tempAlertData?.id && handleSwitch){
-      handleSwitch(tempAlertData?.id, tempAlertData?.rowData, tempAlertData?.event);
-      setTempAlertData({});
+      if (tempAlertData?.id && handleSwitch) {
+        handleSwitch(
+          tempAlertData?.id,
+          tempAlertData?.rowData,
+          tempAlertData?.event
+        );
+        setTempAlertData({});
       }
 
-      if(tempAlertData?.data){
+      if (tempAlertData?.data) {
         let ids = dataList?.map(({ id }: any) => id);
         if (SelectAll) {
           SelectAll(ids, tempAlertData?.state);
@@ -242,7 +248,7 @@ export default function EnhancedTable({
   ) => {
     if (alertOptions?.isEnable) {
       alertOptions?.setAlertOpen(true);
-      setTempAlertData({id, rowData, event});
+      setTempAlertData({ id, rowData, event });
     } else {
       if (handleSwitch) {
         handleSwitch(id, rowData, event);
@@ -251,18 +257,27 @@ export default function EnhancedTable({
   };
 
   //Sticky Border Styles
-  console.log("🚀 ~ file: table.tsx:257 ~ stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length-1]:", stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length-1])
+  console.log(
+    '🚀 ~ file: table.tsx:257 ~ stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length-1]:',
+    stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length - 1]
+  );
   const stickyBorderStyle = {
-   [`& .${stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length-1]}`] :{
-     borderRight:"10px solid transparent !important",
-     borderImage: "linear-gradient(to right,  rgba(107, 102, 102, .5), transparent ) 30 !important",
-    // boxShadow:" 10px 0 20px -5px rgba(115,115,115,0.75)",
+    [`& .${
+      stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length - 1]
+    }`]: {
+      borderRight: '10px solid transparent !important',
+      borderImage:
+        'linear-gradient(to right,  rgba(107, 102, 102, .5), transparent ) 30 !important',
+      // boxShadow:" 10px 0 20px -5px rgba(115,115,115,0.75)",
     },
-    [`& .${stickyOptions?.stickyRight?.[stickyOptions?.stickyRight?.length-1]}`] :{
-      borderLeft:"10px solid transparent !important",
-      borderImage: "linear-gradient(to left,  rgba(107, 102, 102, .5), transparent ) 30 !important",
-     }
-  }
+    [`& .${
+      stickyOptions?.stickyRight?.[stickyOptions?.stickyRight?.length - 1]
+    }`]: {
+      borderLeft: '10px solid transparent !important',
+      borderImage:
+        'linear-gradient(to left,  rgba(107, 102, 102, .5), transparent ) 30 !important',
+    },
+  };
   return (
     <Box
       sx={{
@@ -316,7 +331,11 @@ export default function EnhancedTable({
           {dataList?.length > 0 ? (
             <Table
               stickyHeader={stickyOptions?.stickyHeader}
-              sx={{ ...Cusmstyle.tableContainer, minWidth: tableMinWidth, ...stickyBorderStyle}}
+              sx={{
+                ...Cusmstyle.tableContainer,
+                minWidth: tableMinWidth,
+                ...stickyBorderStyle,
+              }}
               aria-labelledby="tableTitle"
               size={dense}
               className={'TABLE'}
@@ -393,12 +412,12 @@ EnhancedTable.defaultProps = {
   Header: [],
   dataList: [],
   tableData: [],
-  setSelectedCheckbox: () => { },
+  setSelectedCheckbox: () => {},
   selectedCheckbox: [],
-  checkboxHandleChange: () => { },
-  handleSwitch: () => { },
+  checkboxHandleChange: () => {},
+  handleSwitch: () => {},
   switchList: [],
-  SelectAll: () => { },
+  SelectAll: () => {},
   tableMinWidth: '100%',
   tableMinHeight: '100%',
   tableName: '',
