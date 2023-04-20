@@ -11,6 +11,7 @@ import DownloadIcon from './assets/downloadIcon';
 import DocsIcon from './assets/docsIcon';
 import EditIcon from './assets/editIcon';
 import NotificationIcon from './assets/notificationIcon';
+import AlertIcon from './assets/alertIcon';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -18,6 +19,8 @@ function App() {
   const [switchList, setSwitchList] = React.useState([1, 4]);
   const [headerSelect, setHederSelect] = React.useState('');
   const [headerCheckbox, setHederCheckbox] = React.useState(true);
+  const [alertOpen, setAlertOpen] = React.useState(false);
+
   const checkboxHandleChange = (data: any) => {
     if (!selectedCheckbox.includes(data)) {
       setSelectedCheckbox([...selectedCheckbox, data]);
@@ -856,8 +859,8 @@ function App() {
         isSelectedAll={isSelectedAll}
         handleSwitch={handleSwitch}
         tableMinWidth={'3350px'}
-        tableMinHeight={'265px'}
-        tableMaxHeight={'265px'}
+        tableMinHeight={'565px'}
+        tableMaxHeight={'565px'}
         // tableMaxWidth={'500px'}
         tableName={'Team Member'}
         paddingAll={'0px'}
@@ -878,6 +881,16 @@ function App() {
           stickyHeader:true,
           stickyLeft:["id", "checkbox"],
           stickyRight:["action", "response"],
+        }}
+        alertOptions={{
+          isEnable:true,
+          alertOpen:alertOpen,
+          setAlertOpen:setAlertOpen,
+          title:"Are you sure, would you like to deactivate?",
+          description:"",
+          primaryText:"Yes",
+          secondaryText:"No",
+          icon:<AlertIcon />
         }}
         HeaderComponent={{
           variant: 1,
