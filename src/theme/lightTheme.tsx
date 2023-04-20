@@ -5,6 +5,7 @@ const lightTheme = {
       main: "#357968",
       light: "#25C460",
       contrastText: "rgba(256,256,256)",
+      color:'#665CD'
     },
     secondary: {
       main: "#818181",
@@ -16,7 +17,10 @@ const lightTheme = {
     },
     success: {
       main: "#25C460"
-    }
+    },
+    // purple: {
+    //   main: "7"
+    // }
   },
   typography: {
     fontFamily: "Poppins, sans-serif",
