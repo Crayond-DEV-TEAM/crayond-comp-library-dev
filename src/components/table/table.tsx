@@ -15,7 +15,7 @@ import moment from 'moment';
 import { TableHeader } from './tableHeader';
 import VariantHeaderComponent from './variantHeaderComponent';
 import { AlertBox } from '../alertBox';
-
+import './style.css'
 export default function EnhancedTable({
   Header,
   dataList,
@@ -54,14 +54,12 @@ export default function EnhancedTable({
   );
   const [order, setOrder] = React.useState<'asc' | 'desc' | undefined>('asc');
   const [orderBy, setOrderBy] = React.useState('');
-  const [alertOpen, setAlertOpen] = React.useState(true);
-
-  //switch box set selected state
+  //temp alert data
+  const [tempAlertData, setTempAlertData] = React.useState<any>();
+  //switch box set all selected state
   const selectAllCheckbox = (data: any, e: any) => {
-    let ids = dataList?.map(({ id }: any) => id);
-    if (SelectAll) {
-      SelectAll(ids, !e.target.checked);
-    }
+    alertOptions?.setAlertOpen(true);
+    setTempAlertData({data, state: !e.target.checked});
   };
 
   const handleChangePage = (event: any, newPage: any) => {
@@ -217,8 +215,53 @@ export default function EnhancedTable({
   ];
 
   //Alert Box Function
-  const handleAlertClose = (status:boolean)=>{
-    setAlertOpen(false);
+  const handleAlertClose = (status: boolean) => {
+    if (status) {
+      console.log("🚀 ~ file: table.tsx:226 ~ handleAlertClose ~ tempAlertData:", tempAlertData)
+
+      if(tempAlertData?.id && handleSwitch){
+      handleSwitch(tempAlertData?.id, tempAlertData?.rowData, tempAlertData?.event);
+      setTempAlertData({});
+      }
+
+      if(tempAlertData?.data){
+        let ids = dataList?.map(({ id }: any) => id);
+        if (SelectAll) {
+          SelectAll(ids, tempAlertData?.state);
+        }
+        setTempAlertData({});
+      }
+    }
+    alertOptions?.setAlertOpen(false);
+  };
+
+  const handleSwitchAlert = (
+    id: string | number,
+    rowData: Array<any>,
+    event: any
+  ) => {
+    if (alertOptions?.isEnable) {
+      alertOptions?.setAlertOpen(true);
+      setTempAlertData({id, rowData, event});
+    } else {
+      if (handleSwitch) {
+        handleSwitch(id, rowData, event);
+      }
+    }
+  };
+
+  //Sticky Border Styles
+  console.log("🚀 ~ file: table.tsx:257 ~ stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length-1]:", stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length-1])
+  const stickyBorderStyle = {
+   [`& .${stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length-1]}`] :{
+     borderRight:"10px solid transparent !important",
+     borderImage: "linear-gradient(to right,  rgba(107, 102, 102, .5), transparent ) 30 !important",
+    // boxShadow:" 10px 0 20px -5px rgba(115,115,115,0.75)",
+    },
+    [`& .${stickyOptions?.stickyRight?.[stickyOptions?.stickyRight?.length-1]}`] :{
+      borderLeft:"10px solid transparent !important",
+      borderImage: "linear-gradient(to left,  rgba(107, 102, 102, .5), transparent ) 30 !important",
+     }
   }
   return (
     <Box
@@ -273,7 +316,7 @@ export default function EnhancedTable({
           {dataList?.length > 0 ? (
             <Table
               stickyHeader={stickyOptions?.stickyHeader}
-              sx={{ ...Cusmstyle.tableContainer, minWidth: tableMinWidth }}
+              sx={{ ...Cusmstyle.tableContainer, minWidth: tableMinWidth, ...stickyBorderStyle}}
               aria-labelledby="tableTitle"
               size={dense}
               className={'TABLE'}
@@ -294,7 +337,7 @@ export default function EnhancedTable({
                   page * rowsPerPage + rowsPerPage
                 )}
                 TableData={tableData}
-                handleSwitch={handleSwitch}
+                handleSwitch={handleSwitchAlert}
                 switchList={switchList}
                 checkboxHandleChange={checkboxHandleChange}
                 setSelectedCheckbox={setSelectedCheckbox}
@@ -339,7 +382,7 @@ export default function EnhancedTable({
         primaryText={alertOptions?.primaryText}
         secondaryText={alertOptions?.secondaryText}
         icon={alertOptions?.icon}
-        alertOpen={alertOpen}
+        alertOpen={alertOptions?.alertOpen}
         handleAlertClose={handleAlertClose}
       />
     </Box>

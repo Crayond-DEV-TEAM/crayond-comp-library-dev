@@ -19,6 +19,8 @@ function App() {
   const [switchList, setSwitchList] = React.useState([1, 4]);
   const [headerSelect, setHederSelect] = React.useState('');
   const [headerCheckbox, setHederCheckbox] = React.useState(true);
+  const [alertOpen, setAlertOpen] = React.useState(false);
+
   const checkboxHandleChange = (data: any) => {
     if (!selectedCheckbox.includes(data)) {
       setSelectedCheckbox([...selectedCheckbox, data]);
@@ -857,8 +859,8 @@ function App() {
         isSelectedAll={isSelectedAll}
         handleSwitch={handleSwitch}
         tableMinWidth={'3350px'}
-        tableMinHeight={'265px'}
-        tableMaxHeight={'265px'}
+        tableMinHeight={'565px'}
+        tableMaxHeight={'565px'}
         // tableMaxWidth={'500px'}
         tableName={'Team Member'}
         paddingAll={'0px'}
@@ -882,10 +884,12 @@ function App() {
         }}
         alertOptions={{
           isEnable:true,
+          alertOpen:alertOpen,
+          setAlertOpen:setAlertOpen,
           title:"Are you sure, would you like to deactivate?",
           description:"",
-          primaryText:"Yess",
-          secondaryText:"Noo",
+          primaryText:"Yes",
+          secondaryText:"No",
           icon:<AlertIcon />
         }}
         HeaderComponent={{

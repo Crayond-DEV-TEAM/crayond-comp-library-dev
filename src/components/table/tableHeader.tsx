@@ -47,6 +47,7 @@ export const TableHeader = ({
     if (stickyOptions?.stickyRight?.includes(id)) {
       return 'stickyRight';
     }
+    return "";
   };
 
 
@@ -107,7 +108,7 @@ export const TableHeader = ({
         {Header?.map((val: any, i: number) => {
           return (
             <TableCell
-              className={getClassName(val?.id)}
+              className={getClassName(val?.id) + " "+ val?.id}
               key={'Header' + i}
               align={val?.align}
               padding={val.disablePadding ? 'none' : 'normal'}

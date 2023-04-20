@@ -113,7 +113,7 @@ export interface TableProps {
   tableBorderRadius?: string;
   tableBackground?: string | any;
   paginationOption: {
-    isEnable:boolean;
+    isEnable: boolean;
     rowPerPage: number;
     rowsPerPageOptions?: Array<number | { value: number; label: string }>;
   };
@@ -126,16 +126,18 @@ export interface TableProps {
     component: React.ReactNode | null;
   };
   stickyOptions?: {
-    stickyHeader:boolean | undefined;
+    stickyHeader: boolean | undefined;
     stickyRight: Array<string>;
     stickyLeft: Array<string>;
   };
-  alertOptions?:{
-    isEnable?:boolean,
-    title?:string,
-    description?:string,
-    primaryText?:string,
-    secondaryText?:string,
-    icon?:React.ReactNode;
-  }
+  alertOptions?: {
+    isEnable?: boolean;
+    alertOpen: Boolean;
+    setAlertOpen: Function;
+    title?: string;
+    description?: string;
+    primaryText?: string;
+    secondaryText?: string;
+    icon?: React.ReactNode;
+  };
 }

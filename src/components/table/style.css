@@ -1,0 +1,13 @@
+.MuiTable-root tbody tr .stickyLeftTd:first-child { 
+    /* border: 1px solid green !important; */
+  
+}
+/* document.getElementsByClassName("tr stickyLeftTd")[1].style["boxShadow"] = "0 0 5px #999999"; */
+/* for (let a=0; a <= appyStyle.length; a++){appyStyle[a].style["boxShadow"] = "rgb(0 0 0 / 13%) 0px 0px 4px 0px";} */
+/* '& .stickyLeftTd:nth-last-of-type(1)': {
+    borderRight: "1px solid red !important",
+    boxShadow:"1px 3px 40px #000",
+  },
+  '& .stickyRightTd:nth-of-type(1)': {
+    borderLeft: "1px solid red !important",
+  } */
