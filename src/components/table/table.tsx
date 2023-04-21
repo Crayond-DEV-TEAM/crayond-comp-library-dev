@@ -16,7 +16,9 @@ import { TableHeader } from './tableHeader';
 import VariantHeaderComponent from './variantHeaderComponent';
 import { AlertBox } from '../alertBox';
 import jsPDF from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
+import boxShadow from '../../assets/boxShadow.svg';
+import { Checkbox, FormControlLabel, Menu, MenuItem, Stack } from '@mui/material';
 export default function EnhancedTable({
   Header,
   dataList,
@@ -57,20 +59,64 @@ export default function EnhancedTable({
   const [orderBy, setOrderBy] = React.useState('');
   //temp alert data
   const [tempAlertData, setTempAlertData] = React.useState<any>();
+  const [currentDownloadOption, setCurrentDownloadOption] =
+    React.useState<string>('downloadOptions');
+  const [anchorEl, setDownloadModalAnchorEl] =
+    React.useState<null | HTMLElement>(null);
+  const openDownloadModal = Boolean(anchorEl);
+  const handleClickDownloadModal = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    setDownloadModalAnchorEl(event.currentTarget);
+  };
+  const handleCloseDownloadModal = (key: string) => {
+    if (!key || new Set(['downloadExcel']).has(key)) {
+      setDownloadModalAnchorEl(null);
+      setCurrentDownloadOption('downloadOptions');
+    } else if (new Set(['pdfLandscape', 'pdfPortrait']).has(key)) {
+      setCurrentDownloadOption('filedList');
+    } else {
+      setCurrentDownloadOption(key);
+    }
+  };
+
+  const downloadOptionList: any = {
+    downloadOptions: [
+      {
+        icon: '',
+        text: 'PDF',
+        nextOption: () => handleCloseDownloadModal('pdfOptions'),
+      },
+      {
+        icon: '',
+        text: 'Excel',
+        nextOption: () => handleCloseDownloadModal('downloadExcel'),
+      },
+    ],
+    pdfOptions: [
+      {
+        icon: '',
+        text: 'Download PDF (Landscape)',
+        nextOption: () => handleCloseDownloadModal('pdfLandscape'),
+      },
+      {
+        icon: '',
+        text: 'Download PDF (Portrait)',
+        nextOption: () => handleCloseDownloadModal('pdfPortrait'),
+      },
+    ],
+    filedList: [
+      {
+        icon: '',
+        text: 'Select Fields',
+        nextOption: () => handleCloseDownloadModal('pdfPortrait'),
+      },
+    ],
+  };
   //switch box set all selected state
   const selectAllCheckbox = (data: any, e: any) => {
     alertOptions?.setAlertOpen(true);
     setTempAlertData({ data, state: !e.target.checked });
-  };
-
-  const handleChangePage = (event: any, newPage: any) => {
-    setPage(newPage);
-  };
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
   };
 
   //Excel Download Function --- START
@@ -86,7 +132,7 @@ export default function EnhancedTable({
 
   sheet.columns = Header?.map((val: any) => ({ key: val.id, width: 35 }));
 
-  const tableDataClone = dataList?.map((Celldata: any, rows: number) => {
+  const tableDataClone: any = dataList?.map((Celldata: any, rows: number) => {
     return tableData?.map((val: any, i: number) => {
       switch (val?.type?.[0]) {
         case 'INCREMENT':
@@ -196,24 +242,43 @@ export default function EnhancedTable({
   //PDF Functions
   const generatePDF = () => {
     const doc = new jsPDF({
-      orientation: 'landscape', 
-      format: 'a1'
-        });
-    doc.autoTable({ head: [header], body: tableDataClone,tableWidth:"wrap", styles:{ minCellWidth:20, overflow:"linebreak" }});
-    
-    doc.save('data.pdf');
+      orientation: 'landscape',
+      format: 'a1',
+    });
+    autoTable(doc, {
+      head: [header],
+      body: tableDataClone,
+      tableWidth: 'wrap',
+      styles: { minCellWidth: 20, overflow: 'linebreak' },
+    });
+
+    console.log(
+      '🚀 ~ file: table.tsx:203 ~ generatePDF ~ tableDataClone:',
+      tableDataClone
+    );
+    doc.save(tableName + '.pdf' ?? 'TableData' + '.pdf');
   };
   //Download PDF and Excel
-  const handelDownload = () => {
+  const handelDownload = (e: any) => {
+    handleClickDownloadModal(e);
     // workbook.xlsx.writeBuffer().then(function (buffer: any) {
     //   const blob = new Blob([buffer], { type: 'application/xlsx' });
     //   saveAs(blob, tableName + '.xlsx' ?? 'TableData' + '.xlsx');
     // });
-    generatePDF();
+    // generatePDF();
   };
   //Excel Download Function --- END
 
   //Columns Sorting Function --- START
+  const handleChangePage = (event: any, newPage: any) => {
+    setPage(newPage);
+  };
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
 
   const handleRequestSort = (event: any, property: any) => {
     const isAsc = orderBy === property && order === 'desc';
@@ -268,12 +333,12 @@ export default function EnhancedTable({
   const createSortHandler = (property: any, event: any) => {
     handleRequestSort(event, property);
   };
-  //Columns Sorting Function --- END
 
   const rowsPer = [
     ...(paginationOption?.rowsPerPageOptions ?? []),
     { label: 'All', value: dataList?.length },
   ];
+  //Columns Sorting Function --- END
 
   //Alert Box Function
   const handleAlertClose = (status: boolean) => {
@@ -328,9 +393,7 @@ export default function EnhancedTable({
       stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length - 1]
     }`]: {
       borderRight: '10px solid transparent !important',
-      borderImage:
-        'linear-gradient(to right,  rgba(107, 102, 102, .5), transparent ) 30 !important',
-      // boxShadow:" 10px 0 20px -5px rgba(115,115,115,0.75)",
+      borderImage: `url(${boxShadow}) 30 !important`,
     },
     [`& .${
       stickyOptions?.stickyRight?.[stickyOptions?.stickyRight?.length - 1]
@@ -378,6 +441,7 @@ export default function EnhancedTable({
               SelectAll={SelectAll}
               HeaderComponent={HeaderComponent}
               handelDownload={handelDownload}
+              openDownloadModal={openDownloadModal}
             />
           </Box>
         </Box>
@@ -466,6 +530,39 @@ export default function EnhancedTable({
         alertOpen={alertOptions?.alertOpen}
         handleAlertClose={handleAlertClose}
       />
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={openDownloadModal}
+        onClose={() => handleCloseDownloadModal('')}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        {downloadOptionList?.[currentDownloadOption]?.map(
+          ({ icon, text, nextOption }: any) => (
+            <>
+              <MenuItem onClick={nextOption}>
+                <Stack direction={'row'} gap={'10px'}>
+                  {icon && <Box>{icon}</Box>}
+                  <Box>
+                    <Typography>{text}</Typography>
+                  </Box>
+                </Stack>
+              </MenuItem>
+              {currentDownloadOption === 'filedList' && (
+                <>
+                <Typography onClick={()=>handleCloseDownloadModal('')} sx={{backgroundColor:"#4CAF50",color:"#fff", padding:"3px 8px", textAlign:"center", cursor:"pointer", margin:"0 5px", borderRadius:"8px"}}>Download PDF</Typography>
+                {header?.map((filed:string)=>(
+                <MenuItem>
+                    <FormControlLabel sx={{textTransform:"capitalize"}} control={<Checkbox defaultChecked />} label={filed} />
+                </MenuItem>))}
+                </>
+              )}
+            </>
+          )
+        )}
+      </Menu>
     </Box>
   );
 }

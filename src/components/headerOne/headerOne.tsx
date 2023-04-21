@@ -100,6 +100,10 @@ export default function HeaderOne(props: any) {
           </Box>
           <Box
             sx={style.iconContainer}
+            id="basic-button"
+            aria-controls={props?.openDownloadModal ? 'basic-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={props?.openDownloadModal ? 'true' : undefined}
             onClick={(e) => {
               HeaderComponent?.downloadMethod(e);
               props?.handelDownload(e);

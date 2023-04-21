@@ -12,6 +12,7 @@ import DocsIcon from './assets/docsIcon';
 import EditIcon from './assets/editIcon';
 import NotificationIcon from './assets/notificationIcon';
 import AlertIcon from './assets/alertIcon';
+import { Button } from '@mui/material';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
