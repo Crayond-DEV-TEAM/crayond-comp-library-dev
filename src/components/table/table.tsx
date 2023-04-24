@@ -23,6 +23,11 @@ import Dialog   from '@mui/material/Dialog';
 import MenuItem from '@mui/material/MenuItem';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import AlertIcon from '../../assets/alertIcon';
+import { CustomCheckbox } from '../checkbox';
+import { BasicButtons } from '../button';
 export default function EnhancedTable({
   Header,
   dataList,
@@ -54,6 +59,7 @@ export default function EnhancedTable({
   paginationOption,
   stickyOptions,
   alertOptions,
+  isDataMask
 }: TableProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState<number>(
@@ -538,6 +544,7 @@ export default function EnhancedTable({
                 cellOptions={cellOptions}
                 rowOptions={rowOptions}
                 stickyOptions={stickyOptions}
+                isDataMask={isDataMask}
               />
             </Table>
           ) : (
@@ -579,14 +586,12 @@ export default function EnhancedTable({
         handleAlertClose={handleAlertClose}
       />
       <Dialog
-        // id="basic-menu"
-        // anchorEl={anchorEl}
         open={downloadModal}
         onClose={() => handleCloseDownloadModal('')}
-        //       aria-labelledby="parent-modal-title"
-        // aria-describedby="parent-modal-description"
       >
         <Box sx={{ minWidth: '300px', padding: '12px 16px' }}>
+          <Typography variant='h6' textAlign={"center"}>Downloads</Typography>
+          <Box height={"8px"} />
           {downloadOptionList?.[currentDownloadOption]?.length > 0 &&
             downloadOptionList?.[currentDownloadOption]?.map(
               ({ icon, text, nextOption }: any, index: number) => (
@@ -602,21 +607,8 @@ export default function EnhancedTable({
                   {downloadOptionList?.[currentDownloadOption]?.[0]?.text ===
                     'Select Fields' && (
                     <>
-                      <Typography
-                        onClick={() => setSelectedPdfFields(getHeader())}
-                        sx={{
-                          backgroundColor: 'rgba(0, 0, 0, 0.26)',
-                          color: '#fff',
-                          padding: '3px 8px',
-                          textAlign: 'center',
-                          cursor: 'pointer',
-                          margin: '0 5px',
-                          borderRadius: '8px',
-                          marginBottom: '22px',
-                        }}
-                      >
-                        Select All
-                      </Typography>
+                    <FormControlLabel control={<Checkbox onChange={(e:any)=>e.target.checked ? setSelectedPdfFields(getHeader()) :setSelectedPdfFields([]) } />} label="Select All" />
+                    <Box height={"16px"} />
                       <Autocomplete
                         multiple
                         id="tags-outlined"
@@ -635,20 +627,13 @@ export default function EnhancedTable({
                           />
                         )}
                       />
-                      <Typography
+                      <Box height={"16px"} />
+                      <BasicButtons
                         onClick={() => handleCloseDownloadModal('downloadPDF')}
-                        sx={{
-                          backgroundColor: '#4CAF50',
-                          color: '#fff',
-                          padding: '6px 8px',
-                          textAlign: 'center',
-                          cursor: 'pointer',
-                          borderRadius: '8px',
-                          margin: '16px 0',
-                        }}
+                      
                       >
                         Download PDF
-                      </Typography>
+                      </BasicButtons>
                     </>
                   )}
                 </Box>
@@ -697,4 +682,14 @@ EnhancedTable.defaultProps = {
     text: 'No Data Found!',
     // component:<>Hii</>
   },
+  alertOptions:{
+    isEnable:false,
+    alertOpen:false,
+    setAlertOpen:()=>{},
+    title:"Are you sure, would you like to deactivate?",
+    description:"",
+    primaryText:"Yes",
+    secondaryText:"No",
+    icon:<AlertIcon />
+  }
 };

@@ -41,7 +41,9 @@ export default function ImageWithProfiles(props: ImageWithProfilesProps) {
                           sx={Cusmstyle.profileImage}
                           alt=""
                           src={profile?.image}
-                        />
+                        >
+                            <Typography>{profile?.label[0]}</Typography>
+                          </Avatar>
                         <Typography>{profile?.label}</Typography>
                       </Box>
                     )}

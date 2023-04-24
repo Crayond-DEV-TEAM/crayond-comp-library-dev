@@ -20,10 +20,10 @@ export default function AvatarName(props: AvatarNameProps) {
       justifyContent={'center'}
       gap={'8px'}
     >
-      {profiles?.map((avater: any, index: number) => (
+      {profiles?.map((avatar: any, index: number) => (
         <Tooltip
           key={'AvatarNameList' + index}
-          title={avater?.label ?? avater?.name}
+          title={avatar?.label ?? avatar?.name}
           placement={'bottom'}
           componentsProps={{
             tooltip: {
@@ -40,10 +40,10 @@ export default function AvatarName(props: AvatarNameProps) {
           <Avatar
             sx={{
               ...Cusmstyle.avatarText,
-              backgroundColor: avater?.color,
+              backgroundColor: avatar?.color,
             }}
           >
-            <Typography component={'h6'}>{avater?.name?.[0]}</Typography>
+            <Typography component={'h6'}>{avatar?.name?.[0]}</Typography>
           </Avatar>
         </Tooltip>
       ))}

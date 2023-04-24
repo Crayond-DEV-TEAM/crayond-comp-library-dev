@@ -38,6 +38,7 @@ interface TableData {
     label?: string;
     switchText?: { label_1: string | number; label_2: string | number }[];
     viewHandel?: Function;
+    maskText?:string;
   };
 }
 
@@ -91,6 +92,7 @@ export interface TableProps {
     setHederCheckbox?: Function;
   };
   isSelectedAll?: boolean;
+  isDataMask?: boolean;
   dense?: 'small' | 'medium' | undefined;
   headerOptions?: {
     fontSize?: string;

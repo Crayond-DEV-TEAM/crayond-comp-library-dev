@@ -21,7 +21,7 @@ function App() {
   const [headerSelect, setHederSelect] = React.useState('');
   const [headerCheckbox, setHederCheckbox] = React.useState(true);
   const [alertOpen, setAlertOpen] = React.useState(false);
-
+  const [isDataMask, setIsDataMask] = React.useState(false);
   const checkboxHandleChange = (data: any) => {
     if (!selectedCheckbox.includes(data)) {
       setSelectedCheckbox([...selectedCheckbox, data]);
@@ -60,6 +60,7 @@ function App() {
     console.log('Download Method working!', e);
   };
   const fillerMethod = () => {
+    setIsDataMask(!isDataMask)
     console.log('Filter Method working!');
   };
   const primaryBtnMethod = () => {
@@ -206,11 +207,19 @@ function App() {
             label: 'Custom',
             isSortable: false,
           },
+      
           {
             id: 'alert_type',
             align: 'center',
             disablePadding: false,
             label: 'Alert Type',
+            isSortable: false,
+          },
+          {
+            id: 'password',
+            align: 'left',
+            disablePadding: false,
+            label: 'Password',
             isSortable: false,
           },
           {
@@ -237,7 +246,7 @@ function App() {
             carbs: 67,
             protein: 4.3,
             profile: {
-              image: 'sample.jpg',
+              // image: 'sample.jpg',
               label: 'Hariharan',
             },
             overall_progress: '45',
@@ -314,6 +323,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
+            password:"23456789087654dfds"
           },
           {
             id: 2,
@@ -396,6 +406,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
+            password:"dsufasuyawe7632908r78"
           },
           {
             id: 3,
@@ -474,6 +485,7 @@ function App() {
               label: 'Not Delivered',
               icon: <DeleteIcon />,
             },
+            password:"64528327asdjkfdsjads89087654dfds"
           },
           {
             id: 4,
@@ -548,6 +560,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
+            password:"KJGKJDGKYWT^&*^&"
           },
           {
             id: 5,
@@ -618,6 +631,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
+            password:"23456789ey087654dfds"
           },
           {
             id: 6,
@@ -688,6 +702,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
+            password:"sadsdsadsadsasdsdd"
           },
           {
             id: 7,
@@ -762,6 +777,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
+            password:"asdfhaselkf98wer"
           },
         ]}
         tableData={[
@@ -800,6 +816,7 @@ function App() {
           },
           { type: ['CUSTOM'], name: 'custom' },
           { type: ['ICON_WITH_LABEL'], name: 'alert_type' },
+          { type: ['MASK_DATA'], name: 'password', maskText:"*"},
           { type: ['ICON_WITH_TEXT'], name: 'response' },
           {
             type: ['ACTION'],
@@ -870,6 +887,7 @@ function App() {
         margin={['0px', '1px', '0px', '1px']}
         tableBorderRadius={'12px'}
         dense={'medium'}
+        isDataMask={isDataMask}
         noDataFound={{
           fontSize: '16px',
           fontWeight: '600',
