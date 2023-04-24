@@ -14,7 +14,7 @@ import { saveAs } from 'file-saver';
 import moment from 'moment';
 import { TableHeader } from './tableHeader';
 import VariantHeaderComponent from './variantHeaderComponent';
-
+import { AlertBox } from '../alertBox';
 export default function EnhancedTable({
   Header,
   dataList,
@@ -45,20 +45,20 @@ export default function EnhancedTable({
   noDataFound,
   paginationOption,
   stickyOptions,
+  alertOptions,
 }: TableProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState<number>(
     paginationOption?.rowPerPage ?? 5
   );
-  const [order, setOrder] = React.useState<"asc" | "desc" | undefined>('asc');
+  const [order, setOrder] = React.useState<'asc' | 'desc' | undefined>('asc');
   const [orderBy, setOrderBy] = React.useState('');
-
-  //switch box set selected state
+  //temp alert data
+  const [tempAlertData, setTempAlertData] = React.useState<any>();
+  //switch box set all selected state
   const selectAllCheckbox = (data: any, e: any) => {
-    let ids = dataList?.map(({ id }: any) => id);
-    if(SelectAll){
-      SelectAll(ids, !e.target.checked);
-    }
+    alertOptions?.setAlertOpen(true);
+    setTempAlertData({ data, state: !e.target.checked });
   };
 
   const handleChangePage = (event: any, newPage: any) => {
@@ -142,14 +142,14 @@ export default function EnhancedTable({
     };
     sheet.getColumn(rowNumber).font = { size: 14, family: 2 };
   });
-  
+
   const handelDownload = () => {
     workbook.xlsx.writeBuffer().then(function (buffer: any) {
       const blob = new Blob([buffer], { type: 'application/xlsx' });
       saveAs(blob, tableName + '.xlsx' ?? 'TableData' + '.xlsx');
     });
   };
-//Excel Download Function --- END
+  //Excel Download Function --- END
 
   //Columns Sorting Function --- START
 
@@ -213,6 +213,71 @@ export default function EnhancedTable({
     { label: 'All', value: dataList?.length },
   ];
 
+  //Alert Box Function
+  const handleAlertClose = (status: boolean) => {
+    if (status) {
+      console.log(
+        '🚀 ~ file: table.tsx:226 ~ handleAlertClose ~ tempAlertData:',
+        tempAlertData
+      );
+
+      if (tempAlertData?.id && handleSwitch) {
+        handleSwitch(
+          tempAlertData?.id,
+          tempAlertData?.rowData,
+          tempAlertData?.event
+        );
+        setTempAlertData({});
+      }
+
+      if (tempAlertData?.data) {
+        let ids = dataList?.map(({ id }: any) => id);
+        if (SelectAll) {
+          SelectAll(ids, tempAlertData?.state);
+        }
+        setTempAlertData({});
+      }
+    }
+    alertOptions?.setAlertOpen(false);
+  };
+
+  const handleSwitchAlert = (
+    id: string | number,
+    rowData: Array<any>,
+    event: any
+  ) => {
+    if (alertOptions?.isEnable) {
+      alertOptions?.setAlertOpen(true);
+      setTempAlertData({ id, rowData, event });
+    } else {
+      if (handleSwitch) {
+        handleSwitch(id, rowData, event);
+      }
+    }
+  };
+
+  //Sticky Border Styles
+  console.log(
+    '🚀 ~ file: table.tsx:257 ~ stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length-1]:',
+    stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length - 1]
+  );
+  const stickyBorderStyle = {
+    [`& .${
+      stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length - 1]
+    }`]: {
+      borderRight: '10px solid transparent !important',
+      borderImage:
+        'linear-gradient(to right,  rgba(107, 102, 102, .5), transparent ) 30 !important',
+      // boxShadow:" 10px 0 20px -5px rgba(115,115,115,0.75)",
+    },
+    [`& .${
+      stickyOptions?.stickyRight?.[stickyOptions?.stickyRight?.length - 1]
+    }`]: {
+      borderLeft: '10px solid transparent !important',
+      borderImage:
+        'linear-gradient(to left,  rgba(107, 102, 102, .5), transparent ) 30 !important',
+    },
+  };
   return (
     <Box
       sx={{
@@ -227,7 +292,7 @@ export default function EnhancedTable({
         paddingBottom: padding?.[2],
         paddingLeft: padding?.[3],
         backgroundColor: tableBackground,
-        maxWidth:tableMaxWidth,
+        maxWidth: tableMaxWidth,
       }}
     >
       <Paper
@@ -265,8 +330,12 @@ export default function EnhancedTable({
         >
           {dataList?.length > 0 ? (
             <Table
-            stickyHeader={stickyOptions?.stickyHeader}
-              sx={{ ...Cusmstyle.tableContainer, minWidth: tableMinWidth }}
+              stickyHeader={stickyOptions?.stickyHeader}
+              sx={{
+                ...Cusmstyle.tableContainer,
+                minWidth: tableMinWidth,
+                ...stickyBorderStyle,
+              }}
               aria-labelledby="tableTitle"
               size={dense}
               className={'TABLE'}
@@ -287,7 +356,7 @@ export default function EnhancedTable({
                   page * rowsPerPage + rowsPerPage
                 )}
                 TableData={tableData}
-                handleSwitch={handleSwitch}
+                handleSwitch={handleSwitchAlert}
                 switchList={switchList}
                 checkboxHandleChange={checkboxHandleChange}
                 setSelectedCheckbox={setSelectedCheckbox}
@@ -310,21 +379,31 @@ export default function EnhancedTable({
         </TableContainer>
         {dataList?.length > 0 && (
           <>
-          {paginationOption?.isEnable  &&
-          <TablePagination
-            className={'TABLE_PAGINATION'}
-            sx={{ alignSelf: 'flex-end' }}
-            rowsPerPageOptions={rowsPer}
-            component="div"
-            count={dataList?.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />}
+            {paginationOption?.isEnable && (
+              <TablePagination
+                className={'TABLE_PAGINATION'}
+                sx={{ alignSelf: 'flex-end' }}
+                rowsPerPageOptions={rowsPer}
+                component="div"
+                count={dataList?.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            )}
           </>
         )}
       </Paper>
+      <AlertBox
+        title={alertOptions?.title}
+        description={alertOptions?.description}
+        primaryText={alertOptions?.primaryText}
+        secondaryText={alertOptions?.secondaryText}
+        icon={alertOptions?.icon}
+        alertOpen={alertOptions?.alertOpen}
+        handleAlertClose={handleAlertClose}
+      />
     </Box>
   );
 }
@@ -333,12 +412,12 @@ EnhancedTable.defaultProps = {
   Header: [],
   dataList: [],
   tableData: [],
-  setSelectedCheckbox: () => { },
+  setSelectedCheckbox: () => {},
   selectedCheckbox: [],
-  checkboxHandleChange: () => { },
-  handleSwitch: () => { },
+  checkboxHandleChange: () => {},
+  handleSwitch: () => {},
   switchList: [],
-  SelectAll: () => { },
+  SelectAll: () => {},
   tableMinWidth: '100%',
   tableMinHeight: '100%',
   tableName: '',
@@ -353,10 +432,10 @@ EnhancedTable.defaultProps = {
   rowOptions: {},
   cellOptions: {},
   tableBackground: '',
-  paginationOption:{
-    isEnable:true,
-    rowPerPage:5,
-    rowsPerPageOptions:[5, 10, 25],       
+  paginationOption: {
+    isEnable: true,
+    rowPerPage: 5,
+    rowsPerPageOptions: [5, 10, 25],
   },
   noDataFound: {
     fontSize: '16px',

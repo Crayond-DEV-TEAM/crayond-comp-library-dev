@@ -4,11 +4,11 @@ import LinearProgress, {
 } from '@mui/material/LinearProgress';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import { Tooltip } from '@mui/material';
+import Tooltip from '@mui/material/Tooltip';
 import { Cusmstyle } from '../table/style';
- 
+
 interface ProgressProps {
-  value:number;
+  value: number;
 }
 function LinearProgressWithLabel(
   props: LinearProgressProps & { value: number }

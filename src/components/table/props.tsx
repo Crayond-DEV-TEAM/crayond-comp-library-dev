@@ -126,8 +126,18 @@ export interface TableProps {
     component: React.ReactNode | null;
   };
   stickyOptions?: {
-    stickyHeader:boolean | undefined;
+    stickyHeader: boolean | undefined;
     stickyRight: Array<string>;
     stickyLeft: Array<string>;
+  };
+  alertOptions?: {
+    isEnable?: boolean;
+    alertOpen: Boolean;
+    setAlertOpen: Function;
+    title?: string;
+    description?: string;
+    primaryText?: string;
+    secondaryText?: string;
+    icon?: React.ReactNode;
   };
 }
