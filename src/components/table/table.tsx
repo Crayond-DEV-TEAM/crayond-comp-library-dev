@@ -273,58 +273,7 @@ export default function EnhancedTable({
       return Header?.map((val: any) => val.id);
     }
   };
-
-  // const tableDataClone2 = dataList?.map((Celldata: any, rows: number) => {
-  //   return tableData?.map((val: any, i: number) => {
-  //     switch (val?.type?.[0]) {
-  //       case 'INCREMENT':
-  //         return {[val.name]:Celldata?.id};
-  //       case 'CHECKBOX':
-  //         return {[val.name]: selectedCheckbox?.includes(Celldata?.id)};
-  //       case 'TEXT':
-  //         return Celldata?.[val.name];
-  //       case 'SWITCH':
-  //         return switchList?.includes(Celldata?.id)
-  //           ? val?.switchText?.[0]?.label_2
-  //           : val?.switchText?.[0]?.label_1;
-  //       case 'LABEL':
-  //         return Celldata[val.name]?.label;
-  //       case 'ICON_WITH_LABEL':
-  //         return Celldata[val.name]?.label;
-  //       case 'ICON_WITH_TEXT':
-  //         return Celldata[val.name]?.label;
-  //       case 'PROGRESS':
-  //         return Celldata[val.name];
-  //       case 'IMAGE_WITH_LABEL':
-  //         return Celldata[val.name]?.label;
-  //       case 'IMAGE_WITH_PROFILES':
-  //         return Celldata[val.name]?.map(({ label }: any) => label).toString();
-  //       case 'PERFORMANCE':
-  //         return Celldata[val.name];
-  //       case 'AVATAR_NAME':
-  //         return Celldata[val.name]?.map(
-  //           ({ name, label }: any) => name + ' - ' + label
-  //         );
-  //       case 'STAR_RATING':
-  //         return Celldata[val.name];
-  //       case 'GROWTH':
-  //         return Celldata[val.name]?.value;
-  //       case 'DATE':
-  //         return moment(Celldata[val.name]).format(val.format).toString();
-  //       case 'ACTION':
-  //         return '';
-  //       case 'LINK':
-  //         return val?.label;
-  //       case 'CUSTOM':
-  //         return '';
-  //       default:
-  //         return Celldata[val.name];
-  //     }
-  //   });
-  // });
-
-  //Excel Download Function --- START
-
+ 
   const generateExcel = () => {
     const workbook = new excelJS.Workbook();
     workbook.creator = 'test';
@@ -451,11 +400,6 @@ export default function EnhancedTable({
   //Alert Box Function
   const handleAlertClose = (status: boolean) => {
     if (status) {
-      console.log(
-        '🚀 ~ file: table.tsx:226 ~ handleAlertClose ~ tempAlertData:',
-        tempAlertData
-      );
-
       if (tempAlertData?.id && handleSwitch) {
         handleSwitch(
           tempAlertData?.id,
@@ -492,10 +436,6 @@ export default function EnhancedTable({
   };
 
   //Sticky Border Styles
-  console.log(
-    '🚀 ~ file: table.tsx:257 ~ stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length-1]:',
-    stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length - 1]
-  );
   const stickyBorderStyle = {
     [`& .${
       stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length - 1]
