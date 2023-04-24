@@ -39,5 +39,6 @@ Primary.args = {
   titleStyle:{},
   btnStyle:{},
   bottomTextStyle:{},
+  imgStyle:{marginBottom:'20px'}
 };
 

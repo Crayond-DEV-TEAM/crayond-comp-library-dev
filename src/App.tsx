@@ -1,8 +1,12 @@
-import React from 'react';
 import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
+import React from 'react';
+import { FcGoogle } from 'react-icons/fc';
+import CompanyLogo from './assets/companyLogo.png';
+import loginImg from './assets/loginImg.png';
+import LoginScreen from './components/login/login';
 import { BasicButtons, CommonTable } from '@components';
 import DeleteIcon from './assets/deleteIcon';
 import FunnelIcon from './assets/funnelIcon';
@@ -66,7 +70,8 @@ function App() {
   };
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
-      <CommonTable
+      {/* <LoginScreen option={'email'}/> */}
+      {/* <CommonTable
         Header={[
           {
             id: 'id',
@@ -910,26 +915,58 @@ function App() {
           fillerMethod: fillerMethod,
           downloadMethod: downloadMethod,
         }}
-        // HeaderComponent={{
-        //   variant: 2,
-        // styles:{
-        //   padding:"10px 0",
-        //   margin:"0"
-        // },
-        //   searchPlaceholder:"Search by name, email",
-        //   setHederSearch:setHederSearch,
-        //   checkboxLabel:"Show only my reportees",
-        //   primaryBtnText:"Add Member",
-        //   secondaryBtnText:"Import",
-        //   secondaryBtnIcon:<DocsIcon color={"#357968"}/>,
-        //   funnelIcon:<FunnelIcon color={"#fff"}/>,
-        //   searchIcon:<SearchIcon/>,
-        //   fillerMethod:fillerMethod,
-        //   primaryBtnMethod:primaryBtnMethod,
-        //   secondaryBtnMethod:secondaryBtnMethod,
-        //   headerCheckbox:headerCheckbox, setHederCheckbox:setHederCheckbox
-        // }}
-      />
+        HeaderComponent={{
+          variant: 2,
+        styles:{
+          padding:"10px 0",
+          margin:"0"
+        },
+          searchPlaceholder:"Search by name, email",
+          setHederSearch:setHederSearch,
+          checkboxLabel:"Show only my reportees",
+          primaryBtnText:"Add Member",
+          secondaryBtnText:"Import",
+          secondaryBtnIcon:<DocsIcon color={"#357968"}/>,
+          funnelIcon:<FunnelIcon color={"#fff"}/>,
+          searchIcon:<SearchIcon/>,
+          fillerMethod:fillerMethod,
+          primaryBtnMethod:primaryBtnMethod,
+          secondaryBtnMethod:secondaryBtnMethod,
+          headerCheckbox:headerCheckbox, setHederCheckbox:setHederCheckbox
+        }}
+      /> */}
+      <LoginScreen cardData={[
+        {
+          loginCardDescription: "One positive feedback per day or week can make us grow exponentially",
+          loginTitle: 'Welcome',
+          CompanyLogo: CompanyLogo,
+          loginCardBottomText: "Don't have an account?",
+          button: true,
+          loginButtonText: "Log in",
+          loginActionText: 'Sign in',
+          loginOption: 'email',
+          onActionClick: () => {
+            alert('signIn')
+          },
+          onForgotClick: () => {
+            alert('forgot')
+          },
+          socialMediaIconTwo: <FcGoogle />,
+          socialMediaIconOne: <FcGoogle />,
+          socialMediaButtonText: "SignUp with google",
+          socialMediaButtonTextTwo: "Sign up with Outlook"
+        }
+      ]}
+        bannerImgData={[
+          {
+            imgSrc: loginImg,
+            loginImgWidth: '100%',
+            loginImgHeight: '100%',
+          }
+        ]}
+        onLogin={() => {
+          alert('onlogin')
+        }} />
     </div>
   );
 }

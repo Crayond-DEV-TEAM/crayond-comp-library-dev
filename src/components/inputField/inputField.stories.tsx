@@ -51,5 +51,6 @@ Primary.args = {
   fullWidth:true,
   variant:'outlined',
   size:'small',
+  textFieldStyle:{}
 };
 
