@@ -4,8 +4,8 @@ export default function Image(props: ImageProps) {
     const { inLineStyles, className, imageStyle, ...imgProps } = props;
 
     return (
-        <Box sx={inLineStyles} className={className}>
+        // <Box sx={inLineStyles} className={className}>
             <img style={imageStyle} {...imgProps} />
-        </Box >
+        // </Box >
     );
 }

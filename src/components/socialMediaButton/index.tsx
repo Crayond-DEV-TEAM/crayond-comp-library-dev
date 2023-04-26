@@ -16,7 +16,9 @@ export const SocialMediaButton = (props: SocialMediaButtonProps) => {
       display,
       alignItems,
       cursor,
-      onClick = () => { } } = props
+      buttonText,
+      onClick = () => { },
+      socialmediaTextStyle } = props
 
   return (
     <Box
@@ -29,7 +31,8 @@ export const SocialMediaButton = (props: SocialMediaButtonProps) => {
         cursor: cursor,
         ...rootStyle
       }}
-      onClick={onClick}>
+      onClick={onClick}
+    >
       <IconButton>
         {startIcon}
       </IconButton>
@@ -39,10 +42,11 @@ export const SocialMediaButton = (props: SocialMediaButtonProps) => {
           textAlign: textAlign,
           width: width,
           color: color,
-          fontWeight: fontWeight
+          fontWeight: fontWeight,
+          ...socialmediaTextStyle
         }}
       >
-        {props?.buttonText}
+        {buttonText}
       </Typography>
     </Box>
   );

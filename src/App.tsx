@@ -6,7 +6,7 @@ import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import CompanyLogo from './assets/companyLogo.png';
 import loginImg from './assets/loginImg.png';
-import LoginScreen from './components/login/login';
+import LoginScreen from './components/loginPage/login';
 import { BasicButtons, CommonTable } from '@components';
 import DeleteIcon from './assets/deleteIcon';
 import FunnelIcon from './assets/funnelIcon';
@@ -948,38 +948,38 @@ function App() {
           headerCheckbox:headerCheckbox, setHederCheckbox:setHederCheckbox
         }}
       /> */}
-      <LoginScreen cardData={[
-        {
-          loginCardDescription: "One positive feedback per day or week can make us grow exponentially",
-          loginTitle: 'Welcome',
-          CompanyLogo: CompanyLogo,
-          loginCardBottomText: "Don't have an account?",
-          button: true,
-          loginButtonText: "Log in",
-          loginActionText: 'Sign in',
-          loginOption: 'email',
-          onActionClick: () => {
-            alert('signIn')
-          },
-          onForgotClick: () => {
-            alert('forgot')
-          },
-          socialMediaIconTwo: <FcGoogle />,
-          socialMediaIconOne: <FcGoogle />,
-          socialMediaButtonText: "SignUp with google",
-          socialMediaButtonTextTwo: "Sign up with Outlook"
+      <LoginScreen
+        option='emailWithPasswordLogin'
+        cardData={
+          {
+            description: "One positive feedback per day or week can make us grow exponentially",
+            title: 'Welcome',
+            logo: CompanyLogo,
+            bottomText: "Don't have an account?",
+            buttonText: "Log in",
+            loginActionText: 'Sign in',
+            onSignUpClick: () => {
+              console.log('signIn')
+            },
+            onForgotClick: () => {
+              console.log('forgot password')
+            },
+            actionstyle:{},
+            btnStyle:{},
+            cardStyle:{},
+          }
         }
-      ]}
-        bannerImgData={[
+        backgroundImg={
           {
             imgSrc: loginImg,
             loginImgWidth: '100%',
             loginImgHeight: '100%',
           }
-        ]}
-        onLogin={() => {
-          alert('onlogin')
-        }} />
+        }
+        onSubmit={(detail: object) => {
+          console.log(detail)
+        }}
+      />
     </div>
   );
 }

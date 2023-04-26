@@ -3,13 +3,14 @@ export const inputField_Style = {
         opacity: 1,
         '& .MuiOutlinedInput-input': {
           width: '100%',
-          fontWeight: 600,
+          fontWeight: 'normal',
         },
         '& .MuiOutlinedInput-root': {
           '& fieldset': {
             borderRadius: '8px',
             border: '1.5px solid',
             borderColor: '#E9E9E9',
+            backgroundColor:'#fff'
           },
           '&:hover fieldset': {
             borderColor: '#E9E9E9',

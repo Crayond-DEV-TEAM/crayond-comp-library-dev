@@ -3,7 +3,7 @@ import React from 'react';
 import { InputFieldProps } from './props';
 import { inputField_Style } from './style';
 
-const InputField: React.FC<InputFieldProps> = ({ label, textFieldStyle, ...rest }) => {
+const InputField: React.FC<InputFieldProps> = ({ label, textFieldStyle={}, ...rest }) => {
   return (
     <TextField
       variant="outlined"

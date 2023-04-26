@@ -15,7 +15,7 @@ export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
   children: "button",
-  buttonText: 'SignUp with google',
+  buttonText: 'Sign Up with google',
   borderRadius: '4px',
   padding: 1.5,
   display: 'flex',

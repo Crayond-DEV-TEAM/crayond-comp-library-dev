@@ -16,7 +16,6 @@ const Card: React.FC<CardProps> = ({
   imgStyle,
   logoHeight,
   logoWidth,
-  button,
   buttonText,
   btnClick,
   actions,
@@ -57,7 +56,7 @@ const Card: React.FC<CardProps> = ({
         </Typography>
       )}
       <Box>{children}</Box>
-      {button && (
+      {buttonText && (
         <BasicButtons type="submit" inLineStyles={{...Card_Style.buttonSx,...btnStyle}} onClick={btnClick}>
           {buttonText}
         </BasicButtons>

@@ -23,7 +23,6 @@ Primary.args = {
   logoWidth: 147,
   logoHeight: 29,
   alt: 'logo',
-  button: true,
   buttonText: 'login',
   description: 'One positive feedback per day or week can make us grow exponentially',
   logo: CompanyLogo,
