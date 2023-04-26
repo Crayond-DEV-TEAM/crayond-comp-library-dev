@@ -781,15 +781,15 @@ function App() {
           },
         ]}
         tableData={[
-          { type: ['INCREMENT'], name: 'id' },
+          { type: ['INCREMENT'], name: 'id', width:100},
           { type: ['CHECKBOX'], name: 'checkbox' },
-          { type: ['TEXT'], name: 'name' },
+          { type: ['TEXT'], name: 'name', width:30 },
           { type: ['TEXT'], name: 'calories' },
           { type: ['TEXT'], name: 'fat' },
           { type: ['TEXT'], name: 'carbs' },
           { type: ['TEXT'], name: 'protein' },
           { type: ['IMAGE_WITH_LABEL'], name: 'profile', variant: 'circular' },
-          { type: ['PROGRESS'], name: 'overall_progress' },
+          { type: ['PROGRESS'], name: 'overall_progress', width:200},
           { type: ['LABEL'], name: 'production' },
           {
             type: ['SWITCH'],
@@ -816,7 +816,7 @@ function App() {
           },
           { type: ['CUSTOM'], name: 'custom' },
           { type: ['ICON_WITH_LABEL'], name: 'alert_type' },
-          { type: ['MASK_DATA'], name: 'password', maskText:"*"},
+          { type: ['MASK_DATA'], name: 'password', maskText:"*", width:100},
           { type: ['ICON_WITH_TEXT'], name: 'response' },
           {
             type: ['ACTION'],

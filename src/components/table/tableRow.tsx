@@ -40,6 +40,14 @@ const BodyRowLogic = ({
     backgroundColor: cellOptions?.bgColor,
     borderBottom: cellOptions?.borderBottom,
     padding: cellOptions?.padding,
+    maxWidth:val?.width ?? "auto",
+    width:val?.width ?? "auto",
+    "& p":{
+      width: "inherit",
+      whiteSpace: "nowrap",
+      overflow: "hidden",
+      textOverflow: "ellipsis",
+    }
   };
   //get ID based class name
   const getClassName = (id: any) => {

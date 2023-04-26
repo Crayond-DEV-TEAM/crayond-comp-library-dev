@@ -25,6 +25,7 @@ interface TableData {
   [index: number]: {
     type: Array<string>;
     name: string;
+    width?:number;
     variant?:
       | 'circular'
       | 'rounded'
