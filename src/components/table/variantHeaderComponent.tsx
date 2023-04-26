@@ -25,6 +25,7 @@ interface VariantHeaderComponentProps {
   selectedCheckbox: Array<string | number>;
   SelectAll: Function;
   handelDownload: Function;
+  openDownloadModal: Boolean;
 }
 const VariantHeaderComponent = (props: VariantHeaderComponentProps) => {
   //Get variant component
@@ -36,6 +37,7 @@ const VariantHeaderComponent = (props: VariantHeaderComponentProps) => {
           selectedCheckbox={props?.selectedCheckbox}
           SelectAll={props?.SelectAll}
           handelDownload={props?.handelDownload}
+          openDownloadModal={props?.openDownloadModal}
         />
       );
     case 2:

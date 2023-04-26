@@ -6,6 +6,7 @@ interface TableBody {
 }
 
 interface TableHeader {
+  filter(arg0: (val: any) => boolean): any;
   map(arg0: (val: any) => { key: any; width: number }): any;
   [index: number]: {
     disablePadding: boolean;
@@ -19,6 +20,7 @@ interface TableHeader {
 }
 
 interface TableData {
+  filter(arg0: (val: any) => boolean): any;
   map(arg0: (data: any, i: number) => any): unknown;
   [index: number]: {
     type: Array<string>;
@@ -36,6 +38,7 @@ interface TableData {
     label?: string;
     switchText?: { label_1: string | number; label_2: string | number }[];
     viewHandel?: Function;
+    maskText?:string;
   };
 }
 
@@ -89,6 +92,7 @@ export interface TableProps {
     setHederCheckbox?: Function;
   };
   isSelectedAll?: boolean;
+  isDataMask?: boolean;
   dense?: 'small' | 'medium' | undefined;
   headerOptions?: {
     fontSize?: string;

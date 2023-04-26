@@ -15,6 +15,19 @@ import moment from 'moment';
 import { TableHeader } from './tableHeader';
 import VariantHeaderComponent from './variantHeaderComponent';
 import { AlertBox } from '../alertBox';
+import jsPDF from 'jspdf';
+import autoTable from 'jspdf-autotable';
+import boxShadow from '../../assets/boxShadow.svg';
+import Autocomplete from '@mui/material/Autocomplete';
+import Dialog   from '@mui/material/Dialog';
+import MenuItem from '@mui/material/MenuItem';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import AlertIcon from '../../assets/alertIcon';
+import { CustomCheckbox } from '../checkbox';
+import { BasicButtons } from '../button';
 export default function EnhancedTable({
   Header,
   dataList,
@@ -46,6 +59,7 @@ export default function EnhancedTable({
   paginationOption,
   stickyOptions,
   alertOptions,
+  isDataMask
 }: TableProps) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState<number>(
@@ -53,105 +67,281 @@ export default function EnhancedTable({
   );
   const [order, setOrder] = React.useState<'asc' | 'desc' | undefined>('asc');
   const [orderBy, setOrderBy] = React.useState('');
+  const [selectedPdfFields, setSelectedPdfFields] = React.useState<
+    Array<string>
+  >([]);
   //temp alert data
   const [tempAlertData, setTempAlertData] = React.useState<any>();
+  const [currentDownloadOption, setCurrentDownloadOption] = React.useState<string>('downloadOptions');
+  const [downloadModal, setDownloadModal] = React.useState(false);
+
+  //Download Modal Open
+  const handleCloseDownloadModal = (key: string) => {
+    switch (key) {
+      case 'downloadExcel':
+        setDownloadModal(false);
+        setCurrentDownloadOption('downloadOptions');
+        generateExcel();
+        break;
+      case 'pdfOptions':
+        setCurrentDownloadOption('pdfOptions');
+        break;
+      case 'pdfLandscape':
+        setCurrentDownloadOption('filedListLandscape');
+        break;
+      case 'pdfPortrait':
+        setCurrentDownloadOption('filedListPortrait');
+        break;
+      case 'downloadPDF':
+        generatePDF(
+          currentDownloadOption === 'filedListLandscape'
+            ? 'landscape'
+            : 'portrait'
+        );
+        setDownloadModal(false);
+        setCurrentDownloadOption('downloadOptions');
+        break;
+      default:
+        setDownloadModal(false);
+        setCurrentDownloadOption('downloadOptions');
+        break;
+    }
+  };
+
+  //static data for download modal open
+  const downloadOptionList: any = {
+    downloadOptions: [
+      {
+        icon: '',
+        text: 'PDF',
+        nextOption: () => handleCloseDownloadModal('pdfOptions'),
+      },
+      {
+        icon: '',
+        text: 'Excel',
+        nextOption: () => handleCloseDownloadModal('downloadExcel'),
+      },
+    ],
+    pdfOptions: [
+      {
+        icon: '',
+        text: 'Download PDF (Landscape)',
+        nextOption: () => handleCloseDownloadModal('pdfLandscape'),
+      },
+      {
+        icon: '',
+        text: 'Download PDF (Portrait)',
+        nextOption: () => handleCloseDownloadModal('pdfPortrait'),
+      },
+    ],
+    filedListLandscape: [
+      {
+        icon: '',
+        text: 'Select Fields',
+        nextOption: () => handleCloseDownloadModal('pdfPortrait'),
+      },
+    ],
+    filedListPortrait: [
+      {
+        icon: '',
+        text: 'Select Fields',
+        nextOption: () => handleCloseDownloadModal('pdfPortrait'),
+      },
+    ],
+  };
   //switch box set all selected state
   const selectAllCheckbox = (data: any, e: any) => {
     alertOptions?.setAlertOpen(true);
     setTempAlertData({ data, state: !e.target.checked });
   };
 
+  //Autocomplete onChange method
+  const handlePdfFliedChange = (data: Array<any>, event: any) => {
+    setSelectedPdfFields(data);
+  };
+
+  //get Table data string formate
+  const getTableData = (filter = false): any => {
+    if (filter) {
+      return dataList?.map((Celldata: any, rows: number) => {
+        return tableData
+          ?.filter((val: any) => selectedPdfFields?.includes(val?.name))
+          .map((val: any, i: number) => {
+            switch (val?.type?.[0]) {
+              case 'INCREMENT':
+                return Celldata?.id;
+              case 'CHECKBOX':
+                return selectedCheckbox?.includes(Celldata?.id);
+              case 'TEXT':
+                return Celldata?.[val.name];
+              case 'SWITCH':
+                return switchList?.includes(Celldata?.id)
+                  ? val?.switchText?.[0]?.label_2
+                  : val?.switchText?.[0]?.label_1;
+              case 'LABEL':
+                return Celldata[val.name]?.label;
+              case 'ICON_WITH_LABEL':
+                return Celldata[val.name]?.label;
+              case 'ICON_WITH_TEXT':
+                return Celldata[val.name]?.label;
+              case 'PROGRESS':
+                return Celldata[val.name];
+              case 'IMAGE_WITH_LABEL':
+                return Celldata[val.name]?.label;
+              case 'IMAGE_WITH_PROFILES':
+                return Celldata[val.name]
+                  ?.map(({ label }: any) => label)
+                  .toString();
+              case 'PERFORMANCE':
+                return Celldata[val.name];
+              case 'AVATAR_NAME':
+                return Celldata[val.name]
+                  ?.map(({ name, label }: any) => name + ' - ' + label)
+                  .toString();
+              case 'STAR_RATING':
+                return Celldata[val.name];
+              case 'GROWTH':
+                return Celldata[val.name]?.value;
+              case 'DATE':
+                return moment(Celldata[val.name]).format(val.format);
+              case 'ACTION':
+                return '';
+              case 'LINK':
+                return val?.label;
+              case 'CUSTOM':
+                return '';
+              default:
+                return Celldata[val.name];
+            }
+          });
+      });
+    } else {
+      return dataList?.map((Celldata: any, rows: number) => {
+        return tableData?.map((val: any, i: number) => {
+          switch (val?.type?.[0]) {
+            case 'INCREMENT':
+              return Celldata?.id;
+            case 'CHECKBOX':
+              return selectedCheckbox?.includes(Celldata?.id);
+            case 'TEXT':
+              return Celldata?.[val.name];
+            case 'SWITCH':
+              return switchList?.includes(Celldata?.id)
+                ? val?.switchText?.[0]?.label_2
+                : val?.switchText?.[0]?.label_1;
+            case 'LABEL':
+              return Celldata[val.name]?.label;
+            case 'ICON_WITH_LABEL':
+              return Celldata[val.name]?.label;
+            case 'ICON_WITH_TEXT':
+              return Celldata[val.name]?.label;
+            case 'PROGRESS':
+              return Celldata[val.name];
+            case 'IMAGE_WITH_LABEL':
+              return Celldata[val.name]?.label;
+            case 'IMAGE_WITH_PROFILES':
+              return Celldata[val.name]
+                ?.map(({ label }: any) => label)
+                .toString();
+            case 'PERFORMANCE':
+              return Celldata[val.name];
+            case 'AVATAR_NAME':
+              return Celldata[val.name]
+                ?.map(({ name, label }: any) => name + ' - ' + label)
+                .toString();
+            case 'STAR_RATING':
+              return Celldata[val.name];
+            case 'GROWTH':
+              return Celldata[val.name]?.value;
+            case 'DATE':
+              return moment(Celldata[val.name]).format(val.format);
+            case 'ACTION':
+              return '';
+            case 'LINK':
+              return val?.label;
+            case 'CUSTOM':
+              return '';
+            default:
+              return Celldata[val.name];
+          }
+        });
+      });
+    }
+  };
+
+   //get Table Header data string formate
+  const getHeader = (filter = false) => {
+    if (filter) {
+      return Header?.filter((val: any) =>
+        selectedPdfFields?.includes(val?.id)
+      ).map((val: any) => val.id);
+    } else {
+      return Header?.map((val: any) => val.id);
+    }
+  };
+ 
+  const generateExcel = () => {
+    const workbook = new excelJS.Workbook();
+    workbook.creator = 'test';
+    workbook.lastModifiedBy = 'test';
+    workbook.created = new Date();
+    workbook.modified = new Date();
+
+    let sheet: any = workbook.addWorksheet('TABLE');
+    // const header = Header?.map((val: any) => val.id);
+    sheet.getRow(1).values = getHeader();
+
+    sheet.columns = Header?.map((val: any) => ({ key: val.id, width: 35 }));
+
+    sheet.addRows(getTableData());
+
+    const row = sheet.getRow(1);
+    row.eachCell((cell: any, rowNumber: any) => {
+      sheet.getColumn(rowNumber).alignment = {
+        vertical: 'middle',
+        horizontal: 'center',
+      };
+      sheet.getColumn(rowNumber).font = { size: 14, family: 2 };
+    });
+
+    workbook.xlsx.writeBuffer().then(function (buffer: any) {
+      const blob = new Blob([buffer], { type: 'application/xlsx' });
+      saveAs(blob, tableName + '.xlsx' ?? 'TableData' + '.xlsx');
+    });
+  };
+  //PDF Functions
+  const generatePDF = (
+    orientation: 'landscape' | 'portrait' | 'p' | 'l' | undefined
+  ) => {
+    const doc = new jsPDF({
+      orientation: orientation,
+      format: 'a2',
+    });
+    autoTable(doc, {
+      head: [getHeader(true)],
+      body: getTableData(true),
+      tableWidth: 'wrap',
+      styles: { minCellWidth: 20, overflow: 'linebreak' },
+    });
+    doc.save(tableName + '.pdf' ?? 'TableData' + '.pdf');
+  };
+  //Download PDF and Excel
+  const handelDownload = () => {
+    setDownloadModal(true);
+  };
+  //Excel Download Function --- END
+
+  //Columns Sorting Function --- START
   const handleChangePage = (event: any, newPage: any) => {
     setPage(newPage);
   };
+  //page row change
   const handleChangeRowsPerPage = (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
-  //Excel Download Function --- START
-  const workbook = new excelJS.Workbook();
-  workbook.creator = 'test';
-  workbook.lastModifiedBy = 'test';
-  workbook.created = new Date();
-  workbook.modified = new Date();
-
-  let sheet: any = workbook.addWorksheet('TABLE');
-  sheet.getRow(1).values = Header?.map((val: any) => val.id);
-
-  sheet.columns = Header?.map((val: any) => ({ key: val.id, width: 35 }));
-
-  const tableDataClone = dataList?.map((Celldata: any, rows: number) => {
-    return tableData?.map((val: any, i: number) => {
-      switch (val?.type?.[0]) {
-        case 'INCREMENT':
-          return Celldata?.id;
-        case 'CHECKBOX':
-          return selectedCheckbox?.includes(Celldata?.id);
-        case 'TEXT':
-          return Celldata?.[val.name];
-        case 'SWITCH':
-          return switchList?.includes(Celldata?.id)
-            ? val?.switchText?.[0]?.label_2
-            : val?.switchText?.[0]?.label_1;
-        case 'LABEL':
-          return Celldata[val.name]?.label;
-        case 'ICON_WITH_LABEL':
-          return Celldata[val.name]?.label;
-        case 'ICON_WITH_TEXT':
-          return Celldata[val.name]?.label;
-        case 'PROGRESS':
-          return Celldata[val.name];
-        case 'IMAGE_WITH_LABEL':
-          return Celldata[val.name]?.label;
-        case 'IMAGE_WITH_PROFILES':
-          return Celldata[val.name]?.map(({ label }: any) => label);
-        case 'PERFORMANCE':
-          return Celldata[val.name];
-        case 'AVATAR_NAME':
-          return Celldata[val.name]?.map(
-            ({ name, label }: any) => name + ' - ' + label
-          );
-        case 'STAR_RATING':
-          return Celldata[val.name];
-        case 'GROWTH':
-          return Celldata[val.name]?.value;
-        case 'DATE':
-          return moment(Celldata[val.name]).format(val.format);
-        case 'ACTION':
-          return '';
-        case 'LINK':
-          return val?.label;
-        case 'CUSTOM':
-          return '';
-        default:
-          return Celldata[val.name];
-      }
-    });
-  });
-
-  sheet.addRows(tableDataClone);
-
-  const row = sheet.getRow(1);
-  row.eachCell((cell: any, rowNumber: any) => {
-    sheet.getColumn(rowNumber).alignment = {
-      vertical: 'middle',
-      horizontal: 'center',
-    };
-    sheet.getColumn(rowNumber).font = { size: 14, family: 2 };
-  });
-
-  const handelDownload = () => {
-    workbook.xlsx.writeBuffer().then(function (buffer: any) {
-      const blob = new Blob([buffer], { type: 'application/xlsx' });
-      saveAs(blob, tableName + '.xlsx' ?? 'TableData' + '.xlsx');
-    });
-  };
-  //Excel Download Function --- END
-
-  //Columns Sorting Function --- START
 
   const handleRequestSort = (event: any, property: any) => {
     const isAsc = orderBy === property && order === 'desc';
@@ -206,21 +396,16 @@ export default function EnhancedTable({
   const createSortHandler = (property: any, event: any) => {
     handleRequestSort(event, property);
   };
-  //Columns Sorting Function --- END
 
   const rowsPer = [
     ...(paginationOption?.rowsPerPageOptions ?? []),
     { label: 'All', value: dataList?.length },
   ];
+  //Columns Sorting Function --- END
 
   //Alert Box Function
   const handleAlertClose = (status: boolean) => {
     if (status) {
-      console.log(
-        '🚀 ~ file: table.tsx:226 ~ handleAlertClose ~ tempAlertData:',
-        tempAlertData
-      );
-
       if (tempAlertData?.id && handleSwitch) {
         handleSwitch(
           tempAlertData?.id,
@@ -257,18 +442,12 @@ export default function EnhancedTable({
   };
 
   //Sticky Border Styles
-  console.log(
-    '🚀 ~ file: table.tsx:257 ~ stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length-1]:',
-    stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length - 1]
-  );
   const stickyBorderStyle = {
     [`& .${
       stickyOptions?.stickyLeft?.[stickyOptions?.stickyLeft?.length - 1]
     }`]: {
       borderRight: '10px solid transparent !important',
-      borderImage:
-        'linear-gradient(to right,  rgba(107, 102, 102, .5), transparent ) 30 !important',
-      // boxShadow:" 10px 0 20px -5px rgba(115,115,115,0.75)",
+      borderImage: `url(${boxShadow}) 30 !important`,
     },
     [`& .${
       stickyOptions?.stickyRight?.[stickyOptions?.stickyRight?.length - 1]
@@ -316,6 +495,7 @@ export default function EnhancedTable({
               SelectAll={SelectAll}
               HeaderComponent={HeaderComponent}
               handelDownload={handelDownload}
+              openDownloadModal={downloadModal}
             />
           </Box>
         </Box>
@@ -364,6 +544,7 @@ export default function EnhancedTable({
                 cellOptions={cellOptions}
                 rowOptions={rowOptions}
                 stickyOptions={stickyOptions}
+                isDataMask={isDataMask}
               />
             </Table>
           ) : (
@@ -404,6 +585,62 @@ export default function EnhancedTable({
         alertOpen={alertOptions?.alertOpen}
         handleAlertClose={handleAlertClose}
       />
+      <Dialog
+        open={downloadModal}
+        onClose={() => handleCloseDownloadModal('')}
+      >
+        <Box sx={{ minWidth: '300px', padding: '12px 16px' }}>
+          <Typography variant='h6' textAlign={"center"}>Downloads</Typography>
+          <Box height={"8px"} />
+          {downloadOptionList?.[currentDownloadOption]?.length > 0 &&
+            downloadOptionList?.[currentDownloadOption]?.map(
+              ({ icon, text, nextOption }: any, index: number) => (
+                <Box key={index + 'menuList'}>
+                  <MenuItem onClick={nextOption}>
+                    <Stack direction={'row'} gap={'10px'}>
+                      {icon && <Box>{icon}</Box>}
+                      <Box>
+                        <Typography>{text}</Typography>
+                      </Box>
+                    </Stack>
+                  </MenuItem>
+                  {downloadOptionList?.[currentDownloadOption]?.[0]?.text ===
+                    'Select Fields' && (
+                    <>
+                    <FormControlLabel control={<Checkbox onChange={(e:any)=>e.target.checked ? setSelectedPdfFields(getHeader()) :setSelectedPdfFields([]) } />} label="Select All" />
+                    <Box height={"16px"} />
+                      <Autocomplete
+                        multiple
+                        id="tags-outlined"
+                        options={getHeader()}
+                        value={selectedPdfFields}
+                        filterSelectedOptions
+                        onChange={(event: any, newValue: any) =>
+                          handlePdfFliedChange(newValue, event)
+                        }
+                        sx={{textTransform:"capitalize"}}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            label="Selected Fields"
+                            placeholder="Search..."
+                          />
+                        )}
+                      />
+                      <Box height={"16px"} />
+                      <BasicButtons
+                        onClick={() => handleCloseDownloadModal('downloadPDF')}
+                      
+                      >
+                        Download PDF
+                      </BasicButtons>
+                    </>
+                  )}
+                </Box>
+              )
+            )}
+        </Box>
+      </Dialog>
     </Box>
   );
 }
@@ -445,4 +682,14 @@ EnhancedTable.defaultProps = {
     text: 'No Data Found!',
     // component:<>Hii</>
   },
+  alertOptions:{
+    isEnable:false,
+    alertOpen:false,
+    setAlertOpen:()=>{},
+    title:"Are you sure, would you like to deactivate?",
+    description:"",
+    primaryText:"Yes",
+    secondaryText:"No",
+    icon:<AlertIcon />
+  }
 };

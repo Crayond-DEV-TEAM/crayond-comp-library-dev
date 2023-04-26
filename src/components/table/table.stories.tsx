@@ -7,11 +7,11 @@ import SearchIcon from '../../assets/searchIcon';
 import { BasicButtons } from '../button';
 import { CommonTable } from './index';
 import NotificationIcon from '../../assets/notificationIcon';
+import AlertIcon from '../../assets/alertIcon';
 
 export default {
   title: 'CommonTable/CommonTable',
   component: CommonTable,
-  tags: ['autodocs'],
 } as ComponentMeta<typeof CommonTable>;
 
 const Template: ComponentStory<typeof CommonTable> = (args) => (
@@ -799,6 +799,16 @@ Primary.args = {
     text: 'No Data Found',
     component: null,
   },
+  alertOptions:{
+    isEnable:false,
+    alertOpen:false,
+    setAlertOpen:()=>{},
+    title:"Are you sure, would you like to deactivate?",
+    description:"",
+    primaryText:"Yes",
+    secondaryText:"No",
+    icon:<AlertIcon />
+  },
   setSelectedCheckbox: () => {},
   selectedCheckbox: [],
   checkboxHandleChange: () => {},
@@ -829,7 +839,7 @@ Primary.args = {
       padding: '10px 0',
       margin: '0',
     },
-    headerSelect: [],
+    headerSelect: "",
     setHederSelect: () => {},
     searchPlaceholder: 'Search',
     selectOption: [

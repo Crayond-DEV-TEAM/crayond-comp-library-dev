@@ -19,6 +19,7 @@ import { Link } from '../link';
 import { IconWithLabel } from '../iconWithLabel';
 import { IconWithText } from '../iconWithText';
 import { Switch } from '../switch';
+import MaskData from '../maskData/maskData';
 
 const BodyRowLogic = ({
   val,
@@ -30,6 +31,7 @@ const BodyRowLogic = ({
   handleSwitch,
   cellOptions,
   stickyOptions,
+  isDataMask,
 }: any) => {
   const cellStyle = {
     fontSize: cellOptions?.fontSize,
@@ -154,6 +156,20 @@ const BodyRowLogic = ({
           <IconWithText
             label={Celldata[val.name]?.label}
             icon={Celldata[val.name]?.icon}
+          />
+        </TableCell>
+      );
+    case 'MASK_DATA':
+      return (
+        <TableCell
+          sx={cellStyle}
+          key={i + 'MASK_DATA'}
+          className={'MASK_DATA ' + getClassName(val.name) + ' ' + val.name}
+        >
+          <MaskData
+            label={Celldata[val.name]}
+            maskText={val.maskText}
+            isDataMask={isDataMask}
           />
         </TableCell>
       );
@@ -322,6 +338,7 @@ export const EnhancedTableBody = ({
   cellOptions,
   rowOptions,
   stickyOptions,
+  isDataMask,
 }: any) => {
   const [stickyStyle, setStickyStyle] = React.useState<any>([]);
 
@@ -421,6 +438,7 @@ export const EnhancedTableBody = ({
                   selectedCheckbox={selectedCheckbox}
                   cellOptions={cellOptions}
                   stickyOptions={stickyOptions}
+                  isDataMask={isDataMask}
                 />
               );
             })}

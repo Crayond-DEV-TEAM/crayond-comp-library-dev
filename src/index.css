@@ -82,3 +82,11 @@ button:focus-visible {
   background-color: #C2C1C7;  
   border-radius: 8px;
 } */
+
+@media screen and (max-width:572px) {
+  .stickyLeft, .stickyLeftTd{
+    position: static !important;
+    border: none !important;
+    border-image: none !important;
+  }
+}
