@@ -5,7 +5,24 @@ export default function Image(props: ImageProps) {
 
     return (
         // <Box sx={inLineStyles} className={className}>
-            <img style={imageStyle} {...imgProps} />
+        <img style={imageStyle} {...imgProps} />
         // </Box >
     );
 }
+Image.defaultProps = {
+    alt: '',
+    color: 'inherit',
+    component: 'img',
+    crossOrigin: undefined,
+    decoding: 'async',
+    height: 'auto',
+    sizes: '',
+    src: '',
+    srcSet: '',
+    width: '100%',
+    inLineStyles: {},
+    className: '',
+    imageStyle: {},
+    aspectRatio: undefined,
+
+};

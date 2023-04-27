@@ -21,7 +21,6 @@ Primary.args = {
     logo: CompanyLogo,
     bottomText: "You have an account?",
     loginActionText: 'Login',
-    loginOption: 'mobileNumberLogin',
     socialMediaDetails: [
       {
         label: "SignUp with google",
