@@ -80,18 +80,9 @@ const SignupScreen: React.FC<SignupScreen> = ({
       setPassword(value);
       setErrorPasswordMsg('');
     } else {
-      setErrorPasswordMsg('Please enter password');
+      setErrorPasswordMsg('Please valid password');
       setErrorPassword(true);
     }
-  };
-
-  const getLastName = (e:any) =>{
-    setLastName(e.target.value)
-  }
-
-  const getConfirmPasswordValue = (e: any) => {
-    const value = e.target.value;
-    setPasswordConfirm(value);
   };
 
   const getFirstName = (e: any) => {
@@ -99,6 +90,15 @@ const SignupScreen: React.FC<SignupScreen> = ({
     setErrorNameMsg('');
     setErrorName(false);
   }
+
+  const getLastName = (e: any) => {
+    setLastName(e.target.value)
+  }
+
+  const getConfirmPasswordValue = (e: any) => {
+    const value = e.target.value;
+    setPasswordConfirm(value);
+  };
 
   const getThrowErrorMsg = () => {
     switch (type) {
@@ -127,7 +127,7 @@ const SignupScreen: React.FC<SignupScreen> = ({
         }
         if (firstName !== '' && email !== '' && password !== '' && passwordConfirm === password) {
           const userDetail = {
-            name:firstName,
+            name: firstName,
             lastName: lastName,
             email: email,
             password: password,
