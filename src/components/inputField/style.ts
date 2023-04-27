@@ -10,7 +10,6 @@ export const inputField_Style = {
             borderRadius: '8px',
             border: '1.5px solid',
             borderColor: '#E9E9E9',
-            backgroundColor:'#fff'
           },
           '&:hover fieldset': {
             borderColor: '#E9E9E9',

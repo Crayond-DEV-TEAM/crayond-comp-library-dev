@@ -40,12 +40,12 @@ export const signUp_style = {
         border: 'none',
         borderRadius: '12px',
         width: '400px',
-        margin:'100px',
+        margin: '100px',
         '@media (max-width:600px)': {
             backgroundColor: '#EFEEFB',
             borderRadius: '0px',
             width: '10p%',
-            margin:'0px',
+            margin: '0px',
         },
     },
     loginBtnSx: {
@@ -98,5 +98,6 @@ export const signUp_style = {
         color: '#3B3B3B',
         fontSize: '16px',
         fontWeight: 'medium',
-    }
+    },
+    nameSx: { display: 'flex', gap: 1 }
 }

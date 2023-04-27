@@ -45,11 +45,19 @@ const SignupScreen: React.FC<SignupScreen> = ({
   const [mobileNumber, setMobileNumber] = React.useState('');
   const [countryCode, setCountryCode] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [firstName, setFirstName] = React.useState('');
+  const [passwordConfirm, setPasswordConfirm] = React.useState('');
   const [errorMail, setErrorMail] = React.useState(false);
+  const [errorName, setErrorName] = React.useState(false);
   const [errorPassword, setErrorPassword] = React.useState(false);
+  const [errorPasswordConfirm, setErrorPasswordConfirm] = React.useState(false);
   const [errorMsg, setErrorMsg] = React.useState('');
+  const [errorPasswordMsgConfirm, setErrorPasswordMsgConfirm] = React.useState('');
   const [errorPasswordMsg, setErrorPasswordMsg] = React.useState('');
+  const [errorNameMsg, setErrorNameMsg] = React.useState('');
   const [passwordvisible, setPasswordVisible] = React.useState(false);
+  const [lastName, setLastName] = React.useState('');
+  const [passwordvisibleConfirm, setPasswordVisibleConfirm] = React.useState(false);
 
   const getMailValue = (e: any) => {
     const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -76,6 +84,22 @@ const SignupScreen: React.FC<SignupScreen> = ({
       setErrorPassword(true);
     }
   };
+
+  const getLastName = (e:any) =>{
+    setLastName(e.target.value)
+  }
+
+  const getConfirmPasswordValue = (e: any) => {
+    const value = e.target.value;
+    setPasswordConfirm(value);
+  };
+
+  const getFirstName = (e: any) => {
+    setFirstName(e.target.value);
+    setErrorNameMsg('');
+    setErrorName(false);
+  }
+
   const getThrowErrorMsg = () => {
     switch (type) {
       case 'emailWithPasswordSignup':
@@ -87,8 +111,24 @@ const SignupScreen: React.FC<SignupScreen> = ({
           setErrorPasswordMsg('Please enter password');
           setErrorPassword(true);
         }
-        if (email !== '' && password !== '') {
+        if (password !== "" && password !== passwordConfirm) {
+          setErrorPasswordMsgConfirm('Password Not Match!');
+          setErrorPasswordConfirm(true);
+        } else {
+          setErrorPasswordMsgConfirm('');
+          setErrorPasswordConfirm(false);
+        }
+        if (firstName === '') {
+          setErrorNameMsg('Please enter Name!');
+          setErrorName(true);
+        } else {
+          setErrorNameMsg('');
+          setErrorName(false);
+        }
+        if (firstName !== '' && email !== '' && password !== '' && passwordConfirm === password) {
           const userDetail = {
+            name:firstName,
+            lastName: lastName,
             email: email,
             password: password,
             type: type,
@@ -111,8 +151,11 @@ const SignupScreen: React.FC<SignupScreen> = ({
     setMobileNumber(value.mobile);
     setCountryCode(value.mobile_code);
   };
-  const passWordVisible = () => {
+  const getPassWordVisible = () => {
     setPasswordVisible(passwordvisible ? false : true);
+  };
+  const getPassWordVisibleConfirm = () => {
+    setPasswordVisibleConfirm(passwordvisibleConfirm ? false : true);
   };
   const getoptionretrieve = (option: string) => {
     switch (option) {
@@ -140,37 +183,20 @@ const SignupScreen: React.FC<SignupScreen> = ({
                 />
               );
             })}
-            <Divider sx={signUp_style.dividerSx}>
-              <Typography sx={signUp_style.fontSx}>or</Typography>
-            </Divider>
-            <Typography sx={signUp_style.labelSx}>Work Email</Typography>
-            <InputField
-              fullWidth
-              size="small"
-              error={errorMail}
-              helperText={errorMsg}
-              onChange={getMailValue}
-              textFieldStyle={signUp_style.textFieldSx}
-            />
-            <Typography sx={signUp_style.forgotSx}>
-              <span
-                onClick={cardData?.onForgotClick}
-                style={{ cursor: 'pointer' }}
-              >
-                Forgot Password?
-              </span>
-            </Typography>{' '}
           </>
         );
       default:
         return (
           <>
-            <Box sx={{ display: 'flex',gap:1 }}>
+            <Box sx={signUp_style.nameSx}>
               <Box>
                 <Typography sx={signUp_style.labelSx}>First Name</Typography>
                 <InputField
                   fullWidth
                   size="small"
+                  error={errorName}
+                  helperText={errorNameMsg}
+                  onChange={getFirstName}
                   textFieldStyle={signUp_style.textFieldSx}
                 />
               </Box>
@@ -179,6 +205,7 @@ const SignupScreen: React.FC<SignupScreen> = ({
                 <InputField
                   fullWidth
                   size="small"
+                  onChange={getLastName}
                   textFieldStyle={signUp_style.textFieldSx}
                 />
               </Box>
@@ -205,7 +232,7 @@ const SignupScreen: React.FC<SignupScreen> = ({
                 endAdornment: (
                   <InputAdornment
                     style={{ cursor: 'pointer' }}
-                    onClick={passWordVisible}
+                    onClick={getPassWordVisible}
                     position="end"
                   >
                     {passwordvisible ? (
@@ -217,14 +244,31 @@ const SignupScreen: React.FC<SignupScreen> = ({
                 ),
               }}
             />
-            <Typography sx={signUp_style.forgotSx}>
-              <span
-                onClick={cardData?.onForgotClick}
-                style={{ cursor: 'pointer' }}
-              >
-                Forgot Password?
-              </span>
-            </Typography>
+            <Typography sx={signUp_style.labelSx}>Confirm Password</Typography>
+            <InputField
+              fullWidth
+              size="small"
+              type={passwordvisibleConfirm ? 'text' : 'password'}
+              error={errorPasswordConfirm}
+              helperText={errorPasswordMsgConfirm}
+              onChange={getConfirmPasswordValue}
+              textFieldStyle={signUp_style.textFieldSx}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment
+                    style={{ cursor: 'pointer' }}
+                    onClick={getPassWordVisibleConfirm}
+                    position="end"
+                  >
+                    {passwordvisibleConfirm ? (
+                      <VisibilityOutlinedIcon />
+                    ) : (
+                      <VisibilityOffOutlinedIcon />
+                    )}
+                  </InputAdornment>
+                ),
+              }}
+            />
           </>
         );
     }
@@ -275,7 +319,7 @@ const SignupScreen: React.FC<SignupScreen> = ({
             actionText={cardData?.loginActionText}
             actionstyle={{ ...signUp_style.actionSx, ...cardData?.actionstyle }}
             bottomTextStyle={signUp_style.bottomTextSx}
-            onActionClick={cardData?.onSignUpClick}
+            onActionClick={cardData?.onLoginClick}
             imgStyle={signUp_style.logoSx}
           />
         </Box>

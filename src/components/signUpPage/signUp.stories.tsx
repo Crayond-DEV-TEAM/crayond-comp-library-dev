@@ -14,21 +14,65 @@ const Template: ComponentStory<typeof LoginScreen> = (args) => <LoginScreen {...
 export const Primary = Template.bind({});
 
 Primary.args = {
+  option: 'socialMediaSignup',
   cardData: {
     description: "One positive feedback per day or week can make us grow exponentially",
-    title: 'Welcome',
+    title: 'Welcome!',
     logo: CompanyLogo,
-    bottomText: "Don't have an account?",
-    buttonText: "Send OTP",
-    loginActionText: 'Sign in',
+    bottomText: "You have an account?",
+    loginActionText: 'Login',
     loginOption: 'mobileNumberLogin',
-    onSignUpClick: () => {
-      console.log('signup')
-    },
-    onForgotClick: () => {
-      console.log('forgot')
+    socialMediaDetails: [
+      {
+        label: "SignUp with google",
+        icon: <FcGoogle />,
+        onSocialmediaLogin: () => {
+          console.log('SignUp with google')
+        },
+        style: {
+          textAlign: 'center',
+          width: '100%',
+          color: '#3B3B3B',
+          fontSize: '14px',
+          fontWeight: 'Medium',
+        },
+      },
+      {
+        label: "Sign up with Outlook",
+        icon: <FcGoogle />,
+        onSocialmediaLogin: () => {
+          console.log('SignUp with Outlook')
+        },
+        style: {
+          textAlign: 'center',
+          width: '100%',
+          color: '#3B3B3B',
+          fontSize: '14px',
+          fontWeight: 'Medium',
+        },
+      },
+      {
+        label: "Sign up with Email",
+        icon: <FcGoogle />,
+        onSocialmediaLogin: () => {
+          console.log('SignUp with Email')
+        },
+        style: {
+          textAlign: 'center',
+          width: '100%',
+          color: '#3B3B3B',
+          fontSize: '14px',
+          fontWeight: 'Medium',
+        },
+      },
+    ],
+    onLoginClick: () => {
+      console.log('login')
     },
 
+    actionstyle: {},
+    btnStyle: {},
+    cardStyle: {},
   },
   backgroundImg:
   {
@@ -36,65 +80,56 @@ Primary.args = {
     backgroundWrapStyle: {},
     bgImageStyle: { backgroundSize: 'cover' },
   },
-  onSubmit: () => {
-    alert('onlogin')
-  }
 };
 
-// export const Secondary = Template.bind({});
-// Secondary.args = {
-//   option: 'socialMediaLogin',
-//   cardData: {
-//     description: "One positive feedback per day or week can make us grow exponentially",
-//     title: 'Welcome',
-//     logo: CompanyLogo,
-//     bottomText: "Don't have an account?",
-//     buttonText: "Log in",
-//     loginActionText: 'Sign in',
-//     socialMediaDetails: [
-//       {
-//         label: "SignUp with google",
-//         icon: <FcGoogle />,
-//         onSocialmediaLogin: () => {
-//           console.log('SignUp with google')
-//         },
-//         style: {
-//           textAlign: 'center',
-//           width: '100%',
-//           color: '#3B3B3B',
-//           fontSize: '14px',
-//           fontWeight: 'Medium',
-//         },
-//       },
-//       {
-//         label: "Sign up with Outlook",
-//         icon: <FcGoogle />,
-//         onSocialmediaLogin: () => {
-//           console.log('SignUp with Outlook')
-//         },
-//         style: {
-//           textAlign: 'center',
-//           width: '100%',
-//           color: '#3B3B3B',
-//           fontSize: '14px',
-//           fontWeight: 'Medium',
-//         },
-//       },
-//     ],
-//     onSocialmediaSignUp: () => {
-//       console.log('connect')
-//     },
-//     onForgotClick: () => {
-//       console.log('forgot')
-//     },
-//   },
-//   backgroundImg: [
-//     {
-//       imgSrc: CompanyLogo,
-//     }
-//   ],
-//   rootStyle: {},
-//   cardWraperStyle: {},
+export const Secondary = Template.bind({});
+Secondary.args = {
+  option: 'mobileNumberSignup',
+  cardData: {
+    description: "One positive feedback per day or week can make us grow exponentially",
+    title: 'Welcome!',
+    logo: CompanyLogo,
+    bottomText: "You have an account?",
+    buttonText: "Send OTP",
+    loginActionText: 'login',
+    actionstyle: {},
+    btnStyle: {},
+    cardStyle: {},
+  },
+  backgroundImg:
+  {
+    imgSrc: CompanyLogo,
+    backgroundWrapStyle: {},
+    bgImageStyle: { backgroundSize: 'cover' },
+  }
+  ,
+  rootStyle: {},
+  cardWraperStyle: {},
 
+};
 
-// };
+export const defalut = Template.bind({});
+defalut.args = {
+  option: 'emailWithPasswordSignup',
+  cardData: {
+    description: "One positive feedback per day or week can make us grow exponentially",
+    title: 'Welcome!',
+    logo: CompanyLogo,
+    bottomText: "You have an account?",
+    buttonText: "Sign Up",
+    loginActionText: 'login',
+    actionstyle: {},
+    btnStyle: {},
+    cardStyle: {},
+  },
+  backgroundImg:
+  {
+    imgSrc: CompanyLogo,  
+    backgroundWrapStyle: {},
+    bgImageStyle: { backgroundSize: 'cover' },
+  }
+  ,
+  rootStyle: {},
+  cardWraperStyle: {},
+
+};
