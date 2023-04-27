@@ -816,7 +816,7 @@ function App() {
           },
           { type: ['CUSTOM'], name: 'custom' },
           { type: ['ICON_WITH_LABEL'], name: 'alert_type' },
-          { type: ['MASK_DATA'], name: 'password', maskText:"*", width:100},
+          { type: ['MASK_DATA'], name: 'password', maskText:"*", width:150},
           { type: ['ICON_WITH_TEXT'], name: 'response' },
           {
             type: ['ACTION'],
