@@ -171,8 +171,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
               error={errorMail}
               helperText={errorMsg}
               onChange={getMailValue}
-              textFieldStyle={login_style.textFieldSx}
-            />
+              textFieldStyle={login_style.textFieldSx}            />
             <Typography sx={login_style.labelSx}>Password</Typography>
             <InputField
               fullWidth
@@ -203,7 +202,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
   return (
     <Grid container sx={{ ...login_style.parentSx, ...rootStyle }}>
       {backgroundImg && (<Hidden smDown>
-        <Grid item xs={12} sm={4} md={3} sx={backgroundImg?.backgroundWrapStyle }>
+        <Grid item xs={12} sm={4} md={3} sx={backgroundImg?.backgroundWrapStyle}>
           <Image
             src={backgroundImg?.imgSrc} width={'100%'} height={'100%'} imageStyle={backgroundImg?.bgImageStyle}
           />
@@ -240,3 +239,12 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
 };
 
 export default LoginScreen;
+LoginScreen.defaultProps = {
+  onSubmit: (details: object) => { },
+  option: undefined,
+  cardData: {},
+  backgroundImg: '',
+  rootStyle: {},
+  cardWraperStyle: {},
+
+};

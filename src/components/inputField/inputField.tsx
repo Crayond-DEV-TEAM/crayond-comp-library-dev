@@ -16,3 +16,31 @@ const InputField: React.FC<InputFieldProps> = ({ label, textFieldStyle={}, ...re
 };
 
 export default InputField;
+InputField.defaultProps = {
+  label: "",
+  type: "text",
+  variant: "standard",
+  endIcon: null,
+  id: "",
+  value: "",
+  rowMax: Infinity,
+  size: undefined,
+  rowMin: 1,
+  isError: "",
+  disabled: false,
+  fullwidth: false,
+  isMulti: false,
+  fullWidth: false,
+  isReadOnly: false,
+  helperText: "",
+  placeholder: "",
+  errorMessage: "",
+  className: "",
+  endAdornment: {},
+  defaultValue: {},
+  inLineStyles: {},
+  startAdornments: null,
+  endAdornments: null,
+  textFieldStyle: {},
+  onChange: undefined  
+};
