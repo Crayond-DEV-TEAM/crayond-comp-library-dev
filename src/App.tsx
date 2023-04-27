@@ -60,7 +60,7 @@ function App() {
     console.log('Download Method working!', e);
   };
   const fillerMethod = () => {
-    setIsDataMask(!isDataMask)
+    setIsDataMask(!isDataMask);
     console.log('Filter Method working!');
   };
   const primaryBtnMethod = () => {
@@ -207,7 +207,7 @@ function App() {
             label: 'Custom',
             isSortable: false,
           },
-      
+
           {
             id: 'alert_type',
             align: 'center',
@@ -323,7 +323,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
-            password:"23456789087654dfds"
+            password: '23456789087654dfds',
           },
           {
             id: 2,
@@ -406,7 +406,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
-            password:"dsufasuyawe7632908r78"
+            password: 'dsufasuyawe7632908r78',
           },
           {
             id: 3,
@@ -485,7 +485,7 @@ function App() {
               label: 'Not Delivered',
               icon: <DeleteIcon />,
             },
-            password:"64528327asdjkfdsjads89087654dfds"
+            password: '64528327asdjkfdsjads89087654dfds',
           },
           {
             id: 4,
@@ -560,7 +560,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
-            password:"KJGKJDGKYWT^&*^&"
+            password: 'KJGKJDGKYWT^&*^&',
           },
           {
             id: 5,
@@ -631,7 +631,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
-            password:"23456789ey087654dfds"
+            password: '23456789ey087654dfds',
           },
           {
             id: 6,
@@ -702,7 +702,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
-            password:"sadsdsadsadsasdsdd"
+            password: 'sadsdsadsadsasdsdd',
           },
           {
             id: 7,
@@ -777,19 +777,19 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
-            password:"asdfhaselkf98wer"
+            password: 'asdfhaselkf98wer',
           },
         ]}
         tableData={[
-          { type: ['INCREMENT'], name: 'id', width:100},
+          { type: ['INCREMENT'], name: 'id', width: 100 },
           { type: ['CHECKBOX'], name: 'checkbox' },
-          { type: ['TEXT'], name: 'name', width:30 },
+          { type: ['TEXT'], name: 'name', width: 30 },
           { type: ['TEXT'], name: 'calories' },
           { type: ['TEXT'], name: 'fat' },
           { type: ['TEXT'], name: 'carbs' },
           { type: ['TEXT'], name: 'protein' },
           { type: ['IMAGE_WITH_LABEL'], name: 'profile', variant: 'circular' },
-          { type: ['PROGRESS'], name: 'overall_progress', width:200},
+          { type: ['PROGRESS'], name: 'overall_progress', width: 200 },
           { type: ['LABEL'], name: 'production' },
           {
             type: ['SWITCH'],
@@ -816,7 +816,7 @@ function App() {
           },
           { type: ['CUSTOM'], name: 'custom' },
           { type: ['ICON_WITH_LABEL'], name: 'alert_type' },
-          { type: ['MASK_DATA'], name: 'password', maskText:"*", width:150},
+          { type: ['MASK_DATA'], name: 'password', maskText: '*', width: 150 },
           { type: ['ICON_WITH_TEXT'], name: 'response' },
           {
             type: ['ACTION'],
@@ -864,9 +864,9 @@ function App() {
           padding: '12px',
         }}
         paginationOption={{
-          isEnable:true,
-          rowPerPage:5,
-          rowsPerPageOptions:[5, 10, 25],       
+          isEnable: true,
+          rowPerPage: 5,
+          rowsPerPageOptions: [5, 10, 25],
         }}
         tableBackground={'#ffffff'}
         selectedCheckbox={selectedCheckbox}
@@ -897,25 +897,25 @@ function App() {
           component: null,
         }}
         stickyOptions={{
-          stickyHeader:true,
-          stickyLeft:["id", "checkbox"],
-          stickyRight:["action", "response"],
+          stickyHeader: true,
+          stickyLeft: ['id', 'checkbox'],
+          stickyRight: ['action', 'response'],
         }}
         alertOptions={{
-          isEnable:true,
-          alertOpen:alertOpen,
-          setAlertOpen:setAlertOpen,
-          title:"Are you sure, would you like to deactivate?",
-          description:"",
-          primaryText:"Yes",
-          secondaryText:"No",
-          icon:<AlertIcon />
+          isEnable: true,
+          alertOpen: alertOpen,
+          setAlertOpen: setAlertOpen,
+          title: 'Are you sure, would you like to deactivate?',
+          description: '',
+          primaryText: 'Yes',
+          secondaryText: 'No',
+          icon: <AlertIcon />,
         }}
         HeaderComponent={{
           variant: 1,
-          styles:{
-            padding:"10px 0",
-            margin:"0"
+          styles: {
+            padding: '10px 0',
+            margin: '0',
           },
           headerSelect: headerSelect,
           setHederSelect: setHederSelect,
