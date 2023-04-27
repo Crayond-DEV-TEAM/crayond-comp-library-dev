@@ -171,7 +171,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
               error={errorMail}
               helperText={errorMsg}
               onChange={getMailValue}
-              textFieldStyle={login_style.textFieldSx}            />
+              textFieldStyle={login_style.textFieldSx}/>
             <Typography sx={login_style.labelSx}>Password</Typography>
             <InputField
               fullWidth
@@ -220,7 +220,6 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
               </Box>
             }
             bottomText={cardData?.bottomText}
-            button={cardData?.button}
             btnClick={getThrowErrorMsg}
             buttonText={cardData?.buttonText}
             cardStyle={{ ...login_style.cardSx, ...cardData?.cardStyle }}
