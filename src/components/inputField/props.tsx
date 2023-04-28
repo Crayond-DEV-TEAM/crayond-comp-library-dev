@@ -2,22 +2,21 @@ import { TextFieldProps } from "@mui/material";
 
 export interface InputFieldProps extends Omit<TextFieldProps, 'variant'> {
   label?: string;
-  type?: 'text' | 'number' | 'password';
+  type: 'text' | 'number' | 'password' | 'email';
   variant?: 'outlined' | 'filled' | 'standard';
   endIcon?: null;
   id?: string;
   value?: string;
   rowMax?: number;
-  size?: any;
+  size: any;
   rowMin?: number;
   isError?: string;
   disabled?: boolean;
   fullwidth?: boolean;
   isMulti?: boolean;
   isReadOnly?: boolean;
-  helperText?: string;
+  helperText: string;
   placeholder?: string;
-  errorMessage?: string;
   className?: string;
   endAdornment?: object;
   defaultValue?: object;
@@ -25,5 +24,7 @@ export interface InputFieldProps extends Omit<TextFieldProps, 'variant'> {
   startAdornments?: React.ReactNode;
   endAdornments?: React.ReactNode;
   textFieldStyle?: {};
-  onChange?: (e: any) => any;
+  onChange: (e: any) => any;
+  floatingLable?:string;
+  labelStyle?:object;
 }

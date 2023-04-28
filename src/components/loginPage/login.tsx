@@ -1,12 +1,11 @@
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+
 import {
   Box,
   Divider,
   Grid,
   Hidden,
   InputAdornment,
-  Typography,
+  Typography
 } from '@mui/material';
 import React from 'react';
 
@@ -15,32 +14,18 @@ import { Image } from '../image';
 import { InputField } from '../inputField';
 import { MobileInput } from '../mobileInput';
 import { SocialMediaButton } from '../socialMediaButton';
+import { LoginScreenProps } from './props';
 import { login_style } from './style';
-
-type LoginOption =
-  | 'emailWithPasswordLogin'
-  | 'socialMediaLogin'
-  | 'mobileNumberLogin';
-
-export interface LoginScreenProps {
-  onSubmit: (details: object) => void;
-  option: LoginOption;
-  cardData: any;
-  backgroundImg: any;
-  rootStyle: object;
-  cardWraperStyle: object;
-}
 
 const LoginScreen: React.FC<LoginScreenProps> = ({
   option,
   onSubmit,
-  cardData,
-  backgroundImg,
+  sectionOne,
+  sectionTwo,
   rootStyle,
-  cardWraperStyle
 }) => {
   const type = option;
-  const socialMedia = cardData.socialMediaDetails
+  const socialMedia = sectionTwo?.cardData?.socialMedia?.socialMediaList;
   const [email, setEmail] = React.useState('');
   const [mobileNumber, setMobileNumber] = React.useState('');
   const [countryCode, setCountryCode] = React.useState('');
@@ -54,74 +39,87 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
   const getMailValue = (e: any) => {
     const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const value = e.target.value;
+    setEmail(value);
     if (regex.test(value)) {
-      setErrorMail(false)
-      setEmail(value)
-      setErrorMsg('')
+      setErrorMail(false);
+      setErrorMsg('');
     } else {
-      setErrorMsg('Please enter your registered email')
-      setErrorMail(true)
+      setErrorMsg('Please enter your registered email');
+      setErrorMail(true);
     }
-  }
+  };
 
   const getPasswordValue = (e: any) => {
     const value = e.target.value;
     const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9]).{8,}$/;
+    setPassword(value);
     if (regex.test(value)) {
-      setErrorPassword(false)
-      setPassword(value)
-      setErrorPasswordMsg('')
+      setErrorPassword(false);
+      
+      setErrorPasswordMsg('');
     } else {
-      setErrorPasswordMsg('Please enter password')
-      setErrorPassword(true)
+      setErrorPasswordMsg('Please enter password');
+      setErrorPassword(true);
     }
-  }
+  };
   const getThrowErrorMsg = () => {
     switch (type) {
       case 'emailWithPasswordLogin':
         if (email === '') {
-          setErrorMsg('Please enter your registered email')
-          setErrorMail(true)
+          setErrorMsg('Please enter your registered email');
+          setErrorMail(true);
         }
         if (password === '') {
-          setErrorPasswordMsg('Please enter password')
-          setErrorPassword(true)
+          setErrorPasswordMsg('Please enter password');
+          setErrorPassword(true);
         }
         if (email !== '' && password !== '') {
           const userDetail = {
             email: email,
             password: password,
-            type: type
+            type: type,
           };
-          onSubmit(userDetail)
+          onSubmit(userDetail);
         }
       case 'mobileNumberLogin':
         if (mobileNumber !== '') {
           const userDetail = {
             mobile_number: mobileNumber,
             countryCode: countryCode,
-            type: type
+            type: type,
           };
-          onSubmit(userDetail)
+          onSubmit(userDetail);
         }
     }
-
-  }
+  };
 
   const getMobileNumber = (value: any) => {
-    setMobileNumber(value.mobile)
-    setCountryCode(value.mobile_code)
-  }
+    setMobileNumber(value.mobile);
+    setCountryCode(value.mobile_code);
+  };
   const passWordVisible = () => {
-    setPasswordVisible(passwordvisible ? false : true)
-  }
+    setPasswordVisible(passwordvisible ? false : true);
+  };
   const getoptionretrieve = (option: string) => {
     switch (option) {
       case 'mobileNumberLogin':
         return (
           <>
-            <Typography sx={login_style.labelSx}>Mobile Number</Typography>
-            <MobileInput handleChange={getMobileNumber} rootWapperstyle={login_style.textFieldSx} />
+            <Typography
+              sx={{
+                ...login_style.labelSx,
+                ...sectionTwo?.cardData?.mobileNumberLogin?.labelStyle,
+              }}
+            >
+              {sectionTwo?.cardData?.mobileNumberLogin?.labelText}
+            </Typography>
+            <MobileInput
+              handleChange={getMobileNumber}
+              rootWapperstyle={{
+                ...login_style.textFieldSx,
+                ...sectionTwo?.cardData?.mobileNumberLogin?.mobileFieldstyle,
+              }}
+            />
           </>
         );
       case 'socialMediaLogin':
@@ -130,66 +128,104 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
             {socialMedia?.map((item: any) => {
               return (
                 <SocialMediaButton
-                  rootStyle={login_style.socialButtonSx}
+                  rootStyle={{
+                    ...login_style.socialButtonSx,
+                    ...item?.SocialMediaButtonStyle,
+                  }}
                   startIcon={item?.icon}
                   buttonText={item?.label}
                   onClick={item?.onSocialmediaLogin}
                   socialmediaTextStyle={item?.style}
                 />
-
-              )
+              );
             })}
-            <Divider sx={login_style.dividerSx}>
-              <Typography sx={login_style.fontSx}>or</Typography>
-            </Divider>
-            <Typography sx={login_style.labelSx}>Work Email</Typography>
-            <InputField
-              fullWidth
-              size="small"
-              error={errorMail}
-              helperText={errorMsg}
-              onChange={getMailValue}
-              textFieldStyle={login_style.textFieldSx}
-            />
-            <Typography sx={login_style.forgotSx}>
-              <span
-                onClick={cardData?.onForgotClick}
-                style={{ cursor: 'pointer' }}
+            {sectionTwo?.cardData?.socialMedia?.divider && (
+              <Divider
+                sx={{
+                  ...login_style.dividerSx,
+                  ...sectionTwo?.cardData?.socialMedia?.divider?.dividerStyle,
+                }}
               >
-                Forgot Password?
-              </span>
-            </Typography>{' '}
+                <Typography
+                  sx={{
+                    ...login_style.fontSx,
+                    ...sectionTwo?.cardData?.socialMedia?.divider?.dividerTextStyle,
+                  }}
+                >
+                  {sectionTwo?.cardData?.socialMedia?.divider?.dividerText}
+                </Typography>
+              </Divider>
+            )}
+            {sectionTwo?.cardData?.socialMedia?.workMailInput && (
+              <>
+                <InputField
+                  fullWidth
+                  size="small"
+                  error={errorMail}
+                  helperText={errorMsg}
+                  onChange={getMailValue}
+                  textFieldStyle={login_style.textFieldSx}
+                  type={'email'}
+                  value={email}
+                  label={sectionTwo?.cardData?.socialMedia?.workMailInput?.label}
+                  labelStyle={sectionTwo?.cardData?.socialMedia?.workMailInput?.labelStyle}
+                />
+                <Typography sx={{ ...login_style.forgotSx, ...sectionTwo?.cardData?.socialMedia?.workMailInput?.forgotStyle }}>
+                  <span
+                    onClick={sectionTwo?.cardData?.socialMedia?.workMailInput?.onForgotClick}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    Forgot Password?
+                  </span>
+                </Typography>
+              </>
+            )}
           </>
-        )
+        );
       default:
         return (
           <>
-            <Typography sx={login_style.labelSx}>Email</Typography>
             <InputField
               fullWidth
               size="small"
               error={errorMail}
               helperText={errorMsg}
               onChange={getMailValue}
-              textFieldStyle={login_style.textFieldSx}/>
-            <Typography sx={login_style.labelSx}>Password</Typography>
+              textFieldStyle={{ ...login_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.email?.fieldstyle }}
+              type={'email'}
+              value={email}
+              label={sectionTwo?.cardData?.emailWithPassword?.email?.label}
+              labelStyle={sectionTwo?.cardData?.emailWithPassword?.email?.labelStyle}
+            />
             <InputField
               fullWidth
               size="small"
+              value={password}
               type={passwordvisible ? 'text' : 'password'}
               error={errorPassword}
               helperText={errorPasswordMsg}
+              
               onChange={getPasswordValue}
-              textFieldStyle={login_style.textFieldSx}
+              label={sectionTwo?.cardData?.emailWithPassword?.password?.label}
+              labelStyle={sectionTwo?.cardData?.emailWithPassword?.password?.labelStyle}
+              textFieldStyle={{ ...login_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.password?.fieldstyle }}
               InputProps={{
                 endAdornment: (
-                  <InputAdornment style={{ cursor: 'pointer' }} onClick={passWordVisible} position="end">{passwordvisible ? <VisibilityOutlinedIcon /> : <VisibilityOffOutlinedIcon />}</InputAdornment>
+                  <InputAdornment
+                    style={{ cursor: 'pointer' }}
+                    onClick={passWordVisible}
+                    position="end"
+                  >
+                    {passwordvisible ? (sectionTwo?.cardData?.emailWithPassword?.password?.visbleIcon
+                    ) : (sectionTwo?.cardData?.emailWithPassword?.password?.invisibleIcon
+                    )}
+                  </InputAdornment>
                 ),
               }}
             />
-            <Typography sx={login_style.forgotSx}>
+            <Typography sx={{ ...login_style.forgotSx, ...sectionTwo?.cardData?.emailWithPassword?.forgotStyle }}>
               <span
-                onClick={cardData?.onForgotClick}
+                onClick={sectionTwo?.cardData?.emailWithPassword?.onForgotClick}
                 style={{ cursor: 'pointer' }}
               >
                 Forgot Password?
@@ -201,49 +237,168 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
   };
   return (
     <Grid container sx={{ ...login_style.parentSx, ...rootStyle }}>
-      {backgroundImg && (<Hidden smDown>
-        <Grid item xs={12} sm={4} md={3} sx={backgroundImg?.backgroundWrapStyle}>
-          <Image
-            src={backgroundImg?.imgSrc} width={'100%'} height={'100%'} imageStyle={backgroundImg?.bgImageStyle}
-          />
+      {sectionOne && (
+        <Hidden smDown>
+          <Grid
+            item
+            xs={sectionOne?.breakpoints?.xs}
+            sm={sectionOne?.breakpoints?.sm}
+            md={sectionOne?.breakpoints?.md}
+            lg={sectionOne?.breakpoints?.lg}
+            sx={sectionOne?.backgroundWrapStyle}
+          >
+            {sectionOne?.image && (
+              <Image
+                src={sectionOne?.image?.src}
+                width={sectionOne?.image?.width}
+                height={sectionOne?.image?.height}
+                imageStyle={sectionOne?.image?.style}
+              />
+            )}
+          
+            {sectionOne?.component && (
+              <>
+              {sectionOne?.component}
+              </>
+            )}
+          </Grid>
+        </Hidden>
+      )}
+      {sectionTwo && (
+        <Grid
+          item
+          xs={sectionTwo?.breakpoints?.xs}
+          sm={sectionTwo?.breakpoints?.sm}
+          md={sectionTwo?.breakpoints?.md}
+          lg={sectionTwo?.breakpoints?.lg}
+          sx={{ ...login_style.loginSx, ...sectionTwo?.WraperStyle }}
+        >
+          <Box
+            sx={{ ...login_style.cardParentSx, ...sectionTwo?.cardParentStyle }}
+          >
+            <Card
+              title={sectionTwo?.cardData?.title}
+              logo={{
+                logoWidth: sectionTwo?.cardData?.logo?.logoWidth,
+                logoHeight: sectionTwo?.cardData?.logo?.logoHeight,
+                logoSrc: sectionTwo?.cardData?.logo?.logoSrc,
+                alt: sectionTwo?.cardData?.logo?.alt,
+                logoStyle: {
+                  ...login_style.logoSx,
+                  ...sectionTwo?.cardData?.logo?.logoStyle,
+                },
+              }}
+              description={sectionTwo?.cardData?.description}
+              children={
+                <Box
+                  sx={{
+                    ...login_style.childernSx,
+                    ...sectionTwo?.cardData?.childrenStyle,
+                  }}
+                >
+                  {getoptionretrieve(option)}
+                </Box>
+              }
+              bottomText={sectionTwo?.cardData?.bottomText}
+              btnClick={getThrowErrorMsg}
+              buttonText={sectionTwo?.cardData?.buttonText}
+              titleStyle={sectionTwo?.cardData?.titleStyle}
+              cardStyle={{
+                ...login_style.cardSx,
+                ...sectionTwo?.cardData?.cardStyle,
+              }}
+              btnStyle={{
+                ...login_style.loginBtnSx,
+                ...sectionTwo?.cardData?.btnStyle,
+              }}
+              actionText={sectionTwo?.cardData?.loginActionText}
+              actionstyle={{
+                ...login_style.actionSx,
+                ...sectionTwo?.cardData?.actionstyle,
+              }}
+              bottomTextStyle={{
+                ...login_style.bottomTextSx,
+                ...sectionTwo?.cardData?.bottomTextStyle,
+              }}
+              onActionClick={sectionTwo?.cardData?.onSignUpClick}
+            />
+          </Box>
         </Grid>
-      </Hidden>)}
-      <Grid item xs={12} sm={backgroundImg ? 8 : 12} md={backgroundImg ? 9 : 12} sx={{ ...login_style.loginSx, ...cardWraperStyle }}>
-        <Box sx={login_style.cardParentSx}>
-          <Card
-            title={cardData?.title}
-            logo={cardData?.logo}
-            description={cardData?.description}
-            children={
-              <Box sx={login_style.childernSx}>
-                {getoptionretrieve(option)}
-              </Box>
-            }
-            bottomText={cardData?.bottomText}
-            btnClick={getThrowErrorMsg}
-            buttonText={cardData?.buttonText}
-            cardStyle={{ ...login_style.cardSx, ...cardData?.cardStyle }}
-            btnStyle={{ ...login_style.loginBtnSx, ...cardData?.btnStyle }}
-            actionText={cardData?.loginActionText}
-            actionstyle={{ ...login_style.actionSx, ...cardData?.actionstyle }}
-            bottomTextStyle={login_style.bottomTextSx}
-            onActionClick={cardData?.onSignUpClick}
-            imgStyle={login_style.logoSx}
-          />
-        </Box>
-      </Grid>
-    </Grid>
+      )}
 
+    </Grid>
   );
 };
 
-export default LoginScreen;
-LoginScreen.defaultProps = {
-  onSubmit: (details: object) => { },
-  option: undefined,
-  cardData: {},
-  backgroundImg: '',
-  rootStyle: {},
-  cardWraperStyle: {},
 
+LoginScreen.defaultProps = {
+  onSubmit: () => { },
+  option: undefined,
+  rootStyle: {},
+  sectionOne: {
+    backgroundWrapStyle: {},
+    breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
+    image: { src: '', height: '100%', width: '100%', style: {} },
+  },
+  sectionTwo: {
+    breakpoints: {
+      xs: 12, md: 9, sm: 8, lg: 9
+    },
+    WraperStyle: {},
+    cardParentStyle: {},
+    cardData: {
+      title: "",
+      description: "",
+      bottomText: "",
+      buttonText: "",
+      loginActionText: "",
+      onSignUpClick: () => { },
+      titleStyle: {},
+      btnStyle: {},
+      cardStyle: {},
+      childrenStyle: {},
+      logoStyle: {},
+      bottomTextStyle: {},
+      actionstyle: {},
+      mobileNumberLogin: {
+        labelText: "",
+        labelStyle: {},
+        mobileFieldstyle: {},
+      },
+      socialMedia: {
+        workMailInput: {
+          label: "",
+          labelStyle: {},
+          forgotStyle: {},
+          onForgotClick: () => { },
+        },
+        divider: {
+          dividerStyle: {},
+          dividerText: "",
+          dividerTextStyle: {},
+        },
+        socialMediaList: [],
+      },
+      emailWithPassword: {
+        email: {
+          label: "Email",
+          labelStyle: {},
+          forgotStyle: {},
+          fieldstyle: {},
+        },
+        password: {
+          label: "Password",
+          labelStyle: {},
+          forgotStyle: {},
+          fieldstyle: {},
+          visbleIcon: <></>,
+          invisibleIcon: <></>,
+        },
+        onForgotClick: () => { },
+        forgotStyle: {}
+      },
+    },
+  },
 };
+
+export default LoginScreen;

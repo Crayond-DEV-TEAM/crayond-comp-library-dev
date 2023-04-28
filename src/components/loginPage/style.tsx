@@ -83,14 +83,15 @@ export const login_style = {
         }
     },
     dividerSx: {
-        mt: 2,
+        m: 4,
         color: '#71707E'
     },
     fontSx: {
         fontSize: '12px',
     },
     logoSx: {
-        marginBottom: '20px'
+        marginBottom: '20px',
+        marginTop: '10px'
     },
     socialTextSx: {
         textAlign: 'center',

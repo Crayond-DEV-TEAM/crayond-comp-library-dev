@@ -2,14 +2,11 @@ import { CardProps as MuiCardProps } from '@mui/material';
 export interface CardProps extends MuiCardProps {
   title: string;
   subtitle?: string;
-  logo?: string;
+  logo?: any;
   alt?: string;
   description: string;
   inlinestyle?: object;
   cardStyle?: object;
-  imgStyle?: object;
-  logoWidth?: 'string' | number | undefined;
-  logoHeight?: 'string' | number | undefined;
   buttonText?: string;
   btnClick?: any;
   bottomText?: string;
@@ -21,5 +18,4 @@ export interface CardProps extends MuiCardProps {
   titleStyle?:object,
   btnStyle?:object,
   bottomTextStyle?:object,
-  
 }

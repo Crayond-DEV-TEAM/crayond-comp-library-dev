@@ -13,9 +13,6 @@ const Card: React.FC<CardProps> = ({
   children,
   inlinestyle,
   cardStyle,
-  imgStyle,
-  logoHeight,
-  logoWidth,
   buttonText,
   btnClick,
   actions,
@@ -37,12 +34,12 @@ const Card: React.FC<CardProps> = ({
     >
       {logo && (
         <Image
-          src={logo}
-          alt={alt}
+          src={logo?.logoSrc}
+          alt={logo?.alt}
           aria-label="logo"
-          imageStyle={imgStyle}
-          height={logoHeight}
-          width={logoWidth}
+          imageStyle={logo?.logoStyle}
+          height={logo?.logoHeight}
+          width={logo?.logoWidth}
         />
       )}
       {title && (
@@ -83,16 +80,12 @@ export default Card;
 Card.defaultProps = {
   title: "",
   subtitle: "",
-  logo: "",
+  logo:{},
   alt: "",
   description: "",
   inlinestyle: {},
   cardStyle: {},
-  imgStyle: {},
-  logoWidth: undefined,
-  logoHeight: undefined,
   buttonText: "",
-  button: false,
   btnClick: undefined,
   bottomText: "",
   actionText: "",
