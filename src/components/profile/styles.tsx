@@ -28,6 +28,7 @@ export const styles = {
   },
   uploadImageBtn:{
     width:"150px",
-    margin:"12px 0"
+    margin:"12px 0",
+    textTransform:"capitalize"
   }
 };
