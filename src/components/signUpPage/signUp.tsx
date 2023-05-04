@@ -2,11 +2,10 @@ import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import {
   Box,
-  Divider,
   Grid,
   Hidden,
   InputAdornment,
-  Typography,
+  Typography
 } from '@mui/material';
 import React from 'react';
 
@@ -27,15 +26,18 @@ export interface SignupScreen {
   option: SignupOption;
   cardData: any;
   backgroundImg: any;
-  rootStyle: object;
-  cardWraperStyle: object;
+  rootStyle?: object;
+  cardWraperStyle?: object;
+  sectionOne:any;
+  sectionTwo:any;
 }
 
 const SignupScreen: React.FC<SignupScreen> = ({
   option,
   onSubmit,
   cardData,
-  backgroundImg,
+  sectionTwo,
+  sectionOne,
   rootStyle,
   cardWraperStyle,
 }) => {
@@ -162,20 +164,33 @@ const SignupScreen: React.FC<SignupScreen> = ({
       case 'mobileNumberSignup':
         return (
           <>
-            <Typography sx={signUp_style.labelSx}>Mobile Number</Typography>
-            <MobileInput
-              handleChange={getMobileNumber}
-              rootWapperstyle={signUp_style.textFieldSx}
-            />
-          </>
+          <Typography
+            sx={{
+              ...signUp_style.labelSx,
+              ...sectionTwo?.cardData?.mobileNumberLogin?.labelStyle,
+            }}
+          >
+            {sectionTwo?.cardData?.mobileNumberLogin?.labelText}
+          </Typography>
+          <MobileInput
+            handleChange={getMobileNumber}
+            rootWapperstyle={{
+              ...signUp_style.textFieldSx,
+              ...sectionTwo?.cardData?.mobileNumberLogin?.mobileFieldstyle,
+            }}
+          />
+        </>
         );
       case 'socialMediaSignup':
         return (
           <>
-            {socialMedia?.map((item: any) => {
+           {socialMedia?.map((item: any) => {
               return (
                 <SocialMediaButton
-                  rootStyle={signUp_style.socialButtonSx}
+                  rootStyle={{
+                    ...signUp_style.socialButtonSx,
+                    ...item?.SocialMediaButtonStyle,
+                  }}
                   startIcon={item?.icon}
                   buttonText={item?.label}
                   onClick={item?.onSocialmediaLogin}
@@ -190,15 +205,14 @@ const SignupScreen: React.FC<SignupScreen> = ({
           <>
             <Box sx={signUp_style.nameSx}>
               <Box>
-                <Typography sx={signUp_style.labelSx}>First Name</Typography>
                 <InputField
                   fullWidth
                   size="small"
+                  label={sectionTwo?.cardData?.emailWithPassword?.firstName?.label}
                   error={errorName}
                   helperText={errorNameMsg}
                   onChange={getFirstName}
-                  textFieldStyle={signUp_style.textFieldSx}
-                />
+                  textFieldStyle={{...signUp_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.email?.fieldstyle }} type={'text'}/>
               </Box>
               <Box>
                 <Typography sx={signUp_style.labelSx}>Last Name</Typography>
@@ -206,19 +220,18 @@ const SignupScreen: React.FC<SignupScreen> = ({
                   fullWidth
                   size="small"
                   onChange={getLastName}
-                  textFieldStyle={signUp_style.textFieldSx}
-                />
+                  textFieldStyle={signUp_style.textFieldSx} type={'text'}/>
               </Box>
             </Box>
             <Typography sx={signUp_style.labelSx}>Email</Typography>
             <InputField
               fullWidth
               size="small"
+              label={sectionTwo?.cardData?.emailWithPassword?.email?.label}
               error={errorMail}
               helperText={errorMsg}
               onChange={getMailValue}
-              textFieldStyle={signUp_style.textFieldSx}
-            />
+              textFieldStyle={signUp_style.textFieldSx} type={'password'}            />
             <Typography sx={signUp_style.labelSx}>Password</Typography>
             <InputField
               fullWidth
@@ -275,55 +288,94 @@ const SignupScreen: React.FC<SignupScreen> = ({
   };
   return (
     <Grid container sx={{ ...signUp_style.parentSx, ...rootStyle }}>
-      {backgroundImg && (
+      {sectionOne && (
         <Hidden smDown>
           <Grid
             item
-            xs={12}
-            sm={4}
-            md={3}
-            sx={backgroundImg?.backgroundWrapStyle}
+            xs={sectionOne?.breakpoints?.xs}
+            sm={sectionOne?.breakpoints?.sm}
+            md={sectionOne?.breakpoints?.md}
+            lg={sectionOne?.breakpoints?.lg}
+            sx={sectionOne?.backgroundWrapStyle}
           >
-            <Image
-              src={backgroundImg?.imgSrc}
-              width={'100%'}
-              height={'100%'}
-              imageStyle={backgroundImg?.bgImageStyle}
-            />
+            {sectionOne?.image && (
+              <Image
+                src={sectionOne?.image?.src}
+                width={sectionOne?.image?.width}
+                height={sectionOne?.image?.height}
+                imageStyle={sectionOne?.image?.style}
+              />
+            )}
+          
+            {sectionOne?.component && (
+              <>
+              {sectionOne?.component}
+              </>
+            )}
           </Grid>
         </Hidden>
       )}
-      <Grid
-        item
-        xs={12}
-        sm={backgroundImg ? 8 : 12}
-        md={backgroundImg ? 9 : 12}
-        sx={{ ...signUp_style.loginSx, ...cardWraperStyle }}
-      >
-        <Box sx={signUp_style.cardParentSx}>
-          <Card
-            title={cardData?.title}
-            logo={cardData?.logo}
-            description={cardData?.description}
-            children={
-              <Box sx={signUp_style.childernSx}>
-                {getoptionretrieve(option)}
-              </Box>
-            }
-            bottomText={cardData?.bottomText}
-            button={cardData?.button}
-            btnClick={getThrowErrorMsg}
-            buttonText={cardData?.buttonText}
-            cardStyle={{ ...signUp_style.cardSx, ...cardData?.cardStyle }}
-            btnStyle={{ ...signUp_style.loginBtnSx, ...cardData?.btnStyle }}
-            actionText={cardData?.loginActionText}
-            actionstyle={{ ...signUp_style.actionSx, ...cardData?.actionstyle }}
-            bottomTextStyle={signUp_style.bottomTextSx}
-            onActionClick={cardData?.onLoginClick}
-            imgStyle={signUp_style.logoSx}
-          />
-        </Box>
-      </Grid>
+      {sectionTwo && (
+        <Grid
+          item
+          xs={sectionTwo?.breakpoints?.xs}
+          sm={sectionTwo?.breakpoints?.sm}
+          md={sectionTwo?.breakpoints?.md}
+          lg={sectionTwo?.breakpoints?.lg}
+          sx={{ ...signUp_style.loginSx, ...sectionTwo?.WraperStyle }}
+        >
+          <Box
+            sx={{ ...signUp_style.cardParentSx, ...sectionTwo?.cardParentStyle }}
+          >
+            <Card
+              title={sectionTwo?.cardData?.title}
+              logo={{
+                logoWidth: sectionTwo?.cardData?.logo?.logoWidth,
+                logoHeight: sectionTwo?.cardData?.logo?.logoHeight,
+                logoSrc: sectionTwo?.cardData?.logo?.logoSrc,
+                alt: sectionTwo?.cardData?.logo?.alt,
+                logoStyle: {
+                  ...signUp_style.logoSx,
+                  ...sectionTwo?.cardData?.logo?.logoStyle,
+                },
+              }}
+              description={sectionTwo?.cardData?.description}
+              children={
+                <Box
+                  sx={{
+                    ...signUp_style.childernSx,
+                    ...sectionTwo?.cardData?.childrenStyle,
+                  }}
+                >
+                  {getoptionretrieve(option)}
+                </Box>
+              }
+              bottomText={sectionTwo?.cardData?.bottomText}
+              btnClick={getThrowErrorMsg}
+              buttonText={sectionTwo?.cardData?.buttonText}
+              titleStyle={sectionTwo?.cardData?.titleStyle}
+              cardStyle={{
+                ...signUp_style.cardSx,
+                ...sectionTwo?.cardData?.cardStyle,
+              }}
+              btnStyle={{
+                ...signUp_style.loginBtnSx,
+                ...sectionTwo?.cardData?.btnStyle,
+              }}
+              actionText={sectionTwo?.cardData?.loginActionText}
+              actionstyle={{
+                ...signUp_style.actionSx,
+                ...sectionTwo?.cardData?.actionstyle,
+              }}
+              bottomTextStyle={{
+                ...signUp_style.bottomTextSx,
+                ...sectionTwo?.cardData?.bottomTextStyle,
+              }}
+              onActionClick={sectionTwo?.cardData?.onSignUpClick}
+            />
+          </Box>
+        </Grid>
+      )}
     </Grid>
   );
 };

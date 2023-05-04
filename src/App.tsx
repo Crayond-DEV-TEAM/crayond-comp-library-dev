@@ -17,6 +17,10 @@ import EditIcon from './assets/editIcon';
 import NotificationIcon from './assets/notificationIcon';
 import AlertIcon from './assets/alertIcon';
 import { Button } from '@mui/material';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+
+
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -64,7 +68,7 @@ function App() {
     console.log('Download Method working!', e);
   };
   const fillerMethod = () => {
-    setIsDataMask(!isDataMask)
+    setIsDataMask(!isDataMask);
     console.log('Filter Method working!');
   };
   const primaryBtnMethod = () => {
@@ -987,6 +991,112 @@ function App() {
         onSubmit={(detail: object) => {
           console.log(detail);
         } }/>
+      {/* <LoginScreen
+        option='socialMediaLogin'
+        sectionOne={{
+          breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
+          image: { src: loginImg, height: '100%', width: '100%' },
+          // component: <BasicButtons />
+        }}
+        sectionTwo={{
+          breakpoints: { xs: 12, md: 9, sm: 8, lg: 9 },
+          WraperStyle: {},
+          cardParentStyle: {},
+          cardData: {
+            logo: {
+              logoSrc: CompanyLogo,
+              logoHeight: '29px', logoWidth: '147px'
+            },
+            title: 'Welcome!',
+            description: 'One positive feedback per day or week can make us grow exponentially',
+            bottomText: "Don't have an account?",
+            buttonText: 'Send OTP',
+            loginActionText: 'Sign in',
+            onSignUpClick: () => {
+              console.log('signup');
+            },
+            titleStyle: {},
+            btnStyle: {},
+            cardStyle: {},
+            childrenStyle: {},
+            logoStyle: {},
+            bottomTextStyle: {},
+            actionstyle: {},
+            socialMedia: {
+              workMailInput: {
+                label: 'Work Email',
+                labelStyle: {},
+                forgotStyle: {},
+                onForgotClick: () => {
+                  console.log('forgot');
+                },
+              },
+              divider: {
+                dividerStyle: {},
+                dividerText: 'or',
+                dividerTextStyle: {},
+              },
+              socialMediaList: [
+                {
+                  label: 'SignUp with google',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('SignUp with google');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+                {
+                  label: 'Sign up with Outlook',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('SignUp with Outlook');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+              ],
+            },
+            emailWithPassword: {
+              email: {
+                label: 'Email',
+                labelStyle: {},
+                fieldstyle: {},
+              },
+              password: {
+                label: 'password',
+                labelStyle: {},
+                fieldstyle: {},
+                visbleIcon: <VisibilityOutlinedIcon />,
+                invisibleIcon: <VisibilityOffOutlinedIcon />,
+              },
+              forgotStyle: {},
+              onForgotClick: () => {
+                console.log('forgot');
+              },
+            },
+            mobileNumberLogin: {
+              labelText: 'Mobile Number',
+              labelStyle: {},
+              mobileFieldstyle: {},
+            },
+          },
+        }}
+        onSubmit={(detail: object) => {
+          console.log(detail);
+        } } /> */}
     </div>
   );
 }
