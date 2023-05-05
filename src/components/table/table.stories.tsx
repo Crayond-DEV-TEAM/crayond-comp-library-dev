@@ -731,13 +731,13 @@ Primary.args = {
   tableData: [
     { type: ['INCREMENT'], name: 'id', width:100},
     { type: ['CHECKBOX'], name: 'checkbox' },
-    { type: ['TEXT'], name: 'name', width:30 },
+    { type: ['TEXT'], name: 'name', width:70 },
     { type: ['TEXT'], name: 'calories' },
     { type: ['TEXT'], name: 'fat' },
     { type: ['TEXT'], name: 'carbs' },
     { type: ['TEXT'], name: 'protein' },
     { type: ['IMAGE_WITH_LABEL'], name: 'profile', variant: 'circular' },
-    { type: ['PROGRESS'], name: 'overall_progress', width:200},
+    { type: ['PROGRESS'], name: 'overall_progress', width:150},
     { type: ['LABEL'], name: 'production' },
     {
       type: ['SWITCH'],
@@ -764,7 +764,7 @@ Primary.args = {
     },
     { type: ['CUSTOM'], name: 'custom' },
     { type: ['ICON_WITH_LABEL'], name: 'alert_type' },
-    { type: ['MASK_DATA'], name: 'password', maskText:"*", width:100},
+    { type: ['MASK_DATA'], name: 'password', maskText:"*", width:150},
     { type: ['ICON_WITH_TEXT'], name: 'response' },
     {
       type: ['ACTION'],
@@ -845,10 +845,11 @@ Primary.args = {
   margin: ['0px', '1px', '0px', '1px'],
   tableBorderRadius: '12px',
   dense: 'medium',
-  // stickyColumns: {
-  //   stickyLeft: [],
-  //   stickyRight: [],
-  // },
+  stickyOptions:{
+    stickyHeader:true,
+    stickyLeft:["id", "checkbox"],
+    stickyRight:["action", "response"],
+  },
   paginationOption: {
     rowPerPage: 5,
     rowsPerPageOptions: [5, 10, 25],
