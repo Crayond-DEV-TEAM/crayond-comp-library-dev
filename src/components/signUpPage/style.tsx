@@ -13,7 +13,6 @@ export const signUp_style = {
     childernSx: {
         my: 2.5
     },
-
     cardParentSx: {
         backgroundColor: '#EFEEFB',
         height: '100%',

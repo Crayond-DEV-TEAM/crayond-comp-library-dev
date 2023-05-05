@@ -16,7 +16,7 @@ export interface MobileInputProps {
   enterKeyPress?: object;
   handleChangeSelect?: object;
   value?: any,
-  error?: string | false;
+  error?: boolean;
   onError?: string | false;
   onErrorOccured?: any;
   helperText?: string;
@@ -28,9 +28,10 @@ export interface MobileInputProps {
   className?: object;
   maxLength?: number;
   mobileInputStyle?: object;
-  rootWapperstyle: object;
+  rootWapperstyle: object | any;
   code?: string;
   phone?: string;
   suggested?: boolean;
   helperTextStyle?:string;
+  dropDownStyle?:object;
 }

@@ -20,8 +20,6 @@ import { Button } from '@mui/material';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
-
-
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
   const [selectedCheckbox, setSelectedCheckbox] = React.useState([1, 2]);
@@ -971,72 +969,34 @@ function App() {
         }}
       /> */}
       <SignupScreen
-        option='mobileNumberSignup'
-        cardData={{
-          description: "One positive feedback per day or week can make us grow exponentially",
-          title: 'Welcome!',
-          logo: CompanyLogo,
-          bottomText: 'You have an account?',
-          buttonText: "Sign in",
-          loginActionText: 'Login',
-          onLoginClick: () => {
-            console.log('login');
-          },
-        }}
-        backgroundImg={{
-          imgSrc: loginImg,
-          loginImgWidth: '100%',
-          loginImgHeight: '100%',
-        }}
-        onSubmit={(detail: object) => {
-          console.log(detail);
-        } }/>
-      {/* <LoginScreen
-        option='socialMediaLogin'
+        option='socialMediaSignup'
         sectionOne={{
-          breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
+          breakpoints: { md: 3, sm: 4, lg: 3 },
           image: { src: loginImg, height: '100%', width: '100%' },
+          // backgroundWrapStyle:{height: '100%', width: '100%'},
           // component: <BasicButtons />
         }}
         sectionTwo={{
           breakpoints: { xs: 12, md: 9, sm: 8, lg: 9 },
-          WraperStyle: {},
-          cardParentStyle: {},
-          cardData: {
-            logo: {
-              logoSrc: CompanyLogo,
-              logoHeight: '29px', logoWidth: '147px'
+          WraperStyle:{},
+          cardParentStyle:{},
+          cardData:{
+            title:'Welcome!',
+            description:'One positive feedback per day or week can make us grow exponentially',
+            logo:{
+              logoSrc: CompanyLogo, logoHeight: '29px', logoWidth: '147px',
+              alt:'logo',
+              logoStyle:{},
             },
-            title: 'Welcome!',
-            description: 'One positive feedback per day or week can make us grow exponentially',
-            bottomText: "Don't have an account?",
-            buttonText: 'Send OTP',
-            loginActionText: 'Sign in',
-            onSignUpClick: () => {
-              console.log('signup');
+            childrenStyle:{},
+            mobileNumberSignup:{
+              labelText:'Mobile Number',
+              labelStyle:{},
+              mobileFieldstyle:{contryCodefontSize:'14px',fontWeight:'600',numberFontSize:'16px'},
+              dropDownStyle:{width:'120px'}
             },
-            titleStyle: {},
-            btnStyle: {},
-            cardStyle: {},
-            childrenStyle: {},
-            logoStyle: {},
-            bottomTextStyle: {},
-            actionstyle: {},
-            socialMedia: {
-              workMailInput: {
-                label: 'Work Email',
-                labelStyle: {},
-                forgotStyle: {},
-                onForgotClick: () => {
-                  console.log('forgot');
-                },
-              },
-              divider: {
-                dividerStyle: {},
-                dividerText: 'or',
-                dividerTextStyle: {},
-              },
-              socialMediaList: [
+            socialMedia:{
+              socialMediaList:[
                 {
                   label: 'SignUp with google',
                   icon: <FcGoogle />,
@@ -1067,36 +1027,72 @@ function App() {
                   },
                   SocialMediaButtonStyle: {},
                 },
-              ],
+                {
+                  label: 'Sign up with Email',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('Sign up with Email');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+              ],        
             },
-            emailWithPassword: {
-              email: {
-                label: 'Email',
-                labelStyle: {},
-                fieldstyle: {},
+            emailWithPassword:{
+              nameStyle:{},
+              firstName:{
+                FnameFieldStyle:{},
+                labelStyle:{},
+                label:'First Name'
               },
-              password: {
-                label: 'password',
-                labelStyle: {},
-                fieldstyle: {},
+              lastName:{
+                LnameFieldStyle:{},
+                labelStyle:{},
+                label:'Last Name'
+              },        
+              email:{
+                fieldstyle:{},
+                labelStyle:{},
+                label:'Email'
+              },
+              password:{
+                label:'Password',
+                labelStyle:{},
+                fieldstyle:{},
                 visbleIcon: <VisibilityOutlinedIcon />,
                 invisibleIcon: <VisibilityOffOutlinedIcon />,
               },
-              forgotStyle: {},
-              onForgotClick: () => {
-                console.log('forgot');
-              },
+              confirmPassword:{
+                label:'Confirm Password',
+                labelStyle:{},
+                fieldstyle:{},
+                visbleIcon: <VisibilityOutlinedIcon />,
+                invisibleIcon: <VisibilityOffOutlinedIcon />,
+              }
             },
-            mobileNumberLogin: {
-              labelText: 'Mobile Number',
-              labelStyle: {},
-              mobileFieldstyle: {},
+            bottomText:'You have an account?',
+            buttonText:'Sign Up',
+            titleStyle:{},
+            cardStyle:{},
+            btnStyle:{},
+            signupActionText:'Login',
+            actionstyle:{},
+            bottomTextStyle:{},
+            onLoginClick: () => {
+              console.log('login');
             },
           },
         }}
         onSubmit={(detail: object) => {
           console.log(detail);
-        } } /> */}
+        }}
+      />
     </div>
   );
 }
