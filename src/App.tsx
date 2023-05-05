@@ -972,10 +972,11 @@ function App() {
         }}
       /> */}
       <LoginScreen
-        option='socialMediaLogin'
+        option='mobileNumberLogin'
         sectionOne={{
           breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
           image: { src: loginImg, height: '100%', width: '100%' },
+          // backgroundWrapStyle:{height: '100%', width: '100%'},
           // component: <BasicButtons />
         }}
         sectionTwo={{
@@ -1070,13 +1071,17 @@ function App() {
             mobileNumberLogin: {
               labelText: 'Mobile Number',
               labelStyle: {},
-              mobileFieldstyle: {},
+              mobileFieldstyle: {contryCodefontSize:'14px',fontWeight:'600',numberFontSize:'16px'},
+              dropDownStyle:{width:'110px'},
             },
+            
           },
         }}
         onSubmit={(detail: object) => {
           console.log(detail);
-        } } />
+        }} 
+        rootStyle={{height:'100%',width:'100%'}}
+        />
     </div>
   );
 }

@@ -31,9 +31,11 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
   const [countryCode, setCountryCode] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [errorMail, setErrorMail] = React.useState(false);
+  const [errorNumber, setErrorNumber] = React.useState(false);
   const [errorPassword, setErrorPassword] = React.useState(false);
   const [errorMsg, setErrorMsg] = React.useState('');
   const [errorPasswordMsg, setErrorPasswordMsg] = React.useState('');
+  const [mobileNumberErrorMsg, setmobileNumberErrorMsg] = React.useState('');
   const [passwordvisible, setPasswordVisible] = React.useState(false);
 
   const getMailValue = (e: any) => {
@@ -55,7 +57,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
     setPassword(value);
     if (regex.test(value)) {
       setErrorPassword(false);
-      
+
       setErrorPasswordMsg('');
     } else {
       setErrorPasswordMsg('Please enter password');
@@ -82,13 +84,16 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
           onSubmit(userDetail);
         }
       case 'mobileNumberLogin':
-        if (mobileNumber !== '') {
+        if (mobileNumber !== '' && mobileNumber.length === 10) {
           const userDetail = {
             mobile_number: mobileNumber,
             countryCode: countryCode,
             type: type,
           };
           onSubmit(userDetail);
+        } else {
+          setErrorNumber(true)
+          setmobileNumberErrorMsg('Please enter your valid number')
         }
     }
   };
@@ -96,6 +101,8 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
   const getMobileNumber = (value: any) => {
     setMobileNumber(value.mobile);
     setCountryCode(value.mobile_code);
+    setErrorNumber(false)
+    setmobileNumberErrorMsg("")
   };
   const passWordVisible = () => {
     setPasswordVisible(passwordvisible ? false : true);
@@ -115,9 +122,25 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
             </Typography>
             <MobileInput
               handleChange={getMobileNumber}
+              error={errorNumber}
+              helperText={mobileNumberErrorMsg}
               rootWapperstyle={{
                 ...login_style.textFieldSx,
                 ...sectionTwo?.cardData?.mobileNumberLogin?.mobileFieldstyle,
+                ...{
+                  '& .MuiOutlinedInput-root .MuiAutocomplete-input': {
+                    fontSize: sectionTwo?.cardData?.mobileNumberLogin?.mobileFieldstyle?.contryCodefontSize,
+                    fontWeight: sectionTwo?.cardData?.mobileNumberLogin?.mobileFieldstyle?.fontWeight,
+                  }
+                },
+                ...{
+                  '& .MuiOutlinedInput-input': {
+                    fontSize: sectionTwo?.cardData?.mobileNumberLogin?.mobileFieldstyle?.numberFontSize,
+                  },
+                }
+              }}
+              dropDownStyle={{
+                ...sectionTwo?.cardData?.mobileNumberLogin?.dropDownStyle,
               }}
             />
           </>
@@ -182,7 +205,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
             )}
           </>
         );
-      default:
+      case 'emailWithPasswordLogin':
         return (
           <>
             <InputField
@@ -204,7 +227,6 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
               type={passwordvisible ? 'text' : 'password'}
               error={errorPassword}
               helperText={errorPasswordMsg}
-              
               onChange={getPasswordValue}
               label={sectionTwo?.cardData?.emailWithPassword?.password?.label}
               labelStyle={sectionTwo?.cardData?.emailWithPassword?.password?.labelStyle}
@@ -233,6 +255,8 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
             </Typography>
           </>
         );
+      default:
+        return ('please give valid option')
     }
   };
   return (
@@ -250,15 +274,13 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
             {sectionOne?.image && (
               <Image
                 src={sectionOne?.image?.src}
-                width={sectionOne?.image?.width}
-                height={sectionOne?.image?.height}
                 imageStyle={sectionOne?.image?.style}
               />
             )}
-          
+
             {sectionOne?.component && (
               <>
-              {sectionOne?.component}
+                {sectionOne?.component}
               </>
             )}
           </Grid>
@@ -325,7 +347,6 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
           </Box>
         </Grid>
       )}
-
     </Grid>
   );
 };
@@ -333,7 +354,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
 
 LoginScreen.defaultProps = {
   onSubmit: () => { },
-  option: undefined,
+  option: 'emailWithPasswordLogin',
   rootStyle: {},
   sectionOne: {
     backgroundWrapStyle: {},
@@ -364,6 +385,7 @@ LoginScreen.defaultProps = {
         labelText: "",
         labelStyle: {},
         mobileFieldstyle: {},
+        dropDownStyle: {},
       },
       socialMedia: {
         workMailInput: {

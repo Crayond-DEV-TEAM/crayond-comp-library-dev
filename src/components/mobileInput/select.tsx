@@ -11,6 +11,7 @@ export function SimpleSelect(props: any) {
     disabled = false,
     handleChangeSelect = () => false,
     className = '',
+    dropDownStyle={},
     ...rest
   } = props;
   const getValue = (value: any, options: any) => {
@@ -27,7 +28,7 @@ export function SimpleSelect(props: any) {
       {/* label Of Mobile Input */}
       <Autocomplete
         id={id}
-        sx={mobileInput_style.autocompleteSx}
+        sx={{...mobileInput_style.autocompleteSx,...dropDownStyle}}
         placeholder={placeholder}
         options={options}
         getOptionLabel={(option) => giveMeValueLabel(option)}

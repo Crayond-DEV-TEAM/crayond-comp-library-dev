@@ -1,3 +1,4 @@
+
 export const mobileInput_style = {
   mobileInputStyledSx: {
     borderRadius: '8px',
@@ -60,13 +61,18 @@ export const mobileInput_style = {
     '& .MuiOutlinedInput-root .MuiAutocomplete-input': {
       padding: '7px 0px',
     },
+    '& .MuiFormControl-root .MuiTextField-root .MuiOutlinedInput-input':{
+      fontSize:'6px'
+    }
   },
-  helperTextStyleSx:{
+  helperTextStyleSx: {
     mt: 0.5,
-    color: '#DBEAE8',
+    color: '#F44F5A',
     '&.Mui-error': {
       color: '#F44F5A',
     },
-
-  }
+  },
+  countrySx: {
+    fontSize: '5px',
+  },
 };

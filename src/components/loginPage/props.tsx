@@ -53,7 +53,8 @@ export interface LoginScreenProps {
       mobileNumberLogin?: {
         labelText?: string;
         labelStyle?: object;
-        mobileFieldstyle?: object;
+        mobileFieldstyle?: object | any;
+        dropDownStyle?: object;
       };
       socialMedia?: {
         workMailInput?: {
