@@ -20,16 +20,16 @@ const Template: ComponentStory<typeof CommonTable> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  Header: [
+  Header:[
     {
       id: 'id',
       align: 'left',
       disablePadding: false,
-      label: 'Sl no',
+      label: 'Sl No',
       isSortable: true,
     },
     {
-      id: 'select',
+      id: 'checkbox',
       align: 'left',
       disablePadding: false,
       label: 'Select',
@@ -83,7 +83,7 @@ Primary.args = {
       align: 'left',
       disablePadding: false,
       label: 'Overall Progress',
-      isSortable: false,
+      isSortable: true,
     },
     {
       id: 'production',
@@ -155,11 +155,19 @@ Primary.args = {
       label: 'Custom',
       isSortable: false,
     },
+
     {
       id: 'alert_type',
       align: 'center',
       disablePadding: false,
       label: 'Alert Type',
+      isSortable: false,
+    },
+    {
+      id: 'password',
+      align: 'left',
+      disablePadding: false,
+      label: 'Password',
       isSortable: false,
     },
     {
@@ -186,7 +194,7 @@ Primary.args = {
       carbs: 67,
       protein: 4.3,
       profile: {
-        image: 'sample.jpg',
+        // image: 'sample.jpg',
         label: 'Hariharan',
       },
       overall_progress: '45',
@@ -195,6 +203,7 @@ Primary.args = {
         color: '#7692cc',
         bgColor: '#e2eafa',
       },
+      status: true,
       performance: 'Completely away',
       signals: [
         {
@@ -262,6 +271,7 @@ Primary.args = {
         label: 'sent',
         icon: <FunnelIcon />,
       },
+      password:"23456789087654dfds"
     },
     {
       id: 2,
@@ -344,6 +354,7 @@ Primary.args = {
         label: 'sent',
         icon: <FunnelIcon />,
       },
+      password:"dsufasuyawe7632908r78"
     },
     {
       id: 3,
@@ -362,6 +373,7 @@ Primary.args = {
         color: '#7692cc',
         bgColor: '#e2eafa',
       },
+      status: true,
       performance: 'Impactful',
       signals: [
         {
@@ -421,6 +433,7 @@ Primary.args = {
         label: 'Not Delivered',
         icon: <DeleteIcon />,
       },
+      password:"64528327asdjkfdsjads89087654dfds"
     },
     {
       id: 4,
@@ -459,7 +472,7 @@ Primary.args = {
         },
         {
           name: 'Hari',
-          label: 'Excellent',
+          label: 'Excelent',
           color: '#007C32',
         },
         {
@@ -495,6 +508,7 @@ Primary.args = {
         label: 'sent',
         icon: <FunnelIcon />,
       },
+      password:"KJGKJDGKYWT^&*^&"
     },
     {
       id: 5,
@@ -513,6 +527,7 @@ Primary.args = {
         color: '#7692cc',
         bgColor: '#e2eafa',
       },
+      status: true,
       performance: 'Good',
       signals: [
         {
@@ -564,6 +579,7 @@ Primary.args = {
         label: 'sent',
         icon: <FunnelIcon />,
       },
+      password:"23456789ey087654dfds"
     },
     {
       id: 6,
@@ -634,6 +650,7 @@ Primary.args = {
         label: 'sent',
         icon: <FunnelIcon />,
       },
+      password:"sadsdsadsadsasdsdd"
     },
     {
       id: 7,
@@ -652,6 +669,7 @@ Primary.args = {
         color: '#7692cc',
         bgColor: '#e2eafa',
       },
+      status: true,
       performance: 'Spectacular',
       signals: [
         {
@@ -707,18 +725,19 @@ Primary.args = {
         label: 'sent',
         icon: <FunnelIcon />,
       },
+      password:"asdfhaselkf98wer"
     },
   ],
   tableData: [
-    { type: ['INCREMENT'], name: 'sl_no' },
+    { type: ['INCREMENT'], name: 'id', width:100},
     { type: ['CHECKBOX'], name: 'checkbox' },
-    { type: ['TEXT'], name: 'name' },
+    { type: ['TEXT'], name: 'name', width:70 },
     { type: ['TEXT'], name: 'calories' },
     { type: ['TEXT'], name: 'fat' },
     { type: ['TEXT'], name: 'carbs' },
     { type: ['TEXT'], name: 'protein' },
     { type: ['IMAGE_WITH_LABEL'], name: 'profile', variant: 'circular' },
-    { type: ['PROGRESS'], name: 'overall_progress' },
+    { type: ['PROGRESS'], name: 'overall_progress', width:150},
     { type: ['LABEL'], name: 'production' },
     {
       type: ['SWITCH'],
@@ -739,12 +758,13 @@ Primary.args = {
       type: ['LINK'],
       name: 'link',
       label: 'view',
-      viewHandel: (id: any) => {
-        console.log(id);
+      viewHandel: (id: string | number, rowData: object, e: Event) => {
+        console.log(id, rowData, e);
       },
     },
     { type: ['CUSTOM'], name: 'custom' },
     { type: ['ICON_WITH_LABEL'], name: 'alert_type' },
+    { type: ['MASK_DATA'], name: 'password', maskText:"*", width:150},
     { type: ['ICON_WITH_TEXT'], name: 'response' },
     {
       type: ['ACTION'],
@@ -825,9 +845,10 @@ Primary.args = {
   margin: ['0px', '1px', '0px', '1px'],
   tableBorderRadius: '12px',
   dense: 'medium',
-  stickyColumns: {
-    stickyLeft: [],
-    stickyRight: [],
+  stickyOptions:{
+    stickyHeader:true,
+    stickyLeft:["id", "checkbox"],
+    stickyRight:["action", "response"],
   },
   paginationOption: {
     rowPerPage: 5,
