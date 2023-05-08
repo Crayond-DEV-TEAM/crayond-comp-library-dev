@@ -2,7 +2,6 @@ import {
   FormControl,
   InputLabel,
   MenuItem,
-  FormHelperText,
   Select,
   Typography,
 } from '@mui/material';
@@ -12,11 +11,11 @@ import { DropDownProps } from './props';
 export function Dropdown(props: DropDownProps) {
   const {
     rootStyle = {},
-    value,
+    value='',
     optionListStyle = {},
     selectOption = [],
     isError,
-    placeholder = '',
+    placeholder = 'Select',
     onChange = () => {},
     className = '',
     helperText = '',
@@ -55,14 +54,18 @@ export function Dropdown(props: DropDownProps) {
           size="small"
           variant="outlined"
           error={isError}
+          displayEmpty
           // inputProps={{ 'aria-label': 'Without label' }}
           MenuProps={{
             sx: { ...dropdown_style.optionListSx, ...optionListStyle },
           }}
           IconComponent={ExpandMoreRoundedIcon}
         >
+          <MenuItem value="">
+           <em>{placeholder}</em>
+            </MenuItem>
           {selectOption?.map((option: any) => (
-            <MenuItem key={option?.value} value={option?.value}>
+            <MenuItem key={option?.value} disabled={option?.disabled ?? false} value={option?.value}>
               {option?.label}
             </MenuItem>
           ))}

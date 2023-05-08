@@ -1,14 +1,14 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { MobileInput } from './index';
+// import { ComponentMeta, ComponentStory } from '@storybook/react';
+// import { MobileInput } from './index';
+export default {}
+// export default {
+//   title: 'components/MobileInput',
+//   component: MobileInput,
+// } as ComponentMeta<typeof MobileInput>;
 
-export default {
-  title: 'components/MobileInput',
-  component: MobileInput,
-} as ComponentMeta<typeof MobileInput>;
+// const Template: ComponentStory<typeof MobileInput> = (args) => (
+//   <MobileInput {...args} />
+// );
 
-const Template: ComponentStory<typeof MobileInput> = (args) => (
-  <MobileInput {...args} />
-);
-
-export const Default = Template.bind({});
-Default.args = {};
+// export const Default = Template.bind({});
+// Default.args = {};

@@ -10,25 +10,31 @@ export const styles = {
   profileDetails: {
     padding: '40px 0',
   },
-  profileImg:{
-    width:"150px",
-    height:"150px",
-    objectFit:"cover",
-    fontSize:"50px",
-    fontWeight:"600",
+  profileImg: {
+    width: '150px',
+    height: '150px',
+    objectFit: 'cover',
+    fontSize: '50px',
+    fontWeight: '600',
   },
-  deleteContainer:{
-    borderRadius:"50%",
-    backgroundColor:"#FF4D4A",
-    width:"28px",
-    height:"28px",
-    display:"flex",
-    justifyContent:'center',
-    alignItems:"center"
+  deleteContainer: {
+    borderRadius: '50%',
+    backgroundColor: '#FF4D4A',
+    width: '28px',
+    height: '28px',
+    display: 'flex',
+    justifyContent: 'center',
+    cursor:"pointer",
+    alignItems: 'center',
   },
-  uploadImageBtn:{
-    width:"150px",
-    margin:"12px 0",
-    textTransform:"capitalize"
-  }
+  uploadImageBtn: {
+    width: '150px',
+    margin: '12px 0',
+    textTransform: 'capitalize',
+  },
+  userName: {
+    color: '#111111',
+    fontSize: '32px',
+    fontWeight: '700',
+  },
 };

@@ -1,84 +1,59 @@
 import * as React from 'react';
 import { Dayjs } from 'dayjs';
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker, DatePickerProps } from '@mui/x-date-pickers/DatePicker';
-import { UseDateFieldProps } from '@mui/x-date-pickers/DateField';
-import {
-  BaseSingleInputFieldProps,
-  DateValidationError,
-  FieldSection,
-} from '@mui/x-date-pickers/models';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { DateTimePicker } from '@mui/x-date-pickers';
+import { DateAndTimePickerProps } from './props';
+import { styles } from './styles';
+import { Typography } from '@mui/material';
 
-interface ButtonFieldProps
-  extends UseDateFieldProps<Dayjs>,
-    BaseSingleInputFieldProps<Dayjs | null, FieldSection, DateValidationError> {
-  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
-}
-
-function ButtonField(props: ButtonFieldProps) {
-  const {
-    setOpen,
-    label,
-    id,
-    disabled,
-    InputProps: { ref } = {},
-    inputProps: { 'aria-label': ariaLabel } = {},
-  } = props;
-
+export default function DateAndTimePicker(props: DateAndTimePickerProps) {
+  const { labelVariant, label, type, required } = props;
   return (
-    <Button
-      variant="outlined"
-      id={id}
-      disabled={disabled}
-      ref={ref}
-      aria-label={ariaLabel}
-      onClick={() => setOpen?.((prev) => !prev)}
-    >
-      {label ?? 'Pick a date'}
-    </Button>
+    <Box sx={styles.root}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        {labelVariant === 'standard' && (
+          <InputLabel sx={styles.label} id="date-label">
+            {label}{' '}
+            {required && (
+              <Typography component={'span'} sx={{ color: '#FF4D4A' }}>
+                {'*'}
+              </Typography>
+            )}
+          </InputLabel>
+        )}
+        {type === 'dateAndTime' ? (
+          <DateTimePicker
+            sx={styles.datePicker}
+            {...props}
+            label={labelVariant === 'standard' ? '' : label}
+          />
+        ) : (
+          <DatePicker
+            sx={styles.datePicker}
+            {...props}
+            label={labelVariant === 'standard' ? null : label}
+            // openTo="month"
+            // format={'MM/DD/YYYY hh:mm:ss'}
+            // // maxDate
+            // // minDate
+            // // onChange={}
+            // // disabled
+            // views={['year', 'month', 'day']}
+            // views={['year', 'month', 'day', 'hours', 'minutes', 'seconds']}
+            // label={''}
+          />
+        )}
+      </LocalizationProvider>
+    </Box>
   );
 }
 
-function ButtonDatePicker(
-  props: Omit<DatePickerProps<Dayjs>, 'open' | 'onOpen' | 'onClose'>
-) {
-  const [open, setOpen] = React.useState(false);
-
-  return (
-    <>
-    <DateTimePicker label="Basic date time picker"
-    
-    />
-    <DatePicker
-      slots={{ field: ButtonField, ...props.slots }}
-      slotProps={{ field: { setOpen } as any }}
-      {...props}
-      open={open}
-      onClose={() => setOpen(false)}
-      onOpen={() => setOpen(true)}
-    />
-    </>
-  );
-}
-
-export default function DateAndTimePicker(props:any) {
-  const [value, setValue] = React.useState<Dayjs | null>(null);
-
-  return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <Stack spacing={1}>
-        <ButtonDatePicker
-          label={` date: ${
-            value == null ? 'null' : value.format('MM/DD/YYYY hh:mm:ss')
-          }`}
-          value={value}
-          onChange={(newValue) => setValue(newValue)}
-        />
-      </Stack>
-    </LocalizationProvider>
-  );
-}
+DateAndTimePicker.defaultProps = {
+  label: 'My Label',
+  labelVariant: 'standard',
+  type: 'date',
+};

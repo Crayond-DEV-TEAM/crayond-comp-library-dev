@@ -1,16 +1,16 @@
 import React from 'react';
-import Box from '@mui/material/Box';
 import { ProfileProps } from './props';
-import { Avatar, Badge, Container, Grid, Typography } from '@mui/material';
+import { Avatar, Badge, Container, Grid, Typography, Box } from '@mui/material';
 import { styles } from './styles';
 import DeleteIcon from '../../assets/deleteIcon';
 import { BasicButtons } from '../button';
 import { Dropdown } from '../dropdown';
 import { InputField } from '../inputField';
 import { DateAndTimePicker } from '../dateAndTimePicker';
+import { RenderForm } from '../renderForm';
 
 export default function Profile(props: ProfileProps) {
-  const { titleOptions, bgColor, paddingAll } = props;
+  const {isEditMode, titleOptions, bgColor, paddingAll, renderForm , userNameStyle, onSubmitBtn, uploadOptions, username} = props;
 
   return (
     <Box sx={{ backgroundColor: bgColor, padding: paddingAll }}>
@@ -36,37 +36,42 @@ export default function Profile(props: ProfileProps) {
                   overlap="circular"
                   anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
                   badgeContent={
-                    <Box sx={styles.deleteContainer}>
+                    <Box sx={styles.deleteContainer} onClick={()=>uploadOptions?.deleteProfile()}>
                       <DeleteIcon color={'#fff'} />
                     </Box>
                   }
                 >
-                  <Avatar variant="rounded" src="" sx={styles.profileImg}>
-                    H
+                  <Avatar variant="rounded" src={uploadOptions?.imgScr} sx={styles.profileImg}>
+                    {username[0]}
                   </Avatar>
                 </Badge>
-                <BasicButtons inLineStyles={styles.uploadImageBtn}>
+                <BasicButtons onClick={(e)=>{uploadOptions?.uploadProfile(e, "")}} inLineStyles={styles.uploadImageBtn}>
                   Upload Image
                 </BasicButtons>
               </Grid>
               <Grid item xs={5}>
-                <Dropdown
+                {/* <Dropdown
                   selectOption={[
-                    { label: 'Select', value: '' },
                     { label: 'one', value: 'one' },
                     { label: 'two', value: 'two' },
                     { label: 'three', value: 'three' },
                   ]}
                   label={'My Label'}
+                  value={""}
                   required
                   variant={"filled"}
-                  placeholder='df'
-                  isError
+                  placeholder='Select'
+                  isError={false}
                   errorMessage='tyu'
                   // helperText='we'
-                />
-
-                {/* <DateAndTimePicker /> */}
+                /> */}
+                <Typography sx={{...styles.userName,...userNameStyle }}>{username}</Typography>
+                <RenderForm formList={renderForm?.formList} isEditMode={isEditMode} />
+                <Box display={'flex'} justifyContent={'flex-end'} mt={3}>
+                <BasicButtons inLineStyles={styles.uploadImageBtn} onClick={(e)=>{onSubmitBtn(e)}}>
+                     {isEditMode ? "Save" : "Edit"} 
+                </BasicButtons>
+                </Box>
               </Grid>
             </Grid>
           </Box>
@@ -77,4 +82,4 @@ export default function Profile(props: ProfileProps) {
   );
 }
 
-Profile.defaultProps = {};
+// Profile.defaultProps = {};

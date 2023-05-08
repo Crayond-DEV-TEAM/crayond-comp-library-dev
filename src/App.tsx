@@ -70,6 +70,86 @@ function App() {
   const secondaryBtnMethod = () => {
     console.log('secondary Btn Method working!');
   };
+
+  /// for profile
+
+  // const formList = [
+  //   {
+  //     type: 'heading',
+  //     containerStyle: {},
+  //     gridStyle: {},
+  //     breakPoint: {
+  //       xs: 12,
+  //       sm: 12,
+  //       md: 6,
+  //       lg: 6,
+  //       lx: 6,
+  //     },
+  //   },
+  //   // {
+  //   //   type: 'input',
+  //   //   containerStyle:{},
+  //   //   gridStyle:{},
+  //   //   breakPoint:{
+  //   //     xs:12,
+  //   //     sm:12,
+  //   //     md:6,
+  //   //     lg:6,
+  //   //     lx:6
+  //   //   },
+  //   // },
+  //   // {
+  //   //   type: 'date',
+  //   // },
+  //   // {
+  //   //   type: 'dateAndTime',
+  //   // },
+  // ];
+
+  // const profileProps = {
+  //   formList:formList
+  // }
+  const [isEdit, setIsEdit] = React.useState(true);
+const onSubmitBtn = ()=>{
+setIsEdit(!isEdit);
+}
+const img =  "https://loveshayariimages.in/wp-content/uploads/2022/08/dp-pic-whatsapp-150x150.jpg"
+const [profile, setProfile]= React.useState(img);
+const uploadProfile = (event:any, data:any)=>{
+  setProfile(img);
+}
+const deleteProfile = ()=>{
+  setProfile("");
+}
+
+  const [state, setState] = React.useState({
+    email: '',
+    dob: null,
+    mobileNumber: '',
+    designation: '',
+    city: '',
+    state: '',
+    country: '',
+    timeZone: '',
+    error: {
+      email: '',
+      dob: '',
+      mobileNumber: '',
+      designation: '',
+      city: '',
+      state: '',
+      country: '',
+      timeZone: '',
+    },
+  });
+
+
+  const updateState = (key:string, value:string|number|object) => { 
+    let error:any = state?.error;
+    error[key] = "";
+    setState({ ...state, [key]: value, error });
+  };
+
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
       <CommonTable
@@ -965,14 +1045,217 @@ function App() {
       />
 
       <Profile
+      isEditMode={isEdit}
+      username={"Hariharan"}
+      onSubmitBtn={onSubmitBtn}
         titleOptions={{
           title: 'My Profile',
           fontSize: '20px',
           fontWeight: '600',
           color: '#000',
         }}
+        uploadOptions={{
+          imgScr:profile,
+          deleteProfile:deleteProfile,
+          uploadProfile:uploadProfile,
+        }}
         bgColor={'#00FAFA4F'}
         paddingAll={'20px 0'}
+        userNameStyle={{}}
+        renderForm={{
+          formList: [
+            {
+              type: 'input',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                lx: 12,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'Email',
+                labelVariant: 'standard',
+                required:true,
+                value: state?.email,
+                isError: false,
+                onChange:(e:any)=>{updateState("email", e?.target?.value)}
+              },
+            },
+            {
+              type: 'date',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                lx: 12,
+              },
+              inputProps: {
+                label: 'DOB',
+                labelVariant: 'standard',
+                required:true,
+                value: state?.dob,
+                isError: false,
+                onChange:(e:any)=>{updateState("DOB", e?.target?.value)}
+              },
+            },
+            {
+              type: 'mobileNumberInput',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                lx: 12,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'Mobile Number',
+                labelVariant: 'standard',
+                required:true,
+                value: state?.mobileNumber,
+                isError: false,
+                onChange:(e:any)=>{updateState("mobileNumber", e?.target?.value)}
+              },
+            },
+            {
+              type: 'dropDown',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                lx: 12,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'Desgination',
+                labelVariant: 'standard',
+                required:true,
+                value: state?.designation,
+                isError: false,
+                onChange:(e:any)=>{updateState("designation", e?.target?.value)},
+                selectOption:[
+                  { label: 'Developer', value: 'Developer' },
+                  { label: 'Designer', value: 'Designer' },
+                  { label: 'designation', value: 'designation' },
+                ]
+              },
+            },
+            {
+              type: 'dropDown',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'City',
+                labelVariant: 'standard',
+                required:true,
+                value: state?.city,
+                isError: false,
+                onChange:(e:any)=>{updateState("city", e?.target?.value)},
+                selectOption:[
+                  { label: 'Chennai', value: 'Chennai' },
+                  { label: 'two', value: 'two' },
+                  { label: 'three', value: 'three' },
+                ]
+              },
+            },
+            {
+              type: 'dropDown',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'State',
+                labelVariant: 'standard',
+                required:true,
+                value: state?.email,
+                isError: false,
+                onChange:(e:any)=>{updateState("email", e?.target?.value)},
+                selectOption:[
+                  { label: 'Tamil Nadu', value: 'Tamil Nadu' },
+                  { label: 'California', value: 'California' },
+                  { label: 'three', value: 'three' },
+                ]
+              },
+            },
+            {
+              type: 'dropDown',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                label: 'Country',
+                labelVariant: 'standard',
+                required:true,
+                value: state?.country,
+                isError: false,
+                onChange:(e:any)=>{updateState("country", e?.target?.value)},
+                selectOption:[
+                  { label: 'IN', value: 'IN' },
+                  { label: 'PKS', value: 'PKS' },
+                  { label: 'SLN', value: 'SLN' },
+                ]
+              },
+            },
+            {
+              type: 'dropDown',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                label: 'Time Zone',
+                labelVariant: 'standard',
+                required:true,
+                value: state?.timeZone,
+                isError: false,
+                onChange:(e:any)=>{updateState("timeZone", e?.target?.value)},
+                selectOption:[
+                  { label: '+5:30', value: 'one' },
+                  { label: '+4:30', value: 'two' },
+                  { label: '+2:30', value: 'three' },
+                ]
+              },
+            },
+          ],
+        }}
       />
     </div>
   );
