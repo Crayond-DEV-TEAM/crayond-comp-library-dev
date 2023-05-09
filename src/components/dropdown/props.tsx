@@ -31,7 +31,7 @@ export interface DropDownProps {
 //   selectOption?: { label: string | number; value: string | number, [key]:string | number}[];
   selectOption?: Array<any>;
   required?: boolean;
-  isError?: boolean;
+  error?: boolean;
   placeholder?: string;
   rootStyle?: object;
   optionListStyle?: object;

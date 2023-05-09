@@ -3,18 +3,20 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import { styles } from './styles';
 import { MobileInput } from '../mobileInput';
-import { InputField } from '../inputField'; 
+import { InputField } from '../inputField';
 import { DateAndTimePicker } from '../dateAndTimePicker';
 import { renderFormProps } from './props';
 import { Dropdown } from '../dropdown';
 
-const getComponent = (component: any, edit:string | null) => {
-  const {inputProps} = component;
-  console.log("🚀 ~ file: renderForm.tsx:13 ~ getComponent ~ inputProps:", component)
-  switch (edit ? "labelAndValue" : component?.type) {
+const getComponent = (component: any, edit: string | null) => {
+  const { inputProps } = component;
+  switch (edit ? 'labelAndValue' : component?.type) {
     case 'heading':
       return (
-        <Typography sx={{ ...styles.heading, ...inputProps.sx }} component={'h2'}>
+        <Typography
+          sx={{ ...styles.heading, ...inputProps.sx }}
+          component={'h2'}
+        >
           {inputProps?.value}
         </Typography>
       );
@@ -39,20 +41,21 @@ const getComponent = (component: any, edit:string | null) => {
         />
       );
     case 'date':
-      return <DateAndTimePicker type="date"  {...inputProps}/>;
+      return <DateAndTimePicker type="date" {...inputProps} />;
     case 'dateAndTime':
-      return <DateAndTimePicker type="dateAndTime"  {...inputProps}/>;
-      case 'dropDown':
-        return <Dropdown  {...inputProps}/>;
-        case 'mobileNumberInput':
-          return <MobileInput  {...inputProps}/>;
+      return <DateAndTimePicker type="dateAndTime" {...inputProps} />;
+    case 'dropDown':
+      return <Dropdown {...inputProps} />;
+    case 'mobileNumberInput':
+      return <MobileInput {...inputProps} />;
 
-          case 'labelAndValue':
-          return <>
+    case 'labelAndValue':
+      return (
+        <>
           <Typography sx={styles?.viewLabel}>{inputProps?.label}</Typography>
           <Typography sx={styles?.viewValue}>{inputProps?.value}</Typography>
-          {console.log("🚀 ~ file: renderForm.tsx:54 ~ getComponent ~ inputProps?.value:", inputProps?.value)}
-          </>;
+        </>
+      );
     default:
       return <></>;
   }
@@ -63,9 +66,16 @@ export default function RenderForm(props: renderFormProps) {
     <Box sx={{ width: '100%' }}>
       <Grid container sx={gridStyle} spacing={1}>
         {formList?.map((form, index: number) => (
-          <Grid item {...form?.breakPoint} sx={{width:"100%"}} key={'form' + index + form?.type}>
-            <Box sx={{...styles.inputContainer, ...form?.containerStyle}} >
-              {isEditMode ? getComponent(form, null) : getComponent(form,  "labelAndValue")}
+          <Grid
+            item
+            {...form?.breakPoint}
+            sx={{ width: '100%' }}
+            key={'form' + index + form?.type}
+          >
+            <Box sx={{ ...styles.inputContainer, ...form?.containerStyle }}>
+              {isEditMode
+                ? getComponent(form, null)
+                : getComponent(form, 'labelAndValue')}
             </Box>
           </Grid>
         ))}
@@ -75,5 +85,5 @@ export default function RenderForm(props: renderFormProps) {
 }
 
 RenderForm.defaultProps = {
-  formList:[]
+  formList: [],
 };

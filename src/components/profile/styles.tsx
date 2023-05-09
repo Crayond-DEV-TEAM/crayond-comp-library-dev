@@ -8,7 +8,11 @@ export const styles = {
     padding: '20px',
   },
   profileDetails: {
-    padding: '40px 0',
+    padding: {
+      xs:'20px 20px',
+      sm:'20px 20px',
+      lg:'40px 20px'
+    },
   },
   profileImg: {
     width: '150px',

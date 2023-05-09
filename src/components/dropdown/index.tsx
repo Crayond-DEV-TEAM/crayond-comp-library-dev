@@ -14,7 +14,7 @@ export function Dropdown(props: DropDownProps) {
     value='',
     optionListStyle = {},
     selectOption = [],
-    isError,
+    error=false,
     placeholder = 'Select',
     onChange = () => {},
     className = '',
@@ -53,7 +53,7 @@ export function Dropdown(props: DropDownProps) {
           fullWidth
           size="small"
           variant="outlined"
-          error={isError}
+          error={error}
           displayEmpty
           // inputProps={{ 'aria-label': 'Without label' }}
           MenuProps={{
@@ -72,7 +72,7 @@ export function Dropdown(props: DropDownProps) {
         </Select>
       </FormControl>
       {/* Field required Message */}
-      {isError && (
+      {error && (
         <Typography
           sx={{ mt: 0.5, mb: 0 }}
           variant="caption"
