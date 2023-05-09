@@ -158,8 +158,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
                   startIcon={item?.icon}
                   buttonText={item?.label}
                   onClick={item?.onSocialmediaLogin}
-                  socialmediaTextStyle={item?.style}
-                />
+                  socialmediaTextStyle={item?.style}/>
               );
             })}
             {sectionTwo?.cardData?.socialMedia?.divider && (
@@ -274,8 +273,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
             {sectionOne?.image && (
               <Image
                 src={sectionOne?.image?.src}
-                imageStyle={sectionOne?.image?.style}
-              />
+                imageStyle={sectionOne?.image?.style}/>
             )}
 
             {sectionOne?.component && (
@@ -392,7 +390,7 @@ LoginScreen.defaultProps = {
           label: "",
           labelStyle: {},
           forgotStyle: {},
-          onForgotClick: () => { },
+          onForgotClick: () => {},
         },
         divider: {
           dividerStyle: {},

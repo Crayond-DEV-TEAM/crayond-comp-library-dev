@@ -50,6 +50,7 @@ Primary.args = {
         labelText: 'Mobile Number',
         labelStyle: {},
         mobileFieldstyle: {},
+        dropDownStyle:{width:'110px'}
       },
       socialMedia: {
         workMailInput: {

@@ -61,7 +61,7 @@ export interface LoginScreenProps {
           label?: string;
           labelStyle?: object;
           forgotStyle?: object;
-          onForgotClick?: () => void;
+          onForgotClick?: () => any;
         };
         divider?: {
           dividerStyle?: object;
@@ -70,7 +70,7 @@ export interface LoginScreenProps {
         };
         socialMediaList?: {
           label?: string;
-          icon?: JSX.Element;
+          icon?: any;
           onSocialmediaLogin?: () => void;
           style?: object;
           SocialMediaButtonStyle?: object;
@@ -88,10 +88,10 @@ export interface LoginScreenProps {
           labelStyle?: object;
           forgotStyle?: object;
           fieldstyle?: object;
-          visbleIcon?: JSX.Element;
-          invisibleIcon?: JSX.Element;
+          visbleIcon?: any;
+          invisibleIcon?: any;
         };
-        onForgotClick?: () => void;
+        onForgotClick?: () => any;
         forgotStyle: object;
       };
     };
