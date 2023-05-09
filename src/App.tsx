@@ -1,8 +1,12 @@
-import React from 'react';
 import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
+import React from 'react';
+import { FcGoogle } from 'react-icons/fc';
+import CompanyLogo from './assets/companyLogo.png';
+import loginImg from './assets/loginImg.png';
+import SignupScreen from './components/signUpPage/signUp';
 import { BasicButtons, CommonTable } from '@components';
 import DeleteIcon from './assets/deleteIcon';
 import FunnelIcon from './assets/funnelIcon';
@@ -13,6 +17,8 @@ import EditIcon from './assets/editIcon';
 import NotificationIcon from './assets/notificationIcon';
 import AlertIcon from './assets/alertIcon';
 import { Button } from '@mui/material';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -71,7 +77,7 @@ function App() {
   };
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
-      <CommonTable
+      {/* <CommonTable
         Header={[
           {
             id: 'id',
@@ -942,25 +948,150 @@ function App() {
           fillerMethod: fillerMethod,
           downloadMethod: downloadMethod,
         }}
-        // HeaderComponent={{
-        //   variant: 2,
-        // styles:{
-        //   padding:"10px 0",
-        //   margin:"0"
-        // },
-        //   searchPlaceholder:"Search by name, email",
-        //   setHederSearch:setHederSearch,
-        //   checkboxLabel:"Show only my reportees",
-        //   primaryBtnText:"Add Member",
-        //   secondaryBtnText:"Import",
-        //   secondaryBtnIcon:<DocsIcon color={"#357968"}/>,
-        //   funnelIcon:<FunnelIcon color={"#fff"}/>,
-        //   searchIcon:<SearchIcon/>,
-        //   fillerMethod:fillerMethod,
-        //   primaryBtnMethod:primaryBtnMethod,
-        //   secondaryBtnMethod:secondaryBtnMethod,
-        //   headerCheckbox:headerCheckbox, setHederCheckbox:setHederCheckbox
-        // }}
+        HeaderComponent={{
+          variant: 2,
+        styles:{
+          padding:"10px 0",
+          margin:"0"
+        },
+          searchPlaceholder:"Search by name, email",
+          setHederSearch:setHederSearch,
+          checkboxLabel:"Show only my reportees",
+          primaryBtnText:"Add Member",
+          secondaryBtnText:"Import",
+          secondaryBtnIcon:<DocsIcon color={"#357968"}/>,
+          funnelIcon:<FunnelIcon color={"#fff"}/>,
+          searchIcon:<SearchIcon/>,
+          fillerMethod:fillerMethod,
+          primaryBtnMethod:primaryBtnMethod,
+          secondaryBtnMethod:secondaryBtnMethod,
+          headerCheckbox:headerCheckbox, setHederCheckbox:setHederCheckbox
+        }}
+      /> */}
+      <SignupScreen
+        option='socialMediaSignup'
+        sectionOne={{
+          breakpoints: { md: 3, sm: 4, lg: 3 },
+          image: { src: loginImg, height: '100%', width: '100%' },
+          // backgroundWrapStyle:{height: '100%', width: '100%'},
+          // component: <BasicButtons />
+        }}
+        sectionTwo={{
+          breakpoints: { xs: 12, md: 9, sm: 8, lg: 9 },
+          WraperStyle:{},
+          cardParentStyle:{},
+          cardData:{
+            title:'Welcome!',
+            description:'One positive feedback per day or week can make us grow exponentially',
+            logo:{
+              logoSrc: CompanyLogo, logoHeight: '29px', logoWidth: '147px',
+              alt:'logo',
+              logoStyle:{},
+            },
+            childrenStyle:{},
+            mobileNumberSignup:{
+              labelText:'Mobile Number',
+              labelStyle:{},
+              mobileFieldstyle:{contryCodefontSize:'14px',fontWeight:'600',numberFontSize:'16px'},
+              dropDownStyle:{width:'120px'}
+            },
+            socialMedia:{
+              socialMediaList:[
+                {
+                  label: 'SignUp with google',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('SignUp with google');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+                {
+                  label: 'Sign up with Outlook',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('SignUp with Outlook');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+                {
+                  label: 'Sign up with Email',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('Sign up with Email');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+              ],        
+            },
+            emailWithPassword:{
+              nameStyle:{},
+              firstName:{
+                FnameFieldStyle:{},
+                labelStyle:{},
+                label:'First Name'
+              },
+              lastName:{
+                LnameFieldStyle:{},
+                labelStyle:{},
+                label:'Last Name'
+              },        
+              email:{
+                fieldstyle:{},
+                labelStyle:{},
+                label:'Email'
+              },
+              password:{
+                label:'Password',
+                labelStyle:{},
+                fieldstyle:{},
+                visbleIcon: <VisibilityOutlinedIcon />,
+                invisibleIcon: <VisibilityOffOutlinedIcon />,
+              },
+              confirmPassword:{
+                label:'Confirm Password',
+                labelStyle:{},
+                fieldstyle:{},
+                visbleIcon: <VisibilityOutlinedIcon />,
+                invisibleIcon: <VisibilityOffOutlinedIcon />,
+              }
+            },
+            bottomText:'You have an account?',
+            buttonText:'Sign Up',
+            titleStyle:{},
+            cardStyle:{},
+            btnStyle:{},
+            signupActionText:'Login',
+            actionstyle:{},
+            bottomTextStyle:{},
+            onLoginClick: () => {
+              console.log('login');
+            },
+          },
+        }}
+        onSubmit={(detail: object) => {
+          console.log(detail);
+        }}
       />
     </div>
   );
