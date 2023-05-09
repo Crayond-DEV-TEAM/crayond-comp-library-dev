@@ -38,6 +38,7 @@ const getComponent = (component: any, edit: string | null) => {
           endAdornment={<></>}
           defaultValue={{}}
           textFieldStyle={{}}
+          labelStyle={{}}
           {...inputProps}
         />
       );
@@ -57,7 +58,7 @@ const getComponent = (component: any, edit: string | null) => {
           )
           }
           <Box>
-            {/* <Typography sx={styles?.viewLabel}>{inputProps?.label}</Typography> */}
+            <Typography sx={styles?.viewLabel}>{inputProps?.label}</Typography>
             <Typography sx={styles?.viewValue}>{inputProps?.value}</Typography>
           </Box>
         </Box>

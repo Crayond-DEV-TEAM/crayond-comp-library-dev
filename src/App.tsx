@@ -1,18 +1,9 @@
-import React from 'react';
 import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
-import { BasicButtons, CommonTable } from '@components';
-import DeleteIcon from './assets/deleteIcon';
-import FunnelIcon from './assets/funnelIcon';
-import SearchIcon from './assets/searchIcon';
-import DownloadIcon from './assets/downloadIcon';
+import React from 'react';
 import DocsIcon from './assets/docsIcon';
-import EditIcon from './assets/editIcon';
-import NotificationIcon from './assets/notificationIcon';
-import AlertIcon from './assets/alertIcon';
-import { Button } from '@mui/material';
 import { Profile } from './components/profile';
 
 function App() {
@@ -112,7 +103,7 @@ function App() {
   const [isEdit, setIsEdit] = React.useState(true);
   const onSubmitBtn = () => {
     // if (formValidator()) {
-      setIsEdit(!isEdit);
+    setIsEdit(!isEdit);
     // }
   };
   const img =
@@ -1127,10 +1118,11 @@ function App() {
                 labelVariant: 'standard',
                 required: true,
                 value: state?.email,
-                icon:<DocsIcon/>,
-                iconStyle:{},
+                icon: <DocsIcon />,
+                iconStyle: {},
                 error: false,
-                errorMessage:"dfdsfdsf",
+                errorMessage: "dfdsfdsf",
+                labelStyle:{mb:-1},
                 onChange: (e: any) => {
                   updateState('email', e?.target?.value);
                 },
@@ -1153,7 +1145,7 @@ function App() {
                 required: true,
                 value: state?.dob,
                 isError: true,
-                errorMessage:"dfdsfdsf",
+                errorMessage: "dfdsfdsf",
                 onChange: (e: any) => {
                   updateState('DOB', e?.target?.value);
                 },
