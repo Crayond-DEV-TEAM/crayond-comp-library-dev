@@ -7,6 +7,7 @@ import { InputField } from '../inputField';
 import { DateAndTimePicker } from '../dateAndTimePicker';
 import { renderFormProps } from './props';
 import { Dropdown } from '../dropdown';
+import { Icon } from '@mui/material';
 
 const getComponent = (component: any, edit: string | null) => {
   const { inputProps } = component;
@@ -47,14 +48,19 @@ const getComponent = (component: any, edit: string | null) => {
     case 'dropDown':
       return <Dropdown {...inputProps} />;
     case 'mobileNumberInput':
-      return <MobileInput {...inputProps} />;
-
+      return <MobileInput {...inputProps} />
     case 'labelAndValue':
       return (
-        <>
-          <Typography sx={styles?.viewLabel}>{inputProps?.label}</Typography>
-          <Typography sx={styles?.viewValue}>{inputProps?.value}</Typography>
-        </>
+        <Box sx={{ display: 'flex' }}>
+          {inputProps?.icon && (
+            <Icon sx={{...styles.viewIconSx,...inputProps?.iconStyle}}>{inputProps?.icon}</Icon>
+          )
+          }
+          <Box>
+            {/* <Typography sx={styles?.viewLabel}>{inputProps?.label}</Typography> */}
+            <Typography sx={styles?.viewValue}>{inputProps?.value}</Typography>
+          </Box>
+        </Box>
       );
     default:
       return <></>;

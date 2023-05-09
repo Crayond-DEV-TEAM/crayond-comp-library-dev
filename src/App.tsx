@@ -198,7 +198,7 @@ function App() {
 
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
-      <CommonTable
+      {/* <CommonTable
         Header={[
           {
             id: 'id',
@@ -1088,7 +1088,7 @@ function App() {
         //   secondaryBtnMethod:secondaryBtnMethod,
         //   headerCheckbox:headerCheckbox, setHederCheckbox:setHederCheckbox
         // }}
-      />
+      /> */}
 
       <Profile
         isEditMode={isEdit}
@@ -1127,7 +1127,9 @@ function App() {
                 labelVariant: 'standard',
                 required: true,
                 value: state?.email,
-                error: true,
+                icon:<DocsIcon/>,
+                iconStyle:{},
+                error: false,
                 errorMessage:"dfdsfdsf",
                 onChange: (e: any) => {
                   updateState('email', e?.target?.value);
