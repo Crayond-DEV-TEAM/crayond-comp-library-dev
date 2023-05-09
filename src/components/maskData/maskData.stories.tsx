@@ -1,19 +1,18 @@
-// import { ComponentStory, ComponentMeta } from '@storybook/react';
-// import { IconWithText } from './index';
-// import FunnelIcon from '../../assets/funnelIcon';
-export default {}
-// export default {
-//   title: 'CommonTable/IconWithText',
-//   component: IconWithText,
-// } as ComponentMeta<typeof IconWithText>;
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { IconWithText } from './index';
 
-// const Template: ComponentStory<typeof IconWithText> = (args) => (
-//   <IconWithText {...args} />
-// );
+export default {
+  title: 'CommonTable/IconWithText',
+  component: IconWithText,
+} as ComponentMeta<typeof IconWithText>;
 
-// export const Primary = Template.bind({});
-// Primary.args = {
-//   label: 'Sent',
-//   icon: <FunnelIcon />,
-// };
+const Template: ComponentStory<typeof IconWithText> = (args) => (
+  <IconWithText {...args} />
+);
 
+export const Primary = Template.bind({});
+Primary.args = {
+  label: 'Sent',
+  maskText: '*',
+  isDataMask: false,
+};
