@@ -22,7 +22,7 @@ export default function ImageWithProfiles(props: ImageWithProfilesProps) {
         src={profiles?.[0]?.image}
       />
       <Box sx={Cusmstyle.imageAndProfiles}>
-        <Typography sx={Cusmstyle.fontStyle}>{profiles?.[0]?.label}</Typography>
+        <Typography component={'h6'} sx={Cusmstyle.fontStyle}>{profiles?.[0]?.label}</Typography>
         {profiles?.length > 1 && (
           <Tooltip
             title={
@@ -42,7 +42,7 @@ export default function ImageWithProfiles(props: ImageWithProfilesProps) {
                           alt=""
                           src={profile?.image}
                         >
-                            <Typography>{profile?.label[0]}</Typography>
+                            <Typography component={'h6'}>{profile?.label[0]}</Typography>
                           </Avatar>
                         <Typography>{profile?.label}</Typography>
                       </Box>

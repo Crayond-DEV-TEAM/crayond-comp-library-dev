@@ -10,7 +10,6 @@ export const Card_Style = {
   titleSx: {
     fontSize: 20,
     fontWeight: 600,
-    mt:'20px'
   },
   buttonSx: {
     fontSize: '12px',
@@ -18,6 +17,7 @@ export const Card_Style = {
     backgroundColor: '#665CD7',
     padding: '4px',
     margin: '24px 0px 0px',
+    outline: 'none',
     '&:hover': {
       backgroundColor: '#4CAF50',
     },

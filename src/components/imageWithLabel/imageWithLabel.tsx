@@ -13,7 +13,7 @@ export default function ImageWithLabel(props: ImageWithLabel) {
   return (
     <Box display={'flex'} alignItems={'center'} gap={'10px'}>
       <Avatar variant={variant} sx={Cusmstyle.labelImage} alt="" src={image}>
-        <Typography sx={Cusmstyle.fontStyle}>{label[0]}</Typography>
+        <Typography component={'h6'} sx={Cusmstyle.fontStyle}>{label[0]}</Typography>
       </Avatar>
       <Typography sx={Cusmstyle.fontStyle}>{label}</Typography>
     </Box>
