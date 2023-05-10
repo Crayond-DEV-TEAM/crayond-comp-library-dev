@@ -1,8 +1,12 @@
-import React, { Component } from 'react';
 import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
+import React from 'react';
+import { FcGoogle } from 'react-icons/fc';
+import CompanyLogo from './assets/companyLogo.png';
+import loginImg from './assets/loginImg.png';
+import SignupScreen from './components/signUpPage/signUp';
 import { BasicButtons, CommonTable } from '@components';
 import DeleteIcon from './assets/deleteIcon';
 import FunnelIcon from './assets/funnelIcon';
@@ -10,7 +14,11 @@ import SearchIcon from './assets/searchIcon';
 import DownloadIcon from './assets/downloadIcon';
 import DocsIcon from './assets/docsIcon';
 import EditIcon from './assets/editIcon';
-// import './App.css';
+import NotificationIcon from './assets/notificationIcon';
+import AlertIcon from './assets/alertIcon';
+import { Button } from '@mui/material';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -18,6 +26,8 @@ function App() {
   const [switchList, setSwitchList] = React.useState([1, 4]);
   const [headerSelect, setHederSelect] = React.useState('');
   const [headerCheckbox, setHederCheckbox] = React.useState(true);
+  const [alertOpen, setAlertOpen] = React.useState(false);
+  const [isDataMask, setIsDataMask] = React.useState(false);
   const checkboxHandleChange = (data: any) => {
     if (!selectedCheckbox.includes(data)) {
       setSelectedCheckbox([...selectedCheckbox, data]);
@@ -32,7 +42,7 @@ function App() {
   const setHederSearch = (value: any) => {
     console.log('🚀 ~ file: App.tsx:31 ~ setHederSearch ~ value:', value);
   };
-  const SelectAll = (data: any, isRestSet: boolean) => {
+  const SelectAll = (data: any | undefined, isRestSet: boolean | undefined) => {
     if (!isRestSet) {
       setSelectedCheckbox([...data]);
       setIsSelectedAll(true);
@@ -52,10 +62,11 @@ function App() {
       }
     }
   };
-  const downloadMethod = ( e:Event) => {
+  const downloadMethod = (e: Event) => {
     console.log('Download Method working!', e);
   };
   const fillerMethod = () => {
+    setIsDataMask(!isDataMask);
     console.log('Filter Method working!');
   };
   const primaryBtnMethod = () => {
@@ -72,156 +83,164 @@ function App() {
             id: 'id',
             align: 'left',
             disablePadding: false,
-            label: 'Sl no',
-            isSortable:true,
+            label: 'Sl No',
+            isSortable: true,
           },
           {
-            id: 'select',
+            id: 'checkbox',
             align: 'left',
             disablePadding: false,
             label: 'Select',
             variant: 'CHECKBOX',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'name',
             align: 'left',
             disablePadding: false,
             label: 'Dessert',
-            isSortable:true,
+            isSortable: true,
           },
           {
             id: 'calories',
             align: 'left',
             disablePadding: false,
             label: 'Calories',
-            isSortable:true,
+            isSortable: true,
           },
           {
             id: 'fat',
             align: 'left',
             disablePadding: false,
             label: 'Fat (g)',
-            isSortable:true,
+            isSortable: true,
           },
           {
             id: 'carbs',
             align: 'left',
             disablePadding: false,
             label: 'Carbs (g)',
-            isSortable:true,
+            isSortable: true,
           },
           {
             id: 'protein',
             align: 'left',
             disablePadding: false,
             label: 'Protein (g)',
-            isSortable:true,
+            isSortable: true,
           },
           {
             id: 'profile',
             align: 'center',
             disablePadding: false,
             label: 'Profile',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'overall_progress',
             align: 'left',
             disablePadding: false,
             label: 'Overall Progress',
-            isSortable:false,
+            isSortable: true,
           },
           {
             id: 'production',
             align: 'left',
             disablePadding: false,
             label: 'Production',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'status',
             align: 'left',
             disablePadding: false,
             label: 'Status',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'performance',
             align: 'center',
             disablePadding: false,
             label: 'Performance',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'signals',
             align: 'center',
             disablePadding: false,
             label: 'Signals',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'reporting_to',
             align: 'center',
             disablePadding: false,
             label: 'Reporting to',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'global_rating',
             align: 'center',
             disablePadding: false,
             label: 'Global Rating',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'growth',
             align: 'center',
             disablePadding: false,
             label: 'Growth',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'experience',
             align: 'center',
             disablePadding: false,
             label: 'Experience',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'link',
             align: 'center',
             disablePadding: false,
             label: 'Link',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'custom',
             align: 'center',
             disablePadding: false,
             label: 'Custom',
-            isSortable:false,
+            isSortable: false,
           },
+
           {
             id: 'alert_type',
             align: 'center',
             disablePadding: false,
             label: 'Alert Type',
-            isSortable:false,
+            isSortable: false,
+          },
+          {
+            id: 'password',
+            align: 'left',
+            disablePadding: false,
+            label: 'Password',
+            isSortable: false,
           },
           {
             id: 'response',
             align: 'left',
             disablePadding: false,
             label: 'Response',
-            isSortable:false,
+            isSortable: false,
           },
           {
             id: 'action',
             align: 'center',
             disablePadding: false,
             label: 'Action',
-            isSortable:false,
+            isSortable: false,
           },
         ]}
         dataList={[
@@ -233,15 +252,27 @@ function App() {
             carbs: 67,
             protein: 4.3,
             profile: {
-              image: 'sample.jpg',
+              // image: 'sample.jpg',
               label: 'Hariharan',
             },
             overall_progress: '45',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Completely away',
             signals: [
@@ -310,6 +341,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
+            password: '23456789087654dfds',
           },
           {
             id: 2,
@@ -323,11 +355,18 @@ function App() {
               label: 'Hari Ram',
             },
             overall_progress: '35',
-            production: {
+            production: [{
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
+            },
+            {
               label: 'Insufficient',
               color: '#AE7330',
               bgColor: '#FCEDDD',
-            },
+            }
+          ],
             status: false,
             performance: 'Need to improve a lot',
             signals: [
@@ -392,6 +431,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
+            password: 'dsufasuyawe7632908r78',
           },
           {
             id: 3,
@@ -405,11 +445,18 @@ function App() {
               label: 'Siva',
             },
             overall_progress: '67',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Impactful',
             signals: [
@@ -470,6 +517,7 @@ function App() {
               label: 'Not Delivered',
               icon: <DeleteIcon />,
             },
+            password: '64528327asdjkfdsjads89087654dfds',
           },
           {
             id: 4,
@@ -483,11 +531,18 @@ function App() {
               label: 'Kumar',
             },
             overall_progress: '98',
-            production: {
+            production: [{
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
+            },
+            {
               label: 'Insufficient',
               color: '#AE7330',
               bgColor: '#FCEDDD',
-            },
+            }
+          ],
             status: false,
             performance: 'Need to improve',
             signals: [
@@ -544,6 +599,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
+            password: 'KJGKJDGKYWT^&*^&',
           },
           {
             id: 5,
@@ -557,11 +613,18 @@ function App() {
               label: 'Hariharan',
             },
             overall_progress: '45',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Good',
             signals: [
@@ -614,6 +677,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
+            password: '23456789ey087654dfds',
           },
           {
             id: 6,
@@ -627,11 +691,18 @@ function App() {
               label: 'Hari Ram',
             },
             overall_progress: '35',
-            production: {
+            production: [{
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
+            },
+            {
               label: 'Insufficient',
               color: '#AE7330',
               bgColor: '#FCEDDD',
-            },
+            }
+          ],
             status: false,
             performance: 'Very Good',
             signals: [
@@ -684,6 +755,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
+            password: 'sadsdsadsadsasdsdd',
           },
           {
             id: 7,
@@ -697,11 +769,18 @@ function App() {
               label: 'Siva',
             },
             overall_progress: '67',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Spectacular',
             signals: [
@@ -758,18 +837,19 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
+            password: 'asdfhaselkf98wer',
           },
         ]}
         tableData={[
-          { type: ['INCREMENT'], name: 'sl_no' },
+          { type: ['INCREMENT'], name: 'id', width: 100 },
           { type: ['CHECKBOX'], name: 'checkbox' },
-          { type: ['TEXT'], name: 'name' },
+          { type: ['TEXT'], name: 'name', width: 30 },
           { type: ['TEXT'], name: 'calories' },
           { type: ['TEXT'], name: 'fat' },
           { type: ['TEXT'], name: 'carbs' },
           { type: ['TEXT'], name: 'protein' },
           { type: ['IMAGE_WITH_LABEL'], name: 'profile', variant: 'circular' },
-          { type: ['PROGRESS'], name: 'overall_progress' },
+          { type: ['PROGRESS'], name: 'overall_progress', width: 200 },
           { type: ['LABEL'], name: 'production' },
           {
             type: ['SWITCH'],
@@ -790,25 +870,37 @@ function App() {
             type: ['LINK'],
             name: 'link',
             label: 'view',
-            viewHandel: (id:string |number , rowData:object, e:Event) => {
-              console.log(id , rowData , e);
+            viewHandel: (id: string | number, rowData: object, e: Event) => {
+              console.log(id, rowData, e);
             },
           },
           { type: ['CUSTOM'], name: 'custom' },
           { type: ['ICON_WITH_LABEL'], name: 'alert_type' },
+          { type: ['MASK_DATA'], name: 'password', maskText: '*', width: 150 },
           { type: ['ICON_WITH_TEXT'], name: 'response' },
           {
             type: ['ACTION'],
             name: 'action',
-            variant: 'EDIT_WITH_DELETE',
-            editHandel: (id:string |number , rowData:object, e:Event) => {
-              console.log(id , rowData , e);
-            },
-            deleteHandel: (id:string |number , rowData:object, e:Event) => {
-              console.log(id , rowData , e);
-            },
-            editIcon: <EditIcon />,
-            deleteIcon: <DeleteIcon width={'16px'} height={'16px'} />,
+            variant: [
+              {
+                icon: <EditIcon />,
+                method: (id: string | number, rowData: object, e: Event) => {
+                  console.log(id, rowData, e);
+                },
+              },
+              {
+                icon: <DeleteIcon width={'16px'} height={'16px'} />,
+                method: (id: string | number, rowData: object, e: Event) => {
+                  console.log(id, rowData, e);
+                },
+              },
+              {
+                icon: <NotificationIcon />,
+                method: (id: string | number, rowData: object, e: Event) => {
+                  console.log(id, rowData, e);
+                },
+              },
+            ],
           },
         ]}
         headerOptions={{
@@ -817,11 +909,11 @@ function App() {
           color: '#818181',
           bgColor: '#EAEAEA',
           borderBottom: '0px solid #E6E6E6',
-          padding:"12px",
+          padding: '12px',
         }}
         rowOptions={{
-          rowOddBgColor:"#fff",
-          rowEvenBgColor:"#F7F7F7",
+          rowOddBgColor: '#fff',
+          rowEvenBgColor: '#F7F7F7',
         }}
         cellOptions={{
           fontSize: '16px',
@@ -829,9 +921,14 @@ function App() {
           color: '#353448',
           // bgColor: '#fff',
           borderBottom: '0px solid #E6E6E6',
-          padding:"12px",
+          padding: '12px',
         }}
-        tableBackground={"#ffffff"}
+        paginationOption={{
+          isEnable: true,
+          rowPerPage: 5,
+          rowsPerPageOptions: [5, 10, 25],
+        }}
+        tableBackground={'#ffffff'}
         selectedCheckbox={selectedCheckbox}
         switchList={switchList}
         checkboxHandleChange={checkboxHandleChange}
@@ -840,24 +937,46 @@ function App() {
         isSelectedAll={isSelectedAll}
         handleSwitch={handleSwitch}
         tableMinWidth={'3350px'}
-        tableMinHeight={'465px'}
+        tableMinHeight={'365px'}
+        tableMaxHeight={'365px'}
+        // tableMaxWidth={'500px'}
         tableName={'Team Member'}
         paddingAll={'0px'}
         padding={['1px', '1px', '1px', '1px']}
         marginAll={'0px'}
         margin={['0px', '1px', '0px', '1px']}
-        tableBorderRadius={"12px"}
+        tableBorderRadius={'12px'}
         dense={'medium'}
+        isDataMask={isDataMask}
         noDataFound={{
           fontSize: '16px',
           fontWeight: '600',
           color: '#353448',
           bgColor: '#F7F7F7',
-          text:"No Data Found",
-          component:null
+          text: 'No Data Found',
+          component: null,
+        }}
+        stickyOptions={{
+          stickyHeader: true,
+          stickyLeft: ['id', 'checkbox'],
+          stickyRight: ['action', 'response'],
+        }}
+        alertOptions={{
+          isEnable: true,
+          alertOpen: alertOpen,
+          setAlertOpen: setAlertOpen,
+          title: 'Are you sure, would you like to deactivate?',
+          description: '',
+          primaryText: 'Yes',
+          secondaryText: 'No',
+          icon: <AlertIcon />,
         }}
         HeaderComponent={{
           variant: 1,
+          styles: {
+            padding: '10px 0',
+            margin: '0',
+          },
           headerSelect: headerSelect,
           setHederSelect: setHederSelect,
           searchPlaceholder: 'Search',
@@ -885,45 +1004,152 @@ function App() {
         }}
         // HeaderComponent={{
         //   variant: 2,
-        //   searchPlaceholder:"Search by name, email",
-        //   setHederSearch:setHederSearch,
-        //   checkboxLabel:"Show only my reportees",
-        //   primaryBtnText:"Add Member",
-        //   secondaryBtnText:"Import",
-        //   secondaryBtnIcon:<DocsIcon color={"#357968"}/>,
-        //   funnelIcon:<FunnelIcon color={"#fff"}/>,
-        //   searchIcon:<SearchIcon/>,
-        //   fillerMethod:fillerMethod,
-        //   primaryBtnMethod:primaryBtnMethod,
-        //   secondaryBtnMethod:secondaryBtnMethod,
-        //   headerCheckbox:headerCheckbox, setHederCheckbox:setHederCheckbox
+        //   styles: {
+        //     padding: '10px 0',
+        //     margin: '0',
+        //   },
+        //   searchPlaceholder: 'Search by name, email',
+        //   setHederSearch: setHederSearch,
+        //   checkboxLabel: 'Show only my reportees',
+        //   primaryBtnText: 'Add Member',
+        //   secondaryBtnText: 'Import',
+        //   secondaryBtnIcon: <DocsIcon color={'#357968'} />,
+        //   funnelIcon: <FunnelIcon color={'#fff'} />,
+        //   searchIcon: <SearchIcon />,
+        //   fillerMethod: fillerMethod,
+        //   primaryBtnMethod: primaryBtnMethod,
+        //   secondaryBtnMethod: secondaryBtnMethod,
+        //   headerCheckbox: headerCheckbox,
+        //   setHederCheckbox: setHederCheckbox,
         // }}
       />
+      {/* <SignupScreen
+        option='socialMediaSignup'
+        sectionOne={{
+          breakpoints: { md: 3, sm: 4, lg: 3 },
+          image: { src: loginImg, height: '100%', width: '100%' },
+          // backgroundWrapStyle:{height: '100%', width: '100%'},
+          // component: <BasicButtons />
+        }}
+        sectionTwo={{
+          breakpoints: { xs: 12, md: 9, sm: 8, lg: 9 },
+          WraperStyle:{},
+          cardParentStyle:{},
+          cardData:{
+            title:'Welcome!',
+            description:'One positive feedback per day or week can make us grow exponentially',
+            logo:{
+              logoSrc: CompanyLogo, logoHeight: '29px', logoWidth: '147px',
+              alt:'logo',
+              logoStyle:{},
+            },
+            childrenStyle:{},
+            mobileNumberSignup:{
+              labelText:'Mobile Number',
+              labelStyle:{},
+              mobileFieldstyle:{contryCodefontSize:'14px',fontWeight:'600',numberFontSize:'16px'},
+              dropDownStyle:{width:'120px'}
+            },
+            socialMedia:{
+              socialMediaList:[
+                {
+                  label: 'SignUp with google',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('SignUp with google');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+                {
+                  label: 'Sign up with Outlook',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('SignUp with Outlook');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+                {
+                  label: 'Sign up with Email',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('Sign up with Email');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+              ],        
+            },
+            emailWithPassword:{
+              nameStyle:{},
+              firstName:{
+                FnameFieldStyle:{},
+                labelStyle:{},
+                label:'First Name'
+              },
+              lastName:{
+                LnameFieldStyle:{},
+                labelStyle:{},
+                label:'Last Name'
+              },        
+              email:{
+                fieldstyle:{},
+                labelStyle:{},
+                label:'Email'
+              },
+              password:{
+                label:'Password',
+                labelStyle:{},
+                fieldstyle:{},
+                visbleIcon: <VisibilityOutlinedIcon />,
+                invisibleIcon: <VisibilityOffOutlinedIcon />,
+              },
+              confirmPassword:{
+                label:'Confirm Password',
+                labelStyle:{},
+                fieldstyle:{},
+                visbleIcon: <VisibilityOutlinedIcon />,
+                invisibleIcon: <VisibilityOffOutlinedIcon />,
+              }
+            },
+            bottomText:'You have an account?',
+            buttonText:'Sign Up',
+            titleStyle:{},
+            cardStyle:{},
+            btnStyle:{},
+            signupActionText:'Login',
+            actionstyle:{},
+            bottomTextStyle:{},
+            onLoginClick: () => {
+              console.log('login');
+            },
+          },
+        }}
+        onSubmit={(detail: object) => {
+          console.log(detail);
+        }}
+      /> */}
     </div>
   );
 }
 
 export default App;
-
-// App.defaultProps = {
-//   Header:[],
-//   dataList:[],
-//   tableData:[],
-//   setSelectedCheckbox:()=>{},
-//   selectedCheckbox:[],
-//   checkboxHandleChange:()=>{},
-//   handleSwitch:()=>{},
-//   switchList:[],
-//   SelectAll:()=>{},
-//   tableMinWidth:"100%",
-//   tableMinHeight:"100%",
-//   tableName:"",
-//   paddingAll:0,
-//   padding:[],
-//   marginAll:0,
-//   margin:[],
-//   HeaderComponent:{},
-//   isSelectedAll:false,
-//   densePadding:false,
-//   densePaddingValue:0,
-// }

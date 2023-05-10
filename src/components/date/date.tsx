@@ -10,7 +10,7 @@ export default function Date(props: DateProps) {
   const { format, value } = props;
   return (
     <Typography sx={Cusmstyle.fontStyle}>
-      {moment(format).format(value)}
+      {moment(value).format(format)}
     </Typography>
   );
 }
