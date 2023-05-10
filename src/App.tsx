@@ -1,8 +1,12 @@
-import React from 'react';
 import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
+import React from 'react';
+import { FcGoogle } from 'react-icons/fc';
+import CompanyLogo from './assets/companyLogo.png';
+import loginImg from './assets/loginImg.png';
+import SignupScreen from './components/signUpPage/signUp';
 import { BasicButtons, CommonTable } from '@components';
 import DeleteIcon from './assets/deleteIcon';
 import FunnelIcon from './assets/funnelIcon';
@@ -13,6 +17,8 @@ import EditIcon from './assets/editIcon';
 import NotificationIcon from './assets/notificationIcon';
 import AlertIcon from './assets/alertIcon';
 import { Button } from '@mui/material';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -60,7 +66,7 @@ function App() {
     console.log('Download Method working!', e);
   };
   const fillerMethod = () => {
-    setIsDataMask(!isDataMask)
+    setIsDataMask(!isDataMask);
     console.log('Filter Method working!');
   };
   const primaryBtnMethod = () => {
@@ -207,7 +213,7 @@ function App() {
             label: 'Custom',
             isSortable: false,
           },
-      
+
           {
             id: 'alert_type',
             align: 'center',
@@ -250,11 +256,23 @@ function App() {
               label: 'Hariharan',
             },
             overall_progress: '45',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Completely away',
             signals: [
@@ -323,7 +341,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
-            password:"23456789087654dfds"
+            password: '23456789087654dfds',
           },
           {
             id: 2,
@@ -337,11 +355,18 @@ function App() {
               label: 'Hari Ram',
             },
             overall_progress: '35',
-            production: {
+            production: [{
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
+            },
+            {
               label: 'Insufficient',
               color: '#AE7330',
               bgColor: '#FCEDDD',
-            },
+            }
+          ],
             status: false,
             performance: 'Need to improve a lot',
             signals: [
@@ -406,7 +431,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
-            password:"dsufasuyawe7632908r78"
+            password: 'dsufasuyawe7632908r78',
           },
           {
             id: 3,
@@ -420,11 +445,18 @@ function App() {
               label: 'Siva',
             },
             overall_progress: '67',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Impactful',
             signals: [
@@ -485,7 +517,7 @@ function App() {
               label: 'Not Delivered',
               icon: <DeleteIcon />,
             },
-            password:"64528327asdjkfdsjads89087654dfds"
+            password: '64528327asdjkfdsjads89087654dfds',
           },
           {
             id: 4,
@@ -499,11 +531,18 @@ function App() {
               label: 'Kumar',
             },
             overall_progress: '98',
-            production: {
+            production: [{
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
+            },
+            {
               label: 'Insufficient',
               color: '#AE7330',
               bgColor: '#FCEDDD',
-            },
+            }
+          ],
             status: false,
             performance: 'Need to improve',
             signals: [
@@ -560,7 +599,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
-            password:"KJGKJDGKYWT^&*^&"
+            password: 'KJGKJDGKYWT^&*^&',
           },
           {
             id: 5,
@@ -574,11 +613,18 @@ function App() {
               label: 'Hariharan',
             },
             overall_progress: '45',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Good',
             signals: [
@@ -631,7 +677,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
-            password:"23456789ey087654dfds"
+            password: '23456789ey087654dfds',
           },
           {
             id: 6,
@@ -645,11 +691,18 @@ function App() {
               label: 'Hari Ram',
             },
             overall_progress: '35',
-            production: {
+            production: [{
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
+            },
+            {
               label: 'Insufficient',
               color: '#AE7330',
               bgColor: '#FCEDDD',
-            },
+            }
+          ],
             status: false,
             performance: 'Very Good',
             signals: [
@@ -702,7 +755,7 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
-            password:"sadsdsadsadsasdsdd"
+            password: 'sadsdsadsadsasdsdd',
           },
           {
             id: 7,
@@ -716,11 +769,18 @@ function App() {
               label: 'Siva',
             },
             overall_progress: '67',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Spectacular',
             signals: [
@@ -777,19 +837,19 @@ function App() {
               label: 'sent',
               icon: <FunnelIcon />,
             },
-            password:"asdfhaselkf98wer"
+            password: 'asdfhaselkf98wer',
           },
         ]}
         tableData={[
-          { type: ['INCREMENT'], name: 'id' },
+          { type: ['INCREMENT'], name: 'id', width: 100 },
           { type: ['CHECKBOX'], name: 'checkbox' },
-          { type: ['TEXT'], name: 'name' },
+          { type: ['TEXT'], name: 'name', width: 30 },
           { type: ['TEXT'], name: 'calories' },
           { type: ['TEXT'], name: 'fat' },
           { type: ['TEXT'], name: 'carbs' },
           { type: ['TEXT'], name: 'protein' },
           { type: ['IMAGE_WITH_LABEL'], name: 'profile', variant: 'circular' },
-          { type: ['PROGRESS'], name: 'overall_progress' },
+          { type: ['PROGRESS'], name: 'overall_progress', width: 200 },
           { type: ['LABEL'], name: 'production' },
           {
             type: ['SWITCH'],
@@ -816,7 +876,7 @@ function App() {
           },
           { type: ['CUSTOM'], name: 'custom' },
           { type: ['ICON_WITH_LABEL'], name: 'alert_type' },
-          { type: ['MASK_DATA'], name: 'password', maskText:"*"},
+          { type: ['MASK_DATA'], name: 'password', maskText: '*', width: 150 },
           { type: ['ICON_WITH_TEXT'], name: 'response' },
           {
             type: ['ACTION'],
@@ -864,9 +924,9 @@ function App() {
           padding: '12px',
         }}
         paginationOption={{
-          isEnable:true,
-          rowPerPage:5,
-          rowsPerPageOptions:[5, 10, 25],       
+          isEnable: true,
+          rowPerPage: 5,
+          rowsPerPageOptions: [5, 10, 25],
         }}
         tableBackground={'#ffffff'}
         selectedCheckbox={selectedCheckbox}
@@ -877,8 +937,8 @@ function App() {
         isSelectedAll={isSelectedAll}
         handleSwitch={handleSwitch}
         tableMinWidth={'3350px'}
-        tableMinHeight={'565px'}
-        tableMaxHeight={'565px'}
+        tableMinHeight={'365px'}
+        tableMaxHeight={'365px'}
         // tableMaxWidth={'500px'}
         tableName={'Team Member'}
         paddingAll={'0px'}
@@ -897,25 +957,25 @@ function App() {
           component: null,
         }}
         stickyOptions={{
-          stickyHeader:true,
-          stickyLeft:["id", "checkbox"],
-          stickyRight:["action", "response"],
+          stickyHeader: true,
+          stickyLeft: ['id', 'checkbox'],
+          stickyRight: ['action', 'response'],
         }}
         alertOptions={{
-          isEnable:true,
-          alertOpen:alertOpen,
-          setAlertOpen:setAlertOpen,
-          title:"Are you sure, would you like to deactivate?",
-          description:"",
-          primaryText:"Yes",
-          secondaryText:"No",
-          icon:<AlertIcon />
+          isEnable: true,
+          alertOpen: alertOpen,
+          setAlertOpen: setAlertOpen,
+          title: 'Are you sure, would you like to deactivate?',
+          description: '',
+          primaryText: 'Yes',
+          secondaryText: 'No',
+          icon: <AlertIcon />,
         }}
         HeaderComponent={{
           variant: 1,
-          styles:{
-            padding:"10px 0",
-            margin:"0"
+          styles: {
+            padding: '10px 0',
+            margin: '0',
           },
           headerSelect: headerSelect,
           setHederSelect: setHederSelect,
@@ -944,24 +1004,150 @@ function App() {
         }}
         // HeaderComponent={{
         //   variant: 2,
-        // styles:{
-        //   padding:"10px 0",
-        //   margin:"0"
-        // },
-        //   searchPlaceholder:"Search by name, email",
-        //   setHederSearch:setHederSearch,
-        //   checkboxLabel:"Show only my reportees",
-        //   primaryBtnText:"Add Member",
-        //   secondaryBtnText:"Import",
-        //   secondaryBtnIcon:<DocsIcon color={"#357968"}/>,
-        //   funnelIcon:<FunnelIcon color={"#fff"}/>,
-        //   searchIcon:<SearchIcon/>,
-        //   fillerMethod:fillerMethod,
-        //   primaryBtnMethod:primaryBtnMethod,
-        //   secondaryBtnMethod:secondaryBtnMethod,
-        //   headerCheckbox:headerCheckbox, setHederCheckbox:setHederCheckbox
+        //   styles: {
+        //     padding: '10px 0',
+        //     margin: '0',
+        //   },
+        //   searchPlaceholder: 'Search by name, email',
+        //   setHederSearch: setHederSearch,
+        //   checkboxLabel: 'Show only my reportees',
+        //   primaryBtnText: 'Add Member',
+        //   secondaryBtnText: 'Import',
+        //   secondaryBtnIcon: <DocsIcon color={'#357968'} />,
+        //   funnelIcon: <FunnelIcon color={'#fff'} />,
+        //   searchIcon: <SearchIcon />,
+        //   fillerMethod: fillerMethod,
+        //   primaryBtnMethod: primaryBtnMethod,
+        //   secondaryBtnMethod: secondaryBtnMethod,
+        //   headerCheckbox: headerCheckbox,
+        //   setHederCheckbox: setHederCheckbox,
         // }}
       />
+      {/* <SignupScreen
+        option='socialMediaSignup'
+        sectionOne={{
+          breakpoints: { md: 3, sm: 4, lg: 3 },
+          image: { src: loginImg, height: '100%', width: '100%' },
+          // backgroundWrapStyle:{height: '100%', width: '100%'},
+          // component: <BasicButtons />
+        }}
+        sectionTwo={{
+          breakpoints: { xs: 12, md: 9, sm: 8, lg: 9 },
+          WraperStyle:{},
+          cardParentStyle:{},
+          cardData:{
+            title:'Welcome!',
+            description:'One positive feedback per day or week can make us grow exponentially',
+            logo:{
+              logoSrc: CompanyLogo, logoHeight: '29px', logoWidth: '147px',
+              alt:'logo',
+              logoStyle:{},
+            },
+            childrenStyle:{},
+            mobileNumberSignup:{
+              labelText:'Mobile Number',
+              labelStyle:{},
+              mobileFieldstyle:{contryCodefontSize:'14px',fontWeight:'600',numberFontSize:'16px'},
+              dropDownStyle:{width:'120px'}
+            },
+            socialMedia:{
+              socialMediaList:[
+                {
+                  label: 'SignUp with google',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('SignUp with google');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+                {
+                  label: 'Sign up with Outlook',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('SignUp with Outlook');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+                {
+                  label: 'Sign up with Email',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('Sign up with Email');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+              ],        
+            },
+            emailWithPassword:{
+              nameStyle:{},
+              firstName:{
+                FnameFieldStyle:{},
+                labelStyle:{},
+                label:'First Name'
+              },
+              lastName:{
+                LnameFieldStyle:{},
+                labelStyle:{},
+                label:'Last Name'
+              },        
+              email:{
+                fieldstyle:{},
+                labelStyle:{},
+                label:'Email'
+              },
+              password:{
+                label:'Password',
+                labelStyle:{},
+                fieldstyle:{},
+                visbleIcon: <VisibilityOutlinedIcon />,
+                invisibleIcon: <VisibilityOffOutlinedIcon />,
+              },
+              confirmPassword:{
+                label:'Confirm Password',
+                labelStyle:{},
+                fieldstyle:{},
+                visbleIcon: <VisibilityOutlinedIcon />,
+                invisibleIcon: <VisibilityOffOutlinedIcon />,
+              }
+            },
+            bottomText:'You have an account?',
+            buttonText:'Sign Up',
+            titleStyle:{},
+            cardStyle:{},
+            btnStyle:{},
+            signupActionText:'Login',
+            actionstyle:{},
+            bottomTextStyle:{},
+            onLoginClick: () => {
+              console.log('login');
+            },
+          },
+        }}
+        onSubmit={(detail: object) => {
+          console.log(detail);
+        }}
+      /> */}
     </div>
   );
 }
