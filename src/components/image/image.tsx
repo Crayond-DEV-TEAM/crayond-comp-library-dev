@@ -5,7 +5,7 @@ export default function Image(props: ImageProps) {
 
     return (
         // <Box sx={inLineStyles} className={className}>
-            <img style={imageStyle} {...imgProps} />
+        <img style={imageStyle} {...imgProps} />
         // </Box >
     );
 }

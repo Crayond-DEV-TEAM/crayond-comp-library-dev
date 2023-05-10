@@ -82,7 +82,7 @@ const [tooltipText, setTooltipText] = React.useState<string>("Click to copy");
             </Tooltip>
           )
         ) : (
-          <Typography sx={{ ...Cusmstyle.fontStyle, marginTop: '8px' }}>
+          <Typography component={'span'} sx={{ ...Cusmstyle.fontStyle, marginTop: '8px' }}>
             {getRandomLetter()}
           </Typography>
         )}

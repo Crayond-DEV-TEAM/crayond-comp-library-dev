@@ -15,7 +15,7 @@ export interface InputFieldProps extends Omit<TextFieldProps, 'variant'> {
   fullwidth?: boolean;
   isMulti?: boolean;
   isReadOnly?: boolean;
-  helperText: string;
+  helperText?: string;
   placeholder?: string;
   className?: string;
   endAdornment?: object;

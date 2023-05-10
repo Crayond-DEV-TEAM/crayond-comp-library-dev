@@ -25,7 +25,6 @@ const InputField: React.FC<InputFieldProps> = ({
     </>
   );
 };
-
 export default InputField;
 InputField.defaultProps = {
   label: '',
