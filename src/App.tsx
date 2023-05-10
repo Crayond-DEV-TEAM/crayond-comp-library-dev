@@ -1154,7 +1154,9 @@ function App() {
         option='mobileNumberLogin'
         sectionOne={{
           breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
-          image: { src: loginImg, height: '100%', width: '100%' },
+          image: { src: loginImg, height: '100%', width: '100%',style:{
+            height:'100%', width: '100%'
+          } },
           // backgroundWrapStyle:{height: '100%', width: '100%'},
           // component: <BasicButtons />
         }}
