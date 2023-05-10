@@ -56,6 +56,7 @@ export const Cusmstyle = {
     padding: '2px 8px',
     backgroundColor: '#e2eafa',
     borderRadius: '4px',
+    cursor:"pointer"
   },
   iconText: {
     display: 'flex',

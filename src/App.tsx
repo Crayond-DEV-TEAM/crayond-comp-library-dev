@@ -77,7 +77,7 @@ function App() {
   };
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
-      {/* <CommonTable
+      <CommonTable
         Header={[
           {
             id: 'id',
@@ -256,11 +256,23 @@ function App() {
               label: 'Hariharan',
             },
             overall_progress: '45',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Completely away',
             signals: [
@@ -343,11 +355,18 @@ function App() {
               label: 'Hari Ram',
             },
             overall_progress: '35',
-            production: {
+            production: [{
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
+            },
+            {
               label: 'Insufficient',
               color: '#AE7330',
               bgColor: '#FCEDDD',
-            },
+            }
+          ],
             status: false,
             performance: 'Need to improve a lot',
             signals: [
@@ -426,11 +445,18 @@ function App() {
               label: 'Siva',
             },
             overall_progress: '67',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Impactful',
             signals: [
@@ -505,11 +531,18 @@ function App() {
               label: 'Kumar',
             },
             overall_progress: '98',
-            production: {
+            production: [{
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
+            },
+            {
               label: 'Insufficient',
               color: '#AE7330',
               bgColor: '#FCEDDD',
-            },
+            }
+          ],
             status: false,
             performance: 'Need to improve',
             signals: [
@@ -580,11 +613,18 @@ function App() {
               label: 'Hariharan',
             },
             overall_progress: '45',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Good',
             signals: [
@@ -651,11 +691,18 @@ function App() {
               label: 'Hari Ram',
             },
             overall_progress: '35',
-            production: {
+            production: [{
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
+            },
+            {
               label: 'Insufficient',
               color: '#AE7330',
               bgColor: '#FCEDDD',
-            },
+            }
+          ],
             status: false,
             performance: 'Very Good',
             signals: [
@@ -722,11 +769,18 @@ function App() {
               label: 'Siva',
             },
             overall_progress: '67',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Spectacular',
             signals: [
@@ -883,8 +937,8 @@ function App() {
         isSelectedAll={isSelectedAll}
         handleSwitch={handleSwitch}
         tableMinWidth={'3350px'}
-        tableMinHeight={'565px'}
-        tableMaxHeight={'565px'}
+        tableMinHeight={'365px'}
+        tableMaxHeight={'365px'}
         // tableMaxWidth={'500px'}
         tableName={'Team Member'}
         paddingAll={'0px'}
@@ -948,27 +1002,28 @@ function App() {
           fillerMethod: fillerMethod,
           downloadMethod: downloadMethod,
         }}
-        HeaderComponent={{
-          variant: 2,
-        styles:{
-          padding:"10px 0",
-          margin:"0"
-        },
-          searchPlaceholder:"Search by name, email",
-          setHederSearch:setHederSearch,
-          checkboxLabel:"Show only my reportees",
-          primaryBtnText:"Add Member",
-          secondaryBtnText:"Import",
-          secondaryBtnIcon:<DocsIcon color={"#357968"}/>,
-          funnelIcon:<FunnelIcon color={"#fff"}/>,
-          searchIcon:<SearchIcon/>,
-          fillerMethod:fillerMethod,
-          primaryBtnMethod:primaryBtnMethod,
-          secondaryBtnMethod:secondaryBtnMethod,
-          headerCheckbox:headerCheckbox, setHederCheckbox:setHederCheckbox
-        }}
-      /> */}
-      <SignupScreen
+        // HeaderComponent={{
+        //   variant: 2,
+        //   styles: {
+        //     padding: '10px 0',
+        //     margin: '0',
+        //   },
+        //   searchPlaceholder: 'Search by name, email',
+        //   setHederSearch: setHederSearch,
+        //   checkboxLabel: 'Show only my reportees',
+        //   primaryBtnText: 'Add Member',
+        //   secondaryBtnText: 'Import',
+        //   secondaryBtnIcon: <DocsIcon color={'#357968'} />,
+        //   funnelIcon: <FunnelIcon color={'#fff'} />,
+        //   searchIcon: <SearchIcon />,
+        //   fillerMethod: fillerMethod,
+        //   primaryBtnMethod: primaryBtnMethod,
+        //   secondaryBtnMethod: secondaryBtnMethod,
+        //   headerCheckbox: headerCheckbox,
+        //   setHederCheckbox: setHederCheckbox,
+        // }}
+      />
+      {/* <SignupScreen
         option='socialMediaSignup'
         sectionOne={{
           breakpoints: { md: 3, sm: 4, lg: 3 },
@@ -1092,7 +1147,7 @@ function App() {
         onSubmit={(detail: object) => {
           console.log(detail);
         }}
-      />
+      /> */}
     </div>
   );
 }

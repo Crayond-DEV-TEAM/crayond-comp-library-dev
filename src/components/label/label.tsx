@@ -6,11 +6,13 @@ interface LabelProps {
   color: string;
   bgColor: string;
   label: string;
+  onClickFun: Function;
 }
 export default function Label(props: LabelProps) {
-  const { color, bgColor, label } = props;
+  const { color, bgColor, label, onClickFun } = props;
   return (
     <Box
+      onClick={()=>onClickFun()}
       sx={{
         ...Cusmstyle.labelBackground,
         backgroundColor: bgColor,
@@ -31,5 +33,6 @@ export default function Label(props: LabelProps) {
 Label.defaultProps = {
   color: '#e2eafa',
   bgColor: '#7692cc',
-  label: 'label',
+  label: '',
+  onClickFun:()=>{}
 };
