@@ -6,6 +6,7 @@ import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import CompanyLogo from './assets/companyLogo.png';
 import loginImg from './assets/loginImg.png';
+import LoginScreen from './components/loginPage/login'
 import SignupScreen from './components/signUpPage/signUp';
 import { BasicButtons, CommonTable } from '@components';
 import DeleteIcon from './assets/deleteIcon';
@@ -77,7 +78,7 @@ function App() {
   };
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
-      <CommonTable
+      {/* <CommonTable
         Header={[
           {
             id: 'id',
@@ -1002,32 +1003,33 @@ function App() {
           fillerMethod: fillerMethod,
           downloadMethod: downloadMethod,
         }}
-        // HeaderComponent={{
-        //   variant: 2,
-        //   styles: {
-        //     padding: '10px 0',
-        //     margin: '0',
-        //   },
-        //   searchPlaceholder: 'Search by name, email',
-        //   setHederSearch: setHederSearch,
-        //   checkboxLabel: 'Show only my reportees',
-        //   primaryBtnText: 'Add Member',
-        //   secondaryBtnText: 'Import',
-        //   secondaryBtnIcon: <DocsIcon color={'#357968'} />,
-        //   funnelIcon: <FunnelIcon color={'#fff'} />,
-        //   searchIcon: <SearchIcon />,
-        //   fillerMethod: fillerMethod,
-        //   primaryBtnMethod: primaryBtnMethod,
-        //   secondaryBtnMethod: secondaryBtnMethod,
-        //   headerCheckbox: headerCheckbox,
-        //   setHederCheckbox: setHederCheckbox,
-        // }}
-      />
+        HeaderComponent={{
+          variant: 2,
+        styles:{
+          padding:"10px 0",
+          margin:"0"
+        },
+          searchPlaceholder:"Search by name, email",
+          setHederSearch:setHederSearch,
+          checkboxLabel:"Show only my reportees",
+          primaryBtnText:"Add Member",
+          secondaryBtnText:"Import",
+          secondaryBtnIcon:<DocsIcon color={"#357968"}/>,
+          funnelIcon:<FunnelIcon color={"#fff"}/>,
+          searchIcon:<SearchIcon/>,
+          fillerMethod:fillerMethod,
+          primaryBtnMethod:primaryBtnMethod,
+          secondaryBtnMethod:secondaryBtnMethod,
+          headerCheckbox:headerCheckbox, setHederCheckbox:setHederCheckbox
+        }}
+      />  */}
       {/* <SignupScreen
         option='socialMediaSignup'
         sectionOne={{
-          breakpoints: { md: 3, sm: 4, lg: 3 },
-          image: { src: loginImg, height: '100%', width: '100%' },
+          breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
+          image: { src: loginImg, height:'100%', width: '100%',style:{
+            height:'100%', width: '100%'
+          } },
           // backgroundWrapStyle:{height: '100%', width: '100%'},
           // component: <BasicButtons />
         }}
@@ -1148,6 +1150,119 @@ function App() {
           console.log(detail);
         }}
       /> */}
+       <LoginScreen
+        option='mobileNumberLogin'
+        sectionOne={{
+          breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
+          image: { src: loginImg, height: '100%', width: '100%',style:{
+            height:'100%', width: '100%'
+          } },
+          // backgroundWrapStyle:{height: '100%', width: '100%'},
+          // component: <BasicButtons />
+        }}
+        sectionTwo={{
+          breakpoints: { xs: 12, md: 9, sm: 8, lg: 9 },
+          WraperStyle: {},
+          cardParentStyle: {},
+          cardData: {
+            logo: {
+              logoSrc: CompanyLogo,
+              logoHeight: '29px', logoWidth: '147px'
+            },
+            title: 'Welcome!',
+            description: 'One positive feedback per day or week can make us grow exponentially',
+            bottomText: "Don't have an account?",
+            buttonText: 'Send OTP',
+            loginActionText: 'Sign in',
+            onSignUpClick: () => {
+              console.log('signup');
+            },
+            titleStyle: {},
+            btnStyle: {},
+            cardStyle: {},
+            childrenStyle: {},
+            logoStyle: {},
+            bottomTextStyle: {},
+            actionstyle: {},
+            socialMedia: {
+              workMailInput: {
+                label: 'Work Email',
+                labelStyle: {},
+                forgotStyle: {},
+                onForgotClick: () => {
+                  console.log('forgot');
+                },
+              },
+              divider: {
+                dividerStyle: {},
+                dividerText: 'or',
+                dividerTextStyle: {},
+              },
+              socialMediaList: [
+                {
+                  label: 'SignUp with google',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('SignUp with google');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+                {
+                  label: 'Sign up with Outlook',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('SignUp with Outlook');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+              ],
+            },
+            emailWithPassword: {
+              email: {
+                label: 'Email',
+                labelStyle: {},
+                fieldstyle: {},
+              },
+              password: {
+                label: 'password',
+                labelStyle: {},
+                fieldstyle: {},
+                visbleIcon: <VisibilityOutlinedIcon />,
+                invisibleIcon: <VisibilityOffOutlinedIcon />,
+              },
+              forgotStyle: {},
+              onForgotClick: () => {
+                console.log('forgot');
+              },
+            },
+            mobileNumberLogin: {
+              labelText: 'Mobile Number',
+              labelStyle: {},
+              mobileFieldstyle: {contryCodefontSize:'14px',fontWeight:'600',numberFontSize:'16px'},
+              dropDownStyle:{width:'110px'},
+            },
+            
+          },
+        }}
+        onSubmit={(detail: object) => {
+          console.log(detail);
+        }} 
+        rootStyle={{height:'100%',width:'100%'}}
+        />
     </div>
   );
 }
