@@ -27,7 +27,9 @@ export default function MobileInput(props: MobileInputProps) {
         helperTextStyle = {},
         dropDownStyle={},
         className = '',
+        label='',
         maxLength = 10,
+        labelStyle={},
     } = props;
 
     const [selectValue, setSelectValue] = React.useState({
@@ -101,6 +103,7 @@ export default function MobileInput(props: MobileInputProps) {
     return (
         <Box>
             {/* MobileInput with props */}
+            <Typography sx={{...labelStyle}}>{props?.label}</Typography>
             <Box
                 sx={{
                     ...mobileInput_style.rootWapperSx,
@@ -132,6 +135,7 @@ export default function MobileInput(props: MobileInputProps) {
                         size="small"
                         onChange={(e) => handleChange(e.target.value)}
                         fullWidth={fullWidth}
+                       
                         autoFocus={autoFocus}
                         disabled={isReadonly || disabled}
                         onInvalid={(e) => {
@@ -202,4 +206,5 @@ MobileInput.propTypes = {
     suggested: false,
     helperTextStyle: '',
     dropDownStyle:{},
+    labelStyle:{},
 };

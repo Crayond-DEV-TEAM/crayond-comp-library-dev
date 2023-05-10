@@ -1083,7 +1083,7 @@ function App() {
 
       <Profile
         isEditMode={isEdit}
-        username={'Hariharan'}
+        username={'Akila'}
         onSubmitBtn={onSubmitBtn}
         titleOptions={{
           title: 'My Profile',
@@ -1122,10 +1122,17 @@ function App() {
                 iconStyle: {},
                 error: false,
                 errorMessage: "dfdsfdsf",
-                labelStyle:{mb:-1},
+                labelStyle: { mb: -1 },
                 onChange: (e: any) => {
                   updateState('email', e?.target?.value);
                 },
+                textFieldStyle: {
+                  mb:0,
+                  '& .MuiOutlinedInput-input': {
+                    fontWeight: 'normal',
+                    padding:'12px 16px'
+                  }
+                }
               },
             },
             {
@@ -1141,6 +1148,7 @@ function App() {
               },
               inputProps: {
                 label: 'DOB',
+                icon: <DocsIcon />,
                 labelVariant: 'standard',
                 required: true,
                 value: state?.dob,
@@ -1163,6 +1171,7 @@ function App() {
                 lx: 12,
               },
               inputProps: {
+                icon: <DocsIcon />,
                 type: 'text',
                 label: 'Mobile Number',
                 labelVariant: 'standard',
@@ -1172,6 +1181,7 @@ function App() {
                 onChange: (e: any) => {
                   updateState('mobileNumber', e?.target?.value);
                 },
+                labelStyle:{fontSize:'12px',mb:0.5}
               },
             },
             {
@@ -1186,6 +1196,7 @@ function App() {
                 lx: 12,
               },
               inputProps: {
+                icon: <DocsIcon />,
                 type: 'text',
                 label: 'Desgination',
                 labelVariant: 'standard',
@@ -1216,6 +1227,7 @@ function App() {
               inputProps: {
                 type: 'text',
                 label: 'City',
+                icon: <DocsIcon />,
                 labelVariant: 'standard',
                 required: true,
                 value: state?.city,
@@ -1244,6 +1256,7 @@ function App() {
               inputProps: {
                 type: 'text',
                 label: 'State',
+                icon: <DocsIcon />,
                 labelVariant: 'standard',
                 required: true,
                 value: state?.state,
@@ -1272,6 +1285,7 @@ function App() {
               inputProps: {
                 label: 'Country',
                 labelVariant: 'standard',
+                icon: <DocsIcon />,
                 required: true,
                 value: state?.country,
                 isError: false,
@@ -1301,6 +1315,7 @@ function App() {
                 labelVariant: 'standard',
                 required: true,
                 value: state?.timeZone,
+                icon: <DocsIcon />,
                 isError: false,
                 onChange: (e: any) => {
                   updateState('timeZone', e?.target?.value);
