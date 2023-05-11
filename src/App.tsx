@@ -14,6 +14,7 @@ import NotificationIcon from './assets/notificationIcon';
 import AlertIcon from './assets/alertIcon';
 import { Button } from '@mui/material';
 import { Profile } from './components/profile';
+import { ProfileThree } from './components/profileThree';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -112,7 +113,7 @@ function App() {
   const [isEdit, setIsEdit] = React.useState(true);
   const onSubmitBtn = () => {
     // if (formValidator()) {
-      setIsEdit(!isEdit);
+    setIsEdit(!isEdit);
     // }
   };
   const img =
@@ -198,7 +199,7 @@ function App() {
 
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
-      <CommonTable
+      {/* <CommonTable
         Header={[
           {
             id: 'id',
@@ -1088,9 +1089,9 @@ function App() {
         //   secondaryBtnMethod:secondaryBtnMethod,
         //   headerCheckbox:headerCheckbox, setHederCheckbox:setHederCheckbox
         // }}
-      />
+      /> */}
 
-      <Profile
+      {/* <Profile
         isEditMode={isEdit}
         username={'Hariharan'}
         onSubmitBtn={onSubmitBtn}
@@ -1206,6 +1207,305 @@ function App() {
                   { label: 'Designer', value: 'Designer' },
                   { label: 'designation', value: 'designation' },
                 ],
+              },
+            },
+            {
+              type: 'dropDown',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'City',
+                labelVariant: 'standard',
+                required: true,
+                value: state?.city,
+                isError: false,
+                onChange: (e: any) => {
+                  updateState('city', e?.target?.value);
+                },
+                selectOption: [
+                  { label: 'Chennai', value: 'Chennai' },
+                  { label: 'two', value: 'two' },
+                  { label: 'three', value: 'three' },
+                ],
+              },
+            },
+            {
+              type: 'dropDown',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'State',
+                labelVariant: 'standard',
+                required: true,
+                value: state?.state,
+                isError: false,
+                onChange: (e: any) => {
+                  updateState('state', e?.target?.value);
+                },
+                selectOption: [
+                  { label: 'Tamil Nadu', value: 'Tamil Nadu' },
+                  { label: 'California', value: 'California' },
+                  { label: 'three', value: 'three' },
+                ],
+              },
+            },
+            {
+              type: 'dropDown',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                label: 'Country',
+                labelVariant: 'standard',
+                required: true,
+                value: state?.country,
+                isError: false,
+                onChange: (e: any) => {
+                  updateState('country', e?.target?.value);
+                },
+                selectOption: [
+                  { label: 'IN', value: 'IN' },
+                  { label: 'PKS', value: 'PKS' },
+                  { label: 'SLN', value: 'SLN' },
+                ],
+              },
+            },
+            {
+              type: 'dropDown',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                label: 'Time Zone',
+                labelVariant: 'standard',
+                required: true,
+                value: state?.timeZone,
+                isError: false,
+                onChange: (e: any) => {
+                  updateState('timeZone', e?.target?.value);
+                },
+                selectOption: [
+                  { label: '+5:30', value: 'one' },
+                  { label: '+4:30', value: 'two' },
+                  { label: '+2:30', value: 'three' },
+                ],
+              },
+            },
+          ],
+        }}
+      /> */}
+
+      <ProfileThree
+        isEditMode={isEdit}
+        onSubmitBtn={onSubmitBtn}
+        titleOptions={{
+          title: 'My Profile',
+          fontSize: '16px',
+          fontWeight: '600',
+          color: '#11111199',
+          icon:<DocsIcon color="#357968c0"/>,
+        }}
+        uploadOptions={{
+          imgScr: profile,
+          deleteProfile: deleteProfile,
+          uploadProfile: uploadProfile,
+        }}
+        bgColor={'#00FAFA4F'}
+        paddingAll={'20px 0'}
+        userNameStyle={{}}
+        renderForm={{
+          
+          formList: [
+            {
+              type: 'heading',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                lx: 12,
+              },
+              inputProps: {
+                value: "Basic Details",
+                sx:{
+                  fontSize:"16px",
+                  color:"#111111",
+                  fontWeight:"500",
+                  margin:"0 0 8px 0"
+                }
+              },
+            },
+            {
+              type: 'input',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'First Name',
+                labelVariant: 'standard',
+                required: true,
+                value: state?.email,
+                error: true,
+                helperText: 'error',
+                onChange: (e: any) => {
+                  updateState('email', e?.target?.value);
+                },
+              },
+            },
+            {
+              type: 'input',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type:"text",
+                label: 'Last Name',
+                labelVariant: 'standard',
+                required: true,
+                value: state?.email,
+                isError: true,
+                errorMessage: 'error',
+                onChange: (e: any) => {
+                  updateState('email', e?.target?.value);
+                },
+              },
+            },
+            {
+              type: 'date',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'DOB',
+                labelVariant: 'standard',
+                required: true,
+                value: state?.dob,
+                isError: false,
+                onChange: (e: any) => {
+                  updateState('dob', e?.target?.value);
+                },
+              },
+            },
+            {
+              type: 'input',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'Gender',
+                labelVariant: 'standard',
+                required: true,
+                value: state?.email,
+                isError: false,
+                onChange: (e: any) => {
+                  updateState('email', e?.target?.value);
+                },
+              },
+            },
+            {
+              type: 'dropDown',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                lx: 12,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'Desgination',
+                labelVariant: 'standard',
+                required: true,
+                value: state?.designation,
+                isError: false,
+                onChange: (e: any) => {
+                  updateState('designation', e?.target?.value);
+                },
+                selectOption: [
+                  { label: 'Developer', value: 'Developer' },
+                  { label: 'Designer', value: 'Designer' },
+                  { label: 'designation', value: 'designation' },
+                ],
+              },
+            },
+            {
+              type: 'heading',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                lx: 12,
+              },
+              inputProps: {
+                value: "Contact Information",
+                sx:{
+                  fontSize:"16px",
+                  color:"#111111",
+                  fontWeight:"500",
+                  margin:"18px 0 8px 0"
+                }
               },
             },
             {
