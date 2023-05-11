@@ -15,4 +15,5 @@ export interface ButtonProps {
   href: string
   startIcon?:React.ReactNode;
   endIcon?:React.ReactNode;
+  component?:string;
 };

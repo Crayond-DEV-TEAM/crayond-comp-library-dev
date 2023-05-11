@@ -1,20 +1,18 @@
-import {
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  Typography,
-} from '@mui/material';
+import FormControl  from '@mui/material/FormControl';
+import InputLabel  from '@mui/material/InputLabel';
+import MenuItem  from '@mui/material/MenuItem';
+import Select  from '@mui/material/Select';
+import Typography  from '@mui/material/Typography';
 import { dropdown_style } from './style';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import { DropDownProps } from './props';
 export function Dropdown(props: DropDownProps) {
   const {
     rootStyle = {},
-    value='',
+    value = '',
     optionListStyle = {},
     selectOption = [],
-    error=false,
+    error = false,
     placeholder = 'Select',
     onChange = () => {},
     className = '',
@@ -62,26 +60,28 @@ export function Dropdown(props: DropDownProps) {
           IconComponent={ExpandMoreRoundedIcon}
         >
           <MenuItem value="">
-           <em>{placeholder}</em>
-            </MenuItem>
+            <em>{placeholder}</em>
+          </MenuItem>
           {selectOption?.map((option: any) => (
-            <MenuItem key={option?.value} disabled={option?.disabled ?? false} value={option?.value}>
+            <MenuItem
+              key={option?.value}
+              disabled={option?.disabled ?? false}
+              value={option?.value}
+            >
               {option?.label}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
       {/* Field required Message */}
-      {error && (
-        <Typography
-          sx={{ mt: 0.5, mb: 0 }}
-          variant="caption"
-          color="error"
-          component={'p'}
-        >
-          {errorMessage}
-        </Typography>
-      )}
+      <Typography
+        sx={{ mt: 0.5, mb: 0 }}
+        variant="caption"
+        color="error"
+        component={'p'}
+      >
+        {error && errorMessage}&nbsp;
+      </Typography>
       {helperText?.length > 0 && (
         <Typography sx={{ mt: 0.5 }} variant="caption">
           {helperText}

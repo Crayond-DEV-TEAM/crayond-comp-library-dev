@@ -20,7 +20,7 @@ export default function ProfileThree(props: ProfileThreeProps) {
     titleOptions,
     bgColor,
     paddingAll,
-    renderForm, 
+    renderForm,
     onSubmitBtn,
     uploadOptions,
   } = props;
@@ -53,21 +53,26 @@ export default function ProfileThree(props: ProfileThreeProps) {
               <Grid item xs={12} sm={12} md={4} lg={3.2}>
                 <Box>
                   <Avatar
-                    variant="rounded"
+                    variant={uploadOptions?.variant}
                     src={uploadOptions?.imgScr}
                     sx={styles.profileImg}
-                  >
-                  </Avatar>
+                  ></Avatar>
                 </Box>
                 <BasicButtons
                   startIcon={<UploadIcon />}
                   variant="outlined"
-                  onClick={(e) => {
-                    uploadOptions?.uploadProfile(e, '');
-                  }}
+                  component="label"
                   inLineStyles={styles.uploadImageBtn}
                 >
                   Upload
+                  <input
+                    onChange={(e) => {
+                      uploadOptions?.uploadProfile(e);
+                    }}
+                    hidden
+                    accept="image/*"
+                    type="file"
+                  />
                 </BasicButtons>
                 <BasicButtons
                   startIcon={<DeleteIcon />}

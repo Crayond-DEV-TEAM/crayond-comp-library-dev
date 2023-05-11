@@ -86,7 +86,7 @@ function App() {
   //     gridStyle: {},
   //     breakPoint: {
   //       xs: 12,
-  //       sm: 12,
+  //       sm: 6,
   //       md: 6,
   //       lg: 6,
   //       lx: 6,
@@ -117,89 +117,98 @@ function App() {
   // }
   const [isEdit, setIsEdit] = React.useState(true);
   const onSubmitBtn = () => {
-    // if (formValidator()) {
-    setIsEdit(!isEdit);
-    // }
+    if (isEdit) {
+      if (formValidator3()) {
+        setIsEdit(false);
+      }
+    }else{
+      setIsEdit(true);
+
+    }
   };
   const img =
     'https://loveshayariimages.in/wp-content/uploads/2022/08/dp-pic-whatsapp-150x150.jpg';
   const [profile, setProfile] = React.useState(img);
-  const uploadProfile = (event: any, data: any) => {
-    setProfile(img);
+  const uploadProfile = (event: any ) => {
+    console.log(event.target.files,"🚀 ~ file: App.tsx:133 ~ uploadProfile ~ event:",URL.createObjectURL(event.target.files[0]))
+    setProfile(URL.createObjectURL(event.target.files[0]));
   };
   const deleteProfile = () => {
     setProfile('');
   };
 
-  const [state, setState] = React.useState({
-    email: '',
+  const [state3, setState3] = React.useState({
+    firstName: '',
+    lastName: '',
     dob: null,
-    mobileNumber: '',
+    gender: '',
     designation: '',
-    city: '',
-    state: '',
-    country: '',
-    timeZone: '',
+    mobileNumber: '',
+    email: '',
+    address1: '',
+    address2: '',
     error: {
-      email: '',
+      firstName: '',
+      lastName: '',
       dob: '',
-      mobileNumber: '',
+      gender: '',
       designation: '',
-      city: '',
-      state: '',
-      country: '',
-      timeZone: '',
+      mobileNumber: '',
+      email: '',
+      address1: '',
+      address2: '',
     },
   });
 
-  const formValidator = () => {
-    let status = false;
-    let error = state?.error;
-    if (state?.email?.length === 0) {
+  const formValidator3 = () => {
+    let status = true;
+    let error = state3?.error;
+    if (state3?.firstName?.length === 0) {
       status = false;
-      error.email = 'Email is Required';
+      error.email = 'First Name is Required';
     }
 
-    if (state?.dob) {
+    if (state3?.lastName?.length === 0) {
       status = false;
-      error.dob = 'Date of Birth is Required';
+      error.email = 'Last Name is Required';
+    }
+    debugger;
+    // if (!state3?.dob) {
+    //   status = false;
+    //   error.dob = 'Date of Birth is Required';
+    // }
+    if (state3?.gender?.length === 0) {
+      status = false;
+      error.gender = 'Gender is Required';
     }
 
-    if (state?.mobileNumber?.length === 0) {
-      status = false;
-      error.mobileNumber = 'Mobile Number is Required';
-    }
-
-    if (state?.designation?.length === 0) {
+    if (state3?.designation?.length === 0) {
       status = false;
       error.designation = 'Designation is Required';
     }
 
-    if (state?.city?.length === 0) {
+    // if (state3?.mobileNumber?.length === 0) {
+    //   status = false;
+    //   error.mobileNumber = 'Mobile Number is Required';
+    // }
+
+    if (state3?.address1?.length === 0) {
       status = false;
-      error.city = 'City is Required';
+      error.address1 = 'Address is Required';
     }
 
-    if (state?.state?.length === 0) {
+    if (state3?.address2?.length === 0) {
       status = false;
-      error.state = 'State is Required';
+      error.address2 = 'Address is Required';
     }
 
-    if (state?.country?.length === 0) {
-      status = false;
-      error.country = 'Country is Required';
-    }
-
-    if (state?.timeZone?.length === 0) {
-      status = false;
-      error.timeZone = 'Time Zone is Required';
-    }
+    setState3({ ...state3, error: error });
     return status;
   };
   const updateState = (key: string, value: string | number | object) => {
-    let error: any = state?.error;
+    let error: any = state3?.error;
     error[key] = '';
-    setState({ ...state, [key]: value, error });
+    setState3({ ...state3, [key]: value, error });
   };
 
   return (
@@ -1177,7 +1186,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 12,
                 lg: 12,
                 lx: 12,
@@ -1201,7 +1210,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 12,
                 lg: 12,
                 lx: 12,
@@ -1224,7 +1233,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 12,
                 lg: 12,
                 lx: 12,
@@ -1247,7 +1256,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 12,
                 lg: 12,
                 lx: 12,
@@ -1275,7 +1284,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 6,
                 lg: 6,
                 lx: 6,
@@ -1303,7 +1312,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 6,
                 lg: 6,
                 lx: 6,
@@ -1331,7 +1340,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 6,
                 lg: 6,
                 lx: 6,
@@ -1358,7 +1367,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 6,
                 lg: 6,
                 lx: 6,
@@ -1391,18 +1400,17 @@ function App() {
           fontSize: '16px',
           fontWeight: '600',
           color: '#11111199',
-          icon:<DocsIcon color="#357968c0"/>,
+          icon: <DocsIcon color="#357968c0" />,
         }}
         uploadOptions={{
           imgScr: profile,
           deleteProfile: deleteProfile,
           uploadProfile: uploadProfile,
+          variant:"rounded",
         }}
         bgColor={'#00FAFA4F'}
         paddingAll={'20px 0'}
-        userNameStyle={{}}
         renderForm={{
-          
           formList: [
             {
               type: 'heading',
@@ -1416,13 +1424,13 @@ function App() {
                 lx: 12,
               },
               inputProps: {
-                value: "Basic Details",
-                sx:{
-                  fontSize:"16px",
-                  color:"#111111",
-                  fontWeight:"500",
-                  margin:"0 0 8px 0"
-                }
+                value: 'Basic Details',
+                sx: {
+                  fontSize: '16px',
+                  color: '#111111',
+                  fontWeight: '500',
+                  margin: '0 0 8px 0',
+                },
               },
             },
             {
@@ -1431,7 +1439,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 6,
                 lg: 6,
                 lx: 6,
@@ -1441,11 +1449,11 @@ function App() {
                 label: 'First Name',
                 labelVariant: 'standard',
                 required: true,
-                value: state?.email,
-                error: true,
-                helperText: 'error',
+                value: state3?.firstName,
+                error: state3?.error?.firstName ? true : false,
+                errorMessage: state3?.error?.firstName,
                 onChange: (e: any) => {
-                  updateState('email', e?.target?.value);
+                  updateState('firstName', e?.target?.value);
                 },
               },
             },
@@ -1455,21 +1463,21 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 6,
                 lg: 6,
                 lx: 6,
               },
               inputProps: {
-                type:"text",
+                type: 'text',
                 label: 'Last Name',
                 labelVariant: 'standard',
                 required: true,
-                value: state?.email,
-                isError: true,
-                errorMessage: 'error',
+                value: state3?.lastName,
+                error: state3?.error?.lastName ? true : false,
+                errorMessage: state3?.error?.lastName,
                 onChange: (e: any) => {
-                  updateState('email', e?.target?.value);
+                  updateState('lastName', e?.target?.value);
                 },
               },
             },
@@ -1479,7 +1487,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 6,
                 lg: 6,
                 lx: 6,
@@ -1489,10 +1497,12 @@ function App() {
                 label: 'DOB',
                 labelVariant: 'standard',
                 required: true,
-                value: state?.dob,
-                isError: false,
+                value: new Date(state3?.dob ?? ''),
+                error: state3?.error?.dob ? true : false,
+                errorMessage: state3?.error?.dob,
+                inputFormat: 'dd-MM-yyyy',
                 onChange: (e: any) => {
-                  updateState('dob', e?.target?.value);
+                  updateState('dob', "");
                 },
               },
             },
@@ -1502,7 +1512,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 6,
                 lg: 6,
                 lx: 6,
@@ -1512,10 +1522,11 @@ function App() {
                 label: 'Gender',
                 labelVariant: 'standard',
                 required: true,
-                value: state?.email,
-                isError: false,
+                value: state3?.gender,
+                error: state3?.error?.gender ? true : false,
+                errorMessage: state3?.error?.gender,
                 onChange: (e: any) => {
-                  updateState('email', e?.target?.value);
+                  updateState('gender', e?.target?.value);
                 },
               },
             },
@@ -1525,18 +1536,19 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
-                md: 12,
-                lg: 12,
-                lx: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
               },
               inputProps: {
                 type: 'text',
-                label: 'Desgination',
+                label: 'Designation',
                 labelVariant: 'standard',
                 required: true,
-                value: state?.designation,
-                isError: false,
+                value: state3?.designation,
+                error: state3?.error?.designation ? true : false,
+                errorMessage: state3?.error?.designation,
                 onChange: (e: any) => {
                   updateState('designation', e?.target?.value);
                 },
@@ -1559,123 +1571,108 @@ function App() {
                 lx: 12,
               },
               inputProps: {
-                value: "Contact Information",
-                sx:{
-                  fontSize:"16px",
-                  color:"#111111",
-                  fontWeight:"500",
-                  margin:"18px 0 8px 0"
-                }
+                value: 'Contact Information',
+                sx: {
+                  fontSize: '16px',
+                  color: '#111111',
+                  fontWeight: '500',
+                  margin: '18px 0 8px 0',
+                },
               },
             },
             {
-              type: 'dropDown',
+              type: 'mobileNumberInput',
               containerStyle: {},
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                label: 'Mobile Number',
+                labelVariant: 'standard',
+                required: true,
+                value: state3?.mobileNumber,
+                error: state3?.error?.mobileNumber ? true : false,
+                errorMessage: state3?.error?.mobileNumber,
+                onChange: (e: any) => {
+                  updateState('mobileNumber', e?.target?.value);
+                },
+              },
+            },
+            {
+              type: 'input',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
                 md: 6,
                 lg: 6,
                 lx: 6,
               },
               inputProps: {
                 type: 'text',
-                label: 'City',
+                label: 'Email ID',
                 labelVariant: 'standard',
                 required: true,
-                value: state?.city,
-                isError: false,
+                value: state3?.email,
+                error: state3?.error?.email ? true : false,
+                errorMessage: state3?.error?.email,
                 onChange: (e: any) => {
-                  updateState('city', e?.target?.value);
+                  updateState('email', e?.target?.value);
                 },
-                selectOption: [
-                  { label: 'Chennai', value: 'Chennai' },
-                  { label: 'two', value: 'two' },
-                  { label: 'three', value: 'three' },
-                ],
               },
             },
             {
-              type: 'dropDown',
+              type: 'input',
               containerStyle: {},
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 6,
                 lg: 6,
                 lx: 6,
               },
               inputProps: {
                 type: 'text',
-                label: 'State',
+                label: 'Address Line 1',
                 labelVariant: 'standard',
                 required: true,
-                value: state?.state,
-                isError: false,
+                value: state3?.address1,
+                error: state3?.error?.address1 ? true : false,
+                errorMessage: state3?.error?.address1,
                 onChange: (e: any) => {
-                  updateState('state', e?.target?.value);
+                  updateState('address1', e?.target?.value);
                 },
-                selectOption: [
-                  { label: 'Tamil Nadu', value: 'Tamil Nadu' },
-                  { label: 'California', value: 'California' },
-                  { label: 'three', value: 'three' },
-                ],
               },
             },
             {
-              type: 'dropDown',
+              type: 'input',
               containerStyle: {},
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 6,
                 lg: 6,
                 lx: 6,
               },
               inputProps: {
-                label: 'Country',
+                type: 'text',
+                label: 'Address Line 2',
                 labelVariant: 'standard',
                 required: true,
-                value: state?.country,
-                isError: false,
+                value: state3?.address2,
+                error: state3?.error?.address2 ? true : false,
+                errorMessage: state3?.error?.address2,
                 onChange: (e: any) => {
-                  updateState('country', e?.target?.value);
+                  updateState('address2', e?.target?.value);
                 },
-                selectOption: [
-                  { label: 'IN', value: 'IN' },
-                  { label: 'PKS', value: 'PKS' },
-                  { label: 'SLN', value: 'SLN' },
-                ],
-              },
-            },
-            {
-              type: 'dropDown',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 12,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                label: 'Time Zone',
-                labelVariant: 'standard',
-                required: true,
-                value: state?.timeZone,
-                isError: false,
-                onChange: (e: any) => {
-                  updateState('timeZone', e?.target?.value);
-                },
-                selectOption: [
-                  { label: '+5:30', value: 'one' },
-                  { label: '+4:30', value: 'two' },
-                  { label: '+2:30', value: 'three' },
-                ],
               },
             },
           ],

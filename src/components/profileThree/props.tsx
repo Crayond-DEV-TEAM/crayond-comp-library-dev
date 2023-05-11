@@ -8,6 +8,7 @@ export interface ProfileThreeProps {
     imgScr: string;
     deleteProfile: Function;
     uploadProfile: Function;
+    variant:'circular' | 'rounded' | 'square';
   };
   titleOptions?: {
     title: string;

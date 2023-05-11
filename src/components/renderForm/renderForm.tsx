@@ -52,8 +52,8 @@ const getComponent = (component: any, edit: string | null) => {
     case 'labelAndValue':
       return (
         <>
-          <Typography sx={styles?.viewLabel}>{inputProps?.label}</Typography>
-          <Typography sx={styles?.viewValue}>{inputProps?.value}</Typography>
+          {/* <Typography sx={styles?.viewLabel}>{inputProps?.label}</Typography>
+          // <Typography sx={styles?.viewValue}>{inputProps?.value}</Typography> */}
         </>
       );
     default:

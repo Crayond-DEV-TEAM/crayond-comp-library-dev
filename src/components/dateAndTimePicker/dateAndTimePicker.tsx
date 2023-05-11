@@ -11,7 +11,15 @@ import { styles } from './styles';
 import { Typography } from '@mui/material';
 
 export default function DateAndTimePicker(props: DateAndTimePickerProps) {
-  const { labelVariant, label, type, required } = props;
+  const {
+    labelVariant,
+    label,
+    type,
+    required,
+    errorMessage,
+    helperText,
+    error,
+  } = props;
   return (
     <Box sx={styles.root}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -33,7 +41,12 @@ export default function DateAndTimePicker(props: DateAndTimePickerProps) {
           />
         ) : (
           <DatePicker
-            sx={styles.datePicker}
+            sx={{
+              ...styles.datePicker,
+              '& fieldset': {
+                border: `1px solid ${error ? 'red' : ''}`,
+              },
+            }}
             {...props}
             label={labelVariant === 'standard' ? null : label}
             // openTo="month"
@@ -46,6 +59,20 @@ export default function DateAndTimePicker(props: DateAndTimePickerProps) {
             // views={['year', 'month', 'day', 'hours', 'minutes', 'seconds']}
             // label={''}
           />
+        )}
+        <Typography
+          sx={{ mt: 0.5, mb: 0 }}
+          variant="caption"
+          color="error"
+          component={'p'}
+        >
+          {error && errorMessage}&nbsp;
+        </Typography>
+
+        {helperText?.length > 0 && (
+          <Typography sx={{ mt: 0.5 }} variant="caption">
+            {helperText}
+          </Typography>
         )}
       </LocalizationProvider>
     </Box>
