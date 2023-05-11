@@ -16,14 +16,16 @@ export default function Profile(props: ProfileProps) {
     onSubmitBtn,
     uploadOptions,
     username,
+    profileContainerStyle,
+    profileDetails,
   } = props;
 
   return (
     <Box sx={{ backgroundColor: bgColor, padding: paddingAll }}>
       <Container>
-        <Box sx={styles.profileContainer}>
+        <Box sx={{...styles.profileContainer,...profileContainerStyle}}>
           {titleOptions?.title && (
-            <Box sx={styles?.titleBox}>
+            <Box sx={{...styles?.titleBox,...titleOptions?.titleBoxStyle}}>
               <Typography
                 sx={{
                   fontSize: titleOptions?.fontSize,
@@ -35,16 +37,16 @@ export default function Profile(props: ProfileProps) {
               </Typography>
             </Box>
           )}
-          <Box sx={styles.profileDetails}>
-            <Grid container justifyContent={'center'}>
-              <Grid item xs={12} sm={3.5} md={3} lg={2}>
+          <Box sx={{...styles.profileDetails,...profileDetails?.profileDetailsStyle}}>
+            <Grid container sx={{...profileDetails?.gridStyle}}>
+              <Grid item {...profileDetails?.profileimage?.breakpoints}>
                 <Box>
                   <Badge
-                    overlap="circular"
-                    anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+                    overlap={profileDetails?.profileimage?.badge?.overlap}
+                    anchorOrigin={profileDetails?.profileimage?.badge?.anchorOrigin}
                     badgeContent={
                       <Box
-                        sx={styles.deleteContainer}
+                        sx={{...styles.deleteContainer,...profileDetails?.profileimage?.deleteContainerStyle}}
                         onClick={() => uploadOptions?.deleteProfile()}
                       >
                         <DeleteIcon color={'#fff'} />
@@ -69,7 +71,7 @@ export default function Profile(props: ProfileProps) {
                   Upload Image
                 </BasicButtons>
               </Grid>
-              <Grid item xs={12} sm={6} md={6} lg={4.5} xl={4.5}>
+              <Grid item  {...profileDetails?.form?.breakpoints}>
                 {/* <Dropdown
                   selectOption={[
                     { label: 'one', value: 'one' },

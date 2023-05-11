@@ -1082,6 +1082,20 @@ function App() {
       /> */}
 
       <Profile
+        profileContainerStyle={{}}
+        profileDetails={{
+          profileDetailsStyle: {},
+          gridStyle: { justifyContent: 'center' },
+          profileimage: {
+            breakpoints: { xs: 12, sm: 3.5, md: 3, lg: 2 },
+            badge: {
+              overlap: 'circular',
+              anchorOrigin: { vertical: 'top', horizontal: 'right' },
+            },
+            deleteContainerStyle:{},
+          },
+          form: { breakpoints: { xs: 12, sm: 6, md: 6, lg: 4.5, xl: 4.5 } },
+        }}
         isEditMode={isEdit}
         username={'Akila'}
         onSubmitBtn={onSubmitBtn}
@@ -1090,6 +1104,7 @@ function App() {
           fontSize: '20px',
           fontWeight: '600',
           color: '#000',
+          titleBoxStyle: {},
         }}
         uploadOptions={{
           imgScr: profile,
@@ -1118,21 +1133,29 @@ function App() {
                 labelVariant: 'standard',
                 required: true,
                 value: state?.email,
-                icon: <DocsIcon />,
-                iconStyle: {},
+                icon: <DocsIcon color='#fff'/>,
                 error: false,
-                errorMessage: "dfdsfdsf",
+                errorMessage: 'dfdsfdsf',
                 labelStyle: { mb: -1 },
                 onChange: (e: any) => {
                   updateState('email', e?.target?.value);
                 },
                 textFieldStyle: {
-                  mb:0,
+                  mb: 0,
                   '& .MuiOutlinedInput-input': {
                     fontWeight: 'normal',
-                    padding:'12px 16px'
-                  }
-                }
+                    padding: '12px 16px',
+                  },
+                },
+                view: {
+                  viewValueStyle: {
+                    // fontWeight:
+                  },
+                  iconStyle: {
+                    backgroundColor:'red'
+                  },
+                  viewLabelStyle: {},
+                },
               },
             },
             {
@@ -1153,7 +1176,7 @@ function App() {
                 required: true,
                 value: state?.dob,
                 isError: true,
-                errorMessage: "dfdsfdsf",
+                errorMessage: 'dfdsfdsf',
                 onChange: (e: any) => {
                   updateState('DOB', e?.target?.value);
                 },
@@ -1181,7 +1204,7 @@ function App() {
                 onChange: (e: any) => {
                   updateState('mobileNumber', e?.target?.value);
                 },
-                labelStyle:{fontSize:'12px',mb:0.5}
+                labelStyle: { fontSize: '12px', mb: 0.5 },
               },
             },
             {

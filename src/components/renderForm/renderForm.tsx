@@ -49,17 +49,17 @@ const getComponent = (component: any, edit: string | null) => {
     case 'dropDown':
       return <Dropdown {...inputProps} />;
     case 'mobileNumberInput':
-      return <MobileInput {...inputProps} />
+      return <MobileInput {...inputProps} />;
     case 'labelAndValue':
       return (
         <Box sx={{ display: 'flex' }}>
           {inputProps?.icon && (
-            <Icon sx={{...styles.viewIconSx,...inputProps?.iconStyle}}>{inputProps?.icon}</Icon>
+            <Icon sx={{...styles.viewIconSx,...inputProps?.view?.iconStyle}}>{inputProps?.icon}</Icon>
           )
           }
           <Box>
-            <Typography sx={styles?.viewLabel}>{inputProps?.label}</Typography>
-            <Typography sx={styles?.viewValue}>{inputProps?.value}</Typography>
+            <Typography sx={{...styles?.viewLabel,...inputProps?.view?.viewLabelStyle}}>{inputProps?.label}</Typography>
+            <Typography sx={{...styles?.viewValue,...inputProps?.view?.viewValueStyle}}>{inputProps?.value}</Typography>
           </Box>
         </Box>
       );
