@@ -29,4 +29,5 @@ export interface SocialMediaButtonProps {
   alignItems?: string;
   cursor?: string;
   href: string;
+  socialmediaTextStyle:object;
 }

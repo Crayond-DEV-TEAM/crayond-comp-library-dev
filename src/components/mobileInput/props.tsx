@@ -1,9 +1,9 @@
 export interface MobileInputProps {
-  placeholder: string | undefined;
-  errorValidation: any;
-  focus(): void;
-  isRequired: JSX.Element;
-  label: React.ReactNode;
+  placeholder?: string | undefined;
+  errorValidation?: any;
+  focus?(): void;
+  isRequired?: JSX.Element;
+  label?: React.ReactNode;
   handleChange(newState: { mobile: any; mobile_code: {}; }): unknown;
   onChange?: (e: any) => any;
   component?: any;
@@ -16,7 +16,7 @@ export interface MobileInputProps {
   enterKeyPress?: object;
   handleChangeSelect?: object;
   value?: any,
-  error?: string | false;
+  error?: boolean;
   onError?: string | false;
   onErrorOccured?: any;
   helperText?: string;
@@ -24,13 +24,14 @@ export interface MobileInputProps {
   selectValue?: any;
   limits?: any,
   isError?: string;
-  flag: any;
+  flag?: any;
   className?: object;
   maxLength?: number;
   mobileInputStyle?: object;
-  rootWapperstyle?: object;
-  code: string;
-  phone: string;
+  rootWapperstyle: object | any;
+  code?: string;
+  phone?: string;
   suggested?: boolean;
   helperTextStyle?:string;
+  dropDownStyle?:object;
 }

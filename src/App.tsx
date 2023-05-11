@@ -1,8 +1,12 @@
-import React from 'react';
 import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
+import React from 'react';
+import { FcGoogle } from 'react-icons/fc';
+import CompanyLogo from './assets/companyLogo.png';
+import loginImg from './assets/loginImg.png';
+import SignupScreen from './components/signUpPage/signUp';
 import { BasicButtons, CommonTable } from '@components';
 import DeleteIcon from './assets/deleteIcon';
 import FunnelIcon from './assets/funnelIcon';
@@ -13,7 +17,8 @@ import EditIcon from './assets/editIcon';
 import NotificationIcon from './assets/notificationIcon';
 import AlertIcon from './assets/alertIcon';
 import { Button } from '@mui/material';
-import { Profile } from './components/profile';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { ProfileThree } from './components/profileThree';
 
 function App() {
@@ -378,11 +383,23 @@ function App() {
               label: 'Hariharan',
             },
             overall_progress: '45',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Completely away',
             signals: [
@@ -465,11 +482,18 @@ function App() {
               label: 'Hari Ram',
             },
             overall_progress: '35',
-            production: {
+            production: [{
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
+            },
+            {
               label: 'Insufficient',
               color: '#AE7330',
               bgColor: '#FCEDDD',
-            },
+            }
+          ],
             status: false,
             performance: 'Need to improve a lot',
             signals: [
@@ -548,11 +572,18 @@ function App() {
               label: 'Siva',
             },
             overall_progress: '67',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Impactful',
             signals: [
@@ -627,11 +658,18 @@ function App() {
               label: 'Kumar',
             },
             overall_progress: '98',
-            production: {
+            production: [{
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
+            },
+            {
               label: 'Insufficient',
               color: '#AE7330',
               bgColor: '#FCEDDD',
-            },
+            }
+          ],
             status: false,
             performance: 'Need to improve',
             signals: [
@@ -702,11 +740,18 @@ function App() {
               label: 'Hariharan',
             },
             overall_progress: '45',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Good',
             signals: [
@@ -773,11 +818,18 @@ function App() {
               label: 'Hari Ram',
             },
             overall_progress: '35',
-            production: {
+            production: [{
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
+            },
+            {
               label: 'Insufficient',
               color: '#AE7330',
               bgColor: '#FCEDDD',
-            },
+            }
+          ],
             status: false,
             performance: 'Very Good',
             signals: [
@@ -844,11 +896,18 @@ function App() {
               label: 'Siva',
             },
             overall_progress: '67',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Spectacular',
             signals: [
@@ -1005,8 +1064,8 @@ function App() {
         isSelectedAll={isSelectedAll}
         handleSwitch={handleSwitch}
         tableMinWidth={'3350px'}
-        tableMinHeight={'565px'}
-        tableMaxHeight={'565px'}
+        tableMinHeight={'365px'}
+        tableMaxHeight={'365px'}
         // tableMaxWidth={'500px'}
         tableName={'Team Member'}
         paddingAll={'0px'}
@@ -1072,22 +1131,23 @@ function App() {
         }}
         // HeaderComponent={{
         //   variant: 2,
-        // styles:{
-        //   padding:"10px 0",
-        //   margin:"0"
-        // },
-        //   searchPlaceholder:"Search by name, email",
-        //   setHederSearch:setHederSearch,
-        //   checkboxLabel:"Show only my reportees",
-        //   primaryBtnText:"Add Member",
-        //   secondaryBtnText:"Import",
-        //   secondaryBtnIcon:<DocsIcon color={"#357968"}/>,
-        //   funnelIcon:<FunnelIcon color={"#fff"}/>,
-        //   searchIcon:<SearchIcon/>,
-        //   fillerMethod:fillerMethod,
-        //   primaryBtnMethod:primaryBtnMethod,
-        //   secondaryBtnMethod:secondaryBtnMethod,
-        //   headerCheckbox:headerCheckbox, setHederCheckbox:setHederCheckbox
+        //   styles: {
+        //     padding: '10px 0',
+        //     margin: '0',
+        //   },
+        //   searchPlaceholder: 'Search by name, email',
+        //   setHederSearch: setHederSearch,
+        //   checkboxLabel: 'Show only my reportees',
+        //   primaryBtnText: 'Add Member',
+        //   secondaryBtnText: 'Import',
+        //   secondaryBtnIcon: <DocsIcon color={'#357968'} />,
+        //   funnelIcon: <FunnelIcon color={'#fff'} />,
+        //   searchIcon: <SearchIcon />,
+        //   fillerMethod: fillerMethod,
+        //   primaryBtnMethod: primaryBtnMethod,
+        //   secondaryBtnMethod: secondaryBtnMethod,
+        //   headerCheckbox: headerCheckbox,
+        //   setHederCheckbox: setHederCheckbox,
         // }}
       /> */}
 
@@ -1621,6 +1681,131 @@ function App() {
           ],
         }}
       />
+      {/* <SignupScreen
+        option='socialMediaSignup'
+        sectionOne={{
+          breakpoints: { md: 3, sm: 4, lg: 3 },
+          image: { src: loginImg, height: '100%', width: '100%' },
+          // backgroundWrapStyle:{height: '100%', width: '100%'},
+          // component: <BasicButtons />
+        }}
+        sectionTwo={{
+          breakpoints: { xs: 12, md: 9, sm: 8, lg: 9 },
+          WraperStyle:{},
+          cardParentStyle:{},
+          cardData:{
+            title:'Welcome!',
+            description:'One positive feedback per day or week can make us grow exponentially',
+            logo:{
+              logoSrc: CompanyLogo, logoHeight: '29px', logoWidth: '147px',
+              alt:'logo',
+              logoStyle:{},
+            },
+            childrenStyle:{},
+            mobileNumberSignup:{
+              labelText:'Mobile Number',
+              labelStyle:{},
+              mobileFieldstyle:{contryCodefontSize:'14px',fontWeight:'600',numberFontSize:'16px'},
+              dropDownStyle:{width:'120px'}
+            },
+            socialMedia:{
+              socialMediaList:[
+                {
+                  label: 'SignUp with google',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('SignUp with google');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+                {
+                  label: 'Sign up with Outlook',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('SignUp with Outlook');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+                {
+                  label: 'Sign up with Email',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('Sign up with Email');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+              ],        
+            },
+            emailWithPassword:{
+              nameStyle:{},
+              firstName:{
+                FnameFieldStyle:{},
+                labelStyle:{},
+                label:'First Name'
+              },
+              lastName:{
+                LnameFieldStyle:{},
+                labelStyle:{},
+                label:'Last Name'
+              },        
+              email:{
+                fieldstyle:{},
+                labelStyle:{},
+                label:'Email'
+              },
+              password:{
+                label:'Password',
+                labelStyle:{},
+                fieldstyle:{},
+                visbleIcon: <VisibilityOutlinedIcon />,
+                invisibleIcon: <VisibilityOffOutlinedIcon />,
+              },
+              confirmPassword:{
+                label:'Confirm Password',
+                labelStyle:{},
+                fieldstyle:{},
+                visbleIcon: <VisibilityOutlinedIcon />,
+                invisibleIcon: <VisibilityOffOutlinedIcon />,
+              }
+            },
+            bottomText:'You have an account?',
+            buttonText:'Sign Up',
+            titleStyle:{},
+            cardStyle:{},
+            btnStyle:{},
+            signupActionText:'Login',
+            actionstyle:{},
+            bottomTextStyle:{},
+            onLoginClick: () => {
+              console.log('login');
+            },
+          },
+        }}
+        onSubmit={(detail: object) => {
+          console.log(detail);
+        }}
+      /> */}
     </div>
   );
 }

@@ -20,6 +20,7 @@ import { IconWithLabel } from '../iconWithLabel';
 import { IconWithText } from '../iconWithText';
 import { Switch } from '../switch';
 import MaskData from '../maskData/maskData';
+import { Box } from '@mui/material';
 
 const BodyRowLogic = ({
   val,
@@ -40,14 +41,14 @@ const BodyRowLogic = ({
     backgroundColor: cellOptions?.bgColor,
     borderBottom: cellOptions?.borderBottom,
     padding: cellOptions?.padding,
-    maxWidth:val?.width ?? "auto",
-    width:val?.width ?? "auto",
-    "& p":{
-      width: "inherit",
-      whiteSpace: "nowrap",
-      overflow: "hidden",
-      textOverflow: "ellipsis",
-    }
+    maxWidth: val?.width ?? 'auto',
+    width: val?.width ?? 'auto',
+    '& p': {
+      width: 'inherit',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
   };
   //get ID based class name
   const getClassName = (id: any) => {
@@ -127,11 +128,17 @@ const BodyRowLogic = ({
           key={i + 'LABEL'}
           className={'LABEL ' + getClassName(val.name) + ' ' + val.name}
         >
-          <Label
-            bgColor={Celldata[val.name]?.bgColor}
-            color={Celldata[val.name]?.color}
-            label={Celldata[val.name]?.label}
-          />
+          <Box display={'flex'} gap={'10px'}>
+          {Celldata[val.name]?.map((labelList: any, index:number) => (
+              <Label 
+              key={index+ 'Label'}
+                bgColor={labelList?.bgColor}
+                color={labelList?.color}
+                label={labelList?.label}
+                onClickFun={labelList?.onClickFun}
+              />
+              ))}
+              </Box>
         </TableCell>
       );
     case 'ICON_WITH_LABEL':

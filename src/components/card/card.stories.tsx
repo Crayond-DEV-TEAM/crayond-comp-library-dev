@@ -17,16 +17,19 @@ export const Primary = Template.bind({});
 Primary.args = {
   variant: "outlined",
   children: "",
-  onActionClick: () => {},
+  onActionClick: () => { },
   btnClick: () => { },
   title: 'Welcome!',
-  logoWidth: 147,
-  logoHeight: 29,
+
   alt: 'logo',
-  button: true,
   buttonText: 'login',
   description: 'One positive feedback per day or week can make us grow exponentially',
-  logo: CompanyLogo,
+  logo: {
+    logoWidth: 147,
+    logoHeight: 29,
+    logoSrc: CompanyLogo,
+  },
+
   bottomText: ' Dont have an account?',
   actionText: 'Sign in',
   actionstyle: {
@@ -35,9 +38,10 @@ Primary.args = {
     textDecoration: 'underline',
     cursor: 'pointer',
   },
-  cardStyle:{},
-  titleStyle:{},
-  btnStyle:{},
-  bottomTextStyle:{},
+  cardStyle: {},
+  titleStyle: {},
+  btnStyle: {},
+  bottomTextStyle: {},
+  // logoStyle:{marginBottom:'20px'}
 };
 
