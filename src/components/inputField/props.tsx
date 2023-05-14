@@ -27,4 +27,5 @@ export interface InputFieldProps extends Omit<TextFieldProps, 'variant'> {
   onChange: (e: any) => any;
   floatingLable?:string;
   labelStyle?:object;
+  labelVariant?:string;
 }

@@ -7,13 +7,13 @@ export const inputField_Style = {
     '& .MuiOutlinedInput-input': {
       width: '100%',
       fontWeight: 'normal',
-      '& .MuiTextField-root': {
-        mt: 1,
-      },
+      // '& .MuiTextField-root': {
+      //   mt: 1,
+      // },
     },
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
-        borderRadius: '8px',
+        borderRadius: '4px',
         border: '1.5px solid',
         borderColor: '#E9E9E9',
       },

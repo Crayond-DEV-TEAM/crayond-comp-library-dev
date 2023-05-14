@@ -1,5 +1,6 @@
 import { TextField, Typography } from '@mui/material';
 import React from 'react';
+import InputLabel  from '@mui/material/InputLabel';
 import { InputFieldProps } from './props';
 import { inputField_Style } from './style';
 
@@ -8,12 +9,14 @@ const InputField: React.FC<InputFieldProps> = ({
   value,
   floatingLable,
   textFieldStyle = {},
-  labelStyle={},
+  labelStyle = {},
+  // labelVariant = 'standard',
+  required,
   ...rest
 }) => {
   return (
     <>
-      <Typography sx={{...inputField_Style.labelSx, ...labelStyle}}>{label}</Typography>
+      <InputLabel sx={{ ...inputField_Style.labelSx, ...labelStyle }}>{label}{required && <span>*</span>}</InputLabel>
       <TextField
         variant="outlined"
         margin="normal"
@@ -51,7 +54,7 @@ InputField.defaultProps = {
   startAdornments: null,
   endAdornments: null,
   textFieldStyle: {},
-  labelStyle:{},
+  labelStyle: {},
   onChange: undefined,
-  floatingLable:'',
+  floatingLable: '',
 };
