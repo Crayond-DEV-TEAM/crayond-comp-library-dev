@@ -368,11 +368,23 @@ function App() {
               label: 'Hariharan',
             },
             overall_progress: '45',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Completely away',
             signals: [
@@ -455,11 +467,18 @@ function App() {
               label: 'Hari Ram',
             },
             overall_progress: '35',
-            production: {
+            production: [{
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
+            },
+            {
               label: 'Insufficient',
               color: '#AE7330',
               bgColor: '#FCEDDD',
-            },
+            }
+          ],
             status: false,
             performance: 'Need to improve a lot',
             signals: [
@@ -538,11 +557,18 @@ function App() {
               label: 'Siva',
             },
             overall_progress: '67',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Impactful',
             signals: [
@@ -617,11 +643,18 @@ function App() {
               label: 'Kumar',
             },
             overall_progress: '98',
-            production: {
+            production: [{
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
+            },
+            {
               label: 'Insufficient',
               color: '#AE7330',
               bgColor: '#FCEDDD',
-            },
+            }
+          ],
             status: false,
             performance: 'Need to improve',
             signals: [
@@ -692,11 +725,18 @@ function App() {
               label: 'Hariharan',
             },
             overall_progress: '45',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Good',
             signals: [
@@ -763,11 +803,18 @@ function App() {
               label: 'Hari Ram',
             },
             overall_progress: '35',
-            production: {
+            production: [{
+              label: 'Sufficient',
+              color: '#7692cc',
+              bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
+            },
+            {
               label: 'Insufficient',
               color: '#AE7330',
               bgColor: '#FCEDDD',
-            },
+            }
+          ],
             status: false,
             performance: 'Very Good',
             signals: [
@@ -834,11 +881,18 @@ function App() {
               label: 'Siva',
             },
             overall_progress: '67',
-            production: {
+            production: [{
               label: 'Sufficient',
               color: '#7692cc',
               bgColor: '#e2eafa',
+              onClickFun:()=>console.log("Label clicked")
             },
+            {
+              label: 'Insufficient',
+              color: '#AE7330',
+              bgColor: '#FCEDDD',
+            }
+          ],
             status: true,
             performance: 'Spectacular',
             signals: [
@@ -995,8 +1049,8 @@ function App() {
         isSelectedAll={isSelectedAll}
         handleSwitch={handleSwitch}
         tableMinWidth={'3350px'}
-        tableMinHeight={'565px'}
-        tableMaxHeight={'565px'}
+        tableMinHeight={'365px'}
+        tableMaxHeight={'365px'}
         // tableMaxWidth={'500px'}
         tableName={'Team Member'}
         paddingAll={'0px'}
@@ -1352,7 +1406,120 @@ function App() {
             },
           ],
         }}
-      />
+      /> 
+       {/* <LoginScreen
+        option='mobileNumberLogin'
+        sectionOne={{
+          breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
+          image: { src: loginImg, height: '100%', width: '100%',style:{
+            height:'100%', width: '100%'
+          } },
+          // backgroundWrapStyle:{height: '100%', width: '100%'},
+          // component: <BasicButtons />
+        }}
+        sectionTwo={{
+          breakpoints: { xs: 12, md: 9, sm: 8, lg: 9 },
+          WraperStyle: {},
+          cardParentStyle: {},
+          cardData: {
+            logo: {
+              logoSrc: CompanyLogo,
+              logoHeight: '29px', logoWidth: '147px'
+            },
+            title: 'Welcome!',
+            description: 'One positive feedback per day or week can make us grow exponentially',
+            bottomText: "Don't have an account?",
+            buttonText: 'Send OTP',
+            loginActionText: 'Sign in',
+            onSignUpClick: () => {
+              console.log('signup');
+            },
+            titleStyle: {},
+            btnStyle: {},
+            cardStyle: {},
+            childrenStyle: {},
+            logoStyle: {},
+            bottomTextStyle: {},
+            actionstyle: {},
+            socialMedia: {
+              workMailInput: {
+                label: 'Work Email',
+                labelStyle: {},
+                forgotStyle: {},
+                onForgotClick: () => {
+                  console.log('forgot');
+                },
+              },
+              divider: {
+                dividerStyle: {},
+                dividerText: 'or',
+                dividerTextStyle: {},
+              },
+              socialMediaList: [
+                {
+                  label: 'SignUp with google',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('SignUp with google');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+                {
+                  label: 'Sign up with Outlook',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('SignUp with Outlook');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+              ],
+            },
+            emailWithPassword: {
+              email: {
+                label: 'Email',
+                labelStyle: {},
+                fieldstyle: {},
+              },
+              password: {
+                label: 'password',
+                labelStyle: {},
+                fieldstyle: {},
+                visbleIcon: <VisibilityOutlinedIcon />,
+                invisibleIcon: <VisibilityOffOutlinedIcon />,
+              },
+              forgotStyle: {},
+              onForgotClick: () => {
+                console.log('forgot');
+              },
+            },
+            mobileNumberLogin: {
+              labelText: 'Mobile Number',
+              labelStyle: {},
+              mobileFieldstyle: {contryCodefontSize:'14px',fontWeight:'600',numberFontSize:'16px'},
+              dropDownStyle:{width:'110px'},
+            },
+            
+          },
+        }}
+        onSubmit={(detail: object) => {
+          console.log(detail);
+        }} 
+        rootStyle={{height:'100%',width:'100%'}}
+        /> */}
     </div>
   );
 }
