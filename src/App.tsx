@@ -121,16 +121,19 @@ function App() {
       if (formValidator3()) {
         setIsEdit(false);
       }
-    }else{
+    } else {
       setIsEdit(true);
-
     }
   };
   const img =
     'https://loveshayariimages.in/wp-content/uploads/2022/08/dp-pic-whatsapp-150x150.jpg';
   const [profile, setProfile] = React.useState(img);
-  const uploadProfile = (event: any ) => {
-    console.log(event.target.files,"🚀 ~ file: App.tsx:133 ~ uploadProfile ~ event:",URL.createObjectURL(event.target.files[0]))
+  const uploadProfile = (event: any) => {
+    console.log(
+      event.target.files,
+      '🚀 ~ file: App.tsx:133 ~ uploadProfile ~ event:',
+      URL.createObjectURL(event.target.files[0])
+    );
     setProfile(URL.createObjectURL(event.target.files[0]));
   };
   const deleteProfile = () => {
@@ -173,10 +176,10 @@ function App() {
       error.email = 'Last Name is Required';
     }
     debugger;
-    // if (!state3?.dob) {
-    //   status = false;
-    //   error.dob = 'Date of Birth is Required';
-    // }
+    if (!state3?.dob) {
+      // status = false;
+      error.dob = 'Date of Birth is Required';
+    }
     if (state3?.gender?.length === 0) {
       status = false;
       error.gender = 'Gender is Required';
@@ -206,6 +209,7 @@ function App() {
     return status;
   };
   const updateState = (key: string, value: string | number | object) => {
+    debugger;
     let error: any = state3?.error;
     error[key] = '';
     setState3({ ...state3, [key]: value, error });
@@ -1397,19 +1401,25 @@ function App() {
         onSubmitBtn={onSubmitBtn}
         titleOptions={{
           title: 'My Profile',
-          fontSize: '16px',
-          fontWeight: '600',
-          color: '#11111199',
+          sxProps: {
+            fontSize: '16px',
+            fontWeight: '600',
+            color: '#11111199',
+          },
           icon: <DocsIcon color="#357968c0" />,
         }}
         uploadOptions={{
           imgScr: profile,
           deleteProfile: deleteProfile,
           uploadProfile: uploadProfile,
-          variant:"rounded",
+          variant: 'rounded',
         }}
-        bgColor={'#00FAFA4F'}
-        paddingAll={'20px 0'}
+        overallSxProps={{
+          backgroundColor: '#00FAFA4F',
+          padding: '20px 0',
+        }}
+        cardSxProps={{}}
+        gridContainerProps={{spacing:4}}
         renderForm={{
           formList: [
             {
@@ -1497,12 +1507,15 @@ function App() {
                 label: 'DOB',
                 labelVariant: 'standard',
                 required: true,
-                value: new Date(state3?.dob ?? ''),
+                value: state3?.dob,
                 error: state3?.error?.dob ? true : false,
                 errorMessage: state3?.error?.dob,
                 inputFormat: 'dd-MM-yyyy',
+                // components:{
+                //   OpenPickerIcon: <DocsIcon/>
+                // },
                 onChange: (e: any) => {
-                  updateState('dob', "");
+                  updateState('dob', e);
                 },
               },
             },

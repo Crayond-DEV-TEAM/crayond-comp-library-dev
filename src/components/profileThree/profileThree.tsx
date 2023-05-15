@@ -18,28 +18,25 @@ export default function ProfileThree(props: ProfileThreeProps) {
   const {
     isEditMode,
     titleOptions,
-    bgColor,
-    paddingAll,
+    overallSxProps,
     renderForm,
     onSubmitBtn,
     uploadOptions,
+    cardSxProps,
+    gridContainerProps
   } = props;
 
   return (
-    <Box sx={{ backgroundColor: bgColor, padding: paddingAll }}>
+    <Box sx={overallSxProps}>
       <Container>
-        <Box sx={styles.profileContainer}>
+        <Box sx={{...styles.profileContainer, ...cardSxProps}}>
           {titleOptions?.title && (
             <Box sx={styles?.titleBox}>
               <Divider textAlign="left">
                 <Box display={'flex'} gap={'10px'} alignItems={'center'}>
                   {titleOptions?.icon && <>{titleOptions?.icon}</>}
                   <Typography
-                    sx={{
-                      fontSize: titleOptions?.fontSize,
-                      fontWeight: titleOptions?.fontWeight,
-                      color: titleOptions?.color,
-                    }}
+                    sx={titleOptions?.sxProps}
                   >
                     {titleOptions?.title}
                   </Typography>
@@ -88,6 +85,7 @@ export default function ProfileThree(props: ProfileThreeProps) {
                   formList={renderForm?.formList}
                   isEditMode={isEditMode}
                   gridStyle={renderForm?.gridStyle}
+                  gridContainerProps={gridContainerProps}
                 />
                 <Box display={'flex'} justifyContent={'flex-end'} mt={3}>
                   <BasicButtons

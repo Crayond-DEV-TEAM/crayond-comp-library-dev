@@ -61,10 +61,10 @@ const getComponent = (component: any, edit: string | null) => {
   }
 };
 export default function RenderForm(props: renderFormProps) {
-  const { formList, gridStyle, isEditMode } = props;
+  const { formList, gridStyle, isEditMode, gridContainerProps } = props;
   return (
     <Box sx={{ width: '100%' }}>
-      <Grid container sx={gridStyle} spacing={1}>
+      <Grid container sx={gridStyle} spacing={1} {...gridContainerProps} >
         {formList?.map((form, index: number) => (
           <Grid
             item

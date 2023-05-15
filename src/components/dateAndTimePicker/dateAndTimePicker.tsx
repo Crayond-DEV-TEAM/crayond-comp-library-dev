@@ -19,6 +19,7 @@ export default function DateAndTimePicker(props: DateAndTimePickerProps) {
     errorMessage,
     helperText,
     error,
+    onChange
   } = props;
   return (
     <Box sx={styles.root}>
@@ -48,6 +49,8 @@ export default function DateAndTimePicker(props: DateAndTimePickerProps) {
               },
             }}
             {...props}
+            onChange={(newValue)=> onChange(newValue)
+            }
             label={labelVariant === 'standard' ? null : label}
             // openTo="month"
             // format={'MM/DD/YYYY hh:mm:ss'}

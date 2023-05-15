@@ -1,8 +1,9 @@
-import { SxProps } from '@mui/material';
+import { GridProps, SxProps } from '@mui/material';
 
 export interface renderFormProps {
   isEditMode?: Boolean;
   gridStyle?: SxProps;
+  gridContainerProps?:GridProps;
   formList?: {
     map(arg0: (data: any, i: number) => any): any;
     [index: number]: {

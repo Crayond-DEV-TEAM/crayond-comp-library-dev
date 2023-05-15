@@ -1,10 +1,11 @@
-import { SxProps } from '@mui/material';
+import { GridProps, SxProps } from '@mui/material';
 import { renderFormProps } from '../renderForm/props';
 
 export interface ProfileThreeProps {
   isEditMode: Boolean;
   onSubmitBtn: Function;
-  uploadOptions: {
+  gridContainerProps?:GridProps;
+  uploadOptions?: {
     imgScr: string;
     deleteProfile: Function;
     uploadProfile: Function;
@@ -12,13 +13,11 @@ export interface ProfileThreeProps {
   };
   titleOptions?: {
     title: string;
-    fontSize?: string;
-    fontWeight?: string;
-    color?: string;
+    sxProps:SxProps;
     icon?:React.ReactNode;
   };
   userNameStyle?: SxProps;
-  bgColor?: string;
-  paddingAll?: string;
+  cardSxProps?: SxProps;
+  overallSxProps?: SxProps;
   renderForm?: renderFormProps;
 }
