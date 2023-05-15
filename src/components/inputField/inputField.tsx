@@ -1,30 +1,46 @@
-import { TextField, Typography } from '@mui/material';
 import React from 'react';
+import TextField from '@mui/material/TextField';
+import Typography  from '@mui/material/Typography';
 import InputLabel  from '@mui/material/InputLabel';
 import { InputFieldProps } from './props';
 import { inputField_Style } from './style';
 
 const InputField: React.FC<InputFieldProps> = ({
   label,
-  value,
-  floatingLable,
+  value, 
   textFieldStyle = {},
   labelStyle = {},
-  // labelVariant = 'standard',
+  labelVariant = 'standard',
   required,
+  error,
+  errorMessage,
   ...rest
 }) => {
   return (
     <>
-      <InputLabel sx={{ ...inputField_Style.labelSx, ...labelStyle }}>{label}{required && <span>*</span>}</InputLabel>
+      {labelVariant === 'standard' && (
+        <InputLabel
+          sx={{ ...inputField_Style.labelSx, ...labelStyle }}
+        >
+          {label} {required && <span>*</span>}
+        </InputLabel>
+      )}
       <TextField
         variant="outlined"
         margin="normal"
-        label={floatingLable}
+        label={labelVariant === 'standard' ? '' : label}
         value={value}
         sx={{ ...inputField_Style.textFieldSx, ...textFieldStyle }}
         {...rest}
       />
+       <Typography
+        sx={{ mt: 0.5, mb: 0 }}
+        variant="caption"
+        color="error"
+        component={'p'}
+      >
+        {error && errorMessage}&nbsp;
+      </Typography>
     </>
   );
 };
@@ -56,5 +72,6 @@ InputField.defaultProps = {
   textFieldStyle: {},
   labelStyle: {},
   onChange: undefined,
-  floatingLable: '',
+  labelVariant:"standard",
+  errorMessage:""
 };
