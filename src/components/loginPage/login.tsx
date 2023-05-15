@@ -1,5 +1,7 @@
+
 import {
   Box,
+  Divider,
   Grid,
   Hidden,
   InputAdornment,
@@ -12,14 +14,14 @@ import { Image } from '../image';
 import { InputField } from '../inputField';
 import { MobileInput } from '../mobileInput';
 import { SocialMediaButton } from '../socialMediaButton';
-import { SignupScreenProps } from './props';
-import { signUp_style } from './style';
+import { LoginScreenProps } from './props';
+import { login_style } from './style';
 
-const SignupScreen: React.FC<SignupScreenProps> = ({
+const LoginScreen: React.FC<LoginScreenProps> = ({
   option,
   onSubmit,
-  sectionTwo,
   sectionOne,
+  sectionTwo,
   rootStyle,
 }) => {
   const type = option;
@@ -28,21 +30,13 @@ const SignupScreen: React.FC<SignupScreenProps> = ({
   const [mobileNumber, setMobileNumber] = React.useState('');
   const [countryCode, setCountryCode] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const [firstName, setFirstName] = React.useState('');
-  const [passwordConfirm, setPasswordConfirm] = React.useState('');
   const [errorMail, setErrorMail] = React.useState(false);
-  const [errorName, setErrorName] = React.useState(false);
-  const [errorPassword, setErrorPassword] = React.useState(false);
-  const [errorPasswordConfirm, setErrorPasswordConfirm] = React.useState(false);
-  const [errorMsg, setErrorMsg] = React.useState('');
-  const [errorPasswordMsgConfirm, setErrorPasswordMsgConfirm] = React.useState('');
-  const [errorPasswordMsg, setErrorPasswordMsg] = React.useState('');
-  const [errorNameMsg, setErrorNameMsg] = React.useState('');
-  const [passwordvisible, setPasswordVisible] = React.useState(false);
-  const [lastName, setLastName] = React.useState('');
-  const [passwordvisibleConfirm, setPasswordVisibleConfirm] = React.useState(false);
   const [errorNumber, setErrorNumber] = React.useState(false);
+  const [errorPassword, setErrorPassword] = React.useState(false);
+  const [errorMsg, setErrorMsg] = React.useState('');
+  const [errorPasswordMsg, setErrorPasswordMsg] = React.useState('');
   const [mobileNumberErrorMsg, setmobileNumberErrorMsg] = React.useState('');
+  const [passwordvisible, setPasswordVisible] = React.useState(false);
 
   const getMailValue = (e: any) => {
     const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -63,31 +57,16 @@ const SignupScreen: React.FC<SignupScreenProps> = ({
     setPassword(value);
     if (regex.test(value)) {
       setErrorPassword(false);
+
       setErrorPasswordMsg('');
     } else {
-      setErrorPasswordMsg('Please valid password');
+      setErrorPasswordMsg('Please enter password');
       setErrorPassword(true);
     }
   };
-
-  const getFirstName = (e: any) => {
-    setFirstName(e.target.value);
-    setErrorNameMsg('');
-    setErrorName(false);
-  }
-
-  const getLastName = (e: any) => {
-    setLastName(e.target.value)
-  }
-
-  const getConfirmPasswordValue = (e: any) => {
-    const value = e.target.value;
-    setPasswordConfirm(value);
-  };
-
   const getThrowErrorMsg = () => {
     switch (type) {
-      case 'emailWithPasswordSignup':
+      case 'emailWithPasswordLogin':
         if (email === '') {
           setErrorMsg('Please enter your registered email');
           setErrorMail(true);
@@ -96,31 +75,15 @@ const SignupScreen: React.FC<SignupScreenProps> = ({
           setErrorPasswordMsg('Please enter password');
           setErrorPassword(true);
         }
-        if (password !== "" && password !== passwordConfirm) {
-          setErrorPasswordMsgConfirm('Password Not Match!');
-          setErrorPasswordConfirm(true);
-        } else {
-          setErrorPasswordMsgConfirm('');
-          setErrorPasswordConfirm(false);
-        }
-        if (firstName === '') {
-          setErrorNameMsg('Please enter Name!');
-          setErrorName(true);
-        } else {
-          setErrorNameMsg('');
-          setErrorName(false);
-        }
-        if (firstName !== '' && email !== '' && password !== '' && passwordConfirm === password) {
+        if (email !== '' && password !== '') {
           const userDetail = {
-            name: firstName,
-            lastName: lastName,
             email: email,
             password: password,
             type: type,
           };
           onSubmit(userDetail);
         }
-      case 'mobileNumberSignup':
+      case 'mobileNumberLogin':
         if (mobileNumber !== '' && mobileNumber.length === 10) {
           const userDetail = {
             mobile_number: mobileNumber,
@@ -138,61 +101,58 @@ const SignupScreen: React.FC<SignupScreenProps> = ({
   const getMobileNumber = (value: any) => {
     setMobileNumber(value.mobile);
     setCountryCode(value.mobile_code);
-    setErrorNumber(false);
-    setmobileNumberErrorMsg("");
+    setErrorNumber(false)
+    setmobileNumberErrorMsg("")
   };
-  const getPassWordVisible = () => {
+  const passWordVisible = () => {
     setPasswordVisible(passwordvisible ? false : true);
-  };
-  const getPassWordVisibleConfirm = () => {
-    setPasswordVisibleConfirm(passwordvisibleConfirm ? false : true);
   };
   const getoptionretrieve = (option: string) => {
     switch (option) {
-      case 'mobileNumberSignup':
+      case 'mobileNumberLogin':
         return (
           <>
             <Typography
               sx={{
-                ...signUp_style.labelSx,
-                ...sectionTwo?.cardData?.mobileNumberSignup?.labelStyle,
+                ...login_style.labelSx,
+                ...sectionTwo?.cardData?.mobileNumberLogin?.labelStyle,
               }}
             >
-              {sectionTwo?.cardData?.mobileNumberSignup?.labelText}
+              {sectionTwo?.cardData?.mobileNumberLogin?.labelText}
             </Typography>
             <MobileInput
               handleChange={getMobileNumber}
               error={errorNumber}
               helperText={mobileNumberErrorMsg}
               rootWapperstyle={{
-                ...signUp_style.textFieldSx,
-                ...sectionTwo?.cardData?.mobileNumberSignup?.mobileFieldstyle,
+                ...login_style.textFieldSx,
+                ...sectionTwo?.cardData?.mobileNumberLogin?.mobileFieldstyle,
                 ...{
                   '& .MuiOutlinedInput-root .MuiAutocomplete-input': {
-                    fontSize: sectionTwo?.cardData?.mobileNumberSignup?.mobileFieldstyle?.contryCodefontSize,
-                    fontWeight: sectionTwo?.cardData?.mobileNumberSignup?.mobileFieldstyle?.fontWeight,
+                    fontSize: sectionTwo?.cardData?.mobileNumberLogin?.mobileFieldstyle?.contryCodefontSize,
+                    fontWeight: sectionTwo?.cardData?.mobileNumberLogin?.mobileFieldstyle?.fontWeight,
                   }
                 },
                 ...{
                   '& .MuiOutlinedInput-input': {
-                    fontSize: sectionTwo?.cardData?.mobileNumberSignup?.mobileFieldstyle?.numberFontSize,
+                    fontSize: sectionTwo?.cardData?.mobileNumberLogin?.mobileFieldstyle?.numberFontSize,
                   },
                 }
               }}
               dropDownStyle={{
-                ...sectionTwo?.cardData?.mobileNumberSignup?.dropDownStyle,
+                ...sectionTwo?.cardData?.mobileNumberLogin?.dropDownStyle,
               }}
             />
           </>
         );
-      case 'socialMediaSignup':
+      case 'socialMediaLogin':
         return (
           <>
             {socialMedia?.map((item: any) => {
               return (
                 <SocialMediaButton
                   rootStyle={{
-                    ...signUp_style.socialButtonSx,
+                    ...login_style.socialButtonSx,
                     ...item?.SocialMediaButtonStyle,
                   }}
                   startIcon={item?.icon}
@@ -201,61 +161,81 @@ const SignupScreen: React.FC<SignupScreenProps> = ({
                   socialmediaTextStyle={item?.style}/>
               );
             })}
+            {sectionTwo?.cardData?.socialMedia?.divider && (
+              <Divider
+                sx={{
+                  ...login_style.dividerSx,
+                  ...sectionTwo?.cardData?.socialMedia?.divider?.dividerStyle,
+                }}
+              >
+                <Typography
+                  sx={{
+                    ...login_style.fontSx,
+                    ...sectionTwo?.cardData?.socialMedia?.divider?.dividerTextStyle,
+                  }}
+                >
+                  {sectionTwo?.cardData?.socialMedia?.divider?.dividerText}
+                </Typography>
+              </Divider>
+            )}
+            {sectionTwo?.cardData?.socialMedia?.workMailInput && (
+              <>
+                <InputField
+                  fullWidth
+                  size="small"
+                  error={errorMail}
+                  helperText={errorMsg}
+                  onChange={getMailValue}
+                  textFieldStyle={login_style.textFieldSx}
+                  type={'email'}
+                  value={email}
+                  label={sectionTwo?.cardData?.socialMedia?.workMailInput?.label}
+                  labelStyle={sectionTwo?.cardData?.socialMedia?.workMailInput?.labelStyle}
+                />
+                <Typography sx={{ ...login_style.forgotSx, ...sectionTwo?.cardData?.socialMedia?.workMailInput?.forgotStyle }}>
+                  <span
+                    onClick={sectionTwo?.cardData?.socialMedia?.workMailInput?.onForgotClick}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    Forgot Password?
+                  </span>
+                </Typography>
+              </>
+            )}
           </>
         );
-      case 'emailWithPasswordSignup':
+      case 'emailWithPasswordLogin':
         return (
           <>
-            <Box sx={{ ...signUp_style.nameSx, ...sectionTwo?.cardData?.emailWithPassword?.nameStyle }}>
-              <Box>
-                <InputField
-                  fullWidth
-                  size="small"
-                  value={firstName}
-                  label={sectionTwo?.cardData?.emailWithPassword?.firstName?.label}
-                  labelStyle={sectionTwo?.cardData?.emailWithPassword?.firstName?.labelStyle}
-                  error={errorName}
-                  helperText={errorNameMsg}
-                  onChange={getFirstName}
-                  textFieldStyle={{ ...signUp_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.firstName?.FnameFieldStyle }} type={'text'} />
-              </Box>
-              <Box>
-                <InputField
-                  fullWidth
-                  size="small"
-                  value={lastName}
-                  label={sectionTwo?.cardData?.emailWithPassword?.lastName?.label}
-                  labelStyle={sectionTwo?.cardData?.emailWithPassword?.lastName?.labelStyle}
-                  onChange={getLastName}
-                  textFieldStyle={{ ...signUp_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.lastName?.LnameFieldStyle }} type={'text'} />
-              </Box>
-            </Box>
             <InputField
               fullWidth
               size="small"
-              value={email}
-              label={sectionTwo?.cardData?.emailWithPassword?.email?.label}
-              labelStyle={sectionTwo?.cardData?.emailWithPassword?.email?.labelStyle}
               error={errorMail}
               helperText={errorMsg}
               onChange={getMailValue}
-              textFieldStyle={{ ...signUp_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.email?.fieldstyle }} type={'text'} />
+              textFieldStyle={{ ...login_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.email?.fieldstyle }}
+              type={'email'}
+              value={email}
+              label={sectionTwo?.cardData?.emailWithPassword?.email?.label}
+              labelStyle={sectionTwo?.cardData?.emailWithPassword?.email?.labelStyle}
+              required
+            />
             <InputField
               fullWidth
               size="small"
-              type={passwordvisible ? 'text' : 'password'}
-              label={sectionTwo?.cardData?.emailWithPassword?.password?.label}
-              labelStyle={sectionTwo?.cardData?.emailWithPassword?.password?.labelStyle}
-              error={errorPassword}
               value={password}
+              type={passwordvisible ? 'text' : 'password'}
+              error={errorPassword}
               helperText={errorPasswordMsg}
               onChange={getPasswordValue}
-              textFieldStyle={{ ...signUp_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.password?.fieldstyle }}
+              label={sectionTwo?.cardData?.emailWithPassword?.password?.label}
+              labelStyle={sectionTwo?.cardData?.emailWithPassword?.password?.labelStyle}
+              textFieldStyle={{ ...login_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.password?.fieldstyle }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment
                     style={{ cursor: 'pointer' }}
-                    onClick={getPassWordVisible}
+                    onClick={passWordVisible}
                     position="end"
                   >
                     {passwordvisible ? (sectionTwo?.cardData?.emailWithPassword?.password?.visbleIcon
@@ -265,39 +245,22 @@ const SignupScreen: React.FC<SignupScreenProps> = ({
                 ),
               }}
             />
-            <InputField
-              fullWidth
-              size="small"
-              type={passwordvisibleConfirm ? 'text' : 'password'}
-              label={sectionTwo?.cardData?.emailWithPassword?.confirmPassword?.label}
-              labelStyle={sectionTwo?.cardData?.emailWithPassword?.confirmPassword?.labelStyle}
-              error={errorPasswordConfirm}
-              helperText={errorPasswordMsgConfirm}
-              onChange={getConfirmPasswordValue}
-              value={passwordConfirm}
-              textFieldStyle={{ ...signUp_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.confirmPassword?.fieldstyle }}
-              InputProps={{
-                endAdornment: (
-                  <InputAdornment
-                    style={{ cursor: 'pointer' }}
-                    onClick={getPassWordVisibleConfirm}
-                    position="end"
-                  >
-                    {passwordvisibleConfirm ? (sectionTwo?.cardData?.emailWithPassword?.confirmPassword?.visbleIcon
-                    ) : (sectionTwo?.cardData?.emailWithPassword?.confirmPassword?.invisibleIcon
-                    )}
-                  </InputAdornment>
-                ),
-              }}
-            />
+            <Typography sx={{ ...login_style.forgotSx, ...sectionTwo?.cardData?.emailWithPassword?.forgotStyle }}>
+              <span
+                onClick={sectionTwo?.cardData?.emailWithPassword?.onForgotClick}
+                style={{ cursor: 'pointer' }}
+              >
+                Forgot Password?
+              </span>
+            </Typography>
           </>
         );
       default:
-        return ('please enter valid signup option')
+        return ('please give valid option')
     }
   };
   return (
-    <Grid container sx={{ ...signUp_style.parentSx, ...rootStyle }}>
+    <Grid container sx={{ ...login_style.parentSx, ...rootStyle }}>
       {sectionOne && (
         <Hidden smDown>
           <Grid
@@ -311,11 +274,9 @@ const SignupScreen: React.FC<SignupScreenProps> = ({
             {sectionOne?.image && (
               <Image
                 src={sectionOne?.image?.src}
-                width={sectionOne?.image?.width}
-                height={sectionOne?.image?.height}
-                imageStyle={sectionOne?.image?.style}
-              />
+                imageStyle={sectionOne?.image?.style}/>
             )}
+
             {sectionOne?.component && (
               <>
                 {sectionOne?.component}
@@ -331,10 +292,10 @@ const SignupScreen: React.FC<SignupScreenProps> = ({
           sm={sectionTwo?.breakpoints?.sm}
           md={sectionTwo?.breakpoints?.md}
           lg={sectionTwo?.breakpoints?.lg}
-          sx={{ ...signUp_style.loginSx, ...sectionTwo?.WraperStyle }}
+          sx={{ ...login_style.loginSx, ...sectionTwo?.WraperStyle }}
         >
           <Box
-            sx={{ ...signUp_style.cardParentSx, ...sectionTwo?.cardParentStyle }}
+            sx={{ ...login_style.cardParentSx, ...sectionTwo?.cardParentStyle }}
           >
             <Card
               title={sectionTwo?.cardData?.title}
@@ -344,7 +305,7 @@ const SignupScreen: React.FC<SignupScreenProps> = ({
                 logoSrc: sectionTwo?.cardData?.logo?.logoSrc,
                 alt: sectionTwo?.cardData?.logo?.alt,
                 logoStyle: {
-                  ...signUp_style.logoSx,
+                  ...login_style.logoSx,
                   ...sectionTwo?.cardData?.logo?.logoStyle,
                 },
               }}
@@ -352,7 +313,7 @@ const SignupScreen: React.FC<SignupScreenProps> = ({
               children={
                 <Box
                   sx={{
-                    ...signUp_style.childernSx,
+                    ...login_style.childernSx,
                     ...sectionTwo?.cardData?.childrenStyle,
                   }}
                 >
@@ -364,23 +325,23 @@ const SignupScreen: React.FC<SignupScreenProps> = ({
               buttonText={sectionTwo?.cardData?.buttonText}
               titleStyle={sectionTwo?.cardData?.titleStyle}
               cardStyle={{
-                ...signUp_style.cardSx,
+                ...login_style.cardSx,
                 ...sectionTwo?.cardData?.cardStyle,
               }}
               btnStyle={{
-                ...signUp_style.loginBtnSx,
+                ...login_style.loginBtnSx,
                 ...sectionTwo?.cardData?.btnStyle,
               }}
-              actionText={sectionTwo?.cardData?.signupActionText}
+              actionText={sectionTwo?.cardData?.loginActionText}
               actionstyle={{
-                ...signUp_style.actionSx,
+                ...login_style.actionSx,
                 ...sectionTwo?.cardData?.actionstyle,
               }}
               bottomTextStyle={{
-                ...signUp_style.bottomTextSx,
+                ...login_style.bottomTextSx,
                 ...sectionTwo?.cardData?.bottomTextStyle,
               }}
-              onActionClick={sectionTwo?.cardData?.onLoginClick}
+              onActionClick={sectionTwo?.cardData?.onSignUpClick}
             />
           </Box>
         </Grid>
@@ -389,9 +350,10 @@ const SignupScreen: React.FC<SignupScreenProps> = ({
   );
 };
 
-SignupScreen.defaultProps = {
 
-  option: 'emailWithPasswordSignup',
+LoginScreen.defaultProps = {
+  onSubmit: () => { },
+  option: 'emailWithPasswordLogin',
   rootStyle: {},
   sectionOne: {
     backgroundWrapStyle: {},
@@ -409,66 +371,55 @@ SignupScreen.defaultProps = {
       description: "",
       bottomText: "",
       buttonText: "",
-      signupActionText: "",
-      onLoginClick: () => { },
+      loginActionText: "",
+      onSignUpClick: () => { },
       titleStyle: {},
       btnStyle: {},
       cardStyle: {},
       childrenStyle: {},
-      logo: {
-        logoSrc: '',
-        logoHeight: '',
-        logoWidth: '',
-        alt: '',
-        logoStyle: {},
-      },
+      logoStyle: {},
       bottomTextStyle: {},
       actionstyle: {},
-      mobileNumberSignup: {
+      mobileNumberLogin: {
         labelText: "",
         labelStyle: {},
         mobileFieldstyle: {},
         dropDownStyle: {},
       },
       socialMedia: {
+        workMailInput: {
+          label: "",
+          labelStyle: {},
+          forgotStyle: {},
+          onForgotClick: () => {},
+        },
+        divider: {
+          dividerStyle: {},
+          dividerText: "",
+          dividerTextStyle: {},
+        },
         socialMediaList: [],
       },
       emailWithPassword: {
-        nameStyle: {},
-        firstName: {
-          FnameFieldStyle: {},
-          labelStyle: {},
-          label: 'First Name',
-        },
-        lastName: {
-          LnameFieldStyle: {},
-          labelStyle: {},
-          label: 'Last Name',
-        },
         email: {
           label: "Email",
           labelStyle: {},
+          forgotStyle: {},
           fieldstyle: {},
         },
         password: {
           label: "Password",
           labelStyle: {},
+          forgotStyle: {},
           fieldstyle: {},
           visbleIcon: <></>,
           invisibleIcon: <></>,
         },
-        confirmPassword: {
-          label: "Confirm Password",
-          labelStyle: {},
-          fieldstyle: {},
-          visbleIcon: <></>,
-          invisibleIcon: <></>,
-        },
+        onForgotClick: () => { },
+        forgotStyle: {}
       },
     },
-
   },
-  onSubmit: () => { },
 };
 
-export default SignupScreen;
+export default LoginScreen;
