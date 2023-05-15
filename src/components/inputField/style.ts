@@ -25,8 +25,9 @@ export const inputField_Style = {
       },
     },
     '& .MuiFormHelperText-root': {
-      mx: 0,
-    },
-    
+      mx:0,
+      position:'absolute',
+      mt:5
+    },  
   },
 };
