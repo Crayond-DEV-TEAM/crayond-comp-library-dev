@@ -48,6 +48,8 @@ const getComponent = (component: any, edit: string | null) => {
       return <Dropdown {...inputProps} />;
     case 'mobileNumberInput':
       return <MobileInput {...inputProps} />;
+    case 'custom':
+       return component?.component;
 
     case 'labelAndValue':
       return (

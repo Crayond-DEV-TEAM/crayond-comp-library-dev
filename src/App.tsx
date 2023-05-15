@@ -1688,6 +1688,19 @@ function App() {
                 },
               },
             },
+            {
+              type: 'custom',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+             component:<BasicButtons>Custom Com</BasicButtons>
+            },
           ],
         }}
       />

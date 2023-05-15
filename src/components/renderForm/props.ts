@@ -13,7 +13,7 @@ export interface renderFormProps {
         | 'dateAndTime'
         | 'date'
         | 'dropDown'
-        | 'mobileNumberInput';
+        | 'mobileNumberInput' | 'custom';
       containerStyle?: SxProps;
       gridStyle?: SxProps;
       breakPoint?: {
@@ -23,6 +23,7 @@ export interface renderFormProps {
         lg?: boolean | 'auto' | number;
         lx?: boolean | 'auto' | number;
       };
+      component?:React.ReactNode;
       inputProps?: any;
     };
   };
