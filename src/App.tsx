@@ -117,14 +117,15 @@ function App() {
   //   formList:formList
   // }
   const [isEdit, setIsEdit] = React.useState(true);
-  const onSubmitBtn = () => {
-    if (isEdit) {
-      if (formValidator3()) {
-        setIsEdit(false);
-      }
-    } else {
-      setIsEdit(true);
-    }
+  const onSubmitBtn = (data:object) => {
+    console.log("🚀 ~ file: App.tsx:121 ~ onSubmitBtn ~ data:", data)
+    // if (isEdit) {
+    //   if (formValidator3()) {
+    //     setIsEdit(false);
+    //   }
+    // } else {
+    //   setIsEdit(true);
+    // }
   };
   const img =
     'https://loveshayariimages.in/wp-content/uploads/2022/08/dp-pic-whatsapp-150x150.jpg';
@@ -175,8 +176,7 @@ function App() {
     if (state3?.lastName?.length === 0) {
       status = false;
       error.email = 'Last Name is Required';
-    }
-    debugger;
+    } 
     if (!state3?.dob) {
       // status = false;
       error.dob = 'Date of Birth is Required';
@@ -210,7 +210,6 @@ function App() {
     return status;
   };
   const updateState = (key: string, value: string | number | object) => {
-    debugger;
     let error: any = state3?.error;
     error[key] = '';
     setState3({ ...state3, [key]: value, error });
@@ -1420,7 +1419,7 @@ function App() {
           padding: '20px 0',
         }}
         cardSxProps={{}}
-        gridContainerProps={{spacing:4}}
+        gridContainerProps={{columnSpacing:3, spacing:0}}
         renderForm={{
           formList: [
             {
@@ -1458,14 +1457,12 @@ function App() {
               inputProps: {
                 type: 'text',
                 label: 'First Name',
+                name:"firstName",
                 labelVariant: 'standard',
-                required: true,
-                value: state3?.firstName,
-                error: state3?.error?.firstName ? true : false,
-                errorMessage: state3?.error?.firstName,
-                onChange: (e: any) => {
-                  updateState('firstName', e?.target?.value);
-                },
+                rules:{
+                  required: true,
+                 },
+                errorMessage: "Please enter First name",
               },
             },
             {
@@ -1482,14 +1479,12 @@ function App() {
               inputProps: {
                 type: 'text',
                 label: 'Last Name',
+                name:"lastName",
                 labelVariant: 'standard',
-                required: true,
-                value: state3?.lastName,
-                error: state3?.error?.lastName ? true : false,
-                errorMessage: state3?.error?.lastName,
-                onChange: (e: any) => {
-                  updateState('lastName', e?.target?.value);
-                },
+                rules:{
+                  required: true,
+                 },
+                 errorMessage: "Please enter Last name",
               },
             },
             {
@@ -1506,18 +1501,16 @@ function App() {
               inputProps: {
                 type: 'text',
                 label: 'DOB',
+                name:"dob",
                 labelVariant: 'standard',
-                required: true,
-                value: state3?.dob,
-                error: state3?.error?.dob ? true : false,
-                errorMessage: state3?.error?.dob,
+                rules:{
+                  required: true,
+                 },
+                 errorMessage: "Please enter DOB",
                 inputFormat: 'dd-MM-yyyy',
                 // components:{
                 //   OpenPickerIcon: <DocsIcon/>
                 // },
-                onChange: (e: any) => {
-                  updateState('dob', e);
-                },
               },
             },
             {
@@ -1534,14 +1527,12 @@ function App() {
               inputProps: {
                 type: 'text',
                 label: 'Gender',
+                name:"gender",
                 labelVariant: 'standard',
-                required: true,
-                value: state3?.gender,
-                error: state3?.error?.gender ? true : false,
-                errorMessage: state3?.error?.gender,
-                onChange: (e: any) => {
-                  updateState('gender', e?.target?.value);
-                },
+                rules:{
+                  required: true,
+                 },
+                 errorMessage: "Please enter Gender",
               },
             },
             {
@@ -1558,14 +1549,12 @@ function App() {
               inputProps: {
                 type: 'text',
                 label: 'Designation',
+                name:"designation",
                 labelVariant: 'standard',
-                required: true,
-                value: state3?.designation,
-                error: state3?.error?.designation ? true : false,
-                errorMessage: state3?.error?.designation,
-                onChange: (e: any) => {
-                  updateState('designation', e?.target?.value);
-                },
+                rules:{
+                  required: true,
+                 },
+                 errorMessage: "Please enter Designation",
                 selectOption: [
                   { label: 'Developer', value: 'Developer' },
                   { label: 'Designer', value: 'Designer' },
@@ -1607,14 +1596,12 @@ function App() {
               },
               inputProps: {
                 label: 'Mobile Number',
+                name:"mobileNumber",
                 labelVariant: 'standard',
-                required: true,
-                value: state3?.mobileNumber,
-                error: state3?.error?.mobileNumber ? true : false,
-                errorMessage: state3?.error?.mobileNumber,
-                onChange: (e: any) => {
-                  updateState('mobileNumber', e?.target?.value);
-                },
+                rules:{
+                  // required: true,
+                 },
+                 errorMessage: "Please enter Mobile number",
               },
             },
             {
@@ -1631,14 +1618,12 @@ function App() {
               inputProps: {
                 type: 'text',
                 label: 'Email ID',
+                name:"email",
                 labelVariant: 'standard',
-                required: true,
-                value: state3?.email,
-                error: state3?.error?.email ? true : false,
-                errorMessage: state3?.error?.email,
-                onChange: (e: any) => {
-                  updateState('email', e?.target?.value);
-                },
+                rules:{
+                  required: true,
+                 },
+                 errorMessage: "Please enter Email Id",
               },
             },
             {
@@ -1655,14 +1640,12 @@ function App() {
               inputProps: {
                 type: 'text',
                 label: 'Address Line 1',
+                name:"address1",
                 labelVariant: 'standard',
-                required: true,
-                value: state3?.address1,
-                error: state3?.error?.address1 ? true : false,
-                errorMessage: state3?.error?.address1,
-                onChange: (e: any) => {
-                  updateState('address1', e?.target?.value);
-                },
+                rules:{
+                  required: true,
+                 },
+                 errorMessage: "Please enter Address Line 1",
               },
             },
             {
@@ -1679,14 +1662,12 @@ function App() {
               inputProps: {
                 type: 'text',
                 label: 'Address Line 2',
+                name:"address2",
                 labelVariant: 'standard',
-                required: true,
-                value: state3?.address2,
-                error: state3?.error?.address2 ? true : false,
-                errorMessage: state3?.error?.address2,
-                onChange: (e: any) => {
-                  updateState('address2', e?.target?.value);
-                },
+                rules:{
+                  required: true,
+                 },
+                 errorMessage: "Please enter Address Line 2",
               },
             },
             {

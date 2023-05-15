@@ -7,9 +7,29 @@ import { InputField } from '../inputField';
 import { DateAndTimePicker } from '../dateAndTimePicker';
 import { renderFormProps } from './props';
 import { Dropdown } from '../dropdown';
+import { useForm, Controller } from 'react-hook-form';
+import { BasicButtons } from '../button';
 
-const getComponent = (component: any, edit: string | null) => {
+const getComponent = (
+  component: any,
+  edit: string | null,
+  control: any,
+  errors: any
+) => {
   const { inputProps } = component;
+  // if (inputProps?.regexValidation) {
+  //   if (inputProps?.regexValidation?.test(inputProps?.value)) {
+  //     console.log('REGEX Validation true');
+  //   }
+  //   console.log(
+  //     'Match ',
+  //     inputProps?.value?.match(inputProps?.regexValidation)
+  //   );
+
+  //   // if ( inputProps?.value?.match(inputProps?.regexValidation)) {
+  //   // }
+  // }
+
   switch (edit ? 'labelAndValue' : component?.type) {
     case 'heading':
       return (
@@ -22,34 +42,93 @@ const getComponent = (component: any, edit: string | null) => {
       );
     case 'input':
       return (
-        <InputField
-          endIcon={null}
-          rowMax={0}
-          rowMin={0}
-          isError={''}
-          disabled={false}
-          isMulti={false}
-          fullWidth={true}
-          isReadOnly={false}
-          helperText={''}
-          placeholder={''}
-          errorMessage={''}
-          endAdornment={<></>}
-          defaultValue={{}}
-          textFieldStyle={{}}
-          {...inputProps}
+        <Controller
+          control={control}
+          rules={inputProps?.rules}
+          name={inputProps?.name}
+          render={({ field: { onChange, onBlur, value } }: any) => (
+            <InputField
+              {...inputProps}
+              onBlur={onBlur}
+              onChange={onChange}
+              value={value}
+              error={errors?.[inputProps?.name] ? true : false}
+            />
+          )}
         />
       );
     case 'date':
-      return <DateAndTimePicker type="date" {...inputProps} />;
+      return (
+        <Controller
+          control={control}
+          rules={inputProps?.rules}
+          name={inputProps?.name}
+          render={({ field: { onChange, onBlur, value } }: any) => (
+            <DateAndTimePicker
+              {...inputProps}
+              onBlur={onBlur}
+              onChange={onChange}
+              value={value}
+              type="date"
+              error={errors?.[inputProps?.name] ? true : false}
+            />
+          )}
+        />
+      );
     case 'dateAndTime':
-      return <DateAndTimePicker type="dateAndTime" {...inputProps} />;
+      return (
+        <Controller
+          control={control}
+          rules={inputProps?.rules}
+          name={inputProps?.name}
+          render={({ field: { onChange, onBlur, value } }: any) => (
+            <DateAndTimePicker
+              {...inputProps}
+              onBlur={onBlur}
+              onChange={onChange}
+              value={value}
+              type="dateAndTime"
+              error={errors?.[inputProps?.name] ? true : false}
+            />
+          )}
+        />
+      );
     case 'dropDown':
-      return <Dropdown {...inputProps} />;
+      return (
+        <Controller
+          control={control}
+          rules={inputProps?.rules}
+          name={inputProps?.name}
+          render={({ field: { onChange, onBlur, value } }: any) => (
+            <Dropdown
+              {...inputProps}
+              onBlur={onBlur}
+              onChange={onChange}
+              value={value}
+              error={errors?.[inputProps?.name] ? true : false}
+            />
+          )}
+        />
+      );
     case 'mobileNumberInput':
-      return <MobileInput {...inputProps} />;
+      return (
+        <Controller
+          control={control}
+          rules={inputProps?.rules}
+          name={inputProps?.name}
+          render={({ field: { onChange, onBlur, value } }: any) => (
+            <MobileInput
+              {...inputProps}
+              onBlur={onBlur}
+              onChange={onChange}
+              value={value}
+              error={errors?.[inputProps?.name] ? true : false}
+            />
+          )}
+        />
+      );
     case 'custom':
-       return component?.component;
+      return component?.component;
 
     case 'labelAndValue':
       return (
@@ -63,25 +142,55 @@ const getComponent = (component: any, edit: string | null) => {
   }
 };
 export default function RenderForm(props: renderFormProps) {
-  const { formList, gridStyle, isEditMode, gridContainerProps } = props;
+  const { formList, gridStyle, isEditMode, gridContainerProps, onSubmitFun } =
+    props;
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    // resolver: yupResolver(schema)
+  });
+  const onSubmit = (data: any) => {
+    console.log(data, 'trdsa');
+    if (onSubmitFun) {
+      onSubmitFun(data);
+    }
+  };
+
   return (
     <Box sx={{ width: '100%' }}>
-      <Grid container sx={gridStyle} spacing={1} {...gridContainerProps} >
-        {formList?.map((form, index: number) => (
-          <Grid
-            item
-            {...form?.breakPoint}
-            sx={{ width: '100%' }}
-            key={'form' + index + form?.type}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Grid container sx={gridStyle} spacing={1} {...gridContainerProps}>
+          {formList?.map((form, index: number) => (
+            <Grid
+              item
+              {...form?.breakPoint}
+              sx={{ width: '100%' }}
+              key={'form' + index + form?.type}
+            >
+              <Box sx={{ ...styles.inputContainer, ...form?.containerStyle }}>
+                {isEditMode
+                  ? getComponent(form, null, control, errors)
+                  : getComponent(form, 'labelAndValue', '', '')}
+              </Box>
+            </Grid>
+          ))}
+        </Grid>
+        <Box display={'flex'} justifyContent={'flex-end'} mt={3}>
+          <BasicButtons variant="outlined" inLineStyles={styles.secondaryBtn}>
+            Cancel
+          </BasicButtons>
+          <BasicButtons
+            inLineStyles={styles.primaryBtn}
+            type="submit"
+            onClick={handleSubmit(onSubmit)}
           >
-            <Box sx={{ ...styles.inputContainer, ...form?.containerStyle }}>
-              {isEditMode
-                ? getComponent(form, null)
-                : getComponent(form, 'labelAndValue')}
-            </Box>
-          </Grid>
-        ))}
-      </Grid>
+            {isEditMode ? 'Save' : 'Edit'}
+          </BasicButtons>
+        </Box>
+      </form>
     </Box>
   );
 }

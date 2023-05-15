@@ -4,6 +4,7 @@ export interface renderFormProps {
   isEditMode?: Boolean;
   gridStyle?: SxProps;
   gridContainerProps?:GridProps;
+  onSubmitFun?:Function;
   formList?: {
     map(arg0: (data: any, i: number) => any): any;
     [index: number]: {

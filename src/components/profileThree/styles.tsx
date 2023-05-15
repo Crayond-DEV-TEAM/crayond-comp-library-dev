@@ -67,19 +67,5 @@ export const styles = {
     fontSize: '32px',
     fontWeight: '700',
   },
-  secondaryBtn:{
-    width:  '123px',
-    margin: '12px 0',
-    textTransform: 'capitalize',
-    marginRight:"15px",
-    padding:"auto 18px",
-  },
-  primaryBtn:{
-    width:  '123px',
-    margin: '12px 0',
-    textTransform: 'capitalize',
-    marginRight:"15px",
-    padding:"auto 18px",
-    color:"#ffffff"
-  }
+  
 };

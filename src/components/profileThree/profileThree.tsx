@@ -86,26 +86,9 @@ export default function ProfileThree(props: ProfileThreeProps) {
                   isEditMode={isEditMode}
                   gridStyle={renderForm?.gridStyle}
                   gridContainerProps={gridContainerProps}
+                  onSubmitFun={onSubmitBtn}
                 />
-                <Box display={'flex'} justifyContent={'flex-end'} mt={3}>
-                  <BasicButtons
-                    variant="outlined"
-                    inLineStyles={styles.secondaryBtn}
-                    onClick={(e) => {
-                      onSubmitBtn(e);
-                    }}
-                  >
-                    Cancel
-                  </BasicButtons>
-                  <BasicButtons
-                    inLineStyles={styles.primaryBtn}
-                    onClick={(e) => {
-                      onSubmitBtn(e);
-                    }}
-                  >
-                    {isEditMode ? 'Save' : 'Edit'}
-                  </BasicButtons>
-                </Box>
+               
               </Grid>
             </Grid>
           </Box>

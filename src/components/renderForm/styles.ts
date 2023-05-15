@@ -22,5 +22,20 @@ export const styles = {
     lineHeight: '17px',
     margin: '6px 0',
     fontWeight:"600"
+  },
+  secondaryBtn:{
+    width:  '123px',
+    margin: '12px 0',
+    textTransform: 'capitalize',
+    marginRight:"15px",
+    padding:"auto 18px",
+  },
+  primaryBtn:{
+    width:  '123px',
+    margin: '12px 0',
+    textTransform: 'capitalize',
+    marginRight:"15px",
+    padding:"auto 18px",
+    color:"#ffffff"
   }
 };

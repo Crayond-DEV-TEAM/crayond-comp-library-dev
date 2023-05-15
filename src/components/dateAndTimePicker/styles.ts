@@ -8,7 +8,7 @@ export const styles = {
   datePicker: {
     width: '100%',
     '& input': {
-      padding: '12px 16px',
+      padding: '13px 16px',
       fontSize:"14px",
       color:"#3B3B3B"
     },
@@ -16,5 +16,9 @@ export const styles = {
   label: {
     fontSize: '12px',
     color: '#3B3B3B',
+    marginBottom:"8px",  
+    '& span': {
+      color: '#FF4D4A',
+    },
   },
 };

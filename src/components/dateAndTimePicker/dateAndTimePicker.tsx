@@ -27,11 +27,7 @@ export default function DateAndTimePicker(props: DateAndTimePickerProps) {
         {labelVariant === 'standard' && (
           <InputLabel sx={styles.label} id="date-label">
             {label}{' '}
-            {required && (
-              <Typography component={'span'} sx={{ color: '#FF4D4A' }}>
-                {'*'}
-              </Typography>
-            )}
+            {required && (<span>*</span>)}
           </InputLabel>
         )}
         {type === 'dateAndTime' ? (
@@ -45,22 +41,13 @@ export default function DateAndTimePicker(props: DateAndTimePickerProps) {
             sx={{
               ...styles.datePicker,
               '& fieldset': {
-                border: `1px solid ${error ? 'red' : ''}`,
+                border: `1px solid ${error ? '#FF4D4A' : '#E9E9E9'}`,
               },
             }}
             {...props}
             onChange={(newValue)=> onChange(newValue)
             }
             label={labelVariant === 'standard' ? null : label}
-            // openTo="month"
-            // format={'MM/DD/YYYY hh:mm:ss'}
-            // // maxDate
-            // // minDate
-            // // onChange={}
-            // // disabled
-            // views={['year', 'month', 'day']}
-            // views={['year', 'month', 'day', 'hours', 'minutes', 'seconds']}
-            // label={''}
           />
         )}
         <Typography

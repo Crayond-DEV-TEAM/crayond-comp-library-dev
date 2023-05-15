@@ -11,6 +11,9 @@ export const dropdown_style = {
     // '&:hover .MuiOutlinedInput-notchedOutline': {
     //   borderColor: '#888888',
     // },
+    "& .MuiSelect-select":{
+       padding:"12px 16px"
+    },
     '& .MuiSelect-icon': {
       fill: '#888888',
       opacity: '40%',
@@ -28,13 +31,13 @@ export const dropdown_style = {
       color: '#FF4D4A',
     },
   },
-  staticLabel:{
-marginBottom:"8px",
-color:"#3B3B3B",
-fontSize:"12px",
-"& span":{
-  color: '#FF4D4A',
-}
+  staticLabel: {
+    marginBottom: '8px',
+    color: '#3B3B3B',
+    fontSize: '12px',
+    '& span': {
+      color: '#FF4D4A',
+    },
   },
   optionListSx: {
     boxShadow: 1,
