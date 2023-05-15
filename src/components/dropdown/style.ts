@@ -29,7 +29,7 @@ export const dropdown_style = {
     },
   },
   staticLabel:{
-marginBottom:"6px",
+marginBottom:"8px",
 color:"#3B3B3B",
 fontSize:"12px",
 "& span":{
