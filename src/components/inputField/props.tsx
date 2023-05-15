@@ -25,7 +25,7 @@ export interface InputFieldProps extends Omit<TextFieldProps, 'variant'> {
   endAdornments?: React.ReactNode;
   textFieldStyle?: {};
   onChange: (e: any) => any;
-  floatingLable?:string;
   labelStyle?:object;
-  labelVariant?:string;
+  labelVariant?: 'standard' | 'floating';
+  errorMessage?:string;
 }

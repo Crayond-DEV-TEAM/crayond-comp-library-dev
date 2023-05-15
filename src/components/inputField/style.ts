@@ -1,9 +1,14 @@
 export const inputField_Style = {
   labelSx: {
     fontSize: '12px',
+    marginLeft:"5px",
+    color:"#3B3B3B",
+
+    "& span":{
+      color:"#F44F5A"
+    }
   },
   textFieldSx: {
-    opacity: 1,
     '& .MuiOutlinedInput-input': {
       width: '100%',
       fontWeight: 'normal',
@@ -16,18 +21,14 @@ export const inputField_Style = {
         borderRadius: '4px',
         border: '1.5px solid',
         borderColor: '#E9E9E9',
+        padding:"12px 16px"
       },
-      '&:hover fieldset': {
-        borderColor: '#E9E9E9',
-      },
-      '&.Mui-focused fieldset': {
-        borderColor: '#E9E9E9',
-      },
+      // '&:hover fieldset': {
+      //   borderColor: '#E9E9E9',
+      // },
+      // '&.Mui-focused fieldset': {
+      //   borderColor: '#E9E9E9',
+      // },
     },
-    '& .MuiFormHelperText-root': {
-      mx:0,
-      position:'absolute',
-      mt:5
-    },  
   },
 };
