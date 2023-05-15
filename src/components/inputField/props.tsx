@@ -26,6 +26,6 @@ export interface InputFieldProps extends Omit<TextFieldProps, 'variant'> {
   textFieldStyle?: {};
   onChange: (e: any) => any;
   labelStyle?:object;
-  labelVariant?: 'standard' | 'floating';
+  labelVariant?: 'standard' | 'float';
   errorMessage?:string;
 }

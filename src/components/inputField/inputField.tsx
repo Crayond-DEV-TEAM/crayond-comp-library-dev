@@ -27,9 +27,9 @@ const InputField: React.FC<InputFieldProps> = ({
       )}
       <TextField
         variant="outlined"
-        margin="normal"
         label={labelVariant === 'standard' ? '' : label}
         value={value}
+        error={error}
         sx={{ ...inputField_Style.textFieldSx, ...textFieldStyle }}
         {...rest}
       />
