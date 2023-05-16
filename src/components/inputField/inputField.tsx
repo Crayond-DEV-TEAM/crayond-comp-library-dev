@@ -30,6 +30,7 @@ const InputField: React.FC<InputFieldProps> = ({
         label={labelVariant === 'standard' ? '' : label}
         value={value}
         error={error}
+        fullWidth
         sx={{ ...inputField_Style.textFieldSx, ...textFieldStyle }}
         {...rest}
       />

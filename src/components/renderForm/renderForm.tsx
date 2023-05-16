@@ -1,3 +1,4 @@
+import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -9,6 +10,9 @@ import { renderFormProps } from './props';
 import { Dropdown } from '../dropdown';
 import { useForm, Controller } from 'react-hook-form';
 import { BasicButtons } from '../button';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import SelectedChips from '../SelectedChips/selectedChips';
 
 const getComponent = (
   component: any,
@@ -16,6 +20,7 @@ const getComponent = (
   control: any,
   errors: any
 ) => {
+  // console.log("🚀 ~ file: renderForm.tsx:19 ~ errors:", errors)
   const { inputProps } = component;
   // if (inputProps?.regexValidation) {
   //   if (inputProps?.regexValidation?.test(inputProps?.value)) {
@@ -49,10 +54,19 @@ const getComponent = (
           render={({ field: { onChange, onBlur, value } }: any) => (
             <InputField
               {...inputProps}
-              onBlur={onBlur}
-              onChange={onChange}
+              onChange={(e) => {
+                onChange(e);
+                inputProps?.onChange(e);
+              }}
+              onBlur={(e) => {
+                onBlur(e);
+                inputProps?.onBlur(e);
+              }}
               value={value}
+              fullWidth
+              required={inputProps?.rules?.required}
               error={errors?.[inputProps?.name] ? true : false}
+              errorMessage={errors?.[inputProps?.name]?.message}
             />
           )}
         />
@@ -70,7 +84,9 @@ const getComponent = (
               onChange={onChange}
               value={value}
               type="date"
+              required={inputProps?.rules?.required}
               error={errors?.[inputProps?.name] ? true : false}
+              errorMessage={errors?.[inputProps?.name]?.message}
             />
           )}
         />
@@ -86,9 +102,11 @@ const getComponent = (
               {...inputProps}
               onBlur={onBlur}
               onChange={onChange}
+              required={inputProps?.rules?.required}
               value={value}
               type="dateAndTime"
               error={errors?.[inputProps?.name] ? true : false}
+              errorMessage={errors?.[inputProps?.name]?.message}
             />
           )}
         />
@@ -104,13 +122,35 @@ const getComponent = (
               {...inputProps}
               onBlur={onBlur}
               onChange={onChange}
+              required={inputProps?.rules?.required}
               value={value}
               error={errors?.[inputProps?.name] ? true : false}
+              errorMessage={errors?.[inputProps?.name]?.message}
             />
           )}
         />
       );
-    case 'mobileNumberInput':
+      case 'chipSelect':
+        return (
+          <Controller
+            control={control}
+            rules={inputProps?.rules}
+            name={inputProps?.name}
+            render={({ field: { onChange, onBlur, value } }: any) => (
+              <SelectedChips
+                {...inputProps}
+                onBlur={onBlur}
+                onChange={onChange}
+                required={inputProps?.rules?.required}
+                value={value}
+                error={errors?.[inputProps?.name] ? true : false}
+                errorMessage={errors?.[inputProps?.name]?.message}
+              />
+            )}
+          />
+        );
+      
+      case 'mobileNumberInput':
       return (
         <Controller
           control={control}
@@ -121,8 +161,10 @@ const getComponent = (
               {...inputProps}
               onBlur={onBlur}
               onChange={onChange}
+              required={inputProps?.rules?.required}
               value={value}
               error={errors?.[inputProps?.name] ? true : false}
+              errorMessage={errors?.[inputProps?.name]?.message}
             />
           )}
         />
@@ -142,16 +184,23 @@ const getComponent = (
   }
 };
 export default function RenderForm(props: renderFormProps) {
-  const { formList, gridStyle, isEditMode, gridContainerProps, onSubmitFun } =
-    props;
+  const {
+    formList,
+    gridStyle,
+    isEditMode,
+    gridContainerProps,
+    onSubmitFun,
+    defaultValues,
+    yupSchemaValidation
+  } = props;
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    // resolver: yupResolver(schema)
-  });
+    reset 
+  } = useForm({resolver: yupSchemaValidation && yupResolver(yupSchemaValidation)});
+
   const onSubmit = (data: any) => {
     console.log(data, 'trdsa');
     if (onSubmitFun) {
@@ -159,6 +208,11 @@ export default function RenderForm(props: renderFormProps) {
     }
   };
 
+  React.useEffect(()=>{
+    if(defaultValues){
+      reset(defaultValues);
+    }
+  },[defaultValues])
   return (
     <Box sx={{ width: '100%' }}>
       <form onSubmit={handleSubmit(onSubmit)}>

@@ -6,7 +6,7 @@ import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import CompanyLogo from './assets/companyLogo.png';
 import loginImg from './assets/loginImg.png';
-import LoginScreen from './components/loginPage/login'
+import LoginScreen from './components/loginPage/login';
 import SignupScreen from './components/signUpPage/signUp';
 import { BasicButtons, CommonTable } from '@components';
 import DeleteIcon from './assets/deleteIcon';
@@ -21,6 +21,7 @@ import { Button } from '@mui/material';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { ProfileThree } from './components/profileThree';
+import yup from './utils/yupSchema';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -117,8 +118,8 @@ function App() {
   //   formList:formList
   // }
   const [isEdit, setIsEdit] = React.useState(true);
-  const onSubmitBtn = (data:object) => {
-    console.log("🚀 ~ file: App.tsx:121 ~ onSubmitBtn ~ data:", data)
+  const onSubmitBtn = (data: object) => {
+    console.log('🚀 ~ file: App.tsx:121 ~ onSubmitBtn ~ data:', data);
     // if (isEdit) {
     //   if (formValidator3()) {
     //     setIsEdit(false);
@@ -176,7 +177,7 @@ function App() {
     if (state3?.lastName?.length === 0) {
       status = false;
       error.email = 'Last Name is Required';
-    } 
+    }
     if (!state3?.dob) {
       // status = false;
       error.dob = 'Date of Birth is Required';
@@ -210,11 +211,41 @@ function App() {
     return status;
   };
   const updateState = (key: string, value: string | number | object) => {
+    debugger;
     let error: any = state3?.error;
     error[key] = '';
     setState3({ ...state3, [key]: value, error });
   };
 
+  const formSchema = yup.object({
+    firstName: yup
+      .string()
+      .min(4, 'Min length 4')
+      .max(14, 'Max length 7')
+      .required('Please enter first name'),
+    lastName: yup
+      .string()
+      .min(4, 'Min length 4')
+      .max(14, 'Max length 7')
+      .required('Please enter Last name'),
+    dob: yup.date().required('Please enter DOB'),
+    gender: yup.string().required('Please enter Gender'),
+    designation: yup.string().required('Please enter Designation'),
+    address1: yup
+      .string()
+      .min(4, 'Min length 4')
+      .max(14, 'Max length 7')
+      .required('Please enter Address 1'),
+    address2: yup
+      .string()
+      .min(4, 'Min length 4')
+      .max(14, 'Max length 7')
+      .required('Please enter Address 2'),
+    email: yup
+      .string()
+      .email('Please enter valid email')
+      .required('Please enter email'),
+  });
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
       {/* <CommonTable
@@ -1419,8 +1450,19 @@ function App() {
           padding: '20px 0',
         }}
         cardSxProps={{}}
-        gridContainerProps={{columnSpacing:3, spacing:0}}
+        gridContainerProps={{ columnSpacing: 3, spacing: 0 }}
         renderForm={{
+          yupSchemaValidation: formSchema,
+          // defaultValues: {
+          //    address1: 'My Address 1',
+          //    address2: 'My Address 2' ,
+          //    designation: 'Developer' ,
+          //    email: 'hari@gmail.co' ,
+          //    firstName: 'Hari' ,
+          //    gender: 'Male' ,
+          //    lastName: 'Haran' ,
+          //    mobileNumber: '845678906789' ,
+          // },
           formList: [
             {
               type: 'heading',
@@ -1457,59 +1499,18 @@ function App() {
               inputProps: {
                 type: 'text',
                 label: 'First Name',
-                name:"firstName",
+                name: 'firstName',
                 labelVariant: 'standard',
-                rules:{
-                  required: true,
-                 },
-                errorMessage: "Please enter First name",
-              },
-            },
-            {
-              type: 'input',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'Last Name',
-                name:"lastName",
-                labelVariant: 'standard',
-                rules:{
-                  required: true,
-                 },
-                 errorMessage: "Please enter Last name",
-              },
-            },
-            {
-              type: 'date',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'DOB',
-                name:"dob",
-                labelVariant: 'standard',
-                rules:{
-                  required: true,
-                 },
-                 errorMessage: "Please enter DOB",
-                inputFormat: 'dd-MM-yyyy',
-                // components:{
-                //   OpenPickerIcon: <DocsIcon/>
+                // rules: {
+                //   required: 'Please enter First name',
+                //   minLength: {
+                //     value: 5,
+                //     message: 'min length is 4',
+                //   },
+                //   maxLength: {
+                //     value: 15,
+                //     message: 'min length is 14',
+                //   },
                 // },
               },
             },
@@ -1526,13 +1527,78 @@ function App() {
               },
               inputProps: {
                 type: 'text',
-                label: 'Gender',
-                name:"gender",
+                label: 'Last Name',
+                name: 'lastName',
                 labelVariant: 'standard',
-                rules:{
-                  required: true,
-                 },
-                 errorMessage: "Please enter Gender",
+                rules: {
+                  required: 'Please enter Last name',
+                  minLength: {
+                    value: 5,
+                    message: 'min length is 4',
+                  },
+                  maxLength: {
+                    value: 15,
+                    message: 'min length is 14',
+                  },
+                },
+              },
+            },
+            {
+              type: 'date',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'DOB',
+                name: 'dob',
+                labelVariant: 'standard',
+                rules: {
+                  required: 'Please enter DOB',
+                },
+                inputFormat: 'dd-MM-yyyy',
+                // components:{
+                //   OpenPickerIcon: <DocsIcon/>
+                // },
+              },
+            },
+            {
+              type: 'chipSelect',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                label: 'Gender',
+                name: 'gender',
+                labelVariant: 'standard',
+                rules: {
+                  required: 'Please enter Gender',
+                  minLength: {
+                    value: 5,
+                    message: 'min length is 4',
+                  },
+                  maxLength: {
+                    value: 15,
+                    message: 'min length is 14',
+                  },
+                },
+                options: [
+                  { label: 'Male', value: 'Male' },
+                  { label: 'Female', value: 'Female' },
+                  { label: 'Others', value: 'Others' },
+                ],
               },
             },
             {
@@ -1549,12 +1615,11 @@ function App() {
               inputProps: {
                 type: 'text',
                 label: 'Designation',
-                name:"designation",
+                name: 'designation',
                 labelVariant: 'standard',
-                rules:{
-                  required: true,
-                 },
-                 errorMessage: "Please enter Designation",
+                rules: {
+                  required: 'Please enter Designation',
+                },
                 selectOption: [
                   { label: 'Developer', value: 'Developer' },
                   { label: 'Designer', value: 'Designer' },
@@ -1596,12 +1661,20 @@ function App() {
               },
               inputProps: {
                 label: 'Mobile Number',
-                name:"mobileNumber",
+                name: 'mobileNumber',
                 labelVariant: 'standard',
-                rules:{
-                  // required: true,
-                 },
-                 errorMessage: "Please enter Mobile number",
+                rules: {
+                  // required: 'Please enter Designation',
+                  // minLength: {
+                  //   value: 5,
+                  //   message: 'min length is 4',
+                  // },
+                  // maxLength: {
+                  //   value: 15,
+                  //   message: 'min length is 14',
+                  // },
+                },
+                errorMessage: 'Please enter Mobile number',
               },
             },
             {
@@ -1618,12 +1691,20 @@ function App() {
               inputProps: {
                 type: 'text',
                 label: 'Email ID',
-                name:"email",
+                name: 'email',
                 labelVariant: 'standard',
-                rules:{
-                  required: true,
-                 },
-                 errorMessage: "Please enter Email Id",
+                rules: {
+                  required: 'Please enter Email',
+                  minLength: {
+                    value: 5,
+                    message: 'min length is 4',
+                  },
+                  maxLength: {
+                    value: 15,
+                    message: 'min length is 14',
+                  },
+                },
+                errorMessage: 'Please enter Email Id',
               },
             },
             {
@@ -1640,12 +1721,20 @@ function App() {
               inputProps: {
                 type: 'text',
                 label: 'Address Line 1',
-                name:"address1",
+                name: 'address1',
                 labelVariant: 'standard',
-                rules:{
-                  required: true,
-                 },
-                 errorMessage: "Please enter Address Line 1",
+                rules: {
+                  required: 'Please enter Address 1',
+                  minLength: {
+                    value: 5,
+                    message: 'min length is 4',
+                  },
+                  maxLength: {
+                    value: 15,
+                    message: 'min length is 14',
+                  },
+                },
+                errorMessage: 'Please enter Address Line 1',
               },
             },
             {
@@ -1662,12 +1751,20 @@ function App() {
               inputProps: {
                 type: 'text',
                 label: 'Address Line 2',
-                name:"address2",
+                name: 'address2',
                 labelVariant: 'standard',
-                rules:{
-                  required: true,
-                 },
-                 errorMessage: "Please enter Address Line 2",
+                rules: {
+                  required: 'Please enter Address 2',
+                  minLength: {
+                    value: 5,
+                    message: 'min length is 4',
+                  },
+                  maxLength: {
+                    value: 15,
+                    message: 'min length is 14',
+                  },
+                },
+                errorMessage: 'Please enter Address Line 2',
               },
             },
             {
@@ -1681,7 +1778,7 @@ function App() {
                 lg: 6,
                 lx: 6,
               },
-             component:<BasicButtons>Custom Com</BasicButtons>
+              component: <BasicButtons>Custom Com</BasicButtons>,
             },
           ],
         }}
@@ -1813,13 +1910,19 @@ function App() {
           console.log(detail);
         }}
       /> */}
-       <LoginScreen
-        option='mobileNumberLogin'
+      <LoginScreen
+        option="mobileNumberLogin"
         sectionOne={{
           breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
-          image: { src: loginImg, height: '100%', width: '100%',style:{
-            height:'100%', width: '100%'
-          } },
+          image: {
+            src: loginImg,
+            height: '100%',
+            width: '100%',
+            style: {
+              height: '100%',
+              width: '100%',
+            },
+          },
           // backgroundWrapStyle:{height: '100%', width: '100%'},
           // component: <BasicButtons />
         }}
@@ -1830,10 +1933,12 @@ function App() {
           cardData: {
             logo: {
               logoSrc: CompanyLogo,
-              logoHeight: '29px', logoWidth: '147px'
+              logoHeight: '29px',
+              logoWidth: '147px',
             },
             title: 'Welcome!',
-            description: 'One positive feedback per day or week can make us grow exponentially',
+            description:
+              'One positive feedback per day or week can make us grow exponentially',
             bottomText: "Don't have an account?",
             buttonText: 'Send OTP',
             loginActionText: 'Sign in',
@@ -1915,17 +2020,20 @@ function App() {
             mobileNumberLogin: {
               labelText: 'Mobile Number',
               labelStyle: {},
-              mobileFieldstyle: {contryCodefontSize:'14px',fontWeight:'600',numberFontSize:'16px'},
-              dropDownStyle:{width:'110px'},
+              mobileFieldstyle: {
+                contryCodefontSize: '14px',
+                fontWeight: '600',
+                numberFontSize: '16px',
+              },
+              dropDownStyle: { width: '110px' },
             },
-            
           },
         }}
         onSubmit={(detail: object) => {
           console.log(detail);
-        }} 
-        rootStyle={{height:'100%',width:'100%'}}
-        />
+        }}
+        rootStyle={{ height: '100%', width: '100%' }}
+      />
     </div>
   );
 }

@@ -5,6 +5,8 @@ export interface renderFormProps {
   gridStyle?: SxProps;
   gridContainerProps?:GridProps;
   onSubmitFun?:Function;
+  defaultValues?:object;
+  yupSchemaValidation?:any;
   formList?: {
     map(arg0: (data: any, i: number) => any): any;
     [index: number]: {
@@ -14,7 +16,7 @@ export interface renderFormProps {
         | 'dateAndTime'
         | 'date'
         | 'dropDown'
-        | 'mobileNumberInput' | 'custom';
+        | 'mobileNumberInput' | 'custom' | 'chipSelect';
       containerStyle?: SxProps;
       gridStyle?: SxProps;
       breakPoint?: {

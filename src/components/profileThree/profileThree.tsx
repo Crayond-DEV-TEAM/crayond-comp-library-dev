@@ -25,6 +25,7 @@ export default function ProfileThree(props: ProfileThreeProps) {
     cardSxProps,
     gridContainerProps
   } = props;
+    console.log("🚀 ~ file: profileThree.tsx:28 ~ ProfileThree ~ renderForm:", renderForm)
 
   return (
     <Box sx={overallSxProps}>
@@ -87,6 +88,8 @@ export default function ProfileThree(props: ProfileThreeProps) {
                   gridStyle={renderForm?.gridStyle}
                   gridContainerProps={gridContainerProps}
                   onSubmitFun={onSubmitBtn}
+                  defaultValues={renderForm?.defaultValues}
+                  yupSchemaValidation={renderForm?.yupSchemaValidation}
                 />
                
               </Grid>
