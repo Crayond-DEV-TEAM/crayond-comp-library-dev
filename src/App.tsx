@@ -142,81 +142,9 @@ function App() {
   const deleteProfile = () => {
     setProfile('');
   };
-
-  const [state3, setState3] = React.useState({
-    firstName: '',
-    lastName: '',
-    dob: null,
-    gender: '',
-    designation: '',
-    mobileNumber: '',
-    email: '',
-    address1: '',
-    address2: '',
-    error: {
-      firstName: '',
-      lastName: '',
-      dob: '',
-      gender: '',
-      designation: '',
-      mobileNumber: '',
-      email: '',
-      address1: '',
-      address2: '',
-    },
-  });
-
-  const formValidator3 = () => {
-    let status = true;
-    let error = state3?.error;
-    if (state3?.firstName?.length === 0) {
-      status = false;
-      error.email = 'First Name is Required';
-    }
-
-    if (state3?.lastName?.length === 0) {
-      status = false;
-      error.email = 'Last Name is Required';
-    }
-    if (!state3?.dob) {
-      // status = false;
-      error.dob = 'Date of Birth is Required';
-    }
-    if (state3?.gender?.length === 0) {
-      status = false;
-      error.gender = 'Gender is Required';
-    }
-
-    if (state3?.designation?.length === 0) {
-      status = false;
-      error.designation = 'Designation is Required';
-    }
-
-    // if (state3?.mobileNumber?.length === 0) {
-    //   status = false;
-    //   error.mobileNumber = 'Mobile Number is Required';
-    // }
-
-    if (state3?.address1?.length === 0) {
-      status = false;
-      error.address1 = 'Address is Required';
-    }
-
-    if (state3?.address2?.length === 0) {
-      status = false;
-      error.address2 = 'Address is Required';
-    }
-
-    setState3({ ...state3, error: error });
-    return status;
-  };
-  const updateState = (key: string, value: string | number | object) => {
-    debugger;
-    let error: any = state3?.error;
-    error[key] = '';
-    setState3({ ...state3, [key]: value, error });
-  };
-
+ 
+  const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const formSchema = yup.object({
     firstName: yup
       .string()
@@ -231,6 +159,10 @@ function App() {
     dob: yup.date().required('Please enter DOB'),
     gender: yup.string().required('Please enter Gender'),
     designation: yup.string().required('Please enter Designation'),
+    mobileNumber: yup.object().shape({
+      mobile: yup.string().required('Please enter Phone number'),  //.matches(phoneRegExp, 'Phone number is not valid'),
+      mobile_code: yup.string().required('Please select Country code'),
+    }).required('Please enter Phone number...'),
     address1: yup
       .string()
       .min(4, 'Min length 4')
@@ -1441,10 +1373,12 @@ function App() {
         }}
         uploadOptions={{
           imgScr: profile,
+          buttonEnabled:true,
           deleteProfile: deleteProfile,
           uploadProfile: uploadProfile,
           variant: 'rounded',
         }}
+        afterProfileComponent={<>Custom Component here...</>}
         overallSxProps={{
           backgroundColor: '#00FAFA4F',
           padding: '20px 0',
@@ -1663,7 +1597,8 @@ function App() {
                 label: 'Mobile Number',
                 name: 'mobileNumber',
                 labelVariant: 'standard',
-                rules: {
+                required: true,
+                // rules: {
                   // required: 'Please enter Designation',
                   // minLength: {
                   //   value: 5,
@@ -1673,8 +1608,9 @@ function App() {
                   //   value: 15,
                   //   message: 'min length is 14',
                   // },
-                },
-                errorMessage: 'Please enter Mobile number',
+                // },
+                // error:true,
+                // errorMessage: 'Please enter Mobile number',
               },
             },
             {

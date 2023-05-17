@@ -7,10 +7,12 @@ export interface ProfileThreeProps {
   gridContainerProps?:GridProps;
   uploadOptions?: {
     imgScr: string;
+    buttonEnabled:boolean;
     deleteProfile: Function;
     uploadProfile: Function;
     variant:'circular' | 'rounded' | 'square';
   };
+  afterProfileComponent?:React.ReactNode;
   titleOptions?: {
     title: string;
     sxProps:SxProps;

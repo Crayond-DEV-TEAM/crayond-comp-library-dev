@@ -8,8 +8,8 @@ import { inputField_Style } from './style';
 const InputField: React.FC<InputFieldProps> = ({
   label,
   value, 
-  textFieldStyle = {},
-  labelStyle = {},
+  inputStyle,
+  labelStyle,
   labelVariant = 'standard',
   required,
   error,
@@ -31,11 +31,11 @@ const InputField: React.FC<InputFieldProps> = ({
         value={value}
         error={error}
         fullWidth
-        sx={{ ...inputField_Style.textFieldSx, ...textFieldStyle }}
+        sx={{ ...inputField_Style.textFieldSx, ...inputStyle }}
         {...rest}
       />
        <Typography
-        sx={{ mt: 0.5, mb: 0 }}
+        sx={{ mt: 0.5, mb: 0,"caret-color": "transparent"}}
         variant="caption"
         color="error"
         component={'p'}
@@ -70,7 +70,6 @@ InputField.defaultProps = {
   inLineStyles: {},
   startAdornments: null,
   endAdornments: null,
-  textFieldStyle: {},
   labelStyle: {},
   onChange: undefined,
   labelVariant:"standard",

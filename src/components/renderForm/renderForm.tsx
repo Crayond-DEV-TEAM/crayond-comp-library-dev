@@ -18,9 +18,10 @@ const getComponent = (
   component: any,
   edit: string | null,
   control: any,
-  errors: any
+  errors: any,
+  setValue:any,
 ) => {
-  // console.log("🚀 ~ file: renderForm.tsx:19 ~ errors:", errors)
+  console.log("🚀 ~ file: renderForm.tsx:19 ~ errors:", errors)
   const { inputProps } = component;
   // if (inputProps?.regexValidation) {
   //   if (inputProps?.regexValidation?.test(inputProps?.value)) {
@@ -64,9 +65,9 @@ const getComponent = (
               }}
               value={value}
               fullWidth
-              required={inputProps?.rules?.required}
-              error={errors?.[inputProps?.name] ? true : false}
-              errorMessage={errors?.[inputProps?.name]?.message}
+              required={inputProps?.rules?.required ?? inputProps?.required}
+              error={inputProps?.error ?? errors?.[inputProps?.name] ? true : false}
+              errorMessage={errors?.[inputProps?.name]?.message ?? inputProps?.errorMessage}
             />
           )}
         />
@@ -84,9 +85,9 @@ const getComponent = (
               onChange={onChange}
               value={value}
               type="date"
-              required={inputProps?.rules?.required}
-              error={errors?.[inputProps?.name] ? true : false}
-              errorMessage={errors?.[inputProps?.name]?.message}
+              required={inputProps?.rules?.required ?? inputProps?.required}
+              error={inputProps?.error ?? errors?.[inputProps?.name] ? true : false}
+              errorMessage={errors?.[inputProps?.name]?.message ?? inputProps?.errorMessage}
             />
           )}
         />
@@ -102,11 +103,11 @@ const getComponent = (
               {...inputProps}
               onBlur={onBlur}
               onChange={onChange}
-              required={inputProps?.rules?.required}
+              required={inputProps?.rules?.required ?? inputProps?.required}
               value={value}
               type="dateAndTime"
-              error={errors?.[inputProps?.name] ? true : false}
-              errorMessage={errors?.[inputProps?.name]?.message}
+              error={inputProps?.error ?? errors?.[inputProps?.name] ? true : false}
+              errorMessage={errors?.[inputProps?.name]?.message ?? inputProps?.errorMessage}
             />
           )}
         />
@@ -122,10 +123,10 @@ const getComponent = (
               {...inputProps}
               onBlur={onBlur}
               onChange={onChange}
-              required={inputProps?.rules?.required}
+              required={inputProps?.rules?.required ?? inputProps?.required}
               value={value}
-              error={errors?.[inputProps?.name] ? true : false}
-              errorMessage={errors?.[inputProps?.name]?.message}
+              error={inputProps?.error ?? errors?.[inputProps?.name] ? true : false}
+              errorMessage={errors?.[inputProps?.name]?.message ?? inputProps?.errorMessage}
             />
           )}
         />
@@ -141,10 +142,10 @@ const getComponent = (
                 {...inputProps}
                 onBlur={onBlur}
                 onChange={onChange}
-                required={inputProps?.rules?.required}
+                required={inputProps?.rules?.required ?? inputProps?.required}
                 value={value}
-                error={errors?.[inputProps?.name] ? true : false}
-                errorMessage={errors?.[inputProps?.name]?.message}
+                error={inputProps?.error ?? errors?.[inputProps?.name] ? true : false}
+                errorMessage={errors?.[inputProps?.name]?.message ?? inputProps?.errorMessage}
               />
             )}
           />
@@ -161,10 +162,10 @@ const getComponent = (
               {...inputProps}
               onBlur={onBlur}
               onChange={onChange}
-              required={inputProps?.rules?.required}
+              required={inputProps?.rules?.required ?? inputProps?.required}
               value={value}
-              error={errors?.[inputProps?.name] ? true : false}
-              errorMessage={errors?.[inputProps?.name]?.message}
+              error={inputProps?.error ?? errors?.[inputProps?.name]?.mobile?.message ? true : false}
+              errorMessage={errors?.[inputProps?.name]?.mobile?.message ?? inputProps?.errorMessage}
             />
           )}
         />
@@ -191,18 +192,18 @@ export default function RenderForm(props: renderFormProps) {
     gridContainerProps,
     onSubmitFun,
     defaultValues,
-    yupSchemaValidation
+    yupSchemaValidation,
   } = props;
 
   const {
     control,
     handleSubmit,
     formState: { errors },
-    reset 
+    reset,
+    setValue
   } = useForm({resolver: yupSchemaValidation && yupResolver(yupSchemaValidation)});
 
   const onSubmit = (data: any) => {
-    console.log(data, 'trdsa');
     if (onSubmitFun) {
       onSubmitFun(data);
     }
@@ -226,8 +227,8 @@ export default function RenderForm(props: renderFormProps) {
             >
               <Box sx={{ ...styles.inputContainer, ...form?.containerStyle }}>
                 {isEditMode
-                  ? getComponent(form, null, control, errors)
-                  : getComponent(form, 'labelAndValue', '', '')}
+                  ? getComponent(form, null, control, errors, setValue)
+                  : getComponent(form, 'labelAndValue', '', '', '')}
               </Box>
             </Grid>
           ))}

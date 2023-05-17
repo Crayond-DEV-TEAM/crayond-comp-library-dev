@@ -7,8 +7,9 @@ import { dropdown_style } from './style';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import { DropDownProps } from './props';
 export function Dropdown(props: DropDownProps) {
-  const {
-    rootStyle = {},
+  const { 
+    labelStyle,
+    inputStyle,
     value = '',
     optionListStyle = {},
     selectOption = [],
@@ -28,7 +29,7 @@ export function Dropdown(props: DropDownProps) {
     <>
       {labelVariant === 'standard' && (
         <InputLabel
-          sx={dropdown_style.staticLabel}
+          sx={{...dropdown_style.staticLabel, ...labelStyle}}
           id="demo-simple-select-label"
         >
           {label} {required && <span>*</span>}
@@ -41,7 +42,7 @@ export function Dropdown(props: DropDownProps) {
         <Select
           className={`${className}`}
           {...rest}
-          sx={{ ...dropdown_style.rootSx, ...rootStyle }}
+          sx={{ ...dropdown_style.rootSx, ...inputStyle }}
           labelId="demo-simple-select-label"
           id="demo-simple-select"
           label={labelVariant === 'standard' ? '' : label}
@@ -75,7 +76,7 @@ export function Dropdown(props: DropDownProps) {
       </FormControl>
       {/* Field required Message */}
       <Typography
-        sx={{ mt: 0.5, mb: 0 }}
+        sx={{ mt: 0.5, mb: 0,"caret-color": "transparent" }}
         variant="caption"
         color="error"
         component={'p'}

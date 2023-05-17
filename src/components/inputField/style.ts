@@ -18,19 +18,22 @@ export const inputField_Style = {
       //   mt: 1,
       // },
     },
+    '& .Mui-focused.MuiOutlinedInput-notchedOutline':{
+      borderColor: '#E9E9E9 !important',
+    },
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
         borderRadius: '4px',
-        border: '1.5px solid',
-        borderColor: '#E9E9E9',
+        border: '1px solid',
+        borderColor: '#E9E9E9 ',
        
       },
-      // '&:hover fieldset': {
-      //   borderColor: '#E9E9E9',
-      // },
-      // '&.Mui-focused fieldset': {
-      //   borderColor: '#E9E9E9',
-      // },
+      '&:hover fieldset': {
+        borderColor: 'primary.main',
+      },
+      '& .Mui-focused fieldset': {
+        borderColor: 'primary.main',
+      },
     },
   },
 };

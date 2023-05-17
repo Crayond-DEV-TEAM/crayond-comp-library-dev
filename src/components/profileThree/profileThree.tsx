@@ -23,22 +23,20 @@ export default function ProfileThree(props: ProfileThreeProps) {
     onSubmitBtn,
     uploadOptions,
     cardSxProps,
-    gridContainerProps
+    gridContainerProps,
+    afterProfileComponent,
   } = props;
-    console.log("🚀 ~ file: profileThree.tsx:28 ~ ProfileThree ~ renderForm:", renderForm)
 
   return (
     <Box sx={overallSxProps}>
       <Container>
-        <Box sx={{...styles.profileContainer, ...cardSxProps}}>
+        <Box sx={{ ...styles.profileContainer, ...cardSxProps }}>
           {titleOptions?.title && (
             <Box sx={styles?.titleBox}>
               <Divider textAlign="left">
                 <Box display={'flex'} gap={'10px'} alignItems={'center'}>
                   {titleOptions?.icon && <>{titleOptions?.icon}</>}
-                  <Typography
-                    sx={titleOptions?.sxProps}
-                  >
+                  <Typography sx={titleOptions?.sxProps}>
                     {titleOptions?.title}
                   </Typography>
                   <span className="circle"></span>
@@ -56,30 +54,35 @@ export default function ProfileThree(props: ProfileThreeProps) {
                     sx={styles.profileImg}
                   ></Avatar>
                 </Box>
-                <BasicButtons
-                  startIcon={<UploadIcon />}
-                  variant="outlined"
-                  component="label"
-                  inLineStyles={styles.uploadImageBtn}
-                >
-                  Upload
-                  <input
-                    onChange={(e) => {
-                      uploadOptions?.uploadProfile(e);
-                    }}
-                    hidden
-                    accept="image/*"
-                    type="file"
-                  />
-                </BasicButtons>
-                <BasicButtons
-                  startIcon={<DeleteIcon />}
-                  variant="outlined"
-                  onClick={() => uploadOptions?.deleteProfile()}
-                  inLineStyles={styles.uploadImageBtn}
-                >
-                  Remove
-                </BasicButtons>
+                {uploadOptions?.buttonEnabled && (
+                  <>
+                    <BasicButtons
+                      startIcon={<UploadIcon />}
+                      variant="outlined"
+                      component="label"
+                      inLineStyles={styles.uploadImageBtn}
+                    >
+                      Upload
+                      <input
+                        onChange={(e) => {
+                          uploadOptions?.uploadProfile(e);
+                        }}
+                        hidden
+                        accept="image/*"
+                        type="file"
+                      />
+                    </BasicButtons>
+                    <BasicButtons
+                      startIcon={<DeleteIcon />}
+                      variant="outlined"
+                      onClick={() => uploadOptions?.deleteProfile()}
+                      inLineStyles={styles.uploadImageBtn}
+                    >
+                      Remove
+                    </BasicButtons>
+                  </>
+                )}
+                {afterProfileComponent && <Box>{afterProfileComponent}</Box>}
               </Grid>
               <Grid item xs={12} sm={12} md={6} lg={8} xl={8.5}>
                 <RenderForm
@@ -91,7 +94,6 @@ export default function ProfileThree(props: ProfileThreeProps) {
                   defaultValues={renderForm?.defaultValues}
                   yupSchemaValidation={renderForm?.yupSchemaValidation}
                 />
-               
               </Grid>
             </Grid>
           </Box>

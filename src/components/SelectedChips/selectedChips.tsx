@@ -47,7 +47,7 @@ export function SelectedChips(props:any) {
         ))}
       </ToggleButtonGroup>
       <Typography
-        sx={{ mt: 0.5, mb: 0 }}
+        sx={{ mt: 0.5, mb: 0, "caret-color": "transparent" }}
         variant="caption"
         color="error"
         component={'p'}
