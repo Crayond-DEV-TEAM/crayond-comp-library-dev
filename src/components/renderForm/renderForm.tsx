@@ -20,8 +20,7 @@ const getComponent = (
   control: any,
   errors: any,
   setValue:any,
-) => {
-  console.log("🚀 ~ file: renderForm.tsx:19 ~ errors:", errors)
+) => { 
   const { inputProps } = component;
   // if (inputProps?.regexValidation) {
   //   if (inputProps?.regexValidation?.test(inputProps?.value)) {

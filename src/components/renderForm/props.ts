@@ -7,7 +7,7 @@ export interface renderFormProps {
   onSubmitFun?:Function;
   defaultValues?:object;
   yupSchemaValidation?:any;
-  formList?: {
+  formList: {
     map(arg0: (data: any, i: number) => any): any;
     [index: number]: {
       type?:

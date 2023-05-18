@@ -15,7 +15,6 @@ export const styles = {
     flexDirection: 'row',
     borderRadius: '4px',
     padding: '5.5px 0',
-
     '&:hover ': {
       border: '1px solid',
       borderColor: 'primary.main',
@@ -43,6 +42,7 @@ export const styles = {
     /* Firefox */
     '& input[type=number]': {
       '-moz-appearance': 'textfield',
+      
     },
   },
 };

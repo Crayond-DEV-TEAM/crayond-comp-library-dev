@@ -3,7 +3,6 @@ import { renderFormProps } from '../renderForm/props';
 
 export interface ProfileThreeProps {
   isEditMode: Boolean;
-  onSubmitBtn: Function;
   gridContainerProps?:GridProps;
   uploadOptions?: {
     imgScr: string;

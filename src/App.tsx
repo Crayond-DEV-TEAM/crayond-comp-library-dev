@@ -118,7 +118,7 @@ function App() {
   //   formList:formList
   // }
   const [isEdit, setIsEdit] = React.useState(true);
-  const onSubmitBtn = (data: object) => {
+  const onSubmitFun = (data: object) => {
     console.log('🚀 ~ file: App.tsx:121 ~ onSubmitBtn ~ data:', data);
     // if (isEdit) {
     //   if (formValidator3()) {
@@ -1361,7 +1361,6 @@ function App() {
 
       <ProfileThree
         isEditMode={isEdit}
-        onSubmitBtn={onSubmitBtn}
         titleOptions={{
           title: 'My Profile',
           sxProps: {
@@ -1380,23 +1379,25 @@ function App() {
         }}
         afterProfileComponent={<>Custom Component here...</>}
         overallSxProps={{
-          backgroundColor: '#00FAFA4F',
+          backgroundColor: '#DAE8FC',
           padding: '20px 0',
         }}
         cardSxProps={{}}
         gridContainerProps={{ columnSpacing: 3, spacing: 0 }}
         renderForm={{
+          onSubmitFun:(data:object)=>onSubmitFun(data),
           yupSchemaValidation: formSchema,
-          // defaultValues: {
-          //    address1: 'My Address 1',
-          //    address2: 'My Address 2' ,
-          //    designation: 'Developer' ,
-          //    email: 'hari@gmail.co' ,
-          //    firstName: 'Hari' ,
-          //    gender: 'Male' ,
-          //    lastName: 'Haran' ,
-          //    mobileNumber: '845678906789' ,
-          // },
+          defaultValues: {
+             address1: 'My Address 1',
+             address2: 'My Address 2' ,
+             designation: 'Developer' ,
+             email: 'hari@gmail.co' ,
+             dob: "12/06/2022",
+             firstName:'Hari', 
+             gender: 'Male' ,
+             lastName: 'Haran' ,
+             mobileNumber: {mobile:'845678906789', mobile_code:"+91"} ,
+          },
           formList: [
             {
               type: 'heading',
@@ -1846,7 +1847,7 @@ function App() {
           console.log(detail);
         }}
       /> */}
-      <LoginScreen
+      {/* <LoginScreen
         option="mobileNumberLogin"
         sectionOne={{
           breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
@@ -1969,7 +1970,7 @@ function App() {
           console.log(detail);
         }}
         rootStyle={{ height: '100%', width: '100%' }}
-      />
+      /> */}
     </div>
   );
 }

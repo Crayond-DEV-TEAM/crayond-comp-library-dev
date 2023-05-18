@@ -20,7 +20,6 @@ export default function ProfileThree(props: ProfileThreeProps) {
     titleOptions,
     overallSxProps,
     renderForm,
-    onSubmitBtn,
     uploadOptions,
     cardSxProps,
     gridContainerProps,
@@ -90,7 +89,7 @@ export default function ProfileThree(props: ProfileThreeProps) {
                   isEditMode={isEditMode}
                   gridStyle={renderForm?.gridStyle}
                   gridContainerProps={gridContainerProps}
-                  onSubmitFun={onSubmitBtn}
+                  onSubmitFun={renderForm?.onSubmitFun}
                   defaultValues={renderForm?.defaultValues}
                   yupSchemaValidation={renderForm?.yupSchemaValidation}
                 />
