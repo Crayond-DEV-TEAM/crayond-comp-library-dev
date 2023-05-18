@@ -2,14 +2,29 @@ import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
-import React from 'react';
-import DocsIcon from './assets/docsIcon';
 import { Profile } from './components/profile';
 import { Viewer } from './components/viewer';
 import DeleteIcon from './assets/deleteIcon';
 import profileImg from './assets/sampleprof.png';
-import { BasicButtons } from './components/button';
+import React, { Component } from 'react';
+import { FcGoogle } from 'react-icons/fc';
+import CompanyLogo from './assets/companyLogo.png';
+import loginImg from './assets/loginImg.png';
+import LoginScreen from './components/loginPage/login';
+import SignupScreen from './components/signUpPage/signUp';
+import { BasicButtons, CommonTable } from '@components';
+import FunnelIcon from './assets/funnelIcon';
+import SearchIcon from './assets/searchIcon';
+import DownloadIcon from './assets/downloadIcon';
+import DocsIcon from './assets/docsIcon';
 import EditIcon from './assets/editIcon';
+import NotificationIcon from './assets/notificationIcon';
+import AlertIcon from './assets/alertIcon';
+import { Button } from '@mui/material';
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import { ProfileThree } from './components/profileThree';
+import yup from './utils/yupSchema';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -76,7 +91,7 @@ function App() {
   //     gridStyle: {},
   //     breakPoint: {
   //       xs: 12,
-  //       sm: 12,
+  //       sm: 6,
   //       md: 6,
   //       lg: 6,
   //       lx: 6,
@@ -106,92 +121,69 @@ function App() {
   //   formList:formList
   // }
   const [isEdit, setIsEdit] = React.useState(true);
-  const onSubmitBtn = () => {
-    // if (formValidator()) {
-    setIsEdit(!isEdit);
+  const onSubmitFun = (data: object) => {
+    console.log('🚀 ~ file: App.tsx:121 ~ onSubmitBtn ~ data:', data);
+    // if (isEdit) {
+    //   if (formValidator3()) {
+    //     setIsEdit(false);
+    //   }
+    // } else {
+    //   setIsEdit(true);
     // }
   };
   const img =
     'https://loveshayariimages.in/wp-content/uploads/2022/08/dp-pic-whatsapp-150x150.jpg';
   const [profile, setProfile] = React.useState(img);
-  const uploadProfile = (event: any, data: any) => {
-    setProfile(img);
+  const uploadProfile = (event: any) => {
+    console.log(
+      event.target.files,
+      '🚀 ~ file: App.tsx:133 ~ uploadProfile ~ event:',
+      URL.createObjectURL(event.target.files[0])
+    );
+    setProfile(URL.createObjectURL(event.target.files[0]));
   };
   const deleteProfile = () => {
     setProfile('');
   };
 
-  const [state, setState] = React.useState({
-    email: '',
-    dob: null,
-    mobileNumber: '',
-    designation: '',
-    city: '',
-    state: '',
-    country: '',
-    timeZone: '',
-    error: {
-      email: '',
-      dob: '',
-      mobileNumber: '',
-      designation: '',
-      city: '',
-      state: '',
-      country: '',
-      timeZone: '',
-    },
+  const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  const formSchema = yup.object({
+    firstName: yup
+      .string()
+      .min(4, 'Min length 4')
+      .max(14, 'Max length 7')
+      .required('Please enter first name'),
+    lastName: yup
+      .string()
+      .min(4, 'Min length 4')
+      .max(14, 'Max length 7')
+      .required('Please enter Last name'),
+    dob: yup.date().required('Please enter DOB'),
+    gender: yup.string().required('Please enter Gender'),
+    designation: yup.string().required('Please enter Designation'),
+    mobileNumber: yup
+      .object()
+      .shape({
+        mobile: yup.string().required('Please enter Phone number'), //.matches(phoneRegExp, 'Phone number is not valid'),
+        mobile_code: yup.string().required('Please select Country code'),
+      })
+      .required('Please enter Phone number...'),
+    address1: yup
+      .string()
+      .min(4, 'Min length 4')
+      .max(14, 'Max length 7')
+      .required('Please enter Address 1'),
+    address2: yup
+      .string()
+      .min(4, 'Min length 4')
+      .max(14, 'Max length 7')
+      .required('Please enter Address 2'),
+    email: yup
+      .string()
+      .email('Please enter valid email')
+      .required('Please enter email'),
   });
-
-  const formValidator = () => {
-    let status = false;
-    let error = state?.error;
-    if (state?.email?.length === 0) {
-      status = false;
-      error.email = 'Email is Required';
-    }
-
-    if (state?.dob) {
-      status = false;
-      error.dob = 'Date of Birth is Required';
-    }
-
-    if (state?.mobileNumber?.length === 0) {
-      status = false;
-      error.mobileNumber = 'Mobile Number is Required';
-    }
-
-    if (state?.designation?.length === 0) {
-      status = false;
-      error.designation = 'Designation is Required';
-    }
-
-    if (state?.city?.length === 0) {
-      status = false;
-      error.city = 'City is Required';
-    }
-
-    if (state?.state?.length === 0) {
-      status = false;
-      error.state = 'State is Required';
-    }
-
-    if (state?.country?.length === 0) {
-      status = false;
-      error.country = 'Country is Required';
-    }
-
-    if (state?.timeZone?.length === 0) {
-      status = false;
-      error.timeZone = 'Time Zone is Required';
-    }
-    return status;
-  };
-  const updateState = (key: string, value: string | number | object) => {
-    let error: any = state?.error;
-    error[key] = '';
-    setState({ ...state, [key]: value, error });
-  };
-
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
       {/* <CommonTable
@@ -1121,22 +1113,23 @@ function App() {
         }}
         // HeaderComponent={{
         //   variant: 2,
-        // styles:{
-        //   padding:"10px 0",
-        //   margin:"0"
-        // },
-        //   searchPlaceholder:"Search by name, email",
-        //   setHederSearch:setHederSearch,
-        //   checkboxLabel:"Show only my reportees",
-        //   primaryBtnText:"Add Member",
-        //   secondaryBtnText:"Import",
-        //   secondaryBtnIcon:<DocsIcon color={"#357968"}/>,
-        //   funnelIcon:<FunnelIcon color={"#fff"}/>,
-        //   searchIcon:<SearchIcon/>,
-        //   fillerMethod:fillerMethod,
-        //   primaryBtnMethod:primaryBtnMethod,
-        //   secondaryBtnMethod:secondaryBtnMethod,
-        //   headerCheckbox:headerCheckbox, setHederCheckbox:setHederCheckbox
+        //   styles: {
+        //     padding: '10px 0',
+        //     margin: '0',
+        //   },
+        //   searchPlaceholder: 'Search by name, email',
+        //   setHederSearch: setHederSearch,
+        //   checkboxLabel: 'Show only my reportees',
+        //   primaryBtnText: 'Add Member',
+        //   secondaryBtnText: 'Import',
+        //   secondaryBtnIcon: <DocsIcon color={'#357968'} />,
+        //   funnelIcon: <FunnelIcon color={'#fff'} />,
+        //   searchIcon: <SearchIcon />,
+        //   fillerMethod: fillerMethod,
+        //   primaryBtnMethod: primaryBtnMethod,
+        //   secondaryBtnMethod: secondaryBtnMethod,
+        //   headerCheckbox: headerCheckbox,
+        //   setHederCheckbox: setHederCheckbox,
         // }}
       /> */}
       <Viewer
@@ -1407,6 +1400,8 @@ function App() {
           },
           form: { breakpoints: { xs: 12, sm: 6, md: 6, lg: 4.5, xl: 4.5 } },
         }}
+
+      {/* <Profile
         isEditMode={isEdit}
         username={'Akila'}
         onSubmitBtn={onSubmitBtn}
@@ -1433,7 +1428,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 12,
                 lg: 12,
                 lx: 12,
@@ -1475,7 +1470,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 12,
                 lg: 12,
                 lx: 12,
@@ -1499,7 +1494,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 12,
                 lg: 12,
                 lx: 12,
@@ -1524,7 +1519,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 12,
                 lg: 12,
                 lx: 12,
@@ -1553,7 +1548,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 6,
                 lg: 6,
                 lx: 6,
@@ -1582,7 +1577,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 6,
                 lg: 6,
                 lx: 6,
@@ -1611,7 +1606,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 6,
                 lg: 6,
                 lx: 6,
@@ -1639,7 +1634,7 @@ function App() {
               gridStyle: {},
               breakPoint: {
                 xs: 12,
-                sm: 12,
+                sm: 6,
                 md: 6,
                 lg: 6,
                 lx: 6,
@@ -1666,11 +1661,517 @@ function App() {
       /> 
        {/* <LoginScreen
         option='mobileNumberLogin'
+      /> */}
+
+      <ProfileThree
+        isEditMode={isEdit}
+        titleOptions={{
+          title: 'My Profile',
+          sxProps: {
+            fontSize: '16px',
+            fontWeight: '600',
+            color: '#11111199',
+          },
+          icon: <DocsIcon color="#357968c0" />,
+        }}
+        uploadOptions={{
+          imgScr: profile,
+          buttonEnabled: true,
+          deleteProfile: deleteProfile,
+          uploadProfile: uploadProfile,
+          variant: 'rounded',
+        }}
+        afterProfileComponent={<>Custom Component here...</>}
+        overallSxProps={{
+          backgroundColor: '#DAE8FC',
+          padding: '20px 0',
+        }}
+        cardSxProps={{}}
+        gridContainerProps={{ columnSpacing: 3, spacing: 0 }}
+        renderForm={{
+          formButtonContainerStyle: {},
+          submitButton: {
+            visible: true,
+            title: 'Save',
+            onClick: (data: object) => onSubmitFun(data),
+            sx: {},
+          },
+          cancelButton: {
+            visible: true,
+            title: 'Cancel',
+            onClick: (data: object) =>console.log(data),
+            sx: {},
+            variant:"outlined"
+          },
+          customButton: { 
+            component: <></>,
+          },
+          yupSchemaValidation: formSchema,
+          defaultValues: {
+            address1: 'My Address 1',
+            address2: 'My Address 2',
+            designation: 'Developer',
+            email: 'hari@gmail.co',
+            dob: '12/06/2022',
+            firstName: 'Hari',
+            gender: 'Male',
+            lastName: 'Haran',
+            mobileNumber: { mobile: '845678906789', mobile_code: '+91' },
+          },
+          formList: [
+            {
+              type: 'heading',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                lx: 12,
+              },
+              inputProps: {
+                value: 'Basic Details',
+                sx: {
+                  fontSize: '16px',
+                  color: '#111111',
+                  fontWeight: '500',
+                  margin: '0 0 8px 0',
+                },
+              },
+            },
+            {
+              type: 'input',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'First Name',
+                name: 'firstName',
+                labelVariant: 'standard',
+                // rules: {
+                //   required: 'Please enter First name',
+                //   minLength: {
+                //     value: 5,
+                //     message: 'min length is 4',
+                //   },
+                //   maxLength: {
+                //     value: 15,
+                //     message: 'min length is 14',
+                //   },
+                // },
+              },
+            },
+            {
+              type: 'input',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'Last Name',
+                name: 'lastName',
+                labelVariant: 'standard',
+                rules: {
+                  required: 'Please enter Last name',
+                  minLength: {
+                    value: 5,
+                    message: 'min length is 4',
+                  },
+                  maxLength: {
+                    value: 15,
+                    message: 'min length is 14',
+                  },
+                },
+              },
+            },
+            {
+              type: 'date',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'DOB',
+                name: 'dob',
+                labelVariant: 'standard',
+                rules: {
+                  required: 'Please enter DOB',
+                },
+                inputFormat: 'dd-MM-yyyy',
+                // components:{
+                //   OpenPickerIcon: <DocsIcon/>
+                // },
+              },
+            },
+            {
+              type: 'chipSelect',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                label: 'Gender',
+                name: 'gender',
+                labelVariant: 'standard',
+                rules: {
+                  required: 'Please enter Gender',
+                },
+                options: [
+                  { label: 'Male', value: 'Male' },
+                  { label: 'Female', value: 'Female' },
+                  { label: 'Others', value: 'Others' },
+                ],
+              },
+            },
+            {
+              type: 'dropDown',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'Designation',
+                name: 'designation',
+                labelVariant: 'standard',
+                rules: {
+                  required: 'Please enter Designation',
+                },
+                selectOption: [
+                  { label: 'Developer', value: 'Developer' },
+                  { label: 'Designer', value: 'Designer' },
+                  { label: 'designation', value: 'designation' },
+                ],
+              },
+            },
+            {
+              type: 'heading',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                lx: 12,
+              },
+              inputProps: {
+                value: 'Contact Information',
+                sx: {
+                  fontSize: '16px',
+                  color: '#111111',
+                  fontWeight: '500',
+                  margin: '18px 0 8px 0',
+                },
+              },
+            },
+            {
+              type: 'mobileNumberInput',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                label: 'Mobile Number',
+                name: 'mobileNumber',
+                labelVariant: 'standard',
+                required: true,
+                // rules: {
+                // required: 'Please enter Designation',
+                // minLength: {
+                //   value: 5,
+                //   message: 'min length is 4',
+                // },
+                // maxLength: {
+                //   value: 15,
+                //   message: 'min length is 14',
+                // },
+                // },
+                // error:true,
+                // errorMessage: 'Please enter Mobile number',
+              },
+            },
+            {
+              type: 'input',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'Email ID',
+                name: 'email',
+                labelVariant: 'standard',
+                rules: {
+                  required: 'Please enter Email',
+                  minLength: {
+                    value: 5,
+                    message: 'min length is 4',
+                  },
+                  maxLength: {
+                    value: 15,
+                    message: 'min length is 14',
+                  },
+                },
+                errorMessage: 'Please enter Email Id',
+              },
+            },
+            {
+              type: 'input',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'Address Line 1',
+                name: 'address1',
+                labelVariant: 'standard',
+                rules: {
+                  required: 'Please enter Address 1',
+                  minLength: {
+                    value: 5,
+                    message: 'min length is 4',
+                  },
+                  maxLength: {
+                    value: 15,
+                    message: 'min length is 14',
+                  },
+                },
+                errorMessage: 'Please enter Address Line 1',
+              },
+            },
+            {
+              type: 'input',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'Address Line 2',
+                name: 'address2',
+                labelVariant: 'standard',
+                rules: {
+                  required: 'Please enter Address 2',
+                  minLength: {
+                    value: 5,
+                    message: 'min length is 4',
+                  },
+                  maxLength: {
+                    value: 15,
+                    message: 'min length is 14',
+                  },
+                },
+                errorMessage: 'Please enter Address Line 2',
+              },
+            },
+            {
+              type: 'custom',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              component: <BasicButtons>Custom Com</BasicButtons>,
+            },
+          ],
+        }}
+      />
+      {/* <SignupScreen
+        option='socialMediaSignup'
         sectionOne={{
           breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
-          image: { src: loginImg, height: '100%', width: '100%',style:{
+          image: { src: loginImg, height:'100%', width: '100%',style:{
             height:'100%', width: '100%'
           } },
+          // backgroundWrapStyle:{height: '100%', width: '100%'},
+          // component: <BasicButtons />
+        }}
+        sectionTwo={{
+          breakpoints: { xs: 12, md: 9, sm: 8, lg: 9 },
+          WraperStyle:{},
+          cardParentStyle:{},
+          cardData:{
+            title:'Welcome!',
+            description:'One positive feedback per day or week can make us grow exponentially',
+            logo:{
+              logoSrc: CompanyLogo, logoHeight: '29px', logoWidth: '147px',
+              alt:'logo',
+              logoStyle:{},
+            },
+            childrenStyle:{},
+            mobileNumberSignup:{
+              labelText:'Mobile Number',
+              labelStyle:{},
+              mobileFieldstyle:{contryCodefontSize:'14px',fontWeight:'600',numberFontSize:'16px'},
+              dropDownStyle:{width:'120px'}
+            },
+            socialMedia:{
+              socialMediaList:[
+                {
+                  label: 'SignUp with google',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('SignUp with google');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+                {
+                  label: 'Sign up with Outlook',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('SignUp with Outlook');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+                {
+                  label: 'Sign up with Email',
+                  icon: <FcGoogle />,
+                  onSocialmediaLogin: () => {
+                    console.log('Sign up with Email');
+                  },
+                  style: {
+                    textAlign: 'center',
+                    width: '100%',
+                    color: '#3B3B3B',
+                    fontSize: '14px',
+                    fontWeight: 'Medium',
+                  },
+                  SocialMediaButtonStyle: {},
+                },
+              ],        
+            },
+            emailWithPassword:{
+              nameStyle:{},
+              firstName:{
+                FnameFieldStyle:{},
+                labelStyle:{},
+                label:'First Name'
+              },
+              lastName:{
+                LnameFieldStyle:{},
+                labelStyle:{},
+                label:'Last Name'
+              },        
+              email:{
+                fieldstyle:{},
+                labelStyle:{},
+                label:'Email'
+              },
+              password:{
+                label:'Password',
+                labelStyle:{},
+                fieldstyle:{},
+                visbleIcon: <VisibilityOutlinedIcon />,
+                invisibleIcon: <VisibilityOffOutlinedIcon />,
+              },
+              confirmPassword:{
+                label:'Confirm Password',
+                labelStyle:{},
+                fieldstyle:{},
+                visbleIcon: <VisibilityOutlinedIcon />,
+                invisibleIcon: <VisibilityOffOutlinedIcon />,
+              }
+            },
+            bottomText:'You have an account?',
+            buttonText:'Sign Up',
+            titleStyle:{},
+            cardStyle:{},
+            btnStyle:{},
+            signupActionText:'Login',
+            actionstyle:{},
+            bottomTextStyle:{},
+            onLoginClick: () => {
+              console.log('login');
+            },
+          },
+        }}
+        onSubmit={(detail: object) => {
+          console.log(detail);
+        }}
+      /> */}
+      {/* <LoginScreen
+        option="mobileNumberLogin"
+        sectionOne={{
+          breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
+          image: {
+            src: loginImg,
+            height: '100%',
+            width: '100%',
+            style: {
+              height: '100%',
+              width: '100%',
+            },
+          },
           // backgroundWrapStyle:{height: '100%', width: '100%'},
           // component: <BasicButtons />
         }}
@@ -1681,10 +2182,12 @@ function App() {
           cardData: {
             logo: {
               logoSrc: CompanyLogo,
-              logoHeight: '29px', logoWidth: '147px'
+              logoHeight: '29px',
+              logoWidth: '147px',
             },
             title: 'Welcome!',
-            description: 'One positive feedback per day or week can make us grow exponentially',
+            description:
+              'One positive feedback per day or week can make us grow exponentially',
             bottomText: "Don't have an account?",
             buttonText: 'Send OTP',
             loginActionText: 'Sign in',
@@ -1766,17 +2269,20 @@ function App() {
             mobileNumberLogin: {
               labelText: 'Mobile Number',
               labelStyle: {},
-              mobileFieldstyle: {contryCodefontSize:'14px',fontWeight:'600',numberFontSize:'16px'},
-              dropDownStyle:{width:'110px'},
+              mobileFieldstyle: {
+                contryCodefontSize: '14px',
+                fontWeight: '600',
+                numberFontSize: '16px',
+              },
+              dropDownStyle: { width: '110px' },
             },
-            
           },
         }}
         onSubmit={(detail: object) => {
           console.log(detail);
-        }} 
-        rootStyle={{height:'100%',width:'100%'}}
-        /> */}
+        }}
+        rootStyle={{ height: '100%', width: '100%' }}
+      /> */}
     </div>
   );
 }

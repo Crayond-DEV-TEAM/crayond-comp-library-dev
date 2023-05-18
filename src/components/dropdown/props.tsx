@@ -28,12 +28,13 @@ export interface DropDownProps {
   value?: any;
   variant?: 'standard' | 'outlined' | 'filled';
   labelVariant?: 'standard' | 'float';
-//   selectOption?: { label: string | number; value: string | number, [key]:string | number}[];
+  //   selectOption?: { label: string | number; value: string | number, [key]:string | number}[];
   selectOption?: Array<any>;
   required?: boolean;
   error?: boolean;
   placeholder?: string;
-  rootStyle?: object;
+  labelStyle: SxProps;
+  inputStyle: SxProps;
   optionListStyle?: object;
   className?: string;
   helperText?: string;

@@ -218,6 +218,7 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
               value={email}
               label={sectionTwo?.cardData?.emailWithPassword?.email?.label}
               labelStyle={sectionTwo?.cardData?.emailWithPassword?.email?.labelStyle}
+              required
             />
             <InputField
               fullWidth

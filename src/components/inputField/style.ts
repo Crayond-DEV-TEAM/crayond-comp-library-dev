@@ -1,32 +1,39 @@
 export const inputField_Style = {
   labelSx: {
     fontSize: '12px',
+    marginRight:"5px",
+    marginBottom:"8px",
+    color:"#3B3B3B",
+
+    "& span":{
+      color:"#F44F5A",
+    }
   },
   textFieldSx: {
-    opacity: 1,
     '& .MuiOutlinedInput-input': {
       width: '100%',
       fontWeight: 'normal',
-      '& .MuiTextField-root': {
-        mt: 1,
-      },
+      padding:"12px 16px"
+      // '& .MuiTextField-root': {
+      //   mt: 1,
+      // },
+    },
+    '& .Mui-focused.MuiOutlinedInput-notchedOutline':{
+      borderColor: '#E9E9E9 !important',
     },
     '& .MuiOutlinedInput-root': {
       '& fieldset': {
-        borderRadius: '8px',
-        border: '1.5px solid',
-        borderColor: '#E9E9E9',
+        borderRadius: '4px',
+        border: '1px solid',
+        borderColor: '#E9E9E9 ',
+       
       },
       '&:hover fieldset': {
-        borderColor: '#E9E9E9',
+        borderColor: 'primary.main',
       },
-      '&.Mui-focused fieldset': {
-        borderColor: '#E9E9E9',
+      '& .Mui-focused fieldset': {
+        borderColor: 'primary.main',
       },
     },
-    '& .MuiFormHelperText-root': {
-      mx: 0,
-    },
-    
   },
 };
