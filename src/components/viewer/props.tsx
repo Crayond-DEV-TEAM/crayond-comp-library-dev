@@ -1,34 +1,41 @@
-import { renderFormProps } from "../renderForm/props";
-
 export interface ViewerProps {
-    profileContainerStyle?: object;
-    profileDetails?: {
-        profileDetailsStyle: object;
-        gridStyle: object;
+    rootStyle?: object;
+    viewBody: {
+        viewBodyStyle: object;
+        gridStyle?: object;
         profileimage?: {
             breakpoints: object;
-            badge?: { anchorOrigin?: any; overlap?: any };
-            deleteContainerStyle?: object;
+            profileImgStyle?: object;
+            imgSrc: string | any;
+            variant?: 'circular'
+            | 'rounded'
+            | 'square';
+            profileimgContainer?:object;
+            profileImgEditIcon?:React.ReactNode | any;
+            customComp?:React.ReactNode | any;
+            avatarconStyle?:object;
+            profileImgEditStyle?:object;
+            onClick?:Function | any;
         };
-        form: { breakpoints: object };
+        form?: {
+            breakpoints: object;
+            title?: string;
+            subTitle?: string;
+            description?: string;
+            titleStyle?: object;
+            descriptionStyle?: object;
+            subTitleStyle?: object;
+            formContainer?:object;
+            formListContainer?:object;
+            formList: any;
+        };
+        btnList?:any;
     };
-    isEditMode?: Boolean;
-    onSubmitBtn?: Function;
-    username?: string;
-    uploadOptions?: {
-        imgScr: string;
-        deleteProfile: Function;
-        uploadProfile: Function;
-    };
-    titleOptions?: {
+    headerOptions?: {
         title: string;
         fontSize?: string;
         fontWeight?: string;
         color?: string;
         titleBoxStyle?: object;
     };
-    userNameStyle?: object;
-    bgColor?: string;
-    paddingAll?: string;
-    renderForm?: renderFormProps;
 }

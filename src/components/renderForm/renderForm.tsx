@@ -8,6 +8,7 @@ import { DateAndTimePicker } from '../dateAndTimePicker';
 import { renderFormProps } from './props';
 import { Dropdown } from '../dropdown';
 import { Icon } from '@mui/material';
+import { Viewer } from '../viewer';
 
 const getComponent = (component: any, edit: string | null) => {
   const { inputProps } = component;
@@ -53,10 +54,9 @@ const getComponent = (component: any, edit: string | null) => {
     case 'labelAndValue':
       return (
         <Box sx={{ display: 'flex' }}>
-          {inputProps?.icon && (
+          {/* {inputProps?.icon && (
             <Icon sx={{...styles.viewIconSx,...inputProps?.view?.iconStyle}}>{inputProps?.icon}</Icon>
-          )
-          }
+          ) */}
           <Box>
             <Typography sx={{...styles?.viewLabel,...inputProps?.view?.viewLabelStyle}}>{inputProps?.label}</Typography>
             <Typography sx={{...styles?.viewValue,...inputProps?.view?.viewValueStyle}}>{inputProps?.value}</Typography>
