@@ -215,15 +215,15 @@ Primary.args = {
         labelVariant: 'standard',
         required: true,
         // rules: {
-          // required: 'Please enter Designation',
-          // minLength: {
-          //   value: 5,
-          //   message: 'min length is 4',
-          // },
-          // maxLength: {
-          //   value: 15,
-          //   message: 'min length is 14',
-          // },
+        // required: 'Please enter Designation',
+        // minLength: {
+        //   value: 5,
+        //   message: 'min length is 4',
+        // },
+        // maxLength: {
+        //   value: 15,
+        //   message: 'min length is 14',
+        // },
         // },
         // error:true,
         // errorMessage: 'Please enter Mobile number',
@@ -330,7 +330,28 @@ Primary.args = {
         lg: 6,
         lx: 6,
       },
-      component: <BasicButtons>Custom Com</BasicButtons>,
+      component: <BasicButtons type="button">Custom Com</BasicButtons>,
     },
   ],
+  formButtonContainerStyle: {},
+  gridStyle: {},
+  isEditMode: false,
+  gridContainerProps: { columnSpacing: 3, spacing: 0 },
+  defaultValues: undefined,
+  yupSchemaValidation: null,
+  submitButton: {
+    visible: true,
+    title: 'Save',
+    onClick: (data: object) => console.log(data),
+    sx: {},
+  },
+  cancelButton: {
+    visible: true,
+    title: 'Cancel',
+    onClick: (data: any) => console.log(data),
+    sx: {},
+  },
+  customButton: {
+    component: <></>,
+  },
 };

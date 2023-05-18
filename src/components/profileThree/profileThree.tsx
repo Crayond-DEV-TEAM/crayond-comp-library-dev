@@ -89,9 +89,11 @@ export default function ProfileThree(props: ProfileThreeProps) {
                   isEditMode={isEditMode}
                   gridStyle={renderForm?.gridStyle}
                   gridContainerProps={gridContainerProps}
-                  onSubmitFun={renderForm?.onSubmitFun}
                   defaultValues={renderForm?.defaultValues}
                   yupSchemaValidation={renderForm?.yupSchemaValidation}
+                  cancelButton={renderForm?.cancelButton}
+                  submitButton={renderForm?.submitButton}
+                  customButton={renderForm?.customButton}
                 />
               </Grid>
             </Grid>
@@ -103,4 +105,13 @@ export default function ProfileThree(props: ProfileThreeProps) {
   );
 }
 
-// Profile.defaultProps = {};
+ProfileThree.defaultProps = {
+  isEditMode:false,
+  titleOptions:{},
+  overallSxProps:{},
+  renderForm:{},
+  uploadOptions:{},
+  cardSxProps:{},
+  gridContainerProps:{},
+  afterProfileComponent:null,
+};

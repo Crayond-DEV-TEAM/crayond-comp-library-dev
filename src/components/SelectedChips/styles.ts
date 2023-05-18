@@ -5,11 +5,12 @@ export const styles = {
     gap: '8px',
     borderRadius: '4px',
     '& .MuiToggleButtonGroup-grouped:not(:first-of-type)': {
-      border: '1px solid primary.main',
+      border: '1px solid  !important',
+      borderColor: '#E9E9E9 !important',
       borderRadius: '4px',
       '&.Mui-selected': {
-        border: '1px solid',
-        borderColor:"primary.main"
+        border: '1px solid !important',
+        borderColor: '#357968 !important',
       },
     },
     '& .MuiToggleButtonGroup-grouped:not(:last-of-type)': {
@@ -19,18 +20,18 @@ export const styles = {
   },
   selectChip: {
     border: '1px solid ',
-    borderColor:"#E9E9E9",
+    borderColor: '#E9E9E9 ',
     opacity: 1,
     color: '#353448',
     cursor: 'pointer',
-    padding: '5px',
+    padding: '5px 8px',
     textTransform: 'capitalize',
     '&.MuiToggleButton-root': {
       borderRadius: '4px',
       '&:hover': {
         background: '#EEFBF6',
         border: '1px solid',
-        borderColor:"primary.main"
+        borderColor: '#357968',
       },
       '&:focus': {
         outline: 'none',
@@ -48,7 +49,7 @@ export const styles = {
     '&.Mui-selected': {
       background: '#EEFBF6',
       border: '1px solid',
-      borderColor:"primary.main"
+      borderColor: '#357968 !important',
     },
   },
   staticLabel: {

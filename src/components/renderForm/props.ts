@@ -3,10 +3,28 @@ import { GridProps, SxProps } from '@mui/material';
 export interface renderFormProps {
   isEditMode?: Boolean;
   gridStyle?: SxProps;
-  gridContainerProps?:GridProps;
-  onSubmitFun?:Function;
-  defaultValues?:object;
-  yupSchemaValidation?:any;
+  gridContainerProps?: GridProps;
+  formButtonContainerStyle?: SxProps;
+  submitButton?: {
+    visible?: boolean;
+    title?: string | undefined;
+    onClick?: Function;
+    sx: object;
+    [key:string]:any;
+  };
+  cancelButton?: {
+    visible?: boolean;
+    title?: string | undefined;
+    onClick?: Function;
+    sx?: SxProps;
+    [key:string]:any;
+  };
+  customButton?: {
+    component: React.ReactNode;
+  };
+  onSubmitFun?: Function;
+  defaultValues?: object;
+  yupSchemaValidation?: any;
   formList: {
     map(arg0: (data: any, i: number) => any): any;
     [index: number]: {
@@ -16,7 +34,9 @@ export interface renderFormProps {
         | 'dateAndTime'
         | 'date'
         | 'dropDown'
-        | 'mobileNumberInput' | 'custom' | 'chipSelect';
+        | 'mobileNumberInput'
+        | 'custom'
+        | 'chipSelect';
       containerStyle?: SxProps;
       gridStyle?: SxProps;
       breakPoint?: {
@@ -26,7 +46,7 @@ export interface renderFormProps {
         lg?: boolean | 'auto' | number;
         lx?: boolean | 'auto' | number;
       };
-      component?:React.ReactNode;
+      component?: React.ReactNode;
       inputProps?: any;
     };
   };

@@ -2,7 +2,7 @@ import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
-import React from 'react';
+import React, { Component } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import CompanyLogo from './assets/companyLogo.png';
 import loginImg from './assets/loginImg.png';
@@ -142,7 +142,7 @@ function App() {
   const deleteProfile = () => {
     setProfile('');
   };
- 
+
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const formSchema = yup.object({
@@ -159,10 +159,13 @@ function App() {
     dob: yup.date().required('Please enter DOB'),
     gender: yup.string().required('Please enter Gender'),
     designation: yup.string().required('Please enter Designation'),
-    mobileNumber: yup.object().shape({
-      mobile: yup.string().required('Please enter Phone number'),  //.matches(phoneRegExp, 'Phone number is not valid'),
-      mobile_code: yup.string().required('Please select Country code'),
-    }).required('Please enter Phone number...'),
+    mobileNumber: yup
+      .object()
+      .shape({
+        mobile: yup.string().required('Please enter Phone number'), //.matches(phoneRegExp, 'Phone number is not valid'),
+        mobile_code: yup.string().required('Please select Country code'),
+      })
+      .required('Please enter Phone number...'),
     address1: yup
       .string()
       .min(4, 'Min length 4')
@@ -1372,7 +1375,7 @@ function App() {
         }}
         uploadOptions={{
           imgScr: profile,
-          buttonEnabled:true,
+          buttonEnabled: true,
           deleteProfile: deleteProfile,
           uploadProfile: uploadProfile,
           variant: 'rounded',
@@ -1385,18 +1388,34 @@ function App() {
         cardSxProps={{}}
         gridContainerProps={{ columnSpacing: 3, spacing: 0 }}
         renderForm={{
-          onSubmitFun:(data:object)=>onSubmitFun(data),
+          formButtonContainerStyle: {},
+          submitButton: {
+            visible: true,
+            title: 'Save',
+            onClick: (data: object) => onSubmitFun(data),
+            sx: {},
+          },
+          cancelButton: {
+            visible: true,
+            title: 'Cancel',
+            onClick: (data: object) =>console.log(data),
+            sx: {},
+            variant:"outlined"
+          },
+          customButton: { 
+            component: <></>,
+          },
           yupSchemaValidation: formSchema,
           defaultValues: {
-             address1: 'My Address 1',
-             address2: 'My Address 2' ,
-             designation: 'Developer' ,
-             email: 'hari@gmail.co' ,
-             dob: "12/06/2022",
-             firstName:'Hari', 
-             gender: 'Male' ,
-             lastName: 'Haran' ,
-             mobileNumber: {mobile:'845678906789', mobile_code:"+91"} ,
+            address1: 'My Address 1',
+            address2: 'My Address 2',
+            designation: 'Developer',
+            email: 'hari@gmail.co',
+            dob: '12/06/2022',
+            firstName: 'Hari',
+            gender: 'Male',
+            lastName: 'Haran',
+            mobileNumber: { mobile: '845678906789', mobile_code: '+91' },
           },
           formList: [
             {
@@ -1520,14 +1539,6 @@ function App() {
                 labelVariant: 'standard',
                 rules: {
                   required: 'Please enter Gender',
-                  minLength: {
-                    value: 5,
-                    message: 'min length is 4',
-                  },
-                  maxLength: {
-                    value: 15,
-                    message: 'min length is 14',
-                  },
                 },
                 options: [
                   { label: 'Male', value: 'Male' },
@@ -1600,15 +1611,15 @@ function App() {
                 labelVariant: 'standard',
                 required: true,
                 // rules: {
-                  // required: 'Please enter Designation',
-                  // minLength: {
-                  //   value: 5,
-                  //   message: 'min length is 4',
-                  // },
-                  // maxLength: {
-                  //   value: 15,
-                  //   message: 'min length is 14',
-                  // },
+                // required: 'Please enter Designation',
+                // minLength: {
+                //   value: 5,
+                //   message: 'min length is 4',
+                // },
+                // maxLength: {
+                //   value: 15,
+                //   message: 'min length is 14',
+                // },
                 // },
                 // error:true,
                 // errorMessage: 'Please enter Mobile number',

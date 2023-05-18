@@ -1,14 +1,14 @@
 import { TextFieldProps, SxProps} from "@mui/material";
 
 export interface InputFieldProps extends Omit<TextFieldProps, 'variant'> {
-  label?: string;
-  type: 'text' | 'number' | 'password' | 'email';
+  label?: string | undefined;
+  type?: 'text' | 'number' | 'password' | 'email';
   variant?: 'outlined' | 'filled' | 'standard';
   endIcon?: null;
   id?: string;
   value?: string;
   rowMax?: number;
-  size: any;
+  size?: any;
   rowMin?: number;
   isError?: string;
   disabled?: boolean;
@@ -23,9 +23,9 @@ export interface InputFieldProps extends Omit<TextFieldProps, 'variant'> {
   inLineStyles?: object;
   startAdornments?: React.ReactNode;
   endAdornments?: React.ReactNode;
-  onChange: (e: any) => any;
+  onChange?: (e: any) => any;
   labelStyle?:SxProps;
   labelVariant?: 'standard' | 'floating';
   errorMessage?:string;
-  inputStyle:SxProps;
+  inputStyle?:SxProps;
 }
