@@ -1,8 +1,7 @@
 import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
-import '@fontsource/poppins/700.css';
-import { Profile } from './components/profile';
+import '@fontsource/poppins/700.css'; 
 import { Viewer } from './components/viewer';
 import DeleteIcon from './assets/deleteIcon';
 import profileImg from './assets/sampleprof.png';
@@ -25,6 +24,7 @@ import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { ProfileThree } from './components/profileThree';
 import yup from './utils/yupSchema';
+import { Screen } from './components/screen';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -186,6 +186,15 @@ function App() {
   });
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
+      <Screen
+       containerStyle={{}}
+       headerStyle={{}}
+       bodyStyle={{}}
+       footerStyle={{}}
+       headerComponent={<>Header</>}
+       bodyComponent={<>Body</>}
+       footerComponent={<>Footer</>}
+      />
       {/* <CommonTable
         Header={[
           {
@@ -1385,283 +1394,7 @@ function App() {
 
         }}
       />
-      {/* <Profile
-        rootStyle={{}}
-        profileDetails={{
-          profileDetailsStyle: {},
-          gridStyle: { justifyContent: 'center' },
-          profileimage: {
-            breakpoints: { xs: 12, sm: 3.5, md: 3, lg: 2 },
-            badge: {
-              overlap: 'circular',
-              anchorOrigin: { vertical: 'top', horizontal: 'right' },
-            },
-            deleteContainerStyle:{},
-          },
-          form: { breakpoints: { xs: 12, sm: 6, md: 6, lg: 4.5, xl: 4.5 } },
-        }}
-
-      {/* <Profile
-        isEditMode={isEdit}
-        username={'Akila'}
-        onSubmitBtn={onSubmitBtn}
-        titleOptions={{
-          title: 'My Profile',
-          fontSize: '20px',
-          fontWeight: '600',
-          color: '#000',
-          titleBoxStyle: {},
-        }}
-        uploadOptions={{
-          imgScr: profile,
-          deleteProfile: deleteProfile,
-          uploadProfile: uploadProfile,
-        }}
-        bgColor={'#00FAFA4F'}
-        paddingAll={'20px 0'}
-        userNameStyle={{}}
-        renderForm={{
-          formList: [
-            {
-              type: 'input',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 12,
-                lg: 12,
-                lx: 12,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'Email',
-                labelVariant: 'standard',
-                required: true,
-                value: state?.email,
-                icon: <DocsIcon color='#fff'/>,
-                error: false,
-                errorMessage: 'dfdsfdsf',
-                labelStyle: { mb: -1 },
-                onChange: (e: any) => {
-                  updateState('email', e?.target?.value);
-                },
-                textFieldStyle: {
-                  mb: 0,
-                  '& .MuiOutlinedInput-input': {
-                    fontWeight: 'normal',
-                    padding: '12px 16px',
-                  },
-                },
-                view: {
-                  viewValueStyle: {
-                    // fontWeight:
-                  },
-                  iconStyle: {
-                    backgroundColor:'red'
-                  },
-                  viewLabelStyle: {},
-                },
-              },
-            },
-            {
-              type: 'date',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 12,
-                lg: 12,
-                lx: 12,
-              },
-              inputProps: {
-                label: 'DOB',
-                icon: <DocsIcon />,
-                labelVariant: 'standard',
-                required: true,
-                value: state?.dob,
-                isError: true,
-                errorMessage: 'dfdsfdsf',
-                onChange: (e: any) => {
-                  updateState('DOB', e?.target?.value);
-                },
-              },
-            },
-            {
-              type: 'mobileNumberInput',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 12,
-                lg: 12,
-                lx: 12,
-              },
-              inputProps: {
-                icon: <DocsIcon />,
-                type: 'text',
-                label: 'Mobile Number',
-                labelVariant: 'standard',
-                required: true,
-                value: state?.mobileNumber,
-                isError: false,
-                onChange: (e: any) => {
-                  updateState('mobileNumber', e?.target?.value);
-                },
-                labelStyle: { fontSize: '12px', mb: 0.5 },
-              },
-            },
-            {
-              type: 'dropDown',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 12,
-                lg: 12,
-                lx: 12,
-              },
-              inputProps: {
-                icon: <DocsIcon />,
-                type: 'text',
-                label: 'Desgination',
-                labelVariant: 'standard',
-                required: true,
-                value: state?.designation,
-                isError: false,
-                onChange: (e: any) => {
-                  updateState('designation', e?.target?.value);
-                },
-                selectOption: [
-                  { label: 'Developer', value: 'Developer' },
-                  { label: 'Designer', value: 'Designer' },
-                  { label: 'designation', value: 'designation' },
-                ],
-              },
-            },
-            {
-              type: 'dropDown',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'City',
-                icon: <DocsIcon />,
-                labelVariant: 'standard',
-                required: true,
-                value: state?.city,
-                isError: false,
-                onChange: (e: any) => {
-                  updateState('city', e?.target?.value);
-                },
-                selectOption: [
-                  { label: 'Chennai', value: 'Chennai' },
-                  { label: 'two', value: 'two' },
-                  { label: 'three', value: 'three' },
-                ],
-              },
-            },
-            {
-              type: 'dropDown',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'State',
-                icon: <DocsIcon />,
-                labelVariant: 'standard',
-                required: true,
-                value: state?.state,
-                isError: false,
-                onChange: (e: any) => {
-                  updateState('state', e?.target?.value);
-                },
-                selectOption: [
-                  { label: 'Tamil Nadu', value: 'Tamil Nadu' },
-                  { label: 'California', value: 'California' },
-                  { label: 'three', value: 'three' },
-                ],
-              },
-            },
-            {
-              type: 'dropDown',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                label: 'Country',
-                labelVariant: 'standard',
-                icon: <DocsIcon />,
-                required: true,
-                value: state?.country,
-                isError: false,
-                onChange: (e: any) => {
-                  updateState('country', e?.target?.value);
-                },
-                selectOption: [
-                  { label: 'IN', value: 'IN' },
-                  { label: 'PKS', value: 'PKS' },
-                  { label: 'SLN', value: 'SLN' },
-                ],
-              },
-            },
-            {
-              type: 'dropDown',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                label: 'Time Zone',
-                labelVariant: 'standard',
-                required: true,
-                value: state?.timeZone,
-                icon: <DocsIcon />,
-                isError: false,
-                onChange: (e: any) => {
-                  updateState('timeZone', e?.target?.value);
-                },
-                selectOption: [
-                  { label: '+5:30', value: 'one' },
-                  { label: '+4:30', value: 'two' },
-                  { label: '+2:30', value: 'three' },
-                ],
-              },
-            },
-          ],
-        }}
-      /> 
-       {/* <LoginScreen
-        option='mobileNumberLogin'
-      /> */}
+     
 
       <ProfileThree
         isEditMode={isEdit}
