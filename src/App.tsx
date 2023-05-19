@@ -1672,7 +1672,7 @@ function App() {
             fontWeight: '600',
             color: '#11111199',
           },
-          icon: <DocsIcon color="#357968c0" />,
+          icon: <DocsIcon color='#665Cff' />,
         }}
         uploadOptions={{
           imgScr: profile,
