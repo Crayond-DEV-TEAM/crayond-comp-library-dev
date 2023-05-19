@@ -2175,6 +2175,7 @@ function App() {
           // backgroundWrapStyle:{height: '100%', width: '100%'},
           // component: <BasicButtons />
         }}
+        
         sectionTwo={{
           breakpoints: { xs: 12, md: 9, sm: 8, lg: 9 },
           WraperStyle: {},
