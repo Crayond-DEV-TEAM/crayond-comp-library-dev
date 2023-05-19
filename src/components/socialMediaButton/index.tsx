@@ -16,7 +16,9 @@ export const SocialMediaButton = (props: SocialMediaButtonProps) => {
       display,
       alignItems,
       cursor,
-      onClick = () => { } } = props
+      buttonText,
+      onClick = () => { },
+      socialmediaTextStyle } = props
 
   return (
     <Box
@@ -29,10 +31,10 @@ export const SocialMediaButton = (props: SocialMediaButtonProps) => {
         cursor: cursor,
         ...rootStyle
       }}
-      onClick={onClick}>
+      onClick={onClick}
+    >
       <IconButton>
         {startIcon}
-        {/* <DeleteIcon /> */}
       </IconButton>
       <Typography
         sx={{
@@ -40,28 +42,43 @@ export const SocialMediaButton = (props: SocialMediaButtonProps) => {
           textAlign: textAlign,
           width: width,
           color: color,
-          fontWeight: fontWeight
+          fontWeight: fontWeight,
+          ...socialmediaTextStyle
         }}
       >
-        {props?.buttonText}
+        {buttonText}
       </Typography>
     </Box>
   );
 };
 
 SocialMediaButton.defaultProps = {
-  onClick: () => { },
-  cursor: '',
-  bgColor: '',
-  padding: '',
+  sx: {},
+  startIcon: undefined,
+  icon: undefined,
+  buttonText: "",
+  id: undefined,
+  type: "button",
+  name: "button",
+  onClick: undefined,
+  inLineStyles: {},
+  size: undefined,
+  variant: "text",
+  children: undefined,
+  className: "",
+  disabled: false,
+  bgColor: undefined,
+  padding: undefined,
+  fontSize: undefined,
+  textAlign: undefined,
+  width: undefined,
+  color: undefined,
+  fontWeight: undefined,
   rootStyle: {},
-  borderRadius: '',
-  display: '',
-  alignItems: '',
-  size: 'medium',
-  variant: 'contained',
-  color: 'primary',
-  children: null,
-  className: 'button',
-  href: '',
+  borderRadius: undefined,
+  display: undefined,
+  alignItems: undefined,
+  cursor: undefined,
+  href: "",
+  socialmediaTextStyle: {},
 };

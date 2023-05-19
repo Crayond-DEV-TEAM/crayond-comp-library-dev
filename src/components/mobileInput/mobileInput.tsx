@@ -25,6 +25,7 @@ export default function MobileInput(props: MobileInputProps) {
         mobileInputStyle = {},
         rootWapperstyle = {},
         helperTextStyle = {},
+        dropDownStyle={},
         className = '',
         maxLength = 10,
     } = props;
@@ -93,7 +94,7 @@ export default function MobileInput(props: MobileInputProps) {
         // eslint-disable-next-line
     }, [isvalid]);
 
-    function setFoucs(arg0: boolean) {
+    function setFocus(arg0: boolean) {
         throw new Error("Function not implemented.");
     }
 
@@ -103,7 +104,7 @@ export default function MobileInput(props: MobileInputProps) {
             <Box
                 sx={{
                     ...mobileInput_style.rootWapperSx,
-                    ...rootWapperstyle,
+                    ...rootWapperstyle
                 }}
             >
                 <Box sx={mobileInput_style.NumberSx}>
@@ -113,6 +114,7 @@ export default function MobileInput(props: MobileInputProps) {
                         value={selectValue?.mobile_code ?? ""}
                         disabled={props.isReadonly || props.disabled}
                         errorValidation={props?.errorValidation}
+                        dropDownStyle={props?.dropDownStyle}
                     />
                 </Box>
                 {/* MobileInput with props */}
@@ -136,10 +138,10 @@ export default function MobileInput(props: MobileInputProps) {
                             e.preventDefault();
                         }}
                         onFocus={() => {
-                            setFoucs(true);
+                            setFocus(true);
                         }}
                         onBlur={() => {
-                            setFoucs(false);
+                            setFocus(false);
                         }}
                         error={!!isError}
                     // onKeyPress={(e) => (enterKeyPress ? enterKeyPress(e) : '')}
@@ -167,12 +169,37 @@ export default function MobileInput(props: MobileInputProps) {
 
 // Specifies the required props for the component:
 MobileInput.propTypes = {
-    label: '',
-    isRequired: '',
-    isReadonly: '',
-    value: {},
-    type: '',
+    placeholder: '',
     errorValidation: {},
+    isRequired: null,
+    label: '',
     handleChange: () => { },
+    component: 'input',
+    fullWidth: true,
+    autoFocus: false,
+    isReadonly: false,
+    disabled: false,
+    disabledNumber: 0,
+    isReadonlyCC: '',
+    enterKeyPress: {},
+    handleChangeSelect: {},
+    value: '',
+    error: false,
+    onError: false,
     onErrorOccured: () => { },
+    helperText: '',
+    id: '',
+    selectValue: '',
+    limits: {},
+    isError: '',
+    flag: '',
+    className: {},
+    maxLength: 10,
+    mobileInputStyle: {},
+    rootWapperstyle: {},
+    code: '',
+    phone: '',
+    suggested: false,
+    helperTextStyle: '',
+    dropDownStyle:{},
 };
