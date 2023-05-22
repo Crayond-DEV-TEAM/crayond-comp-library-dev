@@ -2,14 +2,14 @@ const lightTheme = {
   palette: {
     // mode : "light",
     primary: {
-      main: "#357968",
-      light: "#25C460",
+      main: "#665CD7",
+      light: "#948DE3",
       contrastText: "rgba(256,256,256)",
-      color:'#665CD'
+      color:'#3B3B3B'
     },
     secondary: {
-      main: "#818181",
-      light: "#5A5A5A",
+      main: "#FFC43B",
+      light: "#FFD575",
       contrastText: "rgba(0,0,0,0.87)",
     },
     error: {

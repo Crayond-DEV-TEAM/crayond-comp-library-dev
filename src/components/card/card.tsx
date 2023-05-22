@@ -13,10 +13,6 @@ const Card: React.FC<CardProps> = ({
   children,
   inlinestyle,
   cardStyle,
-  imgStyle,
-  logoHeight,
-  logoWidth,
-  button,
   buttonText,
   btnClick,
   actions,
@@ -38,12 +34,12 @@ const Card: React.FC<CardProps> = ({
     >
       {logo && (
         <Image
-          src={logo}
-          alt={alt}
+          src={logo?.logoSrc}
+          alt={logo?.alt}
           aria-label="logo"
-          imageStyle={imgStyle}
-          height={logoHeight}
-          width={logoWidth}
+          imageStyle={logo?.logoStyle}
+          height={logo?.logoHeight}
+          width={logo?.logoWidth}
         />
       )}
       {title && (
@@ -57,7 +53,7 @@ const Card: React.FC<CardProps> = ({
         </Typography>
       )}
       <Box>{children}</Box>
-      {button && (
+      {buttonText && (
         <BasicButtons type="submit" inLineStyles={{...Card_Style.buttonSx,...btnStyle}} onClick={btnClick}>
           {buttonText}
         </BasicButtons>
@@ -82,7 +78,22 @@ const Card: React.FC<CardProps> = ({
 export default Card;
 
 Card.defaultProps = {
-  variant: "outlined",
-  children:'',
-  cardStyle:{},
+  title: "",
+  subtitle: "",
+  logo:{},
+  alt: "",
+  description: "",
+  inlinestyle: {},
+  cardStyle: {},
+  buttonText: "",
+  btnClick: undefined,
+  bottomText: "",
+  actionText: "",
+  actions: {},
+  onActionClick: undefined,
+  actionstyle: {},
+  children: null,
+  titleStyle: {},
+  btnStyle: {},
+  bottomTextStyle: {},
 }
