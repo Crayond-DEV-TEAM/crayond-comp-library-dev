@@ -25,6 +25,13 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { ProfileThree } from './components/profileThree';
 import yup from './utils/yupSchema';
 import { Screen } from './components/screen';
+import Footer from './components/footer/footer';
+import { Performance } from './components/performance';
+import PlayStore from './assets/plastore';
+import FaceBook from './assets/faceBook';
+import AppStore from './assets/appStore';
+import Instagram from './assets/insta';
+import LinkedIn from './assets/linkedIn';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -184,6 +191,443 @@ function App() {
       .email('Please enter valid email')
       .required('Please enter email'),
   });
+
+  const footerData= [
+    {
+      order: 1,
+      heading: {
+        title: 'Links',
+        styles: '',
+        onClick: () => {},
+      },
+      subTitle: [
+        {
+          subValue: 'Home',
+          icon: '💔',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          nested:{
+            heading: {
+              title: 'Henry',
+              styles: '',
+              onClick: () => {},
+            },
+            subTitle:[
+              {subValue: 'SUbText',icon: '💔',styles: '',onClick: () => {},link: ''},
+              {subValue: 'HElo',icon: '💔',styles: '',onClick: () => {},link: ''},
+              {subValue: 'Create',icon: '💔',styles: '',onClick: () => {},link: ''}
+            ]}
+        },
+        {
+          subValue: 'About us',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+        },
+        {
+          subValue: 'Solution',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+        },
+        {
+          subValue: 'Modules',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'Products',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'Pricing',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'FAQ',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'Blogs',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'Resource',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'Conduct us',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+      ],
+    },
+    {
+      order: 2,
+      heading: {
+        title: 'Solution',
+        styles: '',
+      },
+      subTitle: [
+        {
+          subValue: 'Home',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'About us',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'Solution',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'Modules',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'Products',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'Pricing',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'FAQ',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+      ],
+    },
+    {
+      order: 3,
+      heading: {
+        title: 'Apps',
+        styles: '',
+      },
+      subTitle: [
+        {
+          subValue: 'Home',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: { title: '', styles: '' },
+        },
+        {
+          subValue: 'About us',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'Solution',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'Modules',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'Products',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'Pricing',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'FAQ',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+      ],
+    },
+    {
+      order: 4,
+      heading: {
+        title: 'Property Automate & Partners',
+        styles: '',
+      },
+      subTitle: [
+        {
+          subValue: 'Dynamic Netsoft RealEstatePro',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'Listings.GOTO',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'Residential.GOTO',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'MCommercial.GOTO',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'Marketplace.GOTO',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          nested:{
+            heading: {
+              title: 'Henry',
+              styles: '',
+              onClick: () => {},
+            },
+            subTitle:[
+              {subValue: 'SUbText',icon: '💔',styles: '',onClick: () => {},link: ''},
+              {subValue: 'HElo',icon: '💔',styles: '',onClick: () => {},link: ''},
+              {subValue: 'Create',icon: '💔',styles: '',onClick: () => {},link: ''}
+            ]}
+        },
+        {
+          subValue: 'Pricing',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'FAQ',
+          icon: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+      ],
+    },
+  ]
+
+ const footerLogo= [
+    {
+      companyLogo: {
+        label: 'Crayond',
+        logo: <Performance/>,
+      },
+      subscribes: [
+        { icon: <PlayStore /> },
+        { icon: <AppStore /> },
+        { icon: <AppStore /> },
+        { icon: <LinkedIn /> },
+        { icon: <Instagram /> },
+        { icon: <LinkedIn /> },
+        { icon: <Instagram /> },
+      ],
+      termsOfPolicy: {
+        terms: 'Terms of Service',
+        policy: 'Privacy Policy',
+      },
+      copyRight: {
+        company: 'Crayond',
+        reservedYear: 'All rights reserved',
+      },
+    },
+  ]
+
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
       <Screen
@@ -193,7 +637,7 @@ function App() {
        footerStyle={{}}
        headerComponent={<>Header</>}
        bodyComponent={<>Body</>}
-       footerComponent={<>Footer</>}
+       footerComponent={<Footer headingStyle={undefined} subTitleStyle={undefined} footerData={footerData} footerLogo={footerLogo}/>}
       />
       {/* <CommonTable
         Header={[
