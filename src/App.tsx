@@ -26,6 +26,7 @@ import { InputField } from './components/inputField';
 import DropDownNestedMenu from './components/nestedMenu/dropDownNestedMenu';
 import AddIcon from '@mui/icons-material/Add';
 import NestedMenu from './components/nestedMenu';
+import { Sidebar } from './components/sidebar';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -277,7 +278,7 @@ function App() {
         mobileMenuIconStyle={{}}
         subHeaderStyle={{}}
       />
-
+<Sidebar />
       <CommonTable
         Header={[
           {
