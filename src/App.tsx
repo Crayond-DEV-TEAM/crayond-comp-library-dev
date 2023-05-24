@@ -6,7 +6,7 @@ import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import CompanyLogo from './assets/companyLogo.png';
 import loginImg from './assets/loginImg.png';
-import LoginScreen from './components/loginPage/login'
+import LoginScreen from './components/loginPage/login';
 import SignupScreen from './components/signUpPage/signUp';
 import { BasicButtons, CommonTable } from '@components';
 import DeleteIcon from './assets/deleteIcon';
@@ -17,9 +17,15 @@ import DocsIcon from './assets/docsIcon';
 import EditIcon from './assets/editIcon';
 import NotificationIcon from './assets/notificationIcon';
 import AlertIcon from './assets/alertIcon';
-import { Button } from '@mui/material';
+import { Box, Button, IconButton, Typography } from '@mui/material';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import { Header } from './components/header';
+import PerformanceIcon from './assets/performanceIcon';
+import { InputField } from './components/inputField';
+import DropDownNestedMenu from './components/nestedMenu/dropDownNestedMenu';
+import AddIcon from '@mui/icons-material/Add';
+import NestedMenu from './components/nestedMenu';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -76,9 +82,203 @@ function App() {
   const secondaryBtnMethod = () => {
     console.log('secondary Btn Method working!');
   };
+
+  const ProfileContainer = () => {
+    return (
+      <Box display="flex" alignItems="center" gap={2}>
+        <Box>
+          <DocsIcon color="#fff" />
+        </Box>
+        <Box>
+          <DeleteIcon />
+        </Box>
+        <Box>
+          <FunnelIcon color="#fff" />
+        </Box>
+        <BasicButtons variant="outlined" color="secondary">
+          Login
+        </BasicButtons>
+      </Box>
+    );
+  };
+
+  const [anchorElement, setAnchorElement] = React.useState<any>();
+
+  const openMenu = (event: React.MouseEvent) => {
+    console.log('🚀 ~ file: App.tsx:107 ~ openMenu ~ event:', event);
+    setAnchorElement(event.currentTarget);
+  };
+
+  const closeMenu = () => {
+    setAnchorElement(undefined);
+  };
+
+  const handleMenuItemClick = (data: string) => () => {
+    closeMenu();
+    alert(`You have clicked on "${data}"`);
+  };
+
+  const LogContainer = () => {
+    return (
+      <>
+        <IconButton
+          size="medium"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          sx={{ mr: 2, p: 0 }}
+        >
+          <PerformanceIcon width={'60px'} height={'20px'} />
+          <Typography variant="h6" component="div">
+            Logo
+          </Typography>
+        </IconButton>
+      </>
+    );
+  };
+
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
-      {/* <CommonTable
+      <Header
+        headerComponentList={[
+          {
+            order: 1,
+            component: <LogContainer />,
+            style: {},
+            mobileScreenActive: true,
+          },
+          {
+            order: 2,
+            component: (
+              <>
+                <NestedMenu
+                  menuButtonProps={{
+                    onClick: openMenu,
+                    menuName: 'Menu 1',
+                    sx: {
+                      color: '#fff',
+                      outline: 'none !important',
+                      padding: '0',
+                      textTransform: 'capitalize !important',
+                    },
+                  }}
+                  dropDownProps={{
+                    menuPaperStyle:{}, menuItemStyle:{},
+                    open: Boolean(anchorElement),
+                    anchorEl: anchorElement,
+                    configuration: [
+                      {
+                        key: 'menu1',
+                        caption: 'Menuuuuuuuuuuuuuuuuu 1',
+                        subMenu: [
+                          {
+                            key: 'menu',
+                            caption: 'Menu 1.1',
+                            subMenu: [
+                              {
+                                key: 'menu1.1.1',
+                                caption: 'Menu 1.1.1',
+                                onClick: handleMenuItemClick('Menu 1.1.1'),
+                              },
+                              {
+                                key: 'menu1.1.2',
+                                caption: 'Menu 1.1.2',
+                                onClick: handleMenuItemClick('Menu 1.1.1'),
+                              },
+                              {
+                                key: 'menu1.1.3',
+                                caption: 'Menu 1.1.3',
+                                onClick: handleMenuItemClick('Menu 1.1.3'),
+                              },
+                            ],
+                          },
+                          {
+                            key: 'menu1.2',
+                            caption: 'Menu 1.2',
+                            subMenu: [
+                              {
+                                key: 'Menu 1.2.1',
+                                caption: 'Menu 1.2.1',
+                                onClick: handleMenuItemClick('Menu 1.2.1'),
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                      {
+                        key: 'menu2',
+                        caption: 'Menu 2',
+                        subMenu: [
+                          {
+                            key: 'menu2.1',
+                            caption: 'Menuuuuuuuuuuu 2.1',
+                            subMenu: [
+                              {
+                                key: 'menu2.1.1',
+                                caption: 'Menu 2.1.1',
+                                onClick: handleMenuItemClick('Menu 2.1.1'),
+                              },
+                              {
+                                key: 'menu2.1.2',
+                                caption: 'Menu 2.1.2',
+                                onClick: handleMenuItemClick('Menu 2.1.1'),
+                              },
+                            ],
+                          },
+                          {
+                            key: 'menu2.2',
+                            caption: 'Menu 1.2',
+                            subMenu: [
+                              {
+                                key: 'Menu 2.2.1',
+                                caption: 'Menu 2.2.1',
+                                onClick: handleMenuItemClick('Menu 2.2.1'),
+                              },
+                            ],
+                          },
+                        ],
+                      },
+                    ],
+                    onClose: closeMenu,
+                  }}
+                />
+              </>
+            ),
+            style: {},
+          },
+          {
+            order: 3,
+            component: <ProfileContainer />,
+            style: {},
+          },
+        ]}
+        subHeaderComponentList={[
+          {
+            order: 2,
+            component: <LogContainer />,
+            style: {},
+            mobileScreenActive: true,
+          },
+          // {
+          //   order: 1,
+          //   component: <MenuContainer />,
+          //   style: {},
+          // },
+          {
+            order: 3,
+            component: <ProfileContainer />,
+            style: {},
+          },
+        ]}
+        appBarProps={{}}
+        appBarStyle={{}}
+        toolBarStyle={{}}
+        toolBarProps={{}}
+        mobileMenuIconStyle={{}}
+        subHeaderStyle={{}}
+      />
+
+      <CommonTable
         Header={[
           {
             id: 'id',
@@ -257,23 +457,24 @@ function App() {
               label: 'Hariharan',
             },
             overall_progress: '45',
-            production: [{
-              label: 'Sufficient',
-              color: '#7692cc',
-              bgColor: '#e2eafa',
-              onClickFun:()=>console.log("Label clicked")
-            },
-            {
-              label: 'Insufficient',
-              color: '#AE7330',
-              bgColor: '#FCEDDD',
-            },
-            {
-              label: 'Insufficient',
-              color: '#AE7330',
-              bgColor: '#FCEDDD',
-            }
-          ],
+            production: [
+              {
+                label: 'Sufficient',
+                color: '#7692cc',
+                bgColor: '#e2eafa',
+                onClickFun: () => console.log('Label clicked'),
+              },
+              {
+                label: 'Insufficient',
+                color: '#AE7330',
+                bgColor: '#FCEDDD',
+              },
+              {
+                label: 'Insufficient',
+                color: '#AE7330',
+                bgColor: '#FCEDDD',
+              },
+            ],
             status: true,
             performance: 'Completely away',
             signals: [
@@ -356,18 +557,19 @@ function App() {
               label: 'Hari Ram',
             },
             overall_progress: '35',
-            production: [{
-              label: 'Sufficient',
-              color: '#7692cc',
-              bgColor: '#e2eafa',
-              onClickFun:()=>console.log("Label clicked")
-            },
-            {
-              label: 'Insufficient',
-              color: '#AE7330',
-              bgColor: '#FCEDDD',
-            }
-          ],
+            production: [
+              {
+                label: 'Sufficient',
+                color: '#7692cc',
+                bgColor: '#e2eafa',
+                onClickFun: () => console.log('Label clicked'),
+              },
+              {
+                label: 'Insufficient',
+                color: '#AE7330',
+                bgColor: '#FCEDDD',
+              },
+            ],
             status: false,
             performance: 'Need to improve a lot',
             signals: [
@@ -446,18 +648,19 @@ function App() {
               label: 'Siva',
             },
             overall_progress: '67',
-            production: [{
-              label: 'Sufficient',
-              color: '#7692cc',
-              bgColor: '#e2eafa',
-              onClickFun:()=>console.log("Label clicked")
-            },
-            {
-              label: 'Insufficient',
-              color: '#AE7330',
-              bgColor: '#FCEDDD',
-            }
-          ],
+            production: [
+              {
+                label: 'Sufficient',
+                color: '#7692cc',
+                bgColor: '#e2eafa',
+                onClickFun: () => console.log('Label clicked'),
+              },
+              {
+                label: 'Insufficient',
+                color: '#AE7330',
+                bgColor: '#FCEDDD',
+              },
+            ],
             status: true,
             performance: 'Impactful',
             signals: [
@@ -532,18 +735,19 @@ function App() {
               label: 'Kumar',
             },
             overall_progress: '98',
-            production: [{
-              label: 'Sufficient',
-              color: '#7692cc',
-              bgColor: '#e2eafa',
-              onClickFun:()=>console.log("Label clicked")
-            },
-            {
-              label: 'Insufficient',
-              color: '#AE7330',
-              bgColor: '#FCEDDD',
-            }
-          ],
+            production: [
+              {
+                label: 'Sufficient',
+                color: '#7692cc',
+                bgColor: '#e2eafa',
+                onClickFun: () => console.log('Label clicked'),
+              },
+              {
+                label: 'Insufficient',
+                color: '#AE7330',
+                bgColor: '#FCEDDD',
+              },
+            ],
             status: false,
             performance: 'Need to improve',
             signals: [
@@ -614,18 +818,19 @@ function App() {
               label: 'Hariharan',
             },
             overall_progress: '45',
-            production: [{
-              label: 'Sufficient',
-              color: '#7692cc',
-              bgColor: '#e2eafa',
-              onClickFun:()=>console.log("Label clicked")
-            },
-            {
-              label: 'Insufficient',
-              color: '#AE7330',
-              bgColor: '#FCEDDD',
-            }
-          ],
+            production: [
+              {
+                label: 'Sufficient',
+                color: '#7692cc',
+                bgColor: '#e2eafa',
+                onClickFun: () => console.log('Label clicked'),
+              },
+              {
+                label: 'Insufficient',
+                color: '#AE7330',
+                bgColor: '#FCEDDD',
+              },
+            ],
             status: true,
             performance: 'Good',
             signals: [
@@ -692,18 +897,19 @@ function App() {
               label: 'Hari Ram',
             },
             overall_progress: '35',
-            production: [{
-              label: 'Sufficient',
-              color: '#7692cc',
-              bgColor: '#e2eafa',
-              onClickFun:()=>console.log("Label clicked")
-            },
-            {
-              label: 'Insufficient',
-              color: '#AE7330',
-              bgColor: '#FCEDDD',
-            }
-          ],
+            production: [
+              {
+                label: 'Sufficient',
+                color: '#7692cc',
+                bgColor: '#e2eafa',
+                onClickFun: () => console.log('Label clicked'),
+              },
+              {
+                label: 'Insufficient',
+                color: '#AE7330',
+                bgColor: '#FCEDDD',
+              },
+            ],
             status: false,
             performance: 'Very Good',
             signals: [
@@ -770,18 +976,19 @@ function App() {
               label: 'Siva',
             },
             overall_progress: '67',
-            production: [{
-              label: 'Sufficient',
-              color: '#7692cc',
-              bgColor: '#e2eafa',
-              onClickFun:()=>console.log("Label clicked")
-            },
-            {
-              label: 'Insufficient',
-              color: '#AE7330',
-              bgColor: '#FCEDDD',
-            }
-          ],
+            production: [
+              {
+                label: 'Sufficient',
+                color: '#7692cc',
+                bgColor: '#e2eafa',
+                onClickFun: () => console.log('Label clicked'),
+              },
+              {
+                label: 'Insufficient',
+                color: '#AE7330',
+                bgColor: '#FCEDDD',
+              },
+            ],
             status: true,
             performance: 'Spectacular',
             signals: [
@@ -1003,26 +1210,26 @@ function App() {
           fillerMethod: fillerMethod,
           downloadMethod: downloadMethod,
         }}
-        HeaderComponent={{
-          variant: 2,
-        styles:{
-          padding:"10px 0",
-          margin:"0"
-        },
-          searchPlaceholder:"Search by name, email",
-          setHederSearch:setHederSearch,
-          checkboxLabel:"Show only my reportees",
-          primaryBtnText:"Add Member",
-          secondaryBtnText:"Import",
-          secondaryBtnIcon:<DocsIcon color={"#357968"}/>,
-          funnelIcon:<FunnelIcon color={"#fff"}/>,
-          searchIcon:<SearchIcon/>,
-          fillerMethod:fillerMethod,
-          primaryBtnMethod:primaryBtnMethod,
-          secondaryBtnMethod:secondaryBtnMethod,
-          headerCheckbox:headerCheckbox, setHederCheckbox:setHederCheckbox
-        }}
-      />  */}
+        // HeaderComponent={{
+        //   variant: 2,
+        // styles:{
+        //   padding:"10px 0",
+        //   margin:"0"
+        // },
+        //   searchPlaceholder:"Search by name, email",
+        //   setHederSearch:setHederSearch,
+        //   checkboxLabel:"Show only my reportees",
+        //   primaryBtnText:"Add Member",
+        //   secondaryBtnText:"Import",
+        //   secondaryBtnIcon:<DocsIcon color={"#357968"}/>,
+        //   funnelIcon:<FunnelIcon color={"#fff"}/>,
+        //   searchIcon:<SearchIcon/>,
+        //   fillerMethod:fillerMethod,
+        //   primaryBtnMethod:primaryBtnMethod,
+        //   secondaryBtnMethod:secondaryBtnMethod,
+        //   headerCheckbox:headerCheckbox, setHederCheckbox:setHederCheckbox
+        // }}
+      />
       {/* <SignupScreen
         option='socialMediaSignup'
         sectionOne={{
@@ -1149,8 +1356,8 @@ function App() {
         onSubmit={(detail: object) => {
           console.log(detail);
         }}
-      /> */}
-       <LoginScreen
+      />
+       {/* <LoginScreen
         option='mobileNumberLogin'
         sectionOne={{
           breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
@@ -1262,7 +1469,7 @@ function App() {
           console.log(detail);
         }} 
         rootStyle={{height:'100%',width:'100%'}}
-        />
+        /> */}
     </div>
   );
 }
