@@ -1,23 +1,28 @@
 export const footer_style = {
   background: {
-    height: '670px',
     background: '#FAFAFA',
     padding: '30px 100px',
     '@media(max-width: 900px)': {
       paddingLeft: '16px',
       paddingRight: '16px',
+      padding: '12px 12px',
     },
   },
 
   container: {
     display: 'flex',
     columnGap: '100px',
+    '@media(max-width: 760px)': {
+      display: 'grid',
+      overflowY: 'scroll',
+      maxHeight: '400px',
+    },
   },
 
   heading: {
     color: '#404E61',
     fontSize: '16px',
-    paddingBottom: '12px',
+    marginBottom: '12px',
     fontWeight: '600',
     cursor: 'pointer',
   },
@@ -25,7 +30,7 @@ export const footer_style = {
   subTitle: {
     color: '#6E7882',
     fontSize: '16px',
-    paddingBottom: '14px',
+    marginBottom: '14px',
     cursor: 'pointer',
   },
 
@@ -35,10 +40,11 @@ export const footer_style = {
     alignItem: 'center',
     paddingBottom: '20px',
     borderBottom: ' 1px solid #98A0AC',
-    '@media(max-width: 900px)': {
-      display: 'flex',
-      justifyContent: 'center',
-      alignItem: 'center',
+    '@media(max-width: 470px)': {
+      display: 'grid',
+      rowGap: '18px',
+      placeContent: 'normal',
+      gridTemplateColumns: 'min-content',
     },
   },
 
@@ -47,9 +53,8 @@ export const footer_style = {
     justifyContent: 'center',
     alignItem: 'center',
     columnGap: '12px',
-    '@media(max-width: 900px)': {
-      paddingLeft: '16px',
-      paddingRight: '16px',
+    '@media(max-width: 470px)': {
+      justifyContent: 'flex-start',
     },
   },
 
@@ -57,6 +62,16 @@ export const footer_style = {
     color: '#98A0AC',
     fontSize: '18px',
     alignSelf: 'center',
+  },
+
+  subscribeBlock: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    '@media(max-width: 470px)': {
+      rowGap: '8px',
+      flexWrap: 'wrap',
+      width: '270px',
+    },
   },
 
   footerBottom: {
@@ -67,15 +82,30 @@ export const footer_style = {
     bottom: '0px',
   },
 
+  footerBottomContainer:{
+    '@media(max-width: 760px)': {
+    paddingTop: '18px',
+    }
+  },
+
   bottomText: {
     color: '#98A0AC',
     fontSize: '12px',
     paddingRight: '24px',
   },
 
-  subTitleBlock: {
+  subTitleLeftIcon: {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItem: 'center',
+    columnGap: "8px",
+
+  },
+
+  subTitleRightIcon:{
+    display:"flex",
+    justifyContent: "flex-end",
+    flexDirection: "row-reverse",
+    columnGap: "8px",
   },
 };

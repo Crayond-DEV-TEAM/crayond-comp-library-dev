@@ -1,7 +1,7 @@
 import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
-import '@fontsource/poppins/700.css'; 
+import '@fontsource/poppins/700.css';
 import { Viewer } from './components/viewer';
 import DeleteIcon from './assets/deleteIcon';
 import profileImg from './assets/sampleprof.png';
@@ -191,37 +191,65 @@ function App() {
       .email('Please enter valid email')
       .required('Please enter email'),
   });
-
-  const footerData= [
+  const footerData = [
     {
       order: 1,
       heading: {
+        id: 1,
         title: 'Links',
+        icon: '💔',
+        iconDirection: 'right',
         styles: '',
         onClick: () => {},
       },
+      component: <BasicButtons> Links: 'Solution',size</BasicButtons>,
       subTitle: [
         {
           subValue: 'Home',
           icon: '💔',
+          iconDirection: 'left',
           styles: '',
           onClick: () => {},
           link: '',
-          nested:{
+          nested: {
             heading: {
+              id: 2,
               title: 'Henry',
               styles: '',
               onClick: () => {},
             },
-            subTitle:[
-              {subValue: 'SUbText',icon: '💔',styles: '',onClick: () => {},link: ''},
-              {subValue: 'HElo',icon: '💔',styles: '',onClick: () => {},link: ''},
-              {subValue: 'Create',icon: '💔',styles: '',onClick: () => {},link: ''}
-            ]}
+            subTitle: [
+              {
+                subValue: 'SUbText',
+                icon: '💔',
+                iconDirection: 'right',
+                styles: '',
+                onClick: () => {},
+                link: '',
+              },
+              {
+                subValue: 'HElo',
+                icon: '💔',
+                iconDirection: 'left',
+                styles: '',
+                onClick: () => {},
+                link: '',
+              },
+              {
+                subValue: 'Create',
+                icon: '💔',
+                iconDirection: 'right',
+                styles: '',
+                onClick: () => {},
+                link: '',
+              },
+            ],
+          },
         },
         {
           subValue: 'About us',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
@@ -229,6 +257,7 @@ function App() {
         {
           subValue: 'Solution',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
@@ -236,10 +265,12 @@ function App() {
         {
           subValue: 'Modules',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 3,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -248,10 +279,12 @@ function App() {
         {
           subValue: 'Products',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 4,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -260,10 +293,12 @@ function App() {
         {
           subValue: 'Pricing',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 5,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -272,10 +307,12 @@ function App() {
         {
           subValue: 'FAQ',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 6,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -284,10 +321,12 @@ function App() {
         {
           subValue: 'Blogs',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 7,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -296,10 +335,12 @@ function App() {
         {
           subValue: 'Resource',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 8,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -308,10 +349,12 @@ function App() {
         {
           subValue: 'Conduct us',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 9,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -322,17 +365,22 @@ function App() {
     {
       order: 2,
       heading: {
+        id: 10,
         title: 'Solution',
+        icon: '💔',
+        iconDirection: 'left',
         styles: '',
       },
       subTitle: [
         {
           subValue: 'Home',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 11,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -341,10 +389,12 @@ function App() {
         {
           subValue: 'About us',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 12,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -353,10 +403,12 @@ function App() {
         {
           subValue: 'Solution',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 3,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -365,10 +417,12 @@ function App() {
         {
           subValue: 'Modules',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 14,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -377,10 +431,12 @@ function App() {
         {
           subValue: 'Products',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 15,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -389,10 +445,12 @@ function App() {
         {
           subValue: 'Pricing',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 16,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -401,39 +459,48 @@ function App() {
         {
           subValue: 'FAQ',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 17,
             title: 'Links',
             styles: '',
             onClick: () => {},
           },
         },
       ],
+      component: <BasicButtons> name: 'Solution',size</BasicButtons>,
     },
     {
       order: 3,
       heading: {
+        id: 18,
         title: 'Apps',
         styles: '',
+        icon: '💔',
+        iconDirection: 'left',
       },
       subTitle: [
         {
           subValue: 'Home',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
-          heading: { title: '', styles: '' },
+          heading: { id: 19, title: '', styles: '' },
         },
         {
           subValue: 'About us',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 20,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -442,10 +509,12 @@ function App() {
         {
           subValue: 'Solution',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 21,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -454,10 +523,12 @@ function App() {
         {
           subValue: 'Modules',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 22,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -466,10 +537,12 @@ function App() {
         {
           subValue: 'Products',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 23,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -478,10 +551,12 @@ function App() {
         {
           subValue: 'Pricing',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 24,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -490,31 +565,39 @@ function App() {
         {
           subValue: 'FAQ',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 25,
             title: 'Links',
             styles: '',
             onClick: () => {},
           },
         },
       ],
+      component: <BasicButtons> name: 'Solution',size</BasicButtons>,
     },
     {
       order: 4,
       heading: {
+        id: 26,
         title: 'Property Automate & Partners',
         styles: '',
+        icon: '💔',
+        iconDirection: 'left',
       },
       subTitle: [
         {
           subValue: 'Dynamic Netsoft RealEstatePro',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 27,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -523,10 +606,12 @@ function App() {
         {
           subValue: 'Listings.GOTO',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 28,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -535,10 +620,12 @@ function App() {
         {
           subValue: 'Residential.GOTO',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 29,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -547,10 +634,12 @@ function App() {
         {
           subValue: 'MCommercial.GOTO',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 31,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -559,28 +648,26 @@ function App() {
         {
           subValue: 'Marketplace.GOTO',
           icon: '',
-          styles: '',
-          onClick: () => {},
-          link: '',
-          nested:{
-            heading: {
-              title: 'Henry',
-              styles: '',
-              onClick: () => {},
-            },
-            subTitle:[
-              {subValue: 'SUbText',icon: '💔',styles: '',onClick: () => {},link: ''},
-              {subValue: 'HElo',icon: '💔',styles: '',onClick: () => {},link: ''},
-              {subValue: 'Create',icon: '💔',styles: '',onClick: () => {},link: ''}
-            ]}
-        },
-        {
-          subValue: 'Pricing',
-          icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 30,
+            title: 'Links',
+            styles: '',
+            onClick: () => {},
+          },
+        },
+        {
+          subValue: 'Pricing',
+          icon: '',
+          iconDirection: '',
+          styles: '',
+          onClick: () => {},
+          link: '',
+          heading: {
+            id: 32,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -589,24 +676,27 @@ function App() {
         {
           subValue: 'FAQ',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 33,
             title: 'Links',
             styles: '',
             onClick: () => {},
           },
         },
       ],
+      component: <BasicButtons> name: 'Solution',size</BasicButtons>,
     },
-  ]
+  ];
 
- const footerLogo= [
+  const footerLogo = [
     {
       companyLogo: {
         label: 'Crayond',
-        logo: <Performance/>,
+        logo: <Performance />,
       },
       subscribes: [
         { icon: <PlayStore /> },
@@ -617,27 +707,46 @@ function App() {
         { icon: <LinkedIn /> },
         { icon: <Instagram /> },
       ],
-      termsOfPolicy: {
-        terms: 'Terms of Service',
-        policy: 'Privacy Policy',
-      },
-      copyRight: {
-        company: 'Crayond',
-        reservedYear: 'All rights reserved',
-      },
+      termsOfPolicy: [
+        { label: 'Terms of Service' },
+        { label: 'Privacy Policy' },
+        { label: ' Policy' },
+        { label: 'Privacy ' },
+      ],
+      copyRight: [
+        { label: 'Crayond ©' },
+        { label: 'All rights reserved' },
+        { label: 'creating CopyRight' },
+      ],
     },
-  ]
+  ];
 
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
       <Screen
-       containerStyle={{}}
-       headerStyle={{}}
-       bodyStyle={{}}
-       footerStyle={{}}
-       headerComponent={<>Header</>}
-       bodyComponent={<>Body</>}
-       footerComponent={<Footer headingStyle={undefined} subTitleStyle={undefined} footerData={footerData} footerLogo={footerLogo}/>}
+        containerStyle={{}}
+        headerStyle={{}}
+        bodyStyle={{}}
+        footerStyle={{}}
+        headerComponent={<>Header</>}
+        bodyComponent={<>Body</>}
+        footerComponent={
+          <Footer
+            componentStyle={{}}
+            rootStyles={{}}
+            headingStyle={{}}
+            subTitleStyle={{}}
+            logoContainerStyle={{}}
+            companyLogoBlockStyle={{}}
+            subcriptionBlockStyle={{}}
+            bottomTextBlockStyle={{}}
+            bottomTexStyle={{}}
+            hoverHeading={{color:"red"}}
+            hoverSubTitle={{color:"blue"}}
+            footerData={footerData}
+            footerLogo={footerLogo}
+          />
+        }
       />
       {/* <CommonTable
         Header={[
@@ -1603,10 +1712,12 @@ function App() {
             imgSrc: profileImg,
             variant: 'rounded',
             profileimgContainer: {},
-            avatarconStyle:{},
-            profileImgEditStyle:{},
-            profileImgEditIcon: <EditIcon color='#fff' />,
-            onClick: () => { console.log('Profile Edit') },
+            avatarconStyle: {},
+            profileImgEditStyle: {},
+            profileImgEditIcon: <EditIcon color="#fff" />,
+            onClick: () => {
+              console.log('Profile Edit');
+            },
             // customComp:<BasicButtons>hai</BasicButtons>
           },
           form: {
@@ -1620,7 +1731,7 @@ function App() {
             formContainer: {},
             formList: [
               {
-                icon: <DocsIcon color='#665CD7' />,
+                icon: <DocsIcon color="#665CD7" />,
                 label: 'Email',
                 value: 'Michaelbloomberg@email.com',
                 breakPoint: {
@@ -1630,10 +1741,10 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: {backgroundColor:'#FAFAFA'},
+                iconStyle: { backgroundColor: '#FAFAFA' },
                 labelStyle: {},
                 valueStyle: {},
-                listWraper: { py: 1, }
+                listWraper: { py: 1 },
               },
               {
                 icon: <DocsIcon />,
@@ -1646,11 +1757,10 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: {backgroundColor:'#FAFAFA'},
+                iconStyle: { backgroundColor: '#FAFAFA' },
                 labelStyle: {},
                 valueStyle: {},
-                listWraper: { py: 1, }
-
+                listWraper: { py: 1 },
               },
               {
                 icon: <DocsIcon />,
@@ -1663,10 +1773,10 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: {backgroundColor:'#FAFAFA'},
+                iconStyle: { backgroundColor: '#FAFAFA' },
                 labelStyle: {},
                 valueStyle: {},
-                listWraper: { py: 1, }
+                listWraper: { py: 1 },
               },
               {
                 icon: <DocsIcon />,
@@ -1679,10 +1789,10 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: {backgroundColor:'#FAFAFA'},
+                iconStyle: { backgroundColor: '#FAFAFA' },
                 labelStyle: {},
                 valueStyle: {},
-                listWraper: { py: 1, }
+                listWraper: { py: 1 },
               },
               {
                 icon: <DocsIcon />,
@@ -1695,8 +1805,8 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                listWraper: { py: 1, },
-                iconStyle: {backgroundColor:'#FAFAFA'},
+                listWraper: { py: 1 },
+                iconStyle: { backgroundColor: '#FAFAFA' },
                 labelStyle: {},
                 valueStyle: {},
               },
@@ -1711,17 +1821,19 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: {backgroundColor:'#FAFAFA'},
+                iconStyle: { backgroundColor: '#FAFAFA' },
                 labelStyle: {},
                 valueStyle: {},
-                listWraper: { py: 1, }
+                listWraper: { py: 1 },
               },
             ],
           },
           btnList: [
             {
               buttonText: 'Edit',
-              onClick: () => { console.log('Edit') },
+              onClick: () => {
+                console.log('Edit');
+              },
               breakPoint: {
                 xs: 12,
                 sm: 12,
@@ -1729,27 +1841,32 @@ function App() {
                 lg: 12,
                 lx: 12,
               },
-              btnStyle: {backgroundColor:'#665CD7'},
-              btnListConStyle: { mt: 3, display: 'flex', justifyContent: 'center' }
+              btnStyle: { backgroundColor: '#665CD7' },
+              btnListConStyle: {
+                mt: 3,
+                display: 'flex',
+                justifyContent: 'center',
+              },
             },
           ],
-
         }}
       />
 
       <Viewer
-        rootStyle={{ backgroundColor: '', }}
+        rootStyle={{ backgroundColor: '' }}
         viewBody={{
-          viewBodyStyle: { },
-          gridStyle: { justifyContent: 'left', },
+          viewBodyStyle: {},
+          gridStyle: { justifyContent: 'left' },
           profileimage: {
             breakpoints: { xs: 12, sm: 12, md: 12, lg: 12 },
             profileImgStyle: {},
             imgSrc: profileImg,
             variant: 'rounded',
             profileimgContainer: { display: 'flex', justifyContent: 'center' },
-            profileImgEditIcon: <EditIcon color='#fff' />,
-            onClick: () => { console.log('Profile Edit') },
+            profileImgEditIcon: <EditIcon color="#fff" />,
+            onClick: () => {
+              console.log('Profile Edit');
+            },
           },
           form: {
             breakpoints: { xs: 12, sm: 12, md: 12, lg: 12, xl: 12 },
@@ -1758,10 +1875,14 @@ function App() {
             descriptionStyle: {},
             subTitleStyle: {},
             formContainer: {},
-            formListContainer: { border: '1px solid #E9E9E9', borderRadius: '8px' ,p:2},
+            formListContainer: {
+              border: '1px solid #E9E9E9',
+              borderRadius: '8px',
+              p: 2,
+            },
             formList: [
               {
-                icon: <DocsIcon color='green' />,
+                icon: <DocsIcon color="green" />,
                 value: 'Mailidhere@gmail.com',
                 breakPoint: {
                   xs: 12,
@@ -1770,12 +1891,16 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: { backgroundColor: 'none', borderRadius: '0px', py: 0 },
+                iconStyle: {
+                  backgroundColor: 'none',
+                  borderRadius: '0px',
+                  py: 0,
+                },
                 valueStyle: { fontSize: '14px' },
-                listWraper: { alignItems: 'center' }
+                listWraper: { alignItems: 'center' },
               },
               {
-                icon: <DocsIcon color='yellow' />,
+                icon: <DocsIcon color="yellow" />,
                 value: '9999 999 999',
                 breakPoint: {
                   xs: 12,
@@ -1784,13 +1909,17 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: { backgroundColor: 'none', borderRadius: '0px', py: '0px', },
+                iconStyle: {
+                  backgroundColor: 'none',
+                  borderRadius: '0px',
+                  py: '0px',
+                },
                 valueStyle: { fontSize: '14px' },
-                listWraper: { alignItems: 'center' }
+                listWraper: { alignItems: 'center' },
               },
-             
+
               {
-                icon: <DocsIcon color='red' />,
+                icon: <DocsIcon color="red" />,
                 value: '01 Jan 1998 (25Yrs / Male)',
                 breakPoint: {
                   xs: 12,
@@ -1799,13 +1928,18 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: { backgroundColor: 'none', borderRadius: '0px', py: 0 },
+                iconStyle: {
+                  backgroundColor: 'none',
+                  borderRadius: '0px',
+                  py: 0,
+                },
                 valueStyle: { fontSize: '14px' },
-                listWraper: { alignItems: 'center' }
+                listWraper: { alignItems: 'center' },
               },
               {
-                icon: <DocsIcon color='blue' />,
-                value: '2/498, Ayshika Still water court Sunrise Avenue, 2nd Cross St, Neelankarai, Chennai - 600115',
+                icon: <DocsIcon color="blue" />,
+                value:
+                  '2/498, Ayshika Still water court Sunrise Avenue, 2nd Cross St, Neelankarai, Chennai - 600115',
                 breakPoint: {
                   xs: 12,
                   sm: 6,
@@ -1813,17 +1947,22 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: { backgroundColor: 'none', borderRadius: '0px', py: 0 },
+                iconStyle: {
+                  backgroundColor: 'none',
+                  borderRadius: '0px',
+                  py: 0,
+                },
                 valueStyle: { fontSize: '14px' },
-                listWraper: { alignItems: 'center' }
+                listWraper: { alignItems: 'center' },
               },
-
             ],
           },
           btnList: [
             {
               buttonText: 'Edit',
-              onClick: () => { console.log('Edit') },
+              onClick: () => {
+                console.log('Edit');
+              },
               breakPoint: {
                 xs: 12,
                 sm: 12,
@@ -1831,14 +1970,12 @@ function App() {
                 lg: 12,
                 lx: 12,
               },
-              btnStyle: { width: '100%' ,backgroundColor:'#665CD7'},
-              btnListConStyle: { mt: 3 }
+              btnStyle: { width: '100%', backgroundColor: '#665CD7' },
+              btnListConStyle: { mt: 3 },
             },
           ],
-
         }}
       />
-     
 
       <ProfileThree
         isEditMode={isEdit}
@@ -1849,7 +1986,7 @@ function App() {
             fontWeight: '600',
             color: '#11111199',
           },
-          icon: <DocsIcon color='#665Cff' />,
+          icon: <DocsIcon color="#665Cff" />,
         }}
         uploadOptions={{
           imgScr: profile,
@@ -1876,11 +2013,11 @@ function App() {
           cancelButton: {
             visible: true,
             title: 'Cancel',
-            onClick: (data: object) =>console.log(data),
+            onClick: (data: object) => console.log(data),
             sx: {},
-            variant:"outlined"
+            variant: 'outlined',
           },
-          customButton: { 
+          customButton: {
             component: <></>,
           },
           yupSchemaValidation: formSchema,

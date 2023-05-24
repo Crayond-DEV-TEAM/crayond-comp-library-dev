@@ -6,6 +6,7 @@ import AppStore from '../..//assets/appStore';
 import Instagram from '../..//assets/insta';
 import LinkedIn from '../..//assets/linkedIn';
 import { Performance } from '../performance';
+import { BasicButtons } from '../button';
 
 export default {
   title: 'Components/Footer',
@@ -16,36 +17,76 @@ const Template: ComponentStory<typeof Footer> = (args) => <Footer {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
+  headingStyle: {},
+  subTitleStyle: {},
+  rootStyles: {},
+  componentStyle: {},
+  logoContainerStyle: {},
+  companyLogoBlockStyle: {},
+  subcriptionBlockStyle: {},
+  bottomTextBlockStyle: {},
+  bottomTexStyle: {},
+  hoverHeading: {},
+  hoverSubTitle: {},
   footerData: [
     {
       order: 1,
       heading: {
+        id: 1,
         title: 'Links',
+        icon: '💔',
+        iconDirection: 'right',
         styles: '',
         onClick: () => {},
       },
+      component: <BasicButtons> Links: 'Solution',size</BasicButtons>,
       subTitle: [
         {
           subValue: 'Home',
           icon: '💔',
+          iconDirection: 'left',
           styles: '',
           onClick: () => {},
           link: '',
-          nested:{
+          nested: {
             heading: {
+              id: 2,
               title: 'Henry',
               styles: '',
               onClick: () => {},
             },
-            subTitle:[
-              {subValue: 'SUbText',icon: '💔',styles: '',onClick: () => {},link: ''},
-              {subValue: 'HElo',icon: '💔',styles: '',onClick: () => {},link: ''},
-              {subValue: 'Create',icon: '💔',styles: '',onClick: () => {},link: ''}
-            ]}
+            subTitle: [
+              {
+                subValue: 'SUbText',
+                icon: '💔',
+                iconDirection: 'right',
+                styles: '',
+                onClick: () => {},
+                link: '',
+              },
+              {
+                subValue: 'HElo',
+                icon: '💔',
+                iconDirection: 'left',
+                styles: '',
+                onClick: () => {},
+                link: '',
+              },
+              {
+                subValue: 'Create',
+                icon: '💔',
+                iconDirection: 'right',
+                styles: '',
+                onClick: () => {},
+                link: '',
+              },
+            ],
+          },
         },
         {
           subValue: 'About us',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
@@ -53,6 +94,7 @@ Primary.args = {
         {
           subValue: 'Solution',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
@@ -60,10 +102,12 @@ Primary.args = {
         {
           subValue: 'Modules',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 3,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -72,10 +116,12 @@ Primary.args = {
         {
           subValue: 'Products',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 4,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -84,10 +130,12 @@ Primary.args = {
         {
           subValue: 'Pricing',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 5,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -96,10 +144,12 @@ Primary.args = {
         {
           subValue: 'FAQ',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 6,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -108,10 +158,12 @@ Primary.args = {
         {
           subValue: 'Blogs',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 7,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -120,10 +172,12 @@ Primary.args = {
         {
           subValue: 'Resource',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 8,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -132,10 +186,12 @@ Primary.args = {
         {
           subValue: 'Conduct us',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 9,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -146,17 +202,22 @@ Primary.args = {
     {
       order: 2,
       heading: {
+        id: 10,
         title: 'Solution',
+        icon: '💔',
+        iconDirection: 'left',
         styles: '',
       },
       subTitle: [
         {
           subValue: 'Home',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 11,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -165,10 +226,12 @@ Primary.args = {
         {
           subValue: 'About us',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 12,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -177,10 +240,12 @@ Primary.args = {
         {
           subValue: 'Solution',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 3,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -189,10 +254,12 @@ Primary.args = {
         {
           subValue: 'Modules',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 14,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -201,10 +268,12 @@ Primary.args = {
         {
           subValue: 'Products',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 15,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -213,10 +282,12 @@ Primary.args = {
         {
           subValue: 'Pricing',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 16,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -225,39 +296,48 @@ Primary.args = {
         {
           subValue: 'FAQ',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 17,
             title: 'Links',
             styles: '',
             onClick: () => {},
           },
         },
       ],
+      component: <BasicButtons> name: 'Solution',size</BasicButtons>,
     },
     {
       order: 3,
       heading: {
+        id: 18,
         title: 'Apps',
         styles: '',
+        icon: '💔',
+        iconDirection: 'left',
       },
       subTitle: [
         {
           subValue: 'Home',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
-          heading: { title: '', styles: '' },
+          heading: { id: 19, title: '', styles: '' },
         },
         {
           subValue: 'About us',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 20,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -266,10 +346,12 @@ Primary.args = {
         {
           subValue: 'Solution',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 21,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -278,10 +360,12 @@ Primary.args = {
         {
           subValue: 'Modules',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 22,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -290,10 +374,12 @@ Primary.args = {
         {
           subValue: 'Products',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 23,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -302,10 +388,12 @@ Primary.args = {
         {
           subValue: 'Pricing',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 24,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -314,31 +402,39 @@ Primary.args = {
         {
           subValue: 'FAQ',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 25,
             title: 'Links',
             styles: '',
             onClick: () => {},
           },
         },
       ],
+      component: <BasicButtons> name: 'Solution',size</BasicButtons>,
     },
     {
       order: 4,
       heading: {
+        id: 26,
         title: 'Property Automate & Partners',
         styles: '',
+        icon: '💔',
+        iconDirection: 'left',
       },
       subTitle: [
         {
           subValue: 'Dynamic Netsoft RealEstatePro',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 27,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -347,10 +443,12 @@ Primary.args = {
         {
           subValue: 'Listings.GOTO',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 28,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -359,10 +457,12 @@ Primary.args = {
         {
           subValue: 'Residential.GOTO',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 29,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -371,10 +471,12 @@ Primary.args = {
         {
           subValue: 'MCommercial.GOTO',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 31,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -383,10 +485,12 @@ Primary.args = {
         {
           subValue: 'Marketplace.GOTO',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 30,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -395,10 +499,12 @@ Primary.args = {
         {
           subValue: 'Pricing',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 32,
             title: 'Links',
             styles: '',
             onClick: () => {},
@@ -407,16 +513,19 @@ Primary.args = {
         {
           subValue: 'FAQ',
           icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
           heading: {
+            id: 33,
             title: 'Links',
             styles: '',
             onClick: () => {},
           },
         },
       ],
+      component: <BasicButtons> name: 'Solution',size</BasicButtons>,
     },
   ],
 
@@ -424,11 +533,10 @@ Primary.args = {
     {
       companyLogo: {
         label: 'Crayond',
-        logo: <Performance/>,
+        logo: <Performance />,
       },
       subscribes: [
         { icon: <PlayStore /> },
-        { icon: <FaceBook /> },
         { icon: <AppStore /> },
         { icon: <AppStore /> },
         { icon: <LinkedIn /> },
@@ -436,14 +544,17 @@ Primary.args = {
         { icon: <LinkedIn /> },
         { icon: <Instagram /> },
       ],
-      termsOfPolicy: {
-        terms: 'Terms of Service',
-        policy: 'Privacy Policy',
-      },
-      copyRight: {
-        company: 'Crayond',
-        reservedYear: 'All rights reserved',
-      },
+      termsOfPolicy: [
+        { label: 'Terms of Service' },
+        { label: 'Privacy Policy' },
+        { label: ' Policy' },
+        { label: 'Privacy ' },
+      ],
+      copyRight: [
+        { label: 'Crayond ©' },
+        { label: 'All rights reserved' },
+        { label: 'creating CopyRight' },
+      ],
     },
   ],
 };
