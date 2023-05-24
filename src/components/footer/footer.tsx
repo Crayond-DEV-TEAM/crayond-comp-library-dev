@@ -2,6 +2,7 @@ import { Box, Container, Typography } from '@mui/material';
 import React from 'react';
 import { FooterProps } from './props';
 import { footer_style } from './style';
+import Link from '@mui/material/Link';
 
 const Footer: React.FC<FooterProps> = ({
   footerData,
@@ -12,7 +13,7 @@ const Footer: React.FC<FooterProps> = ({
   headingStyle,
   subTitleStyle,
   companyLogoBlockStyle,
-  subcriptionBlockStyle,
+  subscriptionBlockStyle,
   bottomTextBlockStyle,
   bottomTexStyle,
   hoverHeading,
@@ -21,22 +22,18 @@ const Footer: React.FC<FooterProps> = ({
   const currentDate = new Date();
   const reservedYear = currentDate.getFullYear();
 
-  const handleExpand = (props: any) => {
-    console.log(props, 'props');
-  };
-
   const NestedHeader = (props: any) => {
     const { nestedChild } = props;
     return (
       <>
         <Box>
           <Typography
-            onClick={() => handleExpand(nestedChild?.nested?.heading)}
+            onClick={() => nestedChild?.nested?.heading?.onClick()}
             sx={{
               ...footer_style.heading,
               ...headingStyle,
               ...nestedChild?.nested?.heading?.styles,
-              ":hover":hoverHeading,
+              ':hover': hoverHeading,
             }}
           >
             {nestedChild?.nested?.heading?.title}
@@ -56,17 +53,32 @@ const Footer: React.FC<FooterProps> = ({
               >
                 {nestVal?.icon}
               </span>
-              <Typography
-                sx={{
-                  ...footer_style.subTitle,
-                  ...subTitleStyle,
-                  ...nestVal?.styles,
-                  ":hover":hoverSubTitle,
-
-                }}
-              >
-                {nestVal?.subValue}
-              </Typography>
+              {nestVal?.link ? (
+                <Link
+                  href={nestVal?.link}
+                  underline="hover"
+                  sx={{
+                    ...footer_style.subTitle,
+                    ...subTitleStyle,
+                    ...nestVal?.styles,
+                    ':hover': hoverSubTitle,
+                  }}
+                >
+                  {nestVal?.subValue}
+                </Link>
+              ) : (
+                <Typography
+                  onClick={() => nestVal?.onClick()}
+                  sx={{
+                    ...footer_style.subTitle,
+                    ...subTitleStyle,
+                    ...nestVal?.styles,
+                    ':hover': hoverSubTitle,
+                  }}
+                >
+                  {nestVal?.subValue}
+                </Typography>
+              )}
             </Box>
           ))}
         </Box>
@@ -83,7 +95,6 @@ const Footer: React.FC<FooterProps> = ({
               <>
                 <Box sx={{ order: value?.order }}>
                   <Box
-                     
                     sx={
                       value?.heading?.iconDirection === 'left'
                         ? { ...footer_style.subTitleLeftIcon }
@@ -92,12 +103,12 @@ const Footer: React.FC<FooterProps> = ({
                   >
                     <span>{value?.heading?.icon}</span>
                     <Typography
-                      onClick={() => handleExpand(value?.heading)}
+                      onClick={() => value?.heading?.onClick()}
                       sx={{
                         ...footer_style.heading,
                         ...headingStyle,
                         ...value?.heading?.styles,
-                        ":hover":hoverHeading,
+                        ':hover': hoverHeading,
                       }}
                     >
                       {value?.heading?.title}
@@ -113,16 +124,33 @@ const Footer: React.FC<FooterProps> = ({
                         }
                       >
                         <span>{sub?.icon}</span>
-                        <Typography
-                          sx={{
-                            ...footer_style.subTitle,
-                            ...subTitleStyle,
-                            ...sub?.styles,
-                            ":hover":hoverSubTitle,
-                          }}
-                        >
-                          {sub?.subValue}
-                        </Typography>
+
+                        {sub?.link ? (
+                          <Link
+                            href={sub?.link}
+                            underline="hover"
+                            sx={{
+                              ...footer_style.subTitle,
+                              ...subTitleStyle,
+                              ...sub?.styles,
+                              ':hover': hoverSubTitle,
+                            }}
+                          >
+                            {sub?.subValue}
+                          </Link>
+                        ) : (
+                          <Typography
+                            onClick={() => sub?.onClick()}
+                            sx={{
+                              ...footer_style.subTitle,
+                              ...subTitleStyle,
+                              ...sub?.styles,
+                              ':hover': hoverSubTitle,
+                            }}
+                          >
+                            {sub?.subValue}
+                          </Typography>
+                        )}
                       </Box>
                       {sub.nested ? <NestedHeader nestedChild={sub} /> : ''}
                     </>
@@ -154,7 +182,7 @@ const Footer: React.FC<FooterProps> = ({
                   <Box
                     sx={{
                       ...footer_style.subscribeBlock,
-                      ...subcriptionBlockStyle,
+                      ...subscriptionBlockStyle,
                     }}
                   >
                     {val?.subscribes.map((item: any, i: Number) => (

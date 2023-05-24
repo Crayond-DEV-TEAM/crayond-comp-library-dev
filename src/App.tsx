@@ -210,7 +210,7 @@ function App() {
           iconDirection: 'left',
           styles: '',
           onClick: () => {},
-          link: '',
+          link: 'https://cssbattle.dev/play/1',
           nested: {
             heading: {
               id: 2,
@@ -225,7 +225,7 @@ function App() {
                 iconDirection: 'right',
                 styles: '',
                 onClick: () => {},
-                link: '',
+                link: 'https://cssbattle.dev/play/1',
               },
               {
                 subValue: 'HElo',
@@ -738,7 +738,7 @@ function App() {
             subTitleStyle={{}}
             logoContainerStyle={{}}
             companyLogoBlockStyle={{}}
-            subcriptionBlockStyle={{}}
+            subscriptionBlockStyle={{}}
             bottomTextBlockStyle={{}}
             bottomTexStyle={{}}
             hoverHeading={{color:"red"}}

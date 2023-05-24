@@ -5,7 +5,7 @@ export interface FooterProps {
   componentStyle: object;
   logoContainerStyle: object;
   companyLogoBlockStyle: object;
-  subcriptionBlockStyle: object;
+  subscriptionBlockStyle: object;
   bottomTextBlockStyle: object;
   bottomTexStyle: object;
   hoverHeading: object;

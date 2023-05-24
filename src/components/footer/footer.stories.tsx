@@ -1,12 +1,10 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import Footer from './footer';
-import PlayStore from '../../assets/plastore';
-import FaceBook from '../../assets/faceBook';
 import AppStore from '../..//assets/appStore';
 import Instagram from '../..//assets/insta';
 import LinkedIn from '../..//assets/linkedIn';
+import PlayStore from '../../assets/plastore';
 import { Performance } from '../performance';
-import { BasicButtons } from '../button';
+import Footer from './footer';
 
 export default {
   title: 'Components/Footer',
@@ -34,17 +32,17 @@ Primary.args = {
       heading: {
         id: 1,
         title: 'Links',
-        icon: '💔',
-        iconDirection: 'right',
+        icon: '',
+        iconDirection: '',
         styles: '',
         onClick: () => {},
       },
-      component: <BasicButtons> Links: 'Solution',size</BasicButtons>,
+      component: "",
       subTitle: [
         {
           subValue: 'Home',
-          icon: '💔',
-          iconDirection: 'left',
+          icon: '',
+          iconDirection: '',
           styles: '',
           onClick: () => {},
           link: '',
@@ -58,24 +56,24 @@ Primary.args = {
             subTitle: [
               {
                 subValue: 'SUbText',
-                icon: '💔',
-                iconDirection: 'right',
+                icon: '',
+                iconDirection: '',
                 styles: '',
                 onClick: () => {},
                 link: '',
               },
               {
                 subValue: 'HElo',
-                icon: '💔',
-                iconDirection: 'left',
+                icon: '',
+                iconDirection: '',
                 styles: '',
                 onClick: () => {},
                 link: '',
               },
               {
                 subValue: 'Create',
-                icon: '💔',
-                iconDirection: 'right',
+                icon: '',
+                iconDirection: '',
                 styles: '',
                 onClick: () => {},
                 link: '',
@@ -204,8 +202,8 @@ Primary.args = {
       heading: {
         id: 10,
         title: 'Solution',
-        icon: '💔',
-        iconDirection: 'left',
+        icon: '',
+        iconDirection: '',
         styles: '',
       },
       subTitle: [
@@ -308,7 +306,7 @@ Primary.args = {
           },
         },
       ],
-      component: <BasicButtons> name: 'Solution',size</BasicButtons>,
+      component: ""
     },
     {
       order: 3,
@@ -316,8 +314,8 @@ Primary.args = {
         id: 18,
         title: 'Apps',
         styles: '',
-        icon: '💔',
-        iconDirection: 'left',
+        icon: '',
+        iconDirection: '',
       },
       subTitle: [
         {
@@ -414,7 +412,7 @@ Primary.args = {
           },
         },
       ],
-      component: <BasicButtons> name: 'Solution',size</BasicButtons>,
+      component: ""
     },
     {
       order: 4,
@@ -422,8 +420,8 @@ Primary.args = {
         id: 26,
         title: 'Property Automate & Partners',
         styles: '',
-        icon: '💔',
-        iconDirection: 'left',
+        icon: '',
+        iconDirection: '',
       },
       subTitle: [
         {
@@ -525,7 +523,7 @@ Primary.args = {
           },
         },
       ],
-      component: <BasicButtons> name: 'Solution',size</BasicButtons>,
+      component: ""
     },
   ],
 
@@ -550,10 +548,10 @@ Primary.args = {
         { label: ' Policy' },
         { label: 'Privacy ' },
       ],
-      copyRight: [
+      copy: [
         { label: 'Crayond ©' },
-        { label: 'All rights reserved' },
-        { label: 'creating CopyRight' },
+        { label: 'All s reserved' },
+        { label: 'creating Copy' },
       ],
     },
   ],
