@@ -6,7 +6,7 @@ import React from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import CompanyLogo from './assets/companyLogo.png';
 import loginImg from './assets/loginImg.png';
-import LoginScreen from './components/loginPage/login'
+import LoginScreen from './components/loginPage/login';
 import SignupScreen from './components/signUpPage/signUp';
 import { BasicButtons, CommonTable } from '@components';
 import DeleteIcon from './assets/deleteIcon';
@@ -17,9 +17,16 @@ import DocsIcon from './assets/docsIcon';
 import EditIcon from './assets/editIcon';
 import NotificationIcon from './assets/notificationIcon';
 import AlertIcon from './assets/alertIcon';
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+import AccessibilityIcon from '@mui/icons-material/Accessibility';
+import CustomStepper from './components/stepper/stepper';
+import StepperIcon from './assets/stepperIcon';
+import CheckMark from './assets/checkmark';
+import StepperMobile from './components/stepper/stepperMobile';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -76,6 +83,59 @@ function App() {
   const secondaryBtnMethod = () => {
     console.log('secondary Btn Method working!');
   };
+
+  const steps = [
+    {
+      label: 'form',
+      icon: <StepperIcon sx={{ fontSize: 50 }} />,
+      status: 'completed',
+      color: 'green',
+      completeBadge: <CheckMark />,
+      styles: {
+        anchorOrigin: {
+          vertical: 'top',
+          horizontal: 'right',
+        },
+        labelStyle: {},
+        statusStyle: {},
+        dividerStyle: {},
+        iconCompletedStyle: {},
+        iconActiveStyle: {},
+        boxActiveStyle: {},
+        boxInActiveStyle: {},
+        textAreaStyle: {},
+      },
+    },
+    {
+      label: 'settings',
+      icon: <StepperIcon />,
+      status: 'inprogress',
+      color: 'green',
+      completeBadge: <CheckMark />,
+    },
+    {
+      label: 'settings',
+      icon: <StepperIcon />,
+      status: 'inprogress',
+      color: 'green',
+      completeBadge: <CheckMark />,
+    },
+    {
+      label: 'props',
+      icon: <StepperIcon />,
+      status: 'rejected',
+      color: 'orange',
+      completeBadge: <CheckMark />,
+    },
+    {
+      label: 'manage',
+      icon: <StepperIcon />,
+      status: 'completed',
+      color: 'red',
+      completeBadge: <CheckMark />,
+    },
+  ];
+
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
       {/* <CommonTable
@@ -1150,13 +1210,15 @@ function App() {
           console.log(detail);
         }}
       /> */}
-       <LoginScreen
+      {/* <LoginScreen
         option='mobileNumberLogin'
         sectionOne={{
           breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
-          image: { src: loginImg, height: '100%', width: '100%',style:{
-            height:'100%', width: '100%'
-          } },
+          image: {
+            src: loginImg, height: '100%', width: '100%', style: {
+              height: '100%', width: '100%'
+            }
+          },
           // backgroundWrapStyle:{height: '100%', width: '100%'},
           // component: <BasicButtons />
         }}
@@ -1252,17 +1314,33 @@ function App() {
             mobileNumberLogin: {
               labelText: 'Mobile Number',
               labelStyle: {},
-              mobileFieldstyle: {contryCodefontSize:'14px',fontWeight:'600',numberFontSize:'16px'},
-              dropDownStyle:{width:'110px'},
+              mobileFieldstyle: { contryCodefontSize: '14px', fontWeight: '600', numberFontSize: '16px' },
+              dropDownStyle: { width: '110px' },
             },
-            
+
           },
         }}
         onSubmit={(detail: object) => {
           console.log(detail);
-        }} 
-        rootStyle={{height:'100%',width:'100%'}}
+        }}
+        rootStyle={{ height: '100%', width: '100%' }}
+      /> */}
+      <Box sx={{ mt: 2 }}>
+        <CustomStepper
+          steps={steps}
+          styles={{ buttonsContainer: {}, btnStyle: { width: '30px' },rootStyle:{p:3}}}
+          resetBtn="Reset"
+          nextBtn="Next"
+          prevBtn="Back"
         />
+        <StepperMobile
+          steps={steps}
+          styles={{ buttonsContainer: {}, btnStyle: { width: '30px' } }}
+          resetBtn="Reset"
+          nextBtn="Next"
+          prevBtn="Back"
+        />
+      </Box>
     </div>
   );
 }

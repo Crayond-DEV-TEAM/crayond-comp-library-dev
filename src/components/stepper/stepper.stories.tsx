@@ -1,42 +1,43 @@
-import React from 'react';
-import { Stepper } from './stepper';
-import DocsIcon from '../../assets/docsIcon';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import CustomStepper from './stepper';
+import AcUnitIcon from "@mui/icons-material/AcUnit";
+import AccessAlarmIcon from "@mui/icons-material/AccessAlarm";
+import AccessibilityIcon from "@mui/icons-material/Accessibility";
+import StepperIcon from '../../assets/stepperIcon';
 
 export default {
-    title: 'Components/Stepper',
-    component: Stepper,
+    title: 'components/CustomStepper',
+    component: CustomStepper,
+} as ComponentMeta<typeof CustomStepper>;
+
+const Template: ComponentStory<typeof CustomStepper> = (args) => (
+    <CustomStepper {...args} />
+);
+
+export const Primary = Template.bind({});
+
+Primary.args = {
+   steps : [
+    {
+      label: "settings",
+      icon: <StepperIcon sx={{ fontSize: 50}} />,
+      status: "inprogress",
+      color: "green"
+    },
+    {
+      label: "settings",
+      icon: <StepperIcon sx={{ fontSize: 50 }} />,
+      status: "inprogress",
+      color: "green"
+    },
+    {
+      label: "settings",
+      icon: <StepperIcon sx={{ fontSize: 50 }} />,
+      status: "inprogress",
+      color: "green"
+    },
+   
+  ],
 };
 
-const steps = [
-    {
-        step: 'Step 1',
-        stepDescription: 'This is the first step',
-        stepperIcon: <DocsIcon />,
-    },
-    {
-        step: 'Step 2',
-        stepDescription: 'This is the second step',
-        stepperIcon: <DocsIcon />,
-    },
-    {
-        step: 'Step 3',
-        stepDescription: 'This is the third step',
-        stepperIcon: <DocsIcon />,
-    },
-];
 
-export const Primary = () => {
-    const [activeIndex, setActiveIndex] = React.useState(0);
-    const handleChange = (index: any) => {
-        setActiveIndex(index);
-    };
-
-    return (
-        <Stepper
-            StepperFunc={steps}
-            activeIndex={activeIndex}
-            handleChange={handleChange}
-            
-        />
-    );
-};

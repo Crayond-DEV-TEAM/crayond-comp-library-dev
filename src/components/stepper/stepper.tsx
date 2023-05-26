@@ -1,194 +1,120 @@
-import React, { ReactElement } from 'react';
-import { Badge, Box, IconButton, Typography } from '@mui/material';
-import DocsIcon from '../../assets/docsIcon';
+import React, { useState } from 'react';
+import { Badge, Box, Button, Step, Stepper, Typography } from '@mui/material';
 import { Styles } from './style';
-import { Step, StepperProps } from './props';
+import { CustomStepperProps } from './props';
+import { BasicButtons } from '../button';
 
-export function Stepper(props: StepperProps): ReactElement {
-  const {
-    vertical = false,
-    horizontal = true,
-    StepperFunc,
-    stepsCompleted,
-    activeIndex,
-    handleChange = () => {},
-  } = props;
 
-  function stepRender(val: Step, index: number): ReactElement {
-    if (stepsCompleted?.some((stepIndex) => stepIndex === index)) {
-      return (
-        <Box sx={Styles.stepperSwitchSx}>
-          <IconButton
-            disableRipple
-            sx={{
-              ...Styles.stepperBgSX,
-              // backgroundColor: 'primary.main',
-              borderColor: '#D3D3D3',
-            }}
-          >
-            <Badge
-              sx={Styles.badgeSx}
-              badgeContent={<DocsIcon rootStyle={Styles.subIconSx} />}
-              color="primary"
-            >
-              {React.cloneElement(val.stepperIcon, {
-                sx: { ...Styles.iconSx, color: 'common.white' },
-              })}
-            </Badge>
-          </IconButton>
-        </Box>
-      );
-    }
-    if (activeIndex === index) {
-      return (
-        <Box
-          sx={{
-            ...Styles.stepperSwitchSx,
-            // border: '2px dashed #D3D3D3',
-          }}
-        >
-          <IconButton
-            disableRipple
-            sx={{
-              ...Styles.stepperBgSX,
-              backgroundColor: '#EFEEFB',
-              borderColor: '#EFEEFB',
-            }}
-          >
-            <Badge
-              sx={Styles.badge2Sx}
-              badgeContent={<DocsIcon rootStyle={Styles.subIconSx} />}
-              color="primary"
-            >
-              {React.cloneElement(val.stepperIcon, {
-                sx: { ...Styles.iconSx, color: 'common.white' },
-              })}
-            </Badge>
-          </IconButton>
-        </Box>
-      );
-    }
-    return (
-      <Box sx={Styles.stepperSwitchSx}>
-        <IconButton
-          disableRipple
-          sx={{
-            ...Styles.stepperBgSX,
-            backgroundColor: 'common.white',
-            borderColor: 'grey.400',
-          }}
-        >
-          <Badge
-            sx={Styles.badge2Sx}
-            badgeContent={<DocsIcon rootStyle={Styles.subIconSx} />}
-            color="primary"
-          >
-            {React.cloneElement(val.stepperIcon, {
-              sx: {
-                ...Styles.iconSx,
-                color: '#0F0B117A',
-              },
-            })}
-          </Badge>
-        </IconButton>
-      </Box>
-    );
-  }
+const CustomStepper: React.FC<CustomStepperProps> = ({ steps, styles, prevBtn, nextBtn, resetBtn }) => {
+  const [activeStep, setActiveStep] = useState<number>(0);
+  const [completed, setCompleted] = useState<Record<number, boolean>>({});
 
-  function stepsForm(val: Step, index: number): ReactElement {
-    if (stepsCompleted?.some((stepIndex) => stepIndex === index)) {
-      return (
-        <Box sx={Styles.sideBoxSx}>
-          <Typography variant="caption" sx={Styles.followSx}>
-            {val.step}
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{ ...Styles.followSx, color: '#808080' }}
-          >
-            {val.stepDescription}
-          </Typography>
-        </Box>
-      );
-    }
-    if (activeIndex === index) {
-      return (
-        <Box sx={Styles.sideBoxSx}>
-          <Typography
-            variant="caption"
-            sx={{ ...Styles.followSx, color: '#D3D3D3' }}
-          >
-            {val.step}
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{ ...Styles.followSx, color: '#D3D3D3' }}
-          >
-            {val.stepDescription}
-          </Typography>
-        </Box>
-      );
-    }
-    return (
-      <Box sx={Styles.sideBoxSx}>
-        <Typography variant="caption" sx={Styles.followSx}>
-          {val.step}
-        </Typography>
-        <Typography
-          variant="body1"
-          sx={{ ...Styles.followSx, color: '#808080' }}
-        >
-          {val.stepDescription}
-        </Typography>
-      </Box>
-    );
-  }
+  const totalSteps = (): number => steps.length;
+
+  const getColor = (status: string, clr: string): string => {
+    if (status === 'start') return 'black';
+    if (status === 'inprogress') return '#FF980E';
+    if (status === 'completed') return 'green';
+    if (status === 'rejected') return '#F44F5A';
+    return clr;
+  };
+
+  const completedSteps = (): number => Object.keys(completed).length;
+
+  const isLastStep = (): boolean => activeStep === totalSteps() - 1;
+
+  const allStepsCompleted = (): boolean => completedSteps() === totalSteps();
+
+  const handleNext = (): void => {
+    const newActiveStep =
+      isLastStep() && !allStepsCompleted()
+        ? steps.findIndex((step, i) => !(i in completed))
+        : activeStep + 1;
+    setActiveStep(newActiveStep);
+  };
+
+  const handleBack = (): void =>
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+
+  const handleReset = (): void => {
+    setActiveStep(0);
+    setCompleted({});
+  };
 
   return (
-    <Box sx={Styles.rootSx}>
-      <Box>
-        <Box
-          sx={{
-            ...Styles.dividerSx,
-            '&:before': {
-              content: '""',
-              position: 'absolute',
-              borderLeft: vertical ? '2.5px solid #D3D3D3' : '0px',
-              borderBottom: horizontal ? '2.5px solid #D3D3D3' : '0px',
-              height: vertical ? 131 : 0,
-              width: horizontal ? 131 : 0,
-              ml: 3.45,
-              top: vertical ? '6px' : '29px',
-            },
-          }}
-        />
-        <Box sx={{ ...Styles.tabSX, display: vertical ? 'grid' : 'flex' }}>
-          {StepperFunc?.map((val, index) => (
+    <Box sx={{...styles?.rootStyle}}>
+      <Stepper nonLinear activeStep={activeStep}>
+        {steps.map((label, index: number) => (
+          <Step
+            key={label.label}
+            completed={completed[index]}
+            sx={{ ...Styles.dividerStyle, ...label.styles?.dividerStyle }}
+          >
             <Box
-              onClick={() => handleChange(index)}
-              sx={{ zIndex: 99 }}
-              key={index}
+              sx={
+                activeStep === index ? { ...Styles.styleActive, ...label.styles?.boxActiveStyle } : { ...Styles.styleInActive, ...label.styles?.boxInActiveStyle }
+              }
             >
-              {stepRender(val, index)}
+              <Box
+                sx={
+                  activeStep === index
+                    ? label.status === 'completed'
+                      ? { ...Styles.iconCompleted, ...label.styles?.iconCompletedStyle }
+                      : { ...Styles.iconActive, ...label.styles?.iconActiveStyle }
+                    : label.status === 'completed'
+                      ? { ...Styles.iconCompleted, ...label.styles?.iconCompletedStyle }
+                      : Styles.iconInActive
+                }
+              >
+                {label.status === 'completed' ? (
+                  <Badge
+                    badgeContent={label.completeBadge}
+                    anchorOrigin={{ ...Styles.anchorOrigin, ...label.styles?.anchorOrigin }}
+                  >
+                    {label.icon}
+                  </Badge>
+                ) : (
+                  label.icon
+                )}
+              </Box>
+
+              <Box sx={{ ...label.styles?.textAreaStyle }}>
+                <Typography sx={{ ...Styles.labelStyle, ...label.styles?.labelStyle }}>
+                  {label.label}
+                </Typography>
+                <Typography
+                  color={getColor(label.status, label.color)}
+                  sx={{ ...Styles.statusStyle, ...label.styles?.statusStyle }}
+                >
+                  {label.status}
+                </Typography>
+              </Box>
             </Box>
-          ))}
-        </Box>
-      </Box>
-      <Box sx={{ ...Styles.SideTabSX, display: vertical ? 'grid' : 'flex' }}>
-        {StepperFunc?.map((val, index) => (
-          <Box onClick={() => handleChange(index)} key={index}>
-            {stepsForm(val, index)}
-          </Box>
+          </Step>
         ))}
+      </Stepper>
+      <Box
+        sx={{
+          ...Styles.buttonArea, ...styles?.buttonsContainer
+        }}
+      >
+        <BasicButtons
+          // color="inherit"
+          disabled={activeStep === 0}
+          onClick={handleBack}
+          inLineStyles={styles?.btnStyle}
+        >
+          {prevBtn}
+        </BasicButtons>
+        <Box />
+        <BasicButtons onClick={handleNext} inLineStyles={styles?.btnStyle}>
+          {nextBtn}
+        </BasicButtons>
+        <Box />
+        <BasicButtons onClick={handleReset} inLineStyles={styles?.btnStyle}>{resetBtn}</BasicButtons>
       </Box>
     </Box>
   );
-}
-Stepper.defaultProps = {
-  vertical: false,
-  horizontal: true,
-  StepperFunc: [],
-  stepsCompleted: [],
-  activeIndex: 0,
-  handleChange: () => {},
 };
+
+export default CustomStepper;

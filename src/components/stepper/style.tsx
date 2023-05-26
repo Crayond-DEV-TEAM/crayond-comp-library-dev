@@ -1,68 +1,79 @@
 export const Styles = {
-tabSX: {
-    gap: 2.5,
-    textAlign: 'center',
+  iconActive: {
+    marginRight: "8px",
+    marginTop: "4px",
+    top: '1998px',
+    left: '839px',
+    backgroundColor: "#665CD7",
+    borderRadius: "100px",
+    width: "40px",
+    height: "40px",
+    display: 'grid',
+    placeItems: 'center'
   },
-  SideTabSX: {
-    // gap: 5,
-    pl: 3,
-    textAlign: 'start',
-    alignSelf: 'stretch',
+
+  iconCompleted: {
+    marginRight: "8px",
+    marginTop: "4px",
+    backgroundColor: "#5AC782",
+    borderRadius: "100px",
+    display: 'grid',
+    placeItems: 'center',
+    width: "40px",
+    height: "40px",
   },
-  stepperBgSX: {
-    border: ' 1px solid #EFEEFB ',  
+
+  iconInActive: {
+    marginRight: "8px",
+    marginTop: "4px",
+    backgroundColor: "#E9E9E980",
+    borderRadius: "100px",
+    width: "40px",
+    height: "40px",
+    display: 'grid',
+    placeItems: 'center'
+  },
+
+  styleInActive: {
+    border: " 1px solid #EFEEFB ",
+    backgroundColor: "#fff",
     p: 1.5,
-    width:'193px',
-    height:'56px',
-    borderRadius:'263px'
+    width: { lg: "193px", md: '100px' },
+    height: "56px",
+    borderRadius: "263px",
+    display: "flex",
+    alignItems: 'center'
   },
-  stepperSwitchSx: {
-    // backgroundColor: '#ebfaf7',
-    // zIndex: 99,
-    // // borderRadius: 24,
-    // padding: 0.5,
+
+  styleActive: {
+    backgroundColor: "#EFEEFB",
+    border: " 1px solid #EFEEFB ",
+    p: 1.5,
+    width: { lg: "193px", md: '100px' },
+    height: "56px",
+    borderRadius: "263px",
+    display: "flex",
+    alignItems: 'center'
   },
-  badgeSx: {
-    '& .MuiBadge-badge': {
-      top: -9,
-      right: -8,
-      p: 0,
-    //   backgroundColor: '#25C460',
-      border: '2.2px solid',
-      borderColor: 'common.white',
-    },
+  anchorOrigin: {
+    vertical: 'top',
+    horizontal: 'right',
   },
-  badge2Sx: {
-    '& .MuiBadge-badge': {
-      display: 'none',
-    },
+  labelStyle: {
+    fontSize: '14px', fontWeight: 'bold'
   },
-  iconSx: {
-    strokeWidth: '0.6',
-    width: 16,
-    height: 16,
-    stroke: 'common.white',
-    color: 'common.white',
+  statusStyle: {
+    fontSize: '12px'
   },
-  subIconSx: {
-    width: 9,
-    height: 9,
-    color: 'common.white',
-    
+  dividerStyle: {
+    p: 0
   },
-  dividerSx: {
-    position: 'relative',
-  },
-  rootSx: {
+  buttonArea: {
     display: 'flex',
-    alignItems: 'center',
-    width: '100%',
-  },
-  sideBoxSx: {
-    // width: '250px',
-  },
-  followSx: {
-    // color: '#18574C7A',
-    fontWeight: 500,
-  },
+    flexDirection: 'row',
+    pt: 3,
+    justifyContent: 'right',
+    gap:1
+  }
+
 }
