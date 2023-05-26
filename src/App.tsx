@@ -1,15 +1,17 @@
 import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
-import '@fontsource/poppins/700.css';
-import React from 'react';
+import '@fontsource/poppins/700.css'; 
+import { Viewer } from './components/viewer';
+import DeleteIcon from './assets/deleteIcon';
+import profileImg from './assets/sampleprof.png';
+import React, { Component } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import CompanyLogo from './assets/companyLogo.png';
 import loginImg from './assets/loginImg.png';
 import LoginScreen from './components/loginPage/login';
 import SignupScreen from './components/signUpPage/signUp';
 import { BasicButtons, CommonTable } from '@components';
-import DeleteIcon from './assets/deleteIcon';
 import FunnelIcon from './assets/funnelIcon';
 import SearchIcon from './assets/searchIcon';
 import DownloadIcon from './assets/downloadIcon';
@@ -27,6 +29,9 @@ import CustomStepper from './components/stepper/stepper';
 import StepperIcon from './assets/stepperIcon';
 import CheckMark from './assets/checkmark';
 import StepperMobile from './components/stepper/stepperMobile';
+import { ProfileThree } from './components/profileThree';
+import yup from './utils/yupSchema';
+import { Screen } from './components/screen';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -136,8 +141,119 @@ function App() {
     },
   ];
 
+  /// for profile
+
+  // const formList = [
+  //   {
+  //     type: 'title',
+  //     containerStyle: {},
+  //     gridStyle: {},
+  //     breakPoint: {
+  //       xs: 12,
+  //       sm: 6,
+  //       md: 6,
+  //       lg: 6,
+  //       lx: 6,
+  //     },
+  //   },
+  //   // {
+  //   //   type: 'input',
+  //   //   containerStyle:{},
+  //   //   gridStyle:{},
+  //   //   breakPoint:{
+  //   //     xs:12,
+  //   //     sm:12,
+  //   //     md:6,
+  //   //     lg:6,
+  //   //     lx:6
+  //   //   },
+  //   // },
+  //   // {
+  //   //   type: 'date',
+  //   // },
+  //   // {
+  //   //   type: 'dateAndTime',
+  //   // },
+  // ];
+
+  // const profileProps = {
+  //   formList:formList
+  // }
+  const [isEdit, setIsEdit] = React.useState(true);
+  const onSubmitFun = (data: object) => {
+    console.log('🚀 ~ file: App.tsx:121 ~ onSubmitBtn ~ data:', data);
+    // if (isEdit) {
+    //   if (formValidator3()) {
+    //     setIsEdit(false);
+    //   }
+    // } else {
+    //   setIsEdit(true);
+    // }
+  };
+  const img =
+    'https://loveshayariimages.in/wp-content/uploads/2022/08/dp-pic-whatsapp-150x150.jpg';
+  const [profile, setProfile] = React.useState(img);
+  const uploadProfile = (event: any) => {
+    console.log(
+      event.target.files,
+      '🚀 ~ file: App.tsx:133 ~ uploadProfile ~ event:',
+      URL.createObjectURL(event.target.files[0])
+    );
+    setProfile(URL.createObjectURL(event.target.files[0]));
+  };
+  const deleteProfile = () => {
+    setProfile('');
+  };
+
+  const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  const formSchema = yup.object({
+    firstName: yup
+      .string()
+      .min(4, 'Min length 4')
+      .max(14, 'Max length 7')
+      .required('Please enter first name'),
+    lastName: yup
+      .string()
+      .min(4, 'Min length 4')
+      .max(14, 'Max length 7')
+      .required('Please enter Last name'),
+    dob: yup.date().required('Please enter DOB'),
+    gender: yup.string().required('Please enter Gender'),
+    designation: yup.string().required('Please enter Designation'),
+    mobileNumber: yup
+      .object()
+      .shape({
+        mobile: yup.string().required('Please enter Phone number'), //.matches(phoneRegExp, 'Phone number is not valid'),
+        mobile_code: yup.string().required('Please select Country code'),
+      })
+      .required('Please enter Phone number...'),
+    address1: yup
+      .string()
+      .min(4, 'Min length 4')
+      .max(14, 'Max length 7')
+      .required('Please enter Address 1'),
+    address2: yup
+      .string()
+      .min(4, 'Min length 4')
+      .max(14, 'Max length 7')
+      .required('Please enter Address 2'),
+    email: yup
+      .string()
+      .email('Please enter valid email')
+      .required('Please enter email'),
+  });
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
+      <Screen
+       containerStyle={{}}
+       headerStyle={{}}
+       bodyStyle={{}}
+       footerStyle={{}}
+       headerComponent={<>Header</>}
+       bodyComponent={<>Body</>}
+       footerComponent={<>Footer</>}
+      />
       {/* <CommonTable
         Header={[
           {
@@ -1063,26 +1179,651 @@ function App() {
           fillerMethod: fillerMethod,
           downloadMethod: downloadMethod,
         }}
-        HeaderComponent={{
-          variant: 2,
-        styles:{
-          padding:"10px 0",
-          margin:"0"
-        },
-          searchPlaceholder:"Search by name, email",
-          setHederSearch:setHederSearch,
-          checkboxLabel:"Show only my reportees",
-          primaryBtnText:"Add Member",
-          secondaryBtnText:"Import",
-          secondaryBtnIcon:<DocsIcon color={"#357968"}/>,
-          funnelIcon:<FunnelIcon color={"#fff"}/>,
-          searchIcon:<SearchIcon/>,
-          fillerMethod:fillerMethod,
-          primaryBtnMethod:primaryBtnMethod,
-          secondaryBtnMethod:secondaryBtnMethod,
-          headerCheckbox:headerCheckbox, setHederCheckbox:setHederCheckbox
+        // HeaderComponent={{
+        //   variant: 2,
+        //   styles: {
+        //     padding: '10px 0',
+        //     margin: '0',
+        //   },
+        //   searchPlaceholder: 'Search by name, email',
+        //   setHederSearch: setHederSearch,
+        //   checkboxLabel: 'Show only my reportees',
+        //   primaryBtnText: 'Add Member',
+        //   secondaryBtnText: 'Import',
+        //   secondaryBtnIcon: <DocsIcon color={'#357968'} />,
+        //   funnelIcon: <FunnelIcon color={'#fff'} />,
+        //   searchIcon: <SearchIcon />,
+        //   fillerMethod: fillerMethod,
+        //   primaryBtnMethod: primaryBtnMethod,
+        //   secondaryBtnMethod: secondaryBtnMethod,
+        //   headerCheckbox: headerCheckbox,
+        //   setHederCheckbox: setHederCheckbox,
+        // }}
+      /> */}
+      <Viewer
+        rootStyle={{ backgroundColor: '' }}
+        headerOptions={{
+          title: 'My Profile',
+          fontSize: '20px',
+          fontWeight: 'bold',
+          color: '#111111',
+          titleBoxStyle: { backgroundColor: '' },
         }}
-      />  */}
+        viewBody={{
+          viewBodyStyle: {},
+          gridStyle: { justifyContent: 'center' },
+          profileimage: {
+            breakpoints: { xs: 12, sm: 3.5, md: 3, lg: 2 },
+            profileImgStyle: {},
+            imgSrc: profileImg,
+            variant: 'rounded',
+            profileimgContainer: {},
+            avatarconStyle:{},
+            profileImgEditStyle:{},
+            profileImgEditIcon: <EditIcon color='#fff' />,
+            onClick: () => { console.log('Profile Edit') },
+            // customComp:<BasicButtons>hai</BasicButtons>
+          },
+          form: {
+            breakpoints: { xs: 12, sm: 6, md: 6, lg: 4.5, xl: 4.5 },
+            title: 'Michael Bloomberg',
+            subTitle: 'Male',
+            description: 'Senior Graphic Designer',
+            titleStyle: {},
+            descriptionStyle: {},
+            subTitleStyle: {},
+            formContainer: {},
+            formList: [
+              {
+                icon: <DocsIcon color='#665CD7' />,
+                label: 'Email',
+                value: 'Michaelbloomberg@email.com',
+                breakPoint: {
+                  xs: 12,
+                  sm: 12,
+                  md: 12,
+                  lg: 12,
+                  lx: 12,
+                },
+                iconStyle: {backgroundColor:'#FAFAFA'},
+                labelStyle: {},
+                valueStyle: {},
+                listWraper: { py: 1, }
+              },
+              {
+                icon: <DocsIcon />,
+                label: 'Date Of Birth',
+                value: '01/06/1990',
+                breakPoint: {
+                  xs: 12,
+                  sm: 12,
+                  md: 12,
+                  lg: 12,
+                  lx: 12,
+                },
+                iconStyle: {backgroundColor:'#FAFAFA'},
+                labelStyle: {},
+                valueStyle: {},
+                listWraper: { py: 1, }
+
+              },
+              {
+                icon: <DocsIcon />,
+                label: 'Mobile Number',
+                value: '+1 9999999999',
+                breakPoint: {
+                  xs: 12,
+                  sm: 12,
+                  md: 12,
+                  lg: 12,
+                  lx: 12,
+                },
+                iconStyle: {backgroundColor:'#FAFAFA'},
+                labelStyle: {},
+                valueStyle: {},
+                listWraper: { py: 1, }
+              },
+              {
+                icon: <DocsIcon />,
+                label: 'Desgination',
+                value: 'Developer',
+                breakPoint: {
+                  xs: 12,
+                  sm: 12,
+                  md: 12,
+                  lg: 12,
+                  lx: 12,
+                },
+                iconStyle: {backgroundColor:'#FAFAFA'},
+                labelStyle: {},
+                valueStyle: {},
+                listWraper: { py: 1, }
+              },
+              {
+                icon: <DocsIcon />,
+                label: 'City',
+                value: 'Bell Gardens',
+                breakPoint: {
+                  xs: 12,
+                  sm: 12,
+                  md: 12,
+                  lg: 12,
+                  lx: 12,
+                },
+                listWraper: { py: 1, },
+                iconStyle: {backgroundColor:'#FAFAFA'},
+                labelStyle: {},
+                valueStyle: {},
+              },
+              {
+                icon: <DocsIcon />,
+                label: 'State',
+                value: 'California',
+                breakPoint: {
+                  xs: 12,
+                  sm: 12,
+                  md: 12,
+                  lg: 12,
+                  lx: 12,
+                },
+                iconStyle: {backgroundColor:'#FAFAFA'},
+                labelStyle: {},
+                valueStyle: {},
+                listWraper: { py: 1, }
+              },
+            ],
+          },
+          btnList: [
+            {
+              buttonText: 'Edit',
+              onClick: () => { console.log('Edit') },
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                lx: 12,
+              },
+              btnStyle: {backgroundColor:'#665CD7'},
+              btnListConStyle: { mt: 3, display: 'flex', justifyContent: 'center' }
+            },
+          ],
+
+        }}
+      />
+
+      <Viewer
+        rootStyle={{ backgroundColor: '', }}
+        viewBody={{
+          viewBodyStyle: { },
+          gridStyle: { justifyContent: 'left', },
+          profileimage: {
+            breakpoints: { xs: 12, sm: 12, md: 12, lg: 12 },
+            profileImgStyle: {},
+            imgSrc: profileImg,
+            variant: 'rounded',
+            profileimgContainer: { display: 'flex', justifyContent: 'center' },
+            profileImgEditIcon: <EditIcon color='#fff' />,
+            onClick: () => { console.log('Profile Edit') },
+          },
+          form: {
+            breakpoints: { xs: 12, sm: 12, md: 12, lg: 12, xl: 12 },
+            title: 'Michael Bloomberg',
+            titleStyle: { fontSize: '16px', py: 2, textAlign: 'center' },
+            descriptionStyle: {},
+            subTitleStyle: {},
+            formContainer: {},
+            formListContainer: { border: '1px solid #E9E9E9', borderRadius: '8px' ,p:2},
+            formList: [
+              {
+                icon: <DocsIcon color='green' />,
+                value: 'Mailidhere@gmail.com',
+                breakPoint: {
+                  xs: 12,
+                  sm: 12,
+                  md: 12,
+                  lg: 12,
+                  lx: 12,
+                },
+                iconStyle: { backgroundColor: 'none', borderRadius: '0px', py: 0 },
+                valueStyle: { fontSize: '14px' },
+                listWraper: { alignItems: 'center' }
+              },
+              {
+                icon: <DocsIcon color='yellow' />,
+                value: '9999 999 999',
+                breakPoint: {
+                  xs: 12,
+                  sm: 12,
+                  md: 12,
+                  lg: 12,
+                  lx: 12,
+                },
+                iconStyle: { backgroundColor: 'none', borderRadius: '0px', py: '0px', },
+                valueStyle: { fontSize: '14px' },
+                listWraper: { alignItems: 'center' }
+              },
+             
+              {
+                icon: <DocsIcon color='red' />,
+                value: '01 Jan 1998 (25Yrs / Male)',
+                breakPoint: {
+                  xs: 12,
+                  sm: 12,
+                  md: 12,
+                  lg: 12,
+                  lx: 12,
+                },
+                iconStyle: { backgroundColor: 'none', borderRadius: '0px', py: 0 },
+                valueStyle: { fontSize: '14px' },
+                listWraper: { alignItems: 'center' }
+              },
+              {
+                icon: <DocsIcon color='blue' />,
+                value: '2/498, Ayshika Still water court Sunrise Avenue, 2nd Cross St, Neelankarai, Chennai - 600115',
+                breakPoint: {
+                  xs: 12,
+                  sm: 6,
+                  md: 6,
+                  lg: 12,
+                  lx: 12,
+                },
+                iconStyle: { backgroundColor: 'none', borderRadius: '0px', py: 0 },
+                valueStyle: { fontSize: '14px' },
+                listWraper: { alignItems: 'center' }
+              },
+
+            ],
+          },
+          btnList: [
+            {
+              buttonText: 'Edit',
+              onClick: () => { console.log('Edit') },
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                lx: 12,
+              },
+              btnStyle: { width: '100%' ,backgroundColor:'#665CD7'},
+              btnListConStyle: { mt: 3 }
+            },
+          ],
+
+        }}
+      />
+     
+
+      <ProfileThree
+        isEditMode={isEdit}
+        titleOptions={{
+          title: 'My Profile',
+          sxProps: {
+            fontSize: '16px',
+            fontWeight: '600',
+            color: '#11111199',
+          },
+          icon: <DocsIcon color='#665Cff' />,
+        }}
+        uploadOptions={{
+          imgScr: profile,
+          buttonEnabled: true,
+          deleteProfile: deleteProfile,
+          uploadProfile: uploadProfile,
+          variant: 'rounded',
+        }}
+        afterProfileComponent={<>Custom Component here...</>}
+        overallSxProps={{
+          backgroundColor: '#DAE8FC',
+          padding: '20px 0',
+        }}
+        cardSxProps={{}}
+        gridContainerProps={{ columnSpacing: 3, spacing: 0 }}
+        renderForm={{
+          formButtonContainerStyle: {},
+          submitButton: {
+            visible: true,
+            title: 'Save',
+            onClick: (data: object) => onSubmitFun(data),
+            sx: {},
+          },
+          cancelButton: {
+            visible: true,
+            title: 'Cancel',
+            onClick: (data: object) =>console.log(data),
+            sx: {},
+            variant:"outlined"
+          },
+          customButton: { 
+            component: <></>,
+          },
+          yupSchemaValidation: formSchema,
+          defaultValues: {
+            address1: 'My Address 1',
+            address2: 'My Address 2',
+            designation: 'Developer',
+            email: 'hari@gmail.co',
+            dob: '12/06/2022',
+            firstName: 'Hari',
+            gender: 'Male',
+            lastName: 'Haran',
+            mobileNumber: { mobile: '845678906789', mobile_code: '+91' },
+          },
+          formList: [
+            {
+              type: 'heading',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                lx: 12,
+              },
+              inputProps: {
+                value: 'Basic Details',
+                sx: {
+                  fontSize: '16px',
+                  color: '#111111',
+                  fontWeight: '500',
+                  margin: '0 0 8px 0',
+                },
+              },
+            },
+            {
+              type: 'input',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'First Name',
+                name: 'firstName',
+                labelVariant: 'standard',
+                // rules: {
+                //   required: 'Please enter First name',
+                //   minLength: {
+                //     value: 5,
+                //     message: 'min length is 4',
+                //   },
+                //   maxLength: {
+                //     value: 15,
+                //     message: 'min length is 14',
+                //   },
+                // },
+              },
+            },
+            {
+              type: 'input',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'Last Name',
+                name: 'lastName',
+                labelVariant: 'standard',
+                rules: {
+                  required: 'Please enter Last name',
+                  minLength: {
+                    value: 5,
+                    message: 'min length is 4',
+                  },
+                  maxLength: {
+                    value: 15,
+                    message: 'min length is 14',
+                  },
+                },
+              },
+            },
+            {
+              type: 'date',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'DOB',
+                name: 'dob',
+                labelVariant: 'standard',
+                rules: {
+                  required: 'Please enter DOB',
+                },
+                inputFormat: 'dd-MM-yyyy',
+                // components:{
+                //   OpenPickerIcon: <DocsIcon/>
+                // },
+              },
+            },
+            {
+              type: 'chipSelect',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                label: 'Gender',
+                name: 'gender',
+                labelVariant: 'standard',
+                rules: {
+                  required: 'Please enter Gender',
+                },
+                options: [
+                  { label: 'Male', value: 'Male' },
+                  { label: 'Female', value: 'Female' },
+                  { label: 'Others', value: 'Others' },
+                ],
+              },
+            },
+            {
+              type: 'dropDown',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'Designation',
+                name: 'designation',
+                labelVariant: 'standard',
+                rules: {
+                  required: 'Please enter Designation',
+                },
+                selectOption: [
+                  { label: 'Developer', value: 'Developer' },
+                  { label: 'Designer', value: 'Designer' },
+                  { label: 'designation', value: 'designation' },
+                ],
+              },
+            },
+            {
+              type: 'heading',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                lx: 12,
+              },
+              inputProps: {
+                value: 'Contact Information',
+                sx: {
+                  fontSize: '16px',
+                  color: '#111111',
+                  fontWeight: '500',
+                  margin: '18px 0 8px 0',
+                },
+              },
+            },
+            {
+              type: 'mobileNumberInput',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                label: 'Mobile Number',
+                name: 'mobileNumber',
+                labelVariant: 'standard',
+                required: true,
+                // rules: {
+                // required: 'Please enter Designation',
+                // minLength: {
+                //   value: 5,
+                //   message: 'min length is 4',
+                // },
+                // maxLength: {
+                //   value: 15,
+                //   message: 'min length is 14',
+                // },
+                // },
+                // error:true,
+                // errorMessage: 'Please enter Mobile number',
+              },
+            },
+            {
+              type: 'input',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'Email ID',
+                name: 'email',
+                labelVariant: 'standard',
+                rules: {
+                  required: 'Please enter Email',
+                  minLength: {
+                    value: 5,
+                    message: 'min length is 4',
+                  },
+                  maxLength: {
+                    value: 15,
+                    message: 'min length is 14',
+                  },
+                },
+                errorMessage: 'Please enter Email Id',
+              },
+            },
+            {
+              type: 'input',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'Address Line 1',
+                name: 'address1',
+                labelVariant: 'standard',
+                rules: {
+                  required: 'Please enter Address 1',
+                  minLength: {
+                    value: 5,
+                    message: 'min length is 4',
+                  },
+                  maxLength: {
+                    value: 15,
+                    message: 'min length is 14',
+                  },
+                },
+                errorMessage: 'Please enter Address Line 1',
+              },
+            },
+            {
+              type: 'input',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              inputProps: {
+                type: 'text',
+                label: 'Address Line 2',
+                name: 'address2',
+                labelVariant: 'standard',
+                rules: {
+                  required: 'Please enter Address 2',
+                  minLength: {
+                    value: 5,
+                    message: 'min length is 4',
+                  },
+                  maxLength: {
+                    value: 15,
+                    message: 'min length is 14',
+                  },
+                },
+                errorMessage: 'Please enter Address Line 2',
+              },
+            },
+            {
+              type: 'custom',
+              containerStyle: {},
+              gridStyle: {},
+              breakPoint: {
+                xs: 12,
+                sm: 6,
+                md: 6,
+                lg: 6,
+                lx: 6,
+              },
+              component: <BasicButtons>Custom Com</BasicButtons>,
+            },
+          ],
+        }}
+      />
       {/* <SignupScreen
         option='socialMediaSignup'
         sectionOne={{
@@ -1222,6 +1963,7 @@ function App() {
           // backgroundWrapStyle:{height: '100%', width: '100%'},
           // component: <BasicButtons />
         }}
+        
         sectionTwo={{
           breakpoints: { xs: 12, md: 9, sm: 8, lg: 9 },
           WraperStyle: {},
@@ -1229,10 +1971,12 @@ function App() {
           cardData: {
             logo: {
               logoSrc: CompanyLogo,
-              logoHeight: '29px', logoWidth: '147px'
+              logoHeight: '29px',
+              logoWidth: '147px',
             },
             title: 'Welcome!',
-            description: 'One positive feedback per day or week can make us grow exponentially',
+            description:
+              'One positive feedback per day or week can make us grow exponentially',
             bottomText: "Don't have an account?",
             buttonText: 'Send OTP',
             loginActionText: 'Sign in',
@@ -1314,10 +2058,13 @@ function App() {
             mobileNumberLogin: {
               labelText: 'Mobile Number',
               labelStyle: {},
-              mobileFieldstyle: { contryCodefontSize: '14px', fontWeight: '600', numberFontSize: '16px' },
+              mobileFieldstyle: {
+                contryCodefontSize: '14px',
+                fontWeight: '600',
+                numberFontSize: '16px',
+              },
               dropDownStyle: { width: '110px' },
             },
-
           },
         }}
         onSubmit={(detail: object) => {

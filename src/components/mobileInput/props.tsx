@@ -34,4 +34,5 @@ export interface MobileInputProps {
   suggested?: boolean;
   helperTextStyle?:string;
   dropDownStyle?:object;
+  labelStyle?:object;
 }

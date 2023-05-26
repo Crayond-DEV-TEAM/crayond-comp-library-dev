@@ -1,205 +1,130 @@
-import { Box, Grid, TextField, Typography } from "@mui/material";
-import React from "react";
+import { InputBase, Box, Typography, InputLabel } from '@mui/material';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { SimpleSelect } from './select';
+import { styles } from './style';
 import { Sample } from '../../utils/constants';
-import { MobileInputProps } from './props';
-import { SimpleSelect } from "./select";
-import { mobileInput_style } from "./style";
 
-export default function MobileInput(props: MobileInputProps) {
+export const MobileInput = (props: any) => {
+  const {
+    error,
+    errorMessage,
+    required,
+    label,
+    labelStyle,
+    inputStyle,
+    ...reset
+  } = props;
+  const initialMobileCode = props?.value?.mobile_code ?? '+91';
 
-    const {
-        onChange = () => false,
-        fullWidth = true,
-        autoFocus = false,
-        isReadonly = false,
-        disabled,
-        disabledNumber,
-        isReadonlyCC,
-        enterKeyPress,
-        value,
-        focus = () => { },
-        onErrorOccured,
-        helperText = '',
-        id = 'mobileInput',
-        isError = false,
-        mobileInputStyle = {},
-        rootWapperstyle = {},
-        helperTextStyle = {},
-        dropDownStyle={},
-        className = '',
-        maxLength = 10,
-    } = props;
+  const [selectValue, setSelectValue] = React.useState({
+    mobile: props?.value?.mobile ?? '',
+    mobile_code: initialMobileCode,
+  });
 
-    const [selectValue, setSelectValue] = React.useState({
-        mobile: props?.value?.mobile ?? "",
-        mobile_code: props?.value?.mobile_code ?? "+91",
-    });
-
-    const [limits, setLimits] = React.useState(10);
-    const [isvalid, setIsvalid] = React.useState(true);
-
-    const mobileNoValidation = (limitValue = limits) => {
-        let inputLengthValue = selectValue?.mobile?.length;
-
-        if (limitValue) {
-            if (limitValue === inputLengthValue) {
-                setIsvalid(true);
-            } else if (limitValue > inputLengthValue) {
-                setIsvalid(false);
-            } else {
-                setIsvalid(true);
-            }
-        }
+  const handleChangeSelect = (mobile_code: any) => {
+    let newState = {
+      mobile: selectValue.mobile,
+      mobile_code,
     };
 
-    const handleChangeSelect = (mobile_code = {}) => {
-        let newState = {
-            mobile: selectValue.mobile,
-            mobile_code,
-        };
+    setSelectValue(newState);
+    props?.onChange(newState);
+  };
 
-        setSelectValue(newState);
-        props?.handleChange(newState);
-
+  const onChangeInput = (mobile: any) => {
+    // debugger;
+    let newState = {
+      mobile: mobile.replace('.', ''),
+      mobile_code: selectValue.mobile_code,
     };
 
-    const handleChange = (mobile: string) => {
-        if (mobile?.length <= limits) {
-            let newState = {
-                mobile: mobile.replace(".", ""),
-                mobile_code: selectValue.mobile_code,
-            };
+    setSelectValue(newState);
+    props?.onChange(newState);
+  };
 
-            setSelectValue(newState);
-            props?.handleChange(newState);
-        }
-    };
-
-    React.useEffect(() => {
-        if (props?.value) {
-            setSelectValue({
-                ...selectValue,
-                mobile: props?.value?.mobile ?? "",
-                mobile_code: props?.value?.mobile_code ?? "+91",
-            });
-        }
-        // eslint-disable-next-line
-    }, [props?.value]);
-
-    React.useEffect(() => {
-        if (props?.onErrorOccured) {
-            props?.onErrorOccured(!isvalid);
-        }
-
-        // eslint-disable-next-line
-    }, [isvalid]);
-
-    function setFocus(arg0: boolean) {
-        throw new Error("Function not implemented.");
+  React.useEffect(() => {
+    if (props?.value) {
+      setSelectValue({
+        ...selectValue,
+        mobile: props?.value?.mobile ?? '',
+        mobile_code: props?.value?.mobile_code ?? '+91',
+      });
     }
+    // eslint-disable-next-line
+  }, [props?.value]);
+  return (
+    <Box>
+      <InputLabel sx={{ ...styles.labelSx, ...labelStyle }}>
+        {label} {required && <span>*</span>}
+      </InputLabel>
 
-    return (
-        <Box>
-            {/* MobileInput with props */}
-            <Box
-                sx={{
-                    ...mobileInput_style.rootWapperSx,
-                    ...rootWapperstyle
-                }}
-            >
-                <Box sx={mobileInput_style.NumberSx}>
-                    <SimpleSelect
-                        options={Sample}
-                        handleChangeSelect={handleChangeSelect}
-                        value={selectValue?.mobile_code ?? ""}
-                        disabled={props.isReadonly || props.disabled}
-                        errorValidation={props?.errorValidation}
-                        dropDownStyle={props?.dropDownStyle}
-                    />
-                </Box>
-                {/* MobileInput with props */}
-                <Box flexGrow={1}>
-                    <TextField
-                        type="number"
-                        inputProps={{ maxLength: limits, min: 0, readOnly: isReadonly }}
-                        id={id}
-                        sx={{
-                            ...mobileInput_style.mobileInputStyledSx,
-                            ...mobileInputStyle,
-                        }}
-                        value={selectValue?.mobile}
-                        variant="outlined"
-                        size="small"
-                        onChange={(e) => handleChange(e.target.value)}
-                        fullWidth={fullWidth}
-                        autoFocus={autoFocus}
-                        disabled={isReadonly || disabled}
-                        onInvalid={(e) => {
-                            e.preventDefault();
-                        }}
-                        onFocus={() => {
-                            setFocus(true);
-                        }}
-                        onBlur={() => {
-                            setFocus(false);
-                        }}
-                        error={!!isError}
-                    // onKeyPress={(e) => (enterKeyPress ? enterKeyPress(e) : '')}
-                    />
-                </Box>
-            </Box>
-            {/* Warning Message */}
-            <Grid container direction="row">
-                {/* Field required Message */}
-                {helperText?.length > 0 && (
-                    <Typography
-                        sx={{
-                            ...mobileInput_style.helperTextStyleSx,
-                            ...helperTextStyle
-                        }}
-                        variant="caption"
-                    >
-                        {helperText}
-                    </Typography>
-                )}
-            </Grid>
+      <Box
+        sx={{
+          ...styles.container,
+          ...inputStyle,
+          border: error ? '1px solid #F44F5A' : '1px solid #E9E9E9',
+        }}
+      >
+        <Box
+          sx={{
+            ...styles.selectContainer,
+            borderRight: error ? '1px solid #F44F5A' : ' 1px solid #E9E9E9',
+          }}
+        >
+          <SimpleSelect
+            //   sx={styles.select}
+            options={Sample}
+            handleChangeSelect={(code: any) => handleChangeSelect(code)}
+            value={selectValue?.mobile_code ?? ''}
+            disabled={props.isReadonly || props.disabled}
+            errorValidation={props?.errorValidation}
+          />
         </Box>
-    );
+        {/* Mobile Number Input Field */}
+        <Box sx={styles.inputContainer}>
+          <InputBase
+            type={'number'}
+            disabled={(props?.readonly || props?.disabled) ?? false}
+            fullWidth
+            onInvalid={(e: any) => {
+              e.preventDefault();
+            }}
+            placeholder={props.placeholder}
+            onKeyPress={(e) => {
+              if (e.key === 'e') {
+                e.preventDefault();
+              }
+            }}
+            {...reset}
+            value={selectValue?.mobile}
+            onChange={(e: any) => onChangeInput(e.target.value)}
+          />
+        </Box>
+      </Box>
+      <Typography
+        sx={{ mt: 0.5, mb: 0, 'caret-color': 'transparent' }}
+        variant="caption"
+        color="error"
+        component={'p'}
+      >
+        {error && errorMessage}&nbsp;
+      </Typography>
+    </Box>
+  );
 };
-
+export default MobileInput;
 // Specifies the required props for the component:
 MobileInput.propTypes = {
-    placeholder: '',
-    errorValidation: {},
-    isRequired: null,
-    label: '',
-    handleChange: () => { },
-    component: 'input',
-    fullWidth: true,
-    autoFocus: false,
-    isReadonly: false,
-    disabled: false,
-    disabledNumber: 0,
-    isReadonlyCC: '',
-    enterKeyPress: {},
-    handleChangeSelect: {},
-    value: '',
-    error: false,
-    onError: false,
-    onErrorOccured: () => { },
-    helperText: '',
-    id: '',
-    selectValue: '',
-    limits: {},
-    isError: '',
-    flag: '',
-    className: {},
-    maxLength: 10,
-    mobileInputStyle: {},
-    rootWapperstyle: {},
-    code: '',
-    phone: '',
-    suggested: false,
-    helperTextStyle: '',
-    dropDownStyle:{},
+  label: PropTypes.string,
+  isRequired: PropTypes.bool,
+  isReadonly: PropTypes.bool,
+  // value: PropTypes.object,
+  type: PropTypes.string,
+  errorValidation: PropTypes.object,
+  handleChange: PropTypes.func,
+  onErrorOccured: PropTypes.func,
+};
+MobileInput.defaultProps = {
+  onChange: () => {},
 };
