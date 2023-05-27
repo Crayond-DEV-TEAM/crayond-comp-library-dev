@@ -1,7 +1,7 @@
 import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
-import '@fontsource/poppins/700.css'; 
+import '@fontsource/poppins/700.css';
 import { Viewer } from './components/viewer';
 import DeleteIcon from './assets/deleteIcon';
 import profileImg from './assets/sampleprof.png';
@@ -25,6 +25,9 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { ProfileThree } from './components/profileThree';
 import yup from './utils/yupSchema';
 import { Screen } from './components/screen';
+import ErrorWithInfographic from './components/errorWithInfographic/errorWithInfographic';
+import { PageNotFound } from './components/errorWith404';
+import { ErrorWithIcon } from './components/errorWithIcon';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -145,7 +148,6 @@ function App() {
   const deleteProfile = () => {
     setProfile('');
   };
-
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
   const formSchema = yup.object({
@@ -184,17 +186,140 @@ function App() {
       .email('Please enter valid email')
       .required('Please enter email'),
   });
+
+  const [open, setOpen] = React.useState(false);
+  const [openErr, setOpenErr] = React.useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  const handleOpenErr = () => setOpenErr(true);
+  const handleCloseErr = () => setOpenErr(false);
+
+  //props with errorIcon: <AlertIcon />,
+  const component = '';
+  const errorIconButtons = [
+    {
+      label: 'open',
+      onClick: handleOpen,
+      style: { background: '#EFEEFB', color: '#665CD7', padding: '10px' },
+    },
+    {
+      label: 'Close',
+      onClick: handleClose,
+      style: { background: '#F44F5A', color: '#FFFF', padding: '10px' },
+    },
+  ];
+  const errorMessage = 'Are you sure, would you like to deactivate signal?';
+  const cardRootStyles = {};
+  const errorIconStyle = {};
+  const errorMessageTextStyle = {};
+  const errorButtonBlockStyle = {};
+  const errorMessageBlockStyle = {};
+
+  //ErrorWithIcon Props
+  const cardRootStyle = {};
+  const infogarphicIcon = '';
+  const infogarphicMessage =
+    " You don't have any reportees fom organization assigned to you";
+  const textBlockStyle = {};
+  const iconStyleBlock = {};
+  const messageTextStyle = {};
+  const buttonBlock = {};
+  const ErrorWithInfographicButton = [
+    {
+      label: 'open',
+      onClick: () => {},
+      style: {
+        background: '#EFEEFB',
+        color: '#665CD7',
+        padding: '10px',
+        width: '138px',
+        textTransform: 'capitalize',
+      },
+    },
+  ];
+
+  //page not found props
+  const pageNotFoundIcon = {
+    icon: (
+      <img
+        src={'/epmtyStatePageNotFound.png'}
+        alt="icon"
+        height={'50%'}
+        width={'50%'}
+      />
+    ),
+  };
+  const buttons = [
+    {
+      label: 'open',
+      onClick: () => {},
+      style: {
+        background: '#EFEEFB',
+        color: '#665CD7',
+        padding: '10px',
+        width: '138px',
+      },
+    },
+  ];
+  const pageNotFoundText = 'Page not found !!!';
+  const goBackButton = {
+    label: 'Go back',
+    onClick: () => {},
+    style: {
+      background: '#EFEEFB',
+      color: '#665CD7',
+      padding: '10px',
+      width: '138px',
+      textTransform: 'capitalize',
+    },
+  };
+
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
-      <Screen
+      <div style={{ background: '#cfdafc', marginBottom: '10px' }}>
+        <button style={{ background: '#5a95fc' }} onClick={handleOpen}>
+          open ErrorWithIcon
+        </button>
+      </div>
+      <ErrorWithIcon
+        open={open}
+        handleClose={handleClose}
+        onBackdropClick={()=>{alert("backdrop want close")}}
+        errorIcon={<AlertIcon />}
+        buttons={errorIconButtons}
+        errorMessage="Are you sure, would you like to deactivate signal?"
+      />
+
+      <div style={{ background: '#fccfcf' }}>
+        <button style={{ background: '#fc5a5a' }} onClick={handleOpenErr}>
+          open ErrorWithInfographic
+        </button>
+      </div>
+      <ErrorWithInfographic
+        open={openErr}
+        buttons={ErrorWithInfographicButton}
+        handleClose={handleCloseErr}
+        onBackdropClick={()=>{alert("backdrop want close")}}
+        infogarphicMessage="Are you sure, would you like to deactivate signal?"
+      />
+
+      <PageNotFound
+        pageNotFoundIcon={pageNotFoundIcon}
+        pageNotFoundText={pageNotFoundText}
+        goBackButton={goBackButton}
+      />
+
+      {/* <Screen
        containerStyle={{}}
        headerStyle={{}}
        bodyStyle={{}}
        footerStyle={{}}
        headerComponent={<>Header</>}
-       bodyComponent={<>Body</>}
+       bodyComponent={<>body</>}
        footerComponent={<>Footer</>}
-      />
+      /> */}
       {/* <CommonTable
         Header={[
           {
@@ -1159,10 +1284,12 @@ function App() {
             imgSrc: profileImg,
             variant: 'rounded',
             profileimgContainer: {},
-            avatarconStyle:{},
-            profileImgEditStyle:{},
-            profileImgEditIcon: <EditIcon color='#fff' />,
-            onClick: () => { console.log('Profile Edit') },
+            avatarconStyle: {},
+            profileImgEditStyle: {},
+            profileImgEditIcon: <EditIcon color="#fff" />,
+            onClick: () => {
+              console.log('Profile Edit');
+            },
             // customComp:<BasicButtons>hai</BasicButtons>
           },
           form: {
@@ -1176,7 +1303,7 @@ function App() {
             formContainer: {},
             formList: [
               {
-                icon: <DocsIcon color='#665CD7' />,
+                icon: <DocsIcon color="#665CD7" />,
                 label: 'Email',
                 value: 'Michaelbloomberg@email.com',
                 breakPoint: {
@@ -1186,10 +1313,10 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: {backgroundColor:'#FAFAFA'},
+                iconStyle: { backgroundColor: '#FAFAFA' },
                 labelStyle: {},
                 valueStyle: {},
-                listWraper: { py: 1, }
+                listWraper: { py: 1 },
               },
               {
                 icon: <DocsIcon />,
@@ -1202,11 +1329,10 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: {backgroundColor:'#FAFAFA'},
+                iconStyle: { backgroundColor: '#FAFAFA' },
                 labelStyle: {},
                 valueStyle: {},
-                listWraper: { py: 1, }
-
+                listWraper: { py: 1 },
               },
               {
                 icon: <DocsIcon />,
@@ -1219,10 +1345,10 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: {backgroundColor:'#FAFAFA'},
+                iconStyle: { backgroundColor: '#FAFAFA' },
                 labelStyle: {},
                 valueStyle: {},
-                listWraper: { py: 1, }
+                listWraper: { py: 1 },
               },
               {
                 icon: <DocsIcon />,
@@ -1235,10 +1361,10 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: {backgroundColor:'#FAFAFA'},
+                iconStyle: { backgroundColor: '#FAFAFA' },
                 labelStyle: {},
                 valueStyle: {},
-                listWraper: { py: 1, }
+                listWraper: { py: 1 },
               },
               {
                 icon: <DocsIcon />,
@@ -1251,8 +1377,8 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                listWraper: { py: 1, },
-                iconStyle: {backgroundColor:'#FAFAFA'},
+                listWraper: { py: 1 },
+                iconStyle: { backgroundColor: '#FAFAFA' },
                 labelStyle: {},
                 valueStyle: {},
               },
@@ -1267,17 +1393,19 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: {backgroundColor:'#FAFAFA'},
+                iconStyle: { backgroundColor: '#FAFAFA' },
                 labelStyle: {},
                 valueStyle: {},
-                listWraper: { py: 1, }
+                listWraper: { py: 1 },
               },
             ],
           },
           btnList: [
             {
               buttonText: 'Edit',
-              onClick: () => { console.log('Edit') },
+              onClick: () => {
+                console.log('Edit');
+              },
               breakPoint: {
                 xs: 12,
                 sm: 12,
@@ -1285,27 +1413,32 @@ function App() {
                 lg: 12,
                 lx: 12,
               },
-              btnStyle: {backgroundColor:'#665CD7'},
-              btnListConStyle: { mt: 3, display: 'flex', justifyContent: 'center' }
+              btnStyle: { backgroundColor: '#665CD7' },
+              btnListConStyle: {
+                mt: 3,
+                display: 'flex',
+                justifyContent: 'center',
+              },
             },
           ],
-
         }}
       />
 
       <Viewer
-        rootStyle={{ backgroundColor: '', }}
+        rootStyle={{ backgroundColor: '' }}
         viewBody={{
-          viewBodyStyle: { },
-          gridStyle: { justifyContent: 'left', },
+          viewBodyStyle: {},
+          gridStyle: { justifyContent: 'left' },
           profileimage: {
             breakpoints: { xs: 12, sm: 12, md: 12, lg: 12 },
             profileImgStyle: {},
             imgSrc: profileImg,
             variant: 'rounded',
             profileimgContainer: { display: 'flex', justifyContent: 'center' },
-            profileImgEditIcon: <EditIcon color='#fff' />,
-            onClick: () => { console.log('Profile Edit') },
+            profileImgEditIcon: <EditIcon color="#fff" />,
+            onClick: () => {
+              console.log('Profile Edit');
+            },
           },
           form: {
             breakpoints: { xs: 12, sm: 12, md: 12, lg: 12, xl: 12 },
@@ -1314,10 +1447,14 @@ function App() {
             descriptionStyle: {},
             subTitleStyle: {},
             formContainer: {},
-            formListContainer: { border: '1px solid #E9E9E9', borderRadius: '8px' ,p:2},
+            formListContainer: {
+              border: '1px solid #E9E9E9',
+              borderRadius: '8px',
+              p: 2,
+            },
             formList: [
               {
-                icon: <DocsIcon color='green' />,
+                icon: <DocsIcon color="green" />,
                 value: 'Mailidhere@gmail.com',
                 breakPoint: {
                   xs: 12,
@@ -1326,12 +1463,16 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: { backgroundColor: 'none', borderRadius: '0px', py: 0 },
+                iconStyle: {
+                  backgroundColor: 'none',
+                  borderRadius: '0px',
+                  py: 0,
+                },
                 valueStyle: { fontSize: '14px' },
-                listWraper: { alignItems: 'center' }
+                listWraper: { alignItems: 'center' },
               },
               {
-                icon: <DocsIcon color='yellow' />,
+                icon: <DocsIcon color="yellow" />,
                 value: '9999 999 999',
                 breakPoint: {
                   xs: 12,
@@ -1340,13 +1481,17 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: { backgroundColor: 'none', borderRadius: '0px', py: '0px', },
+                iconStyle: {
+                  backgroundColor: 'none',
+                  borderRadius: '0px',
+                  py: '0px',
+                },
                 valueStyle: { fontSize: '14px' },
-                listWraper: { alignItems: 'center' }
+                listWraper: { alignItems: 'center' },
               },
-             
+
               {
-                icon: <DocsIcon color='red' />,
+                icon: <DocsIcon color="red" />,
                 value: '01 Jan 1998 (25Yrs / Male)',
                 breakPoint: {
                   xs: 12,
@@ -1355,13 +1500,18 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: { backgroundColor: 'none', borderRadius: '0px', py: 0 },
+                iconStyle: {
+                  backgroundColor: 'none',
+                  borderRadius: '0px',
+                  py: 0,
+                },
                 valueStyle: { fontSize: '14px' },
-                listWraper: { alignItems: 'center' }
+                listWraper: { alignItems: 'center' },
               },
               {
-                icon: <DocsIcon color='blue' />,
-                value: '2/498, Ayshika Still water court Sunrise Avenue, 2nd Cross St, Neelankarai, Chennai - 600115',
+                icon: <DocsIcon color="blue" />,
+                value:
+                  '2/498, Ayshika Still water court Sunrise Avenue, 2nd Cross St, Neelankarai, Chennai - 600115',
                 breakPoint: {
                   xs: 12,
                   sm: 6,
@@ -1369,17 +1519,22 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: { backgroundColor: 'none', borderRadius: '0px', py: 0 },
+                iconStyle: {
+                  backgroundColor: 'none',
+                  borderRadius: '0px',
+                  py: 0,
+                },
                 valueStyle: { fontSize: '14px' },
-                listWraper: { alignItems: 'center' }
+                listWraper: { alignItems: 'center' },
               },
-
             ],
           },
           btnList: [
             {
               buttonText: 'Edit',
-              onClick: () => { console.log('Edit') },
+              onClick: () => {
+                console.log('Edit');
+              },
               breakPoint: {
                 xs: 12,
                 sm: 12,
@@ -1387,14 +1542,12 @@ function App() {
                 lg: 12,
                 lx: 12,
               },
-              btnStyle: { width: '100%' ,backgroundColor:'#665CD7'},
-              btnListConStyle: { mt: 3 }
+              btnStyle: { width: '100%', backgroundColor: '#665CD7' },
+              btnListConStyle: { mt: 3 },
             },
           ],
-
         }}
       />
-     
 
       <ProfileThree
         isEditMode={isEdit}
@@ -1405,7 +1558,7 @@ function App() {
             fontWeight: '600',
             color: '#11111199',
           },
-          icon: <DocsIcon color='#665Cff' />,
+          icon: <DocsIcon color="#665Cff" />,
         }}
         uploadOptions={{
           imgScr: profile,
@@ -1432,11 +1585,11 @@ function App() {
           cancelButton: {
             visible: true,
             title: 'Cancel',
-            onClick: (data: object) =>console.log(data),
+            onClick: (data: object) => console.log(data),
             sx: {},
-            variant:"outlined"
+            variant: 'outlined',
           },
-          customButton: { 
+          customButton: {
             component: <></>,
           },
           yupSchemaValidation: formSchema,
