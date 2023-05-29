@@ -244,7 +244,7 @@ function App() {
   const pageNotFoundIcon = {
     icon: (
       <img
-        src={'/epmtyStatePageNotFound.png'}
+        src={'/Error.svg'}
         alt="icon"
         height={'50%'}
         width={'50%'}
