@@ -1,4 +1,11 @@
 export const view_styles = {
+  rootStyle: {
+    display: 'flex',
+    columnGap: '40px',
+    flexWrap: 'wrap',
+    rowGap: '20px',
+  },
+
   cardContainer: {
     width: ' 367px',
     background: '#F1F1F1',
@@ -7,20 +14,23 @@ export const view_styles = {
     borderRadius: '12px',
     display: 'flex',
     flexDirection: 'column',
+    overflowY: 'auto',
+    '&::-webkit-scrollbar': { display: 'none' },
   },
 
   titleStyle: {
     color: '#3B3B3B',
     fontWeight: '500',
     marginBottom: '12px',
-    fontSize:"14px"
+    fontSize: '14px',
   },
 
   subTitleStyle: {
     color: '#3B3B3B',
     fontWeight: '500',
     marginBottom: '12px',
-    fontSize:"12px"
+    fontSize: '12px',
+    alignItem:"center"
   },
 
   childBoxContainer: {
@@ -32,8 +42,15 @@ export const view_styles = {
     padding: '12px',
     '&:hover': {
       border: '1px solid #665CD7',
-      boxShadow: '2px 2px 8px #f9060629',
+      boxShadow: '2px 2px 8px  #00000029 ',
     },
+  },
+
+  childOnDraggedBox: {
+    height: '108px',
+    border: ' 2px dashed #665CD7',
+    borderRadius: '8px',
+    marginBottom: '12px',
   },
 
   childTitleContainer: {
@@ -52,6 +69,7 @@ export const view_styles = {
     alignItems: 'center',
     columnGap: '12px',
     marginTop: 'auto',
+    cursor:"pointer"
   },
 
   designBlock: {

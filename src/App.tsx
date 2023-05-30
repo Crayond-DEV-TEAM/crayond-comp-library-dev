@@ -186,6 +186,12 @@ function App() {
       .required('Please enter email'),
   });
 
+  const cardContainerData = [
+    { title: 'Progress' },
+    { title: 'Pending' },
+    { title: 'Complete' },
+  ];
+
   const cardJson = [
     {
       id: 1,
@@ -196,15 +202,21 @@ function App() {
       notifyIcon: <img src="/notifi.svg" alt="noti" />,
       moreIcon: <img src="/more.svg" alt="more" />,
       subTitles: [
-        { label: '# design', bgColor: '', borderColor: '#D3D3D3',textColor:"" },
-        { label: 'Design System', bgColor: '#DEE6F9', borderColor: '',textColor:"#2B5ED6" },
+        {
+          label: '# design',
+          bgColor: '',
+          borderColor: '#D3D3D3',
+          textColor: '',
+        },
+        {
+          label: 'Design System',
+          bgColor: '#DEE6F9',
+          borderColor: '',
+          textColor: '#2B5ED6',
+        },
       ],
-      images: [
-        { img: '/sample.jpg', height: '', width: '' },
-        { img: '/sample.jpg', height: '', width: '' },
-      ],
+      images: [{ img: '/sample.jpg' }, { img: '/sample.jpg' }],
       created_at: 'On 17 Mar, 23',
-      done: true,
     },
     {
       id: 2,
@@ -215,15 +227,21 @@ function App() {
       notifyIcon: <img src="/activeNotify.svg" alt="noti" />,
       moreIcon: <img src="/more.svg" alt="more" />,
       subTitles: [
-        { label: '# design', bgColor: '', borderColor: '#D3D3D3',textColor:"" },
-        { label: 'Design System', bgColor: '#DEE6F9', borderColor: '',textColor:"#2B5ED6" },
+        {
+          label: '# design',
+          bgColor: '',
+          borderColor: '#D3D3D3',
+          textColor: '',
+        },
+        {
+          label: 'Design System',
+          bgColor: '#DEE6F9',
+          borderColor: '',
+          textColor: '#2B5ED6',
+        },
       ],
-      images: [
-        { img: '/sample.jpg', height: '', width: '' },
-        { img: '/sample.jpg', height: '', width: '' },
-      ],
+      images: [{ img: '/sample.jpg' }, { img: '/sample.jpg' }],
       created_at: 'On 17 Mar, 23',
-      done: false,
     },
     {
       id: 3,
@@ -234,15 +252,21 @@ function App() {
       notifyIcon: <img src="/notifi.svg" alt="noti" />,
       moreIcon: <img src="/more.svg" alt="more" />,
       subTitles: [
-        { label: '# design', bgColor: '', borderColor: '#D3D3D3',textColor:"" },
-        { label: 'Design System', bgColor: '#DEE6F9', borderColor: '',textColor:"#2B5ED6" },
+        {
+          label: '# design',
+          bgColor: '',
+          borderColor: '#D3D3D3',
+          textColor: '',
+        },
+        {
+          label: 'Design System',
+          bgColor: '#DEE6F9',
+          borderColor: '',
+          textColor: '#2B5ED6',
+        },
       ],
-      images: [
-        { img: '/sample.jpg', height: '', width: '' },
-        { img: '/sample.jpg', height: '', width: '' },
-      ],
+      images: [{ img: '/sample.jpg' }, { img: '/sample.jpg' }],
       created_at: 'On 17 Mar, 23',
-      done: true,
     },
     {
       id: 4,
@@ -253,15 +277,21 @@ function App() {
       notifyIcon: <img src="/activeNotify.svg" alt="noti" />,
       moreIcon: <img src="/more.svg" alt="more" />,
       subTitles: [
-        { label: '# design', bgColor: '', borderColor: '#D3D3D3',textColor:"" },
-        { label: 'Design System', bgColor: '#DEE6F9', borderColor: '',textColor:"#2B5ED6" },
+        {
+          label: '# design',
+          bgColor: '',
+          borderColor: '#D3D3D3',
+          textColor: '',
+        },
+        {
+          label: 'Design System',
+          bgColor: '#DEE6F9',
+          borderColor: '',
+          textColor: '#2B5ED6',
+        },
       ],
-      images: [
-        { img: '/sample.jpg', height: '', width: '' },
-        { img: '/sample.jpg', height: '', width: '' },
-      ],
+      images: [{ img: '/sample.jpg' }, { img: '/sample.jpg' }],
       created_at: 'On 17 Mar, 23',
-      done: false,
     },
     {
       id: 5,
@@ -272,15 +302,21 @@ function App() {
       notifyIcon: <img src="/notifi.svg" alt="noti" />,
       moreIcon: <img src="/more.svg" alt="more" />,
       subTitles: [
-        { label: '# design', bgColor: '', borderColor: '#D3D3D3',textColor:"" },
-        { label: 'Design System', bgColor: '#DEE6F9', borderColor: '',textColor:"#2B5ED6" },
+        {
+          label: '# design',
+          bgColor: '',
+          borderColor: '#D3D3D3',
+          textColor: '',
+        },
+        {
+          label: 'Design System',
+          bgColor: '#DEE6F9',
+          borderColor: '',
+          textColor: '#2B5ED6',
+        },
       ],
-      images: [
-        { img: '/sample.jpg', height: '', width: '' },
-        { img: '/sample.jpg', height: '', width: '' },
-      ],
+      images: [{ img: '/sample.jpg' }, { img: '/sample.jpg' }],
       created_at: 'On 17 Mar, 23',
-      done: false,
     },
     {
       id: 6,
@@ -290,16 +326,22 @@ function App() {
       isActive: true,
       notifyIcon: <img src="/notifi.svg" alt="noti" />,
       moreIcon: <img src="/more.svg" alt="more" />,
-     subTitles: [
-        { label: '# design', bgColor: '', borderColor: '#D3D3D3',textColor:"" },
-        { label: 'Design System', bgColor: '#DEE6F9', borderColor: '',textColor:"#2B5ED6" },
+      subTitles: [
+        {
+          label: '# design',
+          bgColor: '',
+          borderColor: '#D3D3D3',
+          textColor: '',
+        },
+        {
+          label: 'Design System',
+          bgColor: '#DEE6F9',
+          borderColor: '',
+          textColor: '#2B5ED6',
+        },
       ],
-      images: [
-        { img: '/sample.jpg', height: '', width: '' },
-        { img: '/sample.jpg', height: '', width: '' },
-      ],
+      images: [{ img: '/sample.jpg' }, { img: '/sample.jpg' }],
       created_at: 'On 17 Mar, 23',
-      done: true,
     },
     {
       id: 7,
@@ -309,16 +351,22 @@ function App() {
       isActive: true,
       notifyIcon: <img src="/notifi.svg" alt="noti" />,
       moreIcon: <img src="/more.svg" alt="more" />,
-     subTitles: [
-        { label: '# design', bgColor: '', borderColor: '#D3D3D3',textColor:"" },
-        { label: 'Design System', bgColor: '#DEE6F9', borderColor: '',textColor:"#2B5ED6" },
+      subTitles: [
+        {
+          label: '# design',
+          bgColor: '',
+          borderColor: '#D3D3D3',
+          textColor: '',
+        },
+        {
+          label: 'Design System',
+          bgColor: '#DEE6F9',
+          borderColor: '',
+          textColor: '#2B5ED6',
+        },
       ],
-      images: [
-        { img: '/sample.jpg', height: '', width: '' },
-        { img: '/sample.jpg', height: '', width: '' },
-      ],
+      images: [{ img: '/sample.jpg' }, { img: '/sample.jpg' }],
       created_at: 'On 17 Mar, 23',
-      done: true,
     },
     {
       id: 8,
@@ -328,24 +376,61 @@ function App() {
       isActive: true,
       notifyIcon: <img src="/activeNotify.svg" alt="noti" />,
       moreIcon: <img src="/more.svg" alt="more" />,
-     subTitles: [
-        { label: '# design', bgColor: '', borderColor: '#D3D3D3',textColor:"" },
-        { label: 'Design System', bgColor: '#DEE6F9', borderColor: '',textColor:"#2B5ED6" },
+      subTitles: [
+        {
+          label: '# design',
+          bgColor: '',
+          borderColor: '#D3D3D3',
+          textColor: '',
+        },
+        {
+          label: 'Design System',
+          bgColor: '#DEE6F9',
+          borderColor: '',
+          textColor: '#2B5ED6',
+        },
       ],
-      images: [
-        { img: '/sample.jpg', height: '', width: '' },
-        { img: '/sample.jpg', height: '', width: '' },
-      ],
+      images: [{ img: '/sample.jpg' }, { img: '/sample.jpg' }],
       created_at: 'On 17 Mar, 23',
-      done: true,
+    },
+    {
+      id: 9,
+      title: 'title3',
+      status: 'Pending',
+      cardTitle: 'Create Components',
+      isActive: true,
+      notifyIcon: <img src="/activeNotify.svg" alt="noti" />,
+      moreIcon: <img src="/more.svg" alt="more" />,
+      subTitles: [
+        {
+          label: '# design',
+          bgColor: '',
+          borderColor: '#D3D3D3',
+          textColor: '',
+        },
+        {
+          label: 'Design System',
+          bgColor: '#DEE6F9',
+          borderColor: '',
+          textColor: '#2B5ED6',
+        },
+      ],
+      images: [{ img: '/sample.jpg' }, { img: '/sample.jpg' }],
+      created_at: 'On 17 Mar, 23',
     },
   ];
 
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
       <div style={{ background: '#ffff', padding: '10px' }}>
-        <KanbanView cardData={cardJson} />
+        <KanbanView
+          // cardContainerData={cardContainerData}
+          cardData={cardJson}
+          cardRootStyle={{}}
+          childCardStyle={{}}
+          cardContainerStyle={{}} cardContainerData={[]}        />
       </div>
+
       {/* <Screen
        containerStyle={{}}
        headerStyle={{}}
