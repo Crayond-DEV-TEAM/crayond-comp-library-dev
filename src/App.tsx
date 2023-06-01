@@ -185,13 +185,19 @@ function App() {
       .email('Please enter valid email')
       .required('Please enter email'),
   });
-  const cardJson:any = [
+  const cardJson: any = [
     {
       id: 1,
       title: 'Progress',
       status: 'Progress',
       // cardTitle: 'Progress Create Components1',
-      component: <><h1>dsfsdffs</h1><h1>dsfsdffs</h1><h1>dsfsdffs</h1></>,
+      component: (
+        <>
+          <h1>dsfsdffs</h1>
+          <h1>dsfsdffs</h1>
+          <h1>dsfsdffs</h1>
+        </>
+      ),
       isActive: true,
       // notifyIcon: <img src="/notifi.svg" alt="noti" />,
       // moreIcon: <img src="/more.svg" alt="more" />,
@@ -217,7 +223,7 @@ function App() {
       title: 'Progress',
       status: 'Progress',
       cardTitle: 'Progress Create Components 2',
-      component:"",
+      component: '',
       isActive: true,
       notifyIcon: <img src="/activeNotify.svg" alt="noti" />,
       moreIcon: <img src="/more.svg" alt="more" />,
@@ -243,7 +249,7 @@ function App() {
       title: 'Progress',
       status: 'Progress',
       cardTitle: 'Progress Create Components 3',
-      component:"",
+      component: '',
       isActive: true,
       notifyIcon: <img src="/notifi.svg" alt="noti" />,
       moreIcon: <img src="/more.svg" alt="more" />,
@@ -415,11 +421,11 @@ function App() {
       created_at: 'On 17 Mar, 23',
     },
   ];
-  const cardContainerData:[{ title: string }, { title: string }, { title: string }] = [
-    { title: 'Progress' },
-    { title: 'Pending' },
-    { title: 'Completed' },
-  ];
+  const cardContainerData: [
+    { title: string },
+    { title: string },
+    { title: string }
+  ] = [{ title: 'Progress' }, { title: 'Pending' }, { title: 'Completed' }];
 
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
@@ -429,9 +435,13 @@ function App() {
           cardData={cardJson}
           cardRootStyle={{}}
           childCardStyle={{}}
-          cardContainerStyle={{}} handleClickNotifyIcon={function (): void {}} 
-          handleClickMoreIcon={function (): void {} }
-          />
+          cardContainerStyle={{}}
+          childCardComponentStyle={{}}
+          handleClickNotifyIcon={function (): void {}}
+          handleClickMoreIcon={function (): void {}}
+          containerTitleStyle={{}}
+          handleAddNewButton={function (): void {}}
+        />
       </div>
 
       {/* <Screen
@@ -2295,8 +2305,6 @@ function App() {
       /> */}
     </div>
   );
-
-  
 }
 
 export default App;

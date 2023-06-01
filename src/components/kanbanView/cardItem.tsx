@@ -43,7 +43,7 @@ interface CardItemProps {
     done?: boolean;
   };
   childCardStyle: object;
-  childCardComponentStyle:object;
+  childCardComponentStyle: object;
   isDragging: boolean;
   handleClickNotifyIcon: () => void;
   handleClickMoreIcon: () => void;
@@ -71,7 +71,10 @@ const CardItems = (props: CardItemProps) => {
           onDragEnd={(e) => onDragEnd(e, childItems?.id)}
           onDragEnter={(e) => onDragEnter(e, childItems?.id)}
           onDragLeave={(e) => onDragLeave(e, childItems?.id)}
-          style={{ ...view_styles.childBoxContainer, ...childCardComponentStyle }}
+          style={{
+            ...view_styles.childBoxContainer,
+            ...childCardComponentStyle,
+          }}
           draggable
         >
           {childItems?.component}
@@ -125,7 +128,7 @@ const CardItems = (props: CardItemProps) => {
             ))}
           </Box>
 
-          <Box sx={{ ...view_styles.childTitleContainer }}>
+          <Box sx={{ ...view_styles.childTitleContainer }} >
             <AvatarGroup>
               {childItems?.images?.map((val: any) => (
                 <Avatar

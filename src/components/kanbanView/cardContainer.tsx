@@ -1,6 +1,8 @@
 import { Box, Typography } from '@mui/material';
 import { view_styles } from './styles';
 import CardItems from './cardItem';
+import { BasicButtons } from '../button';
+import { boolean } from 'yup';
 interface ContainerProps {
   onDragOver: (
     e: React.DragEvent<HTMLDivElement>,
@@ -28,12 +30,14 @@ interface ContainerProps {
   cardContainerStyle: object;
   childCardStyle: object;
   childCardComponentStyle: object;
+  containerTitleStyle: object;
   childItems: any;
   isDropped: any;
   isDragging: boolean;
   containerData: { title: string };
   handleClickNotifyIcon: () => void;
   handleClickMoreIcon: () => void;
+  handleAddNewButton: () => void;
 }
 
 const CardContainer = (props: ContainerProps) => {
@@ -46,9 +50,11 @@ const CardContainer = (props: ContainerProps) => {
     onDragLeave,
     handleClickNotifyIcon,
     handleClickMoreIcon,
+    handleAddNewButton,
     cardContainerStyle,
     containerData,
     childCardStyle,
+    containerTitleStyle,
     childCardComponentStyle,
     childItems,
     isDropped,
@@ -63,7 +69,9 @@ const CardContainer = (props: ContainerProps) => {
         onDrop={(e) => onDrop(e, false, containerData?.title)}
       >
         <Box sx={{ ...view_styles.cardContainer, ...cardContainerStyle }}>
-          <Typography sx={{ ...view_styles.titleStyle }}>
+          <Typography
+            sx={{ ...view_styles.titleStyle, ...containerTitleStyle }}
+          >
             {containerData?.title}
           </Typography>
           <Box>
@@ -80,6 +88,7 @@ const CardContainer = (props: ContainerProps) => {
                   handleClickNotifyIcon={handleClickNotifyIcon}
                   handleClickMoreIcon={handleClickMoreIcon}
                   isDragging={isDragging}
+                  key={index}
                 />
               </>
             ))}
@@ -88,16 +97,39 @@ const CardContainer = (props: ContainerProps) => {
             )}
           </Box>
 
-          <Box sx={{ ...view_styles.addTodoButton }}>
+          <Box
+            sx={{ ...view_styles.addTodoButton }}
+            onClick={handleAddNewButton}
+          >
             <span style={{ marginTop: '5px' }}>
               <img src="/add-Todo.svg" alt="noti" />
             </span>
-            <span style={{ color: '#665CD7' }}>Add New</span>
+            <span style={{ color: '#665CD7' }}>{'Add New'}</span>
           </Box>
         </Box>
       </div>
     </>
   );
 };
+
+CardContainer.defaultProps ={
+  onDragOver: () => {},
+  onDrop: () => {},
+  onDragEnd: () => {},
+  onDragStart: () => {},
+  onDragEnter: () => {},
+  onDragLeave: () => {},
+  cardContainerStyle: {},
+  childCardStyle: {},
+  childCardComponentStyle: {},
+  containerTitleStyle: {},
+  childItems:[],
+  isDropped: boolean,
+  isDragging: boolean,
+  containerData: { title: "" },
+  handleClickNotifyIcon: () => {},
+  handleClickMoreIcon: () => {},
+  handleAddNewButton: () => {},
+}
 
 export default CardContainer;

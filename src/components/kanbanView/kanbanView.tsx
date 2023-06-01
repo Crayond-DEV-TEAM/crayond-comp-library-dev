@@ -2,39 +2,36 @@ import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import CardContainer from './cardContainer';
 import { view_styles } from './styles';
+import { object } from 'yup';
 interface DragProps {
   cardRootStyle: object;
   childCardStyle: object;
   cardContainerStyle: object;
+  containerTitleStyle: object;
   childCardComponentStyle: object;
   handleClickNotifyIcon: () => void;
   handleClickMoreIcon: () => void;
-  cardContainerData: [{ title: string }, { title: string }, { title: string }];
-  cardData: [
-    {
-      id: number;
-      title: string;
-      status: string;
-      cardTitle: string;
-      component: React.ReactNode;
-      isActive?: boolean;
-      notifyIcon: React.ReactNode;
-      moreIcon: React.ReactNode;
-      subTitles: [
-        {
-          label: string;
-          bgColor: string;
-          borderColor: string;
-          textColor: string;
-        }
-      ];
-      images: [
-        { img: string; height: string | number; width: string | number }
-      ];
-      created_at: string;
-      done?: boolean;
-    }
-  ];
+  handleAddNewButton: () => void;
+  cardContainerData: { title: string }[];
+  cardData: {
+    id: number;
+    title: string;
+    status: string;
+    cardTitle: string;
+    component?: React.ReactNode;
+    isActive?: boolean;
+    notifyIcon: React.ReactNode;
+    moreIcon: React.ReactNode;
+    subTitles: {
+      label: string;
+      bgColor: string;
+      borderColor: string;
+      textColor: string;
+    }[];
+    images: { img: string; height: string | number; width: string | number }[];
+    created_at: string;
+    done?: boolean;
+  }[];
 }
 
 const KanbanView = (props: DragProps) => {
@@ -43,10 +40,12 @@ const KanbanView = (props: DragProps) => {
     cardContainerData,
     cardRootStyle,
     childCardStyle,
+    containerTitleStyle,
     cardContainerStyle,
     childCardComponentStyle,
     handleClickNotifyIcon,
     handleClickMoreIcon,
+    handleAddNewButton,
   } = props;
   const [create, setCreate] = useState<any>([]);
   const [isDragging, setIsDragging] = useState(false);
@@ -93,7 +92,6 @@ const KanbanView = (props: DragProps) => {
     evt.preventDefault();
     setIsDragging(true);
     setIsDropped({ status: status });
-
   };
 
   const onDrop = (
@@ -118,17 +116,22 @@ const KanbanView = (props: DragProps) => {
     return create?.filter((data: any) => data?.status === type);
   };
 
+  const shuffleSameContainer = (type: string) => {
+    return setCreate([...create.slice(1), create[0]]);
+  };
+
   useEffect(() => {
     setCreate(cardData);
   }, [create]);
   return (
     <>
       <Box sx={{ ...view_styles.rootStyle, ...cardRootStyle }}>
-        {cardContainerData.map((container) => (
+        {cardContainerData.map((container, i) => (
           <CardContainer
             childItems={getChildItemUsingType(container.title)}
             containerData={container}
             childCardStyle={childCardStyle}
+            containerTitleStyle={containerTitleStyle}
             cardContainerStyle={cardContainerStyle}
             childCardComponentStyle={childCardComponentStyle}
             isDragging={isDragging}
@@ -141,6 +144,8 @@ const KanbanView = (props: DragProps) => {
             onDragOver={onDragOver}
             handleClickNotifyIcon={handleClickNotifyIcon}
             handleClickMoreIcon={handleClickMoreIcon}
+            handleAddNewButton={handleAddNewButton}
+            key={i}
           />
         ))}
       </Box>
@@ -148,4 +153,34 @@ const KanbanView = (props: DragProps) => {
   );
 };
 
+KanbanView.defaultProps = {
+  cardRootStyle: {},
+  childCardStyle: {},
+  cardContainerStyle: {},
+  containerTitleStyle: {},
+  childCardComponentStyle: {},
+  handleClickNotifyIcon: () => {},
+  handleClickMoreIcon: () => {},
+  handleAddNewButton: () => {},
+  cardContainerData: { title: "string" },
+  cardData: {
+    id:0,
+    title: "",
+    status: "",
+    cardTitle: "",
+    component: "",
+    isActive: false,
+    notifyIcon: "",
+    moreIcon: "",
+    subTitles: {
+      label: "",
+      bgColor: "",
+      borderColor: "",
+      textColor: "",
+    },
+    images: { img: ""},
+    created_at: "",
+    done: false,
+  },
+}
 export default KanbanView;

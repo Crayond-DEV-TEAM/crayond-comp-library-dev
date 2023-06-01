@@ -30,11 +30,11 @@ export const view_styles = {
     fontWeight: '500',
     marginBottom: '12px',
     fontSize: '12px',
-    alignItem:"center"
+    alignItem: 'center',
   },
 
   childBoxContainer: {
-    color:" #00000029",
+    color: ' #00000029',
     minHeight: '108px',
     background: '#FFFFFF 0% 0% no-repeat padding-box',
     boxShadow: '0px 1px 2px #00000029',
@@ -47,26 +47,9 @@ export const view_styles = {
     },
   },
 
-  hoverChildBox:{
-    color:" #00000029",
-    minHeight: '108px',
-    background: '#f40b0b 0% 0% no-repeat padding-box',
-    boxShadow: '0px 1px 2px #00000029',
-    borderRadius: '8px',
-    marginBottom: '12px',
-    padding: '12px',
-    width: "335px",
-    position:"absolute",
-    transform: `translateX(${"150"}px) translateY(${"100"}px)`,
-    '&:hover': {
-      border: '1px solid #665CD7',
-      boxShadow: '2px 2px 8px  #00000029 ',
-    },
-  },
-
   childOnDraggedBox: {
     height: '108px',
-    border: ' 2px dashed #665CD7',
+    border: '2px dashed #665CD7',
     borderRadius: '8px',
     marginBottom: '12px',
   },
@@ -87,7 +70,7 @@ export const view_styles = {
     alignItems: 'center',
     columnGap: '12px',
     marginTop: 'auto',
-    cursor:"pointer"
+    cursor: 'pointer',
   },
 
   designBlock: {
