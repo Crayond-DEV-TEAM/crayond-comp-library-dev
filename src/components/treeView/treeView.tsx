@@ -1,8 +1,9 @@
 import { Box, Button, CheckboxProps, FormControl, Grid, Stack, Typography } from '@mui/material';
 import { styles } from './style';
 import { Checkbox } from '@mui/material';
-import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
+import { TreeViewProps } from './props';
+import { boolean, string } from 'yup';
 
 export default function TreeView(props: TreeViewProps) {
   const {
@@ -11,29 +12,18 @@ export default function TreeView(props: TreeViewProps) {
     onSubmit,
     heading,
     permissionHeadingSx,
-    dataRow,
     submitBtnText,
-    submitBtnOptions
+    submitBtnOptions,
+    handleChange,
+    checkboxIcon,
+    uncheckedIcon,
+    checkboxWidth,
+    checkboxHeight,
+    checkboxBgColor,
+    checkboxBorderRadius,
+    checkboxTitleSx,
+    dataRow
   } = props;
-
-  console.log(props, 'propsss');
-
-
-  const [rowArray, setRowArray] = useState([...dataRow])
-
-  const handleChange = (event: any, val: string, parentIndex: number) => {
-    const tempArr = [...rowArray]
-
-    tempArr[parentIndex] = {
-      ...tempArr[parentIndex],
-      title: tempArr[parentIndex].title,
-      permission: {
-        ...tempArr[parentIndex].permission, [val]: event?.target?.checked,
-      }
-    }
-    setRowArray([...tempArr]);
-  }
-
 
   const BpIcon = styled('span')(({ theme }) => ({
     borderRadius: 3,
@@ -63,14 +53,13 @@ export default function TreeView(props: TreeViewProps) {
   }));
 
   const BpCheckedIcon = styled(BpIcon)({
-    backgroundColor: '#818181',
+    backgroundColor: checkboxBgColor ?? '#818181',
     backgroundImage: 'linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))',
     '&:before': {
       display: 'block',
-      width: 16,
-      height: 16,
-      backgroundImage:
-        "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath" +
+      width: checkboxWidth ?? 16,
+      height: checkboxHeight ?? 16,
+      backgroundImage: "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath" +
         " fill-rule='evenodd' clip-rule='evenodd' d='M12 5c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 " +
         "1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z' fill='%23fff'/%3E%3C/svg%3E\")",
       content: '""',
@@ -86,11 +75,17 @@ export default function TreeView(props: TreeViewProps) {
       <Checkbox
         sx={{
           '&:hover': { bgcolor: 'transparent' },
+          '& svg': {
+            width: checkboxWidth ?? '1rem',
+            height: checkboxHeight ?? '1rem',
+            borderRadius: checkboxBorderRadius ?? '3px'
+          }
         }}
         disableRipple
+
         color="default"
-        checkedIcon={<BpCheckedIcon />}
-        icon={<BpIcon />}
+        checkedIcon={checkboxIcon ?? <BpCheckedIcon />}
+        icon={uncheckedIcon ?? <BpIcon />}
         inputProps={{ 'aria-label': 'Checkbox demo' }}
         {...props}
       />
@@ -117,7 +112,7 @@ export default function TreeView(props: TreeViewProps) {
           <Grid item xs={8} sm={8} md={6} lg={4}>
             <Stack direction='row' pb={1} alignItems='center' justifyContent='space-around'>
               {
-                Object.keys(rowArray?.[0]?.permission)?.map((val: string, i: number) => {
+                Object.keys(dataRow?.[0]?.permission)?.map((val: string, i: number) => {
                   return (
                     <Typography sx={{ ...styles?.headItems, ...permissionHeadingSx }} key={i}>{val}</Typography>
                   )
@@ -128,19 +123,19 @@ export default function TreeView(props: TreeViewProps) {
         </Grid>
       }
       {
-        rowArray?.map((e: any, parentIndex: number) => {
+        dataRow?.map((e: any, parentIndex: number) => {
           return (
             < Grid container key={parentIndex} sx={styles?.containerSx}>
               <Grid item xs={4} sm={4} md={6} lg={8} py={'17px'} sx={styles?.borderSx}>
                 <Box >
-                  <Typography sx={styles.titleSx}>{e?.title}</Typography>
+                  <Typography sx={{ ...styles.titleSx, ...checkboxTitleSx }}>{e?.title}</Typography>
                 </Box>
               </Grid>
               <Grid item xs={8} sm={8} md={6} lg={4}>
                 <Stack direction='row' alignItems='center' justifyContent='space-around'
                 >
                   {
-                    Object.keys(rowArray?.[0]?.permission)?.map((val: string, i: number) => {
+                    Object.keys(dataRow?.[0]?.permission)?.map((val: string, i: number) => {
                       return (
                         <FormControl key={i} sx={{ ...styles?.formControl, ...formControlPropsSx }}>
                           <BpCheckbox
@@ -160,18 +155,30 @@ export default function TreeView(props: TreeViewProps) {
       <Box sx={styles?.btnSx}>
         <CustomButton
           variant={submitBtnOptions?.variant}
-          onClick={() => onSubmit(rowArray)}>{submitBtnText}</CustomButton>
+          onClick={() => onSubmit()}>{submitBtnText}</CustomButton>
       </Box>
     </Box >
   );
 }
-
 TreeView.defaultProps = {
+  handleChange: () => null,
+  checkboxBgImage: '',
+  checkboxTitleSx: {},
   rootStyle: {},
   formControlPropsSx: {},
   permissionHeadingSx: {},
-  onSubmit: () => { },
-  dataRow: [],
+  onSubmit: () => null,
+  dataRow: [
+    {
+      title: string,
+      permission: {
+        create: boolean,
+        update: boolean,
+        read: boolean,
+        delete: boolean,
+      }
+    },
+  ],
   heading: '',
   submitBtnText: '',
   submitBtnOptions: {}

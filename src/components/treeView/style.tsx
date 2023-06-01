@@ -1,10 +1,16 @@
 export const styles = {
   rootSx: {
-    maxWidth: '80%',
+    maxWidth: {
+      md: '80%',
+      sm: '100%'
+    },
+    padding: {
+      md: '32px',
+      sm: '16px'
+    },
     margin: 'auto',
     paddingTop: '40px',
     backgroundColor: '#FAFAFA',
-    padding: '32px'
   },
   titleSx: {
     fontSize: '17px',
@@ -22,13 +28,17 @@ export const styles = {
     padding: '12px 0',
     cursor: 'pointer',
     '& span': {
-      color: '#818181 !important'
+      color: '#818181 !important',
     }
   },
   headTitle: {
     color: '#353448',
-    fontSize: '20px',
-    fontWeight: '600'
+    fontSize: {
+      md: '20px',
+      sm: '18px',
+      xs: '16px'
+    },
+    fontWeight: '600',
   },
   entireContainerSx: {
     alignItems: 'center',

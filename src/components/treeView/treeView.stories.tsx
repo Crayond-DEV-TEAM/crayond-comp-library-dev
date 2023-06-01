@@ -1,5 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import TreeView from './treeView';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
+import AddIcon from '@mui/icons-material/Add';
 
 export default {
   title: 'components/treeView',
@@ -17,26 +19,14 @@ Primary.args = {
   heading: 'Basic View',
   dataRow: [
     {
-      title: 'Onboarding',
-      permission: {
-        create: false,
-        update: true,
-        read: false,
-        delete: false,
-        jdvhaskd: true,
-      },
-    },
-    {
-      title: 'Dashboard',
+      title: "demo",
       permission: {
         create: false,
         update: true,
         read: false,
         delete: true,
-        jdvhaskd: true,
       }
-
-    }
+    },
   ],
   formControlPropsSx: {},
   permissionHeadingSx: {},
@@ -46,7 +36,10 @@ Primary.args = {
     bgColor: 'purple',
     textColor: '#ffff'
   },
-  onSubmit: (state: any) => {
-    console.log(state);
-  },
+  onSubmit: () => null,
+  checkboxWidth: 16,
+  checkboxBorderRadius: '3px',
+  checkboxIcon: < AcUnitIcon />,
+  uncheckedIcon: < AddIcon />,
+  checkboxHeight: 16,
 };
