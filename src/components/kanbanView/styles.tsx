@@ -34,12 +34,30 @@ export const view_styles = {
   },
 
   childBoxContainer: {
-    height: '108px',
+    color:" #00000029",
+    minHeight: '108px',
     background: '#FFFFFF 0% 0% no-repeat padding-box',
     boxShadow: '0px 1px 2px #00000029',
     borderRadius: '8px',
     marginBottom: '12px',
     padding: '12px',
+    '&:hover': {
+      border: '1px solid #665CD7',
+      boxShadow: '2px 2px 8px  #00000029 ',
+    },
+  },
+
+  hoverChildBox:{
+    color:" #00000029",
+    minHeight: '108px',
+    background: '#f40b0b 0% 0% no-repeat padding-box',
+    boxShadow: '0px 1px 2px #00000029',
+    borderRadius: '8px',
+    marginBottom: '12px',
+    padding: '12px',
+    width: "335px",
+    position:"absolute",
+    transform: `translateX(${"150"}px) translateY(${"100"}px)`,
     '&:hover': {
       border: '1px solid #665CD7',
       boxShadow: '2px 2px 8px  #00000029 ',
@@ -59,7 +77,7 @@ export const view_styles = {
     alignItems: 'center',
   },
   addTodoButton: {
-    height: '36px',
+    minHeight: '36px',
     background: '#FFFFFF 0% 0% no-repeat padding-box',
     boxShadow: '0px 1px 2px #00000029',
     borderRadius: '8px',

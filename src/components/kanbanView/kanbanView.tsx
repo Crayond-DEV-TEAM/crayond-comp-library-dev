@@ -6,55 +6,83 @@ interface DragProps {
   cardRootStyle: object;
   childCardStyle: object;
   cardContainerStyle: object;
+  childCardComponentStyle: object;
+  handleClickNotifyIcon: () => void;
+  handleClickMoreIcon: () => void;
   cardContainerData: [{ title: string }, { title: string }, { title: string }];
-  cardData: any;
-  // cardData: [
-  //   {
-  //     id: number;
-  //     title: string;
-  //     status: string;
-  //     cardTitle: string;
-  //     isActive: boolean;
-  //     notifyIcon: React.ReactNode;
-  //     moreIcon: React.ReactNode;
-  //     subTitles: [
-  //       {
-  //         label: string;
-  //         bgColor: string;
-  //         borderColor: string;
-  //         textColor: string;
-  //       }
-  //     ];
-  //     images: [
-  //       { img: string; height: string | number; width: string | number }
-  //     ];
-  //     created_at: string;
-  //     done?: boolean;
-  //   },
-    
-  // ];
+  cardData: [
+    {
+      id: number;
+      title: string;
+      status: string;
+      cardTitle: string;
+      component: React.ReactNode;
+      isActive?: boolean;
+      notifyIcon: React.ReactNode;
+      moreIcon: React.ReactNode;
+      subTitles: [
+        {
+          label: string;
+          bgColor: string;
+          borderColor: string;
+          textColor: string;
+        }
+      ];
+      images: [
+        { img: string; height: string | number; width: string | number }
+      ];
+      created_at: string;
+      done?: boolean;
+    }
+  ];
 }
 
 const KanbanView = (props: DragProps) => {
   const {
     cardData,
+    cardContainerData,
     cardRootStyle,
     childCardStyle,
     cardContainerStyle,
-    // cardContainerData,
+    childCardComponentStyle,
+    handleClickNotifyIcon,
+    handleClickMoreIcon,
   } = props;
   const [create, setCreate] = useState<any>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [isDropped, setIsDropped] = useState({ status: '' });
 
-  const onDragStart = (evt: React.DragEvent<HTMLDivElement>, id: string) => {
-    let element = evt.dataTransfer;
+  const handleOnDragEnter = (
+    evt: React.DragEvent<HTMLDivElement>,
+    id: string | number
+  ) => {
+    evt.preventDefault();
+  };
+
+  const handleOnDragLeave = (
+    evt: React.DragEvent<HTMLDivElement>,
+    id: string | number
+  ) => {
+    evt.preventDefault();
+  };
+
+  const onDragStart = (evt: React.DragEvent<HTMLDivElement>, id: any) => {
     evt.dataTransfer.setData('listId', id);
     evt.dataTransfer.effectAllowed = 'move';
+    evt.currentTarget.classList.add('dragged');
+    let styles = evt.currentTarget.style;
+    setTimeout(function () {
+      styles.display = 'none';
+    }, 0);
   };
 
   const onDragEnd = (evt: React.DragEvent<HTMLDivElement>) => {
     evt.currentTarget.classList.remove('dragged');
+    evt.dataTransfer.clearData('listId');
+    let styles = evt.currentTarget.style;
+    setTimeout(function () {
+      styles.display = 'block';
+    }, 0);
   };
 
   const onDragOver = (
@@ -65,6 +93,7 @@ const KanbanView = (props: DragProps) => {
     evt.preventDefault();
     setIsDragging(true);
     setIsDropped({ status: status });
+
   };
 
   const onDrop = (
@@ -84,15 +113,10 @@ const KanbanView = (props: DragProps) => {
     setCreate(updated);
     setIsDragging(dragging);
   };
-  let pending = create?.filter((data: any) => data?.status === 'Pending');
-  let process = create?.filter((data: any) => data?.status === 'Progress');
-  let complete = create?.filter((data: any) => data?.status === 'Completed');
 
-  const containers = [
-    { title: 'Pending', child: pending,component:"" },
-    { title: 'Progress', child: process,component:"" },
-    { title: 'Completed', child: complete, component:""},
-  ];
+  const getChildItemUsingType = (type: string) => {
+    return create?.filter((data: any) => data?.status === type);
+  };
 
   useEffect(() => {
     setCreate(cardData);
@@ -100,17 +124,25 @@ const KanbanView = (props: DragProps) => {
   return (
     <>
       <Box sx={{ ...view_styles.rootStyle, ...cardRootStyle }}>
-        <CardContainer
-          // cardContainerData={cardContainerData}
-          childCardStyle={childCardStyle}
-          childItems={containers}
-          cardContainerStyle={cardContainerStyle}
-          isDragging={isDragging}
-          isDropped={isDropped}
-          onDragStart={onDragStart}
-          onDragEnd={onDragEnd}
-          onDrop={onDrop}
-          onDragOver={onDragOver} cardContainerData={undefined}        />
+        {cardContainerData.map((container) => (
+          <CardContainer
+            childItems={getChildItemUsingType(container.title)}
+            containerData={container}
+            childCardStyle={childCardStyle}
+            cardContainerStyle={cardContainerStyle}
+            childCardComponentStyle={childCardComponentStyle}
+            isDragging={isDragging}
+            isDropped={isDropped}
+            onDragStart={onDragStart}
+            onDragEnd={onDragEnd}
+            onDragEnter={handleOnDragEnter}
+            onDragLeave={handleOnDragLeave}
+            onDrop={onDrop}
+            onDragOver={onDragOver}
+            handleClickNotifyIcon={handleClickNotifyIcon}
+            handleClickMoreIcon={handleClickMoreIcon}
+          />
+        ))}
       </Box>
     </>
   );

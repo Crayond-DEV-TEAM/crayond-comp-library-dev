@@ -15,11 +15,13 @@ Primary.args = {
   cardContainerStyle:{},
   cardRootStyle:{},
   childCardStyle:{},
-  // cardContainerData:[
-  //   {title:"Progress"},
-  //   {title:"Pending"},
-  //   {title:"Complete"},
-  // ],
+  handleClickNotifyIcon: () => {},
+  handleClickMoreIcon: () => {},
+  cardContainerData:[
+    {title:"Progress"},
+    {title:"Pending"},
+    {title:"Completed"},
+  ],
   cardData: [
     {
       id: 9,

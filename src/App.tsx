@@ -185,44 +185,39 @@ function App() {
       .email('Please enter valid email')
       .required('Please enter email'),
   });
-
-  const cardContainerData = [
-    { title: 'Progress' },
-    { title: 'Pending' },
-    { title: 'Complete' },
-  ];
-
-  const cardJson = [
+  const cardJson:any = [
     {
       id: 1,
-      title: 'title1',
+      title: 'Progress',
       status: 'Progress',
-      cardTitle: 'Create Components',
+      // cardTitle: 'Progress Create Components1',
+      component: <><h1>dsfsdffs</h1><h1>dsfsdffs</h1><h1>dsfsdffs</h1></>,
       isActive: true,
-      notifyIcon: <img src="/notifi.svg" alt="noti" />,
-      moreIcon: <img src="/more.svg" alt="more" />,
-      subTitles: [
-        {
-          label: '# design',
-          bgColor: '',
-          borderColor: '#D3D3D3',
-          textColor: '',
-        },
-        {
-          label: 'Design System',
-          bgColor: '#DEE6F9',
-          borderColor: '',
-          textColor: '#2B5ED6',
-        },
-      ],
-      images: [{ img: '/sample.jpg' }, { img: '/sample.jpg' }],
-      created_at: 'On 17 Mar, 23',
+      // notifyIcon: <img src="/notifi.svg" alt="noti" />,
+      // moreIcon: <img src="/more.svg" alt="more" />,
+      // subTitles: [
+      //   {
+      //     label: '# design',
+      //     bgColor: '',
+      //     borderColor: '#D3D3D3',
+      //     textColor: '',
+      //   },
+      //   {
+      //     label: 'Design System',
+      //     bgColor: '#DEE6F9',
+      //     borderColor: '',
+      //     textColor: '#2B5ED6',
+      //   },
+      // ],
+      // images: [{ img: '/sample.jpg' }, { img: '/sample.jpg' }],
+      // created_at: 'On 17 Mar, 23',
     },
     {
       id: 2,
-      title: 'title2',
+      title: 'Progress',
       status: 'Progress',
-      cardTitle: 'Create Components',
+      cardTitle: 'Progress Create Components 2',
+      component:"",
       isActive: true,
       notifyIcon: <img src="/activeNotify.svg" alt="noti" />,
       moreIcon: <img src="/more.svg" alt="more" />,
@@ -245,9 +240,10 @@ function App() {
     },
     {
       id: 3,
-      title: 'title3',
+      title: 'Progress',
       status: 'Progress',
-      cardTitle: 'Create Components',
+      cardTitle: 'Progress Create Components 3',
+      component:"",
       isActive: true,
       notifyIcon: <img src="/notifi.svg" alt="noti" />,
       moreIcon: <img src="/more.svg" alt="more" />,
@@ -270,9 +266,9 @@ function App() {
     },
     {
       id: 4,
-      title: 'title4',
+      title: 'Pending',
       status: 'Pending',
-      cardTitle: 'Create Components',
+      cardTitle: 'Pending Create Components 2',
       isActive: true,
       notifyIcon: <img src="/activeNotify.svg" alt="noti" />,
       moreIcon: <img src="/more.svg" alt="more" />,
@@ -295,9 +291,9 @@ function App() {
     },
     {
       id: 5,
-      title: 'title5',
+      title: 'Pending',
       status: 'Pending',
-      cardTitle: 'Create Components',
+      cardTitle: 'Pending Create Components 3',
       isActive: true,
       notifyIcon: <img src="/notifi.svg" alt="noti" />,
       moreIcon: <img src="/more.svg" alt="more" />,
@@ -320,9 +316,9 @@ function App() {
     },
     {
       id: 6,
-      title: 'title3',
+      title: 'Completed',
       status: 'Completed',
-      cardTitle: 'Create Components',
+      cardTitle: 'Completed Create Components 1',
       isActive: true,
       notifyIcon: <img src="/notifi.svg" alt="noti" />,
       moreIcon: <img src="/more.svg" alt="more" />,
@@ -345,9 +341,9 @@ function App() {
     },
     {
       id: 7,
-      title: 'title3',
+      title: 'Completed',
       status: 'Completed',
-      cardTitle: 'Create Components',
+      cardTitle: 'Completed Create Components 2',
       isActive: true,
       notifyIcon: <img src="/notifi.svg" alt="noti" />,
       moreIcon: <img src="/more.svg" alt="more" />,
@@ -370,9 +366,9 @@ function App() {
     },
     {
       id: 8,
-      title: 'title3',
+      title: 'Completed',
       status: 'Completed',
-      cardTitle: 'Create Components',
+      cardTitle: 'Completed Create Components 3',
       isActive: true,
       notifyIcon: <img src="/activeNotify.svg" alt="noti" />,
       moreIcon: <img src="/more.svg" alt="more" />,
@@ -395,9 +391,9 @@ function App() {
     },
     {
       id: 9,
-      title: 'title3',
+      title: 'Pending',
       status: 'Pending',
-      cardTitle: 'Create Components',
+      cardTitle: 'Pending Create Components x',
       isActive: true,
       notifyIcon: <img src="/activeNotify.svg" alt="noti" />,
       moreIcon: <img src="/more.svg" alt="more" />,
@@ -419,16 +415,23 @@ function App() {
       created_at: 'On 17 Mar, 23',
     },
   ];
+  const cardContainerData:[{ title: string }, { title: string }, { title: string }] = [
+    { title: 'Progress' },
+    { title: 'Pending' },
+    { title: 'Completed' },
+  ];
 
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
       <div style={{ background: '#ffff', padding: '10px' }}>
         <KanbanView
-          // cardContainerData={cardContainerData}
+          cardContainerData={cardContainerData}
           cardData={cardJson}
           cardRootStyle={{}}
           childCardStyle={{}}
-          cardContainerStyle={{}} cardContainerData={[]}        />
+          cardContainerStyle={{}} handleClickNotifyIcon={function (): void {}} 
+          handleClickMoreIcon={function (): void {} }
+          />
       </div>
 
       {/* <Screen
@@ -2292,6 +2295,8 @@ function App() {
       /> */}
     </div>
   );
+
+  
 }
 
 export default App;
