@@ -41,5 +41,12 @@ Primary.args = {
   checkboxBorderRadius: '3px',
   checkboxIcon: < AcUnitIcon />,
   uncheckedIcon: < AddIcon />,
+  handleChange: () => null,
   checkboxHeight: 16,
+  leftSec: {
+    breakpoints: { xs: 4, sm: 4, md: 6, lg: 8 }
+  },
+  rightSec: {
+    breakpoints: { xs: 8, sm: 8, md: 6, lg: 4 }
+  }
 };

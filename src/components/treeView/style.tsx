@@ -47,8 +47,16 @@ export const styles = {
   containerSx: {
     alignItems: 'center'
   },
+  dividerSx: {
+    color: " #ccc",
+    height: '70px',
+    width: '1px'
+  },
   borderSx: {
-    borderRight: "1px solid #ccc"
+    borderLeft: '1px solid #ccc'
+  },
+  borderRightSx: {
+    borderRight: '1px solid #ccc'
   },
   btnSx: {
     display: 'flex',

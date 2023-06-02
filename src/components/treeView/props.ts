@@ -24,14 +24,17 @@ export interface TreeViewProps {
     checkboxBgColor: string;
     dataRow: [
         {
-            title: ReactElement | string,
+            title: any,
             permission: {
-                create: boolean,
-                update: boolean,
-                read: boolean,
-                delete: boolean,
             }
         },
     ];
+    leftSec: {
+        breakpoints: object;
+    };
+    rightSec: {
+        breakpoints: object;
+    }
+    dividerPropsSx: object
 
 }

@@ -3,12 +3,11 @@ import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
 import { TreeView } from './components/treeView';
-import { useState } from 'react';
-import AcUnitIcon from '@mui/icons-material/AcUnit';
-import AddIcon from '@mui/icons-material/Add';
+import { ReactElement, useState } from 'react';
 
 
 function App() {
+
 
   const dataRow = [
     {
@@ -17,8 +16,7 @@ function App() {
         create: true,
         update: true,
         read: true,
-        delete: true,
-        status: false
+        delete: true
       }
     },
     {
@@ -27,8 +25,7 @@ function App() {
         create: false,
         update: true,
         read: false,
-        delete: false,
-        status: true
+        delete: false
 
       }
     }
@@ -37,6 +34,7 @@ function App() {
   const [rowArray, setRowArray] = useState([...dataRow])
 
   const handleCheckBox = (event: any, val: string, parentIndex: number) => {
+    debugger
     const tempArr = [...rowArray]
 
     tempArr[parentIndex] = {
@@ -66,12 +64,32 @@ function App() {
           bgColor: 'purple',
           textColor: '#ffff'
         }}
-        checkboxBgColor={'red'}
-        checkboxIcon={<AcUnitIcon />}
-        uncheckedIcon={<AddIcon />}
-        checkboxWidth={30}
-        checkboxHeight={30}
-
+        // checkboxBgColor={'red'}
+        // checkboxIcon={<AcUnitIcon />}
+        // uncheckedIcon={<AddIcon />}
+        checkboxWidth={16}
+        checkboxHeight={16}
+        heading='Basic View'
+        leftSec={{
+          breakpoints: {
+            xs: 4,
+            sm: 4,
+            md: 6,
+            lg: 8
+          }
+        }}
+        rightSec={{
+          breakpoints: {
+            xs: 8,
+            sm: 8,
+            md: 6,
+            lg: 4
+          }
+        }}
+        // checkboxIcon={undefined}
+        // uncheckedIcon={undefined}
+        checkboxBorderRadius={''}
+        checkboxBgColor={''}
       />
 
     </div>
