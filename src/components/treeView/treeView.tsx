@@ -136,8 +136,8 @@ TreeView.defaultProps = {
       }
     },
   ],
-  heading: '',
-  submitBtnText: '',
+  heading: 'baudfubadoufn',
+  submitBtnText: 'ksdkbasbdk',
   submitBtnOptions: {},
   rightSec: {},
   leftSec: {},
