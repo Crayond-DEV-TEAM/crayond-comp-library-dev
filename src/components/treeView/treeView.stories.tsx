@@ -12,7 +12,6 @@ export default {
     },
     heading: {
       description: 'heading of the entire box',
-      defaultValue: 'abdsx value'
     },
     dataRow: {
       description: 'array of the checkbox data',
