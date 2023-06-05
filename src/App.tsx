@@ -166,7 +166,7 @@ function App() {
     mobileNumber: yup
       .object()
       .shape({
-        mobile: yup.string().required('Please enter Phone number'), //.matches(phoneRegExp, 'Phone number is not valid'),
+        mobile: yup.string().required('Please enter Phone number'),
         mobile_code: yup.string().required('Please select Country code'),
       })
       .required('Please enter Phone number...'),
@@ -185,38 +185,404 @@ function App() {
       .email('Please enter valid email')
       .required('Please enter email'),
   });
-  const cardJson: any = [
+  const cardJson: any[] = [
     {
       id: 1,
       title: 'Progress',
       status: 'Progress',
-      // cardTitle: 'Progress Create Components1',
+      cardTitle: 'Progress Create Components1',
       component: (
         <>
-          <h1>dsfsdffs</h1>
-          <h1>dsfsdffs</h1>
-          <h1>dsfsdffs</h1>
+          <ProfileThree
+            isEditMode={isEdit}
+            titleOptions={{
+              title: 'My Profile',
+              sxProps: {
+                fontSize: '16px',
+                fontWeight: '600',
+                color: '#11111199',
+              },
+              icon: <DocsIcon color="#665Cff" />,
+            }}
+            uploadOptions={{
+              imgScr: profile,
+              buttonEnabled: true,
+              deleteProfile: deleteProfile,
+              uploadProfile: uploadProfile,
+              variant: 'rounded',
+            }}
+            afterProfileComponent={<>Custom Component here...</>}
+            overallSxProps={{
+              backgroundColor: '#DAE8FC',
+              padding: '20px 0',
+            }}
+            cardSxProps={{}}
+            gridContainerProps={{ columnSpacing: 3, spacing: 0 }}
+            renderForm={{
+              formButtonContainerStyle: {},
+              submitButton: {
+                visible: true,
+                title: 'Save',
+                onClick: (data: object) => onSubmitFun(data),
+                sx: {},
+              },
+              cancelButton: {
+                visible: true,
+                title: 'Cancel',
+                onClick: (data: object) => console.log(data),
+                sx: {},
+                variant: 'outlined',
+              },
+              customButton: {
+                component: <></>,
+              },
+              yupSchemaValidation: formSchema,
+              defaultValues: {
+                address1: 'My Address 1',
+                address2: 'My Address 2',
+                designation: 'Developer',
+                email: 'hari@gmail.co',
+                dob: '12/06/2022',
+                firstName: 'Hari',
+                gender: 'Male',
+                lastName: 'Haran',
+                mobileNumber: { mobile: '845678906789', mobile_code: '+91' },
+              },
+              formList: [
+                {
+                  type: 'heading',
+                  containerStyle: {},
+                  gridStyle: {},
+                  breakPoint: {
+                    xs: 12,
+                    sm: 12,
+                    md: 12,
+                    lg: 12,
+                    lx: 12,
+                  },
+                  inputProps: {
+                    value: 'Basic Details',
+                    sx: {
+                      fontSize: '16px',
+                      color: '#111111',
+                      fontWeight: '500',
+                      margin: '0 0 8px 0',
+                    },
+                  },
+                },
+                {
+                  type: 'input',
+                  containerStyle: {},
+                  gridStyle: {},
+                  breakPoint: {
+                    xs: 12,
+                    sm: 6,
+                    md: 6,
+                    lg: 6,
+                    lx: 6,
+                  },
+                  inputProps: {
+                    type: 'text',
+                    label: 'First Name',
+                    name: 'firstName',
+                    labelVariant: 'standard',
+                    // rules: {
+                    //   required: 'Please enter First name',
+                    //   minLength: {
+                    //     value: 5,
+                    //     message: 'min length is 4',
+                    //   },
+                    //   maxLength: {
+                    //     value: 15,
+                    //     message: 'min length is 14',
+                    //   },
+                    // },
+                  },
+                },
+                {
+                  type: 'input',
+                  containerStyle: {},
+                  gridStyle: {},
+                  breakPoint: {
+                    xs: 12,
+                    sm: 6,
+                    md: 6,
+                    lg: 6,
+                    lx: 6,
+                  },
+                  inputProps: {
+                    type: 'text',
+                    label: 'Last Name',
+                    name: 'lastName',
+                    labelVariant: 'standard',
+                    rules: {
+                      required: 'Please enter Last name',
+                      minLength: {
+                        value: 5,
+                        message: 'min length is 4',
+                      },
+                      maxLength: {
+                        value: 15,
+                        message: 'min length is 14',
+                      },
+                    },
+                  },
+                },
+                {
+                  type: 'date',
+                  containerStyle: {},
+                  gridStyle: {},
+                  breakPoint: {
+                    xs: 12,
+                    sm: 6,
+                    md: 6,
+                    lg: 6,
+                    lx: 6,
+                  },
+                  inputProps: {
+                    type: 'text',
+                    label: 'DOB',
+                    name: 'dob',
+                    labelVariant: 'standard',
+                    rules: {
+                      required: 'Please enter DOB',
+                    },
+                    inputFormat: 'dd-MM-yyyy',
+                    // components:{
+                    //   OpenPickerIcon: <DocsIcon/>
+                    // },
+                  },
+                },
+                {
+                  type: 'chipSelect',
+                  containerStyle: {},
+                  gridStyle: {},
+                  breakPoint: {
+                    xs: 12,
+                    sm: 6,
+                    md: 6,
+                    lg: 6,
+                    lx: 6,
+                  },
+                  inputProps: {
+                    label: 'Gender',
+                    name: 'gender',
+                    labelVariant: 'standard',
+                    rules: {
+                      required: 'Please enter Gender',
+                    },
+                    options: [
+                      { label: 'Male', value: 'Male' },
+                      { label: 'Female', value: 'Female' },
+                      { label: 'Others', value: 'Others' },
+                    ],
+                  },
+                },
+                {
+                  type: 'dropDown',
+                  containerStyle: {},
+                  gridStyle: {},
+                  breakPoint: {
+                    xs: 12,
+                    sm: 6,
+                    md: 6,
+                    lg: 6,
+                    lx: 6,
+                  },
+                  inputProps: {
+                    type: 'text',
+                    label: 'Designation',
+                    name: 'designation',
+                    labelVariant: 'standard',
+                    rules: {
+                      required: 'Please enter Designation',
+                    },
+                    selectOption: [
+                      { label: 'Developer', value: 'Developer' },
+                      { label: 'Designer', value: 'Designer' },
+                      { label: 'designation', value: 'designation' },
+                    ],
+                  },
+                },
+                {
+                  type: 'heading',
+                  containerStyle: {},
+                  gridStyle: {},
+                  breakPoint: {
+                    xs: 12,
+                    sm: 12,
+                    md: 12,
+                    lg: 12,
+                    lx: 12,
+                  },
+                  inputProps: {
+                    value: 'Contact Information',
+                    sx: {
+                      fontSize: '16px',
+                      color: '#111111',
+                      fontWeight: '500',
+                      margin: '18px 0 8px 0',
+                    },
+                  },
+                },
+                {
+                  type: 'mobileNumberInput',
+                  containerStyle: {},
+                  gridStyle: {},
+                  breakPoint: {
+                    xs: 12,
+                    sm: 6,
+                    md: 6,
+                    lg: 6,
+                    lx: 6,
+                  },
+                  inputProps: {
+                    label: 'Mobile Number',
+                    name: 'mobileNumber',
+                    labelVariant: 'standard',
+                    required: true,
+                    // rules: {
+                    // required: 'Please enter Designation',
+                    // minLength: {
+                    //   value: 5,
+                    //   message: 'min length is 4',
+                    // },
+                    // maxLength: {
+                    //   value: 15,
+                    //   message: 'min length is 14',
+                    // },
+                    // },
+                    // error:true,
+                    // errorMessage: 'Please enter Mobile number',
+                  },
+                },
+                {
+                  type: 'input',
+                  containerStyle: {},
+                  gridStyle: {},
+                  breakPoint: {
+                    xs: 12,
+                    sm: 6,
+                    md: 6,
+                    lg: 6,
+                    lx: 6,
+                  },
+                  inputProps: {
+                    type: 'text',
+                    label: 'Email ID',
+                    name: 'email',
+                    labelVariant: 'standard',
+                    rules: {
+                      required: 'Please enter Email',
+                      minLength: {
+                        value: 5,
+                        message: 'min length is 4',
+                      },
+                      maxLength: {
+                        value: 15,
+                        message: 'min length is 14',
+                      },
+                    },
+                    errorMessage: 'Please enter Email Id',
+                  },
+                },
+                {
+                  type: 'input',
+                  containerStyle: {},
+                  gridStyle: {},
+                  breakPoint: {
+                    xs: 12,
+                    sm: 6,
+                    md: 6,
+                    lg: 6,
+                    lx: 6,
+                  },
+                  inputProps: {
+                    type: 'text',
+                    label: 'Address Line 1',
+                    name: 'address1',
+                    labelVariant: 'standard',
+                    rules: {
+                      required: 'Please enter Address 1',
+                      minLength: {
+                        value: 5,
+                        message: 'min length is 4',
+                      },
+                      maxLength: {
+                        value: 15,
+                        message: 'min length is 14',
+                      },
+                    },
+                    errorMessage: 'Please enter Address Line 1',
+                  },
+                },
+                {
+                  type: 'input',
+                  containerStyle: {},
+                  gridStyle: {},
+                  breakPoint: {
+                    xs: 12,
+                    sm: 6,
+                    md: 6,
+                    lg: 6,
+                    lx: 6,
+                  },
+                  inputProps: {
+                    type: 'text',
+                    label: 'Address Line 2',
+                    name: 'address2',
+                    labelVariant: 'standard',
+                    rules: {
+                      required: 'Please enter Address 2',
+                      minLength: {
+                        value: 5,
+                        message: 'min length is 4',
+                      },
+                      maxLength: {
+                        value: 15,
+                        message: 'min length is 14',
+                      },
+                    },
+                    errorMessage: 'Please enter Address Line 2',
+                  },
+                },
+                {
+                  type: 'custom',
+                  containerStyle: {},
+                  gridStyle: {},
+                  breakPoint: {
+                    xs: 12,
+                    sm: 6,
+                    md: 6,
+                    lg: 6,
+                    lx: 6,
+                  },
+                  component: <BasicButtons>Custom Com</BasicButtons>,
+                },
+              ],
+            }}
+          />
         </>
       ),
       isActive: true,
-      // notifyIcon: <img src="/notifi.svg" alt="noti" />,
-      // moreIcon: <img src="/more.svg" alt="more" />,
-      // subTitles: [
-      //   {
-      //     label: '# design',
-      //     bgColor: '',
-      //     borderColor: '#D3D3D3',
-      //     textColor: '',
-      //   },
-      //   {
-      //     label: 'Design System',
-      //     bgColor: '#DEE6F9',
-      //     borderColor: '',
-      //     textColor: '#2B5ED6',
-      //   },
-      // ],
-      // images: [{ img: '/sample.jpg' }, { img: '/sample.jpg' }],
-      // created_at: 'On 17 Mar, 23',
+      notifyIcon: <img src="/notifi.svg" alt="noti" />,
+      moreIcon: <img src="/more.svg" alt="more" />,
+      subTitles: [
+        {
+          label: '# design',
+          bgColor: '',
+          borderColor: '#D3D3D3',
+          textColor: '',
+        },
+        {
+          label: 'Design System',
+          bgColor: '#DEE6F9',
+          borderColor: '',
+          textColor: '#2B5ED6',
+        },
+      ],
+      images: [{ img: '/sample.jpg' }, { img: '/sample.jpg' }],
+      created_at: 'On 17 Mar, 23',
     },
     {
       id: 2,
@@ -421,11 +787,11 @@ function App() {
       created_at: 'On 17 Mar, 23',
     },
   ];
-  const cardContainerData: [
-    { title: string },
-    { title: string },
-    { title: string }
-  ] = [{ title: 'Progress' }, { title: 'Pending' }, { title: 'Completed' }];
+  const cardContainerData: { title: string }[] = [
+    { title: 'Completed' },
+    { title: 'Pending' },
+    { title: 'Progress' },
+  ];
 
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
@@ -1682,375 +2048,6 @@ function App() {
         }}
       />
 
-      <ProfileThree
-        isEditMode={isEdit}
-        titleOptions={{
-          title: 'My Profile',
-          sxProps: {
-            fontSize: '16px',
-            fontWeight: '600',
-            color: '#11111199',
-          },
-          icon: <DocsIcon color="#665Cff" />,
-        }}
-        uploadOptions={{
-          imgScr: profile,
-          buttonEnabled: true,
-          deleteProfile: deleteProfile,
-          uploadProfile: uploadProfile,
-          variant: 'rounded',
-        }}
-        afterProfileComponent={<>Custom Component here...</>}
-        overallSxProps={{
-          backgroundColor: '#DAE8FC',
-          padding: '20px 0',
-        }}
-        cardSxProps={{}}
-        gridContainerProps={{ columnSpacing: 3, spacing: 0 }}
-        renderForm={{
-          formButtonContainerStyle: {},
-          submitButton: {
-            visible: true,
-            title: 'Save',
-            onClick: (data: object) => onSubmitFun(data),
-            sx: {},
-          },
-          cancelButton: {
-            visible: true,
-            title: 'Cancel',
-            onClick: (data: object) => console.log(data),
-            sx: {},
-            variant: 'outlined',
-          },
-          customButton: {
-            component: <></>,
-          },
-          yupSchemaValidation: formSchema,
-          defaultValues: {
-            address1: 'My Address 1',
-            address2: 'My Address 2',
-            designation: 'Developer',
-            email: 'hari@gmail.co',
-            dob: '12/06/2022',
-            firstName: 'Hari',
-            gender: 'Male',
-            lastName: 'Haran',
-            mobileNumber: { mobile: '845678906789', mobile_code: '+91' },
-          },
-          formList: [
-            {
-              type: 'heading',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 12,
-                md: 12,
-                lg: 12,
-                lx: 12,
-              },
-              inputProps: {
-                value: 'Basic Details',
-                sx: {
-                  fontSize: '16px',
-                  color: '#111111',
-                  fontWeight: '500',
-                  margin: '0 0 8px 0',
-                },
-              },
-            },
-            {
-              type: 'input',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'First Name',
-                name: 'firstName',
-                labelVariant: 'standard',
-                // rules: {
-                //   required: 'Please enter First name',
-                //   minLength: {
-                //     value: 5,
-                //     message: 'min length is 4',
-                //   },
-                //   maxLength: {
-                //     value: 15,
-                //     message: 'min length is 14',
-                //   },
-                // },
-              },
-            },
-            {
-              type: 'input',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'Last Name',
-                name: 'lastName',
-                labelVariant: 'standard',
-                rules: {
-                  required: 'Please enter Last name',
-                  minLength: {
-                    value: 5,
-                    message: 'min length is 4',
-                  },
-                  maxLength: {
-                    value: 15,
-                    message: 'min length is 14',
-                  },
-                },
-              },
-            },
-            {
-              type: 'date',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'DOB',
-                name: 'dob',
-                labelVariant: 'standard',
-                rules: {
-                  required: 'Please enter DOB',
-                },
-                inputFormat: 'dd-MM-yyyy',
-                // components:{
-                //   OpenPickerIcon: <DocsIcon/>
-                // },
-              },
-            },
-            {
-              type: 'chipSelect',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                label: 'Gender',
-                name: 'gender',
-                labelVariant: 'standard',
-                rules: {
-                  required: 'Please enter Gender',
-                },
-                options: [
-                  { label: 'Male', value: 'Male' },
-                  { label: 'Female', value: 'Female' },
-                  { label: 'Others', value: 'Others' },
-                ],
-              },
-            },
-            {
-              type: 'dropDown',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'Designation',
-                name: 'designation',
-                labelVariant: 'standard',
-                rules: {
-                  required: 'Please enter Designation',
-                },
-                selectOption: [
-                  { label: 'Developer', value: 'Developer' },
-                  { label: 'Designer', value: 'Designer' },
-                  { label: 'designation', value: 'designation' },
-                ],
-              },
-            },
-            {
-              type: 'heading',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 12,
-                md: 12,
-                lg: 12,
-                lx: 12,
-              },
-              inputProps: {
-                value: 'Contact Information',
-                sx: {
-                  fontSize: '16px',
-                  color: '#111111',
-                  fontWeight: '500',
-                  margin: '18px 0 8px 0',
-                },
-              },
-            },
-            {
-              type: 'mobileNumberInput',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                label: 'Mobile Number',
-                name: 'mobileNumber',
-                labelVariant: 'standard',
-                required: true,
-                // rules: {
-                // required: 'Please enter Designation',
-                // minLength: {
-                //   value: 5,
-                //   message: 'min length is 4',
-                // },
-                // maxLength: {
-                //   value: 15,
-                //   message: 'min length is 14',
-                // },
-                // },
-                // error:true,
-                // errorMessage: 'Please enter Mobile number',
-              },
-            },
-            {
-              type: 'input',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'Email ID',
-                name: 'email',
-                labelVariant: 'standard',
-                rules: {
-                  required: 'Please enter Email',
-                  minLength: {
-                    value: 5,
-                    message: 'min length is 4',
-                  },
-                  maxLength: {
-                    value: 15,
-                    message: 'min length is 14',
-                  },
-                },
-                errorMessage: 'Please enter Email Id',
-              },
-            },
-            {
-              type: 'input',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'Address Line 1',
-                name: 'address1',
-                labelVariant: 'standard',
-                rules: {
-                  required: 'Please enter Address 1',
-                  minLength: {
-                    value: 5,
-                    message: 'min length is 4',
-                  },
-                  maxLength: {
-                    value: 15,
-                    message: 'min length is 14',
-                  },
-                },
-                errorMessage: 'Please enter Address Line 1',
-              },
-            },
-            {
-              type: 'input',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'Address Line 2',
-                name: 'address2',
-                labelVariant: 'standard',
-                rules: {
-                  required: 'Please enter Address 2',
-                  minLength: {
-                    value: 5,
-                    message: 'min length is 4',
-                  },
-                  maxLength: {
-                    value: 15,
-                    message: 'min length is 14',
-                  },
-                },
-                errorMessage: 'Please enter Address Line 2',
-              },
-            },
-            {
-              type: 'custom',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              component: <BasicButtons>Custom Com</BasicButtons>,
-            },
-          ],
-        }}
-      />
       {/* <SignupScreen
         option='socialMediaSignup'
         sectionOne={{

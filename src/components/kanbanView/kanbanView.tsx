@@ -2,11 +2,13 @@ import { Box } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import CardContainer from './cardContainer';
 import { view_styles } from './styles';
-import { object } from 'yup';
+import { style } from '../HeaderTwo/style';
+import zIndex from '@mui/material/styles/zIndex';
 interface DragProps {
   cardRootStyle: object;
   childCardStyle: object;
   cardContainerStyle: object;
+  bottomButtonStyle: object;
   containerTitleStyle: object;
   childCardComponentStyle: object;
   handleClickNotifyIcon: () => void;
@@ -41,6 +43,7 @@ const KanbanView = (props: DragProps) => {
     cardRootStyle,
     childCardStyle,
     containerTitleStyle,
+    bottomButtonStyle,
     cardContainerStyle,
     childCardComponentStyle,
     handleClickNotifyIcon,
@@ -50,6 +53,27 @@ const KanbanView = (props: DragProps) => {
   const [create, setCreate] = useState<any>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [isDropped, setIsDropped] = useState({ status: '' });
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+
+  const { x, y } = position;
+  // Update the cursor position when the mouse moves
+  const handleOnDragLeave = (
+    event: React.MouseEvent,
+    id: number | string
+  ) => {};
+
+  const handleMouseDown = (event: React.MouseEvent) => {
+    const clickStartPosition = {
+      x: event.clientX,
+      y: event.clientY,
+    };
+    // Do something with the click start position
+    console.log('Mouse Click Start:', clickStartPosition);
+  };
+
+  const handleMouseUp = (event: React.MouseEvent) => {
+  };
 
   const handleOnDragEnter = (
     evt: React.DragEvent<HTMLDivElement>,
@@ -58,29 +82,44 @@ const KanbanView = (props: DragProps) => {
     evt.preventDefault();
   };
 
-  const handleOnDragLeave = (
+  const handleOnDrag = (
     evt: React.DragEvent<HTMLDivElement>,
     id: string | number
   ) => {
+    setPosition({ x: evt.clientX, y: evt.clientY });
     evt.preventDefault();
+    let styles = evt.currentTarget.style;
+    styles.width = '335px';
+    styles.padding = '12px';
+    styles.backgroundColor = '#FFFFFF';
+    styles.position = 'absolute';
+    // styles.left = `${cursorPosition.y}`;
+    // styles.top = `${cursorPosition.x}`;
+    styles.transform = `translate(${x}px, ${y}px)`;
+
+    setTimeout(function () {
+      // styles.display = 'none';
+    }, 0);
   };
 
   const onDragStart = (evt: React.DragEvent<HTMLDivElement>, id: any) => {
     evt.dataTransfer.setData('listId', id);
     evt.dataTransfer.effectAllowed = 'move';
     evt.currentTarget.classList.add('dragged');
-    let styles = evt.currentTarget.style;
     setTimeout(function () {
-      styles.display = 'none';
+      // styles.display = 'none';
     }, 0);
+    setPosition({ x: evt.clientX, y: evt.clientY });
   };
 
   const onDragEnd = (evt: React.DragEvent<HTMLDivElement>) => {
     evt.currentTarget.classList.remove('dragged');
     evt.dataTransfer.clearData('listId');
     let styles = evt.currentTarget.style;
+    setPosition({ x: evt.clientX, y: evt.clientY });
+
     setTimeout(function () {
-      styles.display = 'block';
+      // styles.display = 'block';
     }, 0);
   };
 
@@ -90,7 +129,6 @@ const KanbanView = (props: DragProps) => {
     status: string
   ) => {
     evt.preventDefault();
-    setIsDragging(true);
     setIsDropped({ status: status });
   };
 
@@ -116,21 +154,19 @@ const KanbanView = (props: DragProps) => {
     return create?.filter((data: any) => data?.status === type);
   };
 
-  const shuffleSameContainer = (type: string) => {
-    return setCreate([...create.slice(1), create[0]]);
-  };
-
   useEffect(() => {
     setCreate(cardData);
-  }, [create]);
+  }, [create, position]);
   return (
     <>
+      
       <Box sx={{ ...view_styles.rootStyle, ...cardRootStyle }}>
-        {cardContainerData.map((container, i) => (
+        {cardContainerData.map((container) => (
           <CardContainer
             childItems={getChildItemUsingType(container.title)}
             containerData={container}
             childCardStyle={childCardStyle}
+            bottomButtonStyle={bottomButtonStyle}
             containerTitleStyle={containerTitleStyle}
             cardContainerStyle={cardContainerStyle}
             childCardComponentStyle={childCardComponentStyle}
@@ -141,11 +177,14 @@ const KanbanView = (props: DragProps) => {
             onDragEnter={handleOnDragEnter}
             onDragLeave={handleOnDragLeave}
             onDrop={onDrop}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            onDrag={handleOnDrag}
             onDragOver={onDragOver}
             handleClickNotifyIcon={handleClickNotifyIcon}
             handleClickMoreIcon={handleClickMoreIcon}
             handleAddNewButton={handleAddNewButton}
-            key={i}
+            key={container?.title}
           />
         ))}
       </Box>
@@ -158,29 +197,30 @@ KanbanView.defaultProps = {
   childCardStyle: {},
   cardContainerStyle: {},
   containerTitleStyle: {},
+  bottomButtonStyle: {},
   childCardComponentStyle: {},
   handleClickNotifyIcon: () => {},
   handleClickMoreIcon: () => {},
   handleAddNewButton: () => {},
-  cardContainerData: { title: "string" },
+  cardContainerData: { title: 'string', buttonName: '' },
   cardData: {
-    id:0,
-    title: "",
-    status: "",
-    cardTitle: "",
-    component: "",
+    id: 0,
+    title: '',
+    status: '',
+    cardTitle: '',
+    component: '',
     isActive: false,
-    notifyIcon: "",
-    moreIcon: "",
+    notifyIcon: '',
+    moreIcon: '',
     subTitles: {
-      label: "",
-      bgColor: "",
-      borderColor: "",
-      textColor: "",
+      label: '',
+      bgColor: '',
+      borderColor: '',
+      textColor: '',
     },
-    images: { img: ""},
-    created_at: "",
+    images: { img: '' },
+    created_at: '',
     done: false,
   },
-}
+};
 export default KanbanView;

@@ -14,6 +14,7 @@ export const Primary = Template.bind({});
 Primary.args = {
   cardContainerStyle:{},
   cardRootStyle:{},
+  bottomButtonStyle:{},
   childCardStyle:{},
   containerTitleStyle:{},
   handleClickNotifyIcon: () => {alert("handleClickNotifyIcon")},

@@ -18,6 +18,13 @@ export const view_styles = {
     '&::-webkit-scrollbar': { display: 'none' },
   },
 
+  containerTitleStyle: {
+    color: '#262626',
+    fontWeight: '600',
+    marginBottom: '12px',
+    fontSize: '14px',
+  },
+
   titleStyle: {
     color: '#3B3B3B',
     fontWeight: '500',
@@ -35,7 +42,7 @@ export const view_styles = {
 
   childBoxContainer: {
     color: ' #00000029',
-    minHeight: '108px',
+    // minHeight: '108px',
     background: '#FFFFFF 0% 0% no-repeat padding-box',
     boxShadow: '0px 1px 2px #00000029',
     borderRadius: '8px',
@@ -61,7 +68,7 @@ export const view_styles = {
   },
   addTodoButton: {
     minHeight: '36px',
-    background: '#FFFFFF 0% 0% no-repeat padding-box',
+    background: '#FFFFFF',
     boxShadow: '0px 1px 2px #00000029',
     borderRadius: '8px',
     padding: '0 12px',
