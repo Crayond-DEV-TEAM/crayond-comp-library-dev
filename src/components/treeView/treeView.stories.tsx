@@ -6,11 +6,59 @@ import AddIcon from '@mui/icons-material/Add';
 export default {
   title: 'components/treeView',
   component: TreeView,
+  argTypes: {
+    rootStyle: {
+      description: 'entire container style contains bgcolor',
+    },
+    heading: {
+      description: 'heading of the entire box',
+      defaultValue: 'abdsx value'
+    },
+    dataRow: {
+      description: 'array of the checkbox data',
+    },
+    formControlPropsSx: {
+      description: 'checkbox style props'
+    },
+    permissionHeadingSx: {
+      description: 'permission checkbox title element'
+    },
+    submitBtnText: {
+      description: 'submit button text'
+    },
+    submitBtnOptions: {
+      description: 'submit button style contains text and bg color and variant'
+    },
+    checkboxWidth: {
+      description: 'checkbox width'
+    },
+    checkboxHeight: {
+      description: 'checkbox height'
+    },
+    checkboxBorderRadius: {
+      description: 'borderRadius of checkbox'
+    },
+    checkboxIcon: {
+      description: 'checkbox checked icon'
+    },
+    uncheckedIcon: {
+      description: 'checkbox unchecked icon'
+    },
+    leftSec: {
+      description: 'left section grid item breakpoint props'
+    },
+    rightSec: {
+      description: 'right section grid item breakpoint props'
+    }
+
+  },
+
 } as ComponentMeta<typeof TreeView>;
 
 const Template: ComponentStory<typeof TreeView> = (args) => (
   <TreeView {...args} />
 );
+
 
 export const Primary = Template.bind({});
 

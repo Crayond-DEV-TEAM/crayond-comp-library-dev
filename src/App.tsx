@@ -3,7 +3,7 @@ import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
 import { TreeView } from './components/treeView';
-import { ReactElement, useState } from 'react';
+import { useState } from 'react';
 
 
 function App() {
