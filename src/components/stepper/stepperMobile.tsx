@@ -1,160 +1,148 @@
-import React, { useState } from 'react';
-import { Badge, Box, Button, Step, Stepper, Typography } from '@mui/material';
-import { Styles } from './style';
-import { CustomStepperProps } from './props';
-import { BasicButtons } from '../button';
-import { useTheme } from '@mui/material/styles';
+import { LinearProgress, Typography } from '@mui/material';
+import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
 import Paper from '@mui/material/Paper';
-import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import { Progress } from '../progress';
+import * as React from 'react';
+import { BasicButtons } from '../button';
+import { CustomStepperProps } from './props';
+import { Styles } from './style';
+import { ButtonProps } from '../button/props';
 
 const StepperMobile: React.FC<CustomStepperProps> = ({
   steps,
-  styles,
-  prevBtn,
-  nextBtn,
-  resetBtn,
+  mobileButtons = [],
+  styles = {},
+  activeStepMobile = 0,
+  handleSubmit = () => {},
 }) => {
-  const [activeStep, setActiveStep] = useState<number>(0);
-  const [completed, setCompleted] = useState<Record<number, boolean>>({});
-  const theme = useTheme();
-  const maxSteps = steps.length;
-  const totalSteps = (): number => steps.length;
-
-  const getColor = (status: string, clr: string): string => {
-    if (status === 'start') return 'black';
-    if (status === 'inprogress') return '#FF980E';
-    if (status === 'completed') return 'green';
-    if (status === 'rejected') return '#F44F5A';
-    return clr;
+  const getColor = (status: string) => {
+    if (status === 'start')
+      return {
+        backgroundColor: 'black',
+      };
+    if (status === 'inprogress')
+      return {
+        backgroundColor: '#FF980E',
+      };
+    if (status === 'completed')
+      return {
+        backgroundColor: '#5AC782',
+      };
+    if (status === 'rejected')
+      return {
+        backgroundColor: '#F44F5A',
+      };
   };
 
-  const completedSteps = (): number => Object.keys(completed).length;
-
-  const isLastStep = (): boolean => activeStep === totalSteps() - 1;
-
-  const allStepsCompleted = (): boolean => completedSteps() === totalSteps();
-
-  const handleNext = (): void => {
-    const newActiveStep =
-      isLastStep() && !allStepsCompleted()
-        ? steps.findIndex((step, i) => !(i in completed))
-        : activeStep + 1;
-    setActiveStep(newActiveStep);
+  const renderIcon = (icon: any) => {
+    if (icon && typeof icon === 'string') {
+      return <img src={icon} />;
+    } else if (icon && React.isValidElement(icon)) {
+      return icon;
+    } else {
+      return null;
+    }
   };
-
-  const handleBack = (): void =>
-    setActiveStep((prevActiveStep) => prevActiveStep - 1);
-
-  // const handleReset = (): void => {
-  //   setActiveStep(0);
-  //   setCompleted({});
-  // };
 
   return (
-    <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
+    <Box
+      sx={{
+        flexGrow: 1,
+        backgroundColor: '#E9E9E980',
+        p: 2,
+        ...styles.rootStyle,
+      }}
+    >
       <Paper
-        square
         elevation={0}
-        sx={{
-          // display: 'flex',
-          // alignItems: 'center',
-          // height: 50,
-          pl: 2,
-          bgcolor: 'background.default',
-        }}
+        sx={{ borderRadius: '16px', p: 0, ...styles.stepperParent }}
       >
-        <Box
-          sx={{
-            borderBottom: '1px solid black',
-            display: 'flex',
-            alignItems: 'center',
-            p: 2,
-          }}
-        >
-          <Box>{steps[activeStep].icon}</Box>
-          <Box>
-            <Typography>{steps[activeStep].label}</Typography>
-            <Typography>{steps[activeStep].label}</Typography>
-           
+        <Box sx={{ ...Styles?.titleBoxMobStyle }}>
+          <Box
+            sx={{
+              ...Styles?.iconBackgroundMobile,
+              ...getColor(steps[activeStepMobile]?.status),
+            }}
+          >
+            {renderIcon(steps[activeStepMobile]?.icon)}
+          </Box>
+
+          <Box sx={{ ...steps[activeStepMobile]?.stepperStyle?.textAreaStyle }}>
+            <Typography
+              sx={{
+                ...Styles?.labelStyle,
+                ...steps[activeStepMobile]?.stepperStyle?.labelStyle,
+              }}
+            >
+              {steps[activeStepMobile]?.label}
+            </Typography>
+            <Typography
+              sx={{
+                ...Styles?.subTitleMobStyle,
+                ...steps[activeStepMobile]?.stepperStyle?.subTitleMobStyle,
+              }}
+            >
+              STEPS {activeStepMobile + 1} / {steps.length}
+            </Typography>
           </Box>
         </Box>
-        <MobileStepper
-        variant="progress"
-        steps={maxSteps}
-        position="top"
-        activeStep={activeStep}
-        sx={{ maxWidth: 400, flexGrow: 1 }}
-        nextButton={
-          null}
-        backButton={
-         null
-        }
-      />
-        <Box sx={{ maxWidth: 400, width: '100%' }}>
-          {steps[activeStep].status}
-          
-        </Box>
-      </Paper>
 
+        <Box sx={{ padding: 0 }}>
+          <LinearProgress
+            variant="determinate"
+            value={((activeStepMobile + 1) / steps.length) * 100}
+          />
+        </Box>
+        <Box sx={{ height: 255, p: 2 }}>{steps[activeStepMobile]?.content}</Box>
+        <MobileStepper
+          variant="dots"
+          sx={{
+            ...Styles?.progressStyle,
+            ...steps[activeStepMobile]?.stepperStyle?.progressStyle,
+          }}
+          steps={steps.length}
+          position="static"
+          activeStep={activeStepMobile}
+          nextButton={null}
+          backButton={null}
+        />
+      </Paper>
       <Box
         sx={{
-          ...Styles.buttonArea, ...styles?.buttonsContainer
+          ...Styles?.buttonAreaMob,
+          ...styles?.buttonsContainerMob,
         }}
       >
-        <BasicButtons
-          // color="inherit"
-          disabled={activeStep === 0}
-          onClick={handleBack}
-          inLineStyles={styles?.btnStyle}
-        >
-          {prevBtn}
-        </BasicButtons>
-        <Box />
-        <BasicButtons onClick={handleNext} inLineStyles={styles?.btnStyle}>
-          {nextBtn}
-        </BasicButtons>
-        <Box />
+        {mobileButtons.map((button: ButtonProps, index: number) =>
+          activeStepMobile !== steps.length - 1 ? (
+            <BasicButtons
+              key={index}
+              disabled={button.disabled}
+              onClick={button.onClick}
+              inLineStyles={styles.btnStyle}
+            >
+              {button.label}
+            </BasicButtons>
+          ) : (
+            <BasicButtons
+              key={index}
+              disabled={button.disabled}
+              onClick={button.onClick}
+              inLineStyles={styles.btnStyle}
+            >
+              {button.label}
+            </BasicButtons>
+          )
+        )}
       </Box>
-  <MobileStepper
-        variant="progress"
-        steps={maxSteps}
-        position="top"
-        activeStep={activeStep}
-        sx={{ maxWidth: 400, flexGrow: 1 ,
-        }}
-        nextButton={
-          null}
-        backButton={
-         null
-        }
-      />
-
-
-      {/* <MobileStepper
-        variant="progress"
-        steps={maxSteps}
-        position="static"
-        activeStep={activeStep}
-        sx={{ maxWidth: 400, flexGrow: 1 }}
-        nextButton={
-          <BasicButtons onClick={handleNext} inLineStyles={styles?.btnStyle}>
-            {nextBtn}
-          </BasicButtons>}
-        backButton={
-          <BasicButtons
-            disabled={activeStep === 0}
-            onClick={handleBack}
-            inLineStyles={styles?.btnStyle}
-          >
-            {prevBtn}
-          </BasicButtons>
-        }
-      /> */}
     </Box>
   );
 };
 
 export default StepperMobile;
+StepperMobile.defaultProps = {
+  steps: [],
+  mobileButtons: [],
+  activeStepMobile: 0,
+  styles: {},
+};

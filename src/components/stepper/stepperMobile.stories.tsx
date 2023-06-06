@@ -2,11 +2,12 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import CustomStepper from './stepper';
 import stepperIcon from '../../assets/stepperIcon.png';
 import CheckMark from '../../assets/checkmark';
+import StepperMobile from './stepperMobile';
 
 export default {
-  title: 'components/CustomStepper',
-  component: CustomStepper,
-  description: 'A custom stepper component for guiding users through a multi-step process.',
+  title: 'components/StepperMobile',
+  component: StepperMobile,
+  description: 'A custom stepper component for guiding users through a multi-step process for mobile.',
   argTypes: {
     steps: {
       description:
@@ -16,12 +17,12 @@ export default {
       description:
         ' we can control the styles for button area,buttons,rootstyle and content style with this ',
     },
-    buttons: {
+    mobileButtons: {
       description:
         'collection of button. here we can add buttons and their functions',
     },
-    activeStep: {
-      description: 'active step is used for active state',
+    activeStepMobile: {
+      description: 'active step mobile is used for active state',
     },
     'steps.stepperStyle': {
       description:
@@ -114,11 +115,12 @@ export default {
     'buttons.disabled':{
       description: 'we can disable a button if we required',
     },
+    
   },
-} as ComponentMeta<typeof CustomStepper>;
+} as ComponentMeta<typeof StepperMobile>;
 
-const Template: ComponentStory<typeof CustomStepper> = (args) => (
-  <CustomStepper {...args} />
+const Template: ComponentStory<typeof StepperMobile> = (args) => (
+  <StepperMobile {...args} />
 );
 export const Primary = Template.bind({});
 Primary.args = {
@@ -174,7 +176,7 @@ Primary.args = {
     rootStyle: {},
     contentStyle: {},
   },
-  buttons: [
+  mobileButtons: [
     {
       label: 'Back',
       onClick: () => {
@@ -189,12 +191,12 @@ Primary.args = {
       },
     },
     {
-      label: 'Reset',
+      label: 'submit',
       disabled: false,
       onClick: () => {
         console.log('jhcdc');
       },
     },
   ],
-  activeStep: 1,
+  activeStepMobile: 2,
 };

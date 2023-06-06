@@ -1,26 +1,47 @@
 export interface StepData {
   label: string;
   status: string;
+  content?: string | any;
   color?: string | any;
-  icon?: React.ReactNode;
-  completeBadge?: React.ReactNode;
-  styles?: {
+  icon?: any;
+  completeBadge?: React.ReactNode | any;
+  stepperStyle?: {
     anchorOrigin?: string | any;
     labelStyle?: object;
     statusStyle?: object;
-    dividerStyle?: object;
+    stepWrapStyle?: object;
     iconCompletedStyle?: object;
     iconActiveStyle?: object;
-    boxActiveStyle?:object;
-    boxInActiveStyle?:object;
-    textAreaStyle?:object;
+    stepActiveStyle?: object;
+    stepInActiveStyle?: object;
+    textAreaStyle?: object;
+    subTitleMobStyle?: object;
+    titleBoxMobStyle?: object;
+    progressStyle?: object;
+    iconBackgroundStyle?: object;
+    iconInActiveStyle?: object;
   };
 }
 
 export interface CustomStepperProps {
   steps: StepData[];
-  styles?:{buttonsContainer?:object,btnStyle?:object,rootStyle?:object};
-  prevBtn?:any;
-  nextBtn?:any;
-  resetBtn?:any;
+  styles?: {
+    buttonsContainer?: object;
+    btnStyle?: object;
+    rootStyle?: object;
+    contentStyle?: object;
+    buttonsContainerMob?: object;
+    stepperParent?:object;
+  };
+  mobileButtons?: any;
+  buttons?: any;
+  resetBtn?: any;
+  activeStep?: number;
+  activeStepMobile?: number;
+  handleSubmit?: () => void;
+}
+export interface ButtonProps {
+  label: string;
+  onClick: () => void;
+  disabled?: boolean;
 }
