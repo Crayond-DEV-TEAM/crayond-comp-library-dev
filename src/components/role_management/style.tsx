@@ -2,6 +2,15 @@ export const styles = {
   rootSx: {
     backgroundColor: '#ffff',
     borderRadius: '4px',
+    height: '100%'
+  },
+  headingPx: {
+    padding: '24px 70px'
+  },
+  roleRootSx: {
+    border: '1px solid #E9E9E9',
+    borderRadius: '10px',
+    backgroundColor: '#FFFFFF',
   },
   roleHeading: {
     color: '#001C3C',
@@ -13,7 +22,9 @@ export const styles = {
     padding: '26px 70px'
   },
   containerSx: {
-    backgroundColor: '#FFFFFF',
+    '& div': {
+    }
+
   },
   header: {
     display: 'flex',
@@ -29,7 +40,58 @@ export const styles = {
   },
   titleSx: {
     fontSize: '16px',
-    fontWeight: '600',
+    fontWeight: '500',
     color: '#29302B',
   },
+  iconBtn: {
+    borderRadius: '8px',
+    width: '80px !important',
+    display: 'flex',
+    jutifyContent: 'space-between',
+    '& svg': {
+      fontSize: '14px',
+      marginRight: '4px'
+    },
+    '& p': {
+      fontSize: '15px',
+      textTransform: 'capitalize'
+    }
+  },
+  textFieldSx: {
+    height: '36px !important',
+    padding: '0',
+    '& div': {
+      height: '100%'
+    }
+  },
+  roleNo: {
+    color: '#3B3B3B',
+    fontSize: '13px',
+  },
+  card: {
+    padding: '1px 12px',
+    border: '1px solid #665CD7',
+    borderRadius: '8px'
+  },
+  unSelectedCard: {
+    padding: '1px 12px',
+    border: '1px solid #E9E9E9',
+    borderRadius: '8px'
+  },
+  roleItemRootSx: {
+    padding: '8px 12px'
+  },
+  editIcon: {
+    width: '100% !important',
+    outline: '0 !important',
+    border: 'none !important',
+    '& svg': {
+      fontSize: '16px'
+    }
+  },
+  switchForm: {
+    '& label': {
+      width: '100%'
+    }
+  }
 }

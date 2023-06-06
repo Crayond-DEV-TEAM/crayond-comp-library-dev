@@ -1,160 +1,112 @@
 
-import { IconButton, Menu, MenuItem, SxProps, Theme, Grid } from '@mui/material';
+import { IconButton, SxProps, Theme, Grid, Stack } from '@mui/material';
 import { Box, Typography } from '@mui/material';
-import CircleIcon from '@mui/icons-material/Circle';
+import EditIcon from '@mui/icons-material/Edit';
+import CloseIcon from '@mui/icons-material/Close';
+import CheckIcon from '@mui/icons-material/Check';
 import { forwardRef, useState, useRef } from 'react';
 import { useHover } from 'ahooks';
+import { styles } from './style';
+import { IOSSwitch } from './switch';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { Input } from './input';
 
 export interface RoleItemProps {
-    className?: string;
     sx?: SxProps<Theme>;
-    title?: string;
-    onMessaageClick?: () => void;
-    onDelete?: () => void;
+    editIndex?: number;
+    index?: number;
+    name?: string;
+    roleNo?: string;
+    // onMessaageClick?: () => void;
     isActive?: boolean;
-    index?: any;
-    select?: string | number;
-    onEdit?: () => void;
-    open?: boolean;
+    onEdit?: (x: object, index: number) => void;
 }
 
+
+// eslint-disable-next-line react/display-name
 export const RoleItem = forwardRef((props: RoleItemProps): JSX.Element => {
     const {
-        className = '',
-        sx = {},
         isActive,
-        onMessaageClick = () => false,
-        onDelete = () => false,
+        // onMessaageClick = () => false,
         onEdit = () => false,
-        select,
+        roleNo,
+        name,
+        editIndex,
         index,
-        title,
-        ...rest
     } = props;
-    // const [open, setOpen] = useState<boolean>(false);
+
     const ref = useRef(null);
     const isHovering = useHover(ref);
 
-    const [selected, setSelected] = useState(false);
-
-    const handleOpen = () => {
-        setSelected(true);
-        // setIsEdit(false);
-    };
-    const handlemodalClose = () => {
-        setSelected(false);
-    };
-
-    const [anchorEl, setAnchorEl] = useState(null);
-
-    const open = Boolean(anchorEl);
-
-    const handleClick = (e: any) => {
-        setAnchorEl(e.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
-    const deleteFunc = () => {
-        onDelete();
-        handlemodalClose();
-    };
+    const [anchorEl] = useState(null);
 
     return (
         <Box
-            sx={[
-                {
-                    ...messageCardStyle.rootSx,
-                },
-                ...(Array.isArray(sx) ? sx : [sx]),
-            ]}
-            className={`${className}`}
+            sx={styles.roleItemRootSx}
             ref={ref}
-            {...rest}
         >
-            <Box
-                sx={select === index ? messageCardStyle.messageCard : messageCardStyle.unSelectedCard}
-                onClick={onMessaageClick}
-            >
+            <Box sx={editIndex === index ? styles.unSelectedCard : styles.card}>
                 <Grid container alignItems={'center'}>
-                    <Grid item xs={1} sm={1} md={1} lg={1}>
-                        {isActive ? (
-                            <CircleIcon sx={{ ...messageCardStyle.dot, color: '#357968' }} />
-                        ) : (
-                            <CircleIcon sx={{ ...messageCardStyle.dot, color: '#FF4D4A' }} />
-                        )}
+
+                    <Grid item lg={3}>
+                        {
+                            editIndex === index ? <Input /> :
+                                <Typography
+                                    sx={styles.roleNo}>
+                                    {roleNo}
+                                </Typography>
+                        }
                     </Grid>
-                    <Grid item xs={10} sm={10} md={10} lg={10}>
-                        <Typography sx={select === index ? messageCardStyle.serviceTitle : messageCardStyle.unslectedServiceTitle}>
-                            {title}
-                        </Typography>
+                    <Grid item lg={4}>
+                        {
+                            editIndex === index ? <Input placeholder='Description' /> :
+                                <Typography sx={styles.roleNo}>
+                                    {name}
+                                </Typography>
+                        }
                     </Grid>
-                    <Grid item xs={1} sm={1} md={1} lg={1}>
-                        <IconButton
-                            disableRipple
-                            onClick={handleClick}
-                            aria-owns={anchorEl ? 'simple-menu' : undefined}
-                            aria-haspopup="true"
-                        // onMouseOver={handleClick}
-                        >
-                            {isHovering ? (
-                                <MoreIcon
-                                    rootStyle={{ width: '3px', height: '12px', cursor: 'pointer', opacity: anchorEl ? 0.5 : 1 }}
+                    <Grid item lg={2}>
+                        {
+                            editIndex !== index && <IconButton
+                                sx={styles.editIcon}
+                                disableRipple
+                                onClick={onEdit}
+                                aria-owns={anchorEl ? 'simple-menu' : undefined}
+                                aria-haspopup="true"
+                            >
+                                {isHovering ? (
+                                    <EditIcon
+                                        rootStyle={{
+                                            width: '3px', height: '12px', cursor: 'pointer',
+                                            opacity: anchorEl ? 0.5 : 1
+                                        }}
+                                    />
+                                ) : (
+                                    ''
+                                )}
+                            </IconButton>
+                        }
+                    </Grid>
+                    <Grid item lg={3}>
+                        {
+                            editIndex === index ? <Stack direction={'row'} alignItems={'center'} >
+                                <IconButton>
+                                    <CloseIcon />
+                                </IconButton>
+                                <IconButton>
+                                    <CheckIcon />
+                                </IconButton>
+                            </Stack> : <FormGroup sx={styles.switchForm}>
+                                <FormControlLabel sx={{ m: 0 }}
+                                    control={<IOSSwitch sx={{ m: 1 }} value={isActive} />} label={undefined}                                // label=''
                                 />
-                            ) : (
-                                ''
-                            )}
-                        </IconButton>
+                            </FormGroup>
+                        }
+
                     </Grid>
                 </Grid>
-                <Menu open={open} anchorEl={anchorEl} onClose={handleClose} sx={messageCardStyle.menuSx}>
-                    <MenuItem
-                        id="ec33277c-74e7-4b23-94cc-4cddb997548c"
-                        onClick={(e) => {
-                            if (e?.target?.id === 'ec33277c-74e7-4b23-94cc-4cddb997548c') {
-                                e?.stopPropagation();
-                                onEdit();
-                            }
-                        }}
-                        sx={{ justifyContent: 'space-between' }}
-                    >
-                        <Typography sx={messageCardStyle.menutext}>Edit</Typography>
-                        <IconButton disableRipple sx={{ p: 0 }}>
-                            <EditIcon rootStyle={{ width: '18px', height: '18px', cursor: 'pointer' }} />
-                        </IconButton>
-                    </MenuItem>
-                    <MenuItem onClick={handleOpen} sx={{ justifyContent: 'space-between' }}>
-                        <Typography sx={messageCardStyle.menutext}>Delete</Typography>
-                        <IconButton disableRipple sx={{ p: 0 }}>
-                            <DeleteIcon rootStyle={{ width: '18px', height: '18px', cursor: 'pointer' }} />
-                        </IconButton>
-                    </MenuItem>
-                </Menu>
             </Box>
-            <DeleteDailog
-                isDialogOpened={selected}
-                Bodycomponent={
-                    <Box>
-                        <Typography sx={{ fontWeight: 600 }}>Are you sure want to delete this ??</Typography>
-                        <Box sx={messageCardStyle.totalFooterSx}>
-                            <Box sx={messageCardStyle.btnSx}>
-                                <Box sx={messageCardStyle.btnBg}>
-                                    <Button buttonStyle={messageCardStyle.cancelbtnText} onClick={handlemodalClose}>
-                                        Cancel
-                                    </Button>
-                                </Box>
-                                <Box sx={messageCardStyle.savebtnBg}>
-                                    <Button buttonStyle={messageCardStyle.savebtnText} onClick={deleteFunc}>
-                                        Delete
-                                    </Button>
-                                </Box>
-                            </Box>
-                        </Box>
-                    </Box>
-                }
-            />
         </Box>
     );
 });
