@@ -73,4 +73,5 @@ DateAndTimePicker.defaultProps = {
   label: 'My Label',
   labelVariant: 'standard',
   type: 'date',
+  label:""
 };

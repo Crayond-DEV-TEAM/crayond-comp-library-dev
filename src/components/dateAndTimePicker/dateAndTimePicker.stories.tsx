@@ -10,6 +10,7 @@ const Template: ComponentStory<typeof DateAndTimePicker> = (args) => <DateAndTim
 
 export const Primary = Template.bind({});
 Primary.args = {
+  label:"",
   selectOption:[
     { label: 'Select', value: '' },
     { label: 'one', value: 'one' },

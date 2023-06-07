@@ -1,7 +1,7 @@
 import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
-import '@fontsource/poppins/700.css'; 
+import '@fontsource/poppins/700.css';
 import { Viewer } from './components/viewer';
 import DeleteIcon from './assets/deleteIcon';
 import profileImg from './assets/sampleprof.png';
@@ -25,6 +25,9 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { ProfileThree } from './components/profileThree';
 import yup from './utils/yupSchema';
 import { Screen } from './components/screen';
+import { CircleProgress } from './components/circleProgress';
+import { SingleDatePicker } from './components/datePicker';
+import { SingleInputDateRangePicker } from './components/dateRangePicker';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -184,9 +187,33 @@ function App() {
       .email('Please enter valid email')
       .required('Please enter email'),
   });
+  const [progress, setProgress] = React.useState(10);
+
+  // React.useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     setProgress((prevProgress) =>
+  //       prevProgress >= 100 ? 0 : prevProgress + 10
+  //     );
+  //   }, 800);
+  //   return () => {
+  //     clearInterval(timer);
+  //   };
+  // }, []);
+
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
-      <Screen
+      <div
+        style={{
+          background: '#ffffff',
+          height: '50vh',
+          width: '80%',
+          padding: '20px',
+        }}
+      >
+        {/* <SingleDatePicker onChange={function (): void { } } value={undefined} /> */}
+        <SingleInputDateRangePicker/>
+      </div>
+      {/* <Screen
        containerStyle={{}}
        headerStyle={{}}
        bodyStyle={{}}
@@ -194,7 +221,7 @@ function App() {
        headerComponent={<>Header</>}
        bodyComponent={<>Body</>}
        footerComponent={<>Footer</>}
-      />
+      /> */}
       {/* <CommonTable
         Header={[
           {
@@ -1159,10 +1186,12 @@ function App() {
             imgSrc: profileImg,
             variant: 'rounded',
             profileimgContainer: {},
-            avatarconStyle:{},
-            profileImgEditStyle:{},
-            profileImgEditIcon: <EditIcon color='#fff' />,
-            onClick: () => { console.log('Profile Edit') },
+            avatarconStyle: {},
+            profileImgEditStyle: {},
+            profileImgEditIcon: <EditIcon color="#fff" />,
+            onClick: () => {
+              console.log('Profile Edit');
+            },
             // customComp:<BasicButtons>hai</BasicButtons>
           },
           form: {
@@ -1176,7 +1205,7 @@ function App() {
             formContainer: {},
             formList: [
               {
-                icon: <DocsIcon color='#665CD7' />,
+                icon: <DocsIcon color="#665CD7" />,
                 label: 'Email',
                 value: 'Michaelbloomberg@email.com',
                 breakPoint: {
@@ -1186,10 +1215,10 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: {backgroundColor:'#FAFAFA'},
+                iconStyle: { backgroundColor: '#FAFAFA' },
                 labelStyle: {},
                 valueStyle: {},
-                listWraper: { py: 1, }
+                listWraper: { py: 1 },
               },
               {
                 icon: <DocsIcon />,
@@ -1202,11 +1231,10 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: {backgroundColor:'#FAFAFA'},
+                iconStyle: { backgroundColor: '#FAFAFA' },
                 labelStyle: {},
                 valueStyle: {},
-                listWraper: { py: 1, }
-
+                listWraper: { py: 1 },
               },
               {
                 icon: <DocsIcon />,
@@ -1219,10 +1247,10 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: {backgroundColor:'#FAFAFA'},
+                iconStyle: { backgroundColor: '#FAFAFA' },
                 labelStyle: {},
                 valueStyle: {},
-                listWraper: { py: 1, }
+                listWraper: { py: 1 },
               },
               {
                 icon: <DocsIcon />,
@@ -1235,10 +1263,10 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: {backgroundColor:'#FAFAFA'},
+                iconStyle: { backgroundColor: '#FAFAFA' },
                 labelStyle: {},
                 valueStyle: {},
-                listWraper: { py: 1, }
+                listWraper: { py: 1 },
               },
               {
                 icon: <DocsIcon />,
@@ -1251,8 +1279,8 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                listWraper: { py: 1, },
-                iconStyle: {backgroundColor:'#FAFAFA'},
+                listWraper: { py: 1 },
+                iconStyle: { backgroundColor: '#FAFAFA' },
                 labelStyle: {},
                 valueStyle: {},
               },
@@ -1267,17 +1295,19 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: {backgroundColor:'#FAFAFA'},
+                iconStyle: { backgroundColor: '#FAFAFA' },
                 labelStyle: {},
                 valueStyle: {},
-                listWraper: { py: 1, }
+                listWraper: { py: 1 },
               },
             ],
           },
           btnList: [
             {
               buttonText: 'Edit',
-              onClick: () => { console.log('Edit') },
+              onClick: () => {
+                console.log('Edit');
+              },
               breakPoint: {
                 xs: 12,
                 sm: 12,
@@ -1285,27 +1315,32 @@ function App() {
                 lg: 12,
                 lx: 12,
               },
-              btnStyle: {backgroundColor:'#665CD7'},
-              btnListConStyle: { mt: 3, display: 'flex', justifyContent: 'center' }
+              btnStyle: { backgroundColor: '#665CD7' },
+              btnListConStyle: {
+                mt: 3,
+                display: 'flex',
+                justifyContent: 'center',
+              },
             },
           ],
-
         }}
       />
 
       <Viewer
-        rootStyle={{ backgroundColor: '', }}
+        rootStyle={{ backgroundColor: '' }}
         viewBody={{
-          viewBodyStyle: { },
-          gridStyle: { justifyContent: 'left', },
+          viewBodyStyle: {},
+          gridStyle: { justifyContent: 'left' },
           profileimage: {
             breakpoints: { xs: 12, sm: 12, md: 12, lg: 12 },
             profileImgStyle: {},
             imgSrc: profileImg,
             variant: 'rounded',
             profileimgContainer: { display: 'flex', justifyContent: 'center' },
-            profileImgEditIcon: <EditIcon color='#fff' />,
-            onClick: () => { console.log('Profile Edit') },
+            profileImgEditIcon: <EditIcon color="#fff" />,
+            onClick: () => {
+              console.log('Profile Edit');
+            },
           },
           form: {
             breakpoints: { xs: 12, sm: 12, md: 12, lg: 12, xl: 12 },
@@ -1314,10 +1349,14 @@ function App() {
             descriptionStyle: {},
             subTitleStyle: {},
             formContainer: {},
-            formListContainer: { border: '1px solid #E9E9E9', borderRadius: '8px' ,p:2},
+            formListContainer: {
+              border: '1px solid #E9E9E9',
+              borderRadius: '8px',
+              p: 2,
+            },
             formList: [
               {
-                icon: <DocsIcon color='green' />,
+                icon: <DocsIcon color="green" />,
                 value: 'Mailidhere@gmail.com',
                 breakPoint: {
                   xs: 12,
@@ -1326,12 +1365,16 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: { backgroundColor: 'none', borderRadius: '0px', py: 0 },
+                iconStyle: {
+                  backgroundColor: 'none',
+                  borderRadius: '0px',
+                  py: 0,
+                },
                 valueStyle: { fontSize: '14px' },
-                listWraper: { alignItems: 'center' }
+                listWraper: { alignItems: 'center' },
               },
               {
-                icon: <DocsIcon color='yellow' />,
+                icon: <DocsIcon color="yellow" />,
                 value: '9999 999 999',
                 breakPoint: {
                   xs: 12,
@@ -1340,13 +1383,17 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: { backgroundColor: 'none', borderRadius: '0px', py: '0px', },
+                iconStyle: {
+                  backgroundColor: 'none',
+                  borderRadius: '0px',
+                  py: '0px',
+                },
                 valueStyle: { fontSize: '14px' },
-                listWraper: { alignItems: 'center' }
+                listWraper: { alignItems: 'center' },
               },
-             
+
               {
-                icon: <DocsIcon color='red' />,
+                icon: <DocsIcon color="red" />,
                 value: '01 Jan 1998 (25Yrs / Male)',
                 breakPoint: {
                   xs: 12,
@@ -1355,13 +1402,18 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: { backgroundColor: 'none', borderRadius: '0px', py: 0 },
+                iconStyle: {
+                  backgroundColor: 'none',
+                  borderRadius: '0px',
+                  py: 0,
+                },
                 valueStyle: { fontSize: '14px' },
-                listWraper: { alignItems: 'center' }
+                listWraper: { alignItems: 'center' },
               },
               {
-                icon: <DocsIcon color='blue' />,
-                value: '2/498, Ayshika Still water court Sunrise Avenue, 2nd Cross St, Neelankarai, Chennai - 600115',
+                icon: <DocsIcon color="blue" />,
+                value:
+                  '2/498, Ayshika Still water court Sunrise Avenue, 2nd Cross St, Neelankarai, Chennai - 600115',
                 breakPoint: {
                   xs: 12,
                   sm: 6,
@@ -1369,17 +1421,22 @@ function App() {
                   lg: 12,
                   lx: 12,
                 },
-                iconStyle: { backgroundColor: 'none', borderRadius: '0px', py: 0 },
+                iconStyle: {
+                  backgroundColor: 'none',
+                  borderRadius: '0px',
+                  py: 0,
+                },
                 valueStyle: { fontSize: '14px' },
-                listWraper: { alignItems: 'center' }
+                listWraper: { alignItems: 'center' },
               },
-
             ],
           },
           btnList: [
             {
               buttonText: 'Edit',
-              onClick: () => { console.log('Edit') },
+              onClick: () => {
+                console.log('Edit');
+              },
               breakPoint: {
                 xs: 12,
                 sm: 12,
@@ -1387,14 +1444,12 @@ function App() {
                 lg: 12,
                 lx: 12,
               },
-              btnStyle: { width: '100%' ,backgroundColor:'#665CD7'},
-              btnListConStyle: { mt: 3 }
+              btnStyle: { width: '100%', backgroundColor: '#665CD7' },
+              btnListConStyle: { mt: 3 },
             },
           ],
-
         }}
       />
-     
 
       <ProfileThree
         isEditMode={isEdit}
@@ -1405,7 +1460,7 @@ function App() {
             fontWeight: '600',
             color: '#11111199',
           },
-          icon: <DocsIcon color='#665Cff' />,
+          icon: <DocsIcon color="#665Cff" />,
         }}
         uploadOptions={{
           imgScr: profile,
@@ -1432,11 +1487,11 @@ function App() {
           cancelButton: {
             visible: true,
             title: 'Cancel',
-            onClick: (data: object) =>console.log(data),
+            onClick: (data: object) => console.log(data),
             sx: {},
-            variant:"outlined"
+            variant: 'outlined',
           },
-          customButton: { 
+          customButton: {
             component: <></>,
           },
           yupSchemaValidation: formSchema,
