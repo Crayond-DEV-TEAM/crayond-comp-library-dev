@@ -1,4 +1,4 @@
-import { Divider } from '@mui/material';
+import { Divider, Stack } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
@@ -42,14 +42,14 @@ export default function SingleInputDateRangePicker(
   );
 
   const handleStartDateChange = (date: any) => {
-    console.log(date,"start");
-    
+    console.log(date, 'start');
+
     setStartDate(date);
   };
 
   const handleEndDateChange = (date: any) => {
-    console.log(date,"end");
-    
+    console.log(date, 'end');
+
     setEndDate(date);
   };
 
@@ -67,7 +67,7 @@ export default function SingleInputDateRangePicker(
         <Box
           sx={{
             ...styles.mainBox,
-            border: isOpenCalendar ? '1px solid #665CD7' : '',
+            borderColor: isOpenCalendar ? '#665CD7' : ' #E9E9E9',
           }}
           onClick={handleOpenCalendar}
         >
@@ -119,6 +119,8 @@ export default function SingleInputDateRangePicker(
         </Box>
       </LocalizationProvider>
       <PopoverPopupState
+        views={['year', 'month', 'day']}
+        openTo="day"
         isOpenCalendar={isOpenCalendar}
         handleCloseCalendar={handleCloseCalendar}
         startDateHandleChange={handleStartDateChange}
@@ -136,6 +138,8 @@ const PopoverPopupState = (props: any) => {
     endDate,
     startDateHandleChange,
     endDateHandleChange,
+    views,
+    openTo,
   } = props;
 
   const open = Boolean(isOpenCalendar);
@@ -170,11 +174,22 @@ const PopoverPopupState = (props: any) => {
             <MyCustomLayout
               value={startDate}
               onChange={startDateHandleChange}
+              views={views}
+              openTo={openTo}
             />
           </Box>
           <Divider orientation="vertical" flexItem sx={{ color: '#929292' }} />
           <Box>
-            <MyCustomLayout value={endDate} onChange={endDateHandleChange} />
+            <MyCustomLayout
+              value={endDate}
+              onChange={endDateHandleChange}
+              views={views}
+              openTo={openTo}
+            />
+            <Box sx={{display:"flex",justifyContent:"flex-end",alignItems:"center",}}>
+              <Button onClick={handleCloseCalendar}>Cancel</Button>
+              <Button onClick={handleCloseCalendar}>Submit</Button>
+            </Box>
           </Box>
         </Box>
       </Popover>
@@ -183,13 +198,24 @@ const PopoverPopupState = (props: any) => {
 };
 
 function MyCustomLayout(props: any) {
-  const { value, onChange=()=>{}, content, actionBar } = props;
+  const {
+    value,
+    onChange = () => {},
+    views,
+    openTo,
+    disableFuture,
+    disablePast,
+  } = props;
 
   // Put the action bar before the content
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateCalendar
         value={value}
+        views={views}
+        openTo={openTo}
+        disableFuture={disableFuture}
+        disablePast={disablePast}
         onChange={(newValue) => onChange(newValue)}
       />{' '}
     </LocalizationProvider>
