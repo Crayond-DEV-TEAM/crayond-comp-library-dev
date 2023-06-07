@@ -13,5 +13,5 @@ const Template: ComponentStory<typeof RoleManagement> = (args) => (
 export const Primary = Template.bind({});
 
 Primary.args = {
-  rootStyle: { backgroundColor: '' },
+
 };
