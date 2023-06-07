@@ -6,18 +6,17 @@ import { TextField } from '@mui/material';
 export interface InputProps {
     sx?: SxProps<Theme>;
     type?: string;
-    size?: 'OverridableStringUnion<"small" | "medium", TextFieldPropsSizeOverrides> | undefined';
     helperText?: string;
     placeholder?: string;
     errorMessage?: string;
     isReadOnly?: boolean;
     isError?: boolean;
-    // multiline?: boolean;
+    multiline?: boolean;
     rowsMax?: any;
     rows?: number;
     minRows?: number;
     maxRows?: number;
-    fullWidth?: boolean;
+    fullWidth?: boolean | undefined;
     value?: string;
     endAdornment?: any;
     startAdornment?: any;
@@ -25,19 +24,19 @@ export interface InputProps {
     textFieldStyle?: object | any;
     disabled?: boolean;
     variant?: "" | "standard" | "filled" | "outlined";
-    onChange?: () => void;
+    onChange?: (e: any) => void;
 }
 
 export const Input = (props: InputProps) => {
     const {
         type = '',
-        size,
         textFieldStyle = {},
-        variant = '',
+        // variant = '',
         value = '',
         placeholder = '',
-        fullWidth = '',
+        fullWidth = true,
         errorMessage = '',
+        multiline = false,
         onChange = () => null,
         isError = false,
         rows,
@@ -50,14 +49,13 @@ export const Input = (props: InputProps) => {
     return (
         <TextField
             type={type}
-            // size={size}
             sx={{ ...styles.textFieldSx, ...textFieldStyle }}
             // variant={variant}
             value={value}
             placeholder={placeholder}
-            // fullWidth={fullWidth}
+            fullWidth={fullWidth}
             disabled={disabled}
-            // multiline={multiline}
+            multiline={multiline}
             maxRows={maxRows}
             minRows={minRows}
             onChange={onChange}
