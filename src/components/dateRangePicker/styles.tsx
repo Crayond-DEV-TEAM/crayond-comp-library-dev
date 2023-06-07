@@ -1,5 +1,11 @@
 export const styles = {
   mainBox: {
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    borderRadius: '4px',
+    border: ' 1px solid #E9E9E9',
     '&: hover': {
       border: ' 1px solid #B2ADEB',
     },
@@ -9,8 +15,6 @@ export const styles = {
   },
 
   inputStyleRoot: {
-    border: '1px solid #E9E9E9',
-    borderRadius: '4px',
     '& .MuiSvgIcon-root': {
       display: 'none',
     },
@@ -21,6 +25,8 @@ export const styles = {
       marginLeft: '12px',
     },
     '& .MuiOutlinedInput-root': {
+      flexDirection: 'row-reverse',
+
       width: '100%',
       '&:focus': {
         outline: 'none',
@@ -41,16 +47,27 @@ export const styles = {
       padding: '0px 8px',
       opacity: 0,
     },
-    '& .MuiTypography-root': {
-        //   opacity: 0,
-        // '&::before': {
-        //   content: '"|"',
-        // },
-        // '&::after': {
-        //   content: '"|"',
-        //   background: '#f91c1c',
-        //   opacity: 0
-        // },
+  },
+
+  divider: {
+    maxHeight: '30px',
+    marginTop: '13px',
+    color: '#929292',
+  },
+
+  calendarContainer: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    width: 'fit-content',
+    border: '1px solid #665CD7',
+    borderRadius: '8px',
+    boxShadow: ' 0px 8px 12px #00000014',
+    padding: '16px 0px',
+    '& .MuiPickersPopper-paper': {
+      borderRadius: '8px',
+    },
+    '& .MuiDateRangeCalendar-monthContainer': {
+      borderRadius: '8px',
     },
   },
 };

@@ -1,27 +1,25 @@
-import { Divider, IconButton } from '@mui/material';
+import { Divider } from '@mui/material';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Popover from '@mui/material/Popover';
 import {
   DatePicker,
-  DatePickerToolbar,
-  DatePickerToolbarProps,
+  StaticDatePicker,
   pickersLayoutClasses,
 } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import {
   PickersLayoutContentWrapper,
-  PickersLayoutProps,
   PickersLayoutRoot,
   usePickerLayout,
 } from '@mui/x-date-pickers/PickersLayout';
-import { DateView } from '@mui/x-date-pickers/models';
-import dayjs, { Dayjs } from 'dayjs';
 import { useState } from 'react';
 import CalendarIcon from '../../assets/calendarIcon';
-import { styles } from './styles';
-import { DateRangePicker } from '@mui/x-date-pickers-pro';
 import './style.css';
-import React from 'react';
+import { styles } from './styles';
+import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+
 interface DateRangePickerProps {
   label: string;
   onChange: () => void;
@@ -37,67 +35,57 @@ export default function SingleInputDateRangePicker(
 ) {
   const { value, onChange, inputStyleRoot, dateFormat, disablePast } = props;
 
-  const [startValues, setStartValue] = useState<any>(null);
-  const [isCalendarOpen, setCalendarOpen] = useState(false);
+  const [startDate, setStartDate] = useState<any>(null);
+  const [endDate, setEndDate] = useState<any>(null);
+  const [isOpenCalendar, setOpenCalendar] = useState<HTMLButtonElement | null>(
+    null
+  );
 
   const handleStartDateChange = (date: any) => {
-    setStartValue(date);
+    console.log(date,"start");
+    
+    setStartDate(date);
   };
 
-  const handleOpenCalendar = () => {
-    setCalendarOpen(true);
+  const handleEndDateChange = (date: any) => {
+    console.log(date,"end");
+    
+    setEndDate(date);
   };
 
+  const handleOpenCalendar = (event: any) => {
+    setOpenCalendar(event.currentTarget);
+    console.log('henry');
+  };
 
-  const CustomDatePickerIcon = (props: any) => {
-    return (
-      <IconButton {...props}>
-        <CalendarIcon />
-      </IconButton>
-    );
+  const handleCloseCalendar = () => {
+    setOpenCalendar(null);
   };
   return (
     <>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-       
-
         <Box
           sx={{
-            ...styles.root,
-            ':hover': {
-              border: ' 1px solid#B2ADEB',
-            },
+            ...styles.mainBox,
+            border: isOpenCalendar ? '1px solid #665CD7' : '',
           }}
           onClick={handleOpenCalendar}
         >
           <DatePicker
-            open={false}
             sx={{ ...styles.inputStyleRoot, ...inputStyleRoot }}
-            value={startValues}
-            // label={
-            //   <InputLabel
-            //     sx={{ color: 'red', background: 'red' }}
-            //     shrink={true}
-            //     htmlFor="date-picker-placeholder"
-            //   >
-            //     Select a date
-            //   </InputLabel>
-            // }
+            value={startDate}
             format={'DD MMM YY'}
-            // disablePast={disablePast}
-            // disableFuture={true}
+            disablePast={disablePast}
             views={['year', 'month', 'day']}
-            onChange={handleStartDateChange}
-            components={{ OpenPickerIcon: CalendarIcon }}
-            slots={{ layout: CustomLayout }}
+            // onChange={handleDateChange}
+            components={{
+              OpenPickerIcon: CalendarIcon,
+            }}
+            disableFuture={true}
             slotProps={{
-              layout: {
-                sx: {
-                  [`.${pickersLayoutClasses.contentWrapper}`]: {
-                    borderRadius: '8px',
-                    border: '1px solid #665CD7',
-                    marginTop: '10px',
-                  },
+              textField: {
+                InputProps: {
+                  placeholder: 'Check-in',
                 },
               },
               day: {
@@ -106,41 +94,21 @@ export default function SingleInputDateRangePicker(
             }}
           />
 
-          <Divider
-            orientation="vertical"
-            flexItem
-            sx={{ maxHeight: '30px', marginTop: '13px', color: '#929292' }}
-          />
+          <Divider orientation="vertical" flexItem sx={{ ...styles.divider }} />
 
           <DatePicker
-            open={isCalendarOpen}
+            // open={isCalendarOpen}
             sx={{ ...styles.inputStyleRoot, ...inputStyleRoot }}
-            value={EndValues}
+            value={endDate}
             format={'DD MMM YY'}
             // disablePast={disablePast}
             // disableFuture={true}
             views={['year', 'month', 'day']}
-            onChange={handleEndDateChange}
-            slots={{
-              layout: CustomLayout,
-
-              toolbar: CustomToolbar,
-            }}
+            // onChange={handleEndDateChange}
             slotProps={{
-              toolbar: {
-                toolbarFormat: 'YYYY',
-                toolbarPlaceholder: '??',
-              },
-              actionBar: {
-                actions: ['clear','accept'],
-              },
-              layout: {
-                sx: {
-                  [`.${pickersLayoutClasses.contentWrapper}`]: {
-                    borderRadius: '8px',
-                    border: '1px solid #665CD7',
-                    marginTop: '10px',
-                  },
+              textField: {
+                InputProps: {
+                  placeholder: 'Check-out',
                 },
               },
               day: {
@@ -150,7 +118,80 @@ export default function SingleInputDateRangePicker(
           />
         </Box>
       </LocalizationProvider>
-
+      <PopoverPopupState
+        isOpenCalendar={isOpenCalendar}
+        handleCloseCalendar={handleCloseCalendar}
+        startDateHandleChange={handleStartDateChange}
+        endDateHandleChange={handleEndDateChange}
+      />
     </>
+  );
+}
+
+const PopoverPopupState = (props: any) => {
+  const {
+    isOpenCalendar,
+    handleCloseCalendar,
+    startDate,
+    endDate,
+    startDateHandleChange,
+    endDateHandleChange,
+  } = props;
+
+  const open = Boolean(isOpenCalendar);
+  const id = open ? 'simple-popover' : undefined;
+
+  return (
+    <>
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={isOpenCalendar}
+        onClose={handleCloseCalendar}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        anchorPosition={{
+          top: 12,
+          left: 0,
+        }}
+      >
+        <Box
+          sx={{
+            ...styles.calendarContainer,
+          }}
+        >
+          <Box>
+            <MyCustomLayout
+              value={startDate}
+              onChange={startDateHandleChange}
+            />
+          </Box>
+          <Divider orientation="vertical" flexItem sx={{ color: '#929292' }} />
+          <Box>
+            <MyCustomLayout value={endDate} onChange={endDateHandleChange} />
+          </Box>
+        </Box>
+      </Popover>
+    </>
+  );
+};
+
+function MyCustomLayout(props: any) {
+  const { value, onChange=()=>{}, content, actionBar } = props;
+
+  // Put the action bar before the content
+  return (
+    <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DateCalendar
+        value={value}
+        onChange={(newValue) => onChange(newValue)}
+      />{' '}
+    </LocalizationProvider>
   );
 }

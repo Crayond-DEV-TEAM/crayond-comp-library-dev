@@ -5,7 +5,6 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { useState } from 'react';
 import CalendarIcon from '../../assets/calendarIcon';
 import { styles } from './styles';
-
 interface SingleDatePickerProps {
   label: string;
   onChange: () => void;
@@ -62,3 +61,4 @@ SingleDatePicker.defaultProps = {
   label: 'Date Picker',
 };
 export default SingleDatePicker;
+
