@@ -75,7 +75,6 @@ export const styles = {
     border: '1px solid #665CD7',
     borderRadius: '8px',
     cursor: 'pointer',
-
   },
   unSelectedCard: {
     padding: '1px 12px',

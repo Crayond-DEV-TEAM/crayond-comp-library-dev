@@ -4,52 +4,38 @@ import { Box, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
-import React, { forwardRef, useState, useRef } from 'react';
+import React, { forwardRef, useRef } from 'react';
 import { useHover } from 'ahooks';
 import { styles } from './style';
 import { IOSSwitch } from './switch';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Input } from './input';
+import { RoleManagementProps } from './props';
 
 
-type Role = {
-    roleNo: string;
-    role: string;
-    isActive: boolean;
-};
-export interface RoleItemProps {
-    sx?: SxProps<Theme>;
-    editIndex?: number;
-    clickIndex?: number;
-    index?: number | undefined;
-    name?: string;
-    x?: object | undefined;
-    roleNo?: string;
-    handleRoleClick?: (x: object | undefined, index: number | undefined) => void;
-    isActive?: boolean;
-    onEdit?: (x: object | undefined, index: number | undefined) => void;
-    handleChange?: (key: string, e: object, index: number | undefined) => void;
-    handleSave?: (x: Role | undefined, index: number | undefined) => void;
-    handleClose?: () => void;
-}
-
-
-// eslint-disable-next-line react/display-name
-export const RoleItem = forwardRef((props: RoleItemProps): JSX.Element => {
+export const RoleItem = forwardRef((props: RoleManagementProps): JSX.Element => {
     const {
         isActive,
         handleRoleClick = () => false,
-        onEdit = () => false,
+        onEditRole = () => false,
         handleChange = () => false,
         roleNo,
         name,
         x,
         editIndex,
         clickIndex,
+        closeIconPropSx,
+        checkIconPropsSx,
+        roleCardSx,
+        roleUnselectedCardSx,
         index,
+        roleNoProps,
+        inputStyle,
+        editIconProps,
         handleSave = () => false,
         handleClose = () => false,
+        handleSwitch = () => false,
     } = props;
 
     const ref = useRef(null);
@@ -62,49 +48,81 @@ export const RoleItem = forwardRef((props: RoleItemProps): JSX.Element => {
             sx={styles.roleItemRootSx}
             ref={ref}
         >
-            <Box sx={clickIndex === index ? styles.card : styles.unSelectedCard}>
+            <Box sx={clickIndex === index ? { ...styles.card, ...roleCardSx } : { ...styles.unSelectedCard, ...roleUnselectedCardSx }} >
                 <Grid container alignItems={'center'} onClick={() => handleRoleClick(x, index)}>
-
-                    <Grid item lg={editIndex === index ? 4 : 2.5}>
+                    <Grid item lg={editIndex === index ? 4 : 2.5}
+                        md={editIndex === index ? 4 : 2.5}
+                        sm={editIndex === index ? 4 : 2.5}>
                         {
                             editIndex === index ? <Input
-                                textFieldStyle={styles?.roleInput}
+                                textFieldStyle={{
+                                    justifyContent: 'center',
+                                    // background: 'red',
+                                    '& div': {
+                                        height: '22px',
+                                        padding: '0 ',
+                                        fontSize: '13px',
+                                        margin: '0',
+                                        '& fieldset': {
+                                            border: '0 !important',
+                                            borderRadius: '0 !important',
+                                            borderBottom: '1px solid #D3D3D3 !important',
+                                        }
+                                    }
+                                }}
                                 value={roleNo}
                                 onChange={(e: any) => handleChange('roleNo', e?.target?.value, index)}
+
                             /> :
                                 <Typography
-                                    sx={styles.roleNo}>
+                                    sx={{ ...styles.roleNo, roleNoProps }}>
                                     {roleNo}-
                                 </Typography>
                         }
                     </Grid>
-                    <Grid item lg={editIndex === index ? 5 : 4.5}>
+                    <Grid item lg={editIndex === index ? 5 : 4.5}
+                        md={editIndex === index ? 5 : 4.5}
+                        sm={editIndex === index ? 5 : 4.5}>
                         {
                             editIndex === index ? <Input
-                                textFieldStyle={styles?.roleInput}
+                                textFieldStyle={{
+                                    justifyContent: 'center',
+                                    background: inputStyle?.inputBackground ?? 'none',
+                                    '& div': {
+                                        height: inputStyle?.height ?? '22px',
+                                        padding: inputStyle?.padding ?? '0 ',
+                                        fontSize: inputStyle?.fontSize ?? '13px',
+                                        margin: inputStyle?.margin ?? '0',
+                                        '& fieldset': {
+                                            border: inputStyle?.border ?? '0 !important',
+                                            borderRadius: inputStyle?.borderRadius ?? '0 !important',
+                                            borderBottom: inputStyle?.borderBottom ?? '1px solid #D3D3D3 !important',
+                                        }
+                                    }
+                                }}
                                 value={name}
                                 onChange={(e: any) => handleChange('role', e?.target?.value, index)}
-                                placeholder='Description' /> :
-                                <Typography sx={styles.roleNo}>
+                                placeholder='Description'
+
+                            /> :
+                                <Typography sx={{ ...styles.roleNo, ...roleNoProps }}>
                                     {` ${name}`}
                                 </Typography>
                         }
                     </Grid>
                     {
                         editIndex !== index &&
-                        <Grid item lg={2}>
+                        <Grid item lg={2} md={2} sm={2}>
                             <IconButton
-                                sx={styles.editIcon}
+                                sx={{ ...styles.editIcon, ...editIconProps }}
                                 disableRipple
-                                onClick={() => onEdit(x, index)}
+                                onClick={() => onEditRole(x, index)}
                                 aria-owns={anchorEl ? 'simple-menu' : undefined}
                                 aria-haspopup="true"
                             >
                                 {isHovering ? (
                                     <EditIcon
                                         sx={{
-                                            width: '3px',
-                                            height: '12px',
                                             cursor: 'pointer',
                                             opacity: anchorEl ? 0.5 : 1
                                         }}
@@ -116,23 +134,29 @@ export const RoleItem = forwardRef((props: RoleItemProps): JSX.Element => {
 
                         </Grid>
                     }
-                    <Grid item lg={3}>
+                    <Grid item lg={3} md={3} sm={3}>
                         {
-                            editIndex === index ? <Stack direction={'row'}
-                                alignItems={'center'} justifyContent={'space-between'}
-                            >
-                                <IconButton sx={styles.CheckIcon} onClick={() => handleSave(x, index)}>
-                                    <CheckIcon />
-                                </IconButton>
-                                <IconButton sx={styles.closeIcon} onClick={handleClose}>
-                                    <CloseIcon />
-                                </IconButton>
-                            </Stack> : <FormGroup sx={styles.switchForm}>
-                                <FormControlLabel sx={{ m: 0 }}
-                                    control={<IOSSwitch sx={{ m: 1 }} value={isActive} />}
-                                    label={undefined}
-                                />
-                            </FormGroup>
+                            editIndex === index ?
+                                <Stack direction={'row'}
+                                    alignItems={'center'} justifyContent={'space-between'}
+                                >
+                                    <IconButton sx={{ ...styles.CheckIcon, ...checkIconPropsSx }}
+                                        onClick={() => handleSave(x, index)}>
+                                        <CheckIcon />
+                                    </IconButton>
+                                    <IconButton sx={{ ...styles.closeIcon, ...closeIconPropSx }}
+                                        onClick={handleClose}>
+                                        <CloseIcon />
+                                    </IconButton>
+                                </Stack> :
+                                <FormGroup sx={styles.switchForm}>
+                                    <FormControlLabel sx={{ m: 0 }}
+                                        control={<IOSSwitch
+                                            onChange={(e) => handleSwitch(e?.target?.checked, index)}
+                                            sx={{ m: 1 }} value={isActive} />}
+                                        label={undefined}
+                                    />
+                                </FormGroup>
                         }
 
                     </Grid>

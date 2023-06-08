@@ -1,33 +1,10 @@
 import { styles } from "./style"
 import { InputAdornment, SxProps, Theme } from '@mui/material';
 import { TextField } from '@mui/material';
+import { inputStyle } from "./props";
 
 
-export interface InputProps {
-    sx?: SxProps<Theme>;
-    type?: string;
-    helperText?: string;
-    placeholder?: string;
-    errorMessage?: string;
-    isReadOnly?: boolean;
-    isError?: boolean;
-    multiline?: boolean;
-    rowsMax?: any;
-    rows?: number;
-    minRows?: number;
-    maxRows?: number;
-    fullWidth?: boolean | undefined;
-    value?: string;
-    endAdornment?: any;
-    startAdornment?: any;
-    header?: string;
-    textFieldStyle?: object | any;
-    disabled?: boolean;
-    variant?: "" | "standard" | "filled" | "outlined";
-    onChange?: (e: any) => void;
-}
-
-export const Input = (props: InputProps) => {
+export const Input = (props: inputStyle) => {
     const {
         type = '',
         textFieldStyle = {},

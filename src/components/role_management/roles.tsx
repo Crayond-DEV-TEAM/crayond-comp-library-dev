@@ -17,6 +17,14 @@ export const Roles = (props: RoleManagementProps) => {
         state,
         add,
         search,
+        roleBoxSx,
+        roleHeadBorderSx,
+        titlePropsSx,
+        addIconSx,
+        roleCardSx,
+        checkIconPropsSx,
+        closeIconPropSx,
+        inputStyle = {},
         onEditRole = () => false,
         handleChange = () => false,
         handleSave = () => false,
@@ -26,28 +34,31 @@ export const Roles = (props: RoleManagementProps) => {
         handleRoleClick = () => false,
         handleClose = () => false,
         handleSearch = () => false,
+        handleSwitch = () => false,
     } = props
 
 
     return (
         <Box
-            sx={styles.roleRootSx}
+            sx={{ ...styles.roleRootSx, ...roleBoxSx }}
         >
-            <Box sx={styles.header}>
-                <Typography sx={styles.titleSx}>{`${roles?.length} Roles`}</Typography>
-                <Button variant='contained' onClick={handleAddRole} sx={styles?.iconBtn}>
+            <Box sx={{ ...styles.header, ...roleHeadBorderSx }}>
+                <Typography sx={{ ...styles.titleSx, ...titlePropsSx }}>{`${roles?.length} Roles`}</Typography>
+                <Button variant='contained' onClick={handleAddRole}
+                    sx={{ ...styles?.iconBtn, ...addIconSx }}>
                     <AddIcon /><Typography>Add</Typography>
                 </Button>
             </Box>
 
             <Box sx={{ py: 2, px: 1.25 }}>
                 <Input
-                    placeholder='Search here'
+                    placeholder='Search Here'
                     value={search}
                     textFieldStyle={styles.search}
+                    startAdornment={< SearchIcon sx={{ ml: 1, fontSize: '16px', color: '#818181' }} />}
                     onChange={(e: any) => handleSearch('text', e?.target?.value)}
                     fullWidth={true}
-                    startAdornment={<SearchIcon sx={{ ml: 1, fontSize: '16px', color: '#818181' }} />}
+
                 />
             </Box>
             <Box>
@@ -71,13 +82,19 @@ export const Roles = (props: RoleManagementProps) => {
                                     roleNo={x?.roleNo}
                                     x={x}
                                     handleRoleClick={handleRoleClick}
-                                    onEdit={onEditRole}
+                                    onEditRole={onEditRole}
                                     handleChange={handleChange}
                                     handleSave={handleSave}
                                     handleClose={handleClose}
-
-
-                                />
+                                    handleSwitch={handleSwitch}
+                                    checkIconPropsSx={checkIconPropsSx}
+                                    closeIconPropSx={closeIconPropSx}
+                                    roleCardSx={roleCardSx}
+                                    rootStyle={}
+                                    roles={[]}
+                                    search={{
+                                        text: undefined
+                                    }} />
                             </Box>
                         );
                     })
@@ -87,30 +104,63 @@ export const Roles = (props: RoleManagementProps) => {
                     add && <Box
                         sx={styles.roleItemRootSx}
                     >
-                        <Box sx={styles.card}>
+                        <Box sx={{ ...styles.card, ...roleCardSx }}>
                             <Grid container alignItems={'center'} justifyContent={'space-between'}>
-
-                                <Grid item lg={3}>
+                                <Grid item lg={3} md={3} sm={3}>
                                     <Input
-                                        textFieldStyle={styles?.roleInput}
+                                        textFieldStyle={{
+                                            justifyContent: 'center',
+                                            // background: 'red',
+                                            '& div': {
+                                                height: '22px',
+                                                padding: '0 ',
+                                                fontSize: '13px',
+                                                margin: '0',
+                                                '& fieldset': {
+                                                    border: '0 !important',
+                                                    borderRadius: '0 !important',
+                                                    borderBottom: '1px solid #D3D3D3 !important',
+                                                }
+                                            }
+                                        }}
                                         value={state?.roleNo}
                                         onChange={(e: any) => handleAddChange('roleNo', e?.target?.value)}
+
+
                                     />
                                 </Grid>
-                                <Grid item lg={5}>
+                                <Grid item lg={5} md={5} sm={5}>
                                     <Input
-                                        textFieldStyle={styles?.roleInput}
+                                        textFieldStyle={{
+                                            justifyContent: 'center',
+                                            // background: 'red',
+                                            '& div': {
+                                                height: '22px',
+                                                padding: '0 ',
+                                                fontSize: '13px',
+                                                margin: '0',
+                                                '& fieldset': {
+                                                    border: '0 !important',
+                                                    borderRadius: '0 !important',
+                                                    borderBottom: '1px solid #D3D3D3 !important',
+                                                }
+                                            }
+                                        }}
                                         value={state?.role}
                                         onChange={(e: any) => handleAddChange('role', e?.target?.value)}
-                                        placeholder='Description' />
+                                        placeholder='Description'
+
+                                    />
+
                                 </Grid>
-                                <Grid item lg={3}>
+                                <Grid item lg={3} md={3} sm={3}>
                                     <Stack direction={'row'} alignItems={'center'} >
-                                        <IconButton sx={styles.CheckIcon}
+                                        <IconButton sx={{ ...styles.CheckIcon, ...checkIconPropsSx }}
                                             onClick={() => handleAddSave(state)}>
                                             <CheckIcon />
                                         </IconButton>
-                                        <IconButton sx={styles.closeIcon} onClick={handleClose}>
+                                        <IconButton sx={{ ...styles.closeIcon, ...closeIconPropSx }}
+                                            onClick={handleClose}>
                                             <CloseIcon />
                                         </IconButton>
                                     </Stack>

@@ -5,7 +5,7 @@ import { Roles } from './roles';
 import { useState } from 'react';
 
 export default function RoleManagement(props: RoleManagementProps) {
-  const { rootStyle } = props;
+  const { rootStyle, rolesView, rolesGrid, roleTitleSx, subRootPropsSx } = props;
 
   type Role = {
     roleNo: string;
@@ -117,19 +117,30 @@ export default function RoleManagement(props: RoleManagementProps) {
     setState(initialState)
     setEditIndex(null)
     setAdd(false)
-
   }
+
+  const handleSwitch = (e: boolean, index: number) => {
+    const tempArr = [...roles]
+
+    tempArr[index] = {
+      ...tempArr[index],
+      isActive: e
+    }
+    setRoles([...tempArr]);
+  }
+
+  console.log(roles, 'rolessss');
 
 
   return (
     <Box sx={{ ...styles.rootSx, ...rootStyle }}>
       <Box sx={styles?.headingPx}>
-        <Typography sx={styles?.roleHeading}>Role Management</Typography>
+        <Typography sx={{ ...styles?.roleHeading, ...roleTitleSx }}>Role Management</Typography>
       </Box>
 
-      <Box sx={styles?.subRootSx}>
+      <Box sx={{ ...styles?.subRootSx, ...subRootPropsSx }}>
         <Grid container sx={styles?.containerSx}>
-          <Grid item xs={12} sm={4} md={2.5}>
+          <Grid item {...rolesGrid?.breakpoints} >
             <Roles
               editIndex={editIndex}
               clickIndex={clickIndex}
@@ -145,6 +156,7 @@ export default function RoleManagement(props: RoleManagementProps) {
               handleClose={handleClose}
               handleSearch={handleSearch}
               search={search?.text}
+              handleSwitch={handleSwitch}
               add={add}
             // services={services?.data}
             // handleServiceClick={handleOnClick}
@@ -153,15 +165,23 @@ export default function RoleManagement(props: RoleManagementProps) {
             // onEditServices={onEditServices}
             />
           </Grid>
-          <Grid item xs={12} sm={8} md={9.5}>
+          <Grid item {...rolesView?.breakpoints} >
 
           </Grid>
         </Grid>
       </Box>
-    </Box>
+    </Box >
   );
 }
 
 RoleManagement.defaultProps = {
   rootStyle: {},
+  rolesGrid: {
+    breakpoints: {},
+  },
+  rolesView: {
+    breakpoints: {}
+  },
+  roleTitleSx: {},
+  subRootPropsSx: {},
 };
