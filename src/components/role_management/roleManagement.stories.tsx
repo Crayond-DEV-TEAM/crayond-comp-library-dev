@@ -62,7 +62,6 @@ export default {
 
   },
   args: {
-
     rootStyle: {},
     roles: [
       {

@@ -11,6 +11,9 @@ export const styles = {
     border: '1px solid #E9E9E9',
     borderRadius: '10px',
     backgroundColor: '#FFFFFF',
+    height: '100%',
+    overflow: 'hidden',
+
   },
   roleHeading: {
     color: '#001C3C',
@@ -19,7 +22,8 @@ export const styles = {
   subRootSx: {
     backgroundColor: '#FAFAFA',
     borderRadius: '12px',
-    padding: '26px 70px'
+    padding: '26px 70px',
+    height: 'calc(100vh - 150px)'
   },
   containerSx: {
     '& div': {
@@ -83,7 +87,15 @@ export const styles = {
     cursor: 'pointer',
   },
   roleItemRootSx: {
-    padding: '8px 12px'
+    padding: '8px 12px',
+  },
+  overflowItemSx: {
+    overflow: 'auto',
+    height: 'calc(100% - 140px)',
+    "&::-webkit-scrollbar": {
+      display: "none",
+    },
+
   },
   editIcon: {
     width: '100% !important',

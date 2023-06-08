@@ -4,17 +4,17 @@ import { Box, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
-import React, { forwardRef, useRef } from 'react';
+import React, { forwardRef } from 'react';
 import { useHover } from 'ahooks';
 import { styles } from './style';
-import { IOSSwitch } from './switch';
+import { SwitchBox } from './switch';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Input } from './input';
 import { RoleManagementProps } from './props';
 
 
-export const RoleItem = forwardRef((props: RoleManagementProps): JSX.Element => {
+export const RoleItem = forwardRef((props: any): JSX.Element => {
     const {
         isActive,
         handleRoleClick = () => false,
@@ -38,7 +38,7 @@ export const RoleItem = forwardRef((props: RoleManagementProps): JSX.Element => 
         handleSwitch = () => false,
     } = props;
 
-    const ref = useRef(null);
+    const ref = React.useRef(null);
     const isHovering = useHover(ref);
 
     const [anchorEl] = React.useState<null | HTMLElement>(null);
@@ -57,16 +57,16 @@ export const RoleItem = forwardRef((props: RoleManagementProps): JSX.Element => 
                             editIndex === index ? <Input
                                 textFieldStyle={{
                                     justifyContent: 'center',
-                                    // background: 'red',
+                                    background: inputStyle?.inputBackground ?? 'none',
                                     '& div': {
-                                        height: '22px',
-                                        padding: '0 ',
-                                        fontSize: '13px',
-                                        margin: '0',
+                                        height: inputStyle?.height ?? '22px',
+                                        padding: inputStyle?.padding ?? '0 ',
+                                        fontSize: inputStyle?.fontSize ?? '13px',
+                                        margin: inputStyle?.margin ?? '0',
                                         '& fieldset': {
-                                            border: '0 !important',
-                                            borderRadius: '0 !important',
-                                            borderBottom: '1px solid #D3D3D3 !important',
+                                            border: inputStyle?.border ?? '0 !important',
+                                            borderRadius: inputStyle?.borderRadius ?? '0 !important',
+                                            borderBottom: inputStyle?.borderBottom ?? '1px solid #D3D3D3 !important',
                                         }
                                     }
                                 }}
@@ -151,8 +151,8 @@ export const RoleItem = forwardRef((props: RoleManagementProps): JSX.Element => 
                                 </Stack> :
                                 <FormGroup sx={styles.switchForm}>
                                     <FormControlLabel sx={{ m: 0 }}
-                                        control={<IOSSwitch
-                                            onChange={(e) => handleSwitch(e?.target?.checked, index)}
+                                        control={<SwitchBox
+                                            onChange={(e: any) => handleSwitch(e?.target?.checked, index)}
                                             sx={{ m: 1 }} value={isActive} />}
                                         label={undefined}
                                     />

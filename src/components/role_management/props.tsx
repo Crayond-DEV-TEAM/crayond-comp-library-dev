@@ -3,7 +3,7 @@ type Role = {
     roleNo: string;
     role: string;
     isActive: boolean;
-};
+} | undefined;
 
 export interface inputStyle {
     type?: string;
@@ -36,15 +36,23 @@ export interface inputStyle {
     borderBottom?: string
 }
 
+export interface switchStyle {
+    width?: string;
+    height?: string,
+    color?: string,
+    backgroundColor?: string
+}
+
 export interface RoleManagementProps {
+    title: string,
     rootStyle: object,
-    editIndex: number | undefined,
+    editIndex: number | null | undefined,
     clickIndex: number | undefined,
     roleNo?: string;
     isActive?: boolean;
     name?: string;
     x?: object | undefined;
-    index?: number | undefined;
+    index?: number;
     roles: { roleNo: string; role: string; isActive: boolean; }[],
     state?: {
         role: string,
@@ -52,20 +60,18 @@ export interface RoleManagementProps {
         isActive: boolean,
     },
     add?: boolean,
-    search: {
-        text: string | undefined;
-    },
+    search: string,
 
     onEditRole?: (x: object | undefined, index: number | undefined) => void,
-    handleChange?: (key: string, e: any, index: number | undefined) => void,
-    handleSave?: (x: object | undefined, index: number | undefined) => void,
+    handleChange?: (key: string, e: any, index: number) => void,
+    handleSave?: (x: object | undefined, index: number) => void,
     handleAddChange?: (key: string, value: string) => void,
     handleAddSave?: (e: Role) => void,
     handleAddRole?: () => void,
     handleRoleClick?: (x: object | undefined, index: number | undefined) => void,
     handleClose?: () => void,
     handleSearch?: (key: string, value: string) => void,
-    handleSwitch?: (e: boolean, index: number | undefined) => void,
+    handleSwitch?: (e: boolean, index: number) => void,
     rolesGrid?: {
         breakpoints: object,
     },
@@ -84,5 +90,6 @@ export interface RoleManagementProps {
     roleUnselectedCardSx?: object,
     roleNoProps?: object,
     editIconProps?: object,
-    inputStyle?: inputStyle
+    inputStyle?: inputStyle,
+    switchStyle?:switchStyle
 }

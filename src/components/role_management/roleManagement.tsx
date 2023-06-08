@@ -1,4 +1,4 @@
-import { Box, Grid, Icon, Typography, Container } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import { RoleManagementProps } from './props';
 import { styles } from './style';
 import { Roles } from './roles';
@@ -12,7 +12,6 @@ export default function RoleManagement(props: RoleManagementProps) {
     role: string;
     isActive: boolean;
   };
-
 
   const roleData: Role[] = [
     {
@@ -30,13 +29,17 @@ export default function RoleManagement(props: RoleManagementProps) {
       role: 'Role 3',
       isActive: false,
     },
+    {
+      roleNo: 'RL094',
+      role: 'Role 4',
+      isActive: false,
+    },
+
   ];
 
-  type EditIndex = number | null;
+  type EditIndex = number | null | undefined;
+  type SearchText = string;
 
-  type Search = {
-    text: string | undefined;
-  };
 
   const initialState: Role = {
     roleNo: '',
@@ -44,12 +47,9 @@ export default function RoleManagement(props: RoleManagementProps) {
     isActive: false,
   };
 
-  // const [roles, setRoles] = useState([...roleData])
   const [roles, setRoles] = useState<Role[]>(roleData);
   const [state, setState] = useState(initialState)
-  const [search, setSearch] = useState<Search>({
-    text: '',
-  });
+  const [search, setSearch] = useState<SearchText>('')
 
   const [editIndex, setEditIndex] = useState<EditIndex>(null)
   const [clickIndex, setCickIndex] = useState<number>()
@@ -59,11 +59,11 @@ export default function RoleManagement(props: RoleManagementProps) {
     setAdd(true)
   }
 
-  const onEditRole = (x: object, index: number) => {
+  const onEditRole = (x: object | undefined, index: number | null | undefined) => {
     setEditIndex(index)
   }
 
-  const handleRoleClick = (x: object, index: number) => {
+  const handleRoleClick = (x: object | undefined, index: number | undefined) => {
     setCickIndex(index)
   }
 
@@ -82,14 +82,9 @@ export default function RoleManagement(props: RoleManagementProps) {
     setState({ ...state, [key]: value })
   }
 
-  const handleSave = (x: object, index: number) => {
-    const tempArr = [...roles]
-
-    tempArr[index] = {
-      ...tempArr[index],
-      role: x?.role,
-      roleNo: x?.roleNo
-    }
+  const handleSave = (x: Role, index: number) => {
+    let tempArr = [...roles]
+    tempArr[index] = x;
     setRoles([...tempArr]);
     setEditIndex(null)
   }
@@ -102,9 +97,7 @@ export default function RoleManagement(props: RoleManagementProps) {
 
   const handleSearch = (key: string, value: string) => {
     // debugger
-    setSearch({
-      ...search, [key]: value
-    })
+    setSearch(value)
   }
 
   const handleAddSave = (e: Role) => {
@@ -139,8 +132,8 @@ export default function RoleManagement(props: RoleManagementProps) {
       </Box>
 
       <Box sx={{ ...styles?.subRootSx, ...subRootPropsSx }}>
-        <Grid container sx={styles?.containerSx}>
-          <Grid item {...rolesGrid?.breakpoints} >
+        <Grid container sx={styles?.containerSx} height={'100%'}>
+          <Grid item {...rolesGrid?.breakpoints} height={'100%'} >
             <Roles
               editIndex={editIndex}
               clickIndex={clickIndex}
@@ -155,18 +148,12 @@ export default function RoleManagement(props: RoleManagementProps) {
               handleRoleClick={handleRoleClick}
               handleClose={handleClose}
               handleSearch={handleSearch}
-              search={search?.text}
+              search={search}
               handleSwitch={handleSwitch}
               add={add}
-            // services={services?.data}
-            // handleServiceClick={handleOnClick}
-            // searchTerm={searchTerm}
-            // handleSearch={handleSearch}
-            // onEditServices={onEditServices}
             />
           </Grid>
-          <Grid item {...rolesView?.breakpoints} >
-
+          <Grid item {...rolesView?.breakpoints} height={'100%'}>
           </Grid>
         </Grid>
       </Box>
@@ -175,6 +162,7 @@ export default function RoleManagement(props: RoleManagementProps) {
 }
 
 RoleManagement.defaultProps = {
+  title: 'Roles',
   rootStyle: {},
   rolesGrid: {
     breakpoints: {},
@@ -184,4 +172,38 @@ RoleManagement.defaultProps = {
   },
   roleTitleSx: {},
   subRootPropsSx: {},
-};
+  roleBoxSx: {},
+  roleHeadBorderSx: {},
+  titlePropsSx: {},
+  addIconSx: {},
+  roleCardSx: {},
+  checkIconPropsSx: {},
+  closeIconPropSx: {},
+  roleUnselectedCardSx: {},
+  roleNoProps: {},
+  editIconProps: {},
+  inputStyle: {
+    type: '',
+    helperText: '',
+    placeholder: '',
+    errorMessage: '',
+    isReadOnly: false,
+    isError: false,
+    multiline: false,
+    fullWidth: false,
+    value: '',
+    header: '',
+    textFieldStyle: {},
+    disabled: false,
+    variant: "standard",
+    onChange: (e: any) => null,
+    inputBackground: '',
+    height: '',
+    fontSize: '',
+    padding: '',
+    margin: '',
+    border: '',
+    borderRadius: '',
+    borderBottom: ''
+  },
+}

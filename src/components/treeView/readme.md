@@ -1,70 +1,45 @@
    
    # Readme
 
-   # Image of the tree view component =  ![Alt text](../../assets/role_Management.png)
+   # Image of the tree view component =  ![Alt text](../../assets/tree_view.png)
    
    # Component 
-
-   <RoleManagement
-        roles={[
-          {
-            roleNo= 'RL077',
-            role= 'Role 1',
-            isActive= false,
-          },
-          {
-            roleNo='RL045',
-            role= 'Role 2',
-            isActive= false,
-          },
-          {
-            roleNo= 'RL084',
-            role= 'Role 3',
-            isActive= false,
-          },
-        ]}
-        rolesGrid={
-          breakpoints= {
-            xs= 12,
-            sm= 4.5,
-            md= 3.5,
-            lg= 2.5
+    <TreeView
+        handleChange={handleCheckBox}
+        dataRow={rowArray}
+        onSubmit={onSubmit}
+        submitBtnText={'Submit'}
+        submitBtnOptions={{
+          variant: 'contained',
+          bgColor: 'purple',
+          textColor: '#ffff'
+        }}
+         checkboxBgColor={'red'}
+        checkboxWidth={16}  
+        checkboxHeight={16}
+        heading='Basic View'
+        leftSec={{
+          breakpoints: {
+            xs: 4,
+            sm: 4,
+            md: 6,
+            lg: 8
           }
-        }
-        rolesView={
-          breakpoints={
-            xs= 12,
-            sm= 9.5,
-            md= 8.5,
-            lg=9.5
+        }}
+        rightSec={{
+          breakpoints: {
+            xs: 8,
+            sm: 8,
+            md: 6,
+            lg: 4
           }
-        }
-        inputStyle={
-          type= ''
-          helperText= ''
-          placeholder= ''
-          errorMessage= '',
-          isReadOnly= false,
-          isError= false,
-          multiline= false,
-          fullWidth= true,
-          value= '',
-          startAdornment={<SearchIcon sx={{ ml: 1, fontSize: '16px', color: '#818181' }} />}
-          header= '',
-          textFieldStyle= {},
-          disabled= false,
-          variant= '',
-          onChange= {() => null},
-          inputBackground= '',
-          height= '',
-          fontSize= '',
-          padding='',
-          margin= '',
-          border= '',
-          borderRadius= '',
-          borderBottom= ''
-        }
+        }}
+         checkboxIcon={undefined}
+         uncheckedIcon={undefined}
+        checkboxBorderRadius={''}
+        checkboxBgColor={''}  
       />
+
 
 this above component show all props that are extracted. Now let's see the props in detailed which are listed 
 below: 
@@ -164,6 +139,7 @@ closeIconPropSx: close icon styling props
     inputStyle: {
       description: 'input styling as props'
     }
+
 
 
 
