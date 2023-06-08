@@ -58,6 +58,9 @@ export default {
     },
     inputStyle: {
       description: 'input styling as props'
+    },
+    switchStyle: {
+      description: 'switch styling as props'
     }
 
   },
@@ -133,7 +136,14 @@ export default {
       border: '',
       borderRadius: '',
       borderBottom: ''
+    },
+    switchStyle: {
+      width: '',
+      height: '',
+      color: '',
+      backgroundColor: ''
     }
+
   }
 
 } as ComponentMeta<typeof RoleManagement>;

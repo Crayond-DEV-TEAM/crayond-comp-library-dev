@@ -7,13 +7,18 @@ export const SwitchBox = styled(({
     height,
     backgroundColor,
     color,
+    thumbWidth,
+    onChange,
+    thumbHeight,
     ...props }: switchStyle) => (
-    <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
+    <Switch focusVisibleClassName=".Mui-focusVisible" onChange={onChange} disableRipple {...props} />
 ))(({ theme,
     width,
     height,
     backgroundColor,
-    color }) => ({
+    color,
+    thumbHeight,
+    thumbWidth }) => ({
         width: width ?? '42px',
         height: height ?? 24,
         padding: 0,
@@ -49,8 +54,8 @@ export const SwitchBox = styled(({
         },
         '& .MuiSwitch-thumb': {
             boxSizing: 'border-box',
-            width: 20,
-            height: 20,
+            width: thumbWidth ?? 20,
+            height: thumbHeight ?? 20,
         },
         '& .MuiSwitch-track': {
             borderRadius: 26 / 2,

@@ -40,7 +40,10 @@ export interface switchStyle {
     width?: string;
     height?: string,
     color?: string,
-    backgroundColor?: string
+    backgroundColor?: string,
+    onChange?: (checked: boolean | undefined, index: number) => void,
+    thumbWidth?: string,
+    thumbHeight?: string
 }
 
 export interface RoleManagementProps {
@@ -91,5 +94,5 @@ export interface RoleManagementProps {
     roleNoProps?: object,
     editIconProps?: object,
     inputStyle?: inputStyle,
-    switchStyle?:switchStyle
+    switchStyle?: switchStyle
 }

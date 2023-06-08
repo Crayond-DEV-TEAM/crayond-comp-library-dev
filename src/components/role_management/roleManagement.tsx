@@ -83,7 +83,7 @@ export default function RoleManagement(props: RoleManagementProps) {
   }
 
   const handleSave = (x: Role, index: number) => {
-    let tempArr = [...roles]
+    const tempArr = [...roles]
     tempArr[index] = x;
     setRoles([...tempArr]);
     setEditIndex(null)
@@ -196,7 +196,6 @@ RoleManagement.defaultProps = {
     textFieldStyle: {},
     disabled: false,
     variant: "standard",
-    onChange: (e: any) => null,
     inputBackground: '',
     height: '',
     fontSize: '',
@@ -206,4 +205,12 @@ RoleManagement.defaultProps = {
     borderRadius: '',
     borderBottom: ''
   },
+  switchStyle: {
+    width: '',
+    height: '',
+    color: '',
+    backgroundColor: '',
+    thumbWidth: '',
+    thumbHeight: ''
+  }
 }

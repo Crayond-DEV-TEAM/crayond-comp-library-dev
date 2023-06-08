@@ -1,5 +1,5 @@
 
-import { IconButton, SxProps, Theme, Grid, Stack } from '@mui/material';
+import { IconButton, Grid, Stack } from '@mui/material';
 import { Box, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
@@ -11,10 +11,9 @@ import { SwitchBox } from './switch';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Input } from './input';
-import { RoleManagementProps } from './props';
 
 
-export const RoleItem = forwardRef((props: any): JSX.Element => {
+export const RoleItem = forwardRef((props: unknown): JSX.Element => {
     const {
         isActive,
         handleRoleClick = () => false,
@@ -32,6 +31,7 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
         index,
         roleNoProps,
         inputStyle,
+
         editIconProps,
         handleSave = () => false,
         handleClose = () => false,
@@ -48,7 +48,8 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
             sx={styles.roleItemRootSx}
             ref={ref}
         >
-            <Box sx={clickIndex === index ? { ...styles.card, ...roleCardSx } : { ...styles.unSelectedCard, ...roleUnselectedCardSx }} >
+            <Box
+                sx={clickIndex === index ? { ...styles.card, ...roleCardSx } : { ...styles.unSelectedCard, ...roleUnselectedCardSx }} >
                 <Grid container alignItems={'center'} onClick={() => handleRoleClick(x, index)}>
                     <Grid item lg={editIndex === index ? 4 : 2.5}
                         md={editIndex === index ? 4 : 2.5}
@@ -71,7 +72,7 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                                     }
                                 }}
                                 value={roleNo}
-                                onChange={(e: any) => handleChange('roleNo', e?.target?.value, index)}
+                                onChange={(e: unknown) => handleChange('roleNo', e?.target?.value, index)}
 
                             /> :
                                 <Typography
@@ -101,7 +102,7 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                                     }
                                 }}
                                 value={name}
-                                onChange={(e: any) => handleChange('role', e?.target?.value, index)}
+                                onChange={(e: unknown) => handleChange('role', e?.target?.value, index)}
                                 placeholder='Description'
 
                             /> :
@@ -153,7 +154,8 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                                     <FormControlLabel sx={{ m: 0 }}
                                         control={<SwitchBox
                                             onChange={(e: any) => handleSwitch(e?.target?.checked, index)}
-                                            sx={{ m: 1 }} value={isActive} />}
+                                            sx={{ m: 1 }}
+                                            value={isActive} />}
                                         label={undefined}
                                     />
                                 </FormGroup>

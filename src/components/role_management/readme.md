@@ -64,6 +64,14 @@
           borderRadius= '',
           borderBottom= ''
         }
+        switchStyle={
+            width= '',
+            height= '',
+            color= '',
+            backgroundColor= ''
+            thumbWidth= '',
+            thumbHeight= ''
+        }
       />
 
 this above component show all props that are extracted. Now let's see the props in detailed which are listed 

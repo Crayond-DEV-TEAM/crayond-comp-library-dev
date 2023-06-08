@@ -1,5 +1,5 @@
 import { styles } from "./style"
-import { InputAdornment, SxProps, Theme } from '@mui/material';
+import { InputAdornment } from '@mui/material';
 import { TextField } from '@mui/material';
 import { inputStyle } from "./props";
 
