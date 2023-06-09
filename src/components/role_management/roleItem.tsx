@@ -1,10 +1,10 @@
 
-import { IconButton, Grid, Stack } from '@mui/material';
+import { IconButton, SxProps, Theme, Grid, Stack } from '@mui/material';
 import { Box, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useRef } from 'react';
 import { useHover } from 'ahooks';
 import { styles } from './style';
 import { SwitchBox } from './switch';
@@ -13,7 +13,30 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import { Input } from './input';
 
 
-export const RoleItem = forwardRef((props: unknown): JSX.Element => {
+type Role = {
+    roleNo: string;
+    role: string;
+    isActive: boolean;
+};
+export interface RoleItemProps {
+    sx?: SxProps<Theme>;
+    editIndex?: number;
+    clickIndex?: number;
+    index?: number | undefined;
+    name?: string;
+    x?: object | undefined;
+    roleNo?: string;
+    handleRoleClick?: (x: object | undefined, index: number | undefined) => void;
+    isActive?: boolean;
+    onEdit?: (x: object | undefined, index: number | undefined) => void;
+    handleChange?: (key: string, e: object, index: number | undefined) => void;
+    handleSave?: (x: Role | undefined, index: number | undefined) => void;
+    handleClose?: () => void;
+}
+
+
+// eslint-disable-next-line react/display-name
+export const RoleItem = forwardRef((props: any): JSX.Element => {
     const {
         isActive,
         handleRoleClick = () => false,
@@ -31,14 +54,13 @@ export const RoleItem = forwardRef((props: unknown): JSX.Element => {
         index,
         roleNoProps,
         inputStyle,
-
         editIconProps,
         handleSave = () => false,
         handleClose = () => false,
         handleSwitch = () => false,
     } = props;
 
-    const ref = React.useRef(null);
+    const ref = useRef(null);
     const isHovering = useHover(ref);
 
     const [anchorEl] = React.useState<null | HTMLElement>(null);
@@ -72,7 +94,7 @@ export const RoleItem = forwardRef((props: unknown): JSX.Element => {
                                     }
                                 }}
                                 value={roleNo}
-                                onChange={(e: unknown) => handleChange('roleNo', e?.target?.value, index)}
+                                onChange={(e: any) => handleChange('roleNo', e?.target?.value, index)}
 
                             /> :
                                 <Typography
@@ -102,7 +124,7 @@ export const RoleItem = forwardRef((props: unknown): JSX.Element => {
                                     }
                                 }}
                                 value={name}
-                                onChange={(e: unknown) => handleChange('role', e?.target?.value, index)}
+                                onChange={(e: any) => handleChange('role', e?.target?.value, index)}
                                 placeholder='Description'
 
                             /> :
@@ -113,7 +135,7 @@ export const RoleItem = forwardRef((props: unknown): JSX.Element => {
                     </Grid>
                     {
                         editIndex !== index &&
-                        <Grid item lg={2} md={2} sm={2}>
+                        <Grid item lg={1} md={1} sm={1}>
                             <IconButton
                                 sx={{ ...styles.editIcon, ...editIconProps }}
                                 disableRipple
@@ -155,7 +177,11 @@ export const RoleItem = forwardRef((props: unknown): JSX.Element => {
                                         control={<SwitchBox
                                             onChange={(e: any) => handleSwitch(e?.target?.checked, index)}
                                             sx={{ m: 1 }}
-                                            value={isActive} />}
+                                            value={isActive}
+                                            color={'primary'}
+                                            width={''}
+                                            height={''}
+                                            thumbColor={''} />}
                                         label={undefined}
                                     />
                                 </FormGroup>

@@ -25,7 +25,7 @@ export interface inputStyle {
     textFieldStyle?: object | any;
     disabled?: boolean;
     variant?: "" | "standard" | "filled" | "outlined";
-    onChange?: (e: any) => void;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
     inputBackground?: string;
     height?: string;
     fontSize?: string;
@@ -37,13 +37,21 @@ export interface inputStyle {
 }
 
 export interface switchStyle {
-    width?: string;
-    height?: string,
-    color?: string,
-    backgroundColor?: string,
-    onChange?: (checked: boolean | undefined, index: number) => void,
-    thumbWidth?: string,
-    thumbHeight?: string
+    // width?: string;
+    // height?: string,
+    // color?: string,
+    // backgroundColor?: string,
+    // thumbWidth?: string,
+    // thumbHeight?: string,
+    // value?: boolean
+
+    customProp: {
+        width: string,
+        height: string,
+        thumbColor: string,
+        onChange?: ((event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void),
+        color: string
+    };
 }
 
 export interface RoleManagementProps {
@@ -74,7 +82,7 @@ export interface RoleManagementProps {
     handleRoleClick?: (x: object | undefined, index: number | undefined) => void,
     handleClose?: () => void,
     handleSearch?: (key: string, value: string) => void,
-    handleSwitch?: (e: boolean, index: number) => void,
+    handleSwitch?: (e: any, index: number) => void,
     rolesGrid?: {
         breakpoints: object,
     },

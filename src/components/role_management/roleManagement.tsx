@@ -124,7 +124,6 @@ export default function RoleManagement(props: RoleManagementProps) {
 
   console.log(roles, 'rolessss');
 
-
   return (
     <Box sx={{ ...styles.rootSx, ...rootStyle }}>
       <Box sx={styles?.headingPx}>

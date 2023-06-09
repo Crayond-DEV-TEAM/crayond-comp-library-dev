@@ -22,7 +22,11 @@ export const styles = {
   subRootSx: {
     backgroundColor: '#FAFAFA',
     borderRadius: '12px',
-    padding: '26px 70px',
+    padding: {
+      lg: '26px 70px',
+      md: '26px 70px',
+      sm: '26px 30px',
+    },
     height: 'calc(100vh - 150px)'
   },
   containerSx: {

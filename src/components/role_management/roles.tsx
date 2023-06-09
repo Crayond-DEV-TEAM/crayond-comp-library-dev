@@ -107,7 +107,7 @@ export const Roles = (props: any) => {
                     >
                         <Box sx={{ ...styles.card, ...roleCardSx }}>
                             <Grid container alignItems={'center'} justifyContent={'space-between'}>
-                                <Grid item lg={3} md={3} sm={3}>
+                                <span>
                                     <Input
                                         textFieldStyle={{
                                             justifyContent: 'center',
@@ -127,8 +127,8 @@ export const Roles = (props: any) => {
                                         value={state?.roleNo}
                                         onChange={(e: any) => handleAddChange('roleNo', e?.target?.value)}
                                     />
-                                </Grid>
-                                <Grid item lg={5} md={5} sm={5}>
+                                </span>
+                                <span item lg={5} md={5} sm={5}>
                                     <Input
                                         textFieldStyle={{
                                             justifyContent: 'center',
@@ -149,7 +149,7 @@ export const Roles = (props: any) => {
                                         onChange={(e: any) => handleAddChange('role', e?.target?.value)}
                                         placeholder='Description'
                                     />
-                                </Grid>
+                                </span>
                                 <Grid item lg={3} md={3} sm={3}>
                                     <Stack direction={'row'} alignItems={'center'} >
                                         <IconButton sx={{ ...styles.CheckIcon, ...checkIconPropsSx }}
