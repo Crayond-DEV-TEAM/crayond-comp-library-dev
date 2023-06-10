@@ -1,5 +1,13 @@
 export const styles = {
+  papover:{
+"& .MuiPaper-root-MuiPopover-paper":{
+  boxShadow:"none"
+}
+  },
   mainBox: {
+    "& .MuiPopover-paper":{
+      boxShadow:"none"
+    },
     width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
@@ -25,7 +33,7 @@ export const styles = {
       marginLeft: '12px',
     },
     '& .MuiOutlinedInput-root': {
-      flexDirection: 'row-reverse',
+    // flexDirection: 'row-reverse',
 
       width: '100%',
       '&:focus': {
