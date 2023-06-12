@@ -30,17 +30,17 @@ function App() {
         rolesGrid={{
           breakpoints: {
             xs: 12,
-            sm: 4.5,
-            md: 3.5,
-            lg: 2.5
+            sm: 5,
+            md: 4,
+            lg: 6
           }
         }}
         rolesView={{
           breakpoints: {
             xs: 12,
-            sm: 9.5,
-            md: 8.5,
-            lg: 9.5
+            sm: 9,
+            md: 8,
+            lg: 9
           }
         }}
         inputStyle={{

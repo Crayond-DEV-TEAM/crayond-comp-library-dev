@@ -69,6 +69,10 @@ export interface RoleManagementProps {
         role: string,
         roleNo: string,
         isActive: boolean,
+        error: {
+            role: string,
+            roleNo: string
+        }
     },
     add?: boolean,
     search: string,

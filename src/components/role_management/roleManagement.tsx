@@ -41,10 +41,14 @@ export default function RoleManagement(props: RoleManagementProps) {
   type SearchText = string;
 
 
-  const initialState: Role = {
+  const initialState = {
     roleNo: '',
     role: '',
     isActive: false,
+    error: {
+      roleNo: '',
+      role: '',
+    }
   };
 
   const [roles, setRoles] = useState<Role[]>(roleData);
@@ -69,7 +73,7 @@ export default function RoleManagement(props: RoleManagementProps) {
 
   const handleChange = (key: string, e: object, index: number) => {
     const tempArr = [...roles]
-
+    
     tempArr[index] = {
       ...tempArr[index],
       roleNo: tempArr[index].roleNo, [key]: e,
@@ -79,7 +83,9 @@ export default function RoleManagement(props: RoleManagementProps) {
   }
 
   const handleAddChange = (key: string, value: string) => {
-    setState({ ...state, [key]: value })
+    const error = state?.error;
+    error[key] = '';
+    setState({ ...state, [key]: value, error })
   }
 
   const handleSave = (x: Role, index: number) => {
@@ -100,16 +106,33 @@ export default function RoleManagement(props: RoleManagementProps) {
     setSearch(value)
   }
 
+  const validate = () => {
+    let isValid = true;
+    const error = state?.error
+    if (state?.role?.length === 0) {
+      isValid = false
+      error.role = "Role Required"
+    }
+    if (state?.roleNo?.length === 0) {
+      isValid = false
+      error.roleNo = "Role no. Required"
+    }
+
+    setState({ ...state, error })
+    return isValid
+  }
+
   const handleAddSave = (e: Role) => {
-    debugger
     const tempArr = [...roles]
 
-    tempArr.push(e)
-    setRoles([...tempArr]);
+    if (validate()) {
+      tempArr.push(e)
+      setRoles([...tempArr]);
+      setState(initialState)
+      setEditIndex(null)
+      setAdd(false)
+    }
 
-    setState(initialState)
-    setEditIndex(null)
-    setAdd(false)
   }
 
   const handleSwitch = (e: boolean, index: number) => {
@@ -122,7 +145,8 @@ export default function RoleManagement(props: RoleManagementProps) {
     setRoles([...tempArr]);
   }
 
-  console.log(roles, 'rolessss');
+  console.log(state, 'state');
+
 
   return (
     <Box sx={{ ...styles.rootSx, ...rootStyle }}>

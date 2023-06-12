@@ -100,15 +100,16 @@ export const Roles = (props: any) => {
                         );
                     })
                 }
-
                 {
                     add && <Box
                         sx={styles.roleItemRootSx}
                     >
                         <Box sx={{ ...styles.card, ...roleCardSx }}>
-                            <Grid container alignItems={'center'} justifyContent={'space-between'}>
-                                <span>
+                            <Grid container alignItems={'center'} justifyContent={'space-between'}
+                                height={'100%'}>
+                                <Grid item lg={3} md={3} sm={3}>
                                     <Input
+                                        errorMessage={state?.error?.roleNo}
                                         textFieldStyle={{
                                             justifyContent: 'center',
                                             background: inputStyle?.inputBackground ?? 'none',
@@ -122,14 +123,21 @@ export const Roles = (props: any) => {
                                                     borderRadius: inputStyle?.borderRadius ?? '0 !important',
                                                     borderBottom: inputStyle?.borderBottom ?? '1px solid #D3D3D3 !important',
                                                 }
+                                            },
+                                            '& .MuiFormHelperText-root': {
+                                                display: 'flex',
+                                                color: 'red',
+                                                margin: '0',
+                                                fontSize: '11px'
                                             }
                                         }}
                                         value={state?.roleNo}
                                         onChange={(e: any) => handleAddChange('roleNo', e?.target?.value)}
                                     />
-                                </span>
-                                <span item lg={5} md={5} sm={5}>
+                                </Grid>
+                                <Grid item lg={5} md={5} sm={5}>
                                     <Input
+                                        errorMessage={state?.error?.role}
                                         textFieldStyle={{
                                             justifyContent: 'center',
                                             background: inputStyle?.inputBackground ?? 'none',
@@ -143,15 +151,22 @@ export const Roles = (props: any) => {
                                                     borderRadius: inputStyle?.borderRadius ?? '0 !important',
                                                     borderBottom: inputStyle?.borderBottom ?? '1px solid #D3D3D3 !important',
                                                 }
+                                            },
+                                            '& .MuiFormHelperText-root': {
+                                                display: 'flex',
+                                                color: 'red',
+                                                margin: '0',
+                                                fontSize: '11px',
+
                                             }
                                         }}
                                         value={state?.role}
                                         onChange={(e: any) => handleAddChange('role', e?.target?.value)}
                                         placeholder='Description'
                                     />
-                                </span>
+                                </Grid>
                                 <Grid item lg={3} md={3} sm={3}>
-                                    <Stack direction={'row'} alignItems={'center'} >
+                                    <Stack direction={'row'} alignItems={'center'} justifyContent={'space-evenly'}>
                                         <IconButton sx={{ ...styles.CheckIcon, ...checkIconPropsSx }}
                                             onClick={() => handleAddSave(state)}>
                                             <CheckIcon />

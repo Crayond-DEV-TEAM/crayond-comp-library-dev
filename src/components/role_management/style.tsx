@@ -79,15 +79,22 @@ export const styles = {
     fontSize: '13px',
   },
   card: {
-    padding: '1px 12px',
+    padding: {
+      sm: '0px 0px 0px 12px',
+      xs: '0px 0px 0px 12px',
+      md: '0px 0px 0px 12px',
+    },
     border: '1px solid #665CD7',
     borderRadius: '8px',
     cursor: 'pointer',
+    height: '56px',
+
   },
   unSelectedCard: {
-    padding: '1px 12px',
+    padding: '0px 0px 0px 12px',
     border: '1px solid #E9E9E9',
     borderRadius: '8px',
+    height: '56px',
     cursor: 'pointer',
   },
   roleItemRootSx: {
@@ -102,8 +109,8 @@ export const styles = {
 
   },
   editIcon: {
-    width: '100% !important',
     outline: '0 !important',
+    width: '32px',
     border: 'none !important',
     cursor: 'pointer',
     '& svg': {
@@ -164,5 +171,20 @@ export const styles = {
         borderRadius: '8px !important',
       }
     }
+  },
+  parentBox: {
+    display: 'flex',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: {
+      md: 'space-around',
+      sm: 'space-evenly',
+      xs: 'space-evenly'
+    }
+  },
+  flexItem: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   }
 }

@@ -1,5 +1,5 @@
 
-import { IconButton, SxProps, Theme, Grid, Stack } from '@mui/material';
+import { IconButton, SxProps, Theme, Grid, Stack, Tooltip } from '@mui/material';
 import { Box, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
@@ -72,12 +72,11 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
         >
             <Box
                 sx={clickIndex === index ? { ...styles.card, ...roleCardSx } : { ...styles.unSelectedCard, ...roleUnselectedCardSx }} >
-                <Grid container alignItems={'center'} onClick={() => handleRoleClick(x, index)}>
-                    <Grid item lg={editIndex === index ? 4 : 2.5}
-                        md={editIndex === index ? 4 : 2.5}
-                        sm={editIndex === index ? 4 : 2.5}>
-                        {
-                            editIndex === index ? <Input
+
+                {
+                    editIndex === index && <Box sx={styles?.parentBox}>
+                        <span style={{ width: '30%' }} >
+                            <Input
                                 textFieldStyle={{
                                     justifyContent: 'center',
                                     background: inputStyle?.inputBackground ?? 'none',
@@ -96,18 +95,10 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                                 value={roleNo}
                                 onChange={(e: any) => handleChange('roleNo', e?.target?.value, index)}
 
-                            /> :
-                                <Typography
-                                    sx={{ ...styles.roleNo, roleNoProps }}>
-                                    {roleNo}-
-                                </Typography>
-                        }
-                    </Grid>
-                    <Grid item lg={editIndex === index ? 5 : 4.5}
-                        md={editIndex === index ? 5 : 4.5}
-                        sm={editIndex === index ? 5 : 4.5}>
-                        {
-                            editIndex === index ? <Input
+                            />
+                        </span>
+                        <span style={{ width: '54%' }}>
+                            <Input
                                 textFieldStyle={{
                                     justifyContent: 'center',
                                     background: inputStyle?.inputBackground ?? 'none',
@@ -127,15 +118,35 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                                 onChange={(e: any) => handleChange('role', e?.target?.value, index)}
                                 placeholder='Description'
 
-                            /> :
-                                <Typography sx={{ ...styles.roleNo, ...roleNoProps }}>
-                                    {` ${name}`}
+                            />
+                        </span>
+                        <span style={{ width: '13%' }}>
+                            <Stack direction={'row'}
+                                alignItems={'center'} justifyContent={'space-between'}
+                            >
+                                <IconButton sx={{ ...styles.CheckIcon, ...checkIconPropsSx }}
+                                    onClick={() => handleSave(x, index)}>
+                                    <CheckIcon />
+                                </IconButton>
+                                <IconButton sx={{ ...styles.closeIcon, ...closeIconPropSx }}
+                                    onClick={handleClose}>
+                                    <CloseIcon />
+                                </IconButton>
+                            </Stack>
+                        </span>
+                    </Box>
+                }
+                {
+                    editIndex !== index && <Box sx={styles?.flexItem}>
+                        <span style={{ width: '60%' }}>
+                            <Tooltip title={name} followCursor>
+                                <Typography noWrap
+                                    sx={{ ...styles.roleNo, roleNoProps }}>
+                                    {roleNo}-{name}
                                 </Typography>
-                        }
-                    </Grid>
-                    {
-                        editIndex !== index &&
-                        <Grid item lg={1} md={1} sm={1}>
+                            </Tooltip>
+                        </span>
+                        <span style={{ width: '38%', display: 'flex', justifyContent: 'end' }}>
                             <IconButton
                                 sx={{ ...styles.editIcon, ...editIconProps }}
                                 disableRipple
@@ -154,42 +165,24 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                                     ''
                                 )}
                             </IconButton>
+                            <FormGroup sx={styles.switchForm}>
+                                <FormControlLabel sx={{ m: 0, justifyContent: 'center' }}
+                                    control={<SwitchBox
+                                        onChange={(e: any) => handleSwitch(e?.target?.checked, index)}
+                                        sx={{ m: 1 }}
+                                        value={isActive}
+                                        color={'primary'}
+                                        width={''}
+                                        height={''}
+                                        thumbColor={''} />}
+                                    label={undefined}
+                                />
+                            </FormGroup>
+                        </span>
+                    </Box>
+                }
 
-                        </Grid>
-                    }
-                    <Grid item lg={3} md={3} sm={3}>
-                        {
-                            editIndex === index ?
-                                <Stack direction={'row'}
-                                    alignItems={'center'} justifyContent={'space-between'}
-                                >
-                                    <IconButton sx={{ ...styles.CheckIcon, ...checkIconPropsSx }}
-                                        onClick={() => handleSave(x, index)}>
-                                        <CheckIcon />
-                                    </IconButton>
-                                    <IconButton sx={{ ...styles.closeIcon, ...closeIconPropSx }}
-                                        onClick={handleClose}>
-                                        <CloseIcon />
-                                    </IconButton>
-                                </Stack> :
-                                <FormGroup sx={styles.switchForm}>
-                                    <FormControlLabel sx={{ m: 0 }}
-                                        control={<SwitchBox
-                                            onChange={(e: any) => handleSwitch(e?.target?.checked, index)}
-                                            sx={{ m: 1 }}
-                                            value={isActive}
-                                            color={'primary'}
-                                            width={''}
-                                            height={''}
-                                            thumbColor={''} />}
-                                        label={undefined}
-                                    />
-                                </FormGroup>
-                        }
-
-                    </Grid>
-                </Grid>
             </Box>
-        </Box>
+        </Box >
     );
 });
