@@ -1,0 +1,15 @@
+.MuiDateRangeCalendar-monthContainer {
+    z-index: 100000000000;
+    background: #fff;
+    border-radius: 8px;
+    inset: 12px auto auto 0px !important;
+  }
+  .MuiPickersPopper-paper {
+    border-radius: 8px !important;
+    inset: 10px auto auto 0px !important;
+  }
+  .date-range:focus {
+    border: 1px solid rgb(245, 129, 129) !important;
+    background: red;
+  }
+  
