@@ -138,14 +138,15 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                 }
                 {
                     editIndex !== index && <Box sx={styles?.flexItem}>
-                        <span style={{ width: '60%' }}>
-                            <Tooltip title={name} followCursor>
+                        <Tooltip title={`${roleNo} - ${name}`} followCursor>
+                            <span style={{ maxWidth: '60%' }}>
+
                                 <Typography noWrap
                                     sx={{ ...styles.roleNo, roleNoProps }}>
                                     {roleNo}-{name}
                                 </Typography>
-                            </Tooltip>
-                        </span>
+                            </span>
+                        </Tooltip>
                         <span style={{ width: '38%', display: 'flex', justifyContent: 'end' }}>
                             <IconButton
                                 sx={{ ...styles.editIcon, ...editIconProps }}

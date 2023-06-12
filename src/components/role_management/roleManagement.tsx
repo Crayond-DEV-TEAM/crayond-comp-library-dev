@@ -73,7 +73,7 @@ export default function RoleManagement(props: RoleManagementProps) {
 
   const handleChange = (key: string, e: object, index: number) => {
     const tempArr = [...roles]
-    
+
     tempArr[index] = {
       ...tempArr[index],
       roleNo: tempArr[index].roleNo, [key]: e,
@@ -82,7 +82,7 @@ export default function RoleManagement(props: RoleManagementProps) {
     setRoles([...tempArr]);
   }
 
-  const handleAddChange = (key: string, value: string) => {
+  const handleAddChange = (key: any, value: string) => {
     const error = state?.error;
     error[key] = '';
     setState({ ...state, [key]: value, error })
@@ -144,9 +144,6 @@ export default function RoleManagement(props: RoleManagementProps) {
     }
     setRoles([...tempArr]);
   }
-
-  console.log(state, 'state');
-
 
   return (
     <Box sx={{ ...styles.rootSx, ...rootStyle }}>

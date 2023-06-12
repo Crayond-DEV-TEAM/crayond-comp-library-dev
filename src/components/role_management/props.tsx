@@ -80,7 +80,7 @@ export interface RoleManagementProps {
     onEditRole?: (x: object | undefined, index: number | undefined) => void,
     handleChange?: (key: string, e: any, index: number) => void,
     handleSave?: (x: object | undefined, index: number) => void,
-    handleAddChange?: (key: string, value: string) => void,
+    handleAddChange?: (key: any, value: string) => void,
     handleAddSave?: (e: Role) => void,
     handleAddRole?: () => void,
     handleRoleClick?: (x: object | undefined, index: number | undefined) => void,
