@@ -1,5 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { SingleInputDateRangePicker } from './index';
+import CalendarIcon from '../../assets/calendarIcon';
 
 export default {
   title: 'components/SingleInputDateRangePicker',
@@ -11,4 +12,18 @@ const Template: ComponentStory<typeof SingleInputDateRangePicker> = (args) => (
 );
 
 export const Primary = Template.bind({});
-Primary.args = {};
+Primary.args = {
+  value:"",
+  onChange:()=>{},
+  dateFormat:"YYYY MM DD",
+  disablePast:false,
+  rightInputCalendarIcon:"",
+  rightIconPosition:"",
+  leftInputCalendarIcon:<><CalendarIcon/></>,
+  leftIconPosition:"start",
+  inputStyleRoot:{},
+  endCalendarStyle:{},
+  startCalendarStyle:{},
+  inputContainerStyle:{},
+  calenderStyles:{},
+};

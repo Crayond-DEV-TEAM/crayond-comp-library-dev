@@ -18,6 +18,7 @@ export interface MyCustomLayoutProps {
   selectedDay: any;
   Day: any;
   defaultValue: any;
+  calenderStyles:SxProps;
   onMonthChange: () => void;
   onChange: () => void;
   onYearChange: () => void;
@@ -27,7 +28,7 @@ export interface PopoverPopupProps {
   isOpenCalendar: null | HTMLButtonElement;
   startDate: any;
   endDate: any;
-  views?:string[];
+  views?: string[];
   openTo?: any;
   selectedDayStart: any;
   selectedDayEnd: any;
@@ -37,6 +38,8 @@ export interface PopoverPopupProps {
   startDefaultValue: any;
   disablePast: boolean;
   disableFuture: boolean;
+  endCalendarStyle: SxProps;
+  startCalendarStyle: SxProps;
   onMonthChangeEnd: () => void;
   onMonthChangeStart: () => void;
   startDateHandleChange: () => void;
@@ -47,4 +50,13 @@ export interface PopoverPopupProps {
   handleYearChangeEnd: () => void;
   onYearChangeStart: () => void;
   onYearChangeEnd: () => void;
+}
+
+export interface DateRangePickerProps {
+  label: string;
+  onChange: () => void;
+  value: any;
+  inputStyleRoot: object;
+  dateFormat: string;
+  disablePast: boolean;
 }

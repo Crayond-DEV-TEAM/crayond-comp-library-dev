@@ -14,68 +14,130 @@ import './style.css';
 import { styles } from './styles';
 import {
   CustomPickerDayProps,
+  DateRangePickerProps,
   MyCustomLayoutProps,
   PopoverPopupProps,
 } from './props';
-import { boolean, string } from 'yup';
+export default function SingleInputDateRangePicker(props: any) {
+  const {
+    rightInputCalendarIcon,
+    rightIconPosition,
+    leftInputCalendarIcon,
+    leftIconPosition,
+    inputStyleRoot,
+    endCalendarStyle,
+    startCalendarStyle,
+    inputContainerStyle,
+  } = props;
 
-interface DateRangePickerProps {
-  label: string;
-  onChange: () => void;
-  value: any;
-  inputStyleRoot: object;
-  dateFormat: string;
-  disablePast: boolean;
-}
-
-interface DateRangePickerProps {}
-export default function SingleInputDateRangePicker(
-  props: DateRangePickerProps
-) {
-  const { value, onChange, inputStyleRoot, dateFormat, disablePast } = props;
-
-  const [startDate, setStartDate] = useState<any>(null);
-  const [endDate, setEndDate] = useState<any>(null);
+  const [startDate, setStartDate] = useState<Dayjs | null>(dayjs(null));
+  const [endDate, setEndDate] = useState<Dayjs | null>(dayjs(null));
   const [prevMonth, setPrevMonth] = useState<any>(null);
   const [nextMonth, setNextMonth] = useState<any>(null);
-  const [prevYear, setPrevYear] = useState<any>(null);
-  const [nextYear, setNextYear] = useState<any>(null);
+  const [startYear, setStartYear] = useState<any>(null);
+  const [EndYear, setEndYear] = useState<any>(null);
+  const [startEndDate, setStartEndDate] = useState<any>(null);
   const [isOpenCalendar, setOpenCalendar] = useState<HTMLButtonElement | null>(
     null
   );
 
+  const findCurrentMonth = (month: any) => {
+    month.setMonth(month.getMonth());
+    let PrevMonth = new Date(month);
+    let prevMonths = moment(PrevMonth).format('YYYY MM DD');
+    return prevMonths;
+  };
+
+  const findNextMonth = (month: any) => {
+    let date = new Date(month);
+    date.setMonth(date.getMonth() + 1, 1);
+    let NextMonth = new Date(date);
+    let nextMonths = moment(NextMonth).format('YYYY MM DD');
+    return nextMonths;
+  };
+
+  const findPrevMonth = (month: any) => {
+    let date = new Date(month);
+    date.setMonth(date.getMonth() - 1, 1);
+    let NextMonth = new Date(date);
+    let nextMonths = moment(NextMonth).format('YYYY MM DD');
+    return nextMonths;
+  };
+
   const onMonthChangeStart = (e: any) => {
+    debugger;
     let date = e?.$d;
 
-    let prev = date.setMonth(date.getMonth());
-    let prevMonthValue = moment(prev).format('YYYY MM DD');
-    setPrevMonth(prevMonthValue);
+    if (startYear) {
+       // let prev = date.setMonth(date.getMonth());
+      // let prevMonthValue = moment(prev).format('YYYY MM DD');
+      setPrevMonth(findCurrentMonth(startYear));
 
-    date.setMonth(date.getMonth() - 1, 1);
-    let nextMonthValue = moment(date).format('YYYY MM DD');
-    setNextMonth(nextMonthValue);
+      startYear.setMonth(startYear.getMonth() - 1, 1);
+      let nextMonthValue = moment(startYear).format('YYYY MM DD');
+      setNextMonth(nextMonthValue);
+    } else {
+      // let prev = date.setMonth(date.getMonth());
+      // let prevMonthValue = moment(prev).format('YYYY MM DD');
+      setPrevMonth(findCurrentMonth(date));
+
+      date.setMonth(date.getMonth() - 1, 1);
+      let nextMonthValue = moment(date).format('YYYY MM DD');
+      setNextMonth(nextMonthValue);
+
+    }
+
+    setStartDate(null);
+    setEndDate(null);
   };
 
   const onMonthChangeEnd = (e: any) => {
+    debugger;
     let date = e?.$d;
-    let next = date.setMonth(date.getMonth());
-    let nextMonths = moment(next).format('YYYY MM DD');
-    setNextMonth(nextMonths);
+
+    if(EndYear){
+      setNextMonth(findCurrentMonth(EndYear));
+
+      EndYear.setMonth(EndYear.getMonth() + 1, 1);
+      let days = moment(EndYear).format('YYYY MM DD');
+      setPrevMonth(days);
+    }else{
+    // let next = date.setMonth(date.getMonth());
+    // let nextMonths = moment(next).format('YYYY MM DD');
+    setNextMonth(findCurrentMonth(date));
 
     date.setMonth(date.getMonth() + 1, 1);
-    let days = moment(e?.$d).format('YYYY MM DD');
+    let days = moment(date).format('YYYY MM DD');
     setPrevMonth(days);
+  }
+    setStartDate(null);
+    setEndDate(null);
+    console.log(date, 'onMonthChangeEnd');
   };
 
   const handleYearChangeStart = (e: any) => {
-    
-  };
-  const handleYearChangeEnd = (e: any) => {
-    console.log(e, 'endYear');
-    setNextYear(e);
+    let date = e?.$d;
+    setStartYear(date);
+    // let date = moment(e?.$d).format('YYYY MM DD');
+    // setPrevMonth(date);
+    // setNextMonth(date);
+    console.log(date, 'handleYearChangeStart');
   };
 
-  const handleSubmitCalendar = () => {};
+  const handleYearChangeEnd = (e: any) => {
+    let date = e?.$d;
+    setEndYear(date);
+
+    // let date = moment(e?.$d).format('YYYY MM DD');
+    // setPrevMonth(date);
+    // setNextMonth(date);
+    console.log(date, 'handleYearChangeEnd');
+  };
+
+  const handleSubmitCalendar = () => {
+    // setStartEndDate(startDate.$d,endDate.$d)
+    // console.log(moment(startDate.$d).format('YYYY MM DD') ,'start', moment(endDate.$d).format('YYYY MM DD'), 'end');
+  };
 
   const handleStartDateChange = (date: any) => {
     setStartDate(date);
@@ -93,27 +155,22 @@ export default function SingleInputDateRangePicker(
     setStartDate(null);
     setEndDate(null);
     setOpenCalendar(null);
+    setPrevMonth(null);
+    setNextMonth(null);
   };
-  console.log(prevMonth, '====');
 
   useEffect(() => {
-    let dates = new Date();
-    dates.setMonth(dates.getMonth());
-    let PrevMonth = new Date(dates);
-    let prevMonths = moment(PrevMonth).format('YYYY MM DD');
-    setPrevMonth(prevMonths);
-
-    let date = new Date(prevMonths);
-    date.setMonth(date.getMonth() + 1, 1);
-    let NextMonth = new Date(date);
-    let nextMonths = moment(NextMonth).format('YYYY MM DD');
-    setNextMonth(nextMonths);
-  }, []);
+    setStartDate(null);
+    setEndDate(null);
+    setPrevMonth(findCurrentMonth(new Date()));
+    setNextMonth(findNextMonth(findCurrentMonth(new Date())));
+  }, [isOpenCalendar]);
   return (
     <>
       <Box
         sx={{
           ...styles.mainBox,
+          ...inputContainerStyle,
           borderColor: isOpenCalendar ? '#665CD7' : ' #E9E9E9',
         }}
         onClick={handleOpenCalendar}
@@ -124,8 +181,8 @@ export default function SingleInputDateRangePicker(
           placeholder="Check-in"
           InputProps={{
             startAdornment: (
-              <InputAdornment position="start">
-                <CalendarIcon />
+              <InputAdornment position={leftIconPosition}>
+                {leftInputCalendarIcon}
               </InputAdornment>
             ),
           }}
@@ -135,16 +192,25 @@ export default function SingleInputDateRangePicker(
           sx={{ ...styles.inputStyleRoot, ...inputStyleRoot }}
           value={moment(endDate?.$d).format('DD MMM YY')}
           placeholder="Check-out"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position={rightIconPosition}>
+                {rightInputCalendarIcon}
+              </InputAdornment>
+            ),
+          }}
         />
       </Box>
       <PopoverPopupState
-        views={['year', 'day']}
+        views={['year', 'month', 'day']}
         openTo="day"
         isOpenCalendar={isOpenCalendar}
         selectedDayStart={startDate}
         selectedDayEnd={endDate}
         StartDay={StartDay}
         EndDay={EndDay}
+        endCalendarStyle={endCalendarStyle}
+        startCalendarStyle={startCalendarStyle}
         startDefaultValue={prevMonth}
         endDefaultValue={nextMonth}
         startDate={startDate}
@@ -153,7 +219,6 @@ export default function SingleInputDateRangePicker(
         disableFuture={false}
         handleCloseCalendar={handleCancelCalendar}
         handleSubmitCalendar={handleSubmitCalendar}
-        endDateHandleChange={handleStartDateChange}
         endDateHandleChange={handleEndDateChange}
         startDateHandleChange={handleStartDateChange}
         onMonthChangeStart={onMonthChangeStart}
@@ -164,7 +229,7 @@ export default function SingleInputDateRangePicker(
     </>
   );
 }
-const PopoverPopupState = (props: PopoverPopupProps) => {
+const PopoverPopupState = (props: any) => {
   const {
     isOpenCalendar,
     handleCloseCalendar,
@@ -180,6 +245,8 @@ const PopoverPopupState = (props: PopoverPopupProps) => {
     EndDay,
     endDefaultValue,
     startDefaultValue,
+    endCalendarStyle,
+    startCalendarStyle,
     onMonthChangeStart,
     onMonthChangeEnd,
     handleSubmitCalendar,
@@ -190,9 +257,7 @@ const PopoverPopupState = (props: PopoverPopupProps) => {
   } = props;
   const open = Boolean(isOpenCalendar);
   const id = open ? 'simple-popover' : undefined;
-
-  console.log(startDefaultValue, 'startDefaultValue input Value');
-  console.log(endDefaultValue, 'endDefaultValue input Value');
+  console.log(endDefaultValue, startDefaultValue, 'oo===');
 
   return (
     <>
@@ -214,9 +279,23 @@ const PopoverPopupState = (props: PopoverPopupProps) => {
           left: 0,
         }}
         elevation={0}
-        sx={{
-          marginTop: '12px',
-          borderRadius: ' 8px',
+        PaperProps={{
+          sx: {
+            marginTop: '12px',
+            borderRadius: ' 8px',
+            '& .MuiPickersMonth-monthButton.Mui-selected': {
+              padding: '1px',
+            },
+            '& .MuiPickersYear-yearButton.Mui-selected': {
+              padding: '1px',
+            },
+            '& .MuiPickersDay-root': {
+              '&.Mui-selected': {
+                backgroundColor: '#FFFF',
+                color: '#929292',
+              },
+            },
+          },
         }}
       >
         <Box sx={{ ...styles.calendarContainer }}>
@@ -233,6 +312,7 @@ const PopoverPopupState = (props: PopoverPopupProps) => {
               onMonthChange={onMonthChangeStart}
               onChange={startDateHandleChange}
               onYearChange={onYearChangeStart}
+              calenderStyles={startCalendarStyle}
             />
           </Box>
           <Divider orientation="vertical" flexItem sx={{ color: '#929292' }} />
@@ -249,6 +329,7 @@ const PopoverPopupState = (props: PopoverPopupProps) => {
               onMonthChange={onMonthChangeEnd}
               onChange={endDateHandleChange}
               onYearChange={onYearChangeEnd}
+              calenderStyles={endCalendarStyle}
             />
             <Box
               sx={{
@@ -274,6 +355,7 @@ const MyCustomLayout = (props: MyCustomLayoutProps) => {
     openTo,
     disableFuture,
     disablePast,
+    calenderStyles,
     selectedDay,
     Day,
     defaultValue,
@@ -285,9 +367,10 @@ const MyCustomLayout = (props: MyCustomLayoutProps) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateCalendar
-       sx={{
-        maxHeight:"310px"
-       }}
+        sx={{
+          ...calenderStyles,
+          maxHeight: '315px',
+        }}
         onMonthChange={onMonthChange}
         onChange={onChange}
         onYearChange={onYearChange}
@@ -385,4 +468,24 @@ const EndDay = (
       isLastDay={isLastDay}
     />
   );
+};
+
+SingleInputDateRangePicker.defaultProps = {
+  value: '',
+  onChange: () => {},
+  dateFormat: 'YYYY MM DD',
+  disablePast: false,
+  rightInputCalendarIcon: '',
+  rightIconPosition: '',
+  leftInputCalendarIcon: (
+    <>
+      <CalendarIcon />
+    </>
+  ),
+  leftIconPosition: 'start',
+  inputStyleRoot: {},
+  endCalendarStyle: {},
+  startCalendarStyle: {},
+  inputContainerStyle: {},
+  calenderStyles: {},
 };
