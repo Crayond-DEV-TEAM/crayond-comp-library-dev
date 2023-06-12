@@ -43,7 +43,7 @@ function App() {
     }
   };
   const setHederSearch = (value: any) => {
-    console.log('🚀 ~ file: App.tsx:31 ~ setHederSearch ~ value:', value);
+    console.log('🚀 ~ file: App.tsx:31 ~ setHederSearch ~ :', value);
   };
   const SelectAll = (data: any | undefined, isRestSet: boolean | undefined) => {
     if (!isRestSet) {
