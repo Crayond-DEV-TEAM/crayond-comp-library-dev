@@ -21,6 +21,9 @@ Primary.argTypes = {
     },
     disablePast: {
       description: 'boolean'
+    },
+    onChange: {
+      description: '()=>{}'
     }
   }
 Primary.args = {
