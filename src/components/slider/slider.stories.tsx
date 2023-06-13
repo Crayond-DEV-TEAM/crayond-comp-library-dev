@@ -10,6 +10,84 @@ const Template: ComponentStory<typeof Sliders> = (args) => (
 );
 
 export const Primary = Template.bind({});
+Primary.argTypes = {
+  value: {
+    description: 'number',
+    defaultValue:33,
+  },
+  step: {
+    description: 'number',
+    defaultValue:10,
+  },
+  labelStyle: {
+    description: 'object',
+    defaultValue:{},
+  },
+  sliderHeight: {
+    description: 'number',
+    defaultValue:6
+  },
+  size: {
+    description: '"small"| "medium"|"large"',
+    defaultValue:"small"
+  },
+  disabled:{
+    description:"boolean",
+    defaultValue:false,
+  },
+  customMarks: {
+    description: 'boolean',
+    defaultValue:false
+  },
+  thumbColor: {
+    description: 'string',
+    defaultValue:"#665CD7"
+  },
+  progressLabel: {
+    description: 'boolean',
+    defaultValue:false
+  },
+  valueLabelDisplay: {
+    description: '"off"| "on"',
+    defaultValue:"off"
+  },
+  sliderColor: {
+    description: 'string',
+    defaultValue:"#665CD7"
+  },
+  labelColor: {
+    description: 'string',
+    defaultValue:"'#707070"
+  },
+  labelSize: {
+    description: 'number',
+    defaultValue:12
+  },
+  handleChange: {
+    description: '()=>{}',
+    defaultValue:12
+  },
+  sliderStyle: {
+    description: 'object',
+    defaultValue:{}
+  },
+  symbol: {
+    description: 'char "$","%",..',
+    defaultValue:"%"
+  },
+  containerStyle: {
+    description: 'object',
+    defaultValue:{}
+  },
+  sliderThumbStyle: {
+    description: 'object',
+    defaultValue:{}
+  },
+  marks: {
+    description: 'Array of object ',
+    defaultValue:[{label:"0*C",value:0}]
+  },
+};
 Primary.args = {
   value: 33,
   step: 10,
