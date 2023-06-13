@@ -18,7 +18,7 @@ export interface MyCustomLayoutProps {
   selectedDay: any;
   Day: any;
   defaultValue: any;
-  calenderStyles:SxProps;
+  calenderStyles: SxProps;
   onMonthChange: () => void;
   onChange: () => void;
   onYearChange: () => void;

@@ -24,17 +24,41 @@ Primary.argTypes = {
     },
     onChange: {
       description: '()=>{}'
-    }
+    },
+    rightIconPosition: {
+      description: '"left" |"right"'
+    },
+    leftIconPosition: {
+      description: '"left" |"right"'
+    },
+    inputStyleRoot: {
+      description: 'object'
+    },
+    endCalendarStyle: {
+      description: 'object'
+    },
+    startCalendarStyle: {
+      description: 'object'
+    },
+    calenderStyles: {
+      description: 'object'
+    },
+    inputContainerStyle: {
+      description: 'object'
+    },
+    leftInputCalendarIcon: {
+      description: 'ReactNode'
+    },
   }
 Primary.args = {
 //   value:"",
   onChange:()=>{},
   dateFormat:"YYYY MM DD",
-  disablePast:false,
+  // disablePast:false,
   rightInputCalendarIcon:"",
   rightIconPosition:"",
-  leftInputCalendarIcon:<><CalendarIcon/></>,
   leftIconPosition:"start",
+  leftInputCalendarIcon:<><CalendarIcon/></>,
   inputStyleRoot:{},
   endCalendarStyle:{},
   startCalendarStyle:{},
