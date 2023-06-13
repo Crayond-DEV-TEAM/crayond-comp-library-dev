@@ -11,6 +11,35 @@ const Template: ComponentStory<typeof CircleProgress> = (args) => (
 );
 
 export const Primary = Template.bind({});
+Primary.argTypes = {
+  value: {
+    description: 'number',
+  },
+  labelStyle: {
+    description: 'object',
+  },
+  symbols: {
+    description: 'char "%","$",..',
+  },
+  thickness: {
+    description: 'number',
+  },
+  size: {
+    description: 'number',
+  },
+  labelSize: {
+    description: 'number',
+  },
+  thumbColor: {
+    description: 'string',
+  },
+  thumbSecondaryColor: {
+    description: 'string',
+  },
+  labelBackgroundStyle: {
+    description: 'object',
+  },
+};
 Primary.args = {
   value: 0,
   labelStyle: {},
