@@ -2,8 +2,9 @@ import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
-import { TreeComponent, TreeView } from './components/treeView';
+import { TreeComponent } from './components/treeComp';
 import { useState } from 'react';
+import { CollapseIcon, ExpandIcon, InfoIcon, SettingIcon } from './components/treeComp/icons';
 
 
 function App() {
@@ -30,27 +31,6 @@ function App() {
       }
     }
   ]
-
-  const [rowArray, setRowArray] = useState([...dataRow])
-
-  const handleCheckBox = (event: any, val: string, parentIndex: number) => {
-    debugger
-    const tempArr = [...rowArray]
-
-    tempArr[parentIndex] = {
-      ...tempArr[parentIndex],
-      title: tempArr[parentIndex].title,
-      permission: {
-        ...tempArr[parentIndex].permission, [val]: event?.target?.checked,
-      }
-    }
-    setRowArray([...tempArr]);
-  }
-
-  const onSubmit = () => {
-    console.log(rowArray)
-  }
-
 
   const treeData = [
     {
@@ -150,6 +130,17 @@ function App() {
           "id": "610cb708-9440-49ad-b46c-08cb0c5da8b9",
           "name": "Forgot Password"
         }
+      ],
+      "allowed": [
+        "read",
+        "create",
+        "update"
+      ],
+      "permissions": [
+        "read",
+        "create",
+        "delete",
+        "update"
       ]
     },
     {
@@ -213,51 +204,60 @@ function App() {
             }
           ]
         }
+      ],
+      "allowed": [
+        "read",
+      ],
+      "permissions": [
+        "read",
+        "create",
+        "delete",
+        "update"
       ]
     }
   ]
 
+  const [state, setState] = useState([...treeData])
+
+  const onChange = (e: any, val: any, id: string, data: any) => {
+    // const indexArr = index?.split('-');
+    console.log(data, 'item?.child')
+
+    const listing_permission = data?.map((item: any) => {
+      if (item?.id === id) {
+        if (e) {
+          item?.allowed.push(val)
+        } else {
+          item?.allowed.splice(item?.allowed.findIndex((v: any) => v == val), 1)
+        }
+      }
+      if (item?.child) {
+        console.log('slslsllsl')
+
+        onChange(e, val, id, item?.child);
+      }
+      return item
+    })
+
+    console.log(listing_permission, 'ssk')
+    setState(listing_permission)
+
+  }
+
+  console.log(state, 'treeData');
+
+
+
   return (
     <div className="App" style={{ width: '100vw', background: '#fff', height: '100vh' }}>
-      <TreeView
-        handleChange={handleCheckBox}
-        dataRow={rowArray}
-        onSubmit={onSubmit}
-        submitBtnText={'Submit'}
-        submitBtnOptions={{
-          variant: 'contained',
-          bgColor: 'purple',
-          textColor: '#ffff'
-        }}
-        // checkboxBgColor={'red'}
-        // checkboxIcon={<AcUnitIcon />}
-        // uncheckedIcon={<AddIcon />}
-        checkboxWidth={16}
-        checkboxHeight={16}
-        heading='Basic View'
-        leftSec={{
-          breakpoints: {
-            xs: 4,
-            sm: 4,
-            md: 6,
-            lg: 8
-          }
-        }}
-        rightSec={{
-          breakpoints: {
-            xs: 8,
-            sm: 8,
-            md: 6,
-            lg: 4
-          }
-        }}
-        // checkboxIcon={undefined}
-        // uncheckedIcon={undefined}
-        checkboxBorderRadius={''}
-        checkboxBgColor={''}
-      />
 
-      {/* <TreeComponent data={treeData} setEdit={true} /> */}
+      <TreeComponent
+        state={state}
+        // defaultExpandIcon={<ExpandIcon />}
+        // defaultCollapseIcon={<CollapseIcon />}
+        checkboxsection
+        onChange={onChange}
+      />
 
     </div>
   );
