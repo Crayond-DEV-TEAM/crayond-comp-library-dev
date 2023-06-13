@@ -12,8 +12,19 @@ const Template: ComponentStory<typeof SingleInputDateRangePicker> = (args) => (
 );
 
 export const Primary = Template.bind({});
+Primary.argTypes = {
+    dateFormat:{
+        description: '"YYY MM DD"'
+    },
+    rightInputCalendarIcon:{
+        description: 'ReactNode'
+    },
+    disablePast: {
+      description: 'boolean'
+    }
+  }
 Primary.args = {
-  value:"",
+//   value:"",
   onChange:()=>{},
   dateFormat:"YYYY MM DD",
   disablePast:false,

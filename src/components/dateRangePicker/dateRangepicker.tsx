@@ -67,71 +67,76 @@ export default function SingleInputDateRangePicker(props: any) {
   const onMonthChangeStart = (e: any) => {
     debugger;
     let date = e?.$d;
+console.log(date,"onMonthChangeStart");
+console.log(startYear,"startYear");
 
     if (startYear) {
-       // let prev = date.setMonth(date.getMonth());
-      // let prevMonthValue = moment(prev).format('YYYY MM DD');
-      setPrevMonth(findCurrentMonth(startYear));
+      let year = startYear.getFullYear();
+      let month = date.getMonth()+1;
+      let day = date.getDate();
+      let dateString = '' + year + '-' + month + '-' + day;
+      let combined = new Date(dateString ); 
+      console.log(combined,"====");
 
-    //   startYear.setMonth(startYear.getMonth() - 1, 1);
-      let nextMonthValue = moment(startYear).add(-1, 'months');;
+      let prev = combined.setMonth(combined.getMonth());
+      let prevMonthValue = moment(prev).format('YYYY MM DD');
+      setPrevMonth(prevMonthValue);
+      
+      let next =combined;
+      let nextMonthValue = moment(next).add(-1, 'month');
       setNextMonth(nextMonthValue);
+      
+
     } else {
-      // let prev = date.setMonth(date.getMonth());
-      // let prevMonthValue = moment(prev).format('YYYY MM DD');
-      setPrevMonth(findCurrentMonth(date));
+      let prev = date.setMonth(date.getMonth());
+      let prevMonthValue = moment(prev).format('YYYY MM DD');
+      setPrevMonth(prevMonthValue);
 
       date.setMonth(date.getMonth() - 1, 1);
       let nextMonthValue = moment(date).format('YYYY MM DD');
       setNextMonth(nextMonthValue);
-
     }
 
     setStartDate(null);
     setEndDate(null);
   };
+console.log(nextMonth,prevMonth,"8");
 
   const onMonthChangeEnd = (e: any) => {
+    
     debugger;
     let date = e?.$d;
 
-    if(EndYear){
-      setNextMonth(findCurrentMonth(EndYear));
+    if (EndYear) {
+      
+      let next = date.setMonth(date.getMonth());
+      let nextMonths = moment(next).format('YYYY MM DD');
+      // setNextMonth(nextMonths);
 
       EndYear.setMonth(EndYear.getMonth() + 1, 1);
       let days = moment(EndYear).format('YYYY MM DD');
-      setPrevMonth(days);
-    }else{
-    // let next = date.setMonth(date.getMonth());
-    // let nextMonths = moment(next).format('YYYY MM DD');
-    setNextMonth(findCurrentMonth(date));
+      // setPrevMonth(days);
+    } else {
+      let next = date.setMonth(date.getMonth());
+      let nextMonths = moment(next).format('YYYY MM DD');
+      setNextMonth(nextMonths);
 
-    date.setMonth(date.getMonth() + 1, 1);
-    let days = moment(date).format('YYYY MM DD');
-    setPrevMonth(days);
-  }
+      let prev =date.setMonth(date.getMonth() + 1, 1);
+      let days = moment(prev).format('YYYY MM DD');
+      setPrevMonth(days);
+    }
     setStartDate(null);
     setEndDate(null);
-    console.log(date, 'onMonthChangeEnd');
   };
 
   const handleYearChangeStart = (e: any) => {
     let date = e?.$d;
-    setStartYear(date);
-    // let date = moment(e?.$d).format('YYYY MM DD');
-    // setPrevMonth(date);
-    // setNextMonth(date);
-    console.log(date, 'handleYearChangeStart');
+    setStartYear(date);    
   };
 
   const handleYearChangeEnd = (e: any) => {
     let date = e?.$d;
     setEndYear(date);
-
-    // let date = moment(e?.$d).format('YYYY MM DD');
-    // setPrevMonth(date);
-    // setNextMonth(date);
-    console.log(date, 'handleYearChangeEnd');
   };
 
   const handleSubmitCalendar = () => {
@@ -154,9 +159,9 @@ export default function SingleInputDateRangePicker(props: any) {
   const handleCancelCalendar = () => {
     setStartDate(null);
     setEndDate(null);
-    setOpenCalendar(null);
     setPrevMonth(null);
     setNextMonth(null);
+    setOpenCalendar(null);
   };
 
   useEffect(() => {
