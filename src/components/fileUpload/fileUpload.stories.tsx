@@ -1,6 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import FileUploadIcon from '../../assets/fileUpload';
 import FileUpload from './index';
+import DeleteIcon from '../../assets/deleteIcon';
 
 export default {
   title: 'components/FileUpload',
@@ -12,15 +13,20 @@ const Template: ComponentStory<typeof FileUpload> = (args) => (
 );
 
 export const Primary = Template.bind({});
+
+let TotalFileSelected: any[] = [];
+
 Primary.args = {
-  icon: <FileUploadIcon />,
+  icon: <FileUploadIcon width="23px" height="18px" />,
   desc: 'Click to browse and upload',
-  onClickUpload: () => {
-    console.log('uploaded');
+  onClickUpload: (e: any) => {
+    console.log(e, '-----Total File Selected');
   },
-  maxSize: 1048576,
+  removeIcon: <DeleteIcon />,
+  TotalFileSelected: TotalFileSelected,
+  maxSize:'1MB',
   isMultiple: true,
-  variant:1,
+  variant: 1,
   rootStyle: {},
   cardStyle: {},
   UploadIconStyle: {},
@@ -31,4 +37,7 @@ Primary.args = {
   fileTitleStyle: {},
   fileSizeStyle: {},
   fileRemoveIconStyle: {},
+  allowedTypes: ['jpg', 'jpeg', 'png', 'svg', 'pdf'],
+  uploadErrorStyle:{},
+  timeout:5000
 };

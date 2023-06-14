@@ -37,6 +37,7 @@ function App() {
   const [headerCheckbox, setHederCheckbox] = React.useState(true);
   const [alertOpen, setAlertOpen] = React.useState(false);
   const [isDataMask, setIsDataMask] = React.useState(false);
+  let TotalFileSelected: Object[] = [];
   const checkboxHandleChange = (data: any) => {
     if (!selectedCheckbox.includes(data)) {
       setSelectedCheckbox([...selectedCheckbox, data]);
@@ -188,7 +189,15 @@ function App() {
       .required('Please enter email'),
   });
   return (
-    <div className="App" style={{ width: '100vw', height: '100vh' }}>
+    <div
+      className="App"
+      style={{
+        width: '100vw',
+        height: '100vh',
+        justifyContent: 'center',
+        display: 'flex',
+      }}
+    >
       {/* <Screen
         containerStyle={{}}
         headerStyle={{}}
@@ -198,30 +207,25 @@ function App() {
         bodyComponent={<>Body</>}
         footerComponent={<>Footer</>}
       /> */}
-      <Box sx={{ mt: 2 }}>
+      <Box sx={{ mt: 2, width: 428 }}>
         <FileUpload
           icon={<FileUploadIcon width="76px" height="60px" />}
           desc="Click to browse and upload"
           onClickUpload={(e: any) => {
-            console.log(e,'-----Total File Selected');
+            console.log(e, '-----Total File Selected');
           }}
-          maxSize={1048576}
-          isMultiple={true}
-          variant={1}
+          maxSize='55mb'
+          isMultiple={false}
+          variant={2}
+          TotalFileSelected={TotalFileSelected}
+          removeIcon={<DeleteIcon />}
+          uploadedCardStyle={{ p: 2 }}
+          rootStyle={{}}
+          cardStyle={{ padding: '30px' }}
+          allowedTypes={[ 'pdf']}
+          timeout={5000}
         />
       </Box>
-
-      {/* <FileUpload
-          icon={<FileUploadIcon width="23px" height="18px" />}
-          desc="Click to browse and upload"
-          onClickUpload={(e: any) => {
-            console.log(e);
-          }}
-          maxSize={1048576}
-          isMultiple={true}
-          variant={2}
-          rootStyle={{mt:2}}
-        /> */}
 
       {/* <CommonTable
         Header={[

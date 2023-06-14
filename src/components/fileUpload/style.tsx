@@ -52,28 +52,25 @@ export const style = {
     backgroundColor: '#fff',
     p: 1.2,
     display: 'flex',
-  },
-  descvarTwoSx: {
-    color: '#929292',
-    fontSize: '14px',
-  },
-  iconvarTwoSx: {
-    display:'flex',
-    justifyContent:'right',
-    textAlign:'right',
-    ml:130
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
   deleteIconStyle: {
     position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
   },
-  pauseButton:{
+  pauseButton: {
     position: 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-  }
-
+  },
+  errorSx: {
+    color: 'red',
+    fontSize: '12px',
+  },
+  uploadErrorSx: {
+    color: 'red',
+    fontSize: '12px',
+    textAlign:'center'
+  },
 };
