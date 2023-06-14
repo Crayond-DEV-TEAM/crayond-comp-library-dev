@@ -22,6 +22,9 @@ export interface MyCustomLayoutProps {
   onMonthChange: () => void;
   onChange: () => void;
   onYearChange: () => void;
+  maxDate:any;
+  minDate:any;
+  shouldDisableYear:any
 }
 
 export interface PopoverPopupProps {
@@ -50,6 +53,9 @@ export interface PopoverPopupProps {
   handleYearChangeEnd: () => void;
   onYearChangeStart: () => void;
   onYearChangeEnd: () => void;
+  maxDate:any;
+  minDate:any;
+  shouldDisableYear:any
 }
 
 export interface DateRangePickerProps {
