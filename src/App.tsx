@@ -188,7 +188,7 @@ function App() {
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
 
-      <div style={{width:"80%",height:"30%",background:"#fff"}}>
+      <div style={{width:"80%",height:"60%",background:"#fff",padding:"50px"}}>
         <SingleInputDateRangePicker/>
       </div>
       {/* <Screen

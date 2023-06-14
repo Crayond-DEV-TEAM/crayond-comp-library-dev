@@ -59,13 +59,13 @@ export default function SingleInputDateRangePicker(props: any) {
     debugger;
 
     // if (startYears === nextYear) {
+      //   let prev = date.setMonth(date.getMonth());
+      //   let prevMonthValue = moment(prev).format('YYYY MM DD');
+      //   setPrevMonth(prevMonthValue);
+
     //   date.setMonth(date.getMonth() +1, 1);
     //   let nextMonthValue = moment(date).format('YYYY MM DD');
     //   setNextMonth(nextMonthValue);
-
-    //   let prev = date.setMonth(date.getMonth());
-    //   let prevMonthValue = moment(prev).format('YYYY MM DD');
-    //   setPrevMonth(prevMonthValue);
     // }
 
     debugger;
