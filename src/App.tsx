@@ -253,8 +253,8 @@ function App() {
 
       <TreeComponent
         state={state}
-        // defaultExpandIcon={<ExpandIcon />}
-        // defaultCollapseIcon={<CollapseIcon />}
+        defaultExpandIcon={<ExpandIcon />}
+        defaultCollapseIcon={<CollapseIcon />}
         checkboxsection
         onChange={onChange}
       />

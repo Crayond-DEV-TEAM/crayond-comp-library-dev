@@ -1,4 +1,5 @@
 import { SxProps, Theme } from '@mui/material';
+import { ReactElement } from 'react';
 
 
 export interface CustomLabelProps {
@@ -7,10 +8,16 @@ export interface CustomLabelProps {
     fontsize?: any;
     checkBox?: boolean;
     disable?: boolean;
-    onChange?: () => void | undefined;
+    onChange?: (e: any, val: any, id: string, data: any) => void;
     nodes?: any;
     index?: number;
-
+    state?: any;
+    checkboxIcon?: ReactElement;
+    uncheckedIcon?: ReactElement;
+    checkboxWidth?: number;
+    checkboxBorderRadius?: string | number;
+    checkboxHeight?: number;
+    checkboxBgColor?: string;
 }
 export interface TreeComponentProps {
     className?: string;
@@ -18,10 +25,12 @@ export interface TreeComponentProps {
     data?: any;
     checkboxsection?: boolean;
     setEdit?: any;
-    onChange?: () => void;
+    onChange?: (e: any, val: any, id: string, data: any) => void;
     customLabel?: CustomLabelProps;
     rootNode?: boolean;
     defaultExpandIcon?: JSX.Element;
     defaultCollapseIcon?: JSX.Element;
+    state: any;
+
 }
 

@@ -3,7 +3,6 @@ import { styles } from './style';
 import { Checkbox } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { TreeViewProps } from './props';
-import { boolean, string } from 'yup';
 import { BpCheckedIcon, BpIcon } from './checkboxComp';
 
 export default function TreeView(props: TreeViewProps) {
