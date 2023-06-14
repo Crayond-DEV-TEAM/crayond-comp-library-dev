@@ -54,26 +54,19 @@ export default function SingleInputDateRangePicker(props: any) {
   const onMonthChangeStart = (e: any) => {
     debugger;
     let date = e.$d;
-  
-    let startYears = moment(prevMonth).get('year');
-    let nextYear = moment(nextMonth).get('year');
-    debugger;
 
-    if (startYears === nextYear) {
-    let prev = date.setMonth(date.getMonth());
-    let prevMonthValue = moment(prev).format('YYYY MM DD');
-    setPrevMonth(prevMonthValue);
+    let year = startYear.setMonth(date.getMonth());
+    let merge = new Date(year);
+    setPrevMonth(moment(merge).format('YYYY MM DD'));
 
-    date.setMonth(date.getMonth() - 1, 1);
-    let nextMonthValue = moment(date).format('YYYY MM DD');
-    setNextMonth(nextMonthValue);
-    }
     
-    // let year = startYear.setMonth(date.getMonth());
-    // let merge = new Date(year);
-    // setPrevMonth(moment(merge).format('YYYY MM DD'));
+    merge.setMonth(merge.getMonth() + 1, 1);
+    let nextMonthValue = moment(merge).format('YYYY MM DD');
+    setNextMonth(nextMonthValue);
 
-    debugger;
+    // let startYears = moment(prevMonth).get('year');
+    // let nextYear = moment(nextMonth).get('year');
+    
     // let startOfMonth = moment(nextMonth).startOf('year').format('YYYY MM DD');
     // let combined = new Date(startOfMonth);
 
@@ -91,23 +84,23 @@ export default function SingleInputDateRangePicker(props: any) {
   };
 
   const onMonthChangeEnd = (e: any) => {
+    debugger;
     let date = e?.$d;
 
     let startYears = moment(prevMonth).get('year');
     let nextYear = moment(nextMonth).get('year');
-    debugger;
 
-    if (startYears === nextYear) {
-    let prev = date.setMonth(date.getMonth());
-    let prevMonthValue = moment(prev).format('YYYY MM DD');
-    setPrevMonth(prevMonthValue);
+    // if (startYears === nextYear) {
+    // let prev = date.setMonth(date.getMonth());
+    // let prevMonthValue = moment(prev).format('YYYY MM DD');
+    // setPrevMonth(prevMonthValue);
 
-    date.setMonth(date.getMonth() - 1, 1);
-    let nextMonthValue = moment(date).format('YYYY MM DD');
-    setNextMonth(nextMonthValue);
-    }
-    // setStartDate(null);
-    // setEndDate(null);
+    // date.setMonth(date.getMonth() - 1, 1);
+    // let nextMonthValue = moment(date).format('YYYY MM DD');
+    // setNextMonth(nextMonthValue);
+    // }
+    setStartDate(null);
+    setEndDate(null);
   };
 
   const handleYearChangeStart = (e: any) => {
@@ -121,25 +114,24 @@ export default function SingleInputDateRangePicker(props: any) {
     debugger;
     let date = e?.$d;
     // setNextMonth(date);
-    setPrevMonth(date);
-    setEndYear(date);
-    debugger;
+    // setPrevMonth(date);
+    // setEndYear(date);
     let startYears = moment(prevMonth).get('year');
     let nextYear = moment(date).get('year');
 
     let startOfMonth = moment(date).startOf('year').format('YYYY MM DD');
     let combined = new Date(startOfMonth);
 
-    if (startYears > nextYear) {
+    // if (startYears > nextYear) {
     console.log(combined, '==handleYearChangeEnd');
     let next = combined.setMonth(combined.getMonth() + 1, 1);
     let nextMonths = moment(next).format('YYYY MM DD');
-    setNextMonth(nextMonths);
+    setPrevMonth(nextMonths);
 
     let prev = combined.setMonth(combined.getMonth());
     let days = moment(prev).format('YYYY MM DD');
-    setPrevMonth(days);
-    }
+    setNextMonth(days);
+    // }
   };
 
   const handleSubmitCalendar = () => {
@@ -189,7 +181,7 @@ export default function SingleInputDateRangePicker(props: any) {
             ...styles.inputStyleRoot,
             ...inputStyleRoot,
           }}
-          value={moment(startDate?.$d).format('DD MMM YY')}
+          value={moment(prevMonth??null).format('DD MMM YY')}
           placeholder="Check-in"
           InputProps={{
             startAdornment: (
@@ -202,7 +194,7 @@ export default function SingleInputDateRangePicker(props: any) {
         <Divider orientation="vertical" flexItem sx={{ ...styles.divider }} />
         <TextField
           sx={{ ...styles.inputStyleRoot, ...inputStyleRoot }}
-          value={moment(endDate?.$d).format('DD MMM YY')}
+          value={moment(nextMonth??null).format('DD MMM YY')}
           placeholder="Check-out"
           InputProps={{
             startAdornment: (
@@ -338,7 +330,6 @@ const PopoverPopupState = (props: any) => {
               onYearChange={onYearChangeStart}
               calenderStyles={startCalendarStyle}
               shouldDisableYear={shouldDisableStartYear}
-
             />
           </Box>
           <Divider orientation="vertical" flexItem sx={{ color: '#929292' }} />
@@ -396,6 +387,10 @@ const MyCustomLayout = (props: MyCustomLayoutProps) => {
     onYearChange = () => {},
   } = props;
 
+  const [state, setState] = useState(value);
+  useEffect(() => {
+    setState(value);
+  }, [value]);
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateCalendar
@@ -403,10 +398,10 @@ const MyCustomLayout = (props: MyCustomLayoutProps) => {
           ...calenderStyles,
           maxHeight: '315px',
         }}
-        onMonthChange={onMonthChange}
-        onChange={onChange}
-        onYearChange={onYearChange}
-        value={value}
+        onChange={(e: any) => onChange(e)}
+        onYearChange={(e: any) => onYearChange(e)}
+        onMonthChange={(e: any) => onMonthChange(e)}
+        value={state}
         views={views}
         openTo={openTo}
         disableFuture={disableFuture}
