@@ -23,6 +23,11 @@ export default function SingleInputDateRangePicker(props: any) {
     endCalendarStyle,
     startCalendarStyle,
     inputContainerStyle,
+    inputBorderColor,
+    inputValueColor,
+    inputFontsize,
+    calenderStyles,
+    calendarContainerStyle,
   } = props;
 
   const [startDate, setStartDate] = useState<Dayjs | null>(dayjs(null));
@@ -30,8 +35,6 @@ export default function SingleInputDateRangePicker(props: any) {
   const [prevMonth, setPrevMonth] = useState<any>(null);
   const [nextMonth, setNextMonth] = useState<any>(null);
   const [startYear, setStartYear] = useState<any>(null);
-  const [endYear, setEndYear] = useState<any>(null);
-  const [startEndDate, setStartEndDate] = useState<any>(null);
   const [isOpenCalendar, setOpenCalendar] = useState<HTMLButtonElement | null>(
     null
   );
@@ -52,65 +55,43 @@ export default function SingleInputDateRangePicker(props: any) {
   };
 
   const onMonthChangeStart = (e: any) => {
-    debugger;
     let date = e.$d;
 
-    let year = startYear.setMonth(date.getMonth());
-    let merge = new Date(year);
+    let fill = null;
+    if (startYear) {
+      fill = startYear?.setMonth(date.getMonth());
+    }
+
+    let merge = new Date(fill ?? date);
     setPrevMonth(moment(merge).format('YYYY MM DD'));
 
-    
     merge.setMonth(merge.getMonth() + 1, 1);
     let nextMonthValue = moment(merge).format('YYYY MM DD');
     setNextMonth(nextMonthValue);
 
-    // let startYears = moment(prevMonth).get('year');
-    // let nextYear = moment(nextMonth).get('year');
-    
-    // let startOfMonth = moment(nextMonth).startOf('year').format('YYYY MM DD');
-    // let combined = new Date(startOfMonth);
-
-    // if(startYears > nextYear){
-    //   let prev = combined.setMonth(combined.getMonth());
-    //   let days = moment(prev).format('YYYY MM DD');
-    //   setPrevMonth(days);
-
-    //   let next = combined.setMonth(combined.getMonth() + 1, 1);
-    //   let nextMonths = moment(next).format('YYYY MM DD');
-    //   setNextMonth(nextMonths);
-
     setStartDate(null);
     setEndDate(null);
+    setStartYear(null);
   };
 
   const onMonthChangeEnd = (e: any) => {
     debugger;
     let date = e?.$d;
 
-    let startYears = moment(prevMonth).get('year');
-    let nextYear = moment(nextMonth).get('year');
-
-    // if (startYears === nextYear) {
-    // let prev = date.setMonth(date.getMonth());
-    // let prevMonthValue = moment(prev).format('YYYY MM DD');
-    // setPrevMonth(prevMonthValue);
-
-    // date.setMonth(date.getMonth() - 1, 1);
-    // let nextMonthValue = moment(date).format('YYYY MM DD');
-    // setNextMonth(nextMonthValue);
-    // }
-    setStartDate(null);
-    setEndDate(null);
+      let merge = new Date(date);
+      setNextMonth(moment(merge).format('YYYY MM DD'));
+  
+      merge.setMonth(merge.getMonth() -1, 1);
+      let nextMonthValue = moment(merge).format('YYYY MM DD');
+      setPrevMonth(nextMonthValue);
   };
 
   const handleYearChangeStart = (e: any) => {
     let date = e?.$d;
     setStartYear(date);
-    // setPrevMonth(date);
-    // setNextMonth(date)
   };
 
-  const handleYearChangeEnd = (e: any) => {
+  const handleYearChangeEnd = async (e: any) => {
     debugger;
     let date = e?.$d;
     // setNextMonth(date);
@@ -124,28 +105,29 @@ export default function SingleInputDateRangePicker(props: any) {
 
     // if (startYears > nextYear) {
     console.log(combined, '==handleYearChangeEnd');
-    let next = combined.setMonth(combined.getMonth() + 1, 1);
+    let next = combined.getFullYear() + ' 01 01';
     let nextMonths = moment(next).format('YYYY MM DD');
     setPrevMonth(nextMonths);
 
-    let prev = combined.setMonth(combined.getMonth());
+    let prev = combined.getFullYear() + ' 02 01';
+    // let prev = combined.getMonth() + 2;
     let days = moment(prev).format('YYYY MM DD');
     setNextMonth(days);
     // }
   };
 
   const handleSubmitCalendar = () => {
-    // setStartEndDate(startDate.$d,endDate.$d)
-    // console.log(moment(startDate.$d).format('YYYY MM DD') ,'start', moment(endDate.$d).format('YYYY MM DD'), 'end');
-  };
+    // console.log(prevMonth.$d,nextMonth.$d);
+    
+    setOpenCalendar(null);
+   };
 
   const handleStartDateChange = (date: any) => {
-    debugger;
-    setStartDate(date);
+    setPrevMonth(date);
   };
 
   const handleEndDateChange = (date: any) => {
-    setEndDate(date);
+    setNextMonth(date);
   };
 
   const handleOpenCalendar = (event: any) => {
@@ -153,10 +135,6 @@ export default function SingleInputDateRangePicker(props: any) {
   };
 
   const handleCancelCalendar = () => {
-    setStartDate(null);
-    setEndDate(null);
-    setPrevMonth(null);
-    setNextMonth(null);
     setOpenCalendar(null);
   };
 
@@ -165,11 +143,14 @@ export default function SingleInputDateRangePicker(props: any) {
     setEndDate(null);
     setPrevMonth(findCurrentMonth(new Date()));
     setNextMonth(findNextMonth(findCurrentMonth(new Date())));
-  }, [isOpenCalendar]);
+  }, []);
   return (
     <>
       <Box
         sx={{
+          '&.MuiBox-root': {
+            borderColor: inputBorderColor,
+          },
           ...styles.mainBox,
           ...inputContainerStyle,
           borderColor: isOpenCalendar ? '#665CD7' : ' #E9E9E9',
@@ -180,12 +161,15 @@ export default function SingleInputDateRangePicker(props: any) {
           sx={{
             ...styles.inputStyleRoot,
             ...inputStyleRoot,
+            fontSize:"20px",
+            color:"red"
           }}
-          value={moment(prevMonth??null).format('DD MMM YY')}
+          value={moment(prevMonth?? null).format('DD MMM YY')}
           placeholder="Check-in"
           InputProps={{
+            style: {fontSize: inputFontsize,color:inputValueColor},
             startAdornment: (
-              <InputAdornment position={leftIconPosition}>
+              <InputAdornment position={'end'} sx={{ mt: '4px' }}>
                 {leftInputCalendarIcon}
               </InputAdornment>
             ),
@@ -194,9 +178,10 @@ export default function SingleInputDateRangePicker(props: any) {
         <Divider orientation="vertical" flexItem sx={{ ...styles.divider }} />
         <TextField
           sx={{ ...styles.inputStyleRoot, ...inputStyleRoot }}
-          value={moment(nextMonth??null).format('DD MMM YY')}
+          value={moment(nextMonth ?? null).format('DD MMM YY')}
           placeholder="Check-out"
           InputProps={{
+            style: {fontSize: inputFontsize,color:inputValueColor},
             startAdornment: (
               <InputAdornment position={rightIconPosition}>
                 {rightInputCalendarIcon}
@@ -233,6 +218,9 @@ export default function SingleInputDateRangePicker(props: any) {
         onMonthChangeEnd={onMonthChangeEnd}
         onYearChangeStart={handleYearChangeStart}
         onYearChangeEnd={handleYearChangeEnd}
+
+        calendarContainerStyle={calendarContainerStyle}
+        calenderStyles={calenderStyles}
       />
     </>
   );
@@ -269,10 +257,13 @@ const PopoverPopupState = (props: any) => {
     onYearChangeEnd,
     shouldDisableStartYear,
     shouldDisableEndYear,
+
+    calendarContainerStyle,
+    calenderStyles,
   } = props;
   const open = Boolean(isOpenCalendar);
   const id = open ? 'simple-popover' : undefined;
-
+  debugger;
   return (
     <>
       <Popover
@@ -312,14 +303,14 @@ const PopoverPopupState = (props: any) => {
           },
         }}
       >
-        <Box sx={{ ...styles.calendarContainer }}>
+        <Box sx={{ ...styles.calendarContainer ,...calendarContainerStyle}}>
           <Box>
             <MyCustomLayout
               views={startViews}
               openTo={openTo}
               Day={StartDay}
-              maxDate={maxDateStart}
-              minDate={minDateStart}
+              maxDate={new Date(endDefaultValue)}
+              minDate={minDateEnd}
               disableFuture={disableFuture}
               disablePast={disablePast}
               value={dayjs(`${startDefaultValue}`)}
@@ -388,9 +379,11 @@ const MyCustomLayout = (props: MyCustomLayoutProps) => {
   } = props;
 
   const [state, setState] = useState(value);
+  
   useEffect(() => {
     setState(value);
-  }, [value]);
+  }, [value.$d]);
+  debugger;
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateCalendar
@@ -409,7 +402,7 @@ const MyCustomLayout = (props: MyCustomLayoutProps) => {
         slots={{ day: Day }}
         defaultValue={defaultValue}
         shouldDisableYear={shouldDisableYear}
-        maxDate={maxDate}
+        // maxDate={moment(maxDate).format("YYYY-MM-DD")}
         minDate={minDate}
         slotProps={{
           day: {
@@ -512,17 +505,21 @@ SingleInputDateRangePicker.defaultProps = {
   onChange: () => {},
   dateFormat: 'YYYY MM DD',
   disablePast: false,
-  rightIconPosition: '',
+  rightIconPosition: 'end',
   leftInputCalendarIcon: (
     <>
       <CalendarIcon />
     </>
   ),
   rightInputCalendarIcon: <>{/* <CalendarIcon /> */}</>,
-  leftIconPosition: 'start',
+  leftIconPosition: 'end',
   inputStyleRoot: {},
   endCalendarStyle: {},
   startCalendarStyle: {},
   inputContainerStyle: {},
   calenderStyles: {},
+  inputBorderColor:12,
+  inputFontsize:"",
+  calendarContainerStyle:{}
+
 };

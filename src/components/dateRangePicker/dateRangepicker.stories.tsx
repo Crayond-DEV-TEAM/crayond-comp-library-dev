@@ -1,6 +1,7 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { SingleInputDateRangePicker } from './index';
 import CalendarIcon from '../../assets/calendarIcon';
+import { string } from 'yargs';
 
 export default {
   title: 'components/SingleInputDateRangePicker',
@@ -26,10 +27,10 @@ Primary.argTypes = {
       description: '()=>{}'
     },
     rightIconPosition: {
-      description: '"left" |"right"'
+      description: '"start" |"end"'
     },
     leftIconPosition: {
-      description: '"left" |"right"'
+      description: '"start" |"end"'
     },
     inputStyleRoot: {
       description: 'object'
@@ -49,6 +50,18 @@ Primary.argTypes = {
     leftInputCalendarIcon: {
       description: 'ReactNode'
     },
+    inputBorderColor: {
+      description: "string"
+    },
+    inputFontsize: {
+      description: "number"
+    },
+    inputValueColor: {
+      description: "string"
+    },
+    calendarContainerStyle: {
+      description: "object"
+    },
   }
 Primary.args = {
 //   value:"",
@@ -64,4 +77,10 @@ Primary.args = {
   startCalendarStyle:{},
   inputContainerStyle:{},
   calenderStyles:{},
+  inputBorderColor:'',
+  inputFontsize:12,
+  inputValueColor:"",
+  calendarContainerStyle:{},
+
+
 };

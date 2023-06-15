@@ -56,6 +56,7 @@ export interface PopoverPopupProps {
   maxDate:any;
   minDate:any;
   shouldDisableYear:any
+  calendarContainerStyle:object
 }
 
 export interface DateRangePickerProps {
