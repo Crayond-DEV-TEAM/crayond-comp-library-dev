@@ -62,15 +62,16 @@ export const styles = {
       marginTop: '13px',
       color: '#929292',
     },
-  
-    calendarContainer: {
+    calendarBox:{
       display: 'flex',
       flexWrap: 'wrap',
       width: 'fit-content',
+    },
+
+    calendarContainer: {
       border: '1px solid #665CD7',
       borderRadius: '8px',
       boxShadow: ' 0px 8px 12px #00000014',
-      padding: '16px 0px',
       '& .MuiPickersPopper-paper': {
         borderRadius: '8px',
       },

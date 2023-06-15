@@ -13,6 +13,7 @@ import CalendarIcon from '../../assets/calendarIcon';
 import { CustomPickerDayProps } from './props';
 import { styles } from './style';
 import './styles.css';
+import { color } from '@mui/system';
 export default function SingleInputDateRangePicker(props: any) {
   const {
     rightInputCalendarIcon,
@@ -20,17 +21,30 @@ export default function SingleInputDateRangePicker(props: any) {
     leftInputCalendarIcon,
     leftIconPosition,
     inputStyleRoot,
-    endCalendarStyle,
-    startCalendarStyle,
+    inputLabelColor,
+    inputLabelSize,
+
     inputContainerStyle,
     inputBorderColor,
+    inputActiveColor,
+    inputBorderHoverColor,
     inputValueColor,
     inputFontsize,
-    calenderStyles,
-    calendarContainerStyle,
+    startLabel,
+    endLabel,
+    dateFormat,
+
     addMoreButtons,
     selectedDateColor,
     selectedRangeBgColor,
+
+    bottomButtonStyle,
+    buttonFontSize,
+    buttonLabelColor,
+
+    endCalendarStyle,
+    startCalendarStyle,
+    calenderPopoverStyle,
   } = props;
 
   const [startDate, setStartDate] = useState<Dayjs | null>(dayjs(null));
@@ -91,11 +105,10 @@ export default function SingleInputDateRangePicker(props: any) {
 
   const handleYearChangeEnd = async (e: any) => {
     let date = e?.$d;
-  
+
     let startOfMonth = moment(date).startOf('year').format('YYYY MM DD');
     let combined = new Date(startOfMonth);
 
-    console.log(combined, '==handleYearChangeEnd');
     let next = combined.getFullYear() + ' 01 01';
     let nextMonths = moment(next).format('YYYY MM DD');
     setPrevMonth(nextMonths);
@@ -108,7 +121,6 @@ export default function SingleInputDateRangePicker(props: any) {
   const handleStartDateChange = (date: any) => {
     setPrevMonth(date);
     setStartDate(date);
-
   };
 
   const handleEndDateChange = (date: any) => {
@@ -117,7 +129,6 @@ export default function SingleInputDateRangePicker(props: any) {
   };
 
   const handleSubmitCalendar = () => {
-    // console.log(prevMonth.$d,nextMonth.$d);
     setOpenCalendar(null);
   };
 
@@ -130,7 +141,7 @@ export default function SingleInputDateRangePicker(props: any) {
   };
 
   useEffect(() => {
-    setStartDate(null); 
+    setStartDate(null);
     setEndDate(null);
     setPrevMonth(findCurrentMonth(new Date()));
     setNextMonth(findNextMonth(findCurrentMonth(new Date())));
@@ -140,11 +151,15 @@ export default function SingleInputDateRangePicker(props: any) {
       <Box
         sx={{
           '&.MuiBox-root': {
-            borderColor: inputBorderColor,
+            '&: hover': {
+              border: `1px solid ${inputBorderHoverColor}`,
+            },
           },
           ...styles.mainBox,
           ...inputContainerStyle,
-          borderColor: isOpenCalendar ? '#665CD7' : ' #E9E9E9',
+          borderColor: isOpenCalendar
+            ? `${inputActiveColor}`
+            : `${inputBorderColor}`,
         }}
         onClick={handleOpenCalendar}
       >
@@ -152,13 +167,22 @@ export default function SingleInputDateRangePicker(props: any) {
           sx={{
             ...styles.inputStyleRoot,
             ...inputStyleRoot,
-            fontSize: '20px',
-            color: 'red',
+            '& .MuiInputBase-root.MuiOutlinedInput-root ::placeholder': {
+              color: inputLabelColor,
+              fontSize:inputLabelSize,
+            },
           }}
-          value={startDate? moment(startDate ? startDate.$d : null).format('DD MMM YY'):"Check-in"}
-          placeholder="Check-in"
+          value={
+            startDate
+              ? moment(startDate ? startDate.$d : null).format(`${dateFormat}`)
+              : ''
+          }
+          placeholder={startLabel}
           InputProps={{
-            style: { fontSize: inputFontsize, color: inputValueColor },
+            style: {
+              fontSize: inputFontsize,
+              color: inputValueColor,
+            },
             startAdornment: (
               <InputAdornment position={'end'} sx={{ mt: '4px' }}>
                 {leftInputCalendarIcon}
@@ -168,9 +192,20 @@ export default function SingleInputDateRangePicker(props: any) {
         />
         <Divider orientation="vertical" flexItem sx={{ ...styles.divider }} />
         <TextField
-          sx={{ ...styles.inputStyleRoot, ...inputStyleRoot }}
-          value={endDate? moment(endDate ? endDate.$d : null).format('DD MMM YY'):"Check-out"}
-          placeholder="Check-out"
+          sx={{
+            ...styles.inputStyleRoot,
+            ...inputStyleRoot,
+            '& .MuiInputBase-root.MuiOutlinedInput-root ::placeholder': {
+              color: inputLabelColor,
+              fontSize:inputLabelSize,
+            },
+          }}
+          value={
+            endDate
+              ? moment(endDate ? endDate.$d : null).format(`${dateFormat}`)
+              : ''
+          }
+          placeholder={endLabel}
           InputProps={{
             style: { fontSize: inputFontsize, color: inputValueColor },
             startAdornment: (
@@ -212,10 +247,12 @@ export default function SingleInputDateRangePicker(props: any) {
         onMonthChangeEnd={onMonthChangeEnd}
         onYearChangeStart={handleYearChangeStart}
         onYearChangeEnd={handleYearChangeEnd}
-        calendarContainerStyle={calendarContainerStyle}
-        calenderStyles={calenderStyles}
         selectedDateColor={selectedDateColor}
         selectedRangeBgColor={selectedRangeBgColor}
+        bottomButtonStyle={bottomButtonStyle}
+        buttonFontSize={buttonFontSize}
+        buttonLabelColor={buttonLabelColor}
+        calenderPopoverStyle={calenderPopoverStyle}
       />
     </>
   );
@@ -254,10 +291,13 @@ const PopoverPopupState = (props: any) => {
     shouldDisableStartYear,
     shouldDisableEndYear,
 
-    calendarContainerStyle,
-    calenderStyles,
+    calenderPopoverStyle,
     selectedDateColor,
     selectedRangeBgColor,
+
+    bottomButtonStyle,
+    buttonFontSize,
+    buttonLabelColor,
   } = props;
   const open = Boolean(isOpenCalendar);
   const id = open ? 'simple-popover' : undefined;
@@ -283,15 +323,13 @@ const PopoverPopupState = (props: any) => {
         elevation={0}
         PaperProps={{
           sx: {
+            ...calenderPopoverStyle,
             marginTop: '12px',
             borderRadius: ' 8px',
-            '& .Mui-selected': {
-              backgroundColor: '',
-            },
-            '& .MuiPickersMonth-monthButton.Mui-selected': {
+            '& .MuiPickersMonth-monthButton': {
               padding: '1px',
             },
-            '& .MuiPickersYear-yearButton.Mui-selected': {
+            '& .MuiPickersYear-yearButton': {
               padding: '1px',
             },
             '& .MuiPickersDay-root': {
@@ -303,66 +341,79 @@ const PopoverPopupState = (props: any) => {
           },
         }}
       >
-        <Box sx={{ ...styles.calendarContainer, ...calendarContainerStyle }}>
-          <Box>
-            <MyCustomLayout
-              views={startViews}
-              openTo={openTo}
-              Day={StartDay}
-              // maxDate={new Date(maxDateStart)}
-              // minDate={new Date(minDateEnd)}
-              disableFuture={disableFuture}
-              disablePast={disablePast}
-              value={dayjs(`${startDefaultValue}`)}
-              selectedDay={selectedDayStart}
-              defaultValue={dayjs(`${startDefaultValue}`)}
-              onMonthChange={onMonthChangeStart}
-              onChange={startDateHandleChange}
-              onYearChange={onYearChangeStart}
-              calenderStyles={startCalendarStyle}
-              shouldDisableYear={shouldDisableStartYear}
-              maxDate={undefined}
-              minDate={undefined}
-              selectedRangeBgColor={selectedRangeBgColor}
-              selectedDateColor={selectedDateColor}
-            />
-          </Box>
-          <Divider orientation="vertical" flexItem sx={{ color: '#929292' }} />
-          <Box>
-            <MyCustomLayout
-              views={endViews}
-              openTo={openTo}
-              Day={EndDay}
-              // maxDate={new Date(maxDateStart)}
-              // minDate={new Date(maxDateEnd)}
-              disableFuture={disableFuture}
-              disablePast={disablePast}
-              selectedDay={selectedDayEnd}
-              value={dayjs(`${endDefaultValue}`)}
-              defaultValue={dayjs(`${endDefaultValue}`)}
-              onMonthChange={onMonthChangeEnd}
-              onChange={endDateHandleChange}
-              onYearChange={onYearChangeEnd}
-              calenderStyles={endCalendarStyle}
-              shouldDisableYear={shouldDisableEndYear}
-              maxDate={undefined}
-              minDate={undefined}
-              selectedRangeBgColor={selectedRangeBgColor}
-              selectedDateColor={selectedDateColor}
-            />
-            <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                alignItems: 'center',
-              }}
-            >
-              {addMoreButtons.map((val: any) => (
-                <>
-                  <Button onClick={handleCloseCalendar}>{val?.label}</Button>
-                </>
-              ))}
+        <Box sx={{ ...styles.calendarContainer }}>
+          <Box sx={{ ...styles.calendarBox }}>
+            <Box>
+              <MyCustomLayout
+                views={startViews}
+                openTo={openTo}
+                Day={StartDay}
+                // maxDate={new Date(maxDateStart)}
+                // minDate={new Date(minDateEnd)}
+                disableFuture={disableFuture}
+                disablePast={disablePast}
+                value={dayjs(`${startDefaultValue}`)}
+                selectedDay={selectedDayStart}
+                defaultValue={dayjs(`${startDefaultValue}`)}
+                onMonthChange={onMonthChangeStart}
+                onChange={startDateHandleChange}
+                onYearChange={onYearChangeStart}
+                shouldDisableYear={shouldDisableStartYear}
+                maxDate={undefined}
+                minDate={undefined}
+                selectedRangeBgColor={selectedRangeBgColor}
+                selectedDateColor={selectedDateColor}
+              />
             </Box>
+            <Divider
+              orientation="vertical"
+              flexItem
+              sx={{ color: '#929292' }}
+            />
+            <Box>
+              <MyCustomLayout
+                views={endViews}
+                openTo={openTo}
+                Day={EndDay}
+                // maxDate={new Date()}
+                // minDate={new Date()}
+                disableFuture={disableFuture}
+                disablePast={disablePast}
+                selectedDay={selectedDayEnd}
+                value={dayjs(`${endDefaultValue}`)}
+                defaultValue={dayjs(`${endDefaultValue}`)}
+                onMonthChange={onMonthChangeEnd}
+                onChange={endDateHandleChange}
+                onYearChange={onYearChangeEnd}
+                shouldDisableYear={shouldDisableEndYear}
+                selectedRangeBgColor={selectedRangeBgColor}
+                selectedDateColor={selectedDateColor}
+              />
+            </Box>
+          </Box>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              padding: '4px 20px',
+            }}
+          >
+            {addMoreButtons.map((val: any) => (
+              <>
+                <Button
+                  sx={{
+                    mr: '4px',
+                    ...bottomButtonStyle,
+                    color: buttonLabelColor,
+                    fontSize: buttonFontSize,
+                  }}
+                  onClick={val?.handleFunction()}
+                >
+                  {val?.label}
+                </Button>
+              </>
+            ))}
           </Box>
         </Box>
       </Popover>
@@ -377,7 +428,6 @@ const MyCustomLayout = (props: any) => {
     openTo,
     disableFuture,
     disablePast,
-    calenderStyles,
     selectedDay,
     Day,
     maxDate,
@@ -399,10 +449,7 @@ const MyCustomLayout = (props: any) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
       <DateCalendar
-        sx={{
-          ...calenderStyles,
-          maxHeight: '315px',
-        }}
+        sx={{ maxHeight: '318px',fontWeight:"600" }}
         onChange={(e: any) => onChange(e)}
         onYearChange={(e: any) => onYearChange(e)}
         onMonthChange={(e: any) => onMonthChange(e)}
@@ -420,7 +467,7 @@ const MyCustomLayout = (props: any) => {
           day: {
             selectedDay: selectedDay,
             color: selectedDateColor,
-            backgroundColor:selectedRangeBgColor,
+            backgroundColor: selectedRangeBgColor,
           } as any,
         }}
       />
@@ -453,18 +500,14 @@ const CustomPickersDay = styled(PickersDay, {
   }),
 })) as React.ComponentType<CustomPickerDayProps>;
 
-
 const StartDay = (
   props: PickersDayProps<Dayjs> & { selectedDay?: Dayjs | null }
 ) => {
   const { day, selectedDay, ...other } = props;
-  debugger;
   if (selectedDay == null) {
     return <PickersDay day={day} {...other} />;
   }
 
-  console.log(selectedDay,"start");
-  
   const end = selectedDay.endOf('month');
   const start = selectedDay.startOf('day');
 
@@ -500,15 +543,13 @@ const EndDay = (
   if (selectedDay == null) {
     return <PickersDay day={day} {...other} />;
   }
- console.log(selectedDay,"selectEnd");
- 
+
   const end = selectedDay.endOf('day');
   const start = selectedDay.startOf('month');
 
   const dayIsBetween = day.isBetween(start, end, null, []);
   const isFirstDay = day.isSame(start, 'day');
   const isLastDay = day.isSame(end, 'day');
-
 
   return (
     <CustomPickersDay
@@ -532,32 +573,45 @@ const EndDay = (
 };
 
 SingleInputDateRangePicker.defaultProps = {
-  onChange: () => {},
-  dateFormat: 'YYYY MM DD',
-  rightIconPosition: 'end',
-  leftInputCalendarIcon: (
-    <>
-      <CalendarIcon />
-    </>
-  ),
-  rightInputCalendarIcon: <>{/* <CalendarIcon /> */}</>,
-  selectedDateColor:"#000",
-  selectedRangeBgColor:"#8a7ffe",
-  leftIconPosition: 'end',
-  inputStyleRoot: {},
-  endCalendarStyle: {},
-  startCalendarStyle: {},
   inputContainerStyle: {},
-  calenderStyles: {},
-  inputBorderColor: 12,
-  inputFontsize: '',
-  calendarContainerStyle: {},
+  inputBorderColor: '#E9E9E9',
+  inputBorderHoverColor: '#B2ADEB',
+  inputActiveColor: '#665CD7',
+  inputFontsize: 14,
+  inputValueColor: '#3B3B3B',
+  startLabel: 'Check-in',
+  endLabel: 'Check-out',
+  inputLabelSize: 14,
+  inputLabelColor: "#cdcdcd",
+  inputStyleRoot: {},
+
+  selectedRangeBgColor: '#8a7ffe',
+  selectedDateColor: '#000',
+
+  buttonFontSize: 14,
+  buttonLabelColor: '#665CD7',
+  bottomButtonStyle: {},
   addMoreButtons: [
     {
       label: 'OK',
+      handleFunction:()=>{}
     },
     {
       label: 'Cancel',
+      handleFunction:()=>{}
     },
   ],
+
+  calenderPopoverStyle: {},
+  endCalendarStyle: {},
+  startCalendarStyle: {},
+
+  leftInputCalendarIcon: (<><CalendarIcon /></>),
+  rightInputCalendarIcon: <>{ <CalendarIcon />}</>,
+  // rightIconPosition: 'end',
+  // leftIconPosition: 'start',
+
+  onChange: () => {},
+  dateFormat: 'YYYY MM DD',
+
 };
