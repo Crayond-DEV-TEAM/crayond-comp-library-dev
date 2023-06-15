@@ -7,6 +7,7 @@ export interface CustomPickerDayProps extends PickersDayProps<Dayjs> {
   dayIsBetween: boolean;
   isFirstDay: boolean;
   isLastDay: boolean;
+  color:any;
 }
 
 export interface MyCustomLayoutProps {

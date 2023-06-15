@@ -62,12 +62,19 @@ Primary.argTypes = {
     calendarContainerStyle: {
       description: "object"
     },
+    selectedDateBgColor: {
+      description: "string"
+    },
+    selectedDateColor: {
+      description: "string"
+    },
+    selectedRangeBgColor: {
+      description: "string"
+    },
   }
 Primary.args = {
-//   value:"",
   onChange:()=>{},
   dateFormat:"YYYY MM DD",
-  // disablePast:false,
   rightInputCalendarIcon:"",
   rightIconPosition:"",
   leftIconPosition:"start",
@@ -81,6 +88,16 @@ Primary.args = {
   inputFontsize:12,
   inputValueColor:"",
   calendarContainerStyle:{},
-
+  selectedDateColor: "#665CD7",
+  selectedDateBgColor: "'#EFEEFB'",
+  selectedRangeBgColor: "#665CD7",
+  addMoreButtons: [
+    {
+      label: 'OK',
+    },
+    {
+      label: 'Cancel',
+    },
+  ],
 
 };
