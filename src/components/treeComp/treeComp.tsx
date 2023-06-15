@@ -1,56 +1,89 @@
-import { SxProps, Theme, Checkbox, CheckboxProps } from '@mui/material';
+import { Checkbox, Grid, Stack, FormControl } from '@mui/material';
 import { Box, Typography } from '@mui/material';
 import TreeView from '@mui/lab/TreeView';
 import { styled } from '@mui/material/styles';
 import TreeItem, { treeItemClasses } from '@mui/lab/TreeItem';
 import { styles } from './style';
-import { CollapseIcon, ExpandIcon, InfoIcon, SettingIcon } from './icons';
-import { CustomLabelProps, TreeComponentProps } from './props';
-// import { Checkbox } from '@material-ui/core';
-
+import { InfoIcon, SettingIcon } from './icons';
+import { CheckBoxProps, CustomLabelProps, TreeComponentProps } from './props';
+import { BpCheckedIcon, BpIcon } from './components';
 
 export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
     const {
-        iconProp = '',
         labelText = '',
         fontsize = '',
-        checkBox = false,
+        isCheckBox = false,
         disable = false,
+        test = '',
         onChange = () => null,
         nodes = [],
         state = [],
-        checkboxIcon,
-        uncheckedIcon,
-        checkboxWidth,
-        checkboxHeight,
+        formControlPropsSx,
+        iconProp = {
+            parent: null,
+            parentChild: null
+        },
+        checkBoxStyles = {
+            checkboxBorderRadius: '',
+            checkboxIcon: null,
+            uncheckedIcon: null,
+            checkboxWidth: '',
+            checkboxHeight: ''
+        }
     } = props;
-    // debugger
+
+    console.log(checkBoxStyles, 'checkBoxStyles');
+
+    const stylesProps = () => {
+        switch (test) {
+            case 'parent':
+                return {
+                    iconProp: iconProp?.parent ?? <SettingIcon />,
+                };
+            case 'parentchild':
+                return {
+                    iconProp: iconProp?.parentChild ?? <InfoIcon />,
+                };
+            default:
+                return
+        }
+    };
+
     return (
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Box>{iconProp}</Box>
-                <Typography sx={{ ...styles?.child, ...fontsize }}>
-                    {labelText}</Typography>
-            </Box>
-            {checkBox && (
-                <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end' }}>
-                    {
-                        nodes?.permissions?.map((val: any, i: number) => {
-                            return (
-                                <BpCheckbox
-                                    key={i}
-                                    style={{ marginRight: '17px' }}
-                                    disabled={false}
-                                    onClick={(e: any) => e.stopPropagation()}
-                                    onChange={(e: any) => onChange(e?.target?.checked, val, props?.nodes?.id, state)}
-                                    checked={nodes?.allowed?.includes(val) ? true : false}
-                                />
-                            )
-                        })
-                    }
-                </Box>
-            )}
-        </Box>
+        <>
+            <Grid container sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Grid item xs={4} sm={4} md={6} lg={8}>
+                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                        <Box>{stylesProps()?.iconProp}</Box>
+                        <Typography sx={{ ...styles?.child, ...fontsize }}>
+                            {labelText}</Typography>
+                    </Box>
+                </Grid>
+                <Grid item xs={8} sm={8} md={6} lg={4}>
+                    {isCheckBox && (
+                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                            {
+                                nodes?.permissions?.map((val: any, i: number) => {
+                                    return (
+                                        <FormControl key={i}
+                                            sx={{ ...styles?.formControl, ...formControlPropsSx }}>
+                                            <BpCheckbox
+                                                disable={disable}
+                                                checkboxBorderRadius={checkBoxStyles?.checkboxBorderRadius}
+                                                key={i}
+                                                onClick={(e: any) => e.stopPropagation()}
+                                                onChange={(e: any) => onChange(e?.target?.checked, val, props?.nodes?.id, state)}
+                                                checked={nodes?.allowed?.includes(val) ? true : false}
+                                            />
+                                        </FormControl>
+                                    )
+                                })
+                            }
+                        </Box>
+                    )}
+                </Grid>
+            </Grid>
+        </>
     );
 };
 const StyledTreeItem = styled(TreeItem)<TreeComponentProps>(({ rootNode }) => {
@@ -83,53 +116,40 @@ const StyledTreeItem = styled(TreeItem)<TreeComponentProps>(({ rootNode }) => {
         },
     };
 });
-const stylesProps = (id: string, checks: boolean) => {
-    switch (id) {
-        case 'parent':
-            return {
-                iconProp: <SettingIcon />,
-                fontsize: { fontSize: '14px', fontWeight: 600 },
-                checkBox: checks === true ? true : false,
-
-            };
-        case 'parentchild':
-            return {
-                iconProp: <InfoIcon />,
-                fontsize: { fontSize: '14px', fontWeight: 500 },
-                checkBox: checks === true ? true : false,
-            };
-        default:
-            return {
-                fontsize: { fontSize: '14px', fontWeight: 500, color: '#818181', margin: '7px' },
-                checkBox: checks === true ? true : false,
-            };
-            break;
-    }
-};
 const renderTree = (
     nodes: any,
     test: string,
-    checkBox: any,
+    isCheckBox: any,
     setEdit: any,
+    disable: boolean,
     onChange: (e: any, val: any, id: string, data: any) => void,
     index: any,
-    state: any
+    state: any,
+    customLabel: any,
+    checkBoxStyles: any
 ) => {
-    // debugger
 
     return (
         <StyledTreeItem
             rootNode={test === 'parent' ? true : false}
             key={nodes?.id}
             nodeId={`${nodes?.id}`}
+            state={state}
             label={<CustomLabel
                 labelText={nodes?.name}
-                disable={false}
+                disable={setEdit}
+                isCheckBox={isCheckBox}
                 onChange={onChange}
+                iconProp={customLabel?.iconProp}
                 nodes={nodes}
+                state={state}
                 index={index}
-                {...stylesProps(test, checkBox)} />}
-            state={state}
+                fontsize={customLabel?.fontsize}
+                test={test}
+                checkBoxStyles={checkBoxStyles} />} heading={''}
+            permissionHeadingSx={undefined} disable={false}
+            checkBoxStyles={undefined}
+
         // You can add custom properties to each node as well
         // create={nodes?.create}
         // read={nodes?.read}
@@ -138,13 +158,24 @@ const renderTree = (
         >
             {Array.isArray(nodes?.child)
                 ? nodes?.child?.map((node: any) =>
-                    renderTree(node, test + 'child', checkBox, setEdit, onChange, index, state),
+                    renderTree(node, test + 'child', isCheckBox, setEdit, disable, onChange, index, state, customLabel, checkBoxStyles),
                 )
                 : null}
         </StyledTreeItem>
     );
 };
-function BpCheckbox(props: CheckboxProps) {
+function BpCheckbox(props: CheckBoxProps) {
+    const {
+        checkboxWidth,
+        checkboxHeight,
+        checkboxBorderRadius,
+        checkboxIcon,
+        disable,
+        uncheckedIcon,
+    } = props;
+
+    console.log(checkboxBorderRadius, 'checkBoxStyles===');
+
     return (
         <Checkbox
             sx={{
@@ -156,6 +187,7 @@ function BpCheckbox(props: CheckboxProps) {
                 }
             }}
             disableRipple
+            disabled={disable}
             color="default"
             checkedIcon={checkboxIcon ?? <BpCheckedIcon />}
             icon={uncheckedIcon ?? <BpIcon />}
@@ -166,31 +198,63 @@ function BpCheckbox(props: CheckboxProps) {
 }
 export default function TreeComponent(props: TreeComponentProps) {
     const {
-        className = '',
+        customLabel = {
+            fontsize: '',
+            iconProp: ''
+        },
         state = [],
         checkboxsection = false,
         setEdit,
         onChange = () => false,
         defaultExpandIcon,
         defaultCollapseIcon,
+        leftSec,
+        rightSec,
+        heading = '',
+        permissionHeadingSx,
+        checkBoxStyles = {},
+        disable = false,
         ...rest
     } = props;
     return (
         <Box
-            className={`${className}`}
+            sx={styles?.widthItem}
             {...rest}
         >
+            {
+                < Grid container sx={styles?.entireContainerSx}>
+                    <Grid item {...leftSec?.breakpoints}>
+                        <Box>
+                            <Typography sx={styles?.headTitle} noWrap pb={1}>{heading}</Typography>
+                        </Box>
+                    </Grid>
+                    <Grid item {...rightSec?.breakpoints}>
+                        {
+                            checkboxsection && <Stack direction='row' pb={1} alignItems='center' justifyContent='space-between'>
+                                {
+                                    state?.[0]?.permissions?.map((val: string, i: number) => {
+                                        return (
+                                            <Typography sx={{ ...styles?.headItems, ...permissionHeadingSx }} key={i}>
+                                                {val}</Typography>
+                                        )
+                                    })
+                                }
+                            </Stack>
+                        }
+                    </Grid>
+                </Grid>
+            }
             {state?.length > 0 && (
                 <TreeView
                     defaultCollapseIcon={defaultCollapseIcon}
                     defaultExpandIcon={defaultExpandIcon}
-                    defaultParentIcon={<SettingIcon />}
                     sx={{ height: 220, flexGrow: 1, m: 2 }}
                 >
                     {Array.isArray(state) &&
                         state?.map((val: any, index: number) => {
-                            return renderTree(val, 'parent', checkboxsection, setEdit, onChange, index, state);
-                        })}
+                            return renderTree(val, 'parent', checkboxsection, setEdit, disable, onChange, index, state, customLabel, checkBoxStyles);
+                        })
+                    }
                 </TreeView>
             )}
         </Box>

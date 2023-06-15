@@ -9,29 +9,6 @@ import { CollapseIcon, ExpandIcon, InfoIcon, SettingIcon } from './components/tr
 
 function App() {
 
-
-  const dataRow = [
-    {
-      title: "onBoarding",
-      permission: {
-        create: true,
-        update: true,
-        read: true,
-        delete: true
-      }
-    },
-    {
-      title: "Dashboard",
-      permission: {
-        create: false,
-        update: true,
-        read: false,
-        delete: false
-
-      }
-    }
-  ]
-
   const treeData = [
     {
       "id": "22afc36b-4f7f-42ca-9fce-1a30cc05456d",
@@ -140,7 +117,9 @@ function App() {
         "read",
         "create",
         "delete",
-        "update"
+        "update",
+        "edit",
+        "edits",
       ]
     },
     {
@@ -212,7 +191,9 @@ function App() {
         "read",
         "create",
         "delete",
-        "update"
+        "update",
+        "edit",
+        "edits",
       ]
     }
   ]
@@ -220,10 +201,7 @@ function App() {
   const [state, setState] = useState([...treeData])
 
   const onChange = (e: any, val: any, id: string, data: any) => {
-    // const indexArr = index?.split('-');
-    console.log(data, 'item?.child')
-
-    const listing_permission = data?.map((item: any) => {
+    const listingPermission = data?.map((item: any) => {
       if (item?.id === id) {
         if (e) {
           item?.allowed.push(val)
@@ -232,20 +210,16 @@ function App() {
         }
       }
       if (item?.child) {
-        console.log('slslsllsl')
 
         onChange(e, val, id, item?.child);
       }
       return item
     })
-
-    console.log(listing_permission, 'ssk')
-    setState(listing_permission)
+    setState(listingPermission)
 
   }
 
-  console.log(state, 'treeData');
-
+  console.log(state, 'state');
 
 
   return (
@@ -255,12 +229,52 @@ function App() {
         state={state}
         defaultExpandIcon={<ExpandIcon />}
         defaultCollapseIcon={<CollapseIcon />}
-        checkboxsection
+        checkboxsection={true}
+        leftSec={{
+          breakpoints: {
+            xs: 4,
+            sm: 4,
+            md: 6,
+            lg: 8
+          }
+        }}
+        rightSec={{
+          breakpoints: {
+            xs: 8,
+            sm: 8,
+            md: 6,
+            lg: 4
+          }
+        }}
+        heading='Basic View'
         onChange={onChange}
-      />
+        checkBoxStyles={{
+          // checkboxIcon: '',
+          // uncheckedIcon: '',
+          checkboxBorderRadius: '8px',
+          disable: false,
+          isCheckBox: false,
+          onChange: () => null
+        }}
+        permissionHeadingSx={undefined}
+        setEdit={false}
+        customLabel={{
+          iconProp: {
+            parent: <SettingIcon />,
+            parentChild: <InfoIcon />
+          },
+          labelText: '',
+          fontsize: '44px',
+          isCheckBox: false,
+          disable: false,
+          onChange: () => null,
+          index: '',
+          formControlPropsSx: {},
+          state: [],
+        }} />
 
     </div>
-  );
+  )
 }
 
 export default App;
