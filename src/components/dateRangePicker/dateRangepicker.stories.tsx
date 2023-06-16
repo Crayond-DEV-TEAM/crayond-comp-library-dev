@@ -90,25 +90,27 @@ Primary.args = {
   selectedDateColor: "#665CD7",
   selectedRangeBgColor: "#665CD7",
 
+  cancelButtonLabel : 'cancel',
+  submitButtonLabel : 'Submit',
   bottomButtonStyle:{},
   buttonFontSize: 14,
   buttonLabelColor: '#665CD7',
   addMoreButtons: [
     {
-      label: 'OK',
-      handleFunction:()=>{}
-    },
-    {
-      label: 'Cancel',
+      label: '',
       handleFunction:()=>{}
     },
   ],
 
+  maxDateEnd: '',
+  minDateEnd: '',
+  minDateStart: '',
+  maxDateStart: '',
   calenderPopoverStyle: {},
   endCalendarStyle: {},
   startCalendarStyle: {},
   leftInputCalendarIcon:<><CalendarIcon/></>,
-  rightInputCalendarIcon:<><CalendarIcon/></>,
+  rightInputCalendarIcon:'',
   // leftIconPosition:"start",
   // rightIconPosition:"end",
 
