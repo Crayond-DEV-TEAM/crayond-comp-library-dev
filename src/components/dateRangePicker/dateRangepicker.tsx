@@ -17,7 +17,6 @@ import {
 } from './props';
 import { styles } from './style';
 import './styles.css';
-import { color } from '@mui/system';
 export default function SingleInputDateRangePicker(props: any) {
   const {
     rightInputCalendarIcon,
@@ -41,6 +40,8 @@ export default function SingleInputDateRangePicker(props: any) {
     addMoreButtons,
     selectedDateColor,
     selectedRangeBgColor,
+    selectedHoverBgColor,
+    selectedHoverTextColor,
 
     bottomButtonStyle,
     buttonFontSize,
@@ -58,6 +59,14 @@ export default function SingleInputDateRangePicker(props: any) {
     endCalendarStyle,
     startCalendarStyle,
     calenderPopoverStyle,
+
+    onMonthChangeStartFun,
+    onMonthChangeEndFun,
+    onYearChangeStartFun,
+    onYearChangeEndFun,
+    handleStartDateChangeFun,
+    handleEndDateChangeFun,
+    handleSubmitCalendarFun,
   } = props;
 
   const [startDate, setStartDate] = useState<Dayjs | null>(dayjs(null));
@@ -85,6 +94,9 @@ export default function SingleInputDateRangePicker(props: any) {
   };
 
   const onMonthChangeStart = (e: any) => {
+    if (onMonthChangeStartFun) {
+      onMonthChangeStartFun(e);
+    }
     let date = e.$d;
 
     let fill = null;
@@ -101,6 +113,9 @@ export default function SingleInputDateRangePicker(props: any) {
   };
 
   const onMonthChangeEnd = (e: any) => {
+    if (onMonthChangeEndFun) {
+      onMonthChangeEndFun(e);
+    }
     let date = e?.$d;
 
     let merge = new Date(date);
@@ -112,11 +127,18 @@ export default function SingleInputDateRangePicker(props: any) {
   };
 
   const handleYearChangeStart = (e: any) => {
+    if (onYearChangeStartFun) {
+      onYearChangeStartFun(e);
+    }
+
     let date = e?.$d;
     setStartYear(date);
   };
 
   const handleYearChangeEnd = async (e: any) => {
+    if (onYearChangeEndFun) {
+      onYearChangeEndFun(e);
+    }
     let date = e?.$d;
 
     let startOfMonth = moment(date).startOf('year').format('YYYY MM DD');
@@ -132,17 +154,23 @@ export default function SingleInputDateRangePicker(props: any) {
   };
 
   const handleStartDateChange = (date: any) => {
+    if (handleStartDateChangeFun) {
+      handleStartDateChangeFun(date);
+    }
     setPrevMonth(date);
     setStartDate(date);
   };
 
   const handleEndDateChange = (date: Date) => {
+    if (handleEndDateChangeFun) {
+      handleEndDateChangeFun(date);
+    }
     setNextMonth(date);
     setEndDate(date);
   };
 
   const handleSubmitCalendar = () => {
-    if(prevMonth && nextMonth){
+    if (prevMonth && nextMonth) {
       alert(prevMonth, 'statDate', nextMonth, 'EndDate');
       setOpenCalendar(null);
     }
@@ -270,6 +298,8 @@ export default function SingleInputDateRangePicker(props: any) {
         calenderPopoverStyle={calenderPopoverStyle}
         cancelButtonLabel={cancelButtonLabel}
         submitButtonLabel={submitButtonLabel}
+        selectedHoverBgColor={selectedHoverBgColor}
+        selectedHoverTextColor={selectedHoverTextColor}
       />
     </>
   );
@@ -303,14 +333,16 @@ const PopoverPopupState = (props: PopoverPopupProps) => {
     onMonthChangeStart,
     onMonthChangeEnd,
     handleSubmitCalendar,
-    disableFuture,
-    disablePast,
     onYearChangeStart,
     onYearChangeEnd,
 
+    disablePast,
+    disableFuture,
     calenderPopoverStyle,
     selectedDateColor,
     selectedRangeBgColor,
+    selectedHoverBgColor,
+    selectedHoverTextColor,
 
     bottomButtonStyle,
     buttonFontSize,
@@ -379,6 +411,8 @@ const PopoverPopupState = (props: PopoverPopupProps) => {
                 onYearChange={onYearChangeStart}
                 selectedRangeBgColor={selectedRangeBgColor}
                 selectedDateColor={selectedDateColor}
+                selectedHoverBgColor={selectedHoverBgColor}
+                selectedHoverTextColor={selectedHoverTextColor}
               />
             </Box>
             <Divider
@@ -403,6 +437,8 @@ const PopoverPopupState = (props: PopoverPopupProps) => {
                 onYearChange={onYearChangeEnd}
                 selectedRangeBgColor={selectedRangeBgColor}
                 selectedDateColor={selectedDateColor}
+                selectedHoverBgColor={selectedHoverBgColor}
+                selectedHoverTextColor={selectedHoverTextColor}
               />
             </Box>
           </Box>
@@ -414,7 +450,7 @@ const PopoverPopupState = (props: PopoverPopupProps) => {
               padding: '4px 20px',
             }}
           >
-             {addMoreButtons?.map((val: any) => (
+            {addMoreButtons?.map((val: any) => (
               <>
                 <Button
                   sx={{
@@ -472,6 +508,8 @@ const MyCustomLayout = (props: MyCustomLayoutProps) => {
     defaultValue,
     selectedRangeBgColor,
     selectedDateColor,
+    selectedHoverBgColor,
+    selectedHoverTextColor,
     onChange = () => {},
     onMonthChange = () => {},
     onYearChange = () => {},
@@ -503,6 +541,8 @@ const MyCustomLayout = (props: MyCustomLayoutProps) => {
             selectedDay: selectedDay,
             color: selectedDateColor,
             backgroundColor: selectedRangeBgColor,
+            hoverBgColor: selectedHoverBgColor,
+            hoverTextColor: selectedHoverTextColor,
           } as any,
         }}
       />
@@ -516,12 +556,12 @@ const CustomPickersDay = styled(PickersDay, {
 })<CustomPickerDayProps>(({ dayIsBetween, isFirstDay, isLastDay }) => ({
   ...(dayIsBetween && {
     borderRadius: 0,
-    backgroundColor: '#EFEEFB',
-    color: '#665CD7',
-    '&:hover, &:focus': {
-      backgroundColor: '#665CD7',
-      color: '#FFF',
-    },
+    // backgroundColor: '#EFEEFB',
+    // color: '#665CD7',
+    // '&:hover, &:focus': {
+    //   backgroundColor: '#d7c05c',
+    //   color: '#FFF',
+    // },
   }),
 
   ...(isFirstDay && {
@@ -561,6 +601,10 @@ const StartDay = (
               mx: 0,
               backgroundColor: `${props.backgroundColor}`,
               color: `${props.color}`,
+              '&:hover, &:focus': {
+                backgroundColor:`${props.hoverBgColor}`,
+                color: `${props.hoverTextColor}`,
+              },
             }
           : {}
       }
@@ -597,6 +641,10 @@ const EndDay = (
               mx: 0,
               backgroundColor: `${props.backgroundColor}`,
               color: `${props.color}`,
+              '&:hover, &:focus': {
+                backgroundColor:`${props.hoverBgColor}`,
+                color: `${props.hoverTextColor}`,
+              },
             }
           : {}
       }
@@ -622,19 +670,19 @@ SingleInputDateRangePicker.defaultProps = {
 
   selectedRangeBgColor: '#B2ADEB',
   selectedDateColor: '#000',
+  selectedHoverBgColor: '#EFEEFB',
+  selectedHoverTextColor: '#665CD7',
 
-  cancelButtonLabel : 'cancel',
-  submitButtonLabel : 'Submit',
+  cancelButtonLabel: 'cancel',
+  submitButtonLabel: 'Submit',
   buttonFontSize: 14,
   buttonLabelColor: '#665CD7',
   bottomButtonStyle: {},
   addMoreButtons: [
-    {
-      label: '',
-      handleFunction: () => false,
-    },
+    
   ],
 
+  dateFormat: 'DD MMM YY',
   startViews: ['year', 'month', 'day'],
   endViews: ['year', 'day'],
   openTo: 'day',
@@ -651,10 +699,13 @@ SingleInputDateRangePicker.defaultProps = {
       <CalendarIcon />
     </>
   ),
-  rightInputCalendarIcon: <>{<CalendarIcon />}</>,
-  // rightIconPosition: 'end',
-  // leftIconPosition: 'start',
+  rightInputCalendarIcon: '',
 
-  onChange: () => {},
-  dateFormat: 'YYYY MM DD',
+  handleEndDateChangeFun: () => {},
+  handleStartDateChangeFun: () => {},
+  onMonthChangeStartFun: () => {},
+  onMonthChangeEndFun: () => {},
+  onYearChangeStartFun: () => {},
+  onYearChangeEndFun: () => {},
+  handleSubmitCalendarFun: () => {},
 };

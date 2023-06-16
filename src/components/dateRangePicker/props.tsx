@@ -28,6 +28,8 @@ export interface MyCustomLayoutProps {
   minDate: Dayjs;
   selectedRangeBgColor: string;
   selectedDateColor: string;
+  selectedHoverBgColor: string;
+  selectedHoverTextColor: string;
 }
 
 export interface PopoverPopupProps {
@@ -48,16 +50,16 @@ export interface PopoverPopupProps {
   disableFuture: boolean;
   endCalendarStyle: SxProps;
   startCalendarStyle: SxProps;
-  onMonthChangeEnd: (date:any) => void;
-  onMonthChangeStart: (date:any) => void;
-  startDateHandleChange: (date:Date) => void;
-  endDateHandleChange: (date:Date) => void;
+  onMonthChangeEnd: (date: any) => void;
+  onMonthChangeStart: (date: any) => void;
+  startDateHandleChange: (date: Date) => void;
+  endDateHandleChange: (date: Date) => void;
   handleCloseCalendar: () => void;
   handleSubmitCalendar: () => void;
-  handleYearChangeStart: (date:Date) => void;
-  handleYearChangeEnd: (date:Date) => void;
-  onYearChangeStart: (date:Date) => void;
-  onYearChangeEnd: (date:Date) => void;
+  handleYearChangeStart: (date: Date) => void;
+  handleYearChangeEnd: (date: Date) => void;
+  onYearChangeStart: (date: Date) => void;
+  onYearChangeEnd: (date: Date) => void;
   maxDateStart: Dayjs;
   minDateStart: Dayjs;
   maxDateEnd: Dayjs;
@@ -68,8 +70,10 @@ export interface PopoverPopupProps {
   selectedDateColor: string;
   selectedRangeBgColor: string;
 
-  cancelButtonLabel:string;
-  submitButtonLabel:string;
+  selectedHoverBgColor: string;
+  selectedHoverTextColor: string;
+  cancelButtonLabel: string;
+  submitButtonLabel: string;
   bottomButtonStyle: SxProps;
   buttonFontSize: number;
   buttonLabelColor: string;
