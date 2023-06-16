@@ -22,14 +22,14 @@ export const styles = {
       '&.MuiFormControl-root': {
         border: 'none',
       },
-      '& .MuiOutlinedInput-root': {
-        // flexDirection: 'row-reverse',
-        '&:hover fieldset': {
-          border: ' 1px solid#B2ADEB',
-        },
-        '&:focused fieldset': {
-          border: ' 1px solid#665CD7',
-        },
-      },
+      // '& .MuiOutlinedInput-root': {
+      //   // flexDirection: 'row-reverse',
+      //   '&:hover fieldset': {
+      //     border: ' 1px solid#B2ADEB',
+      //   },
+      //   '&:focused fieldset': {
+      //     border: ' 1px solid#665CD7',
+      //   },
+      // },
     },
   };
