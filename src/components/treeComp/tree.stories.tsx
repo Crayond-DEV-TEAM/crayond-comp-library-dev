@@ -150,8 +150,7 @@ export default {
                     "create",
                     "delete",
                     "update",
-                    "edit",
-                    "edit",
+                    "edit"
                 ]
             },
             {
@@ -224,7 +223,6 @@ export default {
                     "create",
                     "delete",
                     "update",
-                    "edit",
                     "edit",
                 ]
             }

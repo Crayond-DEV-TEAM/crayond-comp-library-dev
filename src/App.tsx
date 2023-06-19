@@ -28,9 +28,10 @@ function App() {
               ],
               "permissions": [
                 "read",
-                "create",
-                "delete",
-                "update"
+                // "create",
+                // "delete",
+                "update",
+                "edit",
               ]
             },
             {
@@ -45,7 +46,8 @@ function App() {
                 "read",
                 "create",
                 "delete",
-                "update"
+                "update",
+                "edit",
               ]
             }
           ]
@@ -70,7 +72,8 @@ function App() {
                     "read",
                     "create",
                     "delete",
-                    "update"
+                    "update",
+                    "edit",
                   ]
                 }
               ],
@@ -83,7 +86,8 @@ function App() {
                 "read",
                 "create",
                 "delete",
-                "update"
+                "update",
+                "edit",
               ]
             },
             {
@@ -98,7 +102,8 @@ function App() {
                 "read",
                 "create",
                 "delete",
-                "update"
+                "update",
+                "edit",
               ]
             }
           ]
@@ -119,7 +124,6 @@ function App() {
         "delete",
         "update",
         "edit",
-        "edits",
       ]
     },
     {
@@ -142,7 +146,8 @@ function App() {
                 "read",
                 "create",
                 "delete",
-                "update"
+                "update",
+                "edit",
               ]
             },
             {
@@ -165,7 +170,8 @@ function App() {
                 "read",
                 "create",
                 "delete",
-                "update"
+                "update",
+                "edit",
               ]
             },
             {
@@ -178,7 +184,8 @@ function App() {
                 "read",
                 "create",
                 "delete",
-                "update"
+                "update",
+                "edit",
               ]
             }
           ]
@@ -193,7 +200,6 @@ function App() {
         "delete",
         "update",
         "edit",
-        "edits",
       ]
     }
   ]
@@ -220,6 +226,7 @@ function App() {
   }
 
   console.log(state, 'state');
+
 
 
   return (
@@ -271,6 +278,9 @@ function App() {
           index: '',
           formControlPropsSx: {},
           state: [],
+          checkBoxStyles: {
+            onChange: () => null
+          }
         }} />
 
     </div>

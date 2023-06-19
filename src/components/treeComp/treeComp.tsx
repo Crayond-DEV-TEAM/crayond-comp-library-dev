@@ -4,7 +4,7 @@ import TreeView from '@mui/lab/TreeView';
 import { styled } from '@mui/material/styles';
 import TreeItem, { treeItemClasses } from '@mui/lab/TreeItem';
 import { styles } from './style';
-import { InfoIcon, SettingIcon } from './icons';
+import { ExpandIcon, InfoIcon, SettingIcon, CollapseIcon } from './icons';
 import { CheckBoxProps, CustomLabelProps, TreeComponentProps } from './props';
 import { BpCheckedIcon, BpIcon } from './components';
 
@@ -32,7 +32,7 @@ export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
         }
     } = props;
 
-    console.log(checkBoxStyles, 'checkBoxStyles');
+    console.log(state, 'checkBoxStyles');
 
     const stylesProps = () => {
         switch (test) {
@@ -49,41 +49,54 @@ export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
         }
     };
 
+
+    const filter = state?.[1]?.permissions?.map((v: any) => {
+        if (nodes?.permissions?.includes(v)) {
+            return {
+                value: v
+            }
+        } else {
+            return {}
+        }
+    })
     return (
-        <>
-            <Grid container sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                <Grid item xs={4} sm={4} md={6} lg={8}>
-                    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Box>{stylesProps()?.iconProp}</Box>
-                        <Typography sx={{ ...styles?.child, ...fontsize }}>
-                            {labelText}</Typography>
-                    </Box>
-                </Grid>
-                <Grid item xs={8} sm={8} md={6} lg={4}>
-                    {isCheckBox && (
-                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                            {
-                                nodes?.permissions?.map((val: any, i: number) => {
-                                    return (
-                                        <FormControl key={i}
-                                            sx={{ ...styles?.formControl, ...formControlPropsSx }}>
-                                            <BpCheckbox
-                                                disable={disable}
-                                                checkboxBorderRadius={checkBoxStyles?.checkboxBorderRadius}
-                                                key={i}
-                                                onClick={(e: any) => e.stopPropagation()}
-                                                onChange={(e: any) => onChange(e?.target?.checked, val, props?.nodes?.id, state)}
-                                                checked={nodes?.allowed?.includes(val) ? true : false}
-                                            />
-                                        </FormControl>
-                                    )
-                                })
-                            }
-                        </Box>
-                    )}
-                </Grid>
+        <Grid container
+            sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'nowrap' }}
+        >
+            <Grid item xs={'auto'} sx={styles?.labelTextGridSx}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                    <Box>{stylesProps()?.iconProp}</Box>
+                    <Typography sx={{ ...styles?.child, ...fontsize }}>
+                        {labelText}</Typography>
+                </Box>
             </Grid>
-        </>
+            <Grid item sx={styles?.checkboxGridSx}
+                style={{
+                    justifyContent: "flex-end",
+                    display: "flex"
+                }}
+            >
+                {isCheckBox &&
+                    filter?.map((val: any, i: number) => {
+
+                        return (
+                            <FormControl key={i}
+                                sx={{ ...styles?.formControl, ...formControlPropsSx }}
+                            >{val?.value ?
+                                <BpCheckbox
+                                    disable={disable}
+                                    checkboxBorderRadius={checkBoxStyles?.checkboxBorderRadius}
+                                    key={i}
+                                    onClick={(e: any) => e.stopPropagation()}
+                                    onChange={(e: any) => onChange(e?.target?.checked, val?.value, props?.nodes?.id, state)}
+                                    checked={nodes?.allowed?.includes(val?.value) ? true : false}
+                                /> : ""}
+                            </FormControl>
+                        )
+                    })
+                }
+            </Grid>
+        </Grid>
     );
 };
 const StyledTreeItem = styled(TreeItem)<TreeComponentProps>(({ rootNode }) => {
@@ -228,18 +241,19 @@ export default function TreeComponent(props: TreeComponentProps) {
                             <Typography sx={styles?.headTitle} noWrap pb={1}>{heading}</Typography>
                         </Box>
                     </Grid>
-                    <Grid item {...rightSec?.breakpoints}>
+                    <Grid item {...rightSec?.breakpoints} style={{
+                        justifyContent: "flex-end",
+                        display: "flex",
+                        alignItems: 'center'
+                    }}>
                         {
-                            checkboxsection && <Stack direction='row' pb={1} alignItems='center' justifyContent='space-between'>
-                                {
-                                    state?.[0]?.permissions?.map((val: string, i: number) => {
-                                        return (
-                                            <Typography sx={{ ...styles?.headItems, ...permissionHeadingSx }} key={i}>
-                                                {val}</Typography>
-                                        )
-                                    })
-                                }
-                            </Stack>
+                            checkboxsection &&
+                            state?.[1]?.permissions?.map((val: string, i: number) => {
+                                return (
+                                    <Typography sx={{ ...styles?.headItems, ...permissionHeadingSx }} key={i}>
+                                        {val}</Typography>
+                                )
+                            })
                         }
                     </Grid>
                 </Grid>
@@ -248,7 +262,7 @@ export default function TreeComponent(props: TreeComponentProps) {
                 <TreeView
                     defaultCollapseIcon={defaultCollapseIcon}
                     defaultExpandIcon={defaultExpandIcon}
-                    sx={{ height: 220, flexGrow: 1, m: 2 }}
+                    sx={styles?.treeItem}
                 >
                     {Array.isArray(state) &&
                         state?.map((val: any, index: number) => {
@@ -259,4 +273,17 @@ export default function TreeComponent(props: TreeComponentProps) {
             )}
         </Box>
     );
+}
+TreeComponent.defaultProps = {
+    state: [],
+    defaultExpandIcon: < ExpandIcon />,
+    defaultCollapseIcon: < CollapseIcon />,
+    checkboxsection: true,
+    leftSec: {},
+    heading: 'Basic View',
+    onChange: () => null,
+    checkBoxStyles: {},
+    permissionHeadingSx: {},
+    setEdit: false,
+    customLabel: {}
 }
