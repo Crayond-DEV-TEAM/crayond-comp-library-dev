@@ -25,6 +25,7 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { ProfileThree } from './components/profileThree';
 import yup from './utils/yupSchema';
 import { Screen } from './components/screen';
+import { TimeLine } from './components/timeLine';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -186,7 +187,11 @@ function App() {
   });
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
-      <Screen
+     <div style={{width:"80%",height:"50%",backgroundColor:"#FFF"}}>
+      <TimeLine/>
+     </div>
+
+      {/* <Screen
        containerStyle={{}}
        headerStyle={{}}
        bodyStyle={{}}
@@ -194,7 +199,7 @@ function App() {
        headerComponent={<>Header</>}
        bodyComponent={<>Body</>}
        footerComponent={<>Footer</>}
-      />
+      /> */}
       {/* <CommonTable
         Header={[
           {
