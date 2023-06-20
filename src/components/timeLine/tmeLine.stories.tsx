@@ -147,4 +147,71 @@ export const Primary = Template.bind({});
     text3Color: '#929292',
     handleClick: () => {alert("Time line")},
     profileComponentContainer:{},
+    timeLineData:[
+      {
+        id: 1,
+        text1: '18 Mins ago',
+        text2: 'Elit convallis',
+        text3: 'invited you',
+        profileComponent:"",
+        profileUrl:
+          'https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922',
+      },
+      {
+        id: 2,
+        text1: '18 Mins ago',
+        text2:
+          'Duis mauris augue, efficitur eu arcu sit amet, posuere dignissim neque. Aenean enim sem, pharetra et magna sit amet, luctus aliquet nibh.',
+        text3: '',
+        profileComponent: '',
+        profileUrl:
+          'https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922',
+      },
+      {
+        id: 3,
+        text1: '18 Mins ago',
+        text2: 'Elit convallis',
+        text3: 'invited you',
+        profileComponent: (
+          <>
+            <img
+              src="https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922"
+              alt="profile"
+              height={'24px'}
+              width={'24px'}
+              style={{ borderRadius: '50%' }}
+            />
+          </>
+        ),
+        profileUrl: '',
+      },
+      {
+        id: 4,
+        text1: '18 Mins ago',
+        text2: 'Elit convallis',
+        text3: 'invited you',
+        profileComponent: (
+          <>
+            <img
+              src="https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922"
+              alt="profile"
+              height={'24px'}
+              width={'24px'}
+              style={{ borderRadius: '50%' }}
+            />
+          </>
+        ),
+        profileUrl: '',
+      },
+      {
+        id: 5,
+        text1: '18 Mins ago',
+        text2:
+          'Duis mauris augue, efficitur eu arcu sit amet, posuere dignissim neque. Aenean enim sem, pharetra et magna sit amet, luctus aliquet nibh.',
+        text3: '',
+        profileComponent: '',
+        profileUrl:
+          'https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922',
+      },
+    ],
   });
