@@ -91,6 +91,9 @@ export const Primary = Template.bind({});
   cardHeight: {
     description: 'number',
   },
+  profileUrlRadius: {
+    description: 'number',
+  },
   CardHoverStyle: {
     description: 'object',
   },
@@ -99,6 +102,9 @@ export const Primary = Template.bind({});
   },
   handleClick: {
     description: '()=>{}',
+  },
+  profileComponentContainer: {
+    description: 'object',
   },
  
 }),
@@ -110,15 +116,18 @@ export const Primary = Template.bind({});
     timeLinePosition: 'right',
     TimelineConnectorColor: '',
     TimelineConnectorWidth: 2,
-
+    TimelineDotProfileUrlHeight:24,
+    TimelineDotProfileUrlWidth:24,
+    TimelineDotProfileUrlRadius:1,
     TimelineDotVariant: 'filled',
-    TimelineDotHeight: 2,
-    TimelineDotWidth: 2,
+    TimelineDotHeight: 1.2,
+    TimelineDotWidth: 1.2,
     TimelineDotColor: '#929292',
     TimelineDotBorder: '',
     profileUrlHeight: 24,
     profileUrlWidth: 24,
 
+    profileUrlRadius:5,
     cardWidth: 0,
     cardMinWidth: 212,
     cardMaxWidth: 0,
@@ -136,5 +145,6 @@ export const Primary = Template.bind({});
     text2Color: '#3B3B3B',
     text3Size: 10,
     text3Color: '#929292',
-    handleClick: () => {},
+    handleClick: () => {alert("Time line")},
+    profileComponentContainer:{},
   });

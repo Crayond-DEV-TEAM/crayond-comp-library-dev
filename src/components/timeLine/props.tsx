@@ -2,6 +2,7 @@ import { SxProps } from '@mui/material';
 
 export interface CardProps {
   data: {
+    id: number;
     text1: string;
     text2: string;
     text3: string;
@@ -13,7 +14,7 @@ export interface CardProps {
   cardMaxWidth: number;
   cardMaxHeight: number;
   cardMinHeight: number;
-  cardHeight: number|undefined;
+  cardHeight: number | undefined;
   CardBackground: string;
   CardHoverStyle: SxProps;
   CardStyle: SxProps;
@@ -28,11 +29,21 @@ export interface CardProps {
   profileUrlHeight: number;
   profileUrlWidth: number;
   handleClick: () => void;
+  profileUrlRadius: number;
+  profileComponentContainer: SxProps;
 }
 
 export interface TimelineProps {
+  timeLineData: {
+    id: number;
+    text1: string;
+    text2: string;
+    text3: string;
+    profileComponent: React.ReactNode;
+    profileUrl: string;
+  }[];
   variation2: boolean;
-  rootStyle:object;
+  rootStyle: object;
   timeLinePosition: 'right' | 'left';
   TimelineConnectorColor: string;
   TimelineConnectorWidth: number;
@@ -42,9 +53,15 @@ export interface TimelineProps {
   TimelineDotWidth: number;
   TimelineDotColor: string;
   TimelineDotBorder: string;
+  TimelineDotProfileUrlHeight: number;
+  TimelineDotProfileUrlWidth: number;
+  TimelineDotProfileUrlRadius: number;
+
   profileUrlHeight: number;
   profileUrlWidth: number;
 
+  profileUrlRadius: number;
+  profileComponentContainer: SxProps;
   cardWidth: number;
   cardMinWidth: number;
   cardMaxWidth: number;

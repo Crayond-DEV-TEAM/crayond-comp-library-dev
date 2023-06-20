@@ -187,7 +187,7 @@ function App() {
   });
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
-     <div style={{width:"80%",height:"50%",backgroundColor:"#FFF"}}>
+     <div style={{width:"80%",backgroundColor:"#FFF"}}>
       <TimeLine/>
      </div>
 

@@ -4,71 +4,9 @@ import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
-import { Box, Stack, Typography } from '@mui/material';
+import { Box, Stack, SxProps, Typography } from '@mui/material';
 import { CardProps, TimelineProps } from './props';
-
-const timeDate = [
-  {
-    text1: '18 Mins ago',
-    text2: 'Elit convallis',
-    text3: 'invited you',
-    profileComponent: '',
-    profileUrl:
-      'https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922',
-  },
-  {
-    text1: '18 Mins ago',
-    text2:
-      'Duis mauris augue, efficitur eu arcu sit amet, posuere dignissim neque. Aenean enim sem, pharetra et magna sit amet, luctus aliquet nibh.',
-    text3: '',
-    profileComponent: '',
-    profileUrl:
-      'https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922',
-  },
-  {
-    text1: '18 Mins ago',
-    text2: 'Elit convallis',
-    text3: 'invited you',
-    profileComponent: (
-      <>
-        <img
-          src="https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922"
-          alt="profile"
-          height={'24px'}
-          width={'24px'}
-          style={{ borderRadius: '50%' }}
-        />
-      </>
-    ),
-    profileUrl: '',
-  },
-  {
-    text1: '18 Mins ago',
-    text2: 'Elit convallis',
-    text3: 'invited you',
-    profileComponent: (
-      <>
-        <img
-          src="https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922"
-          alt="profile"
-          height={'24px'}
-          width={'24px'}
-          style={{ borderRadius: '50%' }}
-        />
-      </>
-    ),
-    profileUrl: '',
-  },
-  {
-    text1: '18 Mins ago',
-    text2:
-      'Duis mauris augue, efficitur eu arcu sit amet, posuere dignissim neque. Aenean enim sem, pharetra et magna sit amet, luctus aliquet nibh.',
-    text3: '',
-    profileComponent: '',
-    profileUrl:
-      'https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922',
-  },
-];
+import { styles } from './style';
 
 const Card = (props: CardProps) => {
   const {
@@ -92,33 +30,38 @@ const Card = (props: CardProps) => {
     text3Color,
     profileUrlHeight,
     profileUrlWidth,
+    profileComponentContainer,
+    profileUrlRadius,
     handleClick = () => {},
   } = props;
   return (
     <Box
       onClick={() => handleClick()}
       sx={{
-        ...CardStyle,
         width: cardWidth,
         minWidth: cardMinWidth,
         maxWidth: cardMaxWidth,
         height: cardHeight,
         minHeight: cardMinHeight,
         maxHeight: cardMaxHeight,
-        cursor: 'pointer',
-        padding: '12px',
         background: CardBackground,
-        borderRadius: '6px',
         '&:hover': {
           ...CardHoverStyle,
           border: hoverBorderStyle,
           backgroundColor: hoverBgColor,
         },
-      }}
+        ...styles.cardStyle,
+        ...CardStyle,
+      } as SxProps}
     >
       <Box sx={{ display: 'flex' }}>
         {data.profileComponent && (
-          <Box pr={data.profileComponent && 1}>{data.profileComponent}</Box>
+          <Box
+            pr={data.profileComponent && 1}
+            sx={{ ...profileComponentContainer }}
+          >
+            {data.profileComponent}
+          </Box>
         )}
         {data.profileUrl && (
           <img
@@ -126,10 +69,10 @@ const Card = (props: CardProps) => {
             alt="profile"
             height={profileUrlHeight}
             width={profileUrlWidth}
-            style={{ borderRadius: '50%' }}
+            style={{ borderRadius: profileUrlRadius }}
           />
         )}
-        <Box>
+        <Box pl={data.profileUrl && 1}>
           <Typography fontSize={text1Size} color={text1Color}>
             {data.text1}
           </Typography>
@@ -149,6 +92,7 @@ const Card = (props: CardProps) => {
 
 const TimeLine = (props: TimelineProps) => {
   const {
+    timeLineData,
     variation2,
     timeLinePosition,
     TimelineConnectorColor,
@@ -158,9 +102,12 @@ const TimeLine = (props: TimelineProps) => {
     TimelineDotBorder,
     TimelineDotHeight,
     TimelineDotWidth,
+    TimelineDotProfileUrlHeight,
+    TimelineDotProfileUrlWidth,
+    TimelineDotProfileUrlRadius,
+
     profileUrlHeight,
     profileUrlWidth,
-
     cardWidth,
     cardMinWidth,
     cardMaxWidth,
@@ -180,21 +127,17 @@ const TimeLine = (props: TimelineProps) => {
     text3Color,
     handleClick,
     rootStyle,
+    profileComponentContainer,
+    profileUrlRadius,
   } = props;
   return (
     <>
-      <Box sx={{...rootStyle }}>
+      <Box sx={{ ...rootStyle }}>
         <Timeline position={timeLinePosition}>
-          {timeDate.map((card, index) => (
+          {timeLineData?.map((card, index) => (
             <>
               <TimelineItem>
                 <TimelineSeparator>
-                  <TimelineConnector
-                    sx={{
-                      backgroundColor: TimelineConnectorColor,
-                      width: TimelineConnectorWidth,
-                    }}
-                  />
                   <TimelineDot
                     variant={TimelineDotVariant}
                     sx={{
@@ -205,21 +148,22 @@ const TimeLine = (props: TimelineProps) => {
                       display: 'flex',
                       justifyContent: 'center',
                       alignItems: 'center',
+                      margin:"6.5px 0px"
                     }}
                     children={
                       <>
-                        {card.profileUrl && variation2 ? (
+                        {card?.profileUrl && variation2 ? (
                           <img
-                            src={`${card.profileUrl}`}
+                            src={`${card?.profileUrl}`}
                             alt="profile"
-                            height={profileUrlHeight}
-                            width={profileUrlWidth}
-                            style={{ borderRadius: '50%' }}
+                            height={TimelineDotProfileUrlHeight}
+                            width={TimelineDotProfileUrlWidth}
+                            style={{ borderRadius: TimelineDotProfileUrlRadius }}
                           />
                         ) : (
                           ''
                         )}
-                        {card.profileComponent && variation2 ? (
+                        {card?.profileComponent && variation2 ? (
                           <Box sx={{ display: 'flex', alignItems: 'center' }}>
                             {card?.profileComponent}
                           </Box>
@@ -240,7 +184,7 @@ const TimeLine = (props: TimelineProps) => {
                 <TimelineContent>
                   <Card
                     data={card}
-                    key={index}
+                    key={card.id}
                     cardWidth={cardWidth}
                     cardMinWidth={cardMinWidth}
                     cardMaxWidth={cardMaxWidth}
@@ -260,6 +204,8 @@ const TimeLine = (props: TimelineProps) => {
                     text3Color={text3Color}
                     profileUrlHeight={profileUrlHeight}
                     profileUrlWidth={profileUrlWidth}
+                    profileComponentContainer={profileComponentContainer}
+                    profileUrlRadius={profileUrlRadius}
                     handleClick={handleClick}
                   />
                 </TimelineContent>
@@ -286,9 +232,14 @@ TimeLine.defaultProps = {
   TimelineDotWidth: 2,
   TimelineDotColor: '#929292',
   TimelineDotBorder: '',
+  TimelineDotProfileUrlHeight:24,
+  TimelineDotProfileUrlWidth:24,
+  TimelineDotProfileUrlRadius:1,
+
   profileUrlHeight: 24,
   profileUrlWidth: 24,
-
+  
+  profileUrlRadius:5,
   cardWidth: 0,
   cardMinWidth: 212,
   cardMaxWidth: 0,
@@ -307,7 +258,75 @@ TimeLine.defaultProps = {
   text3Size: 10,
   text3Color: '#929292',
   handleClick: () => {},
-  rootStyle:{
-    background:"#F5F5F5"
-  }
+  profileComponentContainer: {},
+  rootStyle: {
+    background: '#F5F5F5',
+  },
+  timeLineData:[
+    {
+      id: 1,
+      text1: '18 Mins ago',
+      text2: 'Elit convallis',
+      text3: 'invited you',
+      profileComponent:"",
+      profileUrl:
+        'https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922',
+    },
+    {
+      id: 2,
+      text1: '18 Mins ago',
+      text2:
+        'Duis mauris augue, efficitur eu arcu sit amet, posuere dignissim neque. Aenean enim sem, pharetra et magna sit amet, luctus aliquet nibh.',
+      text3: '',
+      profileComponent: '',
+      profileUrl:
+        'https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922',
+    },
+    {
+      id: 3,
+      text1: '18 Mins ago',
+      text2: 'Elit convallis',
+      text3: 'invited you',
+      profileComponent: (
+        <>
+          <img
+            src="https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922"
+            alt="profile"
+            height={'24px'}
+            width={'24px'}
+            style={{ borderRadius: '50%' }}
+          />
+        </>
+      ),
+      profileUrl: '',
+    },
+    {
+      id: 4,
+      text1: '18 Mins ago',
+      text2: 'Elit convallis',
+      text3: 'invited you',
+      profileComponent: (
+        <>
+          <img
+            src="https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922"
+            alt="profile"
+            height={'24px'}
+            width={'24px'}
+            style={{ borderRadius: '50%' }}
+          />
+        </>
+      ),
+      profileUrl: '',
+    },
+    {
+      id: 5,
+      text1: '18 Mins ago',
+      text2:
+        'Duis mauris augue, efficitur eu arcu sit amet, posuere dignissim neque. Aenean enim sem, pharetra et magna sit amet, luctus aliquet nibh.',
+      text3: '',
+      profileComponent: '',
+      profileUrl:
+        'https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922',
+    },
+  ],
 };
