@@ -40,8 +40,8 @@ const CustomButtonGroup: React.FC<CustomButtonGroupProps> = ({
             variant={selectedButton === button.value ? 'contained' : variant}
             startIcon={button.startIcon}
             endIcon={button.endIcon}
-            onClick={() => {
-              onClick(button.value), setSelectedButton(button.value);
+            onClick={(e) => {
+              onClick(e,button.value), setSelectedButton(button.value);
             }}
             sx={{
               backgroundColor:
@@ -64,6 +64,7 @@ const CustomButtonGroup: React.FC<CustomButtonGroupProps> = ({
               },
               ...btnStyle,
             }}
+            disabled={button.isdisabled}
           >
             {button.label}
           </Button>

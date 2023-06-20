@@ -1,27 +1,7 @@
 import React, { useState } from 'react';
 import Rating from '@mui/material/Rating';
 import { Box, Typography } from '@mui/material';
-
-interface RadioGroupRatingProps {
-  customIcons?: {
-    SelectIcon: React.ReactElement;
-    unSelectIcon: React.ReactElement;
-    label: string;
-    value: number;
-  }[];
-  styledRating?: {
-    filled: React.ReactElement;
-    unFilled: React.ReactElement;
-    startValue: number;
-    remark: string;
-  }[];
-  variant: 'star' | 'emoji';
-  remarkStyle?: object;
-  selectedLabelStyle?: object;
-  emojiContainerStyle?: object;
-  onHover?: (index: number) => void;
-  onClick?: (index: number) => void;
-}
+import { RadioGroupRatingProps } from './props';
 
 const CustomRating: React.FC<RadioGroupRatingProps> = ({
   customIcons,
@@ -30,16 +10,23 @@ const CustomRating: React.FC<RadioGroupRatingProps> = ({
   remarkStyle,
   selectedLabelStyle,
   emojiContainerStyle,
-  onHover,
+  onMouseEnter,
+  onMouseLeave,
   onClick,
+  isReadOnly,
+  isLableVisible,
+  children,
+  childrenStyle,
 }) => {
   const maxRatingValue = customIcons?.length || 0;
   const [customIconSet, setCustomIconSet] = useState(customIcons || []);
+  const [styledIconSet, setStyledIconSet] = useState(styledRating || []);
   const [selectedLabel, setSelectedLabel] = useState('');
 
   const handleIconHover = (index: number) => {
-    if (onHover) {
-      onHover(index);
+    if (onMouseEnter && onMouseLeave) {
+      onMouseEnter(index);
+      onMouseLeave(1);
     }
   };
 
@@ -58,11 +45,30 @@ const CustomRating: React.FC<RadioGroupRatingProps> = ({
     setCustomIconSet(updatedIconSet);
   };
 
+  const getRatingValue = (e: any, index: number) => {
+    const setstyleValue: any = styledIconSet?.map((item, i) => {
+      if (i === index) {
+        return { ...item, starValue: e.target.value };
+      } else {
+        return { ...item };
+      }
+    });
+    console.log(e.target.value);
+    setStyledIconSet(setstyleValue);
+  };
+
   return (
     <>
       {variant === 'emoji' ? (
         <>
-          <Box sx={{ display: 'flex', gap: 3, justifyContent: 'center', ...emojiContainerStyle }}>
+          <Box
+            sx={{
+              display: 'flex',
+              gap: 3,
+              justifyContent: 'center',
+              ...emojiContainerStyle,
+            }}
+          >
             {customIconSet?.map((item, index) => (
               <Box
                 key={index}
@@ -70,43 +76,73 @@ const CustomRating: React.FC<RadioGroupRatingProps> = ({
                 onMouseEnter={() => handleIconHover(index)}
                 onMouseLeave={() => handleIconHover(-1)}
               >
-                <div>{item.value === 0 ? item.SelectIcon : item.unSelectIcon}</div>
+                <div>
+                  {item.value === 0 ? item.SelectIcon : item.unSelectIcon}
+                </div>
               </Box>
             ))}
           </Box>
-          <Box
-            sx={{
-              fontSize: '20px',
-              fontWeight: 600,
-              textAlign: 'center',
-              mt: 3,
-              ...selectedLabelStyle,
-            }}
-          >
-            {selectedLabel}
-          </Box>
+          {isLableVisible && (
+            <Box
+              sx={{
+                fontSize: '20px',
+                fontWeight: 600,
+                textAlign: 'center',
+                mt: 3,
+                ...selectedLabelStyle,
+              }}
+            >
+              {selectedLabel}
+            </Box>
+          )}
+          <Box sx={{ ...childrenStyle }}>{children}</Box>
         </>
       ) : (
         <>
-          {styledRating?.map((item) => (
+          {styledIconSet?.map((item, index) => (
             <Box sx={{ display: 'flex', gap: 1 }}>
               <Rating
                 name="customized-color"
-                defaultValue={item.startValue}
+                defaultValue={item.starValue}
                 precision={0.5}
                 icon={item.filled}
                 emptyIcon={item.unFilled}
-                readOnly
+                readOnly={isReadOnly}
+                onClick={(e) => getRatingValue(e, index)}
+                onMouseEnter={() => handleIconHover(index)}
+                onMouseLeave={() => handleIconHover(-1)}
+                max={item.maximumIcon}
               />
-              <Typography sx={{ color: '#98A0AC', fontSize: '12px', ...remarkStyle }}>
-                {item.remark}
-              </Typography>
+              {item.remark && (
+                <Typography
+                  sx={{ color: '#98A0AC', fontSize: '12px', ...remarkStyle }}
+                >
+                  {'(' + item.starValue + '|' + item.remark + ')'}
+                </Typography>
+              )}
             </Box>
           ))}
+          {children && <Box sx={{ ...childrenStyle }}>{children}</Box>}
         </>
       )}
     </>
   );
+};
+
+CustomRating.defaultProps = {
+  customIcons: [],
+  variant: 'emoji',
+  styledRating: [],
+  remarkStyle: {},
+  selectedLabelStyle: {},
+  emojiContainerStyle: {},
+  onMouseEnter: () => {},
+  onMouseLeave: () => {},
+  onClick: () => {},
+  isReadOnly: false,
+  isLableVisible: true,
+  children: <></>,
+  childrenStyle: {},
 };
 
 export default CustomRating;

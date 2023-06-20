@@ -32,6 +32,7 @@ import SmilyHeart from './assets/smily_heart';
 import SmilyHeartDisabled from './assets/smily_heart_disabled';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import StarIcon from '@mui/icons-material/Star';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -193,12 +194,12 @@ function App() {
   });
 
   const buttons = [
-    { label: 'Button 1', value: 1, startIcon: <FcGoogle /> },
-    { label: 'Button 2', value: 2 },
-    { label: 'Button 3', value: 3 },
+    { label: 'Button 1', value: 1, startIcon: <FcGoogle />, isdisabled: false },
+    { label: 'Button 2', value: 2, isdisabled: false },
+    { label: 'Button 3', value: 3, isdisabled: false },
   ];
-  const handleButtonChange = (value: any) => {
-    console.log(value);
+  const handleButtonChange = (e: any, value: any) => {
+    console.log(e, value, 'value');
   };
   const customIcons = [
     {
@@ -237,14 +238,21 @@ function App() {
     {
       filled: <FavoriteIcon />,
       unFilled: <FavoriteBorderIcon />,
-      startValue: 4.5,
-      remark: '(4.5 | 240 Reviews)',
+      starValue: 0.5,
+      remark: '100',
+      maximumIcon: 5,
     },
     {
-      filled: <FavoriteIcon />,
-      unFilled: <FavoriteBorderIcon />,
-      startValue: 3.5,
-      remark: '(3.5 | 240 Reviews)',
+      filled: <StarIcon style={{ color: 'red' }} />,
+      unFilled: (
+        <StarIcon
+          style={{ color: 'green', opacity: 0.55 }}
+          fontSize="inherit"
+        />
+      ),
+      starValue: 3.5,
+      remark: '200 Reviews',
+      maximumIcon: 8,
     },
   ];
 
@@ -286,10 +294,20 @@ function App() {
           remarkStyle={{}}
           selectedLabelStyle={{}}
           emojiContainerStyle={{}}
+          onMouseEnter={(index: number) => {
+            console.log(index);
+          }}
+          onMouseLeave={(index: number) => {
+            console.log(index);
+          }}
           onClick={(index) => {
             const clickedLabel = customIcons[index].label;
             console.log(clickedLabel);
           }}
+          isReadOnly={false}
+          isLableVisible={true}
+          children={<BasicButtons/>}
+          childrenStyle={{m:3}}
         />
       </Box>
 

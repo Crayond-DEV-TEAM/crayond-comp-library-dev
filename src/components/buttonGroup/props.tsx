@@ -5,11 +5,12 @@ interface ButtonItem {
   value: any;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
+  isdisabled?: true | false;
 }
 
 export interface CustomButtonGroupProps {
   buttons: ButtonItem[];
-  onClick: (value: any) => void;
+  onClick: (e: any,value:any) => void;
   variant?: 'outlined' | 'contained';
   size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
