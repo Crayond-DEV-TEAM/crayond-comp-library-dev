@@ -1,104 +1,114 @@
-import { Box, Icon, Typography } from '@mui/material';
-import React, { ReactElement } from 'react';
-
-interface NavbarItem {
-  icon: ReactElement;
-  label?: string;
-  url?: string;
-}
-
-interface MobileNavbarProps {
-  items: NavbarItem[];
-  onClick: Function;
-  iconActiveColor?: string;
-  iconInActiveColor?: string;
-  labelActiveColor?: string;
-  labelInActiveColor?: string;
-  rootStyle?: object;
-  listStyle?: object;
-  iconStyle?: object;
-  labelStyle?: object;
-  variant: 'withLabel' | 'withoutLabel';
-  itemStyle?: object;
-}
+import React, { useState } from 'react';
+import { Box, IconButton, Typography, Paper } from '@mui/material';
+import { MobileNavbarProps, NavbarItem } from './props';
 
 const MobileNavbar: React.FC<MobileNavbarProps> = ({
   items,
   onClick,
-  iconActiveColor,
-  iconInActiveColor,
+  iconActiveBgColor,
+  iconInActiveBgColor,
   labelActiveColor,
   labelInActiveColor,
   rootStyle,
   listStyle,
   iconStyle,
   labelStyle,
-  variant = 'withLabel',
+  variant,
   itemStyle,
+  inActiveFontWeight,
+  activeFontWeight,
+  isDisableRipple,
+  elevation,
+  iconHeightPng,
+  iconWidthPng,
 }) => {
-  const [selectedItem, setSelectedItem] = React.useState<NavbarItem>();
+  const [selectedItem, setSelectedItem] = useState<NavbarItem | undefined>(
+    undefined
+  );
+
   const getSelectedItem = (item: NavbarItem) => {
     setSelectedItem(item);
     onClick(item);
   };
 
   return (
-    <Box
-      sx={{
-        p: 3,
-        backgroundColor: 'white',
-        borderRadius: '24px 24px 0px 0px',
-        boxShadow: '0px -2px 23px #00000014',
-        ...rootStyle,
-      }}
-    >
-      <Box
-        sx={{ display: 'flex', justifyContent: 'space-around', ...listStyle }}
+    <Box>
+      <Paper
+        sx={{
+          p: 1.9,
+          backgroundColor: '#ebdcdc',
+          borderRadius: '24px 24px 0px 0px',
+          ...rootStyle,
+        }}
+        elevation={elevation}
       >
-        {items.map((item, index) => (
-          <Box key={index}>
-            <Box
-              onClick={() => getSelectedItem(item)}
-              sx={{ display: 'grid', placeItems: 'center', ...itemStyle }}
-            >
-              <Icon
-                sx={{
-                  backgroundColor:
-                    selectedItem?.icon === item.icon
-                      ? iconActiveColor
-                      : iconInActiveColor,
-                  borderRadius: '50%',
-                  p: 0.8,
-                  display: 'grid',
-                  placeItems: 'center',
-                  color:
-                    selectedItem?.icon === item.icon
-                      ? labelActiveColor
-                      : labelInActiveColor,
-                  ...iconStyle,
-                }}
+        <Box
+          sx={{ display: 'flex', justifyContent: 'space-around', ...listStyle }}
+        >
+          {items.map((item, index) => (
+            <Box key={index}>
+              <Box
+                onClick={() => getSelectedItem(item)}
+                sx={{ display: 'grid', placeItems: 'center', ...itemStyle }}
               >
-                {item.icon}
-              </Icon>
-              {variant === 'withLabel' && item.label && (
-                <Typography
+                <IconButton
+                  disableRipple={isDisableRipple}
                   sx={{
-                    color:
-                      selectedItem?.label === item.label
-                        ? labelActiveColor
-                        : labelInActiveColor,
-                    fontSize: '12px',
-                    textAlign: 'center',
-                    ...labelStyle,
+                    '& svg': {
+                      '& path': {
+                        fill:
+                          selectedItem?.icon === item.icon
+                            ? item.iconSelectedColor
+                            : item.iconUnSelectedColor,
+                      },
+                    },
+                    backgroundColor:
+                      selectedItem?.icon === item.icon
+                        ? iconActiveBgColor
+                        : iconInActiveBgColor,
+                    p: 1.5,
+                    display: 'grid',
+                    placeItems: 'center',
+                    '&:focus': {
+                      outline: 'none',
+                    },
+                    ...iconStyle,
                   }}
                 >
-                  {item.label}
-                </Typography>
-              )}
+                  {typeof item.icon === 'string' ? (
+                    <img
+                      src={item.icon}
+                      alt={item.label}
+                      style={{ width: iconWidthPng, height: iconHeightPng }}
+                    />
+                  ) : (
+                    item.icon
+                  )}
+                </IconButton>
+                {variant === 'withLabel' && item.label && (
+                  <Typography
+                    sx={{
+                      color:
+                        selectedItem?.label === item.label
+                          ? labelActiveColor
+                          : labelInActiveColor,
+                      fontSize: '12px',
+                      textAlign: 'center',
+                      fontWeight:
+                        selectedItem?.label === item.label
+                          ? activeFontWeight
+                          : inActiveFontWeight,
+                      ...labelStyle,
+                    }}
+                  >
+                    {item.label}
+                  </Typography>
+                )}
+              </Box>
             </Box>
-          </Box>
-        ))}
-      </Box>
+          ))}
+        </Box>
+      </Paper>
     </Box>
   );
 };
@@ -106,8 +116,8 @@ const MobileNavbar: React.FC<MobileNavbarProps> = ({
 MobileNavbar.defaultProps = {
   items: [],
   onClick: () => {},
-  iconActiveColor: '',
-  iconInActiveColor: '',
+  iconActiveBgColor: '',
+  iconInActiveBgColor: '',
   labelActiveColor: '',
   labelInActiveColor: '',
   rootStyle: {},
@@ -116,6 +126,12 @@ MobileNavbar.defaultProps = {
   labelStyle: {},
   variant: 'withLabel',
   itemStyle: {},
+  activeFontWeight: '',
+  inActiveFontWeight: '',
+  isDisableRipple: false,
+  elevation: 1,
+  iconWidthPng: '',
+  iconHeightPng: '',
 };
 
 export default MobileNavbar;

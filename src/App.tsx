@@ -26,6 +26,8 @@ import { ProfileThree } from './components/profileThree';
 import yup from './utils/yupSchema';
 import { Screen } from './components/screen';
 import MobileNavbar from './components/mobileNavbar';
+import HomeIcon from './assets/homeIcon';
+import TemplateIcon from './assets/template';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -84,14 +86,46 @@ function App() {
   };
 
   const items = [
-    { icon: <DownloadIcon />, label: 'Home', url: '/Home' },
-    { icon: <SearchIcon />, label: 'Clinical', url: '/Clinical' },
-    { icon: <DeleteIcon />, label: 'Doctor', url: '/Doctor' },
-    { icon: <DeleteIcon />, label: 'Settings', url: '/Settings' },
-    { icon: <DeleteIcon />, label: 'Profile', url: '/Profile' },
+    {
+      icon: <HomeIcon />,
+      label: 'Home',
+      url: '/Home',
+      iconSelectedColor: '#665CD7',
+      iconUnSelectedColor: '#5C6066',
+    },
+    {
+      icon: <TemplateIcon />,
+      label: 'Doctor',
+      url: '/Doctor',
+      color: 'red',
+      iconSelectedColor: '#665CD7',
+      iconUnSelectedColor: '#5C6066',
+    },
+    {
+      icon: <DocsIcon />,
+      label: 'Profile',
+      url: '/Profile',
+      iconSelectedColor: '#665CD7',
+      iconUnSelectedColor: '#5C6066',
+    },
+    {
+      icon: <TemplateIcon />,
+      label: 'Settings',
+      url: '/Settings',
+      iconSelectedColor: '#665CD7',
+      iconUnSelectedColor: '#5C6066',
+    },
+
+    {
+      icon: <NotificationIcon />,
+      label: 'Notification',
+      url: '/notification',
+      iconSelectedColor: '#665CD7',
+      iconUnSelectedColor: '#5C6066',
+    },
   ];
 
-  const getSelected= (item: any) => {
+  const getSelected = (item: any) => {
     console.log(item?.url);
   };
 
@@ -1809,10 +1843,24 @@ function App() {
       <MobileNavbar
         items={items}
         onClick={getSelected}
-        iconActiveColor="#EFEEFB"
-        labelInActiveColor='#666666'
-        labelActiveColor='#665CD7'
+        iconActiveBgColor="#EFEEFB"
+        labelInActiveColor="#666666"
+        labelActiveColor="#665CD7"
         variant="withLabel"
+        activeFontWeight={800}
+        inActiveFontWeight={100}
+        isDisableRipple={true}
+        elevation={3}
+        listStyle={{}}
+        iconStyle={{ borderRadius: '24px 24px 0px 0px' }}
+        labelStyle={{}}
+        rootStyle={{
+          backgroundColor: '#fff',
+          position: 'fixed',
+          bottom: 0,
+          left: 0,
+          width: '98%',
+        }}
       />
       {/* <SignupScreen
         option='socialMediaSignup'
