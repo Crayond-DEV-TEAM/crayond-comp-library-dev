@@ -2,8 +2,11 @@ import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
-import { SelectBox } from './components/selectBox';
 import { useState } from 'react';
+import SelectBox from './components/selectBox/selectBox';
+import { SelectBoxComponent } from './components/selectBox';
+// import SelectBox from './components/selectBox/selectBox';
+
 
 
 function App() {
@@ -17,38 +20,10 @@ function App() {
     { title: 'Option 5', year: 1957 },
     { title: "Option 6", year: 1993 },
     { title: 'Option 7', year: 1994 },
-    {
-      title: 'The Lord of the Rings: The Return of the King',
-      year: 2003,
-    },
-    { title: 'The Good, the Bad and the Ugly', year: 1966 },
-    { title: 'Fight Club', year: 1999 },
-    {
-      title: 'The Lord of the Rings: The Fellowship of the Ring',
-      year: 2001,
-    },
-    {
-      title: 'Star Wars: Episode V - The Empire Strikes Back',
-      year: 1980,
-    },
-    { title: 'Forrest Gump', year: 1994 },
-    { title: 'Inception', year: 2010 },
-    {
-      title: 'The Lord of the Rings: The Two Towers',
-      year: 2002,
-    },
-    { title: "One Flew Over the Cuckoo's Nest", year: 1975 },
-    { title: 'Goodfellas', year: 1990 },
-    { title: 'The Matrix', year: 1999 },
-    { title: 'Seven Samurai', year: 1954 },
-    {
-      title: 'Star Wars: Episode IV - A New Hope',
-      year: 1977,
-    },
 
   ];
 
-  const CheckableData = [
+  const CheckBoxData = [
     { title: 'The Shawshank Redemption', isChecked: false },
     { title: 'The Godfather', isChecked: false },
     { title: 'The Godfather: Part II', isChecked: false },
@@ -72,10 +47,6 @@ function App() {
     },
     { title: 'Forrest Gump', isChecked: false },
     { title: 'Inception', isChecked: false },
-    {
-      title: 'The Lord of the Rings: The Two Towers',
-      isChecked: 2002,
-    },
     { title: "One Flew Over the Cuckoo's Nest", isChecked: false },
     { title: 'Goodfellas', isChecked: false },
     { title: 'The Matrix', isChecked: false },
@@ -87,47 +58,91 @@ function App() {
 
   ];
 
-  const [checked, setChecked] = useState([...CheckableData])
+  const [checked, setChecked] = useState([])
   const [defaultData, setDefaultData] = useState([])
+  const [groupedData, setGroupedData] = useState([])
+
+  const [checkboxData, setCheckboxData] = useState([...CheckBoxData])
 
 
+  const handleCheckBox = (val: object, parentIndex: number) => {
+    debugger
 
-  const handleCheckBox = (val: string, parentIndex: number) => {
     const tempArr = [...checked]
-
-    tempArr[parentIndex] = {
-      ...tempArr[parentIndex],
-      title: tempArr[parentIndex]?.title,
-      isChecked: !tempArr[parentIndex]?.isChecked
+    if (val?.isChecked === false) {
+      tempArr.push({
+        ...val,
+        isChecked: true
+      })
+    } else {
+      // debugger
+      tempArr.splice(val, parentIndex, 1)
     }
     setChecked([...tempArr]);
+
+    const tempData = [...checkboxData]
+    tempData[parentIndex] = {
+      ...tempData[parentIndex],
+      title: val?.title,
+      isChecked: true
+    }
+
+    setCheckboxData([...tempData])
   }
 
-  const handleCheckedItem = (val: string, parentIndex: number) => {
+  const handleCheckedItem = (val: object, parentIndex: number) => {
     handleCheckBox(val, parentIndex)
   }
 
-  const handleDefaultSelectChange = (val: object, parentIndex: number) => {
-    debugger
-    const tempArr = [...defaultData]
-
-    if (val) {
-      tempArr?.push(val)
-    } else {
-      tempArr?.splice(val, parentIndex, 1)
+  const handleDefaultSelectChange = (val: any, newValue: any | never) => {
+    setDefaultData(newValue)
+  }
+  const handleChange = (key, event, val) => {
+    if (key === 'grouped') {
+      setGroupedData(val)
+    } else if (key === 'default') {
+      setDefaultData(val)
     }
-
-    setDefaultData(tempArr)
   }
 
-  console.log(defaultData, 'setChecked');
+  console.log(checked, 'setChecked');
+  console.log(checkboxData, 'checkboxData');
+
 
 
   return (
     <div className="App" style={{ width: '100vw', background: '#fff', height: '100vh' }}>
-      <SelectBox
+      <SelectBoxComponent
         data={top100Films}
         CheckableData={checked}
+        checkBoxData={checkboxData}
+        limitTags={2}
+        groupingProps={{
+          isCloseIcon: true,
+          isSearch: true,
+          handleChange: handleChange,
+          groupedData: groupedData,
+          arrData: top100Films,
+          dropdown: {
+            minHeight: '',
+            maxHeight: '',
+            maxWidth: '',
+            minWidth: '',
+            backgroundColor: '',
+            color: ''
+          },
+          input: {
+            minHeight: '',
+            minWidth: '',
+            backgroundColor: '',
+            maxWidth: '',
+            maxHeight: '',
+            color: '',
+            border: '',
+            borderRadius: ''
+          }
+        }}
+        multi={true}
         handleChange={handleCheckBox}
         handleCheckedItem={handleCheckedItem}
         defaultData={defaultData}

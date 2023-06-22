@@ -1,1 +1,1 @@
-export { default as SelectBox } from "./selectBox";
+export { default as SelectBoxComponent } from "./selectBox";

@@ -1,4 +1,4 @@
-import { Avatar, Box, Grid, Icon, Typography, CheckboxProps, Checkbox } from '@mui/material';
+import { Avatar, Box, Grid, Icon, Typography, CheckboxProps, Checkbox, InputAdornment } from '@mui/material';
 import { SelectBoxProps } from './props';
 import { styles } from './style';
 import Chip from '@mui/material/Chip';
@@ -10,7 +10,8 @@ import { styled } from '@mui/material/styles';
 import useAutocomplete from '@mui/material/useAutocomplete';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { BpCheckedIcon, BpIcon } from './checkboxComp';
-
+import NorthIcon from '@mui/icons-material/North';
+import SearchIcon from '@mui/icons-material/Search';
 
 const Root = styled('div')(
   ({ theme }) => `
@@ -37,12 +38,11 @@ const InputWrapper = styled('div')(
   flex-wrap: wrap;
 
   &:hover {
-    border-color: ${theme.palette.mode === 'dark' ? '#177ddc' : '#40a9ff'};
+    border-color: #665CD7;
   }
 
   &.focused {
-    border-color: ${theme.palette.mode === 'dark' ? '#177ddc' : '#40a9ff'};
-    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+    border-color: #665CD7;
   }
 
   & input {
@@ -92,8 +92,8 @@ const StyledTag = styled(Tag)(
   overflow: hidden;
 
   &:focus {
-    border-color: ${theme.palette.mode === 'dark' ? '#177ddc' : '#40a9ff'};
-    background-color: ${theme.palette.mode === 'dark' ? '#003b57' : '#e6f7ff'};
+    border-color: '#665CD7'
+    background-color: '#e6f7ff'
   }
 
   & span {
@@ -124,21 +124,19 @@ const CheckableBox = styled('ul')(
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   z-index: 1;
 
-  & li {
+  & div {
     padding: 5px 12px;
     display: flex;
     cursor: pointer;
-
     & span {
-      flex-grow: 1;
+    
     }
-
     & svg {
       color: transparent;
     }
   }
 
-  & li[aria-selected='true'] {
+  & div[aria-selected='true'] {
     background-color: ${theme.palette.mode === 'dark' ? '#2b2b2b' : '#fafafa'};
     font-weight: 600;
 
@@ -147,7 +145,7 @@ const CheckableBox = styled('ul')(
     }
   }
 
-  & li.${autocompleteClasses.focused} {
+  & div.${autocompleteClasses.focused} {
     background-color: ${theme.palette.mode === 'dark' ? '#003b57' : '#e6f7ff'};
     cursor: pointer;
 
@@ -158,53 +156,6 @@ const CheckableBox = styled('ul')(
 `,
 );
 
-const DefaultBox = styled('ul')(
-  ({ theme }) => `
-  width: 300px;
-  margin: 2px 0 0;
-  padding: 0;
-  position: absolute;
-  list-style: none;
-  background-color: ${theme.palette.mode === 'dark' ? '#141414' : '#fff'};
-  overflow: auto;
-  max-height: 250px;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  z-index: 1;
-
-  & li {
-    padding: 5px 12px;
-    display: flex;
-    cursor: pointer;
-
-    & span {
-      flex-grow: 1;
-    }
-
-    & svg {
-      color: transparent;
-    }
-  }
-
-  & li[aria-selected='true'] {
-    background-color: ${theme.palette.mode === 'dark' ? '#2b2b2b' : '#fafafa'};
-    font-weight: 600;
-
-    & svg {
-      color: #1890ff;
-    }
-  }
-
-  & li.${autocompleteClasses.focused} {
-    background-color: ${theme.palette.mode === 'dark' ? '#003b57' : '#e6f7ff'};
-    cursor: pointer;
-
-    & svg {
-      color: currentColor;
-    }
-  }
-`,
-);
 
 export default function SelectBox(props: SelectBoxProps) {
   const {
@@ -217,9 +168,37 @@ export default function SelectBox(props: SelectBoxProps) {
     checkboxWidth,
     checkboxHeight,
     defaultData,
+    checkBoxData,
     handleDefaultSelectChange,
     checkboxBorderRadius,
+    multi,
     handleChange,
+    groupingProps = {
+      isCloseIcon: false,
+      isSearch: true,
+      handleChange: () => null,
+      groupedData: [],
+      arrData: [],
+      dropdown: {
+        minHeight: '',
+        maxHeight: '',
+        minWidth: '',
+        maxWidth: '',
+        backgroundColor: '',
+        color: ''
+      },
+      input: {
+        minHeight: '',
+        minWidth: '',
+        maxWidth: '',
+        maxHeight: '',
+        backgroundColor: '',
+        color: '',
+        border: '',
+        borderRadius: ''
+      }
+    },
+    limitTags,
   } = props;
 
   const {
@@ -238,7 +217,7 @@ export default function SelectBox(props: SelectBoxProps) {
     id: 'customized-hook-demo',
     // defaultValue: [data[1]],
     multiple: true,
-    options: CheckableData,
+    options: checkBoxData,
     getOptionLabel: (option) => option?.title,
   });
 
@@ -264,32 +243,123 @@ export default function SelectBox(props: SelectBoxProps) {
   }
 
   const GroupItems = styled('ul')({
-    padding: 0,
+    color: '#666666',
+    fontWeight: '500',
+    fontSize: '15px',
+    padding: '8px 0',
+
+    '& li:hover': {
+      backgroundColor: 'transparent',
+      cursor: 'pointer',
+      color: ''
+    },
   });
 
   const GroupHeader = styled('div')(({ theme }) => ({
     position: 'sticky',
     top: '-8px',
     padding: '4px 10px',
-    color: theme.palette.primary.main,
-    backgroundColor:
-      theme.palette.mode === 'light'
-        ? 'red'
-        : 'black',
+    color: '#BDBDBD',
+    fontWeight: '500',
+    fontSize: '15px',
+    zIndex: '9999',
+    background: '#fff'
   }));
 
 
   const renderDropdown = (key: string) => {
+
+    console.log(groupingProps?.groupedData, 'groupingProps?.isCloseIcon');
+
     switch (key) {
       case 'grouping':
         return (
           <Autocomplete
             id="grouped-demo"
-            options={data}
-            groupBy={(option) => option.year}
-            getOptionLabel={(option) => option.title}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="With categories" />}
+            options={groupingProps?.arrData}
+            limitTags={limitTags}
+            value={groupingProps?.groupedData}
+            multiple={multi}
+            groupBy={(option: CheckedOption) => option.title}
+            getOptionLabel={(option: CheckedOption) => option.title}
+            onChange={(event, newValue) =>
+              groupingProps?.handleChange('grouped', event, newValue)}
+            sx={{
+              height: '100%',
+              minWidth: groupingProps?.input?.minWidth ? groupingProps?.input?.minWidth : '400px',
+              maxWidth: groupingProps?.input?.maxWidth ? groupingProps?.input?.maxWidth : '400px',
+              '& .MuiAutocomplete-inputRoot': {
+                height: 'auto',
+                minHeight:
+                  groupingProps?.input?.minHeight ? groupingProps?.input?.minHeight : '45px',
+                maxHeight:
+                  groupingProps?.input?.maxHeight ? groupingProps?.input?.maxHeight : '45px',
+                overflow: 'hidden',
+                paddingTop: '0px',
+                paddingRight: '12px !important',
+                paddingBottom: '0px',
+                '& input': {
+                  padding: '0 !important'
+                },
+                '& .MuiAutocomplete-endAdornment': {
+                  '& button': {
+                    display: groupingProps?.isCloseIcon ? 'flex' : 'none'
+                  }
+                },
+                '& fieldset': {
+                  border:
+                    groupingProps?.input?.border ? groupingProps?.input?.border : '1px solid rgba(0, 0, 0, 0.23)',
+                  borderRadius: groupingProps?.input?.borderRadius ? groupingProps?.input?.borderRadius : '4px'
+                }
+              }
+            }
+            }
+            renderInput={(params) =>
+              <>
+                {/* <div style={{ marginBottom: "-24px",width:"30px" }}>
+                  {groupingProps?.isSearch ? <InputAdornment position="end">
+                    <SearchIcon />
+                  </InputAdornment> : null}
+                </div> */}
+                <TextField
+                  label={value?.length > 0 ? '' : 'Select Option'}
+                  {...params}
+                  InputProps={{
+                    ...params.InputProps,
+                    endAdornment: (
+                      groupingProps?.isSearch ? <InputAdornment position="end">
+                        <SearchIcon />
+                      </InputAdornment> : null
+                    ),
+                  }}
+                />
+              </>
+            }
+            renderTags={(value: any) =>
+              value?.map((option: any) => (
+                // eslint-disable-next-line react/jsx-key
+                <Typography sx={styles?.checkboxTextSx}>{`${option.title} ,`}</Typography>
+              ))
+            }
+            componentsProps={{
+              popper: {
+                style: {
+                  minWidth:
+                    groupingProps?.dropdown?.minWidth ? groupingProps?.dropdown?.minWidth : '400px',
+                  maxWidth:
+                    groupingProps?.dropdown?.maxWidth ? groupingProps?.dropdown?.maxWidth : '400px',
+                  maxHeight:
+                    groupingProps?.dropdown?.maxHeight ? groupingProps?.dropdown?.maxHeight : '100px',
+                  minHeight:
+                    groupingProps?.dropdown?.minHeight ? groupingProps?.dropdown?.minHeight : '100px',
+                },
+              },
+              popupIndicator: {
+                style: {
+                  fontSize: '3px',
+                },
+              }
+            }}
             renderGroup={(params) => (
               <li key={params.key}>
                 <GroupHeader>{params.group}</GroupHeader>
@@ -299,120 +369,163 @@ export default function SelectBox(props: SelectBoxProps) {
           />
         )
       case 'checkbox':
-        console.log(CheckableData, 'CheckableData');
-
         return (
           <>
-            <div {...getRootProps()}>
-              <InputWrapper ref={setAnchorEl} sx={{ display: 'flex', alignItems: 'center' }}
-                className={focused ? 'focused' : ''}>
-                {(value as typeof CheckableData)?.map((option: any, index: number) => (
-                  <Typography sx={styles?.checkedValue} key={index}>{`${option.title} ,`}</Typography>
-                ))}
-                <input placeholder='Select checkbox' style={{ color: '#929292', fontWeight: '500' }} {...getInputProps()} />
-                <KeyboardArrowDownIcon sx={{ color: '#000' }} />
-              </InputWrapper>
-            </div>
-            {groupedOptions.length > 0 ? (
-              <CheckableBox {...getListboxProps()}>
-                {(groupedOptions as typeof CheckableData)?.map((option, index) => (
-                  <Stack key={index} direction={'row'} alignItems={'center'}
-                    onClick={() => handleCheckedItem(option, index)}>
-                    <BpCheckbox
-                      checked={option?.isChecked}
-                      defaultChecked={false}
-                      onChange={() => handleChange(option, index)}
-                    />
-                    <li key={index} {...getOptionProps({ option, index })}>
-                      <span style={{
-                        color: '#666666',
-                      }}>{option?.title}</span>
-                    </li>
-                  </Stack>
-                ))}
-              </CheckableBox>
-            ) : null}
+            <Root>
+              <div {...getRootProps()}>
+                {/* <Label {...getInputLabelProps()}>Customized hook</Label> */}
+                <InputWrapper ref={setAnchorEl} className={focused ? 'focused' : ''}>
+                  {CheckableData?.map((option: CheckedOption, index: number) => (
+                    <Typography key={index} sx={styles?.checkboxTextSx}>{`${option?.title} ,`}</Typography>
+                  ))}
+                  <input {...getInputProps()}
+                    placeholder={CheckableData?.length > 0 ? '' : 'Select Option'}
+                    style={{ color: 'green' }} />
+                </InputWrapper>
+              </div>
+              {groupedOptions.length > 0 ? (
+                <CheckableBox {...getListboxProps()}>
+                  {(groupedOptions as typeof checkBoxData)?.map((option: CheckedOption, index: number) => {
+                    return (
+                      // eslint-disable-next-line react/jsx-key
+                      <Stack direction={'row'} alignItems={'center'}
+                        onClick={() => handleCheckedItem(option, index)}>
+                        <BpCheckbox
+                          checked={option?.isChecked}
+                          defaultChecked={false}
+                          sx={{
+                            '& span': {
+                              backgroundColor:
+                                option?.isChecked === CheckableData.includes(option?.isChecked) ? '' : '#665CD7'
+                            }
+                          }}
+                          onChange={() => handleChange(option, index)}
+                        />
+                        <p key={index}
+                          style={{
+                            margin: '6px'
+                          }}
+                          {...getOptionProps({ option, index })} >
+                          <span style={{
+                            color:
+                              option?.isChecked !== CheckableData.includes(option?.isChecked) ? '#665CD7' : '#666666'
+                          }}>{option?.title}</span>
+                        </p>
+                      </Stack>
+                    )
+                  })}
+                </CheckableBox>
+              ) : null}
+            </Root >
           </>
         )
       case 'chip':
         return (
-          <>
-            {/* <div {...getRootProps()}>
-             <InputWrapper ref={setAnchorEl} sx={{ display: 'flex', alignItems: 'center' }}
-                className={focused ? 'focused' : ''}>
-                {value as typeof def?.map((option: object, index: number) => (
-                <Typography sx={styles?.checkedValue} key={index}>
-                  {`${option.title} ,`}</Typography>
-                ))}
-                <input placeholder='Select chip' style={{ color: '#929292', fontWeight: '500' }} {...getInputProps()} />
-                <KeyboardArrowDownIcon sx={{ color: '#000' }} />
-              </InputWrapper>
-            </div>
-            {groupedOptions.length > 0 ? (
-              <CheckableBox {...getListboxProps()}>
-                {(groupedOptions as typeof data)?.map((option, index) => (
-                  <li key={index} {...getOptionProps({ option, index })}
-                    onClick={() => handleDefaultSelectChange(option, index)}>
-                    <span style={{
-                      color: '#666666',
-                    }}>{option.title}</span>
-                  </li>
-                ))}
-              </CheckableBox>
-            ) : null} */}
-          </>
-        )
-
-      default:
-        console.log(data, 'value');
-
-        return (
-          // <>
-          //   <div {...getRootProps()}>
-          //     <InputWrapper ref={setAnchorEl} sx={{ display: 'flex', alignItems: 'center' }}
-          //       className={focused ? 'focused' : ''}>
-          //       {(value as typeof defaultData)?.map((option: any, index: number) => (
-          //         <Typography sx={styles?.checkedValue} key={index}>{`${option.title} ,`}</Typography>
-          //       ))}
-          //       <input placeholder='Select Option' style={{ color: '#929292', fontWeight: '500' }} {...getInputProps()} />
-          //       <KeyboardArrowDownIcon sx={{ color: '#000' }} />
-          //     </InputWrapper>
-          //   </div>
-          //   {groupedOptions?.length > 0 ? (
-          //     <DefaultBox {...getListboxProps()}>
-          //       {(groupedOptions as typeof data)?.map((val: FilmOptionType, index: number) => (
-          //         <li key={index} {...getOptionProps({ val, index })}
-          //           onClick={() => handleDefaultSelectChange(val, index)}>
-          //           <span style={{
-          //             color: '#666666',
-          //           }}>{val?.title}</span>
-          //         </li>
-          //       ))}
-          //     </DefaultBox>
-          //   ) : null}
-          // </>\
 
           <Autocomplete
-            id="free-solo-demo"
-              multiple
+            id="free-solo"
+            limitTags={2}
+            onChange={(event, newValue) => {
+              handleDefaultSelectChange(event, newValue)
+            }}
+            selectOnFocus={true}
+            multiple={multi}
+            sx={{
+              height: '100%',
+              width: '300px',
+              '& .MuiAutocomplete-inputRoot': {
+                height: 'auto',
+                minHeight: '45px',
+                overflow: 'hidden',
+                paddingTop: '0px',
+                paddingRight: '12px !important',
+                paddingBottom: '0px',
+                '& input': {
+                  padding: '0 !important'
+                }
+              }
+            }}
             options={data}
-            getOptionLabel={(option) => option.title}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="With categories" />}
+            value={defaultData}
+            placeholder={defaultData?.length > 0 ? 'select Option' : ''}
+            getOptionLabel={(option) => option.title
+            }
+            renderInput={(params) =>
+              <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
+                <TextField
+                  {...params}
+                  label=""
+                />
+                <Box>
+                  <KeyboardArrowDownIcon />
+                </Box>
+              </Stack>}
+            renderTags={(value: any, getTagProps) =>
+              value?.map((option: any, index: number) => (
+                // eslint-disable-next-line react/jsx-key
+                <Chip
+                  sx={{
+                    background: ' #E9E9E9',
+                    borderRadius: '6px',
+                    margin: '5px !important',
+                    border: 0,
+                    '& span': {
+                      color: '#929292'
+                    },
+                    '& svg': {
+                      display: 'none'
+                    }
+                  }
+                  }
+                  variant="outlined"
+                  label={option?.title}
+                  {...getTagProps({ index })}
+                />
+              ))
+            }
+          // renderOption={(props, option) => (
+          //   <li {...props}>
+          //     {option?.title}
+          //   </li>
           // )}
           />
 
-          // <Autocomplete
-          //   disablePortal
-          //   id="combo-box-demo"
-          //   multiple
-          //   // value={defaultData}
-          //   options={data}
-          //   sx={{ width: 300 }}
-          //   renderInput={(params) => <TextField {...params} label="Movie" />}
-          // />
         )
-        break;
+
+      case 'default':
+        return (
+          <Autocomplete
+            id="free-solo-demo"
+            sx={{
+              height: '100%',
+              width: '300px',
+              '& .MuiAutocomplete-inputRoot': {
+                minHeight: '45px',
+                overflow: 'hidden',
+                paddingTop: '0px',
+                paddingRight: '12px !important',
+                paddingBottom: '0px',
+                '& input': {
+                  padding: '0 !important'
+                }
+              }
+            }}
+            options={data}
+            getOptionLabel={(option) => option.title}
+            multiple={multi}
+            renderInput={(params) => <TextField {...params}
+              sx={styles?.defaultInputSx} label="" />}
+            renderTags={(value: any) =>
+              value?.map((option: any) => (
+                // eslint-disable-next-line react/jsx-key
+                <Typography sx={styles?.checkboxTextSx}>{`${option.title}, `}</Typography>
+              ))
+            }
+          />
+        )
+      default:
+        return
+        break
     }
 
   }
@@ -422,10 +535,10 @@ export default function SelectBox(props: SelectBoxProps) {
       {/* header */}
       <Label {...getInputLabelProps()}>Customized hook</Label>
       <Stack direction={'row'}>
-        {renderDropdown('')}
-        {renderDropdown('chip')}
-        {renderDropdown('checkbox')}
-        {renderDropdown('grouping')}
+        {renderDropdown('default')}
+        {/* {renderDropdown('chip')} */}
+        {/* {renderDropdown('checkbox')} */}
+        {/* {renderDropdown('grouping')} */}
       </Stack>
     </Box >
   );
@@ -440,6 +553,7 @@ interface FilmOptionType {
   year: number;
 }
 
-interface filmsInterface {
-
+interface CheckedOption {
+  title: string;
+  isChecked: boolean;
 }
