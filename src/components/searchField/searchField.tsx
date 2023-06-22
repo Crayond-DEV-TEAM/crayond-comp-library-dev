@@ -16,31 +16,45 @@ import Search from '../../assets/search';
 import Close from '../../assets/close';
 import { styles } from './styles';
 import { useEffect, useState } from 'react';
-import { option } from 'yargs';
 import './index.css';
 import EscapeIcon from '../../assets/escapeIcon';
 import EnterIcon from '../../assets/enterIcon';
 import ArrowUpDownIcon from '../../assets/arrowUpDownIcon';
+import HoverEnter from '../../assets/hoverEnter';
 
-const Component = (props: any) => {
+const ControlSearch = (props: any) => {
   return (
     <Stack
       style={{
         cursor: 'pointer',
         height: '34px',
         padding: '9px',
+        borderBottomRightRadius:"8px",
+        borderBottomLeftRadius:"8px",
       }}
+      direction={'row'}
+      alignItems={"center"}
+      columnGap={"20px"}
+      bgcolor={"#E9E9E9"}
     >
-      <EscapeIcon />
-      <EnterIcon />
-      <ArrowUpDownIcon />
+      <Stack direction={'row'} alignItems={"center"}>
+        <ArrowUpDownIcon />
+        <Typography ml={"6px"} color={'#666666'} fontSize={'12px'}>To Navigate</Typography>
+      </Stack>
+      <Stack direction={'row'} alignItems={"center"}>
+        <EnterIcon />
+        <Typography ml={"6px"} color={'#666666'} fontSize={'12px'}>To Select</Typography>
+      </Stack>
+      <Stack direction={'row'} alignItems={"center"}>
+        <EscapeIcon />
+        <Typography ml={"6px"} color={'#666666'} fontSize={'12px'}>To Close</Typography>
+      </Stack>
     </Stack>
   );
 };
 
 const RecentSearch = (props: any) => {
   const { recentVal } = props;
-console.log(recentVal,"---");
 
   return (
     <Stack
@@ -54,7 +68,7 @@ console.log(recentVal,"---");
         Recent Search
       </Typography>
       <Stack direction={'row'} mt={'8px'} mb={1}>
-        {recentVal?.map((val:any) => (
+        {recentVal?.map((val: any) => (
           <>
             <Typography
               fontWeight={600}
@@ -141,10 +155,11 @@ const SearchField = (props: any) => {
   const [recentSearch, setRecentSearch] = useState([]);
   const [isOpen, setOpen] = useState(false);
 
-  let isRecentSearch = true;
   let isTextSearch = true;
+  let isRecentSearch = true;
   let isCardBased = true;
   let isCardWithTitleBased = true;
+  let isShortcutKeyBased = true;
 
   const requestSearch = (val: any) => {
     const filteredRows = data.filter((row) => {
@@ -192,7 +207,6 @@ const SearchField = (props: any) => {
             },
           }}
           renderOption={(props: any, option) => {
-
             return (
               <>
                 {/* {isCardBased && (
@@ -276,12 +290,9 @@ const SearchField = (props: any) => {
                   </Stack>
                 )} */}
 
-                {isTextSearch && (
+                {/* {isTextSearch && (
                   <>
-                    <Box
-                      {...props}
-                      onClick={() => handleSearchData(option)}
-                    >
+                    <Box {...props} onClick={() => handleSearchData(option)}>
                       <Typography
                         color={'#929292'}
                         fontSize={'12px'}
@@ -290,6 +301,27 @@ const SearchField = (props: any) => {
                       >
                         {option?.label}
                       </Typography>
+                    </Box>
+                  </>
+                )} */}
+
+                {isShortcutKeyBased && (
+                  <>
+                    <Box {...props} onClick={() => handleSearchData(option)}>
+                      <Box>
+                      <Typography
+                        color={'#929292'}
+                        fontSize={'12px'}
+                        className="title1"
+                        sx={{ ':hover': { color: '#665CD7' } }}
+                      >
+                        {option?.label}
+                      </Typography>
+                      </Box>
+                      <Box sx={{display:"none",mt:"4px"}} className="enterIcon">
+                      <HoverEnter/>
+                      </Box>
+
                     </Box>
                   </>
                 )}
@@ -323,9 +355,13 @@ const SearchField = (props: any) => {
                       backgroundColor: '#ffff',
                     },
                   '& .MuiAutocomplete-listbox .MuiAutocomplete-option': {
+                    display:"flex",justifyContent:"space-between",alignItems:"center",
                     ':hover': {
-                      background: '#FFFF',
-                      // background:'#EFEEFB',
+                     '.enterIcon':{
+                      display:"block"
+                     },
+                      // background: '#FFFF',
+                      background:'#EFEEFB',
                       '& .title1': {
                         color: '#665CD7',
                       },
@@ -334,10 +370,13 @@ const SearchField = (props: any) => {
                 } as SxProps
               }
             >
-              <Box mb={1}>
+              {/* <Box mb={1}>
                 <RecentSearch recentVal={recentSearch} />
-              </Box>
+              </Box> */}
               {children}
+              <Box>
+                <ControlSearch />
+              </Box>
             </Paper>
           )}
           renderInput={(params) => (
