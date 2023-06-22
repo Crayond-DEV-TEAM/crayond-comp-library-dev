@@ -3,7 +3,7 @@ export const styles = {
   root: {
     backgroundColor: "primary.main",
     "& .MuiPaper-root": {
-      marginTop: "53px !important",
+      // marginTop: "53px !important",
       backgroundColor: "primary.main",
       color: '#fff',
       border: 0,
@@ -14,18 +14,6 @@ export const styles = {
       display: "block !important",
       margin: "0 !important",
       textAlign: "left",
-    },
-    drawerBtn: {
-      //     backgroundColor: "#fff",
-      //     "&:hover ": {
-      //         color: '#000',
-      //     },
-      //   "& .MuiButtonBase-root:hover": {
-      //     backgroundColor: "#fff",
-      //   },
-      //   "& .MuiSvgIcon-root": {
-      //     backgroundColor: "#fff",
-      //   },
     },
   },
 }

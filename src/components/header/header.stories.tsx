@@ -31,18 +31,18 @@ Primary.args = {
   subHeaderComponentList:[
     {
       order: 1,
-      component:<>Logo</>,
+      component:<>Secondary Logo</>,
       style: {},
       mobileScreenActive: true,
     },
     {
       order: 3,
-      component: <>Profile</>,
+      component: <>Secondary Profile</>,
       style: {},
     },
     {
       order: 2,
-      component: <>Menu</>,
+      component: <>Secondary Menu</>,
       style: {},
     },
   ],

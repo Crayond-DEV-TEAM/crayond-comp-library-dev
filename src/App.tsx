@@ -2,7 +2,10 @@ import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
-import React from 'react';
+import React, { useState } from 'react';
+import DashboardIcon from '@mui/icons-material/Dashboard';
+import Leads from '@mui/icons-material/Leaderboard';
+import HomeWorkIcon from '@mui/icons-material/HomeWork';
 import { FcGoogle } from 'react-icons/fc';
 import CompanyLogo from './assets/companyLogo.png';
 import loginImg from './assets/loginImg.png';
@@ -83,7 +86,7 @@ function App() {
   const secondaryBtnMethod = () => {
     console.log('secondary Btn Method working!');
   };
-
+  const [openSideBar, setOpenSideBar] = React.useState(false);
   const ProfileContainer = () => {
     return (
       <Box display="flex" alignItems="center" gap={2}>
@@ -119,6 +122,116 @@ function App() {
     alert(`You have clicked on "${data}"`);
   };
 
+  const menuData = [
+    {
+      primaryText: 'Dashboard',
+      // secondaryText: '',
+      icon: <HomeWorkIcon />,
+      onClick: () => {
+        console.log('clk');
+      },
+      subMenu: [
+        {
+          primaryText: 'Super Admin',
+          // secondaryText: 'info',
+          icon: <DashboardIcon />,
+          subMenu: [
+            {
+              primaryText: 'Admin',
+              // secondaryText: 'info',
+              icon: <Leads />,
+              onClick: () => {
+                console.log('clk');
+              },
+              subMenu: [
+                {
+                  primaryText: 'User',
+                  // secondaryText: 'info',
+                  icon: <Leads />,
+                  onClick: () => {
+                    console.log('clk');
+                  },
+                  subMenu: [
+                    {
+                      primaryText: 'Public',
+                      // secondaryText: 'info',
+                      icon: <Leads />,
+                      onClick: () => {
+                        console.log('clk');
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+          onClick: () => {
+            console.log('clk');
+          },
+        },
+      ],
+    },
+    {
+      primaryText: 'Contact',
+      // secondaryText: 'info',
+      icon: <Leads />,
+      onClick: () => {
+        console.log('clk');
+      },
+      subMenu: [
+        {
+          primaryText: 'Mobile',
+          secondaryText: 'India only',
+          icon: <Leads />,
+          onClick: () => {
+            console.log('clk');
+          },
+
+          subMenu: [
+            {
+              primaryText: 'Primary',
+              secondaryText: '9875346587',
+              icon: <Leads />,
+              onClick: () => {
+                console.log('clk');
+              },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      primaryText: 'Docs',
+      icon: <HomeWorkIcon />,
+      onClick: () => {
+        console.log('clk');
+      },
+    },
+    {
+      primaryText: 'About',
+      icon: <HomeWorkIcon />,
+      onClick: () => {
+        console.log('clk');
+      },
+    },
+  ];
+  const bottomMenuData = [
+    {
+      primaryText: 'Hariharan',
+      secondaryText: 'Developer',
+      icon: (
+        <img
+          src="/sample.jpg"
+          style={{ width: '42px', height: '42px', borderRadius: '50%' }}
+          alt="udc"
+        />
+      ),
+      onClick: () => {
+        console.log('clk');
+      },
+      listIconStyle: { padding: '0' },
+    },
+  ];
   const LogContainer = () => {
     return (
       <>
@@ -128,8 +241,14 @@ function App() {
           color="inherit"
           aria-label="menu"
           sx={{ mr: 2, p: 0 }}
+          disableRipple
+          onClick={()=>setOpenSideBar(!openSideBar)}
         >
-          <PerformanceIcon width={'60px'} height={'20px'} />
+         <img
+          src="/sample.jpg"
+          style={{ width: '42px', height: '42px', borderRadius: '50%', marginRight:"10px" }}
+          alt="udc"
+        />
           <Typography variant="h6" component="div">
             Logo
           </Typography>
@@ -164,7 +283,8 @@ function App() {
                     },
                   }}
                   dropDownProps={{
-                    menuPaperStyle:{}, menuItemStyle:{},
+                    menuPaperStyle: {},
+                    menuItemStyle: {},
                     open: Boolean(anchorElement),
                     anchorEl: anchorElement,
                     configuration: [
@@ -253,24 +373,24 @@ function App() {
             style: {},
           },
         ]}
-        subHeaderComponentList={[
-          {
-            order: 2,
-            component: <LogContainer />,
-            style: {},
-            mobileScreenActive: true,
-          },
-          // {
-          //   order: 1,
-          //   component: <MenuContainer />,
-          //   style: {},
-          // },
-          {
-            order: 3,
-            component: <ProfileContainer />,
-            style: {},
-          },
-        ]}
+        // subHeaderComponentList={[
+        //   {
+        //     order: 2,
+        //     component: <LogContainer />,
+        //     style: {},
+        //     mobileScreenActive: true,
+        //   },
+        //   // {
+        //   //   order: 1,
+        //   //   component: <MenuContainer />,
+        //   //   style: {},
+        //   // },
+        //   {
+        //     order: 3,
+        //     component: <ProfileContainer />,
+        //     style: {},
+        //   },
+        // ]}
         appBarProps={{}}
         appBarStyle={{}}
         toolBarStyle={{}}
@@ -278,7 +398,17 @@ function App() {
         mobileMenuIconStyle={{}}
         subHeaderStyle={{}}
       />
-<Sidebar />
+      <Sidebar
+        openSideBar={openSideBar}
+        logoDetails={{ logoImage: '/vite.svg', version: 'V 1.0.1' }}
+        drawerWidth={271}
+        menuData={menuData}
+        bottomMenuData={bottomMenuData}
+        rootStyle={{
+          height:"calc(100vh - 60px)",
+          marginTop:'60px'
+        }}
+      />
       <CommonTable
         Header={[
           {
