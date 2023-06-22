@@ -187,7 +187,14 @@ function App() {
   });
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
-      <div style={{backgroundColor:'#FFFF',minHeight:"20%",display:"flex",justifyContent:"center",alignItems:"center"}}>
+      <div
+        style={{
+          backgroundColor: '#FFFF',
+          minHeight: '100%',
+          display: 'flex',
+          padding:"30px"
+        }}
+      >
         <SearchField />
       </div>
       {/* <Screen
