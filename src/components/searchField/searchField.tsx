@@ -1,6 +1,7 @@
 import {
   Autocomplete,
   Box,
+  Divider,
   InputAdornment,
   Paper,
   Popper,
@@ -17,30 +18,62 @@ import { styles } from './styles';
 import { useEffect, useState } from 'react';
 import { option } from 'yargs';
 import './index.css';
+import EscapeIcon from '../../assets/escapeIcon';
+import EnterIcon from '../../assets/enterIcon';
+import ArrowUpDownIcon from '../../assets/arrowUpDownIcon';
 
 const Component = (props: any) => {
-  const { findData = false, searchData, handleSearchData = () => {} } = props;
+  return (
+    <Stack
+      style={{
+        cursor: 'pointer',
+        height: '34px',
+        padding: '9px',
+      }}
+    >
+      <EscapeIcon />
+      <EnterIcon />
+      <ArrowUpDownIcon />
+    </Stack>
+  );
+};
+
+const RecentSearch = (props: any) => {
+  const { recentVal } = props;
+console.log(recentVal,"---");
 
   return (
     <Stack
       style={{
         cursor: 'pointer',
-        height: '20%',
-        marginTop: '6px',
-        marginBottom: '6px',
-        borderRadius: '8px',
-        padding: '14px',
-        boxShadow: '0px 8px 12px #00000014',
-        border: '1px solid #665CD7',
+        height: '34px',
+        padding: '9px',
       }}
     >
-      {searchData?.map((val: any) => (
-        <Box onClick={() => handleSearchData(val)}>
-          <Typography color={'#929292'} fontSize={'12px'} mb={'12px'}>
-            {val?.label}
-          </Typography>
-        </Box>
-      ))}
+      <Typography color={'#929292'} fontSize={'10px'}>
+        Recent Search
+      </Typography>
+      <Stack direction={'row'} mt={'8px'} mb={1}>
+        {recentVal?.map((val:any) => (
+          <>
+            <Typography
+              fontWeight={600}
+              padding={'4px 6px'}
+              mr={'12px'}
+              color={'#929292'}
+              fontSize={'10px'}
+              bgcolor={'#E9E9E9'}
+              borderRadius={'8px'}
+            >
+              {val?.label}
+            </Typography>
+          </>
+        ))}
+      </Stack>
+      <Divider sx={{ mt: '0px' }} />
+      {/* <EscapeIcon/>
+      <EnterIcon/>
+      <ArrowUpDownIcon/> */}
     </Stack>
   );
 };
@@ -132,8 +165,6 @@ const SearchField = (props: any) => {
     setSearched(v);
   };
 
-  console.log(recentSearch, 'recentSearch');
-
   const handleClear = () => {
     setSearched(null);
   };
@@ -161,6 +192,7 @@ const SearchField = (props: any) => {
             },
           }}
           renderOption={(props: any, option) => {
+
             return (
               <>
                 {/* {isCardBased && (
@@ -189,6 +221,7 @@ const SearchField = (props: any) => {
                       noWrap
                       mt={'6px'}
                       width={'74px'}
+                      className='title1'
                       sx={{ ':hover': { color: '#665CD7' } }}
                     >
                       {option?.label}
@@ -196,13 +229,14 @@ const SearchField = (props: any) => {
                   </Stack>
                 )} */}
 
-                {isCardWithTitleBased && (
+                {/* {isCardWithTitleBased && (
                   <Stack
                     {...props}
                     sx={{
+                     
                       p: '14px',
                       cursor: 'pointer',
-                      ':hover': { color: '#665CD7' },
+                      // ':hover': {  backgroundColor: '#665CD7',},
                     }}
                     direction={'row'}
                     alignItems={"center"}
@@ -224,6 +258,7 @@ const SearchField = (props: any) => {
                       color={'#3B3B3B'}
                       fontSize={'12px'}
                       fontWeight={600}
+                      className='title1'
                       sx={{ ':hover': { color: '#665CD7' } }}
                     >
                       {option?.label}
@@ -239,24 +274,25 @@ const SearchField = (props: any) => {
                     
                     
                   </Stack>
-                )}
+                )} */}
 
-                {/* {isTextSearch && (
+                {isTextSearch && (
                   <>
                     <Box
                       {...props}
-                      // onClick={() => handleSearchData(val)}
+                      onClick={() => handleSearchData(option)}
                     >
                       <Typography
                         color={'#929292'}
                         fontSize={'12px'}
+                        className="title1"
                         sx={{ ':hover': { color: '#665CD7' } }}
                       >
                         {option?.label}
                       </Typography>
                     </Box>
                   </>
-                )} */}
+                )}
               </>
             );
           }}
@@ -272,33 +308,41 @@ const SearchField = (props: any) => {
                 boxShadow: '0px 8px 12px #00000014',
                 border: '1px solid #665CD7',
               }}
-              sx={{
-                '& .MuiAutocomplete-listbox': {
-                  // display: isCardBased && 'flex',
-                  // flexWrap: isCardBased && 'wrap',
-                },
-                '& .MuiAutocomplete-listbox .MuiAutocomplete-option.Mui-focused':
-                  {
-                    backgroundColor: '#ffff',
+              sx={
+                {
+                  '& .MuiAutocomplete-listbox': {
+                    // display: isCardBased && 'flex',
+                    // flexWrap: isCardBased && 'wrap',
                   },
-                '& .MuiAutocomplete-listbox .MuiAutocomplete-option[aria-selected="true"].Mui-focused':
-                  {
-                    backgroundColor: '#ffff',
+                  '& .MuiAutocomplete-listbox .MuiAutocomplete-option.Mui-focused':
+                    {
+                      backgroundColor: '#ffff',
+                    },
+                  '& .MuiAutocomplete-listbox .MuiAutocomplete-option[aria-selected="true"].Mui-focused':
+                    {
+                      backgroundColor: '#ffff',
+                    },
+                  '& .MuiAutocomplete-listbox .MuiAutocomplete-option': {
+                    ':hover': {
+                      background: '#FFFF',
+                      // background:'#EFEEFB',
+                      '& .title1': {
+                        color: '#665CD7',
+                      },
+                    },
                   },
-                '& .MuiAutocomplete-listbox .MuiAutocomplete-option': {
-                  ':hover': {
-                    background: '#fffff',
-                  },
-                },
-              } as SxProps}
+                } as SxProps
+              }
             >
+              <Box mb={1}>
+                <RecentSearch recentVal={recentSearch} />
+              </Box>
               {children}
             </Paper>
           )}
-
           renderInput={(params) => (
             <TextField
-            placeholder='Search'
+              placeholder="Search"
               onChange={(e) => requestSearch(e.target.value)}
               onClick={() => handleOpen()}
               {...params}
