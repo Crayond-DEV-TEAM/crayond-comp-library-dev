@@ -20,6 +20,7 @@ export const Sidebar = (props: SidebarProps) => {
   const {
     openSideBar,
     logoDetails,
+    drawerProps,
     listStyle,
     drawerWidth = 271,
     menuData,
@@ -89,7 +90,12 @@ export const Sidebar = (props: SidebarProps) => {
   return (
     <>
       <Box sx={{ ...styles.root }}>
-        <MuiDrawer sx={Drawer as SxProps} variant="permanent" open={open}>
+        <MuiDrawer
+          sx={Drawer as SxProps}
+          variant="permanent"
+          open={open}
+          {...drawerProps}
+        >
           <Stack
             direction={'column'}
             justifyContent={'space-between'}
@@ -226,10 +232,13 @@ const NestedListItem = (props: ListItemProps) => {
         onClick={
           open
             ? isSubMenu
-              ? () => handleClickCollapse()
-              : () => onClick()
-            : () => {
-                onClick();
+              ? (e) => {
+                  handleClickCollapse();
+                  onClick({ event: e, currentMenu: primaryText });
+                }
+              : (e) => onClick({ event: e, currentMenu: primaryText })
+            : (e) => {
+                onClick({ event: e, currentMenu: primaryText });
               }
         }
         sx={{

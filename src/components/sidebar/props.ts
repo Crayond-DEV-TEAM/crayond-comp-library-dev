@@ -1,11 +1,17 @@
-import { SxProps } from '@mui/material';
+import { DrawerProps, SxProps } from '@mui/material';
 
 export interface ListItemProps {
   primaryText: string;
   secondaryText?: string;
   open?: boolean;
   selected?: boolean;
-  onClick: ()=>void;
+  onClick: ({
+    event,
+    currentMenu,
+  }: {
+    event:  React.MouseEvent<HTMLDivElement, MouseEvent>;
+    currentMenu: string;
+  }) => void;
   icon?: React.ReactNode;
   subMenu?: ListItemProps[];
   styles?: {
@@ -22,6 +28,7 @@ export interface ListItemProps {
 
 export interface SidebarProps {
   openSideBar: boolean;
+  drawerProps?: DrawerProps;
   logoDetails?: {
     logoImage: string;
     logoImageStyle?: SxProps;

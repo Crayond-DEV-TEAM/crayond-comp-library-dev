@@ -242,13 +242,18 @@ function App() {
           aria-label="menu"
           sx={{ mr: 2, p: 0 }}
           disableRipple
-          onClick={()=>setOpenSideBar(!openSideBar)}
+          onClick={() => setOpenSideBar(!openSideBar)}
         >
-         <img
-          src="/sample.jpg"
-          style={{ width: '42px', height: '42px', borderRadius: '50%', marginRight:"10px" }}
-          alt="udc"
-        />
+          <img
+            src="/sample.jpg"
+            style={{
+              width: '42px',
+              height: '42px',
+              borderRadius: '50%',
+              marginRight: '10px',
+            }}
+            alt="udc"
+          />
           <Typography variant="h6" component="div">
             Logo
           </Typography>
@@ -405,8 +410,8 @@ function App() {
         menuData={menuData}
         bottomMenuData={bottomMenuData}
         rootStyle={{
-          height:"calc(100vh - 60px)",
-          marginTop:'60px'
+          height: 'calc(100vh - 60px)',
+          marginTop: '60px',
         }}
       />
       <CommonTable
