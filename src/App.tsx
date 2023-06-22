@@ -192,7 +192,8 @@ function App() {
           backgroundColor: '#FFFF',
           minHeight: '100%',
           display: 'flex',
-          padding:"30px"
+          padding:"30px",
+          width:"100%"
         }}
       >
         <SearchField />
