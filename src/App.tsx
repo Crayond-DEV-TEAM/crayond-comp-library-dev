@@ -3,18 +3,13 @@ import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
 import { useState } from 'react';
-import SelectBox from './components/selectBox/selectBox';
 import { SelectBoxComponent } from './components/selectBox';
-// import SelectBox from './components/selectBox/selectBox';
-
-
 
 function App() {
 
-
   const top100Films = [
     { title: 'Option 1', year: 1994 },
-    { title: 'Option 1', year: 1972 },
+    { title: 'Option 2', year: 1972 },
     { title: 'Option 3', year: 1974 },
     { title: 'Option 4', year: 2008 },
     { title: 'Option 5', year: 1957 },
@@ -61,66 +56,41 @@ function App() {
   const [checked, setChecked] = useState([])
   const [defaultData, setDefaultData] = useState([])
   const [groupedData, setGroupedData] = useState([])
+  const [chipData, setChipData] = useState([])
 
-  const [checkboxData, setCheckboxData] = useState([...CheckBoxData])
-
-
-  const handleCheckBox = (val: object, parentIndex: number) => {
+  const handleCheckedItem = (event: object, newValue: any) => {
     debugger
 
     const tempArr = [...checked]
-    if (val?.isChecked === false) {
-      tempArr.push({
-        ...val,
-        isChecked: true
-      })
-    } else {
-      // debugger
-      tempArr.splice(val, parentIndex, 1)
-    }
-    setChecked([...tempArr]);
-
-    const tempData = [...checkboxData]
-    tempData[parentIndex] = {
-      ...tempData[parentIndex],
-      title: val?.title,
-      isChecked: true
-    }
-
-    setCheckboxData([...tempData])
+    tempArr.push({
+      title: newValue?.title,
+      isChecked: !newValue?.isChecked
+    })
+    setChecked(tempArr)
   }
 
-  const handleCheckedItem = (val: object, parentIndex: number) => {
-    handleCheckBox(val, parentIndex)
-  }
-
-  const handleDefaultSelectChange = (val: any, newValue: any | never) => {
+  const handleDefaultChange = (val: any, newValue: any | never) => {
     setDefaultData(newValue)
   }
-  const handleChange = (key, event, val) => {
-    if (key === 'grouped') {
-      setGroupedData(val)
-    } else if (key === 'default') {
-      setDefaultData(val)
-    }
+  const handleGroupChange = (event, val) => {
+    setGroupedData(val)
   }
 
-  console.log(checked, 'setChecked');
-  console.log(checkboxData, 'checkboxData');
+  const handleChipChange = (val: any, newValue: any | never) => {
+    setChipData(newValue)
+  }
 
+  console.log(checked, 'checked');
 
 
   return (
     <div className="App" style={{ width: '100vw', background: '#fff', height: '100vh' }}>
       <SelectBoxComponent
-        data={top100Films}
-        CheckableData={checked}
-        checkBoxData={checkboxData}
         limitTags={2}
         groupingProps={{
           isCloseIcon: true,
           isSearch: true,
-          handleChange: handleChange,
+          handleGroupChange: handleGroupChange,
           groupedData: groupedData,
           arrData: top100Films,
           dropdown: {
@@ -142,12 +112,86 @@ function App() {
             borderRadius: ''
           }
         }}
+        defaultProps={{
+          isCloseIcon: true,
+          isSearch: true,
+          handleDefaultChange: handleDefaultChange,
+          defaultData: defaultData,
+          arrData: top100Films,
+          defaultValue: [],
+          dropdown: {
+            minHeight: '',
+            maxHeight: '',
+            maxWidth: '',
+            minWidth: '',
+            backgroundColor: '',
+            color: ''
+          },
+          input: {
+            minHeight: '',
+            minWidth: '',
+            backgroundColor: '',
+            maxWidth: '',
+            maxHeight: '',
+            color: '',
+            border: '',
+            borderRadius: ''
+          }
+        }}
+        chipProps={{
+          isCloseIcon: true,
+          isSearch: true,
+          handleChipChange: handleChipChange,
+          chipData: chipData,
+          arrData: top100Films,
+          defaultValue: [],
+          dropdown: {
+            minHeight: '',
+            maxHeight: '',
+            maxWidth: '',
+            minWidth: '',
+            backgroundColor: '',
+            color: ''
+          },
+          input: {
+            minHeight: '',
+            minWidth: '',
+            backgroundColor: '',
+            maxWidth: '',
+            maxHeight: '',
+            color: '',
+            border: '',
+            borderRadius: ''
+          }
+        }}
+        checkboxProps={{
+          isCloseIcon: true,
+          isSearch: true,
+          defaultValue: [],
+          handleCheckedItem: handleCheckedItem,
+          CheckableData: checked,
+          arrData: CheckBoxData,
+          dropdown: {
+            minHeight: '',
+            maxHeight: '',
+            maxWidth: '',
+            minWidth: '',
+            backgroundColor: '',
+            color: ''
+          },
+          input: {
+            minHeight: '',
+            minWidth: '',
+            backgroundColor: '',
+            maxWidth: '',
+            maxHeight: '',
+            color: '',
+            border: '',
+            borderRadius: ''
+          }
+        }}
         multi={true}
-        handleChange={handleCheckBox}
-        handleCheckedItem={handleCheckedItem}
-        defaultData={defaultData}
-        handleDefaultSelectChange={handleDefaultSelectChange}
-        multiple={true}
+        selectType={'checkbox'} data={[]} multiple={false}
       />
     </div>
   )

@@ -1,183 +1,104 @@
-import { Avatar, Box, Grid, Icon, Typography, CheckboxProps, Checkbox, InputAdornment } from '@mui/material';
+import { Box, Typography, Checkbox, InputAdornment } from '@mui/material';
 import { SelectBoxProps } from './props';
 import { styles } from './style';
 import Chip from '@mui/material/Chip';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
-import { autocompleteClasses } from '@mui/material/Autocomplete';
-import Stack from '@mui/material/Stack';
-import { styled } from '@mui/material/styles';
-import useAutocomplete from '@mui/material/useAutocomplete';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import { BpCheckedIcon, BpIcon } from './checkboxComp';
-import NorthIcon from '@mui/icons-material/North';
 import SearchIcon from '@mui/icons-material/Search';
+import React from 'react';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import { styled } from '@mui/material/styles';
+import Stack from '@mui/material/Stack';
 
-const Root = styled('div')(
-  ({ theme }) => `
-  color: ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.65)' : 'rgba(0,0,0,.85)'
-    };
-  font-size: 14px;
-`,
-);
-
-const Label = styled('label')`
-  padding: 0 0 4px;
-  line-height: 1.5;
-  display: block;
-`;
-
-const InputWrapper = styled('div')(
-  ({ theme }) => `
-  width: 300px;
-  border: 1px solid ${theme.palette.mode === 'dark' ? '#434343' : '#d9d9d9'};
-  background-color: ${theme.palette.mode === 'dark' ? '#141414' : '#fff'};
-  border-radius: 4px;
-  padding: 1px;
-  display: flex;
-  flex-wrap: wrap;
-
-  &:hover {
-    border-color: #665CD7;
-  }
-
-  &.focused {
-    border-color: #665CD7;
-  }
-
-  & input {
-    background-color: ${theme.palette.mode === 'dark' ? '#141414' : '#fff'};
-    color: ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.65)' : 'rgba(0,0,0,.85)'
-    };
-    height: 30px;
-    box-sizing: border-box;
-    padding: 4px 6px;
-    width: 0;
-    min-width: 30px;
-    flex-grow: 1;
-    border: 0;
-    margin: 0;
-    outline: 0;
-  }
-`,
-);
-
-
-function Tag(props: any) {
-  const { label, onDelete, ...other } = props;
-  return (
-    <div {...other}>
-      <span style={{
-        color: '#929292',
-      }}>{label}</span>
-      {/* <CloseIcon onClick={onDelete} /> */}
-    </div>
-  );
-}
-
-const StyledTag = styled(Tag)(
-  ({ theme }) => `
-  display: flex;
-  align-items: center;
-  height: 24px;
-  margin: 2px;
-  line-height: 22px;
-  background-color: ${theme.palette.mode === 'dark' ? 'rgba(255,255,255,0.08)' : '#E9E9E9'
-    };
-  border: 1px solid ${theme.palette.mode === 'dark' ? '#303030' : '#e8e8e8'};
-  border-radius: 2px;
-  box-sizing: content-box;
-  padding: 0 4px 0 10px;
-  outline: 0;
-  overflow: hidden;
-
-  &:focus {
-    border-color: '#665CD7'
-    background-color: '#e6f7ff'
-  }
-
-  & span {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-
-  & svg {
-    font-size: 12px;
-    cursor: pointer;
-    padding: 4px;
-  }
-`,
-);
-
-const CheckableBox = styled('ul')(
-  ({ theme }) => `
-  width: 300px;
-  margin: 2px 0 0;
-  padding: 0;
-  position: absolute;
-  list-style: none;
-  background-color: ${theme.palette.mode === 'dark' ? '#141414' : '#fff'};
-  overflow: auto;
-  max-height: 250px;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-  z-index: 1;
-
-  & div {
-    padding: 5px 12px;
-    display: flex;
-    cursor: pointer;
-    & span {
-    
-    }
-    & svg {
-      color: transparent;
-    }
-  }
-
-  & div[aria-selected='true'] {
-    background-color: ${theme.palette.mode === 'dark' ? '#2b2b2b' : '#fafafa'};
-    font-weight: 600;
-
-    & svg {
-      color: #1890ff;
-    }
-  }
-
-  & div.${autocompleteClasses.focused} {
-    background-color: ${theme.palette.mode === 'dark' ? '#003b57' : '#e6f7ff'};
-    cursor: pointer;
-
-    & svg {
-      color: currentColor;
-    }
-  }
-`,
-);
-
-
-export default function SelectBox(props: SelectBoxProps) {
+const SelectBox = (props: SelectBoxProps) => {
   const {
-    data,
-    CheckableData,
     rootStyleSx,
-    checkboxIcon,
-    uncheckedIcon,
-    handleCheckedItem,
-    checkboxWidth,
-    checkboxHeight,
-    defaultData,
-    checkBoxData,
-    handleDefaultSelectChange,
-    checkboxBorderRadius,
     multi,
-    handleChange,
     groupingProps = {
       isCloseIcon: false,
       isSearch: true,
-      handleChange: () => null,
+      handleGroupChange: () => null,
       groupedData: [],
+      arrData: [],
+      defaultValue: [],
+      dropdown: {
+        minHeight: '',
+        maxHeight: '',
+        minWidth: '',
+        maxWidth: '',
+        backgroundColor: '',
+        color: ''
+      },
+      input: {
+        minHeight: '',
+        minWidth: '',
+        maxWidth: '',
+        maxHeight: '',
+        backgroundColor: '',
+        color: '',
+        border: '',
+        borderRadius: ''
+      }
+    },
+    defaultProps = {
+      isCloseIcon: false,
+      isSearch: true,
+      handleDefaultChange: () => null,
+      defaultData: [],
+      defaultValue: [],
+      arrData: [],
+      dropdown: {
+        minHeight: '',
+        maxHeight: '',
+        minWidth: '',
+        maxWidth: '',
+        backgroundColor: '',
+        color: ''
+      },
+      input: {
+        minHeight: '',
+        minWidth: '',
+        maxWidth: '',
+        maxHeight: '',
+        backgroundColor: '',
+        color: '',
+        border: '',
+        borderRadius: ''
+      }
+    },
+    chipProps = {
+      isCloseIcon: false,
+      isSearch: true,
+      handleChipChange: () => null,
+      chipData: [],
+      defaultValue: [],
+      arrData: [],
+      dropdown: {
+        minHeight: '',
+        maxHeight: '',
+        minWidth: '',
+        maxWidth: '',
+        backgroundColor: '',
+        color: ''
+      },
+      input: {
+        minHeight: '',
+        minWidth: '',
+        maxWidth: '',
+        maxHeight: '',
+        backgroundColor: '',
+        color: '',
+        border: '',
+        borderRadius: ''
+      }
+    },
+    checkboxProps = {
+      isCloseIcon: false,
+      isSearch: true,
+      handleCheckedItem: () => null,
+      CheckableData: [],
+      defaultValue: [],
       arrData: [],
       dropdown: {
         minHeight: '',
@@ -199,48 +120,18 @@ export default function SelectBox(props: SelectBoxProps) {
       }
     },
     limitTags,
+    selectType,
   } = props;
 
-  const {
-    getRootProps,
-    getInputLabelProps,
-    getInputProps,
-    getTagProps,
-    getListboxProps,
-    getOptionProps,
-    groupedOptions,
+  const [hovered, setHovered] = React.useState('');
 
-    value,
-    focused,
-    setAnchorEl,
-  } = useAutocomplete({
-    id: 'customized-hook-demo',
-    // defaultValue: [data[1]],
-    multiple: true,
-    options: checkBoxData,
-    getOptionLabel: (option) => option?.title,
-  });
+  const handleOptionMouseEnter = (option: string) => {
+    setHovered(option);
+  };
 
-  function BpCheckbox(props: CheckboxProps) {
-    return (
-      <Checkbox
-        sx={{
-          '&:hover': { bgcolor: 'transparent' },
-          '& svg': {
-            width: checkboxWidth ?? '1rem',
-            height: checkboxHeight ?? '1rem',
-            borderRadius: checkboxBorderRadius ?? '3px'
-          }
-        }}
-        disableRipple
-        color="default"
-        checkedIcon={checkboxIcon ?? <BpCheckedIcon />}
-        icon={uncheckedIcon ?? <BpIcon />}
-        inputProps={{ 'aria-label': 'Checkbox demo' }}
-        {...props}
-      />
-    );
-  }
+  const handleOptionMouseLeave = () => {
+    setHovered('');
+  };
 
   const GroupItems = styled('ul')({
     color: '#666666',
@@ -255,7 +146,7 @@ export default function SelectBox(props: SelectBoxProps) {
     },
   });
 
-  const GroupHeader = styled('div')(({ theme }) => ({
+  const GroupHeader = styled('div')(() => ({
     position: 'sticky',
     top: '-8px',
     padding: '4px 10px',
@@ -266,24 +157,30 @@ export default function SelectBox(props: SelectBoxProps) {
     background: '#fff'
   }));
 
+  const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
+  const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
   const renderDropdown = (key: string) => {
-
-    console.log(groupingProps?.groupedData, 'groupingProps?.isCloseIcon');
 
     switch (key) {
       case 'grouping':
         return (
           <Autocomplete
-            id="grouped-demo"
+            // id="grouped-demo"
             options={groupingProps?.arrData}
+            defaultValue={groupingProps?.defaultValue}
             limitTags={limitTags}
-            value={groupingProps?.groupedData}
+            value={Array.isArray(groupingProps?.groupedData) ?
+              groupingProps?.groupedData?.length > 0 ?
+                groupingProps?.groupedData : multi ? [] : null :
+              (groupingProps?.groupedData ?? null)
+            }
             multiple={multi}
-            groupBy={(option: CheckedOption) => option.title}
+            groupBy={(option: CheckedOption) => option.title
+            }
             getOptionLabel={(option: CheckedOption) => option.title}
-            onChange={(event, newValue) =>
-              groupingProps?.handleChange('grouped', event, newValue)}
+            onChange={(event, newValue: any) =>
+              groupingProps?.handleGroupChange(event, newValue)}
             sx={{
               height: '100%',
               minWidth: groupingProps?.input?.minWidth ? groupingProps?.input?.minWidth : '400px',
@@ -317,12 +214,12 @@ export default function SelectBox(props: SelectBoxProps) {
             renderInput={(params) =>
               <>
                 {/* <div style={{ marginBottom: "-24px",width:"30px" }}>
-                  {groupingProps?.isSearch ? <InputAdornment position="end">
-                    <SearchIcon />
-                  </InputAdornment> : null}
-                </div> */}
+                {groupingProps?.isSearch ? <InputAdornment position="end">
+                  <SearchIcon />
+                </InputAdornment> : null}
+              </div> */}
                 <TextField
-                  label={value?.length > 0 ? '' : 'Select Option'}
+                  label={groupingProps?.groupedData?.length > 0 ? '' : 'Select Option'}
                   {...params}
                   InputProps={{
                     ...params.InputProps,
@@ -335,10 +232,12 @@ export default function SelectBox(props: SelectBoxProps) {
                 />
               </>
             }
-            renderTags={(value: any) =>
-              value?.map((option: any) => (
-                // eslint-disable-next-line react/jsx-key
-                <Typography sx={styles?.checkboxTextSx}>{`${option.title} ,`}</Typography>
+            renderTags={() =>
+              groupingProps?.groupedData?.map((option: any, index: number) => (
+                <Typography key={index} sx={styles?.checkboxTextSx}>
+                  {`${option.title}
+                   ${groupingProps?.groupedData?.length - 1 === index ? '' : ','}`}
+                </Typography>
               ))
             }
             componentsProps={{
@@ -354,11 +253,6 @@ export default function SelectBox(props: SelectBoxProps) {
                     groupingProps?.dropdown?.minHeight ? groupingProps?.dropdown?.minHeight : '100px',
                 },
               },
-              popupIndicator: {
-                style: {
-                  fontSize: '3px',
-                },
-              }
             }}
             renderGroup={(params) => (
               <li key={params.key}>
@@ -371,95 +265,187 @@ export default function SelectBox(props: SelectBoxProps) {
       case 'checkbox':
         return (
           <>
-            <Root>
-              <div {...getRootProps()}>
-                {/* <Label {...getInputLabelProps()}>Customized hook</Label> */}
-                <InputWrapper ref={setAnchorEl} className={focused ? 'focused' : ''}>
-                  {CheckableData?.map((option: CheckedOption, index: number) => (
-                    <Typography key={index} sx={styles?.checkboxTextSx}>{`${option?.title} ,`}</Typography>
-                  ))}
-                  <input {...getInputProps()}
-                    placeholder={CheckableData?.length > 0 ? '' : 'Select Option'}
-                    style={{ color: 'green' }} />
-                </InputWrapper>
-              </div>
-              {groupedOptions.length > 0 ? (
-                <CheckableBox {...getListboxProps()}>
-                  {(groupedOptions as typeof checkBoxData)?.map((option: CheckedOption, index: number) => {
-                    return (
-                      // eslint-disable-next-line react/jsx-key
-                      <Stack direction={'row'} alignItems={'center'}
-                        onClick={() => handleCheckedItem(option, index)}>
-                        <BpCheckbox
-                          checked={option?.isChecked}
-                          defaultChecked={false}
-                          sx={{
-                            '& span': {
-                              backgroundColor:
-                                option?.isChecked === CheckableData.includes(option?.isChecked) ? '' : '#665CD7'
-                            }
-                          }}
-                          onChange={() => handleChange(option, index)}
-                        />
-                        <p key={index}
-                          style={{
-                            margin: '6px'
-                          }}
-                          {...getOptionProps({ option, index })} >
-                          <span style={{
-                            color:
-                              option?.isChecked !== CheckableData.includes(option?.isChecked) ? '#665CD7' : '#666666'
-                          }}>{option?.title}</span>
-                        </p>
-                      </Stack>
-                    )
-                  })}
-                </CheckableBox>
-              ) : null}
-            </Root >
+            <Autocomplete
+              multiple
+              limitTags={limitTags}
+              defaultValue={checkboxProps?.defaultValue}
+              componentsProps={{
+                popper: {
+                  style: {
+                    minWidth:
+                      checkboxProps?.dropdown?.minWidth ? checkboxProps?.dropdown?.minWidth : '400px',
+                    maxWidth:
+                      checkboxProps?.dropdown?.maxWidth ? checkboxProps?.dropdown?.maxWidth : '400px',
+                    maxHeight:
+                      checkboxProps?.dropdown?.maxHeight ? checkboxProps?.dropdown?.maxHeight : '100px',
+                    minHeight:
+                      checkboxProps?.dropdown?.minHeight ? checkboxProps?.dropdown?.minHeight : '100px',
+                  },
+                },
+              }}
+              sx={{
+                height: '100%',
+                minWidth: checkboxProps?.input?.minWidth ? checkboxProps?.input?.minWidth : '400px',
+                maxWidth: checkboxProps?.input?.maxWidth ? checkboxProps?.input?.maxWidth : '400px',
+                '& .MuiAutocomplete-inputRoot': {
+                  height: 'auto',
+                  minHeight:
+                    checkboxProps?.input?.minHeight ? checkboxProps?.input?.minHeight : '45px',
+                  maxHeight:
+                    checkboxProps?.input?.maxHeight ? checkboxProps?.input?.maxHeight : '45px',
+                  overflow: 'hidden',
+                  paddingTop: '0px',
+                  paddingRight: '12px !important',
+                  paddingBottom: '0px',
+                  '& input': {
+                    padding: '0 !important'
+                  },
+                  // '& span': {
+                  //   fontWeigt: '500',
+                  //   color: '#262626'
+                  // },
+                  '& .MuiAutocomplete-endAdornment': {
+                    '& button': {
+                      display: checkboxProps?.isCloseIcon ? 'flex' : 'none'
+                    }
+                  },
+                  '& fieldset': {
+                    border:
+                      checkboxProps?.input?.border ? checkboxProps?.input?.border : '1px solid rgba(0, 0, 0, 0.23)',
+                    borderRadius: checkboxProps?.input?.borderRadius ? checkboxProps?.input?.borderRadius : '4px'
+                  }
+                }
+              }
+              }
+              id="checkboxes-tags-demo"
+              options={checkboxProps?.arrData}
+              // value={Array.isArray(checkboxProps?.CheckableData) ?
+              //   checkboxProps?.CheckableData?.length > 0 ?
+              //     checkboxProps?.CheckableData : multi ? [] : null :
+              //   (checkboxProps?.CheckableData ?? null)}
+              // onChange={(event, newValue) => {
+              //   checkboxProps?.handleCheckedItem(event, newValue)
+              // }}
+              disableCloseOnSelect
+              getOptionLabel={(option) => option.title}
+              renderTags={() =>
+                checkboxProps?.CheckableData?.map((option: any, index: number) => (
+                  <Typography key={index} sx={styles?.checkboxTextSx}>
+                    {`${option.title}
+                        `}</Typography>
+                ))
+              }
+              renderOption={(props, option, { selected }) => {
+
+                console.log(selected, 'selected');
+
+                // debugger
+                return (
+                  <li {...props}>
+                    <Checkbox
+                      icon={icon}
+                      checkedIcon={checkedIcon}
+                      style={{ marginRight: 8 }}
+                      checked={selected}
+                    />
+                    {option?.title}
+                  </li>
+                )
+              }}
+              style={{ width: 500 }}
+              renderInput={(params) => (
+                <>
+                  {/* <div style={{ marginBottom: "-24px", width: "30px" }}>
+                      {groupingProps?.isSearch ? <InputAdornment position="end">
+                        <SearchIcon />
+                      </InputAdornment> : null}
+                    </div> */}
+                  < TextField {...params} label=""
+                    placeholder={
+                      !!checkboxProps?.CheckableData?.length ? '' : 'Select Option'
+                    }
+                  />
+                </>
+              )}
+            />
           </>
         )
       case 'chip':
         return (
 
           <Autocomplete
-            id="free-solo"
-            limitTags={2}
-            onChange={(event, newValue) => {
-              handleDefaultSelectChange(event, newValue)
+            // id="free-solo"
+            limitTags={limitTags}
+            defaultValue={chipProps?.defaultValue}
+            onChange={(event, newValue: any) => {
+              chipProps?.handleChipChange(event, newValue)
             }}
             selectOnFocus={true}
             multiple={multi}
+            componentsProps={{
+              popper: {
+                style: {
+                  minWidth:
+                    chipProps?.dropdown?.minWidth ? chipProps?.dropdown?.minWidth : '400px',
+                  maxWidth:
+                    chipProps?.dropdown?.maxWidth ? chipProps?.dropdown?.maxWidth : '400px',
+                  maxHeight:
+                    chipProps?.dropdown?.maxHeight ? chipProps?.dropdown?.maxHeight : '100px',
+                  minHeight:
+                    chipProps?.dropdown?.minHeight ? chipProps?.dropdown?.minHeight : '100px',
+                },
+              },
+            }}
             sx={{
               height: '100%',
-              width: '300px',
+              minWidth: chipProps?.input?.minWidth ? chipProps?.input?.minWidth : '400px',
+              maxWidth: chipProps?.input?.maxWidth ? chipProps?.input?.maxWidth : '400px',
               '& .MuiAutocomplete-inputRoot': {
                 height: 'auto',
-                minHeight: '45px',
+                minHeight:
+                  chipProps?.input?.minHeight ? chipProps?.input?.minHeight : '45px',
+                maxHeight:
+                  chipProps?.input?.maxHeight ? chipProps?.input?.maxHeight : '45px',
                 overflow: 'hidden',
                 paddingTop: '0px',
                 paddingRight: '12px !important',
                 paddingBottom: '0px',
                 '& input': {
                   padding: '0 !important'
+                },
+                // '& span': {
+                //   fontWeigt: '500',
+                //   color: '#262626'
+                // },
+                '& .MuiAutocomplete-endAdornment': {
+                  '& button': {
+                    display: chipProps?.isCloseIcon ? 'flex' : 'none'
+                  }
+                },
+                '& fieldset': {
+                  border:
+                    chipProps?.input?.border ? chipProps?.input?.border : '1px solid rgba(0, 0, 0, 0.23)',
+                  borderRadius: chipProps?.input?.borderRadius ? chipProps?.input?.borderRadius : '4px'
                 }
               }
-            }}
-            options={data}
-            value={defaultData}
-            placeholder={defaultData?.length > 0 ? 'select Option' : ''}
+            }
+            }
+            options={chipProps?.arrData}
+            value={
+              Array.isArray(chipProps?.chipData) ?
+                chipProps?.chipData?.length > 0 ?
+                  chipProps?.chipData : multi ? [] : null :
+                (chipProps?.chipData ?? null)
+            }
+            placeholder={!!chipProps?.chipData?.length ? 'select Option' : ''
+            }
             getOptionLabel={(option) => option.title
             }
             renderInput={(params) =>
-              <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'}>
-                <TextField
-                  {...params}
-                  label=""
-                />
-                <Box>
-                  <KeyboardArrowDownIcon />
-                </Box>
-              </Stack>}
+              <TextField
+                {...params}
+                label=""
+              />}
             renderTags={(value: any, getTagProps) =>
               value?.map((option: any, index: number) => (
                 // eslint-disable-next-line react/jsx-key
@@ -483,11 +469,23 @@ export default function SelectBox(props: SelectBoxProps) {
                 />
               ))
             }
-          // renderOption={(props, option) => (
-          //   <li {...props}>
-          //     {option?.title}
-          //   </li>
-          // )}
+            renderOption={(props, option) => (
+              <Typography {...props}
+                sx={hovered === option?.title ? {
+                  background: '#E9E9E9',
+                  color: '#665CD7'
+                } :
+                  {
+                    background: '#ffff',
+                    color: '#666666'
+
+                  }}
+                onMouseEnter={() => handleOptionMouseEnter(option?.title)}
+                onMouseLeave={handleOptionMouseLeave} >
+                {option?.title}
+              </Typography >
+            )
+            }
           />
 
         )
@@ -495,37 +493,97 @@ export default function SelectBox(props: SelectBoxProps) {
       case 'default':
         return (
           <Autocomplete
-            id="free-solo-demo"
+            limitTags={limitTags}
+            // id="free-solo-demo"
+            defaultValue={defaultProps?.defaultValue}
+            componentsProps={{
+              popper: {
+                style: {
+                  minWidth:
+                    defaultProps?.dropdown?.minWidth ? defaultProps?.dropdown?.minWidth : '400px',
+                  maxWidth:
+                    defaultProps?.dropdown?.maxWidth ? defaultProps?.dropdown?.maxWidth : '400px',
+                  maxHeight:
+                    defaultProps?.dropdown?.maxHeight ? defaultProps?.dropdown?.maxHeight : '100px',
+                  minHeight:
+                    defaultProps?.dropdown?.minHeight ? defaultProps?.dropdown?.minHeight : '100px',
+                },
+              },
+            }}
             sx={{
               height: '100%',
-              width: '300px',
+              minWidth: defaultProps?.input?.minWidth ? defaultProps?.input?.minWidth : '400px',
+              maxWidth: defaultProps?.input?.maxWidth ? defaultProps?.input?.maxWidth : '400px',
               '& .MuiAutocomplete-inputRoot': {
-                minHeight: '45px',
+                height: 'auto',
+                minHeight:
+                  defaultProps?.input?.minHeight ? defaultProps?.input?.minHeight : '45px',
+                maxHeight:
+                  defaultProps?.input?.maxHeight ? defaultProps?.input?.maxHeight : '45px',
                 overflow: 'hidden',
                 paddingTop: '0px',
                 paddingRight: '12px !important',
                 paddingBottom: '0px',
                 '& input': {
                   padding: '0 !important'
+                },
+                '& .MuiAutocomplete-endAdornment': {
+                  '& button': {
+                    display: defaultProps?.isCloseIcon ? 'flex' : 'none'
+                  }
+                },
+                '& fieldset': {
+                  border:
+                    defaultProps?.input?.border ? defaultProps?.input?.border : '1px solid rgba(0, 0, 0, 0.23)',
+                  borderRadius: defaultProps?.input?.borderRadius ? defaultProps?.input?.borderRadius : '4px'
                 }
               }
+            }
+            }
+            options={defaultProps?.arrData}
+            value={
+              Array.isArray(defaultProps?.defaultData) ?
+                defaultProps?.defaultData?.length > 0 ?
+                  defaultProps?.defaultData : multi ? [] : null :
+                (defaultProps?.defaultData ?? null)}
+            onChange={(event, newValue: any) => {
+              defaultProps?.handleDefaultChange(event, newValue)
             }}
-            options={data}
             getOptionLabel={(option) => option.title}
             multiple={multi}
             renderInput={(params) => <TextField {...params}
-              sx={styles?.defaultInputSx} label="" />}
-            renderTags={(value: any) =>
-              value?.map((option: any) => (
-                // eslint-disable-next-line react/jsx-key
-                <Typography sx={styles?.checkboxTextSx}>{`${option.title}, `}</Typography>
+              sx={styles?.defaultInputSx}
+              placeholder={!!defaultProps?.defaultData?.length ? '' : 'select Option'} />}
+            renderTags={() =>
+              defaultProps?.defaultData?.map((option: any, index: number) => (
+                <Typography key={index} sx={styles?.checkboxTextSx}>
+                  {`${option.title}
+                       ${defaultProps?.defaultData?.length - 1 === index ? '' : ','}  `}
+                </Typography>
               ))
             }
+            renderOption={(props, option) => (
+              <Typography {...props}
+                sx={hovered === option?.title ? {
+                  background: '#E9E9E9',
+                  color: '#665CD7'
+                } :
+                  {
+                    background: '#ffff',
+                    color: '#666666'
+
+                  }}
+                onMouseEnter={() => handleOptionMouseEnter(option?.title)}
+                onMouseLeave={handleOptionMouseLeave} >
+                {option?.title}
+              </Typography >
+            )
+            }
+
           />
         )
       default:
         return
-        break
     }
 
   }
@@ -533,16 +591,15 @@ export default function SelectBox(props: SelectBoxProps) {
   return (
     <Box sx={{ ...styles?.rootSx, ...rootStyleSx }}>
       {/* header */}
-      <Label {...getInputLabelProps()}>Customized hook</Label>
+      {/* <Label {...getInputLabelProps()}>Customized hook</Label> */}
       <Stack direction={'row'}>
-        {renderDropdown('default')}
-        {/* {renderDropdown('chip')} */}
-        {/* {renderDropdown('checkbox')} */}
-        {/* {renderDropdown('grouping')} */}
+        {renderDropdown(selectType)}
       </Stack>
     </Box >
   );
 }
+
+export default SelectBox
 
 SelectBox.defaultProps = {
 

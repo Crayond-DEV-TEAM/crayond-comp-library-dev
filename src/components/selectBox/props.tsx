@@ -12,27 +12,17 @@ export interface SelectBoxProps {
     multiple: boolean,
     data: { title: string; year: number; }[],
     rootStyleSx: object,
-    checkboxIcon: React.ReactElement,
-    uncheckedIcon: React.ReactElement,
-    checkboxWidth: string,
-    checkboxHeight: string,
-    checkboxBorderRadius: string,
-    CheckableData: { title: string; isChecked: boolean; }[],
-    handleCheckedItem: (val: object, index: number) => void,
-    handleDefaultSelectChange: (val: any, newValue: object) => void;
-    handleChange: (val: object, index: number) => void,
-    defaultData: { title: string; year: number; }[],
     multi: boolean,
-    checkBoxData: { title: string; isChecked: boolean; }[];
     limitTags: number;
     groupingProps: {
         isCloseIcon: boolean,
         isSearch: boolean,
-        handleChange: (key: string, e: any,
-            val: { title: string; isChecked: boolean; } | { title: string; isChecked: boolean; }[] | null
+        handleGroupChange: (e: any,
+            val: { title: string; year: number; } | { title: string; year: number; }[] | null
         ) => void,
-        groupedData: CheckedOption[] | CheckedOption,
+        groupedData: CheckedOption[],
         arrData: CheckedOption[],
+        defaultValue: CheckedOption[],
         dropdown: {
             minHeight: string,
             maxWidth: string,
@@ -52,5 +42,89 @@ export interface SelectBoxProps {
             borderRadius: string
         }
     }
-
+    defaultProps: {
+        isCloseIcon: boolean,
+        isSearch: boolean,
+        handleDefaultChange: (e: any,
+            val: { title: string; year: number; } | { title: string; year: number; }[] | null
+        ) => void,
+        defaultData: FilmOptionType[],
+        arrData: FilmOptionType[],
+        defaultValue: FilmOptionType[],
+        dropdown: {
+            minHeight: string,
+            maxWidth: string,
+            minWidth: string,
+            maxHeight: string,
+            backgroundColor: string,
+            color: string
+        },
+        input: {
+            minHeight: string,
+            maxWidth: string,
+            minWidth: string,
+            maxHeight: string,
+            backgroundColor: string,
+            color: string,
+            border: string,
+            borderRadius: string
+        }
+    }
+    chipProps: {
+        isCloseIcon: boolean,
+        isSearch: boolean,
+        handleChipChange: (e: any,
+            val: { title: string; year: number; } | { title: string; year: number; }[] | null
+        ) => void,
+        chipData: FilmOptionType[],
+        arrData: FilmOptionType[],
+        defaultValue: FilmOptionType[],
+        dropdown: {
+            minHeight: string,
+            maxWidth: string,
+            minWidth: string,
+            maxHeight: string,
+            backgroundColor: string,
+            color: string
+        },
+        input: {
+            minHeight: string,
+            maxWidth: string,
+            minWidth: string,
+            maxHeight: string,
+            backgroundColor: string,
+            color: string,
+            border: string,
+            borderRadius: string
+        }
+    }
+    checkboxProps: {
+        isCloseIcon: boolean,
+        isSearch: boolean,
+        handleCheckedItem: (e: any,
+            val: { title: string; isChecked: boolean; }
+        ) => void,
+        CheckableData: CheckedOption[],
+        arrData: CheckedOption[],
+        defaultValue: CheckedOption[],
+        dropdown: {
+            minHeight: string,
+            maxWidth: string,
+            minWidth: string,
+            maxHeight: string,
+            backgroundColor: string,
+            color: string
+        },
+        input: {
+            minHeight: string,
+            maxWidth: string,
+            minWidth: string,
+            maxHeight: string,
+            backgroundColor: string,
+            color: string,
+            border: string,
+            borderRadius: string
+        }
+    },
+    selectType: 'default' | 'chip' | 'checkbox' | 'grouping'
 }
