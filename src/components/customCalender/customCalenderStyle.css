@@ -1,0 +1,106 @@
+
+  .rbc{
+    font-family: var(--date-fontFamily,"Poppins", sans-serif) ;}
+  .rbc-toolbar .rbc-toolbar-label {
+    color: var(--date-cell-labelColor,   #262626) !important;
+    font-size: var(--date-cell-labelfont,   14px) !important;
+    font-weight: var(--date-cell-labelWeight, 500) !important;
+}
+/* .rbc-button-link {
+    color: #262626;
+} */
+.rbc-date-cell {
+    color: #262626;
+    font-weight: 500;
+}
+.rbc-off-range-bg {
+    background: #FAFAFA;
+}
+.rbc-day-bg + .rbc-day-bg {
+    border-left:var(--date-cell-borderColumn,  1px solid #E9E9E9) !important;
+}
+.rbc-month-view {
+    border: var(--date-borderOverallCalender, 1px solid #ddd) !important;
+}
+.rbc-month-row + .rbc-month-row {
+    border-top:var(--date-cell-borderRow, 1px solid #ddd) !important;
+}
+.rbc-header + .rbc-header {
+    border-left: var(--date-head-borderRow, 1px solid #ddd) !important;
+    border-bottom: var(--date-head-borderbottom, 1px solid #ddd) !important;
+}
+.rbc-header {
+    border-bottom: var(--date-head-borderbottom, 1px solid #ddd) !important;
+}
+.rbc-calendar *, .rbc-calendar *:before, .rbc-calendar *:after {
+    -webkit-box-sizing: inherit;
+    box-sizing: inherit;
+    color: #000000;
+    font-weight: 500;
+}
+.rbc-toolbar {
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+.rbc-toolbar button:active, .rbc-toolbar button.rbc-active {
+    background-image: none;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    background-color:var(--date-TabBgColor, #665cd7) !important;
+    border-color:var(--date-TabBgborder, #665cd7) !important;
+    color:var(--date-TabColor, #fff) !important;
+}
+.rbc-toolbar button:hover {
+    background-color:var(--date-TabBgColor, #665cd7) !important;
+    border-color: var(--date-TabBgborder, #665cd7) !important;
+    color:var(--date-TabColor, #fff) !important;
+}
+.rbc-off-range-bg {
+    background: var(--date-beforeMonthsBgColor, #f1f1f1) !important;
+}
+.rbc-today {
+    background-color: var(--date-todayDateBgcolor, rgb(102 92 215 / 9%)) !important;
+}
+.rbc-event, .rbc-day-slot .rbc-background-event { 
+    background-color: transparent !important;
+    outline: none;
+    
+}
+.rbc-toolbar button {
+    font-size: var(--date-tabFontSize, 14px) !important;
+    font-weight: var(--date-tabFontweight, 500) !important;
+}
+:focus-visible {
+    outline: none;
+}
+.rbc-addons-selecting .rbc-selected-cell .rbc-toolbar-label {
+    visibility: hidden;
+  }
+  
+  .rbc-addons-selecting .rbc-selected-cell .rbc-toolbar-label::before {
+    
+  }
+
+  .rbc-day-bg {
+    /* border-left: 1px solid #ddd; */
+    position: relative;
+    cursor:pointer;
+  }
+  
+  .rbc-day-bg:hover::before {
+    content: "+ Add event";
+    visibility: visible;
+    position: absolute;
+    top: 50%;
+    /* right: 0px; */
+    left: 0px;
+    /* bottom: 0px; */
+    /* margin: 10px 25px; */
+    transform: translate(20%, -40%);
+    color:   var(--date-addEventColor, #463f93) !important;
+    z-index: 999;
+    font-size: 14px;
+  }
+
+
+  

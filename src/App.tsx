@@ -5,7 +5,7 @@ import '@fontsource/poppins/700.css';
 import { Viewer } from './components/viewer';
 import DeleteIcon from './assets/deleteIcon';
 import profileImg from './assets/sampleprof.png';
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import CompanyLogo from './assets/companyLogo.png';
 import loginImg from './assets/loginImg.png';
@@ -25,6 +25,14 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { ProfileThree } from './components/profileThree';
 import yup from './utils/yupSchema';
 import { Screen } from './components/screen';
+import { Calender } from './components/calender';
+import { CustomCalender } from './components/customCalender';
+import {
+  Dialog,
+  DialogContent,
+  TextField,
+  IconButton
+} from '@mui/material';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -184,8 +192,152 @@ function App() {
       .email('Please enter valid email')
       .required('Please enter email'),
   });
+
+  // calender component Function
+  const [select, setSelect] = useState<number>(0);
+  const [events, setEvents] = useState([]);
+  
+  const [editEvent, setEditEvent] = useState(null);
+  const eventCategories = [
+    { name: 'Event Planning', color: '#DBE9FF' },
+    { name: 'Campaign', color: '#F4DBFF' },
+    { name: 'Birthday Calendar', color: '#DBFFE5' },
+  ];
+
+  const onCalenderListClick = (index: number) => {
+    setSelect(index);
+  };
+
+  const generateUniqueId = (): string => {
+    return Math.random().toString(36).substr(2, 9);
+  };
+
+
+  const onEventDateSelect = (setEventData: any) => {
+      const updatedEvent = {
+          id: generateUniqueId(),
+          title: setEventData?.title,
+          allDay: setEventData?.allDay,
+          start: setEventData?.start,
+          end: setEventData?.end,
+          deletable: setEventData?.deletable,
+          eventRemaindTime: setEventData?.eventRemainder,
+          eventRemind: setEventData?.selectedDay,
+          startTime: setEventData?.startTime,
+          endTime: setEventData?.endTime,
+      };
+        setEvents((prevState): any => [...prevState, updatedEvent]);
+      setEditEvent(null);
+    
+  };
+
+  const onEventDelete = (event: any) => {
+    const updatedEvents = events.filter((evt:any) => evt?.id !== event.id);
+    setEvents(updatedEvents);
+  };
+
+  const onEventEdit = (event: any) => {
+    setEditEvent(event);
+  };
+
+  const  calenderList= [
+      { calenderTitle: 'Default Calendar' },
+      { calenderTitle: 'Event Planning' },
+      { calenderTitle: 'Campaign' },
+      { calenderTitle: 'Birthday Calendar' },
+    ]
+
+  const  nationalLeaves=[
+      { date: '2023-06-14', title: 'deepavali' },
+      { date: '2023-06-23', title: 'pongal' },
+      { date: '2023-06-27', title: 'Holiday Enjoy' },
+      { date: '2023-09-27', title: 'Holiday Enjoy' },
+    ]
+
+ const CommonLeaves =['saturday', 'sunday']
+ const remainderOption=[{value:'min',label:'Min'},{value:'hour',label:'Hours'},{value:'months',label:'Months'}]
+
+ const styleProps={
+  layoutBorderStyle:{
+      borderColor:'#E9E9E9',
+   },
+   beforeMonthStyle:{
+        backgroundColor:'#FAFAFA',
+   },
+   todayDateStyle:{
+       backgroundColor:'#EFEEFB',
+   },
+   addEventStyle:{
+       color:'#665CD7',
+   },
+   tabStyle:{
+       backgroundColor:'#665cd7',
+       color:'#fff',
+       borderColor:'##665cd7',
+       fontSize:'14px',
+       fontWeight:'600',
+   },
+   headStyle:{
+       color:'#000',
+       fontSize:'14px',
+       fontWeight:'500',
+   },
+   fontFamily:{
+   fontFamily: 'Poppins, sans-serif',
+   }
+}
+
+// const [modalTitle, setModalTitle] = useState('');
+
+// const onEventsEdit = (newEvent:any) => { 
+//   setEditEvent(null);
+// };
+const [openModal, setOpenModal] = useState(false);
+
+const onCustomizeEvent = (e: any) => {
+  setOpenModal(true)
+  console.log(e,'eeeeeee')
+}
+
+
+
+
+
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
+     <CustomCalender  
+      select={select}
+      eventsData={events}
+      onEventEdit={onEventEdit}
+      calenderList={calenderList}
+      CommonLeaves={CommonLeaves}
+      nationalLeaves={nationalLeaves}
+      eventCategories={eventCategories}
+      onEventsDelete={onEventDelete}
+      OnEventAdd={onEventDateSelect}
+      onCalenderListClick={onCalenderListClick}
+      // eventsIcon={eventsIcon}
+      isEventModal
+      nationalLeaveBgColor="#efeefb"
+      styleProps={styleProps}
+      remainderOption={remainderOption}
+      onCustomizeEvent={onCustomizeEvent}
+      
+      />
+      {/* <Dialog open={openModal}>
+        <DialogContent>
+                  <TextField
+                    placeholder="Add Event"
+                    value={modalTitle}
+                    onChange={(e) => setModalTitle(e.target.value)}
+                    fullWidth
+                    inputProps={{
+                      style: { backgroundColor: '#fff' },
+                    }}
+                  />
+                  <IconButton onClick={onEventDateSelect(modalTitle)}>+</IconButton>
+        </DialogContent>
+      </Dialog> */}
       <Screen
        containerStyle={{}}
        headerStyle={{}}
