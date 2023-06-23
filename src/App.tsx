@@ -26,6 +26,7 @@ import { ProfileThree } from './components/profileThree';
 import yup from './utils/yupSchema';
 import { Screen } from './components/screen';
 import { SearchField } from './components/searchField';
+import Close from './assets/close';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -186,17 +187,26 @@ function App() {
       .required('Please enter email'),
   });
   return (
-    <div className="App" style={{ width: '100vw', height: '100vh' }}>
+    <div className="App" style={{ width: '100vw', height: '100vh',backgroundColor: '#FFFF', }}>
       <div
         style={{
-          backgroundColor: '#FFFF',
           minHeight: '100%',
           display: 'flex',
           padding:"30px",
-          width:"100%"
+          width:"70%"
         }}
       >
-        <SearchField />
+        <SearchField 
+        isTextSearch={false}
+        isRecentSearch={false}
+        isCardBased={false}
+        isCardWithTitleBased={false}
+        isShortcutKeyBased={true}
+        isShortComponent={false}
+        placeHolderText='Search henry'
+        startAdornmentIcon={<SearchIcon/>}
+        endAdornmentIcon={<Close/>}
+        />
       </div>
       {/* <Screen
        containerStyle={{}}

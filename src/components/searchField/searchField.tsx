@@ -4,23 +4,87 @@ import {
   Divider,
   InputAdornment,
   Paper,
-  Popper,
   Stack,
   SxProps,
   TextField,
   Typography,
-  createFilterOptions,
-  makeStyles,
 } from '@mui/material';
-import Search from '../../assets/search';
-import Close from '../../assets/close';
-import { styles } from './styles';
-import { useEffect, useState } from 'react';
-import './index.css';
-import EscapeIcon from '../../assets/escapeIcon';
-import EnterIcon from '../../assets/enterIcon';
+import { useState } from 'react';
 import ArrowUpDownIcon from '../../assets/arrowUpDownIcon';
+import ClockIcon from '../../assets/clockIcon';
+import Close from '../../assets/close';
+import EnterIcon from '../../assets/enterIcon';
+import EscapeIcon from '../../assets/escapeIcon';
 import HoverEnter from '../../assets/hoverEnter';
+import Search from '../../assets/search';
+import './index.css';
+import { styles } from './styles';
+
+const SuggestionSearch = (props: any) => {
+  const { searchValue, option, handleStoreSearchData = () => {} } = props;
+
+  const filteredRows = option.filter((row: any) => {
+    return row.label.toLowerCase().includes(searchValue?.toLowerCase());
+  });
+  return (
+    <>
+      {filteredRows?.map((item: any) => (
+        <Stack
+          direction={'row'}
+          columnGap={'8px'}
+          rowGap={'24px'}
+          p={'0 14px'}
+          marginBottom={'16px'}
+          onClick={() => handleStoreSearchData(item)}
+        >
+          <>
+            <Box>
+              <Search />
+            </Box>
+            <Box>
+              <Typography color={'#262626'} fontSize={'14px'} fontWeight={600}>
+                {item?.label}
+              </Typography>
+            </Box>
+          </>
+        </Stack>
+      ))}
+    </>
+  );
+};
+
+const SuggestionRecentSearch = (props: any) => {
+  const { searchValue, option, handleRecentSearchData = () => {} } = props;
+
+  const filteredRows = option.filter((row: any) => {
+    return row.label.toLowerCase().includes(searchValue?.toLowerCase());
+  });
+  return (
+    <>
+      {filteredRows?.map((item: any) => (
+        <Stack
+          direction={'row'}
+          columnGap={'8px'}
+          rowGap={'24px'}
+          p={'0 14px'}
+          marginBottom={'16px'}
+          onClick={() => handleRecentSearchData(item)}
+        >
+          <>
+            <Box>
+              <ClockIcon />
+            </Box>
+            <Box>
+              <Typography color={'#262626'} fontSize={'14px'} fontWeight={600}>
+                {item?.label}
+              </Typography>
+            </Box>
+          </>
+        </Stack>
+      ))}{' '}
+    </>
+  );
+};
 
 const ControlSearch = (props: any) => {
   return (
@@ -29,25 +93,31 @@ const ControlSearch = (props: any) => {
         cursor: 'pointer',
         height: '34px',
         padding: '9px',
-        borderBottomRightRadius:"8px",
-        borderBottomLeftRadius:"8px",
+        borderBottomRightRadius: '8px',
+        borderBottomLeftRadius: '8px',
       }}
       direction={'row'}
-      alignItems={"center"}
-      columnGap={"20px"}
-      bgcolor={"#E9E9E9"}
+      alignItems={'center'}
+      columnGap={'20px'}
+      bgcolor={'#E9E9E9'}
     >
-      <Stack direction={'row'} alignItems={"center"}>
+      <Stack direction={'row'} alignItems={'center'}>
         <ArrowUpDownIcon />
-        <Typography ml={"6px"} color={'#666666'} fontSize={'12px'}>To Navigate</Typography>
+        <Typography ml={'6px'} color={'#666666'} fontSize={'12px'}>
+          To Navigate
+        </Typography>
       </Stack>
-      <Stack direction={'row'} alignItems={"center"}>
+      <Stack direction={'row'} alignItems={'center'}>
         <EnterIcon />
-        <Typography ml={"6px"} color={'#666666'} fontSize={'12px'}>To Select</Typography>
+        <Typography ml={'6px'} color={'#666666'} fontSize={'12px'}>
+          To Select
+        </Typography>
       </Stack>
-      <Stack direction={'row'} alignItems={"center"}>
+      <Stack direction={'row'} alignItems={'center'}>
         <EscapeIcon />
-        <Typography ml={"6px"} color={'#666666'} fontSize={'12px'}>To Close</Typography>
+        <Typography ml={'6px'} color={'#666666'} fontSize={'12px'}>
+          To Close
+        </Typography>
       </Stack>
     </Stack>
   );
@@ -60,14 +130,13 @@ const RecentSearch = (props: any) => {
     <Stack
       style={{
         cursor: 'pointer',
-        height: '34px',
         padding: '9px',
       }}
     >
       <Typography color={'#929292'} fontSize={'10px'}>
         Recent Search
       </Typography>
-      <Stack direction={'row'} mt={'8px'} mb={1}>
+      <Stack direction={'row'} mt={'8px'} mb={1} overflow={'scroll'}>
         {recentVal?.map((val: any) => (
           <>
             <Typography
@@ -78,6 +147,7 @@ const RecentSearch = (props: any) => {
               fontSize={'10px'}
               bgcolor={'#E9E9E9'}
               borderRadius={'8px'}
+              minWidth={'fit-content'}
             >
               {val?.label}
             </Typography>
@@ -92,28 +162,191 @@ const RecentSearch = (props: any) => {
   );
 };
 
-interface FilterOptionType {}
+const FoodCategory = (props: any) => {
+  const { searchValue, option, handleFoodSearchData = () => {} } = props;
+
+  const filteredRows = option.filter((row: any) => {
+    return row.label.toLowerCase().includes(searchValue?.toLowerCase());
+  });
+
+  return (
+    <>
+      <Stack direction={'row'} overflow={'scroll'}>
+        {option?.map((val: any) => (
+          <Stack
+            {...props}
+            sx={{
+              p: '14px',
+              cursor: 'pointer',
+              ':hover': { color: '#665CD7' },
+            }}
+            direction={'column'}
+            onClick={() => handleFoodSearchData(val)}
+          >
+            <img
+              src={val?.url}
+              alt=" "
+              style={{
+                width: '74px',
+                height: '74px',
+                borderRadius: '50%',
+              }}
+            />
+            <Typography
+              color={'#3B3B3B'}
+              fontSize={'12px'}
+              mt={'6px'}
+              width={'74px'}
+              className="title1"
+              textAlign={'center'}
+              sx={{ ':hover': { color: '#665CD7' } }}
+            >
+              {val?.label}
+            </Typography>
+          </Stack>
+        ))}
+      </Stack>
+    </>
+  );
+};
+
+const EmployeeCategory = (props: any) => {
+  const { searchValue, option, handleEmployeeSearchData = () => {} } = props;
+
+  const filteredRows = option.filter((row: any) => {
+    return row?.label?.toLowerCase()?.includes(searchValue?.toLowerCase());
+  });
+  return (
+    <>
+      {option?.map((val: ay) => (
+        <Stack
+          {...props}
+          sx={{
+            p: '14px',
+            cursor: 'pointer',
+            // ':hover': {  backgroundColor: '#665CD7',},
+          }}
+          direction={'row'}
+          alignItems={'center'}
+          onClick={() => handleEmployeeSearchData(val)}
+        >
+          <Box>
+            <img
+              src={val?.url}
+              alt=" "
+              style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '4px',
+              }}
+            />
+          </Box>
+          <Box ml={'8px'}>
+            <Typography
+              color={'#3B3B3B'}
+              fontSize={'12px'}
+              fontWeight={600}
+              className="title1"
+              sx={{ ':hover': { color: '#665CD7' } }}
+            >
+              {val?.label}
+            </Typography>
+            <Typography color={'#666666'} fontSize={'10px'} mt={'6px'}>
+              {val?.label}
+            </Typography>
+          </Box>
+        </Stack>
+      ))}
+    </>
+  );
+};
+
+interface SearchFieldProps {
+  isTextSearch: Boolean;
+  isRecentSearch: Boolean;
+  isCardBased: Boolean;
+  isCardWithTitleBased: Boolean;
+  isShortcutKeyBased: Boolean;
+  isShortComponent: Boolean;
+
+  paperRootStyle: SxProps;
+  placeHolderText: string;
+  startAdornmentIcon: React.ReactNode;
+  endAdornmentIcon: React.ReactNode;
+}
+interface handleSearchDataProp {
+  label: string;
+}
 interface dataType {
   label: string;
   title: string;
 }
 [];
 
+const shotcutkeyData = [
+  {
+    // label: 'suggestion',
+    menu: [
+      { label: 'Suggestion search here' },
+      { label: 'Suggestion search here' },
+      { label: 'Suggestion search here' },
+    ],
+  },
+  {
+    label: 'RECENT SEARCH',
+    menu: [
+      { label: 'Recent searched item here', icon: '' },
+      { label: 'Recent searched item here', icon: '' },
+      { label: 'Recent searched item here', icon: '' },
+    ],
+  },
+  {
+    label: 'CATEGORY SUGGEST 1',
+    menu: [
+      { label: 'Category Name', url: '' },
+      { label: 'Category Name', url: '' },
+      { label: 'Category Name', url: '' },
+    ],
+  },
+  {
+    label: 'CATEGORY SUGGEST 2',
+    menu: [
+      {
+        items: 'Primary text here',
+        subText: 'Secondary text here',
+        url: 'https://images.unsplash.com/-a36ea2ef75ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGZhY2UlMjBwcm9maWxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60',
+      },
+
+      {
+        items: 'Primary text here',
+        subText: 'Secondary text here',
+        url: 'https://images.unsplash.com/photo-1534308143481-c55f00be8bd7?ixlib=rb-4.0.3&,ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzZ8fGZhY2UlMjBwcm9maWxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60',
+      },
+
+      {
+        items: 'Primary text here',
+        subText: 'Secondary text here',
+        url: 'https://images.unsplash.com/photo-1517630800677-932d836ab680?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q',
+      },
+    ],
+  },
+];
+
 const data = [
-  { label: 'The Redemption' },
-  { label: 'The Godfather' },
-  { label: 'The Godfather: Part II' },
-  { label: 'The Dark Knight' },
-  { label: '23 Angry Men' },
-  { label: '21 Angry women' },
-  { label: '190 Angry Old' },
-  { label: "Schindler's List" },
+  { label: 'Redemption' },
+  { label: 'Henry' },
+  { label: 'Godfather' },
+  { label: 'Dark Knight' },
+  { label: 'Angry Men' },
+  { label: 'Angry women' },
+  { label: 'Angry' },
+  { label: 'Schindler' },
   { label: 'Pulp Fiction' },
 ];
 
 const cardData = [
   {
-    label: 'The Redemption uuuuuu',
+    label: 'The Redemption',
     url: 'https://images.unsplash.com/photo-1517630800677-932d836ab680?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80',
   },
   {
@@ -150,55 +383,71 @@ const cardData = [
   },
 ];
 
-const SearchField = (props: any) => {
-  const [searched, setSearched] = useState({ url: '', label: '' });
-  const [recentSearch, setRecentSearch] = useState([]);
+const SearchField = (props: SearchFieldProps) => {
+  const {
+    isTextSearch,
+    isRecentSearch,
+    isCardBased,
+    isCardWithTitleBased,
+    isShortcutKeyBased,
+    isShortComponent,
+
+    paperRootStyle,
+    placeHolderText,
+    startAdornmentIcon,
+    endAdornmentIcon,
+  } = props;
+
+  const [searched, setSearched] = useState(null);
+  const [search, setSearch] = useState('');
+  const [recentSearch, setRecentSearch] = useState<Array<object>>([]);
   const [isOpen, setOpen] = useState(false);
 
-  let isTextSearch = true;
-  let isRecentSearch = true;
-  let isCardBased = true;
-  let isCardWithTitleBased = true;
-  let isShortcutKeyBased = true;
-
-  const requestSearch = (val: any) => {
-    const filteredRows = data.filter((row) => {
-      return row.label.toLowerCase().includes(val.toLowerCase());
-    });
-    // setSearched(filteredRows);
+  const requestOnInputSearch = (val: string) => {
+    setSearch(val);
   };
 
-  const handleOpen = () => {
-    setOpen((open) => !open);
+  const handleKeyDown = (event: KeyboardEvent) => {
+    if (event.key === '') {
+      setOpen(true);
+    }
   };
+
   const handleSearchData = (val: any) => {
     setSearched(val);
     setRecentSearch([...recentSearch, val]);
-    setOpen((open) => !open);
   };
+
   const handleOnchange = (e: any, v: any) => {
+    console.log(v,e);
+    
     setSearched(v);
   };
 
   const handleClear = () => {
     setSearched(null);
   };
+
   return (
     <>
       <Box
         sx={{
-          minWidth: '70%',
+          minWidth: '100%',
         }}
+        // onClick={() => handleOpen()}
       >
         <Autocomplete
-          onClick={() => handleOpen()}
-          open={isOpen}
+          // open={isOpen}
+          // onOpen={() => setOpen(true)}
+          // onClose={() => setOpen(false)}
+          clearOnEscape={true}
           fullWidth
           value={searched}
           options={cardData}
           onChange={(e, value) => handleOnchange(e, value)}
-          getOptionLabel={(option) => option.label}
+          getOptionLabel={(option) => option?.label}
           sx={{
+            fontSize: '14px',
             '&.MuiAutocomplete-root .MuiOutlinedInput-root': {
               padding: '0px 12px',
             },
@@ -209,7 +458,28 @@ const SearchField = (props: any) => {
           renderOption={(props: any, option) => {
             return (
               <>
-                {/* {isCardBased && (
+                {isTextSearch && (
+                  <>
+                    <Box {...props} onClick={() => handleSearchData(option)}>
+                      <Typography
+                        color={'#929292'}
+                        fontSize={'12px'}
+                        className="title1"
+                        sx={{ ':hover': { color: '#665CD7' } }}
+                        style={
+                          {
+                            // fontWeight:search&&option?.label?.toLowerCase()?.includes(search?.toLowerCase())&&'600',
+                            // color:search&&option?.label?.toLowerCase()?.includes(search?.toLowerCase())&&'#001C3C',
+                          }
+                        }
+                      >
+                        {option?.label}
+                      </Typography>
+                    </Box>
+                  </>
+                )}
+
+                {isCardBased && (
                   <Stack
                     {...props}
                     sx={{
@@ -235,93 +505,77 @@ const SearchField = (props: any) => {
                       noWrap
                       mt={'6px'}
                       width={'74px'}
-                      className='title1'
+                      className="title1"
                       sx={{ ':hover': { color: '#665CD7' } }}
                     >
                       {option?.label}
                     </Typography>
                   </Stack>
-                )} */}
+                )}
 
-                {/* {isCardWithTitleBased && (
+                {isCardWithTitleBased && (
                   <Stack
                     {...props}
                     sx={{
-                     
                       p: '14px',
                       cursor: 'pointer',
                       // ':hover': {  backgroundColor: '#665CD7',},
                     }}
                     direction={'row'}
-                    alignItems={"center"}
+                    alignItems={'center'}
                     onClick={() => handleSearchData(option)}
                   >
                     <Box>
-                    <img
-                      src={option?.url}
-                      alt=" "
-                      style={{
-                        width: '40px',
-                        height: '40px',
-                        borderRadius: '4px',
-                      }}
-                    />
+                      <img
+                        src={option?.url}
+                        alt=" "
+                        style={{
+                          width: '40px',
+                          height: '40px',
+                          borderRadius: '4px',
+                        }}
+                      />
                     </Box>
-                    <Box ml={"8px"}>
-                    <Typography
-                      color={'#3B3B3B'}
-                      fontSize={'12px'}
-                      fontWeight={600}
-                      className='title1'
-                      sx={{ ':hover': { color: '#665CD7' } }}
-                    >
-                      {option?.label}
-                    </Typography>
-                    <Typography
-                      color={'#666666'}
-                      fontSize={'10px'}
-                      mt={'6px'}
-                    >
-                      {option?.label}
-                    </Typography>
-                    </Box>
-                    
-                    
-                  </Stack>
-                )} */}
-
-                {/* {isTextSearch && (
-                  <>
-                    <Box {...props} onClick={() => handleSearchData(option)}>
+                    <Box ml={'8px'}>
                       <Typography
-                        color={'#929292'}
+                        color={'#3B3B3B'}
                         fontSize={'12px'}
+                        fontWeight={600}
                         className="title1"
                         sx={{ ':hover': { color: '#665CD7' } }}
                       >
                         {option?.label}
                       </Typography>
+                      <Typography
+                        color={'#666666'}
+                        fontSize={'10px'}
+                        mt={'6px'}
+                      >
+                        {option?.label}
+                      </Typography>
                     </Box>
-                  </>
-                )} */}
+                  </Stack>
+                )}
 
                 {isShortcutKeyBased && (
                   <>
                     <Box {...props} onClick={() => handleSearchData(option)}>
                       <Box>
-                      <Typography
-                        color={'#929292'}
-                        fontSize={'12px'}
-                        className="title1"
-                        sx={{ ':hover': { color: '#665CD7' } }}
+                        <Typography
+                          color={'#929292'}
+                          fontSize={'12px'}
+                          className="title1"
+                          sx={{ ':hover': { color: '#665CD7' } }}
+                        >
+                          {option?.label}
+                        </Typography>
+                      </Box>
+                      <Box
+                        sx={{ display: 'none', mt: '5px' }}
+                        className="enterIcon"
                       >
-                        {option?.label}
-                      </Typography>
+                        <HoverEnter />
                       </Box>
-                      <Box sx={{display:"none",mt:"4px"}} className="enterIcon">
-                      <HoverEnter/>
-                      </Box>
-
                     </Box>
                   </>
                 )}
@@ -331,37 +585,37 @@ const SearchField = (props: any) => {
           PaperComponent={({ children }) => (
             <Paper
               elevation={0}
-              style={{
-                cursor: 'pointer',
-                height: '20%',
-                marginTop: '6px',
-                marginBottom: '6px',
-                borderRadius: '8px',
-                boxShadow: '0px 8px 12px #00000014',
-                border: '1px solid #665CD7',
-              }}
               sx={
                 {
+                  ...styles.paperRootStyle,
+                  ...paperRootStyle,
+                  border: '1px solid #665CD7',
                   '& .MuiAutocomplete-listbox': {
-                    // display: isCardBased && 'flex',
-                    // flexWrap: isCardBased && 'wrap',
+                    display: isCardBased && 'flex',
+                    flexWrap: isCardBased && 'wrap',
                   },
+
                   '& .MuiAutocomplete-listbox .MuiAutocomplete-option.Mui-focused':
                     {
-                      backgroundColor: '#ffff',
+                      backgroundColor: '#EFEEFB',
+                      '.enterIcon': {
+                        display: 'block',
+                      },
                     },
                   '& .MuiAutocomplete-listbox .MuiAutocomplete-option[aria-selected="true"].Mui-focused':
                     {
                       backgroundColor: '#ffff',
                     },
                   '& .MuiAutocomplete-listbox .MuiAutocomplete-option': {
-                    display:"flex",justifyContent:"space-between",alignItems:"center",
+                    display: isShortcutKeyBased && 'flex',
+                    justifyContent: isShortcutKeyBased && 'space-between',
+                    alignItems: isShortcutKeyBased && 'center',
                     ':hover': {
-                     '.enterIcon':{
-                      display:"block"
-                     },
-                      // background: '#FFFF',
-                      background:'#EFEEFB',
+                      '.enterIcon': {
+                        display: 'block',
+                      },
+                      background:
+                        isTextSearch | isCardBased ? '#ffff' : '#EFEEFB',
                       '& .title1': {
                         color: '#665CD7',
                       },
@@ -370,21 +624,81 @@ const SearchField = (props: any) => {
                 } as SxProps
               }
             >
-              {/* <Box mb={1}>
-                <RecentSearch recentVal={recentSearch} />
-              </Box> */}
+              {isRecentSearch && (
+                <Box mb={1}>
+                  <RecentSearch recentVal={recentSearch} />
+                </Box>
+              )}
               {children}
-              <Box>
-                <ControlSearch />
-              </Box>
+
+              {isShortcutKeyBased && (
+                <Box>
+                  <ControlSearch />
+                </Box>
+              )}
+              {isShortComponent && (
+                <>
+                  <SuggestionSearch
+                    option={data}
+                    searchValue={search}
+                    handleStoreSearchData={handleSearchData}
+                  />
+                  <Divider />
+
+                  <Typography
+                    color={'#929292'}
+                    fontSize={'12px'}
+                    mt={'24px'}
+                    pl={'16px'}
+                  >
+                    RECENT SEARCH
+                  </Typography>
+                  <SuggestionRecentSearch
+                    option={recentSearch}
+                    searchValue={search}
+                  />
+
+                  <Divider />
+
+                  <Typography
+                    color={'#929292'}
+                    fontSize={'12px'}
+                    mt={'24px'}
+                    pl={'16px'}
+                  >
+                    CATEGORY SUGGEST 1
+                  </Typography>
+                  <FoodCategory
+                    option={cardData}
+                    searchValue={search}
+                    handleFoodSearchData={handleSearchData}
+                  />
+
+                  <Divider />
+
+                  <Typography
+                    color={'#929292'}
+                    fontSize={'12px'}
+                    mt={'24px'}
+                    pl={'16px'}
+                  >
+                    CATEGORY SUGGEST 2
+                  </Typography>
+                  <EmployeeCategory
+                    option={cardData}
+                    searchValue={search}
+                    handleEmployeeSearchData={handleSearchData}
+                  />
+                </>
+              )}
             </Paper>
           )}
           renderInput={(params) => (
             <TextField
-              placeholder="Search"
-              onChange={(e) => requestSearch(e.target.value)}
-              onClick={() => handleOpen()}
               {...params}
+              // onKeyDown={(e)=>handleKeyDown(e)}
+              placeholder={placeHolderText}
+              onChange={(e) => requestOnInputSearch(e.target.value)}
               InputProps={{
                 ...params.InputProps,
                 startAdornment: (
@@ -394,7 +708,7 @@ const SearchField = (props: any) => {
                       sx={{ cursor: 'pointer' }}
                       onClick={() => handleOpen()}
                     >
-                      {searched?.url ? (
+                      {isShortComponent ? null : searched?.url ? (
                         <img
                           src={searched?.url}
                           alt=" "
@@ -405,7 +719,28 @@ const SearchField = (props: any) => {
                           }}
                         />
                       ) : (
-                        <Search />
+                        <>{startAdornmentIcon}</>
+                      )}
+
+                      {isShortComponent && searched?.url ? (
+                        <Stack
+                          direction={'row'}
+                          spacing={'10px'}
+                          alignItems={'center'}
+                        >
+                          <img
+                            src={searched?.url}
+                            alt=" "
+                            style={{
+                              width: '24px',
+                              height: '24px',
+                              borderRadius: '50%',
+                            }}
+                          />
+                          <> {startAdornmentIcon}</>
+                        </Stack>
+                      ) : (
+                        <> {isShortComponent && { startAdornmentIcon }}</>
                       )}
                     </InputAdornment>
                   </>
@@ -417,7 +752,7 @@ const SearchField = (props: any) => {
                       sx={{ cursor: 'pointer' }}
                       onClick={() => handleClear()}
                     >
-                      <Close />
+                      {endAdornmentIcon}
                     </InputAdornment>
                   </>
                 ),
@@ -448,13 +783,15 @@ const SearchField = (props: any) => {
 export default SearchField;
 
 SearchField.defaultProps = {
-  Option: [
-    { title: 'The Shawshank Redemption', year: 1994 },
-    { title: 'The Godfather', year: 1972 },
-    { title: 'The Godfather: Part II', year: 1974 },
-    { title: 'The Dark Knight', year: 2008 },
-    { title: '12 Angry Men', year: 1957 },
-    { title: "Schindler's List", year: 1993 },
-    { title: 'Pulp Fiction', year: 1994 },
-  ],
+  isTextSearch: false,
+  isRecentSearch: false,
+  isCardBased: false,
+  isCardWithTitleBased: false,
+  isShortcutKeyBased: true,
+  isShortComponent: false,
+
+  paperRootStyle: {},
+  placeHolderText: 'Search..',
+  startAdornmentIcon: <Search />,
+  endAdornmentIcon: <Close />,
 };
