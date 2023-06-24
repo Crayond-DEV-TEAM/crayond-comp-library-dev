@@ -86,12 +86,115 @@ const SuggestionRecentSearch = (props: any) => {
   );
 };
 
+const FoodCategory = (props: any) => {
+  const { searchValue, option, handleFoodSearchData = () => {} } = props;
+
+  const filteredRows = option.filter((row: any) => {
+    return row.label.toLowerCase().includes(searchValue?.toLowerCase());
+  });
+
+  return (
+    <>
+      <Stack direction={'row'} overflow={'scroll'}>
+        {option?.map((val: any) => (
+          <Stack
+            {...props}
+            sx={{
+              p: '14px',
+              cursor: 'pointer',
+            }}
+            direction={'column'}
+            onClick={() => handleFoodSearchData(val)}
+          >
+            <img
+              src={val?.url}
+              alt=" "
+              style={{
+                width: '74px',
+                height: '74px',
+                borderRadius: '50%',
+              }}
+            />
+            <Typography
+              color={'#3B3B3B'}
+              fontSize={'12px'}
+              mt={'6px'}
+              width={'74px'}
+              className="title1"
+              textAlign={'center'}
+            >
+              {val?.label}
+            </Typography>
+          </Stack>
+        ))}
+      </Stack>
+    </>
+  );
+};
+
+const EmployeeCategory = (props: any) => {
+  const { searchValue, option, handleEmployeeSearchData = () => {} } = props;
+
+  const filteredRows = option.filter((row: any) => {
+    return row?.label?.toLowerCase()?.includes(searchValue?.toLowerCase());
+  });
+  return (
+    <>
+      {option?.map((val: any) => (
+        <Stack
+          {...props}
+          sx={{
+            p: '14px',
+            cursor: 'pointer',
+          }}
+          direction={'row'}
+          alignItems={'center'}
+          onClick={() => handleEmployeeSearchData(val)}
+        >
+          <Box>
+            <img
+              src={val?.url}
+              alt=" "
+              style={{
+                width: '40px',
+                height: '40px',
+                borderRadius: '4px',
+              }}
+            />
+          </Box>
+          <Box ml={'8px'}>
+            <Typography
+              color={'#3B3B3B'}
+              fontSize={'12px'}
+              fontWeight={600}
+              className="title1"
+            >
+              {val?.label}
+            </Typography>
+            <Typography color={'#666666'} fontSize={'10px'} mt={'6px'}>
+              {val?.label}
+            </Typography>
+          </Box>
+        </Stack>
+      ))}
+    </>
+  );
+};
+
 const ControlSearch = (props: any) => {
+  const {
+    navigateButtons,
+    controlsRootStyles,
+    controlsBgColor,
+    controlsTextSize,
+    controlsTextColor,
+  } = props;
   return (
     <Stack
       style={{
+        ...controlsRootStyles,
         cursor: 'pointer',
-        height: '34px',
+        minHeight: '34px',
         padding: '9px',
         borderBottomRightRadius: '8px',
         borderBottomLeftRadius: '8px',
@@ -99,26 +202,24 @@ const ControlSearch = (props: any) => {
       direction={'row'}
       alignItems={'center'}
       columnGap={'20px'}
-      bgcolor={'#E9E9E9'}
+      bgcolor={controlsBgColor}
     >
-      <Stack direction={'row'} alignItems={'center'}>
-        <ArrowUpDownIcon />
-        <Typography ml={'6px'} color={'#666666'} fontSize={'12px'}>
-          To Navigate
-        </Typography>
-      </Stack>
-      <Stack direction={'row'} alignItems={'center'}>
-        <EnterIcon />
-        <Typography ml={'6px'} color={'#666666'} fontSize={'12px'}>
-          To Select
-        </Typography>
-      </Stack>
-      <Stack direction={'row'} alignItems={'center'}>
-        <EscapeIcon />
-        <Typography ml={'6px'} color={'#666666'} fontSize={'12px'}>
-          To Close
-        </Typography>
-      </Stack>
+      {navigateButtons?.map((val: any) => (
+        <Stack
+          direction={'row'}
+          alignItems={'center'}
+          onClick={() => val?.onClick()}
+        >
+          {val?.icon}
+          <Typography
+            ml={'6px'}
+            color={controlsTextColor}
+            fontSize={controlsTextSize}
+          >
+            {val?.navigateLabel}
+          </Typography>
+        </Stack>
+      ))}
     </Stack>
   );
 };
@@ -174,105 +275,6 @@ const RecentSearch = (props: RecentSearchProps) => {
   );
 };
 
-const FoodCategory = (props: any) => {
-  const { searchValue, option, handleFoodSearchData = () => {} } = props;
-
-  const filteredRows = option.filter((row: any) => {
-    return row.label.toLowerCase().includes(searchValue?.toLowerCase());
-  });
-
-  return (
-    <>
-      <Stack direction={'row'} overflow={'scroll'}>
-        {option?.map((val: any) => (
-          <Stack
-            {...props}
-            sx={{
-              p: '14px',
-              cursor: 'pointer',
-              ':hover': { color: '#665CD7' },
-            }}
-            direction={'column'}
-            onClick={() => handleFoodSearchData(val)}
-          >
-            <img
-              src={val?.url}
-              alt=" "
-              style={{
-                width: '74px',
-                height: '74px',
-                borderRadius: '50%',
-              }}
-            />
-            <Typography
-              color={'#3B3B3B'}
-              fontSize={'12px'}
-              mt={'6px'}
-              width={'74px'}
-              className="title1"
-              textAlign={'center'}
-              sx={{ ':hover': { color: '#665CD7' } }}
-            >
-              {val?.label}
-            </Typography>
-          </Stack>
-        ))}
-      </Stack>
-    </>
-  );
-};
-
-const EmployeeCategory = (props: any) => {
-  const { searchValue, option, handleEmployeeSearchData = () => {} } = props;
-
-  const filteredRows = option.filter((row: any) => {
-    return row?.label?.toLowerCase()?.includes(searchValue?.toLowerCase());
-  });
-  return (
-    <>
-      {option?.map((val: ay) => (
-        <Stack
-          {...props}
-          sx={{
-            p: '14px',
-            cursor: 'pointer',
-            // ':hover': {  backgroundColor: '#665CD7',},
-          }}
-          direction={'row'}
-          alignItems={'center'}
-          onClick={() => handleEmployeeSearchData(val)}
-        >
-          <Box>
-            <img
-              src={val?.url}
-              alt=" "
-              style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '4px',
-              }}
-            />
-          </Box>
-          <Box ml={'8px'}>
-            <Typography
-              color={'#3B3B3B'}
-              fontSize={'12px'}
-              fontWeight={600}
-              className="title1"
-              sx={{ ':hover': { color: '#665CD7' } }}
-            >
-              {val?.label}
-            </Typography>
-            <Typography color={'#666666'} fontSize={'10px'} mt={'6px'}>
-              {val?.label}
-            </Typography>
-          </Box>
-        </Stack>
-      ))}
-    </>
-  );
-};
-
 interface SearchFieldProps {
   isTextSearch: boolean;
   isRecentSearch: boolean;
@@ -321,6 +323,11 @@ interface SearchFieldProps {
   recentSearchItemTextColor: string;
   recentSearchItemBgcolor: string;
   recentSearchItemSize: number;
+
+  controlsRootStyles: SxProps;
+  controlsTextColor: string;
+  controlsBgColor: string;
+  controlsTextSize: number;
 }
 interface RecentSearchProps {
   recentVal: Array<any>;
@@ -442,6 +449,29 @@ const cardData = [
   },
 ];
 
+const navigateData = [
+  {
+    navigateLabel: 'To Navigate',
+    icon: <ArrowUpDownIcon />,
+    onClick: () => {
+      alert('hii');
+    },
+    url: '',
+  },
+  {
+    navigateLabel: 'To Select',
+    icon: <EnterIcon />,
+    onClick: () => {},
+    url: '',
+  },
+  {
+    navigateLabel: 'To Escape',
+    icon: <EscapeIcon />,
+    onClick: () => {},
+    url: '',
+  },
+];
+
 const SearchField = (props: SearchFieldProps) => {
   const {
     isTextSearch,
@@ -491,6 +521,11 @@ const SearchField = (props: SearchFieldProps) => {
     recentSearchItemTextColor,
     recentSearchItemBgcolor,
     recentSearchItemSize,
+
+    controlsRootStyles,
+    controlsBgColor,
+    controlsTextColor,
+    controlsTextSize,
   } = props;
 
   const [searched, setSearched] = useState(null);
@@ -573,10 +608,7 @@ const SearchField = (props: SearchFieldProps) => {
                         color={listItemLabelColor}
                         fontSize={listItemLabelSize}
                         className="title1"
-                        sx={{
-                          ...listItemLabelStyles,
-                          ':hover': { color: '#665CD7' },
-                        }}
+                        sx={{ ...listItemLabelStyles }}
                         style={
                           {
                             // fontWeight:search&&option?.label?.toLowerCase()?.includes(search?.toLowerCase())&&'600',
@@ -593,11 +625,7 @@ const SearchField = (props: SearchFieldProps) => {
                 {isCardBased && (
                   <Stack
                     {...props}
-                    sx={{
-                      p: '14px',
-                      cursor: 'pointer',
-                      ':hover': { color: '#665CD7' },
-                    }}
+                    sx={{ p: '14px', cursor: 'pointer' }}
                     direction={'column'}
                     onClick={() => handleSearchData(option)}
                   >
@@ -618,10 +646,7 @@ const SearchField = (props: SearchFieldProps) => {
                       mt={'6px'}
                       width={'74px'}
                       className="title1"
-                      sx={{
-                        ...listItemLabelStyles,
-                        ':hover': { color: '#665CD7' },
-                      }}
+                      sx={{ ...listItemLabelStyles }}
                     >
                       {option?.label}
                     </Typography>
@@ -658,10 +683,7 @@ const SearchField = (props: SearchFieldProps) => {
                         fontSize={listItemLabelSize}
                         fontWeight={600}
                         className="title1"
-                        sx={{
-                          ...listItemLabelStyles,
-                          ':hover': { color: '#665CD7' },
-                        }}
+                        sx={{ ...listItemLabelStyles }}
                       >
                         {option?.label}
                       </Typography>
@@ -685,10 +707,7 @@ const SearchField = (props: SearchFieldProps) => {
                           color={listItemLabelColor}
                           fontSize={listItemLabelSize}
                           className="title1"
-                          sx={{
-                            ...listItemLabelStyles,
-                            ':hover': { color: '#665CD7' },
-                          }}
+                          sx={{ ...listItemLabelStyles }}
                         >
                           {option?.label}
                         </Typography>
@@ -769,7 +788,13 @@ const SearchField = (props: SearchFieldProps) => {
 
               {isShortcutKeyBased && (
                 <Box>
-                  <ControlSearch />
+                  <ControlSearch
+                    navigateButtons={navigateData}
+                    controlsRootStyles={controlsRootStyles}
+                    controlsBgColor={controlsBgColor}
+                    controlsTextSize={controlsTextSize}
+                    controlsTextColor={controlsTextColor}
+                  />
                 </Box>
               )}
               {isShortComponent && (
@@ -959,4 +984,10 @@ SearchField.defaultProps = {
   recentSearchItemTextColor: '#393939dd',
   recentSearchItemBgcolor: '#E9E9E9',
   recentSearchItemSize: 10,
+
+  controlsRootStyles:{},
+  controlsTextColor: '#393939dd',
+  controlsBgColor:"#E9E9E9",
+  controlsTextSize: 12,
+
 };
