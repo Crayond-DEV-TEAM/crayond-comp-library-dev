@@ -123,8 +123,18 @@ const ControlSearch = (props: any) => {
   );
 };
 
-const RecentSearch = (props: any) => {
-  const { recentVal } = props;
+const RecentSearch = (props: RecentSearchProps) => {
+  const {
+    recentVal,
+    recentLabel,
+    recentLabelTextColor,
+    recentLabelFontSize,
+    recentLabelStyle,
+    recentSearchItemStyles,
+    recentSearchItemTextColor,
+    recentSearchItemBgcolor,
+    recentSearchItemSize,
+  } = props;
 
   return (
     <Stack
@@ -133,8 +143,12 @@ const RecentSearch = (props: any) => {
         padding: '9px',
       }}
     >
-      <Typography color={'#929292'} fontSize={'10px'}>
-        Recent Search
+      <Typography
+        color={recentLabelTextColor}
+        fontSize={recentLabelFontSize}
+        sx={{ ...recentLabelStyle }}
+      >
+        {recentLabel}
       </Typography>
       <Stack direction={'row'} mt={'8px'} mb={1} overflow={'scroll'}>
         {recentVal?.map((val: any) => (
@@ -143,11 +157,12 @@ const RecentSearch = (props: any) => {
               fontWeight={600}
               padding={'4px 6px'}
               mr={'12px'}
-              color={'#929292'}
-              fontSize={'10px'}
-              bgcolor={'#E9E9E9'}
+              color={recentSearchItemTextColor}
+              fontSize={recentSearchItemSize}
+              bgcolor={recentSearchItemBgcolor}
               borderRadius={'8px'}
               minWidth={'fit-content'}
+              sx={{ ...recentSearchItemStyles }}
             >
               {val?.label}
             </Typography>
@@ -155,9 +170,6 @@ const RecentSearch = (props: any) => {
         ))}
       </Stack>
       <Divider sx={{ mt: '0px' }} />
-      {/* <EscapeIcon/>
-      <EnterIcon/>
-      <ArrowUpDownIcon/> */}
     </Stack>
   );
 };
@@ -290,6 +302,26 @@ interface SearchFieldProps {
   listTextHoverBgColor: string;
   keyDownListBgcolor: string;
   keyDownListTextColor: string;
+
+  recentLabel: string;
+  recentLabelTextColor: string;
+  recentLabelFontSize: number;
+  recentLabelStyle: SxProps;
+  recentSearchItemStyles: SxProps;
+  recentSearchItemTextColor: string;
+  recentSearchItemBgcolor: string;
+  recentSearchItemSize: number;
+}
+interface RecentSearchProps{
+  recentVal:{label:string,url:string}[]
+  recentLabel: string;
+  recentLabelTextColor: string;
+  recentLabelFontSize: number;
+  recentLabelStyle: SxProps;
+  recentSearchItemStyles: SxProps;
+  recentSearchItemTextColor: string;
+  recentSearchItemBgcolor: string;
+  recentSearchItemSize: number;
 }
 interface handleSearchDataProp {
   label: string;
@@ -430,6 +462,15 @@ const SearchField = (props: SearchFieldProps) => {
     listTextHoverBgColor,
     keyDownListBgcolor,
     keyDownListTextColor,
+
+    recentLabel,
+    recentLabelTextColor,
+    recentLabelFontSize,
+    recentLabelStyle,
+    recentSearchItemStyles,
+    recentSearchItemTextColor,
+    recentSearchItemBgcolor,
+    recentSearchItemSize,
   } = props;
 
   const [searched, setSearched] = useState(null);
@@ -679,7 +720,17 @@ const SearchField = (props: SearchFieldProps) => {
             >
               {isRecentSearch && (
                 <Box mb={1}>
-                  <RecentSearch recentVal={recentSearch} />
+                  <RecentSearch
+                    recentVal={recentSearch}
+                    recentLabel={recentLabel}
+                    recentLabelTextColor={recentLabelTextColor}
+                    recentLabelFontSize={recentLabelFontSize}
+                    recentLabelStyle={recentLabelStyle}
+                    recentSearchItemStyles={recentSearchItemStyles}
+                    recentSearchItemTextColor={recentSearchItemTextColor}
+                    recentSearchItemBgcolor={recentSearchItemBgcolor}
+                    recentSearchItemSize={recentSearchItemSize}
+                  />
                 </Box>
               )}
               {children}
@@ -832,7 +883,7 @@ SearchField.defaultProps = {
   isRecentSearch: false,
   isCardBased: false,
   isCardWithTitleBased: false,
-  isShortcutKeyBased: true,
+  isShortcutKeyBased: false,
   isShortComponent: false,
 
   paperRootStyle: {},
@@ -856,4 +907,13 @@ SearchField.defaultProps = {
   listTextHoverBgColor: '#fff',
   keyDownListBgcolor: '',
   keyDownListTextColor: '',
+
+  recentLabel: 'Recent Search',
+  recentLabelTextColor: '#393939dd',
+  recentLabelFontSize:12,
+  recentLabelStyle:{},
+  recentSearchItemStyles:{},
+  recentSearchItemTextColor: '#393939dd',
+  recentSearchItemBgcolor: '#E9E9E9',
+  recentSearchItemSize:10,
 };

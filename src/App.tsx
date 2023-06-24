@@ -201,7 +201,7 @@ function App() {
       >
         <SearchField
           isTextSearch={true}
-          isRecentSearch={false}
+          isRecentSearch={true}
           isCardBased={false}
           isCardWithTitleBased={false}
           isShortcutKeyBased={false}
