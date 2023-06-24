@@ -187,25 +187,35 @@ function App() {
       .required('Please enter email'),
   });
   return (
-    <div className="App" style={{ width: '100vw', height: '100vh',backgroundColor: '#FFFF', }}>
+    <div
+      className="App"
+      style={{ width: '100vw', height: '100vh', backgroundColor: '#FFFF' }}
+    >
       <div
         style={{
           minHeight: '100%',
           display: 'flex',
-          padding:"30px",
-          width:"70%"
+          padding: '30px',
+          width: '70%',
         }}
       >
-        <SearchField 
-        isTextSearch={false}
-        isRecentSearch={false}
-        isCardBased={false}
-        isCardWithTitleBased={false}
-        isShortcutKeyBased={true}
-        isShortComponent={false}
-        placeHolderText='Search henry'
-        startAdornmentIcon={<SearchIcon/>}
-        endAdornmentIcon={<Close/>}
+        <SearchField
+          isTextSearch={true}
+          isRecentSearch={false}
+          isCardBased={false}
+          isCardWithTitleBased={false}
+          isShortcutKeyBased={false}
+          isShortComponent={false}
+          placeHolderText="Search henry"
+          startAdornmentIcon={<SearchIcon />}
+          endAdornmentIcon={<Close />}
+          inputRootStyle={{}}
+          placeHolderColor={''}
+          placeHolderSize={12}
+          inputBackgroundColor={''}
+          inputBorderDefaultColor={'#E9E9E9'}
+          inputBorderHoverColor={'#b4aef4'}
+          inputBorderFocusColor={'#665CD7'}
         />
       </div>
       {/* <Screen

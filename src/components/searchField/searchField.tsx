@@ -262,17 +262,34 @@ const EmployeeCategory = (props: any) => {
 };
 
 interface SearchFieldProps {
-  isTextSearch: Boolean;
-  isRecentSearch: Boolean;
-  isCardBased: Boolean;
-  isCardWithTitleBased: Boolean;
-  isShortcutKeyBased: Boolean;
-  isShortComponent: Boolean;
+  isTextSearch: boolean;
+  isRecentSearch: boolean;
+  isCardBased: boolean;
+  isCardWithTitleBased: boolean;
+  isShortcutKeyBased: boolean;
+  isShortComponent: boolean;
 
   paperRootStyle: SxProps;
+
   placeHolderText: string;
+  placeHolderColor: string;
+  placeHolderSize: number;
+  inputRootStyle: SxProps;
+  inputFontSize: number;
+  inputFontColor: string;
+  inputBackgroundColor: string;
+  inputBorderDefaultColor: string;
+  inputBorderHoverColor: string;
+  inputBorderFocusColor: string;
   startAdornmentIcon: React.ReactNode;
   endAdornmentIcon: React.ReactNode;
+
+  paperBackgroundColor: string;
+  paperBorderColor: string;
+  listTextHoverColor: string;
+  listTextHoverBgColor: string;
+  keyDownListBgcolor: string;
+  keyDownListTextColor: string;
 }
 interface handleSearchDataProp {
   label: string;
@@ -393,9 +410,26 @@ const SearchField = (props: SearchFieldProps) => {
     isShortComponent,
 
     paperRootStyle,
+
     placeHolderText,
+    placeHolderColor,
+    placeHolderSize,
+    inputRootStyle,
+    inputFontSize,
+    inputFontColor,
+    inputBackgroundColor,
+    inputBorderDefaultColor,
+    inputBorderHoverColor,
+    inputBorderFocusColor,
     startAdornmentIcon,
     endAdornmentIcon,
+
+    paperBackgroundColor,
+    paperBorderColor,
+    listTextHoverColor,
+    listTextHoverBgColor,
+    keyDownListBgcolor,
+    keyDownListTextColor,
   } = props;
 
   const [searched, setSearched] = useState(null);
@@ -419,8 +453,6 @@ const SearchField = (props: SearchFieldProps) => {
   };
 
   const handleOnchange = (e: any, v: any) => {
-    console.log(v,e);
-    
     setSearched(v);
   };
 
@@ -447,9 +479,24 @@ const SearchField = (props: SearchFieldProps) => {
           onChange={(e, value) => handleOnchange(e, value)}
           getOptionLabel={(option) => option?.label}
           sx={{
-            fontSize: '14px',
             '&.MuiAutocomplete-root .MuiOutlinedInput-root': {
+              ...inputRootStyle,
+              fontSize: inputFontSize,
+              color: inputFontColor,
               padding: '0px 12px',
+              backgroundColor: `${inputBackgroundColor}`,
+              border: `1px solid ${inputBorderDefaultColor}`,
+              borderRadius: '8px',
+              ':hover': {
+                border: `1px solid ${inputBorderHoverColor}`,
+              },
+              ':focus-within': {
+                border: `1px solid ${inputBorderFocusColor}`,
+              },
+              '& input::placeholder': {
+                fontSize: placeHolderSize,
+                color: placeHolderColor,
+              },
             },
             '&.MuiAutocomplete-root .MuiAutocomplete-inputRoot': {
               paddingRight: '12px !important',
@@ -589,7 +636,8 @@ const SearchField = (props: SearchFieldProps) => {
                 {
                   ...styles.paperRootStyle,
                   ...paperRootStyle,
-                  border: '1px solid #665CD7',
+                  border: `1px solid ${paperBorderColor}`,
+                  backgroundColor: paperBackgroundColor,
                   '& .MuiAutocomplete-listbox': {
                     display: isCardBased && 'flex',
                     flexWrap: isCardBased && 'wrap',
@@ -597,7 +645,10 @@ const SearchField = (props: SearchFieldProps) => {
 
                   '& .MuiAutocomplete-listbox .MuiAutocomplete-option.Mui-focused':
                     {
-                      backgroundColor: '#EFEEFB',
+                      backgroundColor: keyDownListBgcolor,
+                      '& .title1': {
+                        color: keyDownListTextColor,
+                      },
                       '.enterIcon': {
                         display: 'block',
                       },
@@ -615,9 +666,11 @@ const SearchField = (props: SearchFieldProps) => {
                         display: 'block',
                       },
                       background:
-                        isTextSearch | isCardBased ? '#ffff' : '#EFEEFB',
+                        isTextSearch | isCardBased
+                          ? listTextHoverBgColor
+                          : '#f3f9c9',
                       '& .title1': {
-                        color: '#665CD7',
+                        color: listTextHoverColor,
                       },
                     },
                   },
@@ -760,16 +813,8 @@ const SearchField = (props: SearchFieldProps) => {
               sx={{
                 padding: '6px 0px',
                 '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-                  border: '1px solid #E9E9E9',
-                  borderRadius: '8px',
-                },
-                '& .Mui-focused .MuiOutlinedInput-notchedOutline': {
-                  border: '1px solid #665CD7',
-                  borderRadius: '8px',
-                },
-                '&:hover .MuiOutlinedInput-notchedOutline': {
-                  border: '1px solid #665CD7',
-                  borderRadius: '8px',
+                  outline: 'none',
+                  border: 'none',
                 },
               }}
             />
@@ -791,7 +836,24 @@ SearchField.defaultProps = {
   isShortComponent: false,
 
   paperRootStyle: {},
+
+  inputRootStyle: {},
   placeHolderText: 'Search..',
+  placeHolderColor: '#929292',
+  placeHolderSize: 12,
+  inputFontSize: 12,
+  inputFontColor: '#393939dd',
+  inputBackgroundColor: '',
+  inputBorderDefaultColor: '#E9E9E9',
+  inputBorderHoverColor: '#b4aef4',
+  inputBorderFocusColor: '#665CD7',
   startAdornmentIcon: <Search />,
   endAdornmentIcon: <Close />,
+
+  paperBackgroundColor: '',
+  paperBorderColor: '#665CD7',
+  listTextHoverColor: '#665CD7',
+  listTextHoverBgColor: '#fff',
+  keyDownListBgcolor: '',
+  keyDownListTextColor: '',
 };
