@@ -202,8 +202,8 @@ function App() {
         <SearchField
           isTextSearch={false}
           isRecentSearch={false}
-          isCardBased={true}
-          isCardWithTitleBased={false}
+          isCardBased={false}
+          isCardWithTitleBased={true}
           isShortcutKeyBased={false}
           isShortComponent={false}
           placeHolderText="Search henry"
@@ -216,11 +216,15 @@ function App() {
           inputBorderDefaultColor={'#E9E9E9'}
           inputBorderHoverColor={'#b4aef4'}
           inputBorderFocusColor={'#665CD7'}
-
           paperBackgroundColor={'#ffffff'}
           paperBorderColor={'#665CD7'}
           listTextHoverColor={'#665CD7'}
-          listTextHoverBgColor={'#FFFF'}
+          listTextHoverBgColor={'#e4ccf7'}
+          keyDownListBgcolor={''}
+          keyDownListTextColor={''}
+          cardImgWidth={100}
+          cardImgHeight={100}
+          imgBorderRadius={4}
         />
       </div>
       {/* <Screen

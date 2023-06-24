@@ -302,7 +302,16 @@ interface SearchFieldProps {
   listTextHoverBgColor: string;
   keyDownListBgcolor: string;
   keyDownListTextColor: string;
-  listItemLabelStyles:string;
+  listItemSubTextColor: string;
+  listItemSubTextSize: number;
+  listItemSubTextStyles: SxProps;
+  listItemLabelColor: string;
+  listItemLabelSize: number;
+  listItemLabelStyles: SxProps;
+  cardImgStyle: SxProps;
+  cardImgWidth: number;
+  cardImgHeight: number;
+  imgBorderRadius: number;
 
   recentLabel: string;
   recentLabelTextColor: string;
@@ -313,8 +322,8 @@ interface SearchFieldProps {
   recentSearchItemBgcolor: string;
   recentSearchItemSize: number;
 }
-interface RecentSearchProps{
-  recentVal:Array<any>
+interface RecentSearchProps {
+  recentVal: Array<any>;
   recentLabel: string;
   recentLabelTextColor: string;
   recentLabelFontSize: number;
@@ -463,7 +472,16 @@ const SearchField = (props: SearchFieldProps) => {
     listTextHoverBgColor,
     keyDownListBgcolor,
     keyDownListTextColor,
+    listItemSubTextStyles,
+    listItemSubTextColor,
+    listItemSubTextSize,
     listItemLabelStyles,
+    listItemLabelColor,
+    listItemLabelSize,
+    cardImgStyle,
+    cardImgWidth,
+    cardImgHeight,
+    imgBorderRadius,
 
     recentLabel,
     recentLabelTextColor,
@@ -552,10 +570,13 @@ const SearchField = (props: SearchFieldProps) => {
                   <>
                     <Box {...props} onClick={() => handleSearchData(option)}>
                       <Typography
-                        color={'#929292'}
-                        fontSize={'12px'}
+                        color={listItemLabelColor}
+                        fontSize={listItemLabelSize}
                         className="title1"
-                        sx={{...listItemLabelStyles ,':hover': { color: '#665CD7'} }}
+                        sx={{
+                          ...listItemLabelStyles,
+                          ':hover': { color: '#665CD7' },
+                        }}
                         style={
                           {
                             // fontWeight:search&&option?.label?.toLowerCase()?.includes(search?.toLowerCase())&&'600',
@@ -584,19 +605,23 @@ const SearchField = (props: SearchFieldProps) => {
                       src={option?.url}
                       alt=" "
                       style={{
-                        width: '74px',
-                        height: '74px',
-                        borderRadius: '4px',
+                        // ...cardImgStyle,
+                        width: cardImgWidth,
+                        height: cardImgHeight,
+                        borderRadius: imgBorderRadius,
                       }}
                     />
                     <Typography
-                      color={'#3B3B3B'}
-                      fontSize={'12px'}
+                      color={listItemLabelColor}
+                      fontSize={listItemLabelSize}
                       noWrap
                       mt={'6px'}
                       width={'74px'}
                       className="title1"
-                      sx={{...listItemLabelStyles,':hover': { color: '#665CD7' } }}
+                      sx={{
+                        ...listItemLabelStyles,
+                        ':hover': { color: '#665CD7' },
+                      }}
                     >
                       {option?.label}
                     </Typography>
@@ -620,26 +645,31 @@ const SearchField = (props: SearchFieldProps) => {
                         src={option?.url}
                         alt=" "
                         style={{
-                          width: '40px',
-                          height: '40px',
-                          borderRadius: '4px',
+                          // ...cardImgStyle,
+                          width: cardImgWidth,
+                          height: cardImgHeight,
+                          borderRadius: imgBorderRadius,
                         }}
                       />
                     </Box>
                     <Box ml={'8px'}>
                       <Typography
-                        color={'#3B3B3B'}
-                        fontSize={'12px'}
+                        color={listItemLabelColor}
+                        fontSize={listItemLabelSize}
                         fontWeight={600}
                         className="title1"
-                        sx={{...listItemLabelStyles,':hover': { color: '#665CD7' } }}
+                        sx={{
+                          ...listItemLabelStyles,
+                          ':hover': { color: '#665CD7' },
+                        }}
                       >
                         {option?.label}
                       </Typography>
                       <Typography
-                        color={'#666666'}
-                        fontSize={'10px'}
+                        color={listItemSubTextColor}
+                        fontSize={listItemSubTextSize}
                         mt={'6px'}
+                        sx={{ ...listItemSubTextStyles }}
                       >
                         {option?.label}
                       </Typography>
@@ -652,10 +682,13 @@ const SearchField = (props: SearchFieldProps) => {
                     <Box {...props} onClick={() => handleSearchData(option)}>
                       <Box>
                         <Typography
-                          color={'#929292'}
-                          fontSize={'12px'}
+                          color={listItemLabelColor}
+                          fontSize={listItemLabelSize}
                           className="title1"
-                          sx={{...listItemLabelStyles,':hover': { color: '#665CD7' } }}
+                          sx={{
+                            ...listItemLabelStyles,
+                            ':hover': { color: '#665CD7' },
+                          }}
                         >
                           {option?.label}
                         </Typography>
@@ -902,19 +935,28 @@ SearchField.defaultProps = {
 
   paperBackgroundColor: '',
   paperBorderColor: '#665CD7',
-  
-  listItemLabelStyles:{},
+
+  listItemSubTextStyles: {},
+  listItemSubTextColor: '#E9E9E9',
+  listItemSubTextSize: 12,
+  listItemLabelStyles: {},
+  listItemLabelColor: '#393939dd',
+  listItemLabelSize: 12,
   listTextHoverColor: '#665CD7',
   listTextHoverBgColor: '#fdfafa',
   keyDownListBgcolor: '',
   keyDownListTextColor: '',
+  cardImgStyle: {},
+  cardImgWidth: 30,
+  cardImgHeight: 30,
+  imgBorderRadius: 4,
 
   recentLabel: 'Recent Search',
   recentLabelTextColor: '#393939dd',
-  recentLabelFontSize:12,
-  recentLabelStyle:{},
-  recentSearchItemStyles:{},
+  recentLabelFontSize: 12,
+  recentLabelStyle: {},
+  recentSearchItemStyles: {},
   recentSearchItemTextColor: '#393939dd',
   recentSearchItemBgcolor: '#E9E9E9',
-  recentSearchItemSize:10,
+  recentSearchItemSize: 10,
 };
