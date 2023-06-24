@@ -200,9 +200,9 @@ function App() {
         }}
       >
         <SearchField
-          isTextSearch={true}
-          isRecentSearch={true}
-          isCardBased={false}
+          isTextSearch={false}
+          isRecentSearch={false}
+          isCardBased={true}
           isCardWithTitleBased={false}
           isShortcutKeyBased={false}
           isShortComponent={false}
@@ -216,6 +216,11 @@ function App() {
           inputBorderDefaultColor={'#E9E9E9'}
           inputBorderHoverColor={'#b4aef4'}
           inputBorderFocusColor={'#665CD7'}
+
+          paperBackgroundColor={'#ffffff'}
+          paperBorderColor={'#665CD7'}
+          listTextHoverColor={'#665CD7'}
+          listTextHoverBgColor={'#FFFF'}
         />
       </div>
       {/* <Screen

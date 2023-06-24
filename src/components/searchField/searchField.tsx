@@ -302,6 +302,7 @@ interface SearchFieldProps {
   listTextHoverBgColor: string;
   keyDownListBgcolor: string;
   keyDownListTextColor: string;
+  listItemLabelStyles:string;
 
   recentLabel: string;
   recentLabelTextColor: string;
@@ -313,7 +314,7 @@ interface SearchFieldProps {
   recentSearchItemSize: number;
 }
 interface RecentSearchProps{
-  recentVal:{label:string,url:string}[]
+  recentVal:Array<any>
   recentLabel: string;
   recentLabelTextColor: string;
   recentLabelFontSize: number;
@@ -462,6 +463,7 @@ const SearchField = (props: SearchFieldProps) => {
     listTextHoverBgColor,
     keyDownListBgcolor,
     keyDownListTextColor,
+    listItemLabelStyles,
 
     recentLabel,
     recentLabelTextColor,
@@ -553,7 +555,7 @@ const SearchField = (props: SearchFieldProps) => {
                         color={'#929292'}
                         fontSize={'12px'}
                         className="title1"
-                        sx={{ ':hover': { color: '#665CD7' } }}
+                        sx={{...listItemLabelStyles ,':hover': { color: '#665CD7'} }}
                         style={
                           {
                             // fontWeight:search&&option?.label?.toLowerCase()?.includes(search?.toLowerCase())&&'600',
@@ -594,7 +596,7 @@ const SearchField = (props: SearchFieldProps) => {
                       mt={'6px'}
                       width={'74px'}
                       className="title1"
-                      sx={{ ':hover': { color: '#665CD7' } }}
+                      sx={{...listItemLabelStyles,':hover': { color: '#665CD7' } }}
                     >
                       {option?.label}
                     </Typography>
@@ -630,7 +632,7 @@ const SearchField = (props: SearchFieldProps) => {
                         fontSize={'12px'}
                         fontWeight={600}
                         className="title1"
-                        sx={{ ':hover': { color: '#665CD7' } }}
+                        sx={{...listItemLabelStyles,':hover': { color: '#665CD7' } }}
                       >
                         {option?.label}
                       </Typography>
@@ -653,7 +655,7 @@ const SearchField = (props: SearchFieldProps) => {
                           color={'#929292'}
                           fontSize={'12px'}
                           className="title1"
-                          sx={{ ':hover': { color: '#665CD7' } }}
+                          sx={{...listItemLabelStyles,':hover': { color: '#665CD7' } }}
                         >
                           {option?.label}
                         </Typography>
@@ -706,10 +708,7 @@ const SearchField = (props: SearchFieldProps) => {
                       '.enterIcon': {
                         display: 'block',
                       },
-                      background:
-                        isTextSearch | isCardBased
-                          ? listTextHoverBgColor
-                          : '#f3f9c9',
+                      background: listTextHoverBgColor,
                       '& .title1': {
                         color: listTextHoverColor,
                       },
@@ -903,8 +902,10 @@ SearchField.defaultProps = {
 
   paperBackgroundColor: '',
   paperBorderColor: '#665CD7',
+  
+  listItemLabelStyles:{},
   listTextHoverColor: '#665CD7',
-  listTextHoverBgColor: '#fff',
+  listTextHoverBgColor: '#fdfafa',
   keyDownListBgcolor: '',
   keyDownListTextColor: '',
 
