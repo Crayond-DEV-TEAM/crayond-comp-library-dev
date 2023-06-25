@@ -204,8 +204,9 @@ function App() {
           isRecentSearch={false}
           isCardBased={false}
           isCardWithTitleBased={false}
-          isShortcutKeyBased={true}
-          isShortComponent={false}
+          isShortcutKeyBased={false}
+          isShortComponent={true}
+
           placeHolderText="Search henry"
           startAdornmentIcon={<SearchIcon />}
           endAdornmentIcon={<Close />}
