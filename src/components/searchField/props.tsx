@@ -93,14 +93,23 @@ export interface SearchFieldProps {
   controlsBgColor: string;
   controlsTextSize: number;
 
+  componentColumnDirection: string;
+  recentSearchLabelColor: string;
+  recentSearchLabelSize: number;
+  recentSearchLabel: string;
   categoryLabel1: string;
   categoryLabel2: string;
-  textSearchData:{
-   label:string;
+  categoryLabel1Color: string;
+  categoryLabel1Size: number;
+  categoryLabel2Color: string;
+  categoryLabel2Size: number;
+
+  textSearchData: {
+    label: string;
   }[];
   cardData: {
-    label:string;
-    url:string;
+    label: string;
+    url: string;
   }[];
   navigateData: {
     navigateLabel: string;

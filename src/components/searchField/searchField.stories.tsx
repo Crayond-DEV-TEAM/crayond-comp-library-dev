@@ -69,6 +69,10 @@ Primary.args = {
   controlsBgColor: '#E9E9E9',
   controlsTextSize: 12,
 
+  componentColumnDirection:"column-reverse",
+  recentSearchLabelColor: '#393939dd',
+  recentSearchLabelSize: 12,
+  recentSearchLabel:"Recent Search",
   categoryLabel1: ' CATEGORY SUGGEST 1',
   categoryLabel2: 'CATEGORY SUGGEST 2',
 
