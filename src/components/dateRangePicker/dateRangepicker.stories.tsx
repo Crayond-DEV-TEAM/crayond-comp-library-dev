@@ -1,7 +1,6 @@
-import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { SingleInputDateRangePicker } from './index';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import CalendarIcon from '../../assets/calendarIcon';
-import { string } from 'yargs';
+import { SingleInputDateRangePicker } from './index';
 
 export default {
   title: 'components/SingleInputDateRangePicker',
@@ -17,6 +16,16 @@ Primary.argTypes = {
   dateFormat: {
     description: '"YYY MM DD"',
   },
+  startViews: {
+    description: '["year", "month", "day"]',
+  },
+  endViews: {
+    description: "['year', 'day']",
+  },
+  openTo: {
+    description: "day|month|year",
+  },
+
   rightInputCalendarIcon: {
     description: 'ReactNode',
   },
@@ -24,6 +33,7 @@ Primary.argTypes = {
   endCalendarStyle: {
     description: 'object',
   },
+
   startCalendarStyle: {
     description: 'object',
   },
@@ -80,7 +90,22 @@ Primary.argTypes = {
   bottomButtonStyle: {
     description: 'object',
   },
+  inputStyleRoot: {
+    description: 'object',
+  },
   buttonFontSize: {
+    description: 'number',
+  },
+  startCalendarMaxHeight: {
+    description: 'number',
+  },
+  startCalendarMinHeight: {
+    description: 'number',
+  },
+  endCalendarMinHeight: {
+    description: 'number',
+  },
+  endCalendarMaxHeight: {
     description: 'number',
   },
   addMoreButtons:{
@@ -142,6 +167,9 @@ Primary.args = {
   inputLabelSize: 14,
   inputLabelColor: '#cdcdcd',
   dateFormat: 'DD MMM YY',
+  inputStyleRoot: {},
+  startViews:["year", "month", "day"],
+  endViews:['year', 'day'],
 
   selectedDateColor: '#665CD7',
   selectedRangeBgColor: '#665CD7',
@@ -153,8 +181,14 @@ Primary.args = {
   bottomButtonStyle: {},
   buttonFontSize: 14,
   buttonLabelColor: '#665CD7',
-  addMoreButtons: [],
+  addMoreButtons: 	
+  [{label:"name",handleFunction:()=>{}}],
 
+  // startCalendarMaxHeight:undefined,
+  // startCalendarMinHeight:310,
+  // endCalendarMaxHeight:undefined,
+  // endCalendarMinHeight:310,
+  
   maxDateEnd: '',
   minDateEnd: '',
   minDateStart: '',
@@ -177,3 +211,8 @@ Primary.args = {
   onYearChangeEndFun: () => {},
   handleSubmitCalendarFun: () => {},
 };
+
+
+
+ // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore

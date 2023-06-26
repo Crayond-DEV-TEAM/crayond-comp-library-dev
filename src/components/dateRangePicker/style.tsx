@@ -79,4 +79,7 @@ export const styles = {
       borderRadius: '8px',
     },
   },
+  calenderStyle:{
+    minHeight:"310px"
+  }
 };

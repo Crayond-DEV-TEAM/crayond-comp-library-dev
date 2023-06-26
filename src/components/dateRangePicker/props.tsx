@@ -1,8 +1,6 @@
-import * as React from 'react';
-import { SxProps } from '@mui/system';
+import { SxProps } from '@mui/material';
 import { DateView, PickersDayProps } from '@mui/x-date-pickers';
 import { Dayjs } from 'dayjs';
-import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 
 export interface CustomPickerDayProps extends PickersDayProps<Dayjs> {
   dayIsBetween: boolean;
@@ -12,7 +10,7 @@ export interface CustomPickerDayProps extends PickersDayProps<Dayjs> {
 }
 
 export interface MyCustomLayoutProps {
-  value: Dayjs;
+  value: any;
   views: ['year', 'month', 'day'];
   openTo: DateView;
   disableFuture: boolean;
@@ -20,12 +18,14 @@ export interface MyCustomLayoutProps {
   selectedDay: Date;
   Day: any;
   defaultValue: Dayjs;
-  // calenderStyles: SxProps;
-  onMonthChange: () => void;
-  onChange: () => void;
-  onYearChange: () => void;
+  onMonthChange: (e: Dayjs) => void;
+  onChange: (e: Dayjs | null) => void;
+  onYearChange: (e: Dayjs) => void;
   maxDate: Dayjs;
   minDate: Dayjs;
+  maxHeight: number;
+  minHeight: number;
+  calenderStyle: SxProps;
   selectedRangeBgColor: string;
   selectedDateColor: string;
   selectedHoverBgColor: string;
@@ -44,31 +44,33 @@ export interface PopoverPopupProps {
   selectedDayEnd: any;
   StartDay: any;
   EndDay: any;
-  endDefaultValue: Dayjs;
-  startDefaultValue: Dayjs;
+  endDefaultValue: string;
+  startDefaultValue: string;
   disablePast: boolean;
   disableFuture: boolean;
   endCalendarStyle: SxProps;
   startCalendarStyle: SxProps;
-  onMonthChangeEnd: (date: any) => void;
-  onMonthChangeStart: (date: any) => void;
-  startDateHandleChange: (date: Date) => void;
-  endDateHandleChange: (date: Date) => void;
+  onMonthChangeEnd: (date: Dayjs) => void;
+  onMonthChangeStart: (date: Dayjs) => void;
+  startDateHandleChange: (date: Dayjs | null) => void;
+  endDateHandleChange: (date: Dayjs | null) => void;
   handleCloseCalendar: () => void;
   handleSubmitCalendar: () => void;
-  handleYearChangeStart: (date: Date) => void;
-  handleYearChangeEnd: (date: Date) => void;
-  onYearChangeStart: (date: Date) => void;
-  onYearChangeEnd: (date: Date) => void;
+  onYearChangeStart: (date: Dayjs) => void;
+  onYearChangeEnd: (date: Dayjs) => void;
   maxDateStart: Dayjs;
   minDateStart: Dayjs;
   maxDateEnd: Dayjs;
   minDateEnd: Dayjs;
-  calendarContainerStyle: object;
 
   calenderPopoverStyle: SxProps;
   selectedDateColor: string;
   selectedRangeBgColor: string;
+
+  startCalendarMaxHeight: number;
+  startCalendarMinHeight: number;
+  endCalendarMaxHeight: number;
+  endCalendarMinHeight: number;
 
   selectedHoverBgColor: string;
   selectedHoverTextColor: string;
@@ -84,10 +86,55 @@ export interface PopoverPopupProps {
 }
 
 export interface DateRangePickerProps {
-  label: string;
-  onChange: () => void;
-  value: any;
-  inputStyleRoot: object;
+  inputContainerStyle: SxProps;
+  inputBorderColor: string;
+  inputBorderHoverColor: string;
+  inputActiveColor: string;
+  inputFontsize: number;
+  inputValueColor: string;
+  startLabel: string;
+  endLabel: string;
+  inputLabelSize: number;
+  inputLabelColor: string;
+  inputStyleRoot: SxProps;
+
+  selectedRangeBgColor: string;
+  selectedDateColor: string;
+  selectedHoverBgColor: string;
+  selectedHoverTextColor: string;
+
+  cancelButtonLabel: string;
+  submitButtonLabel: string;
+  buttonFontSize: number;
+  buttonLabelColor: string;
+  bottomButtonStyle: SxProps;
+  addMoreButtons: { label: string; handleFunction: () => void }[];
+
   dateFormat: string;
-  disablePast: boolean;
+  startViews: ['year', 'month', 'day'];
+  endViews: ['year', 'day'];
+  openTo: 'day';
+  maxDateEnd: Dayjs;
+  minDateEnd: Dayjs;
+  minDateStart: Dayjs;
+  maxDateStart: Dayjs;
+  calenderPopoverStyle: SxProps;
+  endCalendarStyle: SxProps;
+  startCalendarStyle: SxProps;
+
+  startCalendarMaxHeight: number;
+  startCalendarMinHeight: number;
+  endCalendarMaxHeight: number;
+  endCalendarMinHeight: number;
+
+  leftInputCalendarIcon: React.ReactNode;
+  rightInputCalendarIcon: React.ReactNode;
+
+  handleEndDateChangeFun: (date: Dayjs | null) => void;
+  handleStartDateChangeFun: (date: Dayjs | null) => void;
+  onMonthChangeStartFun: (e:Dayjs) => void;
+  onMonthChangeEndFun: (e:Dayjs) => void;
+  onYearChangeStartFun: (e:Dayjs) => void;
+  onYearChangeEndFun: (e:Dayjs) => void;
+  handleSubmitCalendarFun: (start:string,end:string) => void;
 }

@@ -47,8 +47,6 @@ const SingleDatePicker = (props: SingleDatePickerProps) => {
   const [value, setValue] = useState<Moment | null>();
 
   const handleDateChange = (date: Moment | null) => {
-    console.log(date);
-
     if (onChangeFun) {
       onChangeFun(date);
     }
