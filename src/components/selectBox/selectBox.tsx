@@ -455,8 +455,7 @@ const SelectBox = (props: SelectBoxProps) => {
                     '& svg': {
                       display: 'none'
                     }
-                  }
-                  }
+                  }}
                   variant="outlined"
                   label={option?.title}
                   {...getTagProps({ index })}

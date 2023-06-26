@@ -7,6 +7,29 @@ import { SelectBoxComponent } from '.';
 export default {
   title: 'Components/selectBox',
   component: SelectBox,
+  argTypes: {
+    limitTags: {
+      description: 'limited tags will be shown when it is multiple'
+    },
+    selectType: {
+      description: 'default or chip or checkbox or grouping'
+    },
+    groupingProps: {
+      description: 'It contains all props for dropdown and inputfield for grouped dropdown'
+    },
+    defaultProps: {
+      description: 'It contains all props for dropdown and inputfield for default dropdown'
+    },
+    chipProps: {
+      description: 'It contains all props for dropdown and inputfield for chip dropdown'
+    },
+    checkboxProps: {
+      description: 'It contains all props for dropdown and inputfield for checkbox dropdown'
+    },
+    multi: {
+      description: 'it delivers whether multiple or single select box'
+    }
+  }
 } as ComponentMeta<typeof SelectBox>;
 
 const Template: ComponentStory<typeof SelectBox> = (args) => {
@@ -61,19 +84,24 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
   const [groupedData, setGroupedData] = useState([])
   const [chipData, setChipData] = useState([])
 
-  const handleCheckedItem = (event: object, newValue: any) => {
-    setChecked(newValue)
+  const handleCheckedItem = (event: object, newValue: object[]) => {
+    const convertedValue = newValue as never[];
+    setChecked(convertedValue)
+
   }
 
-  const handleDefaultChange = (val: any, newValue: any | never) => {
-    setDefaultData(newValue)
+  const handleDefaultChange = (val: any, newValue: object[]) => {
+    const convertedValue = newValue as never[];
+    setDefaultData(convertedValue)
   }
-  const handleGroupChange = (event: any, val: any | never) => {
-    setGroupedData(val)
+  const handleGroupChange = (event: any, val: object[]) => {
+    const convertedValue = val as never[];
+    setGroupedData(convertedValue)
   }
 
-  const handleChipChange = (val: any, newValue: any | never) => {
-    setChipData(newValue)
+  const handleChipChange = (val: any, newValue: object[]) => {
+    const convertedValue = newValue as never[];
+    setChipData(convertedValue)
   }
   return (
     <SelectBoxComponent
@@ -85,6 +113,7 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
         handleGroupChange: handleGroupChange,
         groupedData: groupedData,
         arrData: top100Films,
+        label: '',
         dropdown: {
           minHeight: '',
           maxHeight: '',
@@ -111,6 +140,7 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
         defaultData: defaultData,
         arrData: top100Films,
         defaultValue: [],
+        label: '',
         dropdown: {
           minHeight: '',
           maxHeight: '',
@@ -132,6 +162,7 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
       }}
       chipProps={{
         isCloseIcon: true,
+        label: '',
         isSearch: true,
         handleChipChange: handleChipChange,
         chipData: chipData,
@@ -160,6 +191,7 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
         isCloseIcon: true,
         isSearch: true,
         defaultValue: [],
+        label: '',
         handleCheckedItem: handleCheckedItem,
         CheckableData: checked,
         arrData: CheckBoxData,
@@ -194,9 +226,10 @@ Primary.args = {
   groupingProps: {
     isCloseIcon: true,
     isSearch: true,
+    label: '',
     handleGroupChange:
-      (event: object, e: { title: string; year: number; } | { title: string; year: number; }[] | null) => {
-        console.log(e, 'groupDropDown')
+      (e: any, val: object[]) => {
+        console.log(val, 'groupDropDown')
       },
     groupedData: [],
     arrData: [
@@ -233,8 +266,9 @@ Primary.args = {
     isCloseIcon: true,
     defaultValue: [],
     isSearch: true,
-    handleDefaultChange: (event: object, e: { title: string; year: number; } | { title: string; year: number; }[] | null) => {
-      console.log(e, 'defaultDropdown')
+    label: '',
+    handleDefaultChange: (e: any, val: object[]) => {
+      console.log(val, 'defaultDropdown')
     },
     defaultData: [],
     arrData: [
@@ -268,9 +302,10 @@ Primary.args = {
   },
   chipProps: {
     isCloseIcon: true,
+    label: '',
     isSearch: true,
-    handleChipChange: (event: object, e: { title: string; year: number; } | { title: string; year: number; }[] | null) => {
-      console.log(e, 'chipDropDown')
+    handleChipChange: (e: any, val: object[]) => {
+      console.log(val, 'chipDropDown')
     },
     chipData: [],
     defaultValue: [],
@@ -282,7 +317,6 @@ Primary.args = {
       { title: 'Option 5', year: 1957 },
       { title: "Option 6", year: 1993 },
       { title: 'Option 7', year: 1994 },
-
     ],
     dropdown: {
       minHeight: '',
@@ -306,10 +340,11 @@ Primary.args = {
   checkboxProps: {
     isCloseIcon: true,
     isSearch: true,
-    handleCheckedItem: (event: object, e: { title: string; isChecked: boolean } | { title: string; isChecked: boolean; }[] | null) => {
-      console.log(e, 'checkboxDropDown')
+    handleCheckedItem: (e: any, val: object[]) => {
+      console.log(val, 'checkboxDropDown')
     },
     defaultValue: [],
+    label: '',
     CheckableData: [],
     arrData: [
       { title: 'The Shawshank Redemption', isChecked: false },

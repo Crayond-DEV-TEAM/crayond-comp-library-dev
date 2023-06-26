@@ -50,7 +50,6 @@ function App() {
       title: 'Star Wars: Episode IV - A New Hope',
       isChecked: false,
     },
-
   ];
 
   const [checked, setChecked] = useState([])
@@ -195,8 +194,7 @@ function App() {
           }
         }}
         multi={true}
-        selectType={'chip'} multiple={false}
-      />
+        selectType={'chip'} multiple={false}      />
     </div>
   )
 }
