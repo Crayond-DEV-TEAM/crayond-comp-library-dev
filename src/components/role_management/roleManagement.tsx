@@ -4,7 +4,7 @@ import { styles } from './style';
 import { Roles } from './roles';
 import { useState } from 'react';
 
-export default function RoleManagement(props: RoleManagementProps) {
+const RoleManagement = (props: RoleManagementProps) => {
   const { rootStyle, rolesView, rolesGrid, roleTitleSx, subRootPropsSx } = props;
 
   type Role = {
@@ -82,7 +82,7 @@ export default function RoleManagement(props: RoleManagementProps) {
     setRoles([...tempArr]);
   }
 
-  const handleAddChange = (key: any, value: string) => {
+  const handleAddChange = (key: { roleNo: string; role: string; }, value: string) => {
     const error = state?.error;
     error[key] = '';
     setState({ ...state, [key]: value, error })
@@ -180,6 +180,8 @@ export default function RoleManagement(props: RoleManagementProps) {
     </Box >
   );
 }
+
+export default RoleManagement
 
 RoleManagement.defaultProps = {
   title: 'Roles',

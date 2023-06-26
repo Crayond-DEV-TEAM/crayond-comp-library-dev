@@ -1,11 +1,10 @@
 
-import { IconButton, SxProps, Theme, Grid, Stack, Tooltip } from '@mui/material';
+import { IconButton, SxProps, Theme, Stack, Tooltip } from '@mui/material';
 import { Box, Typography } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 import React, { forwardRef, useRef } from 'react';
-import { useHover } from 'ahooks';
 import { styles } from './style';
 import { SwitchBox } from './switch';
 import FormGroup from '@mui/material/FormGroup';
@@ -39,7 +38,6 @@ export interface RoleItemProps {
 export const RoleItem = forwardRef((props: any): JSX.Element => {
     const {
         isActive,
-        handleRoleClick = () => false,
         onEditRole = () => false,
         handleChange = () => false,
         roleNo,
@@ -61,8 +59,15 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
     } = props;
 
     const ref = useRef(null);
-    const isHovering = useHover(ref);
+    const [isHovering, setIsHovering] = React.useState(false);
 
+    const handleHover = () => {
+        setIsHovering(true)
+    }
+
+    const handleHoverLeave = () => {
+        setIsHovering(false)
+    }
     const [anchorEl] = React.useState<null | HTMLElement>(null);
 
     return (
@@ -71,8 +76,8 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
             ref={ref}
         >
             <Box
-                sx={clickIndex === index ? { ...styles.card, ...roleCardSx } : { ...styles.unSelectedCard, ...roleUnselectedCardSx }} >
-
+                sx={clickIndex === index ? { ...styles.card, ...roleCardSx } : { ...styles.unSelectedCard, ...roleUnselectedCardSx }}
+                onMouseEnter={handleHover} onMouseLeave={handleHoverLeave}>
                 {
                     editIndex === index && <Box sx={styles?.parentBox}>
                         <span style={{ width: '30%' }} >
@@ -122,7 +127,7 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                         </span>
                         <span style={{ width: '13%' }}>
                             <Stack direction={'row'}
-                                alignItems={'center'} justifyContent={'space-between'}
+                                alignItems={'center'} justifyContent={'space-around'}
                             >
                                 <IconButton sx={{ ...styles.CheckIcon, ...checkIconPropsSx }}
                                     onClick={() => handleSave(x, index)}>
@@ -173,9 +178,13 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                                         sx={{ m: 1 }}
                                         value={isActive}
                                         color={'primary'}
-                                        width={''}
-                                        height={''}
-                                        thumbColor={''} />}
+                                        customProp={{
+                                            width: '',
+                                            height: '',
+                                            thumbColor: '',
+                                            onChange: undefined,
+                                            color: ''
+                                        }} />}
                                     label={undefined}
                                 />
                             </FormGroup>

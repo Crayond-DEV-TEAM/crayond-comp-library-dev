@@ -32,7 +32,7 @@ function App() {
             xs: 12,
             sm: 5,
             md: 4,
-            lg: 6
+            lg: 4
           }
         }}
         rolesView={{

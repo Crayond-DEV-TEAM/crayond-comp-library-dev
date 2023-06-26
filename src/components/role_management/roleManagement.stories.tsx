@@ -86,17 +86,17 @@ export default {
     rolesGrid: {
       breakpoints: {
         xs: 12,
-        sm: 4.5,
-        md: 3.5,
-        lg: 2.5
+        sm: 6,
+        md: 5,
+        lg: 4
       }
     },
     rolesView: {
       breakpoints: {
         xs: 12,
-        sm: 9.5,
-        md: 8.5,
-        lg: 9.5
+        sm: 6,
+        md: 7,
+        lg: 8
       }
     },
     roleTitleSx: {},
@@ -137,12 +137,14 @@ export default {
       borderRadius: '',
       borderBottom: ''
     },
-    switchStyle: {
-      width: '',
-      height: '',
-      color: '',
-      backgroundColor: ''
-    }
+    // switchStyle: {
+    //   customProp: {
+    //     width: '',
+    //     height: '',
+    //     color: '',
+    //     backgroundColor: ''
+    //   }
+    // }
 
   }
 
