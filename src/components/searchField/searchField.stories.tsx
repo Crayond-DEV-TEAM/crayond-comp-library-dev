@@ -76,6 +76,9 @@ Primary.args = {
   categoryLabel1: ' CATEGORY SUGGEST 1',
   categoryLabel2: 'CATEGORY SUGGEST 2',
 
+  handleInputOnChange:()=>{},
+  handleOptionChange:()=>{},
+
   textSearchData: [
     { label: 'Redemption' },
     { label: 'Henry' },

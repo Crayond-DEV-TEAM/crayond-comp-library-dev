@@ -1,12 +1,15 @@
 import { SxProps } from '@mui/material';
 
+export interface ParamsProps {
+  label: string;
+  url: string;
+}
 export interface SuggestionProp {
   searchValue: any;
   option: {
     label: string;
     url: string;
   }[];
-  handleRecentSearchData: () => void;
 }
 export interface Category1Props {
   searchValue: any;
@@ -14,7 +17,7 @@ export interface Category1Props {
     label: string;
     url: string;
   }[];
-  handleCategoryData: () => void;
+  handleCategoryData: (val: any) => void;
 }
 export interface ControlsProps {
   controlsBgColor: string;
@@ -103,6 +106,9 @@ export interface SearchFieldProps {
   categoryLabel1Size: number;
   categoryLabel2Color: string;
   categoryLabel2Size: number;
+
+  handleInputOnChange: (val: any) => void;
+  handleOptionChange: (val: any) => void;
 
   textSearchData: {
     label: string;

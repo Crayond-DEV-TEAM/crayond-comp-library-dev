@@ -1,4 +1,4 @@
-import { Box, Stack, SxProps, Typography } from '@mui/material';
+import { Box, Divider, Stack, SxProps, Typography } from '@mui/material';
 import {
   Category1Props,
   ControlsProps,
@@ -8,21 +8,20 @@ import {
 import ClockIcon from '../../assets/clockIcon';
 
 export const SuggestionRecentSearch = (props: SuggestionProp) => {
-  const { searchValue, option, handleRecentSearchData = () => {} } = props;
+  const { searchValue, option } = props;
 
   const filteredRows = option.filter((row: any) => {
     return row.label.toLowerCase().includes(searchValue?.toLowerCase());
   });
   return (
     <>
-      {filteredRows?.map((item: any) => (
+      {option?.map((item: any) => (
         <Stack
           direction={'row'}
           columnGap={'8px'}
           rowGap={'24px'}
           p={'0 14px'}
           marginBottom={'16px'}
-          onClick={() => handleRecentSearchData()}
         >
           <>
             <Box>
@@ -92,8 +91,6 @@ export const EmployeeCategory = (props: Category1Props) => {
   const filteredRows = option.filter((row: any) => {
     return row?.label?.toLowerCase()?.includes(searchValue?.toLowerCase());
   });
-  console.log(option);
-
   return (
     <>
       {option?.map((val: any) => (
@@ -147,7 +144,7 @@ export const ControlSearch = (props: ControlsProps) => {
   } = props;
   return (
     <Stack
-      style={
+      sx={
         {
           ...controlsRootStyles,
           cursor: 'pointer',

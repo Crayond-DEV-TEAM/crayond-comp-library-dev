@@ -11,22 +11,21 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import ArrowUpDownIcon from '../../assets/arrowUpDownIcon';
-import ClockIcon from '../../assets/clockIcon';
 import Close from '../../assets/close';
 import EnterIcon from '../../assets/enterIcon';
 import EscapeIcon from '../../assets/escapeIcon';
 import HoverEnter from '../../assets/hoverEnter';
 import Search from '../../assets/search';
-import './index.css';
 import {
-  Category1Props,
-  ControlsProps,
-  RecentSearchProps,
-  SearchFieldProps,
-  SuggestionProp,
-} from './props';
+  ControlSearch,
+  EmployeeCategory,
+  FoodCategory,
+  RecentSearch,
+  SuggestionRecentSearch,
+} from './helperComponents';
+import './index.css';
+import { Category1Props, ParamsProps, SearchFieldProps } from './props';
 import { styles } from './styles';
-import { ControlSearch, EmployeeCategory, FoodCategory, SuggestionRecentSearch } from './helperComponents';
 
 const SearchField = (props: SearchFieldProps) => {
   const {
@@ -97,29 +96,38 @@ const SearchField = (props: SearchFieldProps) => {
     textSearchData,
     navigateData,
     cardData,
+
+    handleInputOnChange = () => {},
+    handleOptionChange = () => {},
   } = props;
 
-  const [searched, setSearched] = useState(null);
+  const [searched, setSearched] = useState<ParamsProps>({ label: '', url: '' });
   const [search, setSearch] = useState('');
-  const [recentSearch, setRecentSearch] = useState<Array<object>>([]);
+  const [recentSearch, setRecentSearch] = useState<Category1Props['option']>([]);
   const [isOpen, setOpen] = useState(false);
 
   const requestOnInputSearch = (val: string) => {
+    if (handleInputOnChange) {
+      handleInputOnChange(val);
+    }
     setSearch(val);
   };
 
-  const handleSearchData = (val: any) => {
+  const handleSearchData = (val: ParamsProps) => {    
     setSearched(val);
     setRecentSearch([...recentSearch, val]);
     setOpen(false);
   };
 
-  const handleOnchange = (e: any, v: any) => {
-    setSearched(v);
+  const handleOnchange = (e: any, val: any) => {
+    if (handleOptionChange) {
+      handleOptionChange(val);
+    }
+    setSearched(val);
   };
 
   const handleClear = () => {
-    setSearched(null);
+    setSearched({ label: '', url: '' });
   };
 
   function handleOpen(): void {
@@ -132,7 +140,7 @@ const SearchField = (props: SearchFieldProps) => {
         sx={{
           minWidth: '100%',
         }}
-        onClick={() => handleOpen()}
+        // onClick={() => handleOpen()}
       >
         <Autocomplete
           open={isOpen}
@@ -417,7 +425,7 @@ const SearchField = (props: SearchFieldProps) => {
                   />
 
                   <Divider />
-                  <Stack direction={componentColumnDirection}>
+                  <Stack sx={{direction:componentColumnDirection}}>
                     <Stack>
                       <Typography
                         color={categoryLabel1Color}
@@ -430,6 +438,7 @@ const SearchField = (props: SearchFieldProps) => {
                       <FoodCategory
                         option={cardData}
                         handleCategoryData={handleSearchData}
+                        searchValue={undefined}
                       />
                     </Stack>
                     <Divider />
@@ -445,6 +454,7 @@ const SearchField = (props: SearchFieldProps) => {
                       <EmployeeCategory
                         option={cardData}
                         handleCategoryData={handleSearchData}
+                        searchValue={undefined}
                       />
                     </Stack>
                   </Stack>
@@ -490,15 +500,21 @@ const SearchField = (props: SearchFieldProps) => {
                           {isShortComponent ? (
                             ''
                           ) : (
-                            <img
-                              src={searched?.url}
-                              alt=" "
-                              style={{
-                                width: '24px',
-                                height: '24px',
-                                borderRadius: '50%',
-                              }}
-                            />
+                            <>
+                              {isTextSearch || isRecentSearch ? (
+                                <>{startAdornmentIcon}</>
+                              ) : (
+                                <img
+                                  src={searched?.url}
+                                  alt=" "
+                                  style={{
+                                    width: '24px',
+                                    height: '24px',
+                                    borderRadius: '50%',
+                                  }}
+                                />
+                              )}
+                            </>
                           )}
                         </>
                       ) : (
@@ -603,6 +619,9 @@ SearchField.defaultProps = {
   categoryLabel2Color: '#393939dd',
   categoryLabel2Size: 12,
   categoryLabel2: 'CATEGORY SUGGEST 2',
+
+  handleInputOnChange: () => {},
+  handleOptionChange: () => {},
 
   textSearchData: [
     { label: 'Redemption' },
