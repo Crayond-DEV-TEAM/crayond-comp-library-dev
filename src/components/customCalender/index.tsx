@@ -14,7 +14,7 @@ import {
   Typography,
   Select,
 } from '@mui/material';
-
+import { SelectChangeEvent } from '@mui/material';
 import Box from '@mui/material/Box';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
@@ -33,12 +33,11 @@ import { ReactNode, useState } from 'react';
 
 interface CalenderProps {
   CommonLeaves: string[];
-  nationalLeaves: object[];
+  nationalLeaves: NationalLeave[];
   eventsIcon: EventIcon[];
   calenderList: calenderLists[];
   eventsData: EventData[];
   select: number;
-  eventValue: string;
   selectedCategory: string | null;
   searchCalendarList: string;
   eventCategories: EventCategory[];
@@ -56,15 +55,15 @@ interface CalenderProps {
   calenderActiveColor: string;
   customHeadStyle: object;
   CalenderStyle:object;
-  AddEventValue: string;
   eventTitleHeadStyle:object;
-  onEventEdit: (data: EventData) => void;
+  customCalenderListSx: object;
+  SearchCalender:string;
+  addEventBtnSx:object;
   OnEventChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
   onCalenderListClick: (index: number) => void;
-  OnEventAdd: (data: any) => void;
+  OnEventAdd: (data: EventData) => void;
   onCalenderSearch: (e: onCalenderSearchs) => void;
   onEventsDelete: (data: EventData) => void;
-  customCalenderListSx: object;
   addCalenderList: () => void;
   onDeleteCalenderList: (data: calenderLists, index: number) => void;
   onCalendarSearch: () => void;
@@ -98,9 +97,16 @@ interface CustomEventComponentProps {
 }
 
 interface LeaveEvent {
-  title: string;
-  start: Date;
-  end: Date;
+  id: string|number;
+  title:string ;
+  allDay: boolean;
+  start: Date | null;
+  end: Date | null;
+  startTime: string |null;
+  endTime: string |null;
+  deletable: boolean;
+  eventRemaindTime: string |null;
+  eventRemind: string | null;
 }
 
 interface EventCategory {
@@ -110,15 +116,16 @@ interface EventCategory {
 
 interface EventData {
   id: string|number;
-  title:string;
+  title:string ;
   allDay: boolean;
-  start: string | null;
-  end: string | null;
-  startTime: string;
-  endTime: string;
+  start: Date | null;
+  end: Date | null;
+  startTime: string |null;
+  endTime: string |null;
   deletable: boolean;
-  eventRemaindTime: string;
-  eventRemind: string;
+  eventRemaindTime: string ;
+  eventRemind: string ;
+  type: string;
 }
 
 interface DefaultStyleProps {
@@ -157,18 +164,38 @@ interface DefaultStyleProps {
     [key: string]: any;
   };
 }
+
 interface CalendarListSearchProps {
-value: string | any
+value: string;
 }
 
 interface onCalenderSearchs {
-  value: string; // Specify the type of the `value` parameter
+  value: string; 
+}
+
+interface NationalLeave {
+  date: string;
+  title: string;
 }
 
 interface CustomizeEventProps {
-  start: Date; // Specify the type of the `start` property
-  end: Date; // Specify the type of the `end` property
+  start: Date;
+  end: Date;
 }
+
+interface CommonLeaveDays {
+  [key: string]: number;
+}
+
+interface DateRange {
+  start: Date;
+  end: Date;
+}
+
+interface EventComponentInferface {
+  event: EventData
+}
+
 
 export function CustomCalender(props: CalenderProps) {
   const {
@@ -178,7 +205,6 @@ export function CustomCalender(props: CalenderProps) {
     nationalLeaves = [],
     eventCategories = [],
     select = '',
-    AddEventValue = '',
     SearchCalenderList = '',
     onCalenderListClick = () => false,
     onCalenderListSearch = () => false,
@@ -195,16 +221,18 @@ export function CustomCalender(props: CalenderProps) {
     remainderOption = [],
     nationalLeaveBgColor = 'red',
     commonLeaveBgcolor = '#FAFAFA',
+    addEventBtnSx={},
     styleProps={},
+    SearchCalender='',
     eventTitleHeadStyle={},
     customHeadStyle = {},
     CalenderStyle={},
     calenderActiveBgColor = '#EFEEFB',
-    calenderActiveColor = '#665CD7',
+    calenderActiveColor = '',
   } = props;
 
   const localizer = momentLocalizer(moment);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorEl, setAnchorEl] = useState<Element | ((element: Element) => Element) | null | undefined>(null);
   const [eventColors, setEventColors] = useState<{ [key: string]: string }>({});
   const [openModal, setOpenModal] = useState(false);
   const [modalTitle, setModalTitle] = useState('');
@@ -216,18 +244,17 @@ export function CustomCalender(props: CalenderProps) {
   const [eventRemainder, setEventRemainder] = useState('0');
   const [openTime, setOpenTime] = useState(true);
   const [endTimeModal, setEndTimeModal] = useState(true);
-  const [selectedRange, setSelectedRange] = useState({
-    start: null,
-    end: null,
-  });
+  const [selectedRange, setSelectedRange] = useState<{
+    start?: Date | null,
+    end?: Date | null,
+  }>({ start: null,end: null});
   const open = Boolean(anchorEl);
- 
-  
+
   const [selectedCategory, setSelectedCategory] = useState(
     eventCategories?.[0]?.name
   );
 
-  const handleClick = (e: any) => {
+  const handleClick = (e: React.MouseEvent<Element>) => {
     setAnchorEl(e.currentTarget);
   };
 
@@ -236,22 +263,22 @@ export function CustomCalender(props: CalenderProps) {
   };
 
   // Onchange For Event
-  const OnEventChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const OnEventChange = (event:SelectChangeEvent<string>) => {
     setSelectedCategory(event.target.value);
   };
 
   // Change  Event Remainder
-  const onDayChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const onDayChange = (event:SelectChangeEvent<string>) => {
     setSelectedDay(event.target.value);
   };
 
   const getEventCount = (calendarTitle: string): number => {
-    const count = eventsData.filter((event: any) => event.type === calendarTitle).length;
+    const count = eventsData.filter((event: EventData) => event.type === calendarTitle).length;
     return count;
   };
 
  // Open Dialog to Handle Events
-  const handleSelect = ({ start, end }: any) => {
+  const handleSelect = ({ start, end }: DateRange) => {
     setSelectedRange({ start, end });
     if (isEventModal) {
       setOpenModal(true);
@@ -261,21 +288,24 @@ export function CustomCalender(props: CalenderProps) {
   };
 
   // Fint the  National Leave
-  const eventsleave: LeaveEvent[] = nationalLeaves.map((leave: any) => ({
+  const eventsleave: LeaveEvent[] = nationalLeaves.map((leave: NationalLeave) => ({
     title: leave.title,
     start: new Date(leave.date),
     end: new Date(leave.date),
-  }));
+  } as LeaveEvent));
 
   // Getting all Events Access
-  const allEvents = [...eventsData, ...eventsleave];
+  // const allEvents = [...eventsData, ...eventsleave];
+  const allEvents: (EventData | LeaveEvent)[] = [...eventsData, ...eventsleave];
 
   // Event Customize Component
-  const EventComponent = ({ event }: any) => {
+  const EventComponent = ({event}:EventComponentInferface) => {
+    debugger
     const eventColor = eventColors[event.title] || '';
     const isLeaveEvent = eventsleave.some(
       (leaveEvent) => leaveEvent.title === event.title
     );
+    
     if (isLeaveEvent) {
       return <Box sx={{...customCalenderStyle.eventTitleHeadSx,...eventTitleHeadStyle  }}>{event?.title}</Box>;
     } else {
@@ -284,7 +314,7 @@ export function CustomCalender(props: CalenderProps) {
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Typography sx={{ padding: '0px 8px',fontSize:'12px',fontWeight:'500' }}>{event.title}</Typography>
             {/* Display the time only if it is not an all-day event */}
-            {!event.allDay && (
+            {!event?.allDay && (
               <Box sx={{...customCalenderStyle?.overAllEventSx}}>
                <Typography sx={{fontSize:'12px',fontWeight:'500',color:'#929292'}}>
                {event?.startTime}
@@ -347,22 +377,23 @@ export function CustomCalender(props: CalenderProps) {
 
   // On Event change
   const onAddEvent = () => {
-    const newEvent = {
+    const newEvent:EventData = {
       id:'',
       title: modalTitle,
       allDay: false,
-      start: selectedRange.start,
-      end: selectedRange.end,
+      start: selectedRange.start?? null,
+      end: selectedRange.end ?? null,
       startTime: startTime,
       endTime: endTime,
       deletable: true,
       eventRemaindTime: eventRemainder,
       eventRemind: selectedDay,
+      type:selectedCategory,
     };
     OnEventAdd(newEvent);
     // setEventsData((prevState): any => [...prevState, newEvent]);
-    const color = selectedCategory && eventCategories.find((category: any) => category.name === selectedCategory)?.color;
-    setEventColors((prevEventColors) => ({ ...prevEventColors,[AddEventValue]: color || '',}));
+    const color = selectedCategory && eventCategories.find((category: EventCategory) => category.name === selectedCategory)?.color;
+    setEventColors((prevEventColors) => ({ ...prevEventColors,[selectedCategory]: color || '',}));
     setModalTitle('')
     setEventRemainder('0')
     setOpenTime(true)
@@ -374,11 +405,11 @@ export function CustomCalender(props: CalenderProps) {
   };
 
   // Event Fetch
-  eventsData.forEach((event: any) => {
+  eventsData.forEach((event: EventData) => {
     let color = '#FAFAFA';
     if (selectedCategory) {
       const category = eventCategories.find(
-        (category: any) => category.name === selectedCategory
+        (category: EventCategory) => category.name === selectedCategory
       );
       color = category ? category.color : '#FAFAFA';
     }
@@ -397,7 +428,7 @@ export function CustomCalender(props: CalenderProps) {
   }
 
   // Common Leave Days Index
-  const CommonLeaveDays: any = {
+  const CommonLeaveDays: CommonLeaveDays = {
     sunday: 0,
     monday: 1,
     tuesday: 2,
@@ -426,7 +457,7 @@ export function CustomCalender(props: CalenderProps) {
 
     {/* National Leaves */}
     const matchedLeave = nationalLeaves.find(
-      (leave: any) =>
+      (leave:NationalLeave) =>
         date.toDateString() === new Date(leave.date).toDateString()
     );
 
@@ -442,11 +473,11 @@ export function CustomCalender(props: CalenderProps) {
   };
 
   // Handle The Perdiod Change
-  const handlePeriodChange = (e: any) => {
+  const handlePeriodChange = (e: SelectChangeEvent<string>) => {
     setSelectedPeriod(e.target.value);
   };
 
-  const handlePeriodChangePm = (e: any) => {
+  const handlePeriodChangePm = (e: SelectChangeEvent<string>) => {
     setSelectedPeriodPm(e.target.value);
   };
 
@@ -519,19 +550,20 @@ export function CustomCalender(props: CalenderProps) {
   };
 
   // Events Edits
-  const handleEventEdits = (event: any | null) => {
+  const handleEventEdits = (event: React.MouseEvent<HTMLButtonElement> | null) => {
     if (event) {
-        const newEvent = {
+        const newEvent:EventData = {
           id:'',
           title:modalTitle,
           allDay: false,
-          start: selectedRange.start,
-          end: selectedRange.end,
+          start: selectedRange.start ?? null,
+          end: selectedRange.end ?? null,
           startTime: startTime,
           endTime: endTime,
           deletable: true,
           eventRemaindTime: eventRemainder,
           eventRemind: selectedDay,
+          type:selectedCategory
         }
         onEventsEdit(newEvent);
         setOpenModal(true);
@@ -539,25 +571,48 @@ export function CustomCalender(props: CalenderProps) {
   };
 
   //Events Delete
-  const handleEventDelete = (event: any | null) => {
+  const handleEventDelete = (event:  React.MouseEvent<HTMLButtonElement> | null) => {
     if (event) {
          const newEvent:EventData = {
           id: '',
-          title:'',
+          title: modalTitle,
           allDay: false,
-          start: selectedRange.start,
-          end: selectedRange.end,
+          start: selectedRange?.start ?? null,
+          end: selectedRange?.end ?? null,
           startTime: startTime,
           endTime: endTime,
           deletable: true,
           eventRemaindTime: eventRemainder,
           eventRemind: selectedDay,
+          type:selectedCategory
         };
       onEventsDelete(newEvent);
       setOpenModal(false);
     }
   };
- 
+
+  const eventList: EventData[] = allEvents
+  .map((event) => {
+    if (
+      'title' in event ) {
+      return {
+        id: event.id,
+        title: event.title,
+        allDay: event.allDay,
+        start: event.start ?? null,
+        end: event.end ?? null,
+        startTime: event.startTime,
+        endTime: event.endTime,
+        deletable: event.deletable,
+        eventRemaindTime: event.eventRemaindTime,
+        eventRemind: event.eventRemind,
+      };
+    } else {
+      return null
+    }
+  })
+  .filter((event): event is EventData => event !== null);
+
 
   return (
     <Box sx={{ ...customCalenderStyle.rootSx }}>
@@ -566,7 +621,6 @@ export function CustomCalender(props: CalenderProps) {
           <Typography sx={{ ...customCalenderStyle.headSx }}>
             Calendar
           </Typography>
-
           <IconButton sx={{ ...customHeadStyle, ...customCalenderStyle.addCalenderListSx }} onClick={addCalenderList} >
             <AddCircleIcon sx={{ fontSize: '30px' }} />
           </IconButton>
@@ -576,8 +630,9 @@ export function CustomCalender(props: CalenderProps) {
             placeholder="Search"
             sx={{ ...customCalenderStyle.textFieldSx,border: '1px solid #000',
             borderRadius: '8px', }}
-            value={SearchCalenderList}
-            onChange={(e) => onCalenderListSearch({ value: e.target.value })}
+            value={SearchCalender}
+            onChange={(e) => onCalenderSearch({ value: e.target.value })}
+           
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -606,7 +661,7 @@ export function CustomCalender(props: CalenderProps) {
                 
               }}
               value={SearchCalenderList}
-              onChange={(e) => onCalenderSearch({ value: e.target.value })}
+            onChange={(e) => onCalenderListSearch({ value: e.target.value })}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -712,9 +767,10 @@ export function CustomCalender(props: CalenderProps) {
             <div style={inlineStyles} className="myCustomHeight">
               <Calendar
                 localizer={localizer}
-                events={allEvents}
+                events={eventList}
                 startAccessor="start"
                 endAccessor="end"
+                views = {['month','week', 'day']}
                 selectable
                 onSelectSlot={handleSelect}
                 dayPropGetter={dayPropGetter}
@@ -762,11 +818,11 @@ export function CustomCalender(props: CalenderProps) {
                       width: '100%',
                     }}
                     value={selectedCategory}
-                    onChange={(event: any) => OnEventChange(event)}
+                    onChange={(event) => OnEventChange(event)}
                     IconComponent={KeyboardArrowUpIcon}
                     defaultValue={selectedCategory || eventCategories[0].name}
                   >
-                    {eventCategories.map((category: any, index: number) => (
+                    {eventCategories.map((category: EventCategory, index: number) => (
                       <MenuItem
                         key={index}
                         value={category.name}
@@ -817,7 +873,7 @@ export function CustomCalender(props: CalenderProps) {
                               <Select
                                 value={selectedPeriod}
                                 sx={{ fontSize: '14px' }}
-                                onChange={handlePeriodChange}
+                                onChange={(e)=>handlePeriodChange(e)}
                                 IconComponent={KeyboardArrowUpIcon}
                               >
                                 <MenuItem value="AM">AM</MenuItem>
@@ -923,11 +979,11 @@ export function CustomCalender(props: CalenderProps) {
                       sx={{...customCalenderStyle.daySelect,}}
                       MenuProps={{ sx:{ margin:'10px 0px'}}}
                       value={selectedDay}
-                      onChange={(e: any) => onDayChange(e)}
+                      onChange={(e) => onDayChange(e)}
                       IconComponent={KeyboardArrowUpIcon}
                       defaultValue={selectedDay || remainderOption[0]?.label}
                     >
-                      {remainderOption.map((category: any, index: number) => (
+                      {remainderOption.map((category: DayOption, index: number) => (
                           <MenuItem
                           key={index}
                             value={category.value}
@@ -943,7 +999,8 @@ export function CustomCalender(props: CalenderProps) {
               <DialogActions>
                 <Button
                   onClick={onAddEvent}
-                  sx={{ ...customCalenderStyle.eventbtn }}
+                  disabled={modalTitle?.length>0 ? false : true}
+                  sx={{ ...customCalenderStyle.eventbtn,...addEventBtnSx }}
                 >
                   Add Event
                 </Button>

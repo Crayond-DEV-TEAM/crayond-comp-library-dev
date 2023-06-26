@@ -3,38 +3,34 @@ export const customCalenderStyle = {
     backgroundColor: '#FFFFFF',
   },
 
-  dialogTitle:{
- color:'#3B3B3B',
- fontSize:'14px',
- fontWeight:'500',
- paddingBottom:'6px',
-
+  dialogTitle: {
+    color: '#3B3B3B',
+    fontSize: '14px',
+    fontWeight: '500',
+    paddingBottom: '6px',
   },
-  eventSelect:{
-    marginBottom:'12px',
-    fontSize:'14px',
+  eventSelect: {
+    marginBottom: '12px',
+    fontSize: '14px',
     '& .MuiOutlinedInput-notchedOutline': {
       borderWidth: '2px',
       borderColor: '#e9e9e9',
-      borderRadius:'8px'
-   },
-    "& .MuiSelect-select":{
-
-      '&.MuiOutlinedInput-input':{
+      borderRadius: '8px',
+    },
+    '& .MuiSelect-select': {
+      '&.MuiOutlinedInput-input': {
         padding: '9px 14px',
         fontSize: '14px',
-         color: '#919191',
-
+        color: '#919191',
       },
-      '&.MuiButtonBase-root-MuiMenuItem-root':{
-        fontSize:'14px!important'
+      '&.MuiButtonBase-root-MuiMenuItem-root': {
+        fontSize: '14px!important',
       },
-      
+    },
   },
-},
-  eventtitle:{
+  eventtitle: {
     '& .MuiOutlinedInput-input': {
-      height:'36px',
+      height: '36px',
       padding: '7px 6px',
     },
     '& .MuiOutlinedInput-notchedOutline': {
@@ -77,7 +73,7 @@ export const customCalenderStyle = {
       p: 0.5,
     },
   },
- 
+
   moreSx: {
     marginRight: '16px',
     fontSize: '26px',
@@ -158,7 +154,7 @@ export const customCalenderStyle = {
     borderBottom: '1px solid #E9E9E9',
   },
   bodyContentSx: {
-    padding:'0px',
+    padding: '0px',
     pb: '16px',
   },
   timeSx: {
@@ -171,6 +167,10 @@ export const customCalenderStyle = {
     '&:hover': {
       backgroundColor: '#665CD7',
       color: '#fff',
+    },
+    '&.MuiButton-root.Mui-disabled': {
+      color: '#fff',
+      backgroundColor: 'rgba(0, 0, 0, 0.26)',
     },
   },
   closeSx: {
@@ -206,57 +206,53 @@ export const customCalenderStyle = {
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  startSx: {
+  startSx: {},
+  titleTime: {
+    color: '#929292',
+    fontSize: '14px',
+    fontWeight: '500',
   },
-  titleTime:{
-    color:'#929292',
-    fontSize:'14px',
-    fontWeight:'500',
-  },
-  yearDaySx:{
+  yearDaySx: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     border: '2px solid #E9E9E9',
-    padding:'9px 16px',
+    padding: '9px 16px',
     borderRadius: '8px',
     '& .MuiTextField-root': {
       maxWidth: '62px',
       borderRight: '2px solid #000',
-  
-      },
-      "& .MuiSelect-select":{
-        '&.MuiOutlinedInput-input':{
-          padding: '0px',
-          paddingRight: '20px',
-          paddingLeft: '12px',
-        },
-        '& .MuiOutlinedInput-input':{
-
-        }
-      },
-      
-      '& .MuiInputAdornment-root .MuiSvgIcon-root': {
-        color: '#929292',
-        right:'1px'
-      },
-      '& .MuiOutlinedInput-root': {
-        paddingRight: '0px',
-        color: '#000 !important',
-        // borderRight:'2px solid #BDBDBD',
-        borderRadius:'0px',
-    maxWidth: '102px',
-
-        marginBottom:'0px'
-      },
-      '& .MuiOutlinedInput-notchedOutline': {
-        border: '0px',
-      },
-      '& .MuiOutlinedInput-input': {
-        cursor: 'pointer',
+    },
+    '& .MuiSelect-select': {
+      '&.MuiOutlinedInput-input': {
         padding: '0px',
-        paddingLeft: '8px',
+        paddingRight: '20px',
+        paddingLeft: '12px',
       },
+      '& .MuiOutlinedInput-input': {},
+    },
+
+    '& .MuiInputAdornment-root .MuiSvgIcon-root': {
+      color: '#929292',
+      right: '1px',
+    },
+    '& .MuiOutlinedInput-root': {
+      paddingRight: '0px',
+      color: '#000 !important',
+      // borderRight:'2px solid #BDBDBD',
+      borderRadius: '0px',
+      maxWidth: '102px',
+
+      marginBottom: '0px',
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+      border: '0px',
+    },
+    '& .MuiOutlinedInput-input': {
+      cursor: 'pointer',
+      padding: '0px',
+      paddingLeft: '8px',
+    },
   },
   startEndSx: {
     display: 'flex',
@@ -271,29 +267,30 @@ export const customCalenderStyle = {
       width: '26px',
       height: '26px',
       cursor: 'pointer',
-      filter: 'invert(50%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(50%)',
-      "-webkit-filter": 'invert(50%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(50%)',
+      filter:
+        'invert(50%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(50%)',
+      '-webkit-filter':
+        'invert(50%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(50%)',
     },
     '& .MuiTextField-root': {
-    maxWidth: '137px',
-
+      maxWidth: '137px',
     },
-    "& .MuiSelect-select":{
-      '&.MuiOutlinedInput-input':{
+    '& .MuiSelect-select': {
+      '&.MuiOutlinedInput-input': {
         padding: '0px',
         paddingRight: '20px',
       },
     },
-    
+
     '& .MuiInputAdornment-root .MuiSvgIcon-root': {
       color: '#929292',
-      right:'-2px'
+      right: '-2px',
     },
     '& .MuiOutlinedInput-root': {
       paddingRight: '0px',
       color: '#000 !important',
       // borderRight:'2px solid #BDBDBD',
-      borderRadius:'0px',
+      borderRadius: '0px',
     },
     '& .MuiOutlinedInput-notchedOutline': {
       border: '0px',
@@ -314,19 +311,18 @@ export const customCalenderStyle = {
     //     margin:'10px 0px'
     //   },
     // },
-    
   },
-  searchIconSx:{
-    ml: 1, fontSize: '16px', color: '#818181' 
+  searchIconSx: {
+    ml: 1,
+    fontSize: '16px',
+    color: '#818181',
   },
-  menuItems:{
-    fontSize:'14px',
-    fontWeight:'500',
-  }
-  ,
-  daySelectSx:{
+  menuItems: {
+    fontSize: '14px',
+    fontWeight: '500',
   },
-  dropDownSx:{
+  daySelectSx: {},
+  dropDownSx: {
     input: {
       '&[type="number"]::-webkit-inner-spin-button, &[type="number"]::-webkit-outer-spin-button':
         {
@@ -335,13 +331,13 @@ export const customCalenderStyle = {
         },
     },
   },
-  keyArrowSx:{
+  keyArrowSx: {
     display: 'block',
     height: '18px',
     fontSize: '21px',
     color: '#3B3B3B',
   },
-  totalArrowSx:{
+  totalArrowSx: {
     display: 'block',
     justifyContent: 'center',
     position: 'absolute',
@@ -351,28 +347,31 @@ export const customCalenderStyle = {
     margin: '0px 4px',
     fontSize: '17px',
   },
-  searchIconStyle:{
-    ml: 1, fontSize: '16px', color: '#818181'
+  searchIconStyle: {
+    ml: 1,
+    fontSize: '16px',
+    color: '#818181',
   },
-  addCalenderListSx:{
-    color: '#665CD7', ml: '8px'},
-    eventIconAddSx:{
-      padding: '0px',
-      paddingRight: '4px',
-    },
-    eventTitleHeadSx:{
-      fontSize: '14px', color: '#000',
-    },
-    customEventIconSx:{
-      display: 'flex', alignItems: 'center' ,
-      margin:'0px 5px'
-    },
-    eventIcons:{
-      fontSize:'14px',
-      color:'#eaeaea'
-    },
-    overAllEventSx:{
-      
-    }
+  addCalenderListSx: {
+    color: '#665CD7',
+    ml: '8px',
+  },
+  eventIconAddSx: {
+    padding: '0px',
+    paddingRight: '4px',
+  },
+  eventTitleHeadSx: {
+    fontSize: '14px',
+    color: '#000',
+  },
+  customEventIconSx: {
+    display: 'flex',
+    alignItems: 'center',
+    margin: '0px 5px',
+  },
+  eventIcons: {
+    fontSize: '14px',
+    color: '#eaeaea',
+  },
+  overAllEventSx: {},
 };
-

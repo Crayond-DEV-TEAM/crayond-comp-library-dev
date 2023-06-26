@@ -287,11 +287,12 @@ function App() {
    }
 }
 
-// const [modalTitle, setModalTitle] = useState('');
+const [modalTitle, setModalTitle] = useState('');
 
-// const onEventsEdit = (newEvent:any) => { 
-//   setEditEvent(null);
-// };
+const onEventsEdit = (newEvent:any) => { 
+  console.log(newEvent,'newEvent')
+  // setEditEvent(null);
+};
 const [openModal, setOpenModal] = useState(false);
 
 const onCustomizeEvent = (e: any) => {
@@ -310,6 +311,7 @@ const onCustomizeEvent = (e: any) => {
       eventsData={events}
       onEventEdit={onEventEdit}
       calenderList={calenderList}
+      onEventsEdit={onEventsEdit}
       CommonLeaves={CommonLeaves}
       nationalLeaves={nationalLeaves}
       eventCategories={eventCategories}
@@ -335,7 +337,7 @@ const onCustomizeEvent = (e: any) => {
                       style: { backgroundColor: '#fff' },
                     }}
                   />
-                  <IconButton onClick={onEventDateSelect(modalTitle)}>+</IconButton>
+                  <IconButton onClick={onEventDateSelect}>+</IconButton>
         </DialogContent>
       </Dialog> */}
       <Screen
