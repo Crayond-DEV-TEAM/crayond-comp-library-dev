@@ -4,8 +4,9 @@ import React from 'react';
 import { SimpleSelect } from './select';
 import { styles } from './style';
 import { Sample } from '../../utils/constants';
+import { MobileInputProps } from './props';
 
-export const MobileInput = (props: any) => {
+const MobileInput = (props: MobileInputProps) => {
   const {
     error,
     errorMessage,
@@ -13,6 +14,7 @@ export const MobileInput = (props: any) => {
     label,
     labelStyle,
     inputStyle,
+    onChange,
     ...reset
   } = props;
   const initialMobileCode = props?.value?.mobile_code ?? '+91';
@@ -29,7 +31,7 @@ export const MobileInput = (props: any) => {
     };
 
     setSelectValue(newState);
-    props?.onChange(newState);
+     onChange(newState);
   };
 
   const onChangeInput = (mobile: any) => {
@@ -84,7 +86,8 @@ export const MobileInput = (props: any) => {
         {/* Mobile Number Input Field */}
         <Box sx={styles.inputContainer}>
           <InputBase
-            type={'number'}
+            className={'mobileInput'}
+            type='number'
             disabled={(props?.readonly || props?.disabled) ?? false}
             fullWidth
             onInvalid={(e: any) => {
@@ -115,16 +118,22 @@ export const MobileInput = (props: any) => {
 };
 export default MobileInput;
 // Specifies the required props for the component:
-MobileInput.propTypes = {
-  label: PropTypes.string,
-  isRequired: PropTypes.bool,
-  isReadonly: PropTypes.bool,
-  // value: PropTypes.object,
-  type: PropTypes.string,
-  errorValidation: PropTypes.object,
-  handleChange: PropTypes.func,
-  onErrorOccured: PropTypes.func,
-};
+// MobileInput.propTypes = {
+//   label: PropTypes.string,
+//   isRequired: PropTypes.bool,
+//   isReadonly: PropTypes.bool,
+//   // value: PropTypes.object,
+//   type: PropTypes.string,
+//   errorValidation: PropTypes.object,
+//   handleChange: PropTypes.func,
+//   onErrorOccured: PropTypes.func,
+// };
 MobileInput.defaultProps = {
   onChange: () => {},
+  error:false,
+  errorMessage:"",
+  required:false,
+  label:"",
+  labelStyle:{},
+  inputStyle:{},
 };
