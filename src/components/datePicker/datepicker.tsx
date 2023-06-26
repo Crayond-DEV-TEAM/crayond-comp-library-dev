@@ -102,7 +102,7 @@ const SingleDatePicker = (props: SingleDatePickerProps) => {
                 },
               },
               day: {
-                backgroundColor: '#f9b591',
+                backgroundColor: '#ffffff',
               } as any,
             }}
           />
