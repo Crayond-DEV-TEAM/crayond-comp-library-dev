@@ -51,7 +51,6 @@ Primary.args = {
   fullWidth:true,
   variant:'outlined',
   size:'small',
-  textFieldStyle:{},
   label: "",
   type: "text",
   endIcon: null,
@@ -72,7 +71,6 @@ Primary.args = {
   inLineStyles: {},
   startAdornments: null,
   endAdornments: null,
-  onChange: undefined ,
-  floatingLable:''
+  onChange: undefined 
 };
 

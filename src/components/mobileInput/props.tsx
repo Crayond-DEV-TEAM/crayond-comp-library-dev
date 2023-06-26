@@ -1,37 +1,33 @@
 export interface MobileInputProps {
   placeholder?: string | undefined;
-  errorValidation?: any;
-  focus?(): void;
-  isRequired?: JSX.Element;
+  errorValidation?: any; 
+  required?: boolean;
   label?: React.ReactNode;
-  handleChange(newState: { mobile: any; mobile_code: {}; }): unknown;
-  onChange?: (e: any) => any;
+  onChange: Function;
   component?: any;
   fullWidth?: boolean;
   autoFocus?: boolean;
-  isReadonly?: boolean;
+  readonly?: boolean;
   disabled?: boolean;
   disabledNumber?: number;
-  isReadonlyCC?: string;
   enterKeyPress?: object;
   handleChangeSelect?: object;
   value?: any,
   error?: boolean;
-  onError?: string | false;
-  onErrorOccured?: any;
   helperText?: string;
   id?: string;
   selectValue?: any;
   limits?: any,
   isError?: string;
   flag?: any;
-  className?: object;
+  className?: string | undefined;
   maxLength?: number;
   mobileInputStyle?: object;
-  rootWapperstyle: object | any;
-  code?: string;
-  phone?: string;
+  inputStyle?: object | any;
   suggested?: boolean;
   helperTextStyle?:string;
   dropDownStyle?:object;
+  labelStyle?:object;
+  errorMessage?:string | undefined;
+  [key:string]:any;
 }

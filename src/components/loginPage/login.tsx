@@ -121,10 +121,10 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
               {sectionTwo?.cardData?.mobileNumberLogin?.labelText}
             </Typography>
             <MobileInput
-              handleChange={getMobileNumber}
+              onChange={getMobileNumber}
               error={errorNumber}
-              helperText={mobileNumberErrorMsg}
-              rootWapperstyle={{
+              errorMessage={mobileNumberErrorMsg}
+              inputStyle={{
                 ...login_style.textFieldSx,
                 ...sectionTwo?.cardData?.mobileNumberLogin?.mobileFieldstyle,
                 ...{
@@ -184,9 +184,8 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
                   fullWidth
                   size="small"
                   error={errorMail}
-                  helperText={errorMsg}
+                  errorMessage={errorMsg}
                   onChange={getMailValue}
-                  textFieldStyle={login_style.textFieldSx}
                   type={'email'}
                   value={email}
                   label={sectionTwo?.cardData?.socialMedia?.workMailInput?.label}
@@ -211,13 +210,14 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
               fullWidth
               size="small"
               error={errorMail}
-              helperText={errorMsg}
+              errorMessage={errorMsg}
               onChange={getMailValue}
-              textFieldStyle={{ ...login_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.email?.fieldstyle }}
+              inputStyle={{ ...login_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.email?.fieldstyle }}
               type={'email'}
               value={email}
               label={sectionTwo?.cardData?.emailWithPassword?.email?.label}
               labelStyle={sectionTwo?.cardData?.emailWithPassword?.email?.labelStyle}
+              required
             />
             <InputField
               fullWidth
@@ -225,11 +225,11 @@ const LoginScreen: React.FC<LoginScreenProps> = ({
               value={password}
               type={passwordvisible ? 'text' : 'password'}
               error={errorPassword}
-              helperText={errorPasswordMsg}
+              errorMessage={errorPasswordMsg}
               onChange={getPasswordValue}
               label={sectionTwo?.cardData?.emailWithPassword?.password?.label}
               labelStyle={sectionTwo?.cardData?.emailWithPassword?.password?.labelStyle}
-              textFieldStyle={{ ...login_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.password?.fieldstyle }}
+              inputStyle={{ ...login_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.password?.fieldstyle }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment

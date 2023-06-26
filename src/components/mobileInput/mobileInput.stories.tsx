@@ -36,7 +36,7 @@ Primary.args = {
     limits: {},
     isError: '',
     flag: '',
-    className: {},
+    className: '',
     maxLength: 10,
     mobileInputStyle: {},
     rootWapperstyle: {},
