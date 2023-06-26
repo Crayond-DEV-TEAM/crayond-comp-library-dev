@@ -184,15 +184,16 @@ Primary.args = {
   addMoreButtons: 	
   [{label:"name",handleFunction:()=>{}}],
 
-  // startCalendarMaxHeight:undefined,
-  // startCalendarMinHeight:310,
-  // endCalendarMaxHeight:undefined,
-  // endCalendarMinHeight:310,
+  startCalendarMaxHeight:undefined,
+  startCalendarMinHeight:310,
+  endCalendarMaxHeight:undefined,
+  endCalendarMinHeight:310,
   
-  maxDateEnd: '',
-  minDateEnd: '',
-  minDateStart: '',
-  maxDateStart: '',
+  maxDateEnd: undefined,
+  minDateEnd: undefined,
+  minDateStart: undefined,
+  maxDateStart: undefined,
+
   calenderPopoverStyle: {},
   endCalendarStyle: {},
   startCalendarStyle: {},
