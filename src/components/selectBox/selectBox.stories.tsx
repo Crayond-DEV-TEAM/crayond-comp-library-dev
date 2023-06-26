@@ -111,7 +111,7 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
         isSearch: true,
         defaultValue: [],
         handleGroupChange: handleGroupChange,
-        groupedData: args?.groupingProps?.groupedData,
+        groupedData: groupedData,
         arrData: top100Films,
         label: '',
         dropdown: {
