@@ -1,11 +1,12 @@
 import React from 'react';
 import AppBar from '@mui/material/AppBar';
-import { Box, Collapse, Hidden, Toolbar } from '@mui/material';
+import { Box, Collapse, Hidden, SxProps, Toolbar } from '@mui/material';
 import { styles } from './styles';
 import MenuIcon from '../../assets/menuIcon';
 import CloseIcon from '@mui/icons-material/Close';
+import { HeaderProps } from './props';
 
-export default function Header(props: any) {
+export default function Header(props: HeaderProps) {
   const {
     headerComponentList,
     subHeaderComponentList,
@@ -30,7 +31,7 @@ export default function Header(props: any) {
       >
         <Toolbar
           variant="dense"
-          sx={{ ...styles.toolBar, ...toolBarStyle }}
+          sx={{ ...styles.toolBar, ...toolBarStyle } as SxProps}
           {...toolBarProps}
         >
           {headerComponentList
@@ -55,7 +56,7 @@ export default function Header(props: any) {
         {subHeaderComponentList?.length > 0 && (
           <Box
             className={'hideMobileScreen'}
-            sx={{ ...styles.subHeader, ...subHeaderStyle }}
+            sx={{ ...styles.subHeader, ...subHeaderStyle } as SxProps}
           >
             {subHeaderComponentList
               ?.sort((a: any, b: any) => {
