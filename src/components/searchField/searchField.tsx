@@ -29,6 +29,8 @@ import { styles } from './styles';
 
 const SearchField = (props: SearchFieldProps) => {
   const {
+    options, 
+    
     isTextSearch,
     isRecentSearch,
     isCardBased,
@@ -81,6 +83,8 @@ const SearchField = (props: SearchFieldProps) => {
     controlsBgColor,
     controlsTextColor,
     controlsTextSize,
+    navigateData,
+
 
     componentColumnDirection,
     recentSearchLabelColor,
@@ -92,10 +96,8 @@ const SearchField = (props: SearchFieldProps) => {
     categoryLabel1Size,
     categoryLabel2Color,
     categoryLabel2Size,
-
-    textSearchData,
-    navigateData,
-    cardData,
+    primaryCategoryData,
+    secondaryCategoryData,
 
     handleInputOnChange = () => {},
     handleOptionChange = () => {},
@@ -147,7 +149,7 @@ const SearchField = (props: SearchFieldProps) => {
           clearOnEscape={true}
           fullWidth
           value={searched}
-          options={cardData}
+          options={options}
           onChange={(e, value) => handleOnchange(e, value)}
           getOptionLabel={(option) => option?.label}
           sx={{
@@ -436,7 +438,7 @@ const SearchField = (props: SearchFieldProps) => {
                         {categoryLabel1}
                       </Typography>
                       <FoodCategory
-                        option={cardData}
+                        option={primaryCategoryData}
                         handleCategoryData={handleSearchData}
                         searchValue={undefined}
                       />
@@ -452,7 +454,7 @@ const SearchField = (props: SearchFieldProps) => {
                         {categoryLabel2}
                       </Typography>
                       <EmployeeCategory
-                        option={cardData}
+                        option={secondaryCategoryData}
                         handleCategoryData={handleSearchData}
                         searchValue={undefined}
                       />
@@ -563,7 +565,7 @@ SearchField.defaultProps = {
   paperRootStyle: {},
 
   inputRootStyle: {},
-  placeHolderText: 'Search..',
+  placeHolderText: 'Search',
   placeHolderColor: '#929292',
   placeHolderSize: 12,
   inputFontSize: 12,
@@ -619,60 +621,11 @@ SearchField.defaultProps = {
   categoryLabel2Color: '#393939dd',
   categoryLabel2Size: 12,
   categoryLabel2: 'CATEGORY SUGGEST 2',
+  primaryCategoryData:[],
+  secondaryCategoryData:[],
 
   handleInputOnChange: () => {},
   handleOptionChange: () => {},
-
-  textSearchData: [
-    { label: 'Redemption' },
-    { label: 'Henry' },
-    { label: 'Godfather' },
-    { label: 'Dark Knight' },
-    { label: 'Angry Men' },
-    { label: 'Angry women' },
-    { label: 'Angry' },
-    { label: 'Schindler' },
-    { label: 'Pulp Fiction' },
-  ],
-
-  cardData: [
-    {
-      label: 'The Redemption',
-      url: 'https://images.unsplash.com/photo-1517630800677-932d836ab680?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80',
-    },
-    {
-      label: 'The Godfather',
-      url: 'https://images.unsplash.com/photo-1505033575518-a36ea2ef75ae?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGZhY2UlMjBwcm9maWxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60',
-    },
-    {
-      label: 'The Godfather',
-      url: 'https://images.unsplash.com/photo-1543610892-0b1f7e6d8ac1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzJ8fGZhY2UlMjBwcm9maWxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60',
-    },
-    {
-      label: 'The Dark Knight',
-      url: 'https://images.unsplash.com/photo-1534308143481-c55f00be8bd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzZ8fGZhY2UlMjBwcm9maWxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60',
-    },
-    {
-      label: '190 Angry Old',
-      url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fGZhY2UlMjBwcm9maWxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60',
-    },
-    {
-      label: '23 Angry Men',
-      url: 'https://images.unsplash.com/photo-1606510236980-c7cc4e05012a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NDR8fGZhY2UlMjBwcm9maWxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60',
-    },
-    {
-      label: '21 Angry women',
-      url: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTB8fGZhY2UlMjBwcm9maWxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60',
-    },
-    {
-      label: "Schindler's List",
-      url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fGZhY2UlMjBwcm9maWxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60',
-    },
-    {
-      label: 'Pulp Fiction',
-      url: 'https://images.unsplash.com/photo-1599834562135-b6fc90e642ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjV8fGZhY2UlMjBwcm9maWxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60',
-    },
-  ],
 
   navigateData: [
     {

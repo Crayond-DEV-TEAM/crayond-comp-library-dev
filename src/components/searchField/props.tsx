@@ -43,6 +43,11 @@ export interface RecentSearchProps {
   recentSearchItemSize: number;
 }
 export interface SearchFieldProps {
+  options: {
+    label: string;
+    url: string;
+  }[];
+
   isTextSearch: boolean;
   isRecentSearch: boolean;
   isCardBased: boolean;
@@ -106,17 +111,18 @@ export interface SearchFieldProps {
   categoryLabel1Size: number;
   categoryLabel2Color: string;
   categoryLabel2Size: number;
+  primaryCategoryData: {
+    label: string;
+    url: string;
+  }[];
+  secondaryCategoryData: {
+    label: string;
+    url: string;
+  }[];
 
   handleInputOnChange: (val: any) => void;
   handleOptionChange: (val: any) => void;
 
-  textSearchData: {
-    label: string;
-  }[];
-  cardData: {
-    label: string;
-    url: string;
-  }[];
   navigateData: {
     navigateLabel: string;
     icon: React.ReactNode;
