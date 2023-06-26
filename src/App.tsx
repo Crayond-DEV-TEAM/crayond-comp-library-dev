@@ -61,7 +61,6 @@ function App() {
   const handleCheckedItem = (event: object, newValue: object[]) => {
     const convertedValue = newValue as never[];
     setChecked(convertedValue)
-
   }
 
   const handleDefaultChange = (val: any, newValue: object[]) => {

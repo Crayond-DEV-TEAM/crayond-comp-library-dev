@@ -165,7 +165,6 @@ const SelectBox = (props: SelectBoxProps) => {
   const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
   const renderDropdown = (key: string) => {
-
     switch (key) {
       case 'grouping':
         return (
@@ -471,18 +470,15 @@ const SelectBox = (props: SelectBoxProps) => {
                   {
                     background: '#ffff',
                     color: '#666666'
-
                   }}
                 onMouseEnter={() => handleOptionMouseEnter(option?.title)}
-                onMouseLeave={handleOptionMouseLeave} >
+                onMouseLeave={handleOptionMouseLeave}>
                 {option?.title}
               </Typography >
             )
             }
           />
-
         )
-
       case 'default':
         return (
           <Autocomplete
@@ -531,8 +527,7 @@ const SelectBox = (props: SelectBoxProps) => {
                   borderRadius: defaultProps?.input?.borderRadius ? defaultProps?.input?.borderRadius : '4px'
                 }
               }
-            }
-            }
+            }}
             options={defaultProps?.arrData}
             value={
               Array.isArray(defaultProps?.defaultData) ?
@@ -573,19 +568,15 @@ const SelectBox = (props: SelectBoxProps) => {
               </Typography >
             )
             }
-
           />
         )
       default:
         return
     }
-
   }
-
   return (
     <Box sx={styles?.rootSx}>
       {/* header */}
-      {/* <Label {...getInputLabelProps()}>Customized hook</Label> */}
       <Stack direction={'row'}>
         {renderDropdown(selectType)}
       </Stack>
@@ -596,7 +587,119 @@ const SelectBox = (props: SelectBoxProps) => {
 export default SelectBox
 
 SelectBox.defaultProps = {
+  limitTags: 2,
+  groupingProps: {
+    isCloseIcon: true,
+    isSearch: true,
+    defaultValue: [],
+    handleGroupChange: () => null,
+    groupedData: [],
+    arrData: [],
+    label: '',
+    dropdown: {
+      minHeight: '',
+      maxHeight: '',
+      maxWidth: '',
+      minWidth: '',
+      backgroundColor: '',
+      color: ''
+    },
+    input: {
+      minHeight: '',
+      minWidth: '',
+      backgroundColor: '',
+      maxWidth: '',
+      maxHeight: '',
+      color: '',
+      border: '',
+      borderRadius: ''
+    }
+  },
+  defaultProps: {
+    isCloseIcon: true,
+    isSearch: true,
+    handleDefaultChange: () => null,
+    defaultData: [],
+    arrData: [],
+    defaultValue: [],
+    label: '',
+    dropdown: {
+      minHeight: '',
+      maxHeight: '',
+      maxWidth: '',
+      minWidth: '',
+      backgroundColor: '',
+      color: ''
+    },
+    input: {
+      minHeight: '',
+      minWidth: '',
+      backgroundColor: '',
+      maxWidth: '',
+      maxHeight: '',
+      color: '',
+      border: '',
+      borderRadius: ''
+    }
 
+  },
+  chipProps: {
+    isCloseIcon: true,
+    label: '',
+    isSearch: true,
+    handleChipChange: () => null,
+    chipData: [],
+    arrData: [],
+    defaultValue: [],
+    dropdown: {
+      minHeight: '',
+      maxHeight: '',
+      maxWidth: '',
+      minWidth: '',
+      backgroundColor: '',
+      color: ''
+    },
+    input: {
+      minHeight: '',
+      minWidth: '',
+      backgroundColor: '',
+      maxWidth: '',
+      maxHeight: '',
+      color: '',
+      border: '',
+      borderRadius: ''
+    }
+  },
+  checkboxProps: {
+    isCloseIcon: true,
+    isSearch: true,
+    defaultValue: [],
+    label: '',
+    handleCheckedItem: () => null,
+    CheckableData: [],
+    arrData: [],
+    dropdown: {
+      minHeight: '',
+      maxHeight: '',
+      maxWidth: '',
+      minWidth: '',
+      backgroundColor: '',
+      color: ''
+    },
+    input: {
+      minHeight: '',
+      minWidth: '',
+      backgroundColor: '',
+      maxWidth: '',
+      maxHeight: '',
+      color: '',
+      border: '',
+      borderRadius: ''
+    }
+  },
+  selectType: '',
+  multiple: true,
+  multi: true
 };
 
 interface FilmOptionType {
