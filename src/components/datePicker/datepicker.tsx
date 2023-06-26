@@ -1,31 +1,30 @@
 import Box from '@mui/material/Box';
+import { SxProps } from '@mui/system';
 import { DatePicker, pickersLayoutClasses } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { Moment } from 'moment';
 import { useState } from 'react';
 import CalendarIcon from '../../assets/calendarIcon';
 import { styles } from './style';
-import { SxProps } from '@mui/system';
-import { Dayjs } from 'dayjs';
-
 
 interface SingleDatePickerProps {
   label: string;
-  onChangeFun: (e:Date) => void;
-  value: Dayjs;
+  onChangeFun: (e: Moment | null) => void;
+  value: Moment;
   inputStyleRoot: object;
   dateFormat: string;
   disablePast: boolean;
   disableFuture: boolean;
   OpenPickerIcon: any;
-  iconPosition:'left'|'right',
-  hoverInputColor:string,
-  focusedInputColor:string,
-  defaultBorderColor:string,
-  inputRootStyle:SxProps;
-  views:['year','month','day']
-  calenderBorderColor:string,
-  calendarBackgroundColor:string,
+  iconPosition: 'left' | 'right';
+  hoverInputColor: string;
+  focusedInputColor: string;
+  defaultBorderColor: string;
+  inputRootStyle: SxProps;
+  views: ['year', 'month', 'day'];
+  calenderBorderColor: string;
+  calendarBackgroundColor: string;
 }
 
 const SingleDatePicker = (props: SingleDatePickerProps) => {
@@ -43,28 +42,31 @@ const SingleDatePicker = (props: SingleDatePickerProps) => {
     views,
     calenderBorderColor,
     calendarBackgroundColor,
-
   } = props;
-  const [values, setValue] = useState<Dayjs | null>(null);
 
-  const handleDateChange = (date: Dayjs) => {
-    if(onChangeFun){
-      onChangeFun(date)
+  const [value, setValue] = useState<Moment | null>();
+
+  const handleDateChange = (date: Moment | null) => {
+    console.log(date);
+
+    if (onChangeFun) {
+      onChangeFun(date);
     }
     setValue(date);
   };
 
   return (
     <>
-      <Box sx={styles.root}>
+      <Box sx={{ ...styles.root }}>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <DatePicker
             sx={{
               ...styles.inputStyleRoot,
-              ...inputStyleRoot,
+              ...inputStyleRoot,             
+              '& .MuiPaper-root': { backgroundColor: 'red', },
               '& .MuiOutlinedInput-root': {
                 border: `1px solid ${defaultBorderColor}`,
-                flexDirection: iconPosition ==="left" ?'row-reverse':"",
+                flexDirection: iconPosition === 'left' ? 'row-reverse' : '',
                 '&:hover fieldset': {
                   border: `1px solid ${hoverInputColor}`,
                 },
@@ -73,28 +75,34 @@ const SingleDatePicker = (props: SingleDatePickerProps) => {
                 },
               },
             }}
-            value={values}
+            value={value}
             format={`${dateFormat}`}
             disablePast={disablePast}
             views={views}
-            onChange={(date:any)=>handleDateChange(date)}
+            onChange={(date: Moment | null) => handleDateChange(date)}
             components={{
               OpenPickerIcon: OpenPickerIcon,
             }}
             disableFuture={disableFuture}
+            
             slotProps={{
+              desktopPaper: {
+                elevation:0,
+                sx:{
+                  marginTop:"8px",
+                }
+              },
               layout: {
                 sx: {
                   [`.${pickersLayoutClasses.contentWrapper}`]: {
                     borderRadius: '8px',
                     border: `1px solid ${calenderBorderColor} `,
-                    marginTop: '10px',
-                    backgroundColor:calendarBackgroundColor,
+                    backgroundColor: calendarBackgroundColor,
                   },
                 },
               },
               day: {
-                backgroundColor: '#EFEEFB',
+                backgroundColor: '#f9b591',
               } as any,
             }}
           />
@@ -106,19 +114,18 @@ const SingleDatePicker = (props: SingleDatePickerProps) => {
 SingleDatePicker.defaultProps = {
   onChangeFun: () => {},
   value: '',
-  views:['year', 'month', 'day'],
+  views: [],
   inputStyleRoot: {},
   dateFormat: 'DD MMM YY',
   disablePast: false,
   disableFuture: false,
   OpenPickerIcon: CalendarIcon,
-  iconPosition:'left',
-  hoverInputColor:"#B2ADEB",
-  focusedInputColor:"#665CD7",
-  inputRootStyle:{},
-  defaultBorderColor:"#E9E9E9",
-  calenderBorderColor:"#665CD7",
-  calendarBackgroundColor:'',
-
+  iconPosition: 'left',
+  hoverInputColor: '#B2ADEB',
+  focusedInputColor: '#665CD7',
+  inputRootStyle: {},
+  defaultBorderColor: '#E9E9E9',
+  calenderBorderColor: '#665CD7',
+  calendarBackgroundColor: '',
 };
 export default SingleDatePicker;
