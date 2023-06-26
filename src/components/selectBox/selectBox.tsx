@@ -13,7 +13,7 @@ import Stack from '@mui/material/Stack';
 
 const SelectBox = (props: SelectBoxProps) => {
   const {
-    rootStyleSx,
+    // rootStyleSx,
     multi,
     groupingProps = {
       isCloseIcon: false,
@@ -22,6 +22,7 @@ const SelectBox = (props: SelectBoxProps) => {
       groupedData: [],
       arrData: [],
       defaultValue: [],
+      label: '',
       dropdown: {
         minHeight: '',
         maxHeight: '',
@@ -47,6 +48,7 @@ const SelectBox = (props: SelectBoxProps) => {
       handleDefaultChange: () => null,
       defaultData: [],
       defaultValue: [],
+      label: '',
       arrData: [],
       dropdown: {
         minHeight: '',
@@ -73,6 +75,7 @@ const SelectBox = (props: SelectBoxProps) => {
       handleChipChange: () => null,
       chipData: [],
       defaultValue: [],
+      label: '',
       arrData: [],
       dropdown: {
         minHeight: '',
@@ -100,6 +103,7 @@ const SelectBox = (props: SelectBoxProps) => {
       CheckableData: [],
       defaultValue: [],
       arrData: [],
+      label: '',
       dropdown: {
         minHeight: '',
         maxHeight: '',
@@ -166,7 +170,6 @@ const SelectBox = (props: SelectBoxProps) => {
       case 'grouping':
         return (
           <Autocomplete
-            // id="grouped-demo"
             options={groupingProps?.arrData}
             defaultValue={groupingProps?.defaultValue}
             limitTags={limitTags}
@@ -176,9 +179,9 @@ const SelectBox = (props: SelectBoxProps) => {
               (groupingProps?.groupedData ?? null)
             }
             multiple={multi}
-            groupBy={(option: CheckedOption) => option.title
+            groupBy={(option: FilmOptionType) => option.title
             }
-            getOptionLabel={(option: CheckedOption) => option.title}
+            getOptionLabel={(option: FilmOptionType) => option.title}
             onChange={(event, newValue: any) =>
               groupingProps?.handleGroupChange(event, newValue)}
             sx={{
@@ -213,11 +216,6 @@ const SelectBox = (props: SelectBoxProps) => {
             }
             renderInput={(params) =>
               <>
-                {/* <div style={{ marginBottom: "-24px",width:"30px" }}>
-                {groupingProps?.isSearch ? <InputAdornment position="end">
-                  <SearchIcon />
-                </InputAdornment> : null}
-              </div> */}
                 <TextField
                   label={groupingProps?.groupedData?.length > 0 ? '' : 'Select Option'}
                   {...params}
@@ -313,33 +311,29 @@ const SelectBox = (props: SelectBoxProps) => {
                     border:
                       checkboxProps?.input?.border ? checkboxProps?.input?.border : '1px solid rgba(0, 0, 0, 0.23)',
                     borderRadius: checkboxProps?.input?.borderRadius ? checkboxProps?.input?.borderRadius : '4px'
+
                   }
                 }
               }
               }
               id="checkboxes-tags-demo"
               options={checkboxProps?.arrData}
-              // value={Array.isArray(checkboxProps?.CheckableData) ?
-              //   checkboxProps?.CheckableData?.length > 0 ?
-              //     checkboxProps?.CheckableData : multi ? [] : null :
-              //   (checkboxProps?.CheckableData ?? null)}
-              // onChange={(event, newValue) => {
-              //   checkboxProps?.handleCheckedItem(event, newValue)
-              // }}
+              value={Array.isArray(checkboxProps?.CheckableData) ?
+                checkboxProps?.CheckableData?.length > 0 ?
+                  checkboxProps?.CheckableData : multi ? [] : null :
+                (checkboxProps?.CheckableData ?? null)}
+              onChange={(event, newValue: CheckedOption[]) => {
+                checkboxProps?.handleCheckedItem(event, newValue)
+              }}
               disableCloseOnSelect
               getOptionLabel={(option) => option.title}
               renderTags={() =>
-                checkboxProps?.CheckableData?.map((option: any, index: number) => (
-                  <Typography key={index} sx={styles?.checkboxTextSx}>
-                    {`${option.title}
-                        `}</Typography>
+                checkboxProps?.CheckableData?.map((option: CheckedOption, index: number) => (
+                  <Typography key={index} sx={styles?.checkboxTextSx} >
+                    {`${option.title}${checkboxProps?.CheckableData?.length - 1 === index ? '' : ','} `}</Typography>
                 ))
               }
               renderOption={(props, option, { selected }) => {
-
-                console.log(selected, 'selected');
-
-                // debugger
                 return (
                   <li {...props}>
                     <Checkbox
@@ -360,7 +354,7 @@ const SelectBox = (props: SelectBoxProps) => {
                         <SearchIcon />
                       </InputAdornment> : null}
                     </div> */}
-                  < TextField {...params} label=""
+                  < TextField {...params} label={checkboxProps?.label ?? ''}
                     placeholder={
                       !!checkboxProps?.CheckableData?.length ? '' : 'Select Option'
                     }
@@ -437,14 +431,14 @@ const SelectBox = (props: SelectBoxProps) => {
                   chipProps?.chipData : multi ? [] : null :
                 (chipProps?.chipData ?? null)
             }
-            placeholder={!!chipProps?.chipData?.length ? 'select Option' : ''
-            }
+
             getOptionLabel={(option) => option.title
             }
             renderInput={(params) =>
               <TextField
+                placeholder={!!chipProps?.chipData?.length ? '' : 'Select Option'}
                 {...params}
-                label=""
+                label={chipProps?.label ?? ""}
               />}
             renderTags={(value: any, getTagProps) =>
               value?.map((option: any, index: number) => (
@@ -552,6 +546,7 @@ const SelectBox = (props: SelectBoxProps) => {
             getOptionLabel={(option) => option.title}
             multiple={multi}
             renderInput={(params) => <TextField {...params}
+              label={defaultProps?.label ?? ""}
               sx={styles?.defaultInputSx}
               placeholder={!!defaultProps?.defaultData?.length ? '' : 'select Option'} />}
             renderTags={() =>
@@ -589,7 +584,7 @@ const SelectBox = (props: SelectBoxProps) => {
   }
 
   return (
-    <Box sx={{ ...styles?.rootSx, ...rootStyleSx }}>
+    <Box sx={styles?.rootSx}>
       {/* header */}
       {/* <Label {...getInputLabelProps()}>Customized hook</Label> */}
       <Stack direction={'row'}>

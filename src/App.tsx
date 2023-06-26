@@ -54,30 +54,29 @@ function App() {
   ];
 
   const [checked, setChecked] = useState([])
+  const [checkedArr] = useState([...CheckBoxData])
   const [defaultData, setDefaultData] = useState([])
   const [groupedData, setGroupedData] = useState([])
   const [chipData, setChipData] = useState([])
 
-  const handleCheckedItem = (event: object, newValue: any) => {
-    debugger
+  const handleCheckedItem = (event: object, newValue: object[]) => {
+    const convertedValue = newValue as never[];
+    setChecked(convertedValue)
 
-    const tempArr = [...checked]
-    tempArr.push({
-      title: newValue?.title,
-      isChecked: !newValue?.isChecked
-    })
-    setChecked(tempArr)
   }
 
-  const handleDefaultChange = (val: any, newValue: any | never) => {
-    setDefaultData(newValue)
+  const handleDefaultChange = (val: any, newValue: object[]) => {
+    const convertedValue = newValue as never[];
+    setDefaultData(convertedValue)
   }
-  const handleGroupChange = (event, val) => {
-    setGroupedData(val)
+  const handleGroupChange = (event: any, val: object[]) => {
+    const convertedValue = val as never[];
+    setGroupedData(convertedValue)
   }
 
-  const handleChipChange = (val: any, newValue: any | never) => {
-    setChipData(newValue)
+  const handleChipChange = (val: any, newValue: object[]) => {
+    const convertedValue = newValue as never[];
+    setChipData(convertedValue)
   }
 
   console.log(checked, 'checked');
@@ -93,6 +92,8 @@ function App() {
           handleGroupChange: handleGroupChange,
           groupedData: groupedData,
           arrData: top100Films,
+          defaultValue: [],
+          label: '',
           dropdown: {
             minHeight: '',
             maxHeight: '',
@@ -119,6 +120,7 @@ function App() {
           defaultData: defaultData,
           arrData: top100Films,
           defaultValue: [],
+          label: '',
           dropdown: {
             minHeight: '',
             maxHeight: '',
@@ -145,6 +147,7 @@ function App() {
           chipData: chipData,
           arrData: top100Films,
           defaultValue: [],
+          label: '',
           dropdown: {
             minHeight: '',
             maxHeight: '',
@@ -170,7 +173,8 @@ function App() {
           defaultValue: [],
           handleCheckedItem: handleCheckedItem,
           CheckableData: checked,
-          arrData: CheckBoxData,
+          arrData: checkedArr,
+          label: '',
           dropdown: {
             minHeight: '',
             maxHeight: '',
@@ -191,7 +195,7 @@ function App() {
           }
         }}
         multi={true}
-        selectType={'checkbox'} data={[]} multiple={false}
+        selectType={'chip'} multiple={false}
       />
     </div>
   )

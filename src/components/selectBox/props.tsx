@@ -8,21 +8,23 @@ interface CheckedOption {
     isChecked: boolean;
 }
 
+
+
 export interface SelectBoxProps {
     multiple: boolean,
-    data: { title: string; year: number; }[],
-    rootStyleSx: object,
+    // rootStyleSx: object,
     multi: boolean,
     limitTags: number;
     groupingProps: {
         isCloseIcon: boolean,
         isSearch: boolean,
         handleGroupChange: (e: any,
-            val: { title: string; year: number; } | { title: string; year: number; }[] | null
+            val: object[]
         ) => void,
-        groupedData: CheckedOption[],
-        arrData: CheckedOption[],
-        defaultValue: CheckedOption[],
+        groupedData: FilmOptionType[],
+        arrData: FilmOptionType[],
+        defaultValue: FilmOptionType[],
+        label: string,
         dropdown: {
             minHeight: string,
             maxWidth: string,
@@ -46,11 +48,12 @@ export interface SelectBoxProps {
         isCloseIcon: boolean,
         isSearch: boolean,
         handleDefaultChange: (e: any,
-            val: { title: string; year: number; } | { title: string; year: number; }[] | null
+            val: object[]
         ) => void,
         defaultData: FilmOptionType[],
         arrData: FilmOptionType[],
         defaultValue: FilmOptionType[],
+        label: string,
         dropdown: {
             minHeight: string,
             maxWidth: string,
@@ -74,11 +77,12 @@ export interface SelectBoxProps {
         isCloseIcon: boolean,
         isSearch: boolean,
         handleChipChange: (e: any,
-            val: { title: string; year: number; } | { title: string; year: number; }[] | null
+            val: object[]
         ) => void,
         chipData: FilmOptionType[],
         arrData: FilmOptionType[],
         defaultValue: FilmOptionType[],
+        label: string,
         dropdown: {
             minHeight: string,
             maxWidth: string,
@@ -102,10 +106,10 @@ export interface SelectBoxProps {
         isCloseIcon: boolean,
         isSearch: boolean,
         handleCheckedItem: (e: any,
-            val: { title: string; isChecked: boolean; }
-        ) => void,
+            val: object[]) => void,
         CheckableData: CheckedOption[],
         arrData: CheckedOption[],
+        label: string,
         defaultValue: CheckedOption[],
         dropdown: {
             minHeight: string,

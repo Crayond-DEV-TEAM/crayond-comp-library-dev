@@ -81,6 +81,7 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
       groupingProps={{
         isCloseIcon: true,
         isSearch: true,
+        defaultValue: [],
         handleGroupChange: handleGroupChange,
         groupedData: groupedData,
         arrData: top100Films,
@@ -181,8 +182,7 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
           borderRadius: ''
         }
       }}
-      selectType={args.selectType} data={[]} multiple={args?.multi}
-    />
+      selectType={args.selectType} multiple={args?.multi} multi={args?.multi} />
   );
 
 }
