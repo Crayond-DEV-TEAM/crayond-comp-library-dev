@@ -2,20 +2,20 @@ import { SxProps } from '@mui/material';
 
 export interface ParamsProps {
   label: string;
-  url: string;
+  url?: string;
 }
 export interface SuggestionProp {
   searchValue: any;
   option: {
     label: string;
-    url: string;
+    url?: string;
   }[];
 }
 export interface Category1Props {
   searchValue: any;
   option: {
     label: string;
-    url: string;
+    url?: string;
   }[];
   handleCategoryData: (val: any) => void;
 }
@@ -28,7 +28,7 @@ export interface ControlsProps {
     navigateLabel: string;
     icon: React.ReactNode;
     onClick: () => void;
-    url: string;
+    url?: string;
   }[];
 }
 export interface RecentSearchProps {
@@ -45,7 +45,7 @@ export interface RecentSearchProps {
 export interface SearchFieldProps {
   options: {
     label: string;
-    url: string;
+    url?: string;
   }[];
 
   isTextSearch: boolean;
@@ -72,6 +72,10 @@ export interface SearchFieldProps {
 
   paperBackgroundColor: string;
   paperBorderColor: string;
+  paperHeight: number;
+  paperMinHeight: number;
+  paperMaxHeight: number;
+
   listTextHoverColor: string;
   listTextHoverBgColor: string;
   keyDownListBgcolor: string;
@@ -127,6 +131,6 @@ export interface SearchFieldProps {
     navigateLabel: string;
     icon: React.ReactNode;
     onClick: () => void;
-    url: string;
+    url?: string;
   }[];
 }

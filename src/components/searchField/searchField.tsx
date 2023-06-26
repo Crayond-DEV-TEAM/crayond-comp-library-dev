@@ -29,8 +29,8 @@ import { styles } from './styles';
 
 const SearchField = (props: SearchFieldProps) => {
   const {
-    options, 
-    
+    options,
+
     isTextSearch,
     isRecentSearch,
     isCardBased,
@@ -55,6 +55,10 @@ const SearchField = (props: SearchFieldProps) => {
 
     paperBackgroundColor,
     paperBorderColor,
+    paperHeight,
+    paperMinHeight,
+    paperMaxHeight,
+
     listTextHoverColor,
     listTextHoverBgColor,
     keyDownListBgcolor,
@@ -85,7 +89,6 @@ const SearchField = (props: SearchFieldProps) => {
     controlsTextSize,
     navigateData,
 
-
     componentColumnDirection,
     recentSearchLabelColor,
     recentSearchLabelSize,
@@ -105,7 +108,9 @@ const SearchField = (props: SearchFieldProps) => {
 
   const [searched, setSearched] = useState<ParamsProps>({ label: '', url: '' });
   const [search, setSearch] = useState('');
-  const [recentSearch, setRecentSearch] = useState<Category1Props['option']>([]);
+  const [recentSearch, setRecentSearch] = useState<Category1Props['option']>(
+    []
+  );
   const [isOpen, setOpen] = useState(false);
 
   const requestOnInputSearch = (val: string) => {
@@ -115,7 +120,7 @@ const SearchField = (props: SearchFieldProps) => {
     setSearch(val);
   };
 
-  const handleSearchData = (val: ParamsProps) => {    
+  const handleSearchData = (val: ParamsProps) => {
     setSearched(val);
     setRecentSearch([...recentSearch, val]);
     setOpen(false);
@@ -337,6 +342,11 @@ const SearchField = (props: SearchFieldProps) => {
               elevation={0}
               sx={
                 {
+                  height: paperHeight,
+                  minHeight: paperMinHeight,
+                  maxHeight: paperMaxHeight,
+                  overflow: 'scroll',
+
                   ...styles.paperRootStyle,
                   ...paperRootStyle,
                   border: `1px solid ${paperBorderColor}`,
@@ -427,7 +437,7 @@ const SearchField = (props: SearchFieldProps) => {
                   />
 
                   <Divider />
-                  <Stack sx={{direction:componentColumnDirection}}>
+                  <Stack sx={{ direction: componentColumnDirection }}>
                     <Stack>
                       <Typography
                         color={categoryLabel1Color}
@@ -579,6 +589,9 @@ SearchField.defaultProps = {
 
   paperBackgroundColor: '',
   paperBorderColor: '#665CD7',
+  paperHeight:'',
+  paperMinHeight:'',
+  paperMaxHeight:"",
 
   listItemSubTextStyles: {},
   listItemSubTextColor: '#E9E9E9',
@@ -621,8 +634,8 @@ SearchField.defaultProps = {
   categoryLabel2Color: '#393939dd',
   categoryLabel2Size: 12,
   categoryLabel2: 'CATEGORY SUGGEST 2',
-  primaryCategoryData:[],
-  secondaryCategoryData:[],
+  primaryCategoryData: [],
+  secondaryCategoryData: [],
 
   handleInputOnChange: () => {},
   handleOptionChange: () => {},

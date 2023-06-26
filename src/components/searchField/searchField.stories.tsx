@@ -67,7 +67,7 @@ const cardData =[
 
 Primary.args = {
 
-  options:[],
+  options:textSearchData,
 
   isTextSearch: false,
   isRecentSearch: false,
@@ -93,6 +93,9 @@ Primary.args = {
 
   paperBackgroundColor: '',
   paperBorderColor: '#665CD7',
+  paperHeight:undefined,
+  paperMinHeight:undefined,
+  paperMaxHeight:undefined,
 
   listItemSubTextStyles: {},
   listItemSubTextColor: '#E9E9E9',

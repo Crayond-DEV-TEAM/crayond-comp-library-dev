@@ -225,7 +225,7 @@ function App() {
       url: 'https://images.unsplash.com/photo-1599834562135-b6fc90e642ca?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NjV8fGZhY2UlMjBwcm9maWxlfGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60',
     },
   ];
-  
+
   const textSearchData =[
     { label: 'Redemption' },
     { label: 'Henry' },
@@ -259,11 +259,13 @@ function App() {
           isShortcutKeyBased={false}
           isShortComponent={false}
 
+          options={textSearchData}  
+
           placeHolderText="Search henry"
           startAdornmentIcon={<SearchIcon />}
           endAdornmentIcon={<Close />}
           inputRootStyle={{}}
-          placeHolderColor={''}
+          placeHolderColor={'#929292'}
           placeHolderSize={12}
           inputBackgroundColor={''}
           inputBorderDefaultColor={'#E9E9E9'}
@@ -272,13 +274,12 @@ function App() {
           paperBackgroundColor={'#ffffff'}
           paperBorderColor={'#665CD7'}
           listTextHoverColor={'#665CD7'}
-          listTextHoverBgColor={'#e4ccf7'}
+          listTextHoverBgColor={'#ffffff'}
           keyDownListBgcolor={''}
           keyDownListTextColor={''}
           cardImgWidth={100}
           cardImgHeight={100}
           imgBorderRadius={4} 
-          options={textSearchData}  
           />
       </div>
       {/* <Screen
