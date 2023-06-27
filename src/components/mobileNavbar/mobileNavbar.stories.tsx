@@ -1,12 +1,9 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import DocsIcon from '../../assets/docsIcon';
 import contact from '../../assets/contactIcon.png';
-import SearchIcon from '../../assets/searchIcon';
-import TemplateIcon from '../../assets/template';
 import Home from '../../assets/homeIcon.png';
 import template from '../../assets/templateIcon.png';
 import userAcc from '../../assets/userAcc.png';
-import MobileNavbar from './index';
+import { MobileNavbar } from './index';
 
 export default {
   title: 'components/MobileNavbar',
@@ -80,5 +77,5 @@ Primary.args = {
   elevation: 3,
   iconHeightPng: '24px',
   iconWidthPng: '24px',
-  isDisableRipple:false
+  isDisableRipple: false,
 };

@@ -25,7 +25,7 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { ProfileThree } from './components/profileThree';
 import yup from './utils/yupSchema';
 import { Screen } from './components/screen';
-import MobileNavbar from './components/mobileNavbar';
+import { MobileNavbar } from './components/mobileNavbar';
 import HomeIcon from './assets/homeIcon';
 import TemplateIcon from './assets/template';
 

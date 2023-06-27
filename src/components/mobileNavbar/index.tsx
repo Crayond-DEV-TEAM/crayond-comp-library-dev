@@ -1,8 +1,8 @@
+import { Box, IconButton, Paper, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { Box, IconButton, Typography, Paper } from '@mui/material';
 import { MobileNavbarProps, NavbarItem } from './props';
 
-const MobileNavbar: React.FC<MobileNavbarProps> = ({
+export const MobileNavbar: React.FC<MobileNavbarProps> = ({
   items,
   onClick,
   iconActiveBgColor,
@@ -133,5 +133,3 @@ MobileNavbar.defaultProps = {
   iconWidthPng: '',
   iconHeightPng: '',
 };
-
-export default MobileNavbar;
