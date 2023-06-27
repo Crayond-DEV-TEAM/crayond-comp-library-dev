@@ -225,8 +225,6 @@ function App() {
 
   }
 
-  console.log(state, 'state');
-
 
 
   return (
