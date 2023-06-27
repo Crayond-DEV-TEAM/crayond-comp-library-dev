@@ -25,9 +25,14 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { ProfileThree } from './components/profileThree';
 import yup from './utils/yupSchema';
 import { Screen } from './components/screen';
-import FileUpload from './components/fileUpload';
+import { FileUpload } from './components/fileUpload';
 import UploadIcon from './assets/uploadIcon';
 import FileUploadIcon from './assets/fileUpload';
+import PictureAsPdfTwoToneIcon from '@mui/icons-material/PictureAsPdfTwoTone';
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
+import InsertPhotoRoundedIcon from '@mui/icons-material/InsertPhotoRounded';
+import InsertDriveFileOutlinedIcon from '@mui/icons-material/InsertDriveFileOutlined';
+import CloseIcon from '@mui/icons-material/Close';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -37,7 +42,7 @@ function App() {
   const [headerCheckbox, setHederCheckbox] = React.useState(true);
   const [alertOpen, setAlertOpen] = React.useState(false);
   const [isDataMask, setIsDataMask] = React.useState(false);
-  let TotalFileSelected: Object[] = [];
+  const [TotalFileSelected, setTotalFileSelected] = React.useState<Object[]>([]);
   const checkboxHandleChange = (data: any) => {
     if (!selectedCheckbox.includes(data)) {
       setSelectedCheckbox([...selectedCheckbox, data]);
@@ -210,20 +215,27 @@ function App() {
       <Box sx={{ mt: 2, width: 428 }}>
         <FileUpload
           icon={<FileUploadIcon width="76px" height="60px" />}
-          desc="Click to browse and upload"
+          placeHolder="Click to browse and upload"
           onClickUpload={(e: any) => {
             console.log(e, '-----Total File Selected');
           }}
-          maxSize='55mb'
+          maxSize="10mb"
           isMultiple={false}
           variant={2}
           TotalFileSelected={TotalFileSelected}
+          setTotalFileSelected={setTotalFileSelected}
           removeIcon={<DeleteIcon />}
           uploadedCardStyle={{ p: 2 }}
           rootStyle={{}}
           cardStyle={{ padding: '30px' }}
-          allowedTypes={[ 'pdf']}
+          allowedTypes={['svg']}
           timeout={5000}
+          fileSizeErrorMsg="File size exceeds the maximum limit"
+          fileTypeErrorMsg="Invalid file type. Allowed types:"
+          svgIcon={<ArticleOutlinedIcon width="42px" height="42px" />}
+          pdfIcon={<PictureAsPdfTwoToneIcon width="42px" height="42px" />}
+          imgIcon={<InsertPhotoRoundedIcon width="42px" height="42px" />}
+          closeIcon={<CloseIcon />}
         />
       </Box>
 

@@ -9,7 +9,7 @@ export const style = {
   iconSx: {
     textAlign: 'center',
   },
-  descSx: {
+  placeHolderSx: {
     textAlign: 'center',
     color: '#929292',
     fontSize: '14px',
@@ -55,9 +55,6 @@ export const style = {
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  deleteIconStyle: {
-    position: 'absolute',
-  },
   pauseButton: {
     position: 'absolute',
     top: '50%',
@@ -73,4 +70,13 @@ export const style = {
     fontSize: '12px',
     textAlign:'center'
   },
+  errorMsgSx:{
+    display:'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    position: 'relative',
+  },
+  closeIconStyle:{
+    
+  }
 };
