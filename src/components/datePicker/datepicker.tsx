@@ -1,5 +1,4 @@
 import Box from '@mui/material/Box';
-import { SxProps } from '@mui/system';
 import { DatePicker, pickersLayoutClasses } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -7,6 +6,7 @@ import { Moment } from 'moment';
 import { useState } from 'react';
 import CalendarIcon from '../../assets/calendarIcon';
 import { styles } from './style';
+import { SxProps } from '@mui/material';
 
 interface SingleDatePickerProps {
   label: string;
