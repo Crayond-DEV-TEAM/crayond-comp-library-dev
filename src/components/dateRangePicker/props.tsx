@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/material';
 import { DateView, PickersDayProps } from '@mui/x-date-pickers';
-import { Dayjs } from 'dayjs';
+import dayjs, { Dayjs } from 'dayjs';
 
 export interface CustomPickerDayProps extends PickersDayProps<Dayjs> {
   dayIsBetween: boolean;
@@ -132,7 +132,7 @@ export interface DateRangePickerProps {
 
   handleEndDateChangeFun: (date: Dayjs | null) => void;
   handleStartDateChangeFun: (date: Dayjs | null) => void;
-  onMonthChangeStartFun: (e:Dayjs) => void;
+  onMonthChangeStartFun: (e:dayjs.Dayjs) => void;
   onMonthChangeEndFun: (e:Dayjs) => void;
   onYearChangeStartFun: (e:Dayjs) => void;
   onYearChangeEndFun: (e:Dayjs) => void;
