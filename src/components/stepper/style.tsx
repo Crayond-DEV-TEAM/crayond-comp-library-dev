@@ -62,14 +62,9 @@ export const Styles = {
     border: ' 1px solid #EFEEFB ',
     p: 1,
     width: { lg: '193px', md: '100px' },
-    // height: '56px',
     borderRadius: '263px',
     display: 'flex',
     alignItems: 'center',
-  },
-  anchorOrigin: {
-    vertical: 'top',
-    horizontal: 'right',
   },
   labelStyle: {
     fontSize: '14px',
@@ -121,10 +116,6 @@ export const Styles = {
     '& .MuiMobileStepper-dot': {
       display: 'none', // Hide the dots if needed
     },
-    
-    // '& .MuiLinearProgress-bar': {
-    //   backgroundColor: 'red', // Replace 'red' with your desired color
-    // },
   },
   contentStyle: {
     height: 255,

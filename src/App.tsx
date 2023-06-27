@@ -2,15 +2,15 @@ import { Box } from '@mui/material';
 import { useState } from 'react';
 import CheckMark from './assets/checkmark';
 import StepperIcon from './assets/stepperIcon';
-import CustomStepper from './components/stepper/stepper';
-import StepperMobile from './components/stepper/stepperMobile';
+import {CustomStepper} from './components/stepper/stepper';
+import {StepperMobile} from './components/stepper/stepperMobile';
 
 function App() {
   const steps = [
     {
       label: 'akila',
       icon: <StepperIcon sx={{ fontSize: 50 }} />,
-      status: 'inprogress',
+      status: 'completed',
       content: 'fefyguyrgf',
       color: 'green',
       completeBadge: <CheckMark />,
@@ -83,6 +83,7 @@ function App() {
         subTitleMobStyle: {},
         titleBoxMobStyle: {},
         progressStyle: {},
+        badgeStyle:{}
       },
     },
     {
@@ -109,6 +110,7 @@ function App() {
         subTitleMobStyle: {},
         titleBoxMobStyle: {},
         progressStyle: {},
+        badgeStyle:{}
       },
     },
     {
@@ -135,6 +137,7 @@ function App() {
         subTitleMobStyle: {},
         titleBoxMobStyle: {},
         progressStyle: {},
+        badgeStyle:{}
       },
     },
   ];
@@ -225,7 +228,6 @@ function App() {
             contentStyle: {},
             stepperParent:{},
           }}
-          handleSubmit={handleSubmit}
           mobileButtons={mobileButtons}
           activeStepMobile={activeStepMobile}
         />

@@ -4,16 +4,14 @@ import MobileStepper from '@mui/material/MobileStepper';
 import Paper from '@mui/material/Paper';
 import * as React from 'react';
 import { BasicButtons } from '../button';
-import { CustomStepperProps } from './props';
+import { ButtonProps, CustomStepperProps } from './props';
 import { Styles } from './style';
-import { ButtonProps } from '../button/props';
 
-const StepperMobile: React.FC<CustomStepperProps> = ({
+export const StepperMobile: React.FC<CustomStepperProps> = ({
   steps,
   mobileButtons = [],
   styles = {},
   activeStepMobile = 0,
-  handleSubmit = () => {},
 }) => {
   const getColor = (status: string) => {
     if (status === 'start')
@@ -34,9 +32,9 @@ const StepperMobile: React.FC<CustomStepperProps> = ({
       };
   };
 
-  const renderIcon = (icon: any) => {
+  const renderIcon = (icon: string | React.ReactNode | SVGRectElement) => {
     if (icon && typeof icon === 'string') {
-      return <img src={icon} />;
+      return <img src={icon} alt="icon" />;
     } else if (icon && React.isValidElement(icon)) {
       return icon;
     } else {
@@ -139,7 +137,6 @@ const StepperMobile: React.FC<CustomStepperProps> = ({
   );
 };
 
-export default StepperMobile;
 StepperMobile.defaultProps = {
   steps: [],
   mobileButtons: [],

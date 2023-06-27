@@ -1,15 +1,22 @@
+import {
+  Badge,
+  BadgeOrigin,
+  Box,
+  Step,
+  Stepper,
+  Typography,
+} from '@mui/material';
 import React from 'react';
-import { Badge, Box, Step, Stepper, Typography } from '@mui/material';
 
 import { BasicButtons } from '../button';
-import { CustomStepperProps, ButtonProps, StepData } from './props';
+import { ButtonProps, CustomStepperProps, StepData } from './props';
 import { Styles } from './style';
 
-const CustomStepper: React.FC<CustomStepperProps> = ({
+export const CustomStepper: React.FC<CustomStepperProps> = ({
   steps = [],
   styles = {},
   buttons = [],
-  activeStep,
+  activeStep = 0,
 }) => {
   const getColor = (status: string, clr: string): string => {
     const statusColors: { [key: string]: string } = {
@@ -52,10 +59,10 @@ const CustomStepper: React.FC<CustomStepperProps> = ({
     }
   };
 
-  const renderIcon = (icon: StepData) => {
-    if (icon && typeof icon === 'string') {
-      return <img src={icon} />;
-    } else if (icon && React.isValidElement(icon)) {
+  const renderIcon = (icon: StepData['icon']) => {
+    if (typeof icon === 'string') {
+      return <img src={icon} alt="" />;
+    } else if (React.isValidElement(icon)) {
       return icon;
     } else {
       return null;
@@ -70,14 +77,21 @@ const CustomStepper: React.FC<CustomStepperProps> = ({
 
   return (
     <Box sx={{ ...styles.rootStyle, ...Styles.rootStyle }}>
-      <Box sx={{ backgroundColor: '#fff', p: 3, borderRadius: '16px' ,...styles.stepperParent}}>
+      <Box
+        sx={{
+          backgroundColor: '#fff',
+          p: 3,
+          borderRadius: '16px',
+          ...styles.stepperParent,
+        }}
+      >
         <Stepper nonLinear activeStep={activeStep}>
           {steps.map((step: StepData, index: number) => (
             <Step
               key={step.label}
               sx={{
                 ...Styles.stepWrapStyle,
-                ...step.stepperStyle?.stepWrapStyle,
+                ...(step.stepperStyle?.stepWrapStyle || {}),
               }}
               completed={step.status === 'completed'}
             >
@@ -86,9 +100,15 @@ const CustomStepper: React.FC<CustomStepperProps> = ({
                   {step.status === 'completed' ? (
                     <Badge
                       badgeContent={renderIcon(step.completeBadge)}
-                      anchorOrigin={{
-                        ...Styles.anchorOrigin,
-                        ...step.stepperStyle?.anchorOrigin,
+                      anchorOrigin={
+                        step.stepperStyle?.anchorOrigin as BadgeOrigin
+                      }
+                      sx={{
+                        '& .MuiBadge-badge': {
+                          paddingBottom: '10px',
+                          paddingLeft:'10px'
+                        },
+                        ...(step.stepperStyle?.badgeStyle || {}),
                       }}
                     >
                       {renderIcon(step.icon)}
@@ -98,20 +118,20 @@ const CustomStepper: React.FC<CustomStepperProps> = ({
                   )}
                 </Box>
 
-                <Box sx={{ ...step.stepperStyle?.textAreaStyle }}>
+                <Box sx={{ ...(step.stepperStyle?.textAreaStyle || {}) }}>
                   <Typography
                     sx={{
                       ...Styles.labelStyle,
-                      ...step.stepperStyle?.labelStyle,
+                      ...(step.stepperStyle?.labelStyle || {}),
                     }}
                   >
                     {step.label}
                   </Typography>
                   <Typography
-                    color={getColor(step.status, step.color)}
+                    color={getColor(step.status, step.color || '')}
                     sx={{
                       ...Styles.statusStyle,
-                      ...step.stepperStyle?.statusStyle,
+                      ...(step.stepperStyle?.statusStyle || {}),
                     }}
                   >
                     {step.status}
@@ -140,8 +160,6 @@ const CustomStepper: React.FC<CustomStepperProps> = ({
     </Box>
   );
 };
-
-export default CustomStepper;
 
 CustomStepper.defaultProps = {
   steps: [],

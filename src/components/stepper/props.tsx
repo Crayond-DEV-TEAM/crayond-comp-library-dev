@@ -1,12 +1,15 @@
 export interface StepData {
   label: string;
   status: string;
-  content?: string | any;
-  color?: string | any;
-  icon?: any;
-  completeBadge?: React.ReactNode | any;
+  content?: string | React.ReactNode;
+  color?: string;
+  icon?: string | React.ReactNode | SVGRectElement;
+  completeBadge?: React.ReactNode;
   stepperStyle?: {
-    anchorOrigin?: string | any;
+    anchorOrigin?:
+      | string
+      | Partial<Record<'vertical' | 'horizontal', 'top' | 'bottom' | 'center'>>
+      | object;
     labelStyle?: object;
     statusStyle?: object;
     stepWrapStyle?: object;
@@ -20,6 +23,8 @@ export interface StepData {
     progressStyle?: object;
     iconBackgroundStyle?: object;
     iconInActiveStyle?: object;
+    badgeStyle?:object;
+    
   };
 }
 
@@ -31,11 +36,11 @@ export interface CustomStepperProps {
     rootStyle?: object;
     contentStyle?: object;
     buttonsContainerMob?: object;
-    stepperParent?:object;
+    stepperParent?: object;
   };
-  mobileButtons?: any;
-  buttons?: any;
-  resetBtn?: any;
+  mobileButtons?: ButtonProps[];
+  buttons?: ButtonProps[];
+  resetBtn?: ButtonProps[];
   activeStep?: number;
   activeStepMobile?: number;
   handleSubmit?: () => void;

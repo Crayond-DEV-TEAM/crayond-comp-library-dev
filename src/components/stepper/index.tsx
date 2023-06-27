@@ -1,1 +1,2 @@
-export { default as CustomStepper } from "./stepper";
+export { CustomStepper } from './stepper';
+export { StepperMobile } from './stepperMobile';
