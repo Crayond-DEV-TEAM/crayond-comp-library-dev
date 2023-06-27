@@ -1185,7 +1185,7 @@ function App() {
         //   setHederCheckbox: setHederCheckbox,
         // }}
       /> */}
-      {/* <Viewer
+       {/* <Viewer
         rootStyle={{ backgroundColor: '' }}
         headerOptions={{
           title: 'My Profile',
@@ -1341,9 +1341,9 @@ function App() {
             },
           ],
         }}
-      />
+      /> */}
 
-      <Viewer
+      {/* <Viewer
         rootStyle={{ backgroundColor: '' }}
         viewBody={{
           viewBodyStyle: {},
@@ -1466,9 +1466,9 @@ function App() {
             },
           ],
         }}
-      />
+      /> */}
 
-      <ProfileThree
+      {/* <ProfileThree
         isEditMode={isEdit}
         titleOptions={{
           title: 'My Profile',
@@ -1836,9 +1836,9 @@ function App() {
             },
           ],
         }}
-      /> */}
-      {/* <SignupScreen
-        option='socialMediaSignup'
+      />
+      <SignupScreen
+        option='mobileNumberSignup'
         sectionOne={{
           breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
           image: { src: loginImg, height:'100%', width: '100%',style:{
@@ -1963,9 +1963,9 @@ function App() {
         onSubmit={(detail: object) => {
           console.log(detail);
         }}
-      /> */}
-      {/* <LoginScreen
-        option="mobileNumberLogin"
+      />
+      <LoginScreen
+        option="emailWithPasswordLogin"
         sectionOne={{
           breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
           image: {
