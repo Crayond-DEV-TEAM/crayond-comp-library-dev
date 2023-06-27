@@ -171,8 +171,8 @@ Primary.args = {
   startViews:["year", "month", "day"],
   endViews:['year', 'day'],
 
-  selectedDateColor: '#665CD7',
-  selectedRangeBgColor: '#665CD7',
+  selectedDateColor: '#ffffff',
+  selectedRangeBgColor: '#dadafc',
   selectedHoverBgColor: '#665CD7',
   selectedHoverTextColor: '#FFFf',
 
