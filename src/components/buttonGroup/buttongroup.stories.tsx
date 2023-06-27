@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import CustomButtonGroup from './index';
+import { CustomButtonGroup } from './index';
 
 export default {
   title: 'components/CustomButtonGroup',

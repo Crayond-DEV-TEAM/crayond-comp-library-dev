@@ -25,9 +25,8 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { ProfileThree } from './components/profileThree';
 import yup from './utils/yupSchema';
 import { Screen } from './components/screen';
-import ButtonGroup from './components/buttonGroup';
-import CustomButtonGroup from './components/buttonGroup';
-import CustomRating from './components/rating';
+import { CustomButtonGroup } from './components/buttonGroup';
+import { CustomRating } from './components/rating';
 import SmilyHeart from './assets/smily_heart';
 import SmilyHeartDisabled from './assets/smily_heart_disabled';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -305,9 +304,10 @@ function App() {
             console.log(clickedLabel);
           }}
           isReadOnly={false}
-          isLableVisible={true}
-          children={<BasicButtons/>}
-          childrenStyle={{m:3}}
+          isLabelVisible={true}
+          children={<BasicButtons />}
+          childrenStyle={{ m: 3 }}
+          precision={1}
         />
       </Box>
 

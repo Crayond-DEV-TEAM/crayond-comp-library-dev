@@ -1,8 +1,8 @@
-import { ReactNode } from 'react';
+import { ReactNode, MouseEvent } from 'react';
 
 interface ButtonItem {
   label: string;
-  value: any;
+  value: number;
   startIcon?: ReactNode;
   endIcon?: ReactNode;
   isdisabled?: true | false;
@@ -10,7 +10,7 @@ interface ButtonItem {
 
 export interface CustomButtonGroupProps {
   buttons: ButtonItem[];
-  onClick: (e: any,value:any) => void;
+  onClick: (e: MouseEvent<HTMLButtonElement>, value: number) => void;
   variant?: 'outlined' | 'contained';
   size?: 'small' | 'medium' | 'large';
   disabled?: boolean;

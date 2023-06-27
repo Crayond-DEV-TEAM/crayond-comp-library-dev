@@ -20,7 +20,8 @@ export interface RadioGroupRatingProps {
   onMouseLeave?: (index: number) => void;
   onClick?: (index: number) => void;
   isReadOnly?: true | false;
-  isLableVisible?: true | false;
-  children?:any;
-  childrenStyle?:object;
+  isLabelVisible?: true | false;
+  children?: React.ReactNode;
+  childrenStyle?: object;
+  precision?: number;
 }

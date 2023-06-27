@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import CustomRating from './index';
+import { CustomRating } from './index';
 import SmilyHeart from '../../assets/smily_heart';
 import SmilyHeartDisabled from '../../assets/smily_heart_disabled';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -46,17 +46,18 @@ export const Secondary = Template.bind({});
 
 Secondary.args = {
   variant: 'star',
+  precision:1,
   styledRating: [
     {
       filled: <FavoriteIcon />,
       unFilled: <FavoriteBorderIcon />,
-      startValue: 4.5,
+      starValue: 4.5,
       remark: '(4.5 | 240 Reviews)',
     },
     {
       filled: <FavoriteIcon />,
       unFilled: <FavoriteBorderIcon />,
-      startValue: 3.5,
+      starValue: 3.5,
       remark: '(3.5 | 240 Reviews)',
     },
   ],

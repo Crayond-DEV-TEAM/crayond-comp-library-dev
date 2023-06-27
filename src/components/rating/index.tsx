@@ -3,7 +3,7 @@ import Rating from '@mui/material/Rating';
 import { Box, Typography } from '@mui/material';
 import { RadioGroupRatingProps } from './props';
 
-const CustomRating: React.FC<RadioGroupRatingProps> = ({
+export const CustomRating: React.FC<RadioGroupRatingProps> = ({
   customIcons,
   variant,
   styledRating,
@@ -14,11 +14,12 @@ const CustomRating: React.FC<RadioGroupRatingProps> = ({
   onMouseLeave,
   onClick,
   isReadOnly,
-  isLableVisible,
+  isLabelVisible,
   children,
   childrenStyle,
+  precision,
 }) => {
-  const maxRatingValue = customIcons?.length || 0;
+  
   const [customIconSet, setCustomIconSet] = useState(customIcons || []);
   const [styledIconSet, setStyledIconSet] = useState(styledRating || []);
   const [selectedLabel, setSelectedLabel] = useState('');
@@ -82,7 +83,7 @@ const CustomRating: React.FC<RadioGroupRatingProps> = ({
               </Box>
             ))}
           </Box>
-          {isLableVisible && (
+          {isLabelVisible && (
             <Box
               sx={{
                 fontSize: '20px',
@@ -104,7 +105,7 @@ const CustomRating: React.FC<RadioGroupRatingProps> = ({
               <Rating
                 name="customized-color"
                 defaultValue={item.starValue}
-                precision={0.5}
+                precision={precision}
                 icon={item.filled}
                 emptyIcon={item.unFilled}
                 readOnly={isReadOnly}
@@ -140,9 +141,10 @@ CustomRating.defaultProps = {
   onMouseLeave: () => {},
   onClick: () => {},
   isReadOnly: false,
-  isLableVisible: true,
+  isLabelVisible: true,
   children: <></>,
   childrenStyle: {},
+  precision:0.5,
 };
 
-export default CustomRating;
+

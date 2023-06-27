@@ -2,7 +2,7 @@ import { Box, Button, ButtonGroup } from '@mui/material';
 import React, { useState } from 'react';
 import { CustomButtonGroupProps } from './props';
 
-const CustomButtonGroup: React.FC<CustomButtonGroupProps> = ({
+export const CustomButtonGroup: React.FC<CustomButtonGroupProps> = ({
   buttons,
   onClick,
   variant = 'outlined',
@@ -20,6 +20,15 @@ const CustomButtonGroup: React.FC<CustomButtonGroupProps> = ({
   ...restProps
 }) => {
   const [selectedButton, setSelectedButton] = useState<any>(null);
+
+  const handleClick = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    index: number
+  ) => {
+    const buttonValue = buttons[index].value;
+    onClick(e, buttonValue);
+    setSelectedButton(buttonValue);
+  };
   return (
     <Box sx={{ ...rootstyle }}>
       <ButtonGroup
@@ -40,9 +49,7 @@ const CustomButtonGroup: React.FC<CustomButtonGroupProps> = ({
             variant={selectedButton === button.value ? 'contained' : variant}
             startIcon={button.startIcon}
             endIcon={button.endIcon}
-            onClick={(e) => {
-              onClick(e,button.value), setSelectedButton(button.value);
-            }}
+            onClick={(e) => handleClick(e, index)}
             sx={{
               backgroundColor:
                 selectedButton === button.value
@@ -60,7 +67,7 @@ const CustomButtonGroup: React.FC<CustomButtonGroupProps> = ({
                 border: 'none',
               },
               '&:hover': {
-                borderColor: '#E9E9E9',
+                borderColor: variant === 'outlined' ? color : 'transparent',
               },
               ...btnStyle,
             }}
@@ -90,4 +97,3 @@ CustomButtonGroup.defaultProps = {
   selectedBgColor: '',
 };
 
-export default CustomButtonGroup;
