@@ -17,7 +17,6 @@ export const Styles = {
   },
 
   iconCompleted: {
-    marginRight: '8px',
     backgroundColor: '#5AC782',
     borderRadius: '100px',
     display: 'grid',
@@ -50,21 +49,22 @@ export const Styles = {
     border: ' 1px solid #EFEEFB ',
     backgroundColor: '#fff',
     p: 1,
-    width: { lg: '193px', md: '100px' },
-    // height: '56px',
+    width: { lg: '193px', md: '130px' },
     borderRadius: '263px',
     display: 'flex',
     alignItems: 'center',
+    gap: 1,
   },
 
   styleActive: {
     backgroundColor: '#EFEEFB',
     border: ' 1px solid #EFEEFB ',
     p: 1,
-    width: { lg: '193px', md: '100px' },
+    width: { lg: '193px', md: '130px' },
     borderRadius: '263px',
     display: 'flex',
     alignItems: 'center',
+    gap: 1,
   },
   labelStyle: {
     fontSize: '14px',
@@ -126,9 +126,8 @@ export const Styles = {
     flexDirection: 'row',
     p: 2,
     gap: 1,
-    mt:2,
-    backgroundColor:'#fff',
-    position:'fixed bottom'
+    mt: 2,
+    backgroundColor: '#fff',
+    position: 'fixed bottom',
   },
-  
 };

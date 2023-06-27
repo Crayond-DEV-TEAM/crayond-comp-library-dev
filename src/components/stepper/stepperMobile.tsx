@@ -1,4 +1,4 @@
-import { LinearProgress, Typography } from '@mui/material';
+import { LinearProgress, SxProps, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 import MobileStepper from '@mui/material/MobileStepper';
 import Paper from '@mui/material/Paper';
@@ -106,10 +106,12 @@ export const StepperMobile: React.FC<CustomStepperProps> = ({
         />
       </Paper>
       <Box
-        sx={{
-          ...Styles?.buttonAreaMob,
-          ...styles?.buttonsContainerMob,
-        }}
+        sx={
+          {
+            ...Styles?.buttonAreaMob,
+            ...styles?.buttonsContainerMob,
+          } as SxProps
+        }
       >
         {mobileButtons.map((button: ButtonProps, index: number) =>
           activeStepMobile !== steps.length - 1 ? (
@@ -117,7 +119,7 @@ export const StepperMobile: React.FC<CustomStepperProps> = ({
               key={index}
               disabled={button.disabled}
               onClick={button.onClick}
-              inLineStyles={styles.btnStyle}
+              inLineStyles={{...styles.btnStyle as SxProps}}
             >
               {button.label}
             </BasicButtons>
@@ -126,7 +128,7 @@ export const StepperMobile: React.FC<CustomStepperProps> = ({
               key={index}
               disabled={button.disabled}
               onClick={button.onClick}
-              inLineStyles={styles.btnStyle}
+              inLineStyles={{...styles.btnStyle as SxProps}}
             >
               {button.label}
             </BasicButtons>

@@ -1,3 +1,5 @@
+import { SxProps } from "@mui/material";
+
 export interface StepData {
   label: string;
   status: string;
@@ -10,20 +12,20 @@ export interface StepData {
       | string
       | Partial<Record<'vertical' | 'horizontal', 'top' | 'bottom' | 'center'>>
       | object;
-    labelStyle?: object;
-    statusStyle?: object;
-    stepWrapStyle?: object;
-    iconCompletedStyle?: object;
-    iconActiveStyle?: object;
-    stepActiveStyle?: object;
-    stepInActiveStyle?: object;
-    textAreaStyle?: object;
-    subTitleMobStyle?: object;
-    titleBoxMobStyle?: object;
-    progressStyle?: object;
-    iconBackgroundStyle?: object;
-    iconInActiveStyle?: object;
-    badgeStyle?:object;
+    labelStyle?: SxProps;
+    statusStyle?: SxProps;
+    stepWrapStyle?: SxProps;
+    iconCompletedStyle?: SxProps;
+    iconActiveStyle?: SxProps;
+    stepActiveStyle?: SxProps;
+    stepInActiveStyle?: SxProps;
+    textAreaStyle?: SxProps;
+    subTitleMobStyle?: SxProps;
+    titleBoxMobStyle?: SxProps;
+    progressStyle?: SxProps;
+    iconBackgroundStyle?: SxProps;
+    iconInActiveStyle?: SxProps;
+    badgeStyle?:SxProps;
     
   };
 }
@@ -31,12 +33,12 @@ export interface StepData {
 export interface CustomStepperProps {
   steps: StepData[];
   styles?: {
-    buttonsContainer?: object;
-    btnStyle?: object;
-    rootStyle?: object;
-    contentStyle?: object;
-    buttonsContainerMob?: object;
-    stepperParent?: object;
+    buttonsContainer?: SxProps;
+    btnStyle?: SxProps;
+    rootStyle?: SxProps;
+    contentStyle?: SxProps;
+    buttonsContainerMob?: SxProps;
+    stepperParent?: SxProps;
   };
   mobileButtons?: ButtonProps[];
   buttons?: ButtonProps[];

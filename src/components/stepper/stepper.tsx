@@ -4,6 +4,7 @@ import {
   Box,
   Step,
   Stepper,
+  SxProps,
   Typography,
 } from '@mui/material';
 import React from 'react';
@@ -96,28 +97,19 @@ export const CustomStepper: React.FC<CustomStepperProps> = ({
               completed={step.status === 'completed'}
             >
               <Box sx={getStepStyles(index, step)}>
-                <Box sx={getIconStyles(index, step)}>
-                  {step.status === 'completed' ? (
-                    <Badge
-                      badgeContent={renderIcon(step.completeBadge)}
-                      anchorOrigin={
-                        step.stepperStyle?.anchorOrigin as BadgeOrigin
-                      }
-                      sx={{
-                        '& .MuiBadge-badge': {
-                          paddingBottom: '10px',
-                          paddingLeft:'10px'
-                        },
-                        ...(step.stepperStyle?.badgeStyle || {}),
-                      }}
-                    >
-                      {renderIcon(step.icon)}
-                    </Badge>
-                  ) : (
-                    renderIcon(step.icon)
-                  )}
-                </Box>
-
+                <Badge
+                  badgeContent={renderIcon(step.completeBadge)}
+                  anchorOrigin={step.stepperStyle?.anchorOrigin as BadgeOrigin}
+                  sx={{
+                    ...(step.stepperStyle?.badgeStyle || {}),
+                  }}
+                  invisible={step.status !== 'completed'}
+                  overlap="circular"
+                >
+                  <Box sx={getIconStyles(index, step)}>
+                    {renderIcon(step.icon)}
+                  </Box>
+                </Badge>
                 <Box sx={{ ...(step.stepperStyle?.textAreaStyle || {}) }}>
                   <Typography
                     sx={{
@@ -144,13 +136,13 @@ export const CustomStepper: React.FC<CustomStepperProps> = ({
         <Box sx={{ ...Styles.contentStyle, ...styles.contentStyle }}>
           {content}
         </Box>
-        <Box sx={{ ...Styles.buttonArea, ...styles.buttonsContainer }}>
+        <Box sx={{ ...Styles.buttonArea, ...styles.buttonsContainer }as SxProps}>
           {buttons.map((button: ButtonProps, index: number) => (
             <BasicButtons
               key={index}
               disabled={button.disabled}
               onClick={button.onClick}
-              inLineStyles={styles.btnStyle}
+              inLineStyles={{...styles.btnStyle as SxProps}} 
             >
               {button.label}
             </BasicButtons>

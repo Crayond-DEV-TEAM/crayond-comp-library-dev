@@ -1,13 +1,13 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import CustomStepper from './stepper';
-import stepperIcon from '../../assets/stepperIcon.png';
 import CheckMark from '../../assets/checkmark';
-import StepperMobile from './stepperMobile';
+import stepperIcon from '../../assets/stepperIcon.png';
+import { StepperMobile } from './stepperMobile';
 
 export default {
   title: 'components/StepperMobile',
   component: StepperMobile,
-  description: 'A custom stepper component for guiding users through a multi-step process for mobile.',
+  description:
+    'A custom stepper component for guiding users through a multi-step process for mobile.',
   argTypes: {
     steps: {
       description:
@@ -41,7 +41,8 @@ export default {
       description: 'To style the icon completed style',
     },
     'steps.stepperStyle.anchorOrigin': {
-      description: 'we can change position of the badge which is used for icon completed (tick icon)',
+      description:
+        'we can change position of the badge which is used for icon completed (tick icon)',
     },
     'steps.stepperStyle.iconActiveStyle': {
       description: 'The style for the active icon.',
@@ -53,7 +54,8 @@ export default {
       description: 'The style for label/title which in used in the step.',
     },
     'steps.stepperStyle.statusStyle': {
-      description: 'The style for the status/description/subtitle which in used in the step.',
+      description:
+        'The style for the status/description/subtitle which in used in the step.',
     },
     'steps.stepperStyle.textAreaStyle': {
       description: 'The style for the active step.',
@@ -65,31 +67,28 @@ export default {
       description: 'The style for parent of the header in mobileview .',
     },
     'steps.stepperStyle.progressStyle': {
-      description: 'The style for the progress bar below the step in mobileview .',
+      description:
+        'The style for the progress bar below the step in mobileview .',
     },
     'steps.label': {
-      description:
-        'Value of lable/title of step',
+      description: 'Value of lable/title of step',
     },
     'steps.icon': {
-      description:
-        'An icon which is used in step',
+      description: 'An icon which is used in step',
     },
     'steps.status': {
-      description:
-      'status of the step like complete/pending..etc',
+      description: 'status of the step like complete/pending..etc',
     },
     'steps.content': {
       description:
-        'The content connect with stepper it may be a form, component or anything'
+        'The content connect with stepper it may be a form, component or anything',
     },
     'steps.color': {
       description:
         'This color represents the status color.we can override the color of the status',
     },
     'steps.completeBadge': {
-      description:
-        'This is the badge which we used for completed icon '
+      description: 'This is the badge which we used for completed icon ',
     },
     'styles.buttonsContainer': {
       description: 'The style for the buttons parent.',
@@ -106,16 +105,15 @@ export default {
     'styles.stepperParent': {
       description: 'The style for the parent of stepper.',
     },
-    'buttons.label':{
+    'buttons.label': {
       description: 'label/name of the button.',
     },
-    'buttons.onClick':{
+    'buttons.onClick': {
       description: 'action of the button',
     },
-    'buttons.disabled':{
+    'buttons.disabled': {
       description: 'we can disable a button if we required',
     },
-    
   },
 } as ComponentMeta<typeof StepperMobile>;
 
@@ -147,7 +145,6 @@ Primary.args = {
         statusStyle: {},
         textAreaStyle: {},
         subTitleMobStyle: {},
-        titleBoxMobStyle: {},
         progressStyle: {},
       },
     },
