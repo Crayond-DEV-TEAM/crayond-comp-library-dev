@@ -3,7 +3,6 @@ import SelectBox from './selectBox';
 import React, { useState } from 'react';
 import { SelectBoxComponent } from '.';
 
-
 export default {
   title: 'Components/selectBox',
   component: SelectBox,
@@ -33,6 +32,16 @@ export default {
 } as ComponentMeta<typeof SelectBox>;
 
 const Template: ComponentStory<typeof SelectBox> = (args) => {
+  interface FilmOptionType {
+    title: string;
+    year: number;
+  }
+
+  interface CheckedOption {
+    title: string;
+    isChecked: boolean;
+  }
+
   const top100Films = [
     { title: 'Option 1', year: 1994 },
     { title: 'Option 2', year: 1972 },
@@ -84,23 +93,34 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
   const [groupedData, setGroupedData] = useState([])
   const [chipData, setChipData] = useState([])
 
-  const handleCheckedItem = (event: object, newValue: object[]) => {
-    const convertedValue = newValue as never[];
+  const handleCheckedItem = (event: object, newValue: CheckedOption[]) => {
+    const slicedData = newValue.filter((item: CheckedOption, index: number) =>
+      newValue.findIndex((obj: CheckedOption) =>
+        obj.title === item.title && obj.isChecked === item.isChecked) === index)
+    const convertedValue = slicedData as never[];
     setChecked(convertedValue)
-
   }
 
-  const handleDefaultChange = (val: any, newValue: object[]) => {
-    const convertedValue = newValue as never[];
+  const handleDefaultChange = (val: any, newValue: FilmOptionType[]) => {
+    const slicedData = newValue.filter((item: FilmOptionType, index: number) =>
+      newValue.findIndex((obj: FilmOptionType) =>
+        obj.title === item.title && obj.year === item.year) === index)
+    const convertedValue = slicedData as never[];
     setDefaultData(convertedValue)
   }
-  const handleGroupChange = (event: any, val: object[]) => {
-    const convertedValue = val as never[];
+  const handleGroupChange = (event: any, newValue: FilmOptionType[]) => {
+    const slicedData = newValue.filter((item: FilmOptionType, index: number) =>
+      newValue.findIndex((obj: FilmOptionType) =>
+        obj.title === item.title && obj.year === item.year) === index)
+    const convertedValue = slicedData as never[];
     setGroupedData(convertedValue)
   }
 
-  const handleChipChange = (val: any, newValue: object[]) => {
-    const convertedValue = newValue as never[];
+  const handleChipChange = (val: any, newValue: FilmOptionType[]) => {
+    const slicedData = newValue.filter((item: FilmOptionType, index: number) =>
+      newValue.findIndex((obj: FilmOptionType) =>
+        obj.title === item.title && obj.year === item.year) === index)
+    const convertedValue = slicedData as never[];
     setChipData(convertedValue)
   }
   return (
@@ -214,7 +234,7 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
           borderRadius: ''
         }
       }}
-      selectType={args.selectType} multiple={args?.multi} multi={args?.multi} />
+      selectType={args.selectType} multiple={args?.multiple} />
   );
 
 }
@@ -400,5 +420,5 @@ Primary.args = {
     }
 
   },
-  multi: true
+  multiple: true
 };

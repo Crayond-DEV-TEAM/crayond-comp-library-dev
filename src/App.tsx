@@ -7,6 +7,16 @@ import { SelectBoxComponent } from './components/selectBox';
 
 function App() {
 
+  interface FilmOptionType {
+    title: string;
+    year: number;
+  }
+
+  interface CheckedOption {
+    title: string;
+    isChecked: boolean;
+  }
+
   const top100Films = [
     { title: 'Option 1', year: 1994 },
     { title: 'Option 2', year: 1972 },
@@ -58,26 +68,36 @@ function App() {
   const [groupedData, setGroupedData] = useState([])
   const [chipData, setChipData] = useState([])
 
-  const handleCheckedItem = (event: object, newValue: object[]) => {
-    const convertedValue = newValue as never[];
+  const handleCheckedItem = (event: object, newValue: CheckedOption[]) => {
+    const slicedData = newValue.filter((item: CheckedOption, index: number) =>
+      newValue.findIndex((obj: CheckedOption) =>
+        obj.title === item.title && obj.isChecked === item.isChecked) === index)
+    const convertedValue = slicedData as never[];
     setChecked(convertedValue)
   }
 
-  const handleDefaultChange = (val: any, newValue: object[]) => {
-    const convertedValue = newValue as never[];
+  const handleDefaultChange = (val: any, newValue: FilmOptionType[]) => {
+    const slicedData = newValue.filter((item: FilmOptionType, index: number) =>
+      newValue.findIndex((obj: FilmOptionType) =>
+        obj.title === item.title && obj.year === item.year) === index)
+    const convertedValue = slicedData as never[];
     setDefaultData(convertedValue)
   }
-  const handleGroupChange = (event: any, val: object[]) => {
-    const convertedValue = val as never[];
+  const handleGroupChange = (event: any, newValue: FilmOptionType[]) => {
+    const slicedData = newValue.filter((item: FilmOptionType, index: number) =>
+      newValue.findIndex((obj: FilmOptionType) =>
+        obj.title === item.title && obj.year === item.year) === index)
+    const convertedValue = slicedData as never[];
     setGroupedData(convertedValue)
   }
 
-  const handleChipChange = (val: any, newValue: object[]) => {
-    const convertedValue = newValue as never[];
+  const handleChipChange = (val: any, newValue: FilmOptionType[]) => {
+    const slicedData = newValue.filter((item: FilmOptionType, index: number) =>
+      newValue.findIndex((obj: FilmOptionType) =>
+        obj.title === item.title && obj.year === item.year) === index)
+    const convertedValue = slicedData as never[];
     setChipData(convertedValue)
   }
-
-  console.log(checked, 'checked');
 
 
   return (
@@ -192,8 +212,7 @@ function App() {
             borderRadius: ''
           }
         }}
-        multi={true}
-        selectType={'chip'} multiple={false}      />
+        selectType={'checkbox'} multiple={true} />
     </div>
   )
 }

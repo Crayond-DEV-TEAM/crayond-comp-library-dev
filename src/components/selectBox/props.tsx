@@ -8,12 +8,9 @@ interface CheckedOption {
     isChecked: boolean;
 }
 
-
-
 export interface SelectBoxProps {
     multiple: boolean,
     // rootStyleSx: object,
-    multi: boolean,
     limitTags: number;
     groupingProps: {
         isCloseIcon: boolean,
@@ -106,7 +103,7 @@ export interface SelectBoxProps {
         isCloseIcon: boolean,
         isSearch: boolean,
         handleCheckedItem: (e: any,
-            val: object[]) => void,
+            val: CheckedOption[]) => void,
         CheckableData: CheckedOption[],
         arrData: CheckedOption[],
         label: string,
