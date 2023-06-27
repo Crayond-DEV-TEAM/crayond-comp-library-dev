@@ -268,6 +268,7 @@ function App() {
             parent: <SettingIcon />,
             parentChild: <InfoIcon />
           },
+<<<<<<< HEAD
           labelText: '',
           fontsize: '44px',
           isCheckBox: false,
@@ -281,6 +282,14 @@ function App() {
           }
         }} />
 
+=======
+        }}
+        onSubmit={(detail: object) => {
+          console.log(detail);
+        }}
+        rootStyle={{ height: '100%', width: '100%' }}
+      />
+>>>>>>> 67b710459571e4e152485879d7cec655110d1c69
     </div>
   )
 }
