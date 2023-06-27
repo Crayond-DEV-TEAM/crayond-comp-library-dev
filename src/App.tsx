@@ -42,7 +42,9 @@ function App() {
   const [headerCheckbox, setHederCheckbox] = React.useState(true);
   const [alertOpen, setAlertOpen] = React.useState(false);
   const [isDataMask, setIsDataMask] = React.useState(false);
-  const [TotalFileSelected, setTotalFileSelected] = React.useState<Object[]>([]);
+  const [TotalFileSelected, setTotalFileSelected] = React.useState<Object[]>(
+    []
+  );
   const checkboxHandleChange = (data: any) => {
     if (!selectedCheckbox.includes(data)) {
       setSelectedCheckbox([...selectedCheckbox, data]);
@@ -221,7 +223,7 @@ function App() {
           }}
           maxSize="10mb"
           isMultiple={false}
-          variant={2}
+          variant={1}
           TotalFileSelected={TotalFileSelected}
           setTotalFileSelected={setTotalFileSelected}
           removeIcon={<DeleteIcon />}
@@ -236,6 +238,7 @@ function App() {
           pdfIcon={<PictureAsPdfTwoToneIcon width="42px" height="42px" />}
           imgIcon={<InsertPhotoRoundedIcon width="42px" height="42px" />}
           closeIcon={<CloseIcon />}
+          inputAccept="image/png"
         />
       </Box>
 
@@ -1185,7 +1188,7 @@ function App() {
         //   setHederCheckbox: setHederCheckbox,
         // }}
       /> */}
-       {/* <Viewer
+      {/* <Viewer
         rootStyle={{ backgroundColor: '' }}
         headerOptions={{
           title: 'My Profile',

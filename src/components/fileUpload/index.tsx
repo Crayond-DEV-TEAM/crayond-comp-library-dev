@@ -5,11 +5,12 @@ import {
   CircularProgress,
   Icon,
   IconButton,
+  SxProps,
   Typography,
 } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import DeleteIcon from '../../assets/deleteIcon';
-import { FileUploadProps } from './props';
+import { FileUploadProps, fileItem } from './props';
 import { style } from './style';
 
 interface myObject {
@@ -53,8 +54,9 @@ export const FileUpload: React.FC<FileUploadProps> = ({
   deleteIconStyle,
   setTotalFileSelected,
   closeIconStyle,
+  inputAccept,
 }) => {
-  const [selectedFiles, setSelectedFiles] = useState<myObject[]>([]);
+  const [selectedFiles, setSelectedFiles] = useState<fileItem[]>([]);
   const [errorFiles, setErrorFiles] = useState<File[]>([]);
   const [activeIntervals, setActiveIntervals] = useState<NodeJS.Timeout[]>([]);
   const [isDragError, setIsDragError] = useState(false);
@@ -83,20 +85,16 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     throw new Error('Invalid file size format');
   }
 
-  const getSelectedFiles = (item: object) => {
-    setTotalFileSelected((prevTotalFileSelected: any) => [
+  const getSelectedFiles = (item: fileItem) => {
+    setTotalFileSelected((prevTotalFileSelected: fileItem[]) => [
       ...prevTotalFileSelected,
       item,
     ]);
   };
 
-  useEffect(() => {
-    onClickUpload(TotalFileSelected);
-  }, [TotalFileSelected]);
-
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = event.target.files;
-    const maxSizeBytes = convertMaxSizeToBytes(maxSize);
+    const maxSizeBytes = convertMaxSizeToBytes(maxSize as string);
     if (files && files.length > 0) {
       const updatedSelectedFiles = [...selectedFiles];
 
@@ -111,6 +109,11 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           };
           updatedSelectedFiles.push(newItem);
           getSelectedFiles(newItem);
+          onClickUpload({
+            event: event,
+            updatedFile: newItem,
+            totalFile: updatedSelectedFiles,
+          });
         } else {
           const invalidFiles = [file];
           setErrorFiles((prevFiles: File[]) => [...prevFiles, ...invalidFiles]);
@@ -179,7 +182,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     if (files && files.length > 0) {
       for (const file of files) {
         if (
-          file.size <= convertMaxSizeToBytes(maxSize) &&
+          file.size <= convertMaxSizeToBytes(maxSize as string) &&
           isFileTypeAllowed(file.name)
         ) {
           const newItem = {
@@ -189,8 +192,14 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             uploadProgress: 0,
             isPaused: false,
           };
-          setSelectedFiles((prevFiles: myObject[]) => [...prevFiles, newItem]);
+          const mergeFiles = [...selectedFiles, newItem];
+          setSelectedFiles(mergeFiles);
           getSelectedFiles(newItem);
+          onClickUpload({
+            event: event,
+            updatedFile: newItem,
+            totalFile: mergeFiles,
+          });
         } else {
           const invalidFiles = [file];
           setErrorFiles((prevFiles: File[]) => [...prevFiles, ...invalidFiles]);
@@ -226,17 +235,24 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     return parseFloat((size / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
-  const handleDelete = (file: File | myObject) => {
-    setSelectedFiles((prevFiles) =>
-      prevFiles.filter((prevFile) => prevFile.file !== file)
+  const handleDelete = (data: fileItem) => {
+    setSelectedFiles((prevFiles: fileItem[]) =>
+      prevFiles.filter((prevFile: fileItem) => prevFile.file !== data.file)
     );
+    onClickUpload({
+      event: null,
+      updatedFile: data,
+      totalFile: selectedFiles.filter(
+        (prevFile) => prevFile.file !== data.file
+      ),
+    });
     setErrorFiles((prevFiles) =>
-      prevFiles.filter((prevFile) => prevFile !== file)
+      prevFiles.filter((prevFile) => prevFile !== data.file)
     );
 
-    if (file instanceof File) {
+    if (data.file instanceof File) {
       const indexToRemove = TotalFileSelected.findIndex(
-        (item: myObject) => item.file === file
+        (item: myObject) => item.file === data.file
       );
       if (indexToRemove !== -1) {
         setTotalFileSelected((prevSelected: any) => {
@@ -248,7 +264,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
     }
   };
 
-  const handlePauseResume = (file: myObject) => {
+  const handlePauseResume = (file: fileItem) => {
     setSelectedFiles((prevFiles) => {
       return prevFiles.map((obj) => {
         if (obj.file === file.file) {
@@ -276,10 +292,14 @@ export const FileUpload: React.FC<FileUploadProps> = ({
         <>
           <label htmlFor="file-upload" style={{ cursor: 'pointer' }}>
             <Box sx={{ ...style.cardSx, ...cardStyle }}>
-              <Box sx={{ ...style.iconSx, ...UploadIconStyle }}>{icon}</Box>
+              <Box sx={{ ...style.iconSx, ...UploadIconStyle } as SxProps}>
+                {icon}
+              </Box>
               <Box>
                 <Typography
-                  sx={{ ...style.placeHolderSx, ...placeHolderStyle }}
+                  sx={
+                    { ...style.placeHolderSx, ...placeHolderStyle } as SxProps
+                  }
                 >
                   {placeHolder}
                 </Typography>
@@ -292,6 +312,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             multiple={isMultiple}
             style={{ display: 'none' }}
             onChange={handleFileChange}
+            accept={inputAccept}
           />
         </>
       )}
@@ -302,12 +323,16 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             <Box sx={{ ...style.cardVtwoSx, ...cardStyle }}>
               <Box>
                 <Typography
-                  sx={{ ...style.placeHolderSx, ...placeHolderStyle }}
+                  sx={
+                    { ...style.placeHolderSx, ...placeHolderStyle } as SxProps
+                  }
                 >
                   {placeHolder}
                 </Typography>
               </Box>
-              <Box sx={{ ...style.iconSx, ...UploadIconStyle }}>{icon}</Box>
+              <Box sx={{ ...style.iconSx, ...UploadIconStyle } as SxProps}>
+                {icon}
+              </Box>
             </Box>
           </label>
           <input
@@ -316,6 +341,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             multiple={isMultiple}
             style={{ display: 'none' }}
             onChange={handleFileChange}
+            accept={inputAccept}
           />
         </>
       )}
@@ -345,7 +371,9 @@ export const FileUpload: React.FC<FileUploadProps> = ({
                 {formatFileSize(file?.file?.size)}
               </Typography>
             </Box>
-            <Box sx={{ ...style.removeIconSx, ...fileRemoveIconStyle }}>
+            <Box
+              sx={{ ...style.removeIconSx, ...fileRemoveIconStyle } as SxProps}
+            >
               {file.loading === 0 && (
                 <CircularProgress
                   variant="determinate"
@@ -363,7 +391,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
               {file.loading === 1 && (
                 <IconButton
                   sx={{ ...deleteIconStyle }}
-                  onClick={() => handleDelete(file.file)}
+                  onClick={() => handleDelete(file)}
                 >
                   {removeIcon}
                 </IconButton>
@@ -388,7 +416,7 @@ export const FileUpload: React.FC<FileUploadProps> = ({
           </Box>
           <Box sx={{ ...style.errorMsgSx, ...errorMsgStyle }}>
             <Box>
-              {file.size > convertMaxSizeToBytes(maxSize) && (
+              {file.size > convertMaxSizeToBytes(maxSize as string) && (
                 <Typography sx={{ ...style.errorSx, ...errorStyle }}>
                   {fileSizeErrorMsg} ({maxSize})
                 </Typography>
@@ -401,7 +429,12 @@ export const FileUpload: React.FC<FileUploadProps> = ({
             </Box>
             <IconButton
               sx={{ ...style.closeIconStyle, ...closeIconStyle }}
-              onClick={() => handleDelete(file)}
+              onClick={() =>
+                handleDelete({
+                  file: file,
+                  uploadProgress: 0,
+                })
+              }
             >
               {closeIcon}
             </IconButton>
@@ -444,4 +477,5 @@ FileUpload.defaultProps = {
   closeIcon: <></>,
   deleteIconStyle: {},
   closeIconStyle: {},
+  inputAccept:''
 };

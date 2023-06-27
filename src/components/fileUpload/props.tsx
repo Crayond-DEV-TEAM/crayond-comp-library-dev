@@ -1,36 +1,54 @@
-import { ReactElement } from "react";
+import { SxProps } from '@mui/material';
+import { ReactElement } from 'react';
 
+export type fileItem = {
+  id?: number | string;
+  file: File;
+  loading?: number;
+  uploadProgress: number;
+  isPaused?: boolean;
+};
 export interface FileUploadProps {
   icon?: React.ReactNode;
-  setTotalFileSelected?:any;
+  setTotalFileSelected: Function;
   placeHolder?: string;
-  onClickUpload?: Function | any;
-  maxSize?: number | string | any;
+  onClickUpload: (data: {
+    event:
+      | React.DragEvent<HTMLDivElement>
+      | React.ChangeEvent<HTMLInputElement>
+      | React.DragEvent<HTMLDivElement>
+      | null;
+    updatedFile: fileItem;
+    totalFile: fileItem[];
+  }) => void;
+  maxSize?: number | string;
   isMultiple: true | false;
-  rootStyle?: object;
-  cardStyle?: object;
-  UploadIconStyle?: object;
-  placeHolderStyle?: object;
-  uploadedCardStyle?: object;
-  uploadedFileBoxStyle?: object;
-  docIconStyle?: object;
-  fileTitleStyle?: object;
-  fileSizeStyle?: object;
-  fileRemoveIconStyle?: object;
-  errorStyle?: object;
+  rootStyle?: SxProps;
+  cardStyle?: SxProps;
+  UploadIconStyle?: SxProps;
+  placeHolderStyle?: SxProps;
+  uploadedCardStyle?: SxProps;
+  uploadedFileBoxStyle?: SxProps;
+  docIconStyle?: SxProps;
+  fileTitleStyle?: SxProps;
+  fileSizeStyle?: SxProps;
+  fileRemoveIconStyle?: SxProps;
+  errorStyle?: SxProps;
   variant?: 1 | 2;
   TotalFileSelected?: any;
   removeIcon: React.ReactNode;
   allowedTypes: string[];
   uploadErrorStyle?: object;
   timeout?: number;
-  errorMsgStyle?:object;
-  fileSizeErrorMsg:string;
-  fileTypeErrorMsg:string;
-  svgIcon?:ReactElement;
-  pdfIcon?:ReactElement;
-  imgIcon?:ReactElement;
-  closeIcon:ReactElement;
-  deleteIconStyle?:object;
-  closeIconStyle?:object;
+  errorMsgStyle?: object;
+  fileSizeErrorMsg: string;
+  fileTypeErrorMsg: string;
+  svgIcon?: ReactElement;
+  pdfIcon?: ReactElement;
+  imgIcon?: ReactElement;
+  closeIcon: ReactElement;
+  deleteIconStyle?: object;
+  closeIconStyle?: object;
+  acceptFiles?: string[];
+  inputAccept?: string;
 }
