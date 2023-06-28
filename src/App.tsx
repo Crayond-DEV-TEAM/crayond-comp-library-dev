@@ -69,32 +69,36 @@ function App() {
   const [chipData, setChipData] = useState([])
 
   const handleCheckedItem = (event: object, newValue: CheckedOption[]) => {
-    const slicedData = newValue.filter((item: CheckedOption, index: number) =>
+    debugger
+    const slicedData = newValue.length > 0 ? newValue?.filter((item: CheckedOption, index: number) =>
       newValue.findIndex((obj: CheckedOption) =>
-        obj.title === item.title && obj.isChecked === item.isChecked) === index)
+        obj.title === item.title && obj.isChecked === item.isChecked) === index) : newValue
     const convertedValue = slicedData as never[];
+
+    console.log(convertedValue, '00000');
+
     setChecked(convertedValue)
   }
 
   const handleDefaultChange = (val: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.filter((item: FilmOptionType, index: number) =>
+    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
       newValue.findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index)
+        obj.title === item.title && obj.year === item.year) === index) : newValue
     const convertedValue = slicedData as never[];
     setDefaultData(convertedValue)
   }
   const handleGroupChange = (event: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.filter((item: FilmOptionType, index: number) =>
+    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
       newValue.findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index)
+        obj.title === item.title && obj.year === item.year) === index) : newValue
     const convertedValue = slicedData as never[];
     setGroupedData(convertedValue)
   }
 
   const handleChipChange = (val: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.filter((item: FilmOptionType, index: number) =>
+    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
       newValue.findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index)
+        obj.title === item.title && obj.year === item.year) === index) : newValue
     const convertedValue = slicedData as never[];
     setChipData(convertedValue)
   }

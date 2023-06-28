@@ -275,7 +275,7 @@ const SelectBox = (props: SelectBoxProps) => {
         return (
           <>
             <Autocomplete
-              multiple
+              multiple={multiple}
               limitTags={limitTags}
               defaultValue={checkboxProps?.defaultValue}
               componentsProps={{
@@ -331,10 +331,10 @@ const SelectBox = (props: SelectBoxProps) => {
               options={checkboxProps?.arrData}
               value={Array.isArray(checkboxProps?.CheckableData) ?
                 checkboxProps?.CheckableData?.length > 0 ?
-                  checkboxProps?.CheckableData : multiple ? [] : [] :
-                (checkboxProps?.CheckableData ?? '') || ' '}
-              onChange={(event, newValue: CheckedOption[]) => {
-                checkboxProps?.handleCheckedItem(event, newValue)
+                  checkboxProps?.CheckableData : multiple ? [] : null :
+                (checkboxProps?.CheckableData ?? null) || ' '}
+              onChange={(event, newValue) => {
+                checkboxProps?.handleCheckedItem(event, newValue as CheckedOption[])
               }}
               disableCloseOnSelect
               getOptionLabel={(option) => option.title}
@@ -379,6 +379,9 @@ const SelectBox = (props: SelectBoxProps) => {
           </>
         )
       case 'chip':
+        {
+          console.log(chipProps?.chipData, 'chipProps?.chipData')
+        }
         return (
 
           <Autocomplete
@@ -484,18 +487,20 @@ const SelectBox = (props: SelectBoxProps) => {
                 />
               ))
             }
+
             renderOption={(props, option) => (
               <Typography {...props}
-                sx={hovered === option?.title || chipProps?.chipData.map(e => e.title).includes(option.title) ? {
+                sx={hovered === option?.title || (Array.isArray(chipProps?.chipData) ? chipProps?.chipData : [chipProps?.chipData])?.map(e => e?.title).includes(option?.title) ? {
                   background: '#E9E9E9',
                   color: '#665CD7'
                 } :
                   {
                     background: '#ffff',
                     color: '#666666'
-                  }}
+                  }
+                }
                 onMouseEnter={() => handleOptionMouseEnter(option?.title)}
-                onMouseLeave={handleOptionMouseLeave}>
+                onMouseLeave={handleOptionMouseLeave} >
                 {option?.title}
               </Typography >
             )
@@ -583,13 +588,16 @@ const SelectBox = (props: SelectBoxProps) => {
               ))
             }
             renderOption={(props, option) => {
+              console.log(option)
               return (
 
                 <Typography {...props}
-                  sx={hovered === option?.title || defaultProps?.defaultData.map(e => e.title).includes(option.title) ? {
-                    background: '#E9E9E9',
-                    color: '#665CD7'
-                  } :
+                  sx={hovered === option?.title || (
+                    (Array.isArray(defaultProps?.defaultData) ? defaultProps?.defaultData : [defaultProps?.defaultData]).map(e => e.title).includes(option.title))
+                    ? {
+                      background: '#E9E9E9',
+                      color: '#665CD7'
+                    } :
                     {
                       background: '#ffff',
                       color: '#666666'
@@ -613,11 +621,6 @@ const SelectBox = (props: SelectBoxProps) => {
       {/* header */}
       <Stack direction={'row'}>
         {renderDropdown(selectType)}
-
-        <Box m={5}>
-          {renderDropdown('grouping')}
-
-        </Box>
       </Stack>
     </Box >
   );
