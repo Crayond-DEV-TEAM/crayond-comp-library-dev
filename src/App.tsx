@@ -232,8 +232,8 @@ function App() {
 
       <TreeComponent
         state={state}
-        defaultExpandIcon={<ExpandIcon />}
-        defaultCollapseIcon={<CollapseIcon />}
+        defaultExpandIcon={<CollapseIcon />}
+        defaultCollapseIcon={<ExpandIcon />}
         checkboxsection={true}
         leftSec={{
           breakpoints: {
@@ -251,7 +251,7 @@ function App() {
             lg: 4
           }
         }}
-        heading='Basic View'
+        heading=''
         onChange={onChange}
         checkBoxStyles={{
           // checkboxIcon: '',
