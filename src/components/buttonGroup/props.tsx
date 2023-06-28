@@ -1,3 +1,4 @@
+import { SxProps } from '@mui/material';
 import { ReactNode, MouseEvent } from 'react';
 
 interface ButtonItem {
@@ -20,7 +21,7 @@ export interface CustomButtonGroupProps {
   selectedBgColor: string;
   fontSize?: string | number;
   fontWeight?: string | number;
-  btnStyle?: object;
-  rootstyle?: object;
-  btnGroupStyle?: object;
+  btnStyle?: SxProps;
+  rootstyle?: SxProps;
+  btnGroupStyle?: SxProps;
 }

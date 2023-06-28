@@ -1,3 +1,5 @@
+import { SxProps } from "@mui/material";
+
 export interface RadioGroupRatingProps {
   customIcons?: {
     SelectIcon: React.ReactElement;
@@ -13,15 +15,15 @@ export interface RadioGroupRatingProps {
     maximumIcon?: number;
   }[];
   variant: 'star' | 'emoji';
-  remarkStyle?: object;
-  selectedLabelStyle?: object;
-  emojiContainerStyle?: object;
+  remarkStyle?: SxProps;
+  selectedLabelStyle?: SxProps;
+  emojiContainerStyle?: SxProps;
   onMouseEnter?: (index: number) => void;
   onMouseLeave?: (index: number) => void;
-  onClick?: (index: number) => void;
+  onClick?: (index: object) => void;
   isReadOnly?: true | false;
   isLabelVisible?: true | false;
   children?: React.ReactNode;
-  childrenStyle?: object;
+  childrenStyle?: SxProps;
   precision?: number;
 }

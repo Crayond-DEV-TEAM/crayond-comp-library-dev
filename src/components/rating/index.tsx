@@ -19,7 +19,6 @@ export const CustomRating: React.FC<RadioGroupRatingProps> = ({
   childrenStyle,
   precision,
 }) => {
-  
   const [customIconSet, setCustomIconSet] = useState(customIcons || []);
   const [styledIconSet, setStyledIconSet] = useState(styledRating || []);
   const [selectedLabel, setSelectedLabel] = useState('');
@@ -27,14 +26,11 @@ export const CustomRating: React.FC<RadioGroupRatingProps> = ({
   const handleIconHover = (index: number) => {
     if (onMouseEnter && onMouseLeave) {
       onMouseEnter(index);
-      onMouseLeave(1);
+      // onMouseLeave(1);
     }
   };
 
   const handleIconClick = (index: number) => {
-    if (onClick) {
-      onClick(index);
-    }
     const updatedIconSet = customIconSet.map((item, i) => {
       if (i === index) {
         return { ...item, value: 1 };
@@ -44,18 +40,24 @@ export const CustomRating: React.FC<RadioGroupRatingProps> = ({
     });
     setSelectedLabel(updatedIconSet[index].label);
     setCustomIconSet(updatedIconSet);
+    if (onClick) {
+      onClick(updatedIconSet[index]);
+    }
   };
-
-  const getRatingValue = (e: any, index: number) => {
-    const setstyleValue: any = styledIconSet?.map((item, i) => {
-      if (i === index) {
-        return { ...item, starValue: e.target.value };
-      } else {
-        return { ...item };
+  const handleRatingChange = (newValue: number | null, index: number) => {
+    if (newValue !== null) {
+      const updatedStyledIconSet = styledIconSet?.map((item, i) => {
+        if (i === index) {
+          return { ...item, starValue: newValue };
+        } else {
+          return { ...item };
+        }
+      });
+      setStyledIconSet(updatedStyledIconSet);
+      if (onClick) {
+        onClick(updatedStyledIconSet[index]);
       }
-    });
-    console.log(e.target.value);
-    setStyledIconSet(setstyleValue);
+    }
   };
 
   return (
@@ -76,6 +78,13 @@ export const CustomRating: React.FC<RadioGroupRatingProps> = ({
                 onClick={() => handleIconClick(index)}
                 onMouseEnter={() => handleIconHover(index)}
                 onMouseLeave={() => handleIconHover(-1)}
+                sx={{
+                  cursor: 'pointer',
+                  transition: 'transform 0.2s',
+                  '&:hover': {
+                    transform: 'scale(1.2)',
+                  },
+                }}
               >
                 <div>
                   {item.value === 0 ? item.SelectIcon : item.unSelectIcon}
@@ -101,7 +110,7 @@ export const CustomRating: React.FC<RadioGroupRatingProps> = ({
       ) : (
         <>
           {styledIconSet?.map((item, index) => (
-            <Box sx={{ display: 'flex', gap: 1 }}>
+            <Box key={index} sx={{ display: 'flex', gap: 1 }}>
               <Rating
                 name="customized-color"
                 defaultValue={item.starValue}
@@ -109,13 +118,14 @@ export const CustomRating: React.FC<RadioGroupRatingProps> = ({
                 icon={item.filled}
                 emptyIcon={item.unFilled}
                 readOnly={isReadOnly}
-                onClick={(e) => getRatingValue(e, index)}
+                onChange={(e, newValue) => handleRatingChange(newValue, index)}
                 onMouseEnter={() => handleIconHover(index)}
                 onMouseLeave={() => handleIconHover(-1)}
                 max={item.maximumIcon}
               />
               {item.remark && (
                 <Typography
+                  key={index}
                   sx={{ color: '#98A0AC', fontSize: '12px', ...remarkStyle }}
                 >
                   {'(' + item.starValue + '|' + item.remark + ')'}
@@ -144,7 +154,5 @@ CustomRating.defaultProps = {
   isLabelVisible: true,
   children: <></>,
   childrenStyle: {},
-  precision:0.5,
+  precision: 0.5,
 };
-
-

@@ -288,7 +288,7 @@ function App() {
       <Box sx={{ mt: 2 }}>
         <CustomRating
           customIcons={customIcons}
-          variant="emoji"
+          variant="star"
           styledRating={styledRating}
           remarkStyle={{}}
           selectedLabelStyle={{}}
@@ -299,15 +299,14 @@ function App() {
           onMouseLeave={(index: number) => {
             console.log(index);
           }}
-          onClick={(index) => {
-            const clickedLabel = customIcons[index].label;
-            console.log(clickedLabel);
+          onClick={(data) => {
+            console.log(data);
           }}
           isReadOnly={false}
           isLabelVisible={true}
           children={<BasicButtons />}
           childrenStyle={{ m: 3 }}
-          precision={1}
+          precision={0.5}
         />
       </Box>
 
