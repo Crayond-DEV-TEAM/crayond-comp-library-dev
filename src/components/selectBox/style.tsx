@@ -12,6 +12,9 @@ export const styles = {
   },
   checkboxTextSx: {
     color: '#262626',
+    padding: '8px 4px',
+    // width: '100px',
+    whiteSpace: 'nowrap',
     display: 'flex',
     alignItems: 'center',
     fontSize: '14px',

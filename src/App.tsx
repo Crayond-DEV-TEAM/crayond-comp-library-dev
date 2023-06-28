@@ -69,7 +69,6 @@ function App() {
   const [chipData, setChipData] = useState([])
 
   const handleCheckedItem = (event: object, newValue: CheckedOption[]) => {
-    debugger
     const slicedData = newValue.length > 0 ? newValue?.filter((item: CheckedOption, index: number) =>
       newValue.findIndex((obj: CheckedOption) =>
         obj.title === item.title && obj.isChecked === item.isChecked) === index) : newValue

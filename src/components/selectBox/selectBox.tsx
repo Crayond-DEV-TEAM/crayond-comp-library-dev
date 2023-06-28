@@ -198,7 +198,7 @@ const SelectBox = (props: SelectBoxProps) => {
                 minHeight:
                   groupingProps?.input?.minHeight ? groupingProps?.input?.minHeight : '45px',
                 maxHeight:
-                  groupingProps?.input?.maxHeight ? groupingProps?.input?.maxHeight : '45px',
+                  groupingProps?.input?.maxHeight ? groupingProps?.input?.maxHeight : 'auto',
                 overflow: 'hidden',
                 paddingTop: '0px',
                 paddingRight: '12px !important',
@@ -222,11 +222,12 @@ const SelectBox = (props: SelectBoxProps) => {
             renderInput={(params) =>
               <>
                 <TextField
-                  label={groupingProps?.groupedData?.length > 0 ? '' : 'Select Option'}
+                  // label={groupingProps?.groupedData?.length > 0 ? '' : 'Select Option'}
+                  placeholder='Select Option'
                   {...params}
                   InputLabelProps={{
                     style: {
-                      marginTop: '-5px'
+                      // marginTop: '-5px'
                     }
                   }}
                   InputProps={{
@@ -282,9 +283,9 @@ const SelectBox = (props: SelectBoxProps) => {
                 popper: {
                   style: {
                     minWidth:
-                      checkboxProps?.dropdown?.minWidth ? checkboxProps?.dropdown?.minWidth : '400px',
+                      checkboxProps?.dropdown?.minWidth ? checkboxProps?.dropdown?.minWidth : '450px',
                     maxWidth:
-                      checkboxProps?.dropdown?.maxWidth ? checkboxProps?.dropdown?.maxWidth : '400px',
+                      checkboxProps?.dropdown?.maxWidth ? checkboxProps?.dropdown?.maxWidth : '450px',
                     maxHeight:
                       checkboxProps?.dropdown?.maxHeight ? checkboxProps?.dropdown?.maxHeight : '100px',
                     minHeight:
@@ -294,25 +295,22 @@ const SelectBox = (props: SelectBoxProps) => {
               }}
               sx={{
                 height: '100%',
-                minWidth: checkboxProps?.input?.minWidth ? checkboxProps?.input?.minWidth : '400px',
-                maxWidth: checkboxProps?.input?.maxWidth ? checkboxProps?.input?.maxWidth : '400px',
+                minWidth: checkboxProps?.input?.minWidth ? checkboxProps?.input?.minWidth : '450px',
+                maxWidth: checkboxProps?.input?.maxWidth ? checkboxProps?.input?.maxWidth : '450px',
                 '& .MuiAutocomplete-inputRoot': {
                   height: 'auto',
                   minHeight:
                     checkboxProps?.input?.minHeight ? checkboxProps?.input?.minHeight : '45px',
                   maxHeight:
-                    checkboxProps?.input?.maxHeight ? checkboxProps?.input?.maxHeight : '45px',
+                    checkboxProps?.input?.maxHeight ? checkboxProps?.input?.maxHeight : 'auto',
                   overflow: 'hidden',
-                  paddingTop: '0px',
-                  paddingRight: '12px !important',
-                  paddingBottom: '0px',
+                  padding: '6px 12px 6px 10px !important',
                   '& input': {
-                    padding: '0 !important'
+                    padding: '0 !important',
                   },
-                  // '& span': {
-                  //   fontWeigt: '500',
-                  //   color: '#262626'
-                  // },
+                  '& span': {
+                    margin: '3px 6px 3px 3px'
+                  },
                   '& .MuiAutocomplete-endAdornment': {
                     '& button': {
                       display: checkboxProps?.isCloseIcon ? 'flex' : 'none'
@@ -327,7 +325,6 @@ const SelectBox = (props: SelectBoxProps) => {
                 }
               }
               }
-              id="checkboxes-tags-demo"
               options={checkboxProps?.arrData}
               value={Array.isArray(checkboxProps?.CheckableData) ?
                 checkboxProps?.CheckableData?.length > 0 ?
@@ -341,12 +338,12 @@ const SelectBox = (props: SelectBoxProps) => {
               renderTags={() =>
                 checkboxProps?.CheckableData?.map((option: CheckedOption, index: number) => (
                   <Typography key={index} sx={styles?.checkboxTextSx} >
-                    {`${option.title}${checkboxProps?.CheckableData?.length - 1 === index ? '' : ','} `}</Typography>
+                    {`${option.title} ${checkboxProps?.CheckableData?.length - 1 === index ? '' : ','} `}</Typography>
                 ))
               }
               renderOption={(props, option, { selected }) => {
                 return (
-                  <li {...props}>
+                  <li {...props} >
                     <Checkbox
                       icon={icon}
                       checkedIcon={checkedIcon}
@@ -361,6 +358,12 @@ const SelectBox = (props: SelectBoxProps) => {
               renderInput={(params) => (
                 <>
                   < TextField {...params}
+                    InputLabelProps={{
+                      style: {
+                        display: checkboxProps?.CheckableData?.length > 0 ? 'block' : 'auto',
+                        marginTop: '-4px'
+                      },
+                    }}
                     InputProps={{
                       ...params.InputProps,
                       endAdornment: (
@@ -368,9 +371,10 @@ const SelectBox = (props: SelectBoxProps) => {
                           <SearchIcon />
                         </InputAdornment>) : null
                       ),
-                    }} label={checkboxProps?.label ?? ''}
+                    }}
+                    label={'Select Option'}
                     placeholder={
-                      !!checkboxProps?.CheckableData?.length ? '' : 'Select Option'
+                      'Select Option'
                     }
                   />
                 </>
@@ -379,11 +383,7 @@ const SelectBox = (props: SelectBoxProps) => {
           </>
         )
       case 'chip':
-        {
-          console.log(chipProps?.chipData, 'chipProps?.chipData')
-        }
         return (
-
           <Autocomplete
             // id="free-solo"
             limitTags={limitTags}
@@ -416,13 +416,12 @@ const SelectBox = (props: SelectBoxProps) => {
                 minHeight:
                   chipProps?.input?.minHeight ? chipProps?.input?.minHeight : '45px',
                 maxHeight:
-                  chipProps?.input?.maxHeight ? chipProps?.input?.maxHeight : '45px',
+                  chipProps?.input?.maxHeight ? chipProps?.input?.maxHeight : 'auto',
                 overflow: 'hidden',
                 paddingTop: '0px',
-                paddingRight: '12px !important',
                 paddingBottom: '0px',
+                padding: '6px 12px 6px 2px !important',
                 '& input': {
-                  padding: '0 !important'
                 },
                 // '& span': {
                 //   fontWeigt: '500',
@@ -439,8 +438,7 @@ const SelectBox = (props: SelectBoxProps) => {
                   borderRadius: chipProps?.input?.borderRadius ? chipProps?.input?.borderRadius : '4px'
                 }
               }
-            }
-            }
+            }}
             options={chipProps?.arrData}
             value={
               Array.isArray(chipProps?.chipData) ?
@@ -448,14 +446,18 @@ const SelectBox = (props: SelectBoxProps) => {
                   chipProps?.chipData : multiple ? [] : null :
                 (chipProps?.chipData ?? null)
             }
-
             getOptionLabel={(option) => option.title
             }
             renderInput={(params) =>
               <TextField
-                placeholder={!!chipProps?.chipData?.length ? '' : 'Select Option'}
+                // placeholder={!!chipProps?.chipData?.length ? '' : 'Select Option'}
                 {...params}
-                label={chipProps?.label ?? ""}
+                placeholder={'Select Option'}
+                InputLabelProps={{
+                  style: {
+                    display: chipProps?.chipData?.length > 0 ? 'block' : 'auto'
+                  },
+                }}
                 InputProps={{
                   ...params.InputProps,
                   endAdornment: (
@@ -487,7 +489,6 @@ const SelectBox = (props: SelectBoxProps) => {
                 />
               ))
             }
-
             renderOption={(props, option) => (
               <Typography {...props}
                 sx={hovered === option?.title || (Array.isArray(chipProps?.chipData) ? chipProps?.chipData : [chipProps?.chipData])?.map(e => e?.title).includes(option?.title) ? {
@@ -536,13 +537,16 @@ const SelectBox = (props: SelectBoxProps) => {
                 minHeight:
                   defaultProps?.input?.minHeight ? defaultProps?.input?.minHeight : '45px',
                 maxHeight:
-                  defaultProps?.input?.maxHeight ? defaultProps?.input?.maxHeight : '45px',
+                  defaultProps?.input?.maxHeight ? defaultProps?.input?.maxHeight : 'auto',
                 overflow: 'hidden',
                 paddingTop: '0px',
                 paddingRight: '12px !important',
                 paddingBottom: '0px',
                 '& input': {
                   padding: '0 !important'
+                },
+                '& span': {
+                  margin: '3px 6px 3px 3px'
                 },
                 '& .MuiAutocomplete-endAdornment': {
                   '& button': {
@@ -567,18 +571,27 @@ const SelectBox = (props: SelectBoxProps) => {
             }}
             getOptionLabel={(option) => option.title}
             multiple={multiple}
-            renderInput={(params) => <TextField {...params}
-              label={defaultProps?.label ?? ""}
-              sx={styles?.defaultInputSx}
-              InputProps={{
-                ...params.InputProps,
-                endAdornment: (
-                  defaultProps?.isSearch ? (defaultProps?.defaultData?.length > 0 ? null : <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>) : null
-                ),
-              }}
-              placeholder={!!defaultProps?.defaultData?.length ? '' : 'select Option'} />}
+            renderInput={(params) =>
+              <TextField {...params}
+                // label={defaultProps?.label ?? ""}
+                sx={styles?.defaultInputSx}
+                InputLabelProps={{
+                  style: {
+                    display: checkboxProps?.CheckableData?.length > 0 ? 'block' : 'auto',
+                    marginTop: '-4px'
+                  },
+                }}
+                InputProps={{
+                  ...params.InputProps,
+                  endAdornment: (
+                    defaultProps?.isSearch ? (defaultProps?.defaultData?.length > 0 ? null : <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>) : null
+                  ),
+                }}
+                placeholder={'Select Option'}
+                label={'Select Option'}
+              />}
             renderTags={() =>
               defaultProps?.defaultData?.map((option, index) => (
                 <Typography key={index} sx={styles?.checkboxTextSx}>
@@ -619,9 +632,10 @@ const SelectBox = (props: SelectBoxProps) => {
   return (
     <Box sx={styles?.rootSx}>
       {/* header */}
-      <Stack direction={'row'}>
+      <Box>
         {renderDropdown(selectType)}
-      </Stack>
+
+      </Box>
     </Box >
   );
 }
