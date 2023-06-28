@@ -11,7 +11,11 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { ExpandLess, ExpandMore, Search as SearchIcon } from '@mui/icons-material';
+import {
+  ExpandLess,
+  ExpandMore,
+  Search as SearchIcon,
+} from '@mui/icons-material';
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -83,14 +87,14 @@ const CustomFilter: React.FC<FilterComponentProps> = ({
     index: number
   ) => {
     const input = event.target.value;
-  
+
     setFilteredCustomData((prevCustomData) => {
       const filteredData = [...prevCustomData];
       const unfilteredItem = unfilteredCustomData[index];
       const filteredSubList = unfilteredItem.subList?.filter((subItem) =>
-        subItem.list?.toLowerCase().includes(input.toLowerCase())
+        subItem.list.toLowerCase().includes(input.toLowerCase())
       );
-  
+
       // Preserve the selected state of the filtered subList items
       const updatedSubList = filteredSubList?.map((subItem) => {
         const existingItem = unfilteredItem.subList?.find(
@@ -101,16 +105,15 @@ const CustomFilter: React.FC<FilterComponentProps> = ({
           selected: existingItem?.selected ?? false,
         };
       });
-  
+
       filteredData[index] = {
         ...unfilteredItem,
         subList: updatedSubList,
       };
-  
+
       return filteredData;
     });
   };
-  
 
   useEffect(() => {
     // Update unfiltered data when customData prop changes
@@ -141,7 +144,12 @@ const CustomFilter: React.FC<FilterComponentProps> = ({
         aria-describedby={id}
         variant="contained"
         onClick={handleClick}
-        inLineStyles={{ p: '10px', height: '36px', width: '100px', ...filterButtonStyle }}
+        inLineStyles={{
+          p: '10px',
+          height: '36px',
+          width: '100px',
+          ...filterButtonStyle,
+        }}
       >
         {icon}
       </BasicButtons>
@@ -167,7 +175,7 @@ const CustomFilter: React.FC<FilterComponentProps> = ({
           mt: 1,
           ...PopoverStyle,
         }}
-        disableRestoreFocus={true}
+        disableRestoreFocus
       >
         <Box sx={{ p: 1, ...contentWrapStyle }}>
           {filterTitle && (
@@ -252,9 +260,7 @@ const CustomFilter: React.FC<FilterComponentProps> = ({
                         {item.subListType === 'chip' && (
                           <Chip
                             label={subItem.list}
-                            onClick={() =>
-                              getSelectedSubList(index, subIndex)
-                            }
+                            onClick={() => getSelectedSubList(index, subIndex)}
                             color={subItem.selected ? 'primary' : 'default'}
                             variant="outlined"
                             sx={{ display: 'flex', ...chipStyle }}
