@@ -16,8 +16,8 @@ export interface CheckBoxProps {
 }
 export interface CustomLabelProps {
     iconProp?: {
-        parent: ReactElement,
-        parentChild?: ReactElement
+        parent: JSX.Element,
+        parentChild?: JSX.Element
     };
     labelText?: string;
     fontsize?: any;
@@ -29,7 +29,7 @@ export interface CustomLabelProps {
     index?: number | string;
     formControlPropsSx?: object;
     state?: any;
-    checkBoxStyles: CheckBoxProps | undefined;
+    checkBoxStyles: CheckBoxProps | { checkboxBorderRadius: string; checkboxIcon: null; uncheckedIcon: null; checkboxWidth: string; checkboxHeight: string; };
 
 }
 export interface TreeComponentProps {

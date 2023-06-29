@@ -20,15 +20,15 @@ export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
         state = [],
         formControlPropsSx,
         iconProp = {
-            parent: null,
-            parentChild: null
+            parent: '',
+            parentChild: ''
         },
         checkBoxStyles = {
             checkboxBorderRadius: '',
             checkboxIcon: null,
             uncheckedIcon: null,
             checkboxWidth: '',
-            checkboxHeight: ''
+            checkboxHeight: '',
         }
     } = props;
 
@@ -50,7 +50,7 @@ export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
     };
 
 
-    const filter = state?.[1]?.permissions?.map((v: any) => {
+    const filter = state?.[1]?.permissions?.map((v: string) => {
         if (nodes?.permissions?.includes(v)) {
             return {
                 value: v
@@ -77,8 +77,9 @@ export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
                 }}
             >
                 {isCheckBox &&
-                    filter?.map((val: any, i: number) => {
-
+                    filter?.map((val: {
+                        value: string
+                    }, i: number) => {
                         return (
                             <FormControl key={i}
                                 sx={{ ...styles?.formControl, ...formControlPropsSx }}
@@ -87,7 +88,6 @@ export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
                                     disable={disable}
                                     checkboxBorderRadius={checkBoxStyles?.checkboxBorderRadius}
                                     key={i}
-                                    onClick={(e: any) => e.stopPropagation()}
                                     onChange={(e: any) => onChange(e?.target?.checked, val?.value, props?.nodes?.id, state)}
                                     checked={nodes?.allowed?.includes(val?.value) ? true : false}
                                 /> : ""}
@@ -130,18 +130,34 @@ const StyledTreeItem = styled(TreeItem)<TreeComponentProps>(({ rootNode }) => {
     };
 });
 const renderTree = (
-    nodes: any,
+    nodes: {
+        child: [];
+        id: string,
+        name: string
+    },
     test: string,
-    isCheckBox: any,
-    setEdit: any,
+    isCheckBox: boolean,
+    setEdit: boolean,
     disable: boolean,
-    onChange: (e: any, val: any, id: string, data: any) => void,
-    index: any,
-    state: any,
-    customLabel: any,
-    checkBoxStyles: any
+    onChange: (e: any, val: string, id: string, data: []) => void,
+    index: number,
+    state: object[],
+    customLabel: CustomLabelProps | {
+        fontsize: string; iconProp: {
+            parent: JSX.Element,
+            parentChild: JSX.Element
+        };
+    },
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    checkBoxStyles: CheckBoxProps | {
+        checkboxBorderRadius: string,
+        checkboxIcon: null,
+        uncheckedIcon: null,
+        checkboxWidth: string,
+        checkboxHeight: string,
+    }
 ) => {
-
+    debugger
     return (
         <StyledTreeItem
             rootNode={test === 'parent' ? true : false}
@@ -159,7 +175,8 @@ const renderTree = (
                 index={index}
                 fontsize={customLabel?.fontsize}
                 test={test}
-                checkBoxStyles={checkBoxStyles} />} heading={''}
+                checkBoxStyles={checkBoxStyles} />}
+            heading={''}
             permissionHeadingSx={undefined} disable={false}
             checkBoxStyles={undefined}
 
@@ -170,7 +187,11 @@ const renderTree = (
         // delete={nodes?.delete}
         >
             {Array.isArray(nodes?.child)
-                ? nodes?.child?.map((node: any) =>
+                ? nodes?.child?.map((node: {
+                    child: [];
+                    id: string,
+                    name: string
+                }) =>
                     renderTree(node, test + 'child', isCheckBox, setEdit, disable, onChange, index, state, customLabel, checkBoxStyles),
                 )
                 : null}
@@ -213,7 +234,10 @@ export default function TreeComponent(props: TreeComponentProps) {
     const {
         customLabel = {
             fontsize: '',
-            iconProp: ''
+            iconProp: {
+                parent: null,
+                parentChild: null
+            }
         },
         state = [],
         checkboxsection = false,
@@ -225,7 +249,13 @@ export default function TreeComponent(props: TreeComponentProps) {
         rightSec,
         heading = '',
         permissionHeadingSx,
-        checkBoxStyles = {},
+        checkBoxStyles = {
+            checkboxBorderRadius: '',
+            checkboxIcon: null,
+            uncheckedIcon: null,
+            checkboxWidth: '',
+            checkboxHeight: '',
+        },
         disable = false,
         ...rest
     } = props;
