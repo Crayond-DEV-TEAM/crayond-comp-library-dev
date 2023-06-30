@@ -2008,7 +2008,7 @@ function App() {
           ],
         }}
       /> */}
-      {/* <SignupScreen
+       <SignupScreen
         option='socialMediaSignup'
         sectionOne={{
           breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
@@ -2134,9 +2134,9 @@ function App() {
         onSubmit={(detail: object) => {
           console.log(detail);
         }}
-      /> */}
-      {/* <LoginScreen
-        option="mobileNumberLogin"
+      />
+      <LoginScreen
+        option="emailWithPasswordLogin"
         sectionOne={{
           breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
           image: {
@@ -2259,7 +2259,7 @@ function App() {
           console.log(detail);
         }}
         rootStyle={{ height: '100%', width: '100%' }}
-      /> */}
+      />
     </div>
   );
 }
