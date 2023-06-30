@@ -4,6 +4,7 @@ import Typography from '@mui/material/Typography';
 import Slider, { SliderProps } from '@mui/material/Slider';
 import { styles } from './style';
 import Stack from '@mui/material/Stack';
+import { SxProps } from '@mui/system';
 
 interface ProgressProps extends SliderProps {
   marks: {
@@ -21,11 +22,11 @@ interface ProgressProps extends SliderProps {
   customMarks: boolean;
   minMaxValues: boolean;
   handleChange: () => void;
-  sliderThumbStyle?: object;
-  sliderStyle?: object;
-  minMaxLabel: object;
-  labelStyle: object;
-  containerStyle: object;
+  sliderThumbStyle?: SxProps;
+  sliderStyle?: SxProps;
+  minMaxLabel: SxProps;
+  minMaxLabelStyle:SxProps
+  containerStyle: SxProps;
   minMaxLabelColor: string;
   minMaxLabelSize: number;
   minMaxValueColor: string;
@@ -56,6 +57,7 @@ const SliderRange = (props: ProgressProps) => {
     sliderStyle,
     containerStyle,
     minMaxValues,
+    minMaxLabelStyle,
     minMaxLabelColor,
     minMaxLabelSize,
     minLabel,
@@ -120,7 +122,7 @@ const SliderRange = (props: ProgressProps) => {
                 backgroundColor: thumbColor,
                 ...sliderThumbStyle,
               },
-            }}
+            }as SxProps}
           />
         </Box>
       </Stack>
@@ -150,7 +152,7 @@ const SliderRange = (props: ProgressProps) => {
             />
           </Box>
           <Box sx={{ ...styles.childBox }}>
-            <Typography sx={{ ...styles.minMaxLabel }}>{maxLabel}</Typography>
+            <Typography sx={{ ...styles.minMaxLabel ,...minMaxLabelStyle }}>{maxLabel}</Typography>
             <input
               type="number"
               value={minMax?.maxValue}
@@ -167,7 +169,7 @@ const SliderRange = (props: ProgressProps) => {
 };
 
 SliderRange.defaultProps = {
-  value: [20, 60],
+  value: [],
   step: 10,
   marks: [],
   disabled: false,
@@ -179,9 +181,7 @@ SliderRange.defaultProps = {
   valueLabelDisplay: 'off',
   handleChange: () => {},
   sliderStyle: {},
-  symbol: '',
   minMaxLabel: {},
-  labelStyle: {},
   containerStyle: { marginTop: '40px' },
   sliderThumbStyle: {},
   minMaxLabelColor: '#929292',

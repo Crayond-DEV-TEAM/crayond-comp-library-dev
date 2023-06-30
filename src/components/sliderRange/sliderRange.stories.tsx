@@ -19,10 +19,6 @@ Primary.argTypes = {
     description: 'number',
     defaultValue: 10,
   },
-  labelStyle: {
-    description: 'object',
-    defaultValue: {},
-  },
   sliderHeight: {
     description: 'number',
     defaultValue: 6,
@@ -83,6 +79,11 @@ Primary.argTypes = {
     description: 'string',
     defaultValue: '',
   },
+  minMaxLabelStyle: {
+    description: 'string',
+    defaultValue: '',
+  },
+
   containerStyle: {
     description: 'object',
     defaultValue: {},
@@ -112,8 +113,8 @@ Primary.args = {
   customMarks: false,
   minMaxValues: false,
   sliderStyle: {},
+  minMaxLabelStyle:{},
   minMaxLabel: {},
-  labelStyle: {},
   containerStyle: {},
   sliderThumbStyle: {},
   marks: [

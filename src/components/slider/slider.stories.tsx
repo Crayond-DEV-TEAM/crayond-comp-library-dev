@@ -63,7 +63,7 @@ Primary.argTypes = {
     description: 'number',
     defaultValue:12
   },
-  handleChange: {
+  handleChangeFun: {
     description: '()=>{}',
     defaultValue:12
   },
@@ -89,7 +89,6 @@ Primary.argTypes = {
   },
 };
 Primary.args = {
-  value: 0,
   step: 0,
   size: 'small',
   sliderHeight: 5,
@@ -101,12 +100,9 @@ Primary.args = {
   labelSize: 2,
   sliderColor: '#665CD7',
   thumbColor: '#665CD7',
-  minMaxValue: false,
-  handleChange: () => {},
+  handleChangeFun: () => {},
   sliderStyle: {},
   symbol: '',
-  minMaxContainer: {},
-  minMaxLabel: {},
   labelStyle: {},
   containerStyle: {},
   sliderThumbStyle: {},

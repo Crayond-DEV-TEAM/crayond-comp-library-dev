@@ -17,13 +17,10 @@ export interface ProgressProps extends SliderProps {
     thumbColor: string;
     size?: 'small' | 'medium';
     customMarks: boolean;
-    minMaxValue?: boolean;
-    handleChange: () => void;
+    handleChangeFun: (newVal: Event,value:number|number[]) => void;
     sliderThumbStyle: object;
     sliderStyle: object;
     symbol: string;
-    minMaxContainer: object;
-    minMaxLabel: object;
     labelStyle: object;
     containerStyle: object;
   }

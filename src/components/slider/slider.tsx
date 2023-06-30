@@ -6,7 +6,6 @@ import { useState } from 'react';
 import { ProgressProps } from './props';
 import { styles } from './style';
 
-
 const Sliders = (props: ProgressProps) => {
   const {
     step,
@@ -25,15 +24,10 @@ const Sliders = (props: ProgressProps) => {
     symbol,
     sliderStyle,
     labelStyle,
-    // value,
-    // handleChange = () => {},
+    handleChangeFun = () => {},
   } = props;
 
-  const [value, setValue] = useState<number>(30);
-
-  const handleChange = (event: Event, newValue: number | number[]) => {
-    setValue(newValue as number);
-  };
+  const [value, setValue] = useState<number>(0);
 
   function valuetext(getAriaLabel: number) {
     return `${getAriaLabel}`;
@@ -49,7 +43,12 @@ const Sliders = (props: ProgressProps) => {
             disableSwap
             marks={customMarks ? marks : []}
             value={value}
-            onChange={handleChange}
+            onChange={(e, value) => {              
+              setValue(value as number);
+              if(handleChangeFun){
+                handleChangeFun(e,value)
+              }
+            }}
             valueLabelDisplay={valueLabelDisplay}
             sx={{
               height: sliderHeight,
@@ -84,7 +83,6 @@ const Sliders = (props: ProgressProps) => {
 };
 
 Sliders.defaultProps = {
-  value: 0,
   step: 10,
   size: 'small',
   sliderHeight: 5,
@@ -96,14 +94,10 @@ Sliders.defaultProps = {
   labelSize: 2,
   sliderColor: '#665CD7',
   thumbColor: '#665CD7',
-  minMaxValue: false,
-  handleChange: () => {},
+  handleChangeFun: () => {},
   sliderStyle: {},
   symbol: '',
-  minMaxContainer: {},
-  minMaxLabel: {},
   labelStyle: {},
-  containerStyle: {},
   sliderThumbStyle: {},
   marks: [],
 };

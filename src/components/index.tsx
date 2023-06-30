@@ -3,3 +3,4 @@ export { CommonTable } from './table';
 export { Switch } from './switch';
 export { Progress } from './progress';
 export {Slider} from './slider';
+export {SliderRange} from './sliderRange';

@@ -22,10 +22,6 @@ export const styles = {
       paddingRight: '8px',
     },
   
-    labelStyle:{
-      color:"#707070",
-      fontSize:"12px"
-    },
     inputStyle: {
       fontSize: '14px',
       width: '30px',
