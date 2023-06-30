@@ -24,16 +24,16 @@ const RoleManagement = (props: RoleManagementProps) => {
       role: 'Role 2',
       isActive: false,
     },
-    {
-      roleNo: 'RL084',
-      role: 'Role 3',
-      isActive: false,
-    },
-    {
-      roleNo: 'RL094',
-      role: 'Role 4',
-      isActive: false,
-    },
+    // {
+    //   roleNo: 'RL084',
+    //   role: 'Role 3',
+    //   isActive: false,
+    // },
+    // {
+    //   roleNo: 'RL094',
+    //   role: 'Role 4',
+    //   isActive: false,
+    // },
 
   ];
 

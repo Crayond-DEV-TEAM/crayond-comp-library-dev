@@ -6,6 +6,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styles } from './style';
 import { RoleItem } from './roleItem';
 import { Input } from './input';
+import { InputField } from '../inputField';
 
 
 export const Roles = (props: any) => {
@@ -52,11 +53,11 @@ export const Roles = (props: any) => {
             </Box>
 
             <Box sx={{ py: 2, px: 1.25 }}>
-                <Input
+                <InputField
                     placeholder='Search Here'
                     value={search}
-                    textFieldStyle={styles.search}
-                    startAdornment={<SearchIcon sx={{ ml: 1, fontSize: '16px', color: '#818181' }} />}
+                    inputStyle={styles.search}
+                    startAdornments={<SearchIcon sx={{ ml: 1, fontSize: '16px', color: '#818181' }} />}
                     onChange={(e: any) => handleSearch('text', e?.target?.value)}
                     fullWidth={true}
                 />
