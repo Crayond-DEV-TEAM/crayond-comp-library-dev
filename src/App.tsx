@@ -25,7 +25,7 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { ProfileThree } from './components/profileThree';
 import yup from './utils/yupSchema';
 import { Screen } from './components/screen';
-import LinearProcess from './components/linearProcess/linearProcess';
+import LinearProcess from './components/linearProgress/linearProgress';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);

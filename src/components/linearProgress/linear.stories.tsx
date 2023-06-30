@@ -1,5 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import LinearProcess from './linearProcess';
+import LinearProcess from './linearProgress';
 
 export default {
   title: 'components/LinearProcess',
@@ -22,6 +22,6 @@ Primary.args = {
   TooltipBgColor: '',
   TooltipArrowColor: '',
   symbolsColor: '',
-  thumbPrimaryColor: '',
-  thumbSecondaryColor: '',
+  thumbPrimaryColor: 'green',
+  thumbSecondaryColor: 'lightgreen',
 };

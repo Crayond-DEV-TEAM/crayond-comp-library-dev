@@ -1,10 +1,10 @@
 import Box from '@mui/material/Box';
 import LinearProgress, {
-  LinearProgressProps,
-  linearProgressClasses,
+  LinearProgressProps
 } from '@mui/material/LinearProgress';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { useState } from 'react';
 import { styles } from './style';
 
 interface ProgressProps {
@@ -37,11 +37,15 @@ function LinearProgressWithLabel(props: LinearProgressProps & ProgressProps) {
     thumbPrimaryColor,
     thumbSecondaryColor,
   } = props;
+  const [isOpen ,setIsOpen]=useState(false);
+
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Box sx={{ width: '100%', mr: 1 }}>
         <Tooltip
-          open={isShowToolTip}
+          open={isShowToolTip && isOpen}
+          onMouseEnter={() => {setIsOpen(true),console.log('open')}}
+          onMouseLeave={() =>{setIsOpen(false),console.log('close')}}
           title={value}
           placement={'top'}
           componentsProps={{
@@ -61,19 +65,14 @@ function LinearProgressWithLabel(props: LinearProgressProps & ProgressProps) {
             sx={{
               ...styles.linearBarStyle,
               ...linearBarStyle,
-              [`&.${linearProgressClasses.determinate}`]: {
-                backgroundColor: `${thumbSecondaryColor}`,
-                strokeLinecap: 'round',
+              "&.MuiLinearProgress-root": {
+                backgroundColor: thumbSecondaryColor,
               },
-              [`&.${linearProgressClasses.determinate} > .${linearProgressClasses.bar1Determinate}`]:
-                { backgroundColor: `${thumbPrimaryColor}` },
-              '& .MuiLinearProgress-bar': {
-                backgroundColor: `${thumbPrimaryColor}`,
+              "& .MuiLinearProgress-barColorPrimary": {
+                backgroundColor: thumbPrimaryColor,
               },
               height: thumbHeight,
             }}
-            variant="buffer"
-            // valueBuffer={'buffer'}
             {...props}
           />
         </Tooltip>
@@ -119,7 +118,8 @@ export default function LinearProcess(props: ProgressProps) {
         thumbPrimaryColor={thumbPrimaryColor}
         thumbSecondaryColor={thumbSecondaryColor}
         symbolsColor={symbolsColor} 
-        isShowToolTip={isShowToolTip}     
+        isShowToolTip={isShowToolTip} 
+        valueBuffer={40}    
         />
     </Box>
   );
