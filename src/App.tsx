@@ -202,7 +202,6 @@ function App() {
         styles: {},
         onClick: () => {},
       },
-      component: '',
       subTitle: [
         {
           subValue: 'About us',
@@ -222,7 +221,7 @@ function App() {
               {
                 subValue: 'Home',
                 icon: '',
-                iconDirection: 'right',
+                // iconDirection: 'right',
                 styles: {},
                 onClick: () => {},
                 link: 'https://cssbattle.dev/play/1',
@@ -313,6 +312,7 @@ function App() {
              
       ],
     },
+
     {
       order: 2,
       heading: {
@@ -323,7 +323,6 @@ function App() {
         styles: {},
         onClick: () => {},
       },
-      component: '',
       subTitle: [
         {
           subValue: 'About us',
@@ -428,7 +427,6 @@ function App() {
         styles: {},
         onClick: () => {},
       },
-      component:'',
       subTitle: [
         {
           subValue: 'About us',
@@ -533,7 +531,6 @@ function App() {
         styles: {},
         onClick: () => {},
       },
-      component: "",
       subTitle: [
         {
           subValue: 'About us',
@@ -630,32 +627,30 @@ function App() {
     },
   ];
 
-  const footerLogo = [
-    {
-      companyLogo: {
-        label: 'Crayond',
-        logo: <Performance />,
-      },
-      subscribes: [
-        { icon: <PlayStore /> },
-        { icon: <AppStore /> },
-        { icon: <AppStore /> },
-        { icon: <LinkedIn /> },
-        { icon: <Instagram /> },
-        { icon: <LinkedIn /> },
-        { icon: <Instagram /> },
-      ],
-      termsOfPolicy: [
-        { label: 'Terms of Service' },
-        { label: 'Privacy Policy' },
-      ],
-      copyRight: [
-        { label: 'Crayond ©' },
-        { label: 'All rights reserved' },
-        { label: 'creating CopyRight' },
-      ],
+  const footerLogo=  {
+    companyLogo: {
+      label: 'Crayond',
+      logo: '⚜',
     },
-  ];
+    subscribes: [
+      { icon: <PlayStore />,onClick:()=>{} },
+      { icon: <AppStore />,onClick:()=>{} },
+      { icon: <AppStore />,onClick:()=>{} },
+      { icon: <LinkedIn /> ,onClick:()=>{}},
+      { icon: <Instagram /> ,onClick:()=>{}},
+      { icon: <LinkedIn /> ,onClick:()=>{}},
+      { icon: <Instagram />,onClick:()=>{} },
+    ],
+    termsOfPolicy: [
+      { label: 'Terms of Service' ,onClick:()=>{}},
+      { label: 'Privacy Policy',onClick:()=>{} },
+    ],
+    copyRight: [
+      { label: 'Crayond ©',onClick:()=>{} },
+      { label: 'All s reserved',onClick:()=>{} },
+      { label: 'creating Copy',onClick:()=>{} },
+    ],
+  };
 
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
@@ -666,21 +661,21 @@ function App() {
         footerStyle={{}}
         headerComponent={<>Header</>}
         bodyComponent={<>Body</>}
-        footerComponent={<></>
-          // <Footer
-          //   componentRootStyle={{}}
-          //   rootStyles={{}}
-          //   headingStyle={{}}
-          //   subTitleStyle={{}}
-          //   logoContainerStyle={{}}
-          //   companyLogoBlockStyle={{}}
-          //   subscriptionBlockStyle={{}}
-          //   bottomTextBlockStyle={{}}
-          //   bottomTexStyle={{}}
-          //   hoverSubTitle={{}}
-          //   footerData={[]}
-          //   hoverHeadingStyles={null}
-          // />
+        footerComponent={
+          <Footer
+            componentRootStyle={{}}
+            rootStyles={{}}
+            headingStyle={{}}
+            subTitleStyle={{}}
+            logoContainerStyle={{}}
+            companyLogoBlockStyle={{}}
+            subscriptionBlockStyle={{}}
+            bottomTextBlockStyle={{}}
+            bottomTexStyle={{}}
+            footerData={footerData}
+            footerLogo={footerLogo}
+            hoverHeadingStyles={null}
+          />
         }
       />
       {/* <CommonTable

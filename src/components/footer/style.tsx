@@ -1,9 +1,11 @@
+import { background } from '@storybook/theming';
+
 export const footer_style = {
   background: {
     background: '#FAFAFA',
     padding: '30px 100px',
     '@media(max-width: 900px)': {
-      padding: '30px 40px',
+      padding: '16px',
     },
   },
 
@@ -11,6 +13,7 @@ export const footer_style = {
     '@media(max-width: 600px)': {
       overflowY: 'scroll',
       maxHeight: '670px',
+      '&::-webkit-scrollbar': { display: 'none' },
     },
   },
 
@@ -33,15 +36,10 @@ export const footer_style = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItem: 'center',
-    gap:"20px",
+    gap: '20px',
+    flexWrap: 'wrap',
     paddingBottom: '20px',
     borderBottom: ' 1px solid #98A0AC',
-    '@media(max-width: 470px)': {
-      display: 'grid',
-      rowGap: '18px',
-      placeContent: 'normal',
-      gridTemplateColumns: 'min-content',
-    },
   },
 
   logoBlock: {
@@ -63,8 +61,8 @@ export const footer_style = {
   subscribeBlock: {
     display: 'flex',
     flexWrap: 'wrap',
+    gap: '20px',
     '@media(max-width: 470px)': {
-      rowGap: '8px',
       flexWrap: 'wrap',
       minWidth: '300px',
     },
@@ -75,15 +73,14 @@ export const footer_style = {
     justifyContent: 'space-between',
     alignItem: 'center',
     paddingTop: '20px',
-    flexWrap: "wrap",
+    flexWrap: 'wrap',
     bottom: '0px',
   },
 
-  footerBottomContainer:{
+  footerBottomContainer: {
     '@media(max-width: 760px)': {
-    paddingTop: '18px',
+      paddingTop: '18px',
     },
-    
   },
 
   bottomText: {
@@ -91,19 +88,20 @@ export const footer_style = {
     fontSize: '12px',
   },
 
-  bottomTextBlock:{
-    display:"flex",flexWrap:"wrap"
+  bottomTextBlock: {
+    display: 'flex',
+    flexWrap: 'wrap',
   },
-   titleIcon: {
+  titleIcon: {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItem: 'center',
-    columnGap: "8px"
+    columnGap: '8px',
   },
   subTitleIcon: {
     display: 'flex',
     justifyContent: 'flex-start',
     alignItem: 'center',
-    columnGap: "8px"
+    columnGap: '8px',
   },
 };

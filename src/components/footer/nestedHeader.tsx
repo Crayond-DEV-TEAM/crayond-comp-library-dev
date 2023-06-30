@@ -12,10 +12,7 @@ import { footer_style } from "./style";
       nestedTitleIconAlign,
       nestedSubTitleIconAlign,
       nestedTitleTextAlign,
-    } = props;
-
-    console.log(nestedChild);
-    
+    } = props;    
     return (
       <>
         <Box>

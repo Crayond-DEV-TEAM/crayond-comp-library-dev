@@ -81,11 +81,16 @@ Primary.argTypes = {
   headingTextAlign: {
     description: "'flex-start' | 'flex-end' | 'center'",
   },
+  handleClickCompanyLogo: {
+    description: "()=>{}",
+  },
 
 
 };
 
 Primary.args = {
+  handleClickCompanyLogo:()=>{},
+
   componentRootStyle: {},
   logoContainerStyle: {},
 
@@ -557,30 +562,28 @@ Primary.args = {
     },
   ],
 
-  footerLogo: [
-    {
+  footerLogo:     {
       companyLogo: {
         label: 'Crayond',
         logo: '⚜',
       },
       subscribes: [
-        { icon: <PlayStore /> },
-        { icon: <AppStore /> },
-        { icon: <AppStore /> },
-        { icon: <LinkedIn /> },
-        { icon: <Instagram /> },
-        { icon: <LinkedIn /> },
-        { icon: <Instagram /> },
+        { icon: <PlayStore />,onClick:()=>{} },
+        { icon: <AppStore />,onClick:()=>{} },
+        { icon: <AppStore />,onClick:()=>{} },
+        { icon: <LinkedIn /> ,onClick:()=>{}},
+        { icon: <Instagram /> ,onClick:()=>{}},
+        { icon: <LinkedIn /> ,onClick:()=>{}},
+        { icon: <Instagram />,onClick:()=>{} },
       ],
       termsOfPolicy: [
-        { label: 'Terms of Service' },
-        { label: 'Privacy Policy' },
+        { label: 'Terms of Service' ,onClick:()=>{}},
+        { label: 'Privacy Policy',onClick:()=>{} },
       ],
       copyRight: [
-        { label: 'Crayond ©' },
-        { label: 'All s reserved' },
-        { label: 'creating Copy' },
+        { label: 'Crayond ©',onClick:()=>{} },
+        { label: 'All s reserved',onClick:()=>{} },
+        { label: 'creating Copy',onClick:()=>{} },
       ],
     },
-  ],
 };
