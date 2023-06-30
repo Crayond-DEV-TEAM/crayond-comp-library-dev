@@ -20,19 +20,24 @@ export const styles = {
       borderRadius: '4px',
       paddingLeft: '8px',
       paddingRight: '8px',
+
     },
   
     inputStyle: {
       fontSize: '14px',
-      width: '30px',
+      maxWidth: '40px',
       border: 'none',
+      outline: 'none',
       background: '#FFFF',
       color: '#262626',
+      textAlign:"center",
+      borderBottom:"none"
     },
   
     minMaxLabel: {
       color: '#929292',
       fontSize: '12px',
+      paddingRight: "4px",
     },
   
     sliderStyle: {

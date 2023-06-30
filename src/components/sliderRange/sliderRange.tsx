@@ -5,6 +5,7 @@ import Slider, { SliderProps } from '@mui/material/Slider';
 import { styles } from './style';
 import Stack from '@mui/material/Stack';
 import { SxProps } from '@mui/system';
+import { Input } from '@mui/material';
 
 interface ProgressProps extends SliderProps {
   marks: {
@@ -69,20 +70,26 @@ const SliderRange = (props: ProgressProps) => {
     // handleChange = () => {},
     // value,
   } = props;
-  const [minMax, setMinMax] = useState<formProps>({
+  const [minMax, setMinMax] = useState({
     minValue: 0,
     maxValue: 0,
   });
 
   const [value, setValue] = useState<number[]>([20, 37]);
 
-  const handleChange = (event: Event, newValue: number | number[]) => {
+  const handleChange = (event: Event, newValue:number[]|[number,number]) => {
     setValue(newValue as number[]);
-    setMinMax({ minValue: value[0], maxValue: value[1] });
+    setMinMax({ minValue: newValue[0], maxValue: value[1] } );
   };
   const handleChangeInput = (key: string, val: string) => {
     setMinMax({ ...minMax, [key]: val });
-    setValue([minMax.minValue, minMax.maxValue]);
+    if(key ==='minValue'){
+      setValue([Number(val), minMax?.maxValue]);
+    }
+    if(key ==='maxValue'){
+      setValue([minMax?.minValue,Number(val)]);
+    }
+
   };
 
   return (
@@ -110,7 +117,7 @@ const SliderRange = (props: ProgressProps) => {
             disableSwap
             marks={customMarks ? marks : []}
             value={value}
-            onChange={handleChange}
+            onChange={(e:Event,val:number | number[],)=>handleChange(e,val as number[])}
             valueLabelDisplay={valueLabelDisplay}
             sx={{
               height: sliderHeight,
@@ -138,10 +145,11 @@ const SliderRange = (props: ProgressProps) => {
             >
               {minLabel}
             </Typography>
-            <input
+            <Input
+             disableUnderline={true}  
               type="number"
-              value={minMax?.minValue}
-              style={{
+              value={String(value[0])}
+              sx={{
                 ...styles.inputStyle,
                 color: minMaxValueColor,
                 fontSize: minMaxValueSize,
@@ -153,11 +161,15 @@ const SliderRange = (props: ProgressProps) => {
           </Box>
           <Box sx={{ ...styles.childBox }}>
             <Typography sx={{ ...styles.minMaxLabel ,...minMaxLabelStyle }}>{maxLabel}</Typography>
-            <input
+            <Input
               type="number"
-              value={minMax?.maxValue}
-              style={{ ...styles.inputStyle }}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              disableUnderline={true}  
+              value={String(value[1])}
+              sx={{ ...styles.inputStyle,
+                textAlign:'center',
+                color: minMaxValueColor,
+                fontSize: minMaxValueSize}}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 handleChangeInput('maxValue', e.target.value)
               }
             />
