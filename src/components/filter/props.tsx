@@ -1,3 +1,5 @@
+import { SxProps } from '@mui/material';
+
 export interface CustomData {
   listName: string;
   selected: boolean;
@@ -5,11 +7,11 @@ export interface CustomData {
   subList: {
     list: string;
     selected: boolean;
-    listStyle?: object;
+    listStyle?: SxProps;
     LabelbgColor?: string;
     LabelColor?: string;
   }[];
-  listNameStyle?: object;
+  listNameStyle?: SxProps;
   subListType: string;
 }
 
@@ -17,17 +19,18 @@ export interface ButtonItem {
   label: string;
   onClick: (
     filteredData: CustomData[],
-    setFilteredData: React.Dispatch<React.SetStateAction<CustomData[]>>
+    getStateClear: () => void,
+    setAnchorEl: React.Dispatch<React.SetStateAction<CustomData[]>>
   ) => void;
-  btnstyle?: object;
+  btnstyle?: SxProps;
 }
 
 export interface FilterComponentProps {
   icon?: JSX.Element;
   customData: CustomData[];
   buttons: ButtonItem[];
-  rootStyle?: object;
-  filterButtonStyle?: object;
+  rootStyle?: SxProps;
+  filterButtonStyle?: SxProps;
   anchorOrigin?: {
     vertical: 'top' | 'bottom';
     horizontal: 'left' | 'center' | 'right';
@@ -37,14 +40,27 @@ export interface FilterComponentProps {
     horizontal: 'left' | 'center' | 'right';
   };
   filterTitle?: string;
-  filterTitleStyle?: object;
-  listContainerStyle?: object;
-  listIconStyle?: object;
-  subListContainerStyle?: object;
-  buttonContainerStyle?: object;
-  PopoverStyle?: object;
-  contentWrapStyle?: object;
-  searchBarStyle?: object;
+  filterTitleStyle?: SxProps;
+  listContainerStyle?: SxProps;
+  listIconStyle?: SxProps;
+  subListContainerStyle?: SxProps;
+  buttonContainerStyle?: SxProps;
+  PopoverStyle?: SxProps;
+  contentWrapStyle?: SxProps;
+  searchBarStyle?: SxProps;
   showSearchBar?: true | false;
-  chipStyle?: object;
+  chipStyle?: SxProps;
+  labelStyle?: SxProps;
+  listItemStyle?: SxProps;
+  maxLabelShow: number;
+  visibleSubList?: number;
+  moreLabelStyle?: SxProps;
+  titleWrapperStyle?: SxProps;
+  btnWrapperStyle?: SxProps;
+  selectedchipConStyle?: SxProps;
+  searchPlaceHolder?: string;
+  searchVariant?: 'standard' | 'filled' | 'outlined';
+  searchbarSize?: 'small' | 'medium';
+  checkboxStyle?: SxProps;
+  chipVariant?: 'filled' | 'outlined';
 }

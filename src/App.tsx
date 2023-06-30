@@ -25,7 +25,7 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { ProfileThree } from './components/profileThree';
 import yup from './utils/yupSchema';
 import { Screen } from './components/screen';
-import CustomFilter from './components/filter';
+import { CustomFilter } from './components/filter';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 
 function App() {
@@ -209,7 +209,7 @@ function App() {
     {
       listName: 'Category',
       selected: false,
-      listIcon: <InboxIcon />,
+      // listIcon: <InboxIcon />,
       subList: [
         {
           list: 'Category1',
@@ -232,26 +232,59 @@ function App() {
           LabelbgColor: '#E9E9E9',
           LabelColor: '#666666',
         },
+        {
+          list: 'Category4',
+          selected: false,
+          listStyle: {},
+          LabelbgColor: '#E9E9E9',
+          LabelColor: '#666666',
+        },
+        {
+          list: 'Category5',
+          selected: false,
+          listStyle: {},
+          LabelbgColor: '#E9E9E9',
+          LabelColor: '#666666',
+        },
+        {
+          list: 'Category6',
+          selected: false,
+          listStyle: {},
+          LabelbgColor: '#E9E9E9',
+          LabelColor: '#666666',
+        },
       ],
       listNameStyle: {},
       subListType: 'checkbox',
     },
     {
       listName: 'product',
-      listIcon: <InboxIcon />,
+      // listIcon: <InboxIcon />,
       selected: false,
       subList: [
         {
           list: 'Product1',
           selected: false,
+          LabelbgColor: '#E9E9E9',
+          LabelColor: '#666666',
         },
         {
           list: 'product2',
           selected: false,
+          LabelbgColor: '#E9E9E9',
+          LabelColor: '#666666',
         },
         {
           list: 'product3',
           selected: false,
+          LabelbgColor: '#E9E9E9',
+          LabelColor: '#666666',
+        },
+        {
+          list: 'product4',
+          selected: false,
+          LabelbgColor: '#E9E9E9',
+          LabelColor: '#666666',
         },
       ],
       subListType: 'chip',
@@ -259,7 +292,7 @@ function App() {
     {
       listName: 'Price',
       selected: false,
-      listIcon: <InboxIcon />,
+      // listIcon: <InboxIcon />,
 
       subList: [
         {
@@ -278,11 +311,27 @@ function App() {
       subListType: 'checkbox',
     },
   ];
+
+  const getSelectedData = (data: any) => {
+    const selectedData: any = [];
+
+    data.forEach((item: any) => {
+      const { listName, subList } = item;
+      const selectedSubList = subList?.filter(
+        (subItem: any) => subItem.selected
+      );
+      if (selectedSubList && selectedSubList.length > 0) {
+        selectedData.push({ listName, subList: selectedSubList });
+      }
+    });
+    console.log(selectedData);
+  };
   const buttons = [
     {
       label: 'Clear all',
       onClick: (data: any, state: any) => {
-        state(customData);
+        state();
+        getSelectedData(customData);
       },
       btnstyle: {
         backgroundColor: '#FFE8E9',
@@ -290,23 +339,14 @@ function App() {
         color: '#F44F5A',
         width: '121px',
         height: '36px',
+        fontSize: '14px',
       },
     },
     {
       label: 'Apply',
-      onClick: (data: any) => {
-        const selectedData: any = [];
-
-        data.forEach((item: any) => {
-          const { listName, subList } = item;
-          const selectedSubList = subList?.filter(
-            (subItem: any) => subItem.selected
-          );
-          if (selectedSubList && selectedSubList.length > 0) {
-            selectedData.push({ listName, subList: selectedSubList });
-          }
-        });
-        console.log(selectedData);
+      onClick: (data: any, state: any, setAnchorEl: any) => {
+        getSelectedData(data);
+        setAnchorEl(false);
       },
       btnstyle: {
         backgroundColor: '#665CD7',
@@ -314,13 +354,14 @@ function App() {
         color: '#fff',
         width: '121px',
         height: '36px',
+        fontSize: '14px',
       },
     },
   ];
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
       <CustomFilter
-        icon={<FunnelIcon color="#fff" width="36px" height="36px" />}
+        icon={<FunnelIcon color="#fff" width="26px" height="36px" />}
         customData={customData}
         buttons={buttons}
         rootStyle={{}}
@@ -330,12 +371,7 @@ function App() {
         }}
         // transformOrigin={{}}
         filterTitle="Filter"
-        filterTitleStyle={{
-          fontSize: '16px',
-          textalign: 'left',
-          color: '#262626',
-          fontWeight: 'bold',
-        }}
+        filterTitleStyle={{}}
         listIconStyle={{}}
         subListContainerStyle={{}}
         buttonContainerStyle={{}}
@@ -343,7 +379,27 @@ function App() {
         contentWrapStyle={{}}
         searchBarStyle={{}}
         showSearchBar={true}
-        filterButtonStyle={{height:'36px',width:'10px'}}
+        filterButtonStyle={{ height: '36px', width: '10px' }}
+        labelStyle={{}}
+        listItemStyle={{}}
+        maxLabelShow={2}
+        visibleSubList={3}
+        moreLabelStyle={{
+          backgroundColor: '#E9E9E9',
+          padding: '3px 8px',
+          fontSize: '10px',
+          m: 0,
+          color: '#fff',
+        }}
+        titleWrapperStyle={{}}
+        btnWrapperStyle={{}}
+        selectedchipConStyle={{}}
+        searchPlaceHolder="Search"
+        searchVariant="outlined"
+        searchbarSize="small"
+        checkboxStyle={{}}
+        chipStyle={{}}
+        chipVariant="outlined"
       />
       {/* <Screen
         containerStyle={{}}
