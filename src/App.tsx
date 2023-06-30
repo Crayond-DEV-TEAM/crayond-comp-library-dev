@@ -62,7 +62,7 @@ function App() {
         senderId: 'user_1',
         content:
           'Not much, just enjoying the weekend. How about we plan a meetup?',
-        timestamp: '2023-06-29T10:15:00Z',
+        timestamp: '2023-06-19T10:15:00Z',
         reactions: {
           thumbsUp: 2,
           thumbsDown: 1,
@@ -81,6 +81,22 @@ function App() {
       },
     ],
   };
+
+  const headerData = {
+    name:'New Group',
+    profileImage: '',
+    status: 'online',
+    customComponent:null,
+    functions:{
+      onClickProfile:undefined,
+      onClickMore:undefined,
+      onClickMinimize:undefined,
+      onClickClose:undefined,
+    },
+    styles:{
+      headerRootStyle:{},
+    }
+  }
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
       <Typography variant="h3" mb={4}>

@@ -9,10 +9,13 @@ import {
 } from '@mui/material';
 import UserIcon from '../../assets/userIcon';
 import CloseIcon from '../../assets/closeIcon';
-import DeleteIcon from '../../assets/deleteIcon';
-import SearchIcon from '../../assets/searchIcon';
 import React from 'react';
 import moment from 'moment';
+import EmojiIcon from '../../assets/emojiIcon';
+import MicIcon from '../../assets/micIcon';
+import AttachFileIcon from '../../assets/attachFileIcon';
+import MoreIcon from '../../assets/moreIcon';
+import MinimizeIcon from '../../assets/minimizeIcon';
 
 export default function ChatBox(props: any) {
   const { chatData } = props;
@@ -48,10 +51,10 @@ export default function ChatBox(props: any) {
           </Stack>
           <Box display={'flex'} gap="12px">
             <IconButton size="small" disableRipple>
-              <DeleteIcon />
+              <MoreIcon />
             </IconButton>
             <IconButton size="small" disableRipple>
-              <SearchIcon />
+              <MinimizeIcon />
             </IconButton>
             <IconButton size="small" disableRipple>
               <CloseIcon />
@@ -79,7 +82,10 @@ export default function ChatBox(props: any) {
                 >
                   <Avatar
                     className="chat-message-profile"
-                    sx={{ ...styles.messageProfile }}
+                    sx={{
+                      ...styles.messageProfile,
+                      cursor: isYou ? 'initial' : 'pointer',
+                    }}
                   >
                     <UserIcon />
                   </Avatar>
@@ -98,7 +104,11 @@ export default function ChatBox(props: any) {
                       </Typography>
                       <Typography sx={{ ...styles.massagerTime }}>
                         {moment(message?.timestamp).calendar(new Date(), {
-                          sameDay: `${'['+(moment(message?.timestamp).fromNow()).toString()+']'}`,
+                          sameDay: `${
+                            '[' +
+                            moment(message?.timestamp).fromNow().toString() +
+                            ']'
+                          }`,
                           // lastDay: '[Yesterday]',
                           // lastWeek: '[Last] dddd',
                           sameElse: 'LLL',
@@ -127,9 +137,9 @@ export default function ChatBox(props: any) {
           </Box>
         </Box>
         <Box className="chat-editor" sx={{ ...styles.textEditor }}>
-          <Stack direction={'row'} gap="12px">
+          <Stack direction={'row'} gap="8px">
             <IconButton size="small" disableRipple>
-              <DeleteIcon />
+              <EmojiIcon />
             </IconButton>
             <Box flexGrow={1}>
               <InputBase
@@ -140,10 +150,15 @@ export default function ChatBox(props: any) {
               />
             </Box>
             <IconButton size="small" disableRipple>
-              <SearchIcon />
+              <MicIcon />
             </IconButton>
             <IconButton size="small" disableRipple>
-              <CloseIcon />
+              <Typography sx={{ color: '#3B3B3B', fontSize: '16px' }}>
+                A
+              </Typography>
+            </IconButton>
+            <IconButton size="small" disableRipple>
+              <AttachFileIcon />
             </IconButton>
           </Stack>
         </Box>

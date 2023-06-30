@@ -9,7 +9,7 @@ export const styles: styleProps = {
     boxShadow: '0 3px 10px #00000011',
     width: '400px',
     border: '1px solid #E9E9E160',
-
+    userSelect: "none",
   },
   header: {
     padding: '16px 20px',
@@ -67,7 +67,9 @@ export const styles: styleProps = {
     borderRadius: '12px 12px 12px 4px',
     display: 'inline-block',
     alignSelf: 'start',
-    transition: 'all .3s'
+    cursor:'pointer',
+    transition: 'all .3s',
+    userSelect: "text",
   },
   messageBodyYou: {
     boxSizing: 'border-box',
@@ -76,7 +78,8 @@ export const styles: styleProps = {
     borderRadius: '12px 12px 4px 12px',
     display: 'inline-block',
     alignSelf: 'end',
-    backgroundColor:'#EEEEEE'
+    backgroundColor:'#EEEEEE',
+    userSelect: "text",
   },
   messageText: {
     fontSize: '12px',
