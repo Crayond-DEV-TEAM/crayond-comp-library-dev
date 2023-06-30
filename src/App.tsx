@@ -207,7 +207,6 @@ function App() {
   const [state, setState] = useState([...treeData])
 
   const onChange = (e: any, val: string, id: string, data: []) => {
-    debugger
     const listingPermission = data?.map((item: any) => {
       if (item?.id === id) {
         if (e) {

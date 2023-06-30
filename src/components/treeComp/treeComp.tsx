@@ -32,8 +32,6 @@ export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
         }
     } = props;
 
-    console.log(state, 'checkBoxStyles');
-
     const stylesProps = () => {
         switch (test) {
             case 'parent':
@@ -99,7 +97,7 @@ export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
         </Grid>
     );
 };
-const StyledTreeItem = styled(TreeItem)<TreeComponentProps>(({ rootNode }) => {
+const StyledTreeItem = styled(TreeItem)<TreeComponentProps>((rootNode: boolean) => {
     return {
         position: 'relative',
         '&:before': {
@@ -157,7 +155,6 @@ const renderTree = (
         checkboxHeight: string,
     }
 ) => {
-    debugger
     return (
         <StyledTreeItem
             rootNode={test === 'parent' ? true : false}
