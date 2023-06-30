@@ -86,6 +86,7 @@ export const footer_style = {
   bottomText: {
     color: '#98A0AC',
     fontSize: '12px',
+    cursor: 'pointer'
   },
 
   bottomTextBlock: {
