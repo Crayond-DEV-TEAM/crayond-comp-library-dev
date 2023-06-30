@@ -1,44 +1,16 @@
-import React, { useState } from 'react';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Slider, { SliderProps } from '@mui/material/Slider';
-import { styles } from './style';
+import Slider from '@mui/material/Slider';
 import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+import { useState } from 'react';
+import { ProgressProps } from './props';
+import { styles } from './style';
 
-interface ProgressProps extends SliderProps {
-  marks: {
-    value: number;
-    label: string;
-  }[];
-  sliderHeight: number;
-  step: number;
-  value: number;
-  disabled?: boolean;
-  progressLabel: boolean;
-  valueLabelDisplay: 'on' | 'off' | undefined;
-  labelColor: string;
-  labelSize: number;
-  sliderColor: string;
-  thumbColor: string;
-  getAriaLabels?: string;
-  size?: 'small' | 'medium';
-  customMarks: boolean;
-  minMaxValues: boolean;
-  handleChange: () => void;
-  sliderThumbStyle: object;
-  sliderStyle: object;
-  symbol: string;
-  minMaxContainer: object;
-  minMaxLabel: object;
-  labelStyle: object;
-  containerStyle: object;
-}
 
 const Sliders = (props: ProgressProps) => {
   const {
     step,
     size,
-    getAriaLabels,
     marks,
     sliderHeight,
     disabled,
@@ -112,7 +84,7 @@ const Sliders = (props: ProgressProps) => {
 };
 
 Sliders.defaultProps = {
-  value: 20,
+  value: 0,
   step: 10,
   size: 'small',
   sliderHeight: 5,
@@ -124,7 +96,6 @@ Sliders.defaultProps = {
   labelSize: 2,
   sliderColor: '#665CD7',
   thumbColor: '#665CD7',
-  getAriaLabels: '',
   minMaxValue: false,
   handleChange: () => {},
   sliderStyle: {},
@@ -134,32 +105,7 @@ Sliders.defaultProps = {
   labelStyle: {},
   containerStyle: {},
   sliderThumbStyle: {},
-  marks: [
-    {
-      value: 0,
-      label: '0°C',
-    },
-    {
-      value: 20,
-      label: '20°C',
-    },
-    {
-      value: 40,
-      label: '40°C',
-    },
-    {
-      value: 60,
-      label: '60°C',
-    },
-    {
-      value: 80,
-      label: '80°C',
-    },
-    {
-      value: 100,
-      label: '100°C',
-    },
-  ],
+  marks: [],
 };
 
 export default Sliders;

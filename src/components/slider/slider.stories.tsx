@@ -89,8 +89,8 @@ Primary.argTypes = {
   },
 };
 Primary.args = {
-  value: 33,
-  step: 10,
+  value: 0,
+  step: 0,
   size: 'small',
   sliderHeight: 5,
   disabled: false,
@@ -101,13 +101,15 @@ Primary.args = {
   labelSize: 2,
   sliderColor: '#665CD7',
   thumbColor: '#665CD7',
+  minMaxValue: false,
   handleChange: () => {},
   sliderStyle: {},
   symbol: '',
+  minMaxContainer: {},
+  minMaxLabel: {},
   labelStyle: {},
   containerStyle: {},
   sliderThumbStyle: {},
-
   marks: [
     {
         value: 0,
