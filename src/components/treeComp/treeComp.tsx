@@ -205,8 +205,6 @@ function BpCheckbox(props: CheckBoxProps) {
         uncheckedIcon,
     } = props;
 
-    console.log(checkboxBorderRadius, 'checkBoxStyles===');
-
     return (
         <Checkbox
             sx={{
@@ -232,8 +230,8 @@ export default function TreeComponent(props: TreeComponentProps) {
         customLabel = {
             fontsize: '',
             iconProp: {
-                parent: null,
-                parentChild: null
+                parent: <></>,
+                parentChild: <></>
             }
         },
         state = [],
