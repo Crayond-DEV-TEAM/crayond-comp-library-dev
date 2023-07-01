@@ -41,6 +41,7 @@ export interface RecentSearchProps {
   recentSearchItemTextColor: string;
   recentSearchItemBgcolor: string;
   recentSearchItemSize: number;
+  handleRecentSearch:(val:ParamsProps)=>void;
 }
 export interface SearchFieldProps {
   options: {

@@ -111,8 +111,15 @@ const SearchField = (props: SearchFieldProps) => {
   const [recentSearch, setRecentSearch] = useState<Category1Props['option']>(
     []
   );
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
+  const handleOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+  };
   const requestOnInputSearch = (val: string) => {
     if (handleInputOnChange) {
       handleInputOnChange(val);
@@ -122,96 +129,146 @@ const SearchField = (props: SearchFieldProps) => {
 
   const handleSearchData = (val: ParamsProps) => {
     setSearched(val);
-    setRecentSearch([...recentSearch, val]);
-    setOpen(false);
+    if (isRecentSearch) {
+      setRecentSearch([...recentSearch, val]);
+    }
+    setIsOpen(false);
   };
 
-  const handleOnchange = (e: any, val: any) => {
+  const handleOnchange = (e:React.ChangeEvent<{}>, val: ParamsProps) => {
+    setSearched(val);
     if (handleOptionChange) {
       handleOptionChange(val);
     }
+  };
+
+  const handleRecentSearch = (val: ParamsProps) => {
     setSearched(val);
+    setIsOpen(false);
+  };
+
+  const handleInputChange = (event:any, value:any, reason:any) => {
+   
+    console.log(reason,"___");
+    console.log(value,"+++");
+  };
+
+  const handleSelectChange = (option:any) => {
+    setSearched(option);
+    setIsOpen(false);
   };
 
   const handleClear = () => {
     setSearched({ label: '', url: '' });
   };
 
-  function handleOpen(): void {
-    setOpen((isOpen) => !isOpen);
-  }
-
   return (
     <>
-      <Box
-        sx={{
-          minWidth: '100%',
-        }}
-        // onClick={() => handleOpen()}
-      >
-        <Autocomplete
-          open={isOpen}
-          clearOnEscape={true}
-          fullWidth
-          value={searched}
-          options={options}
-          onChange={(e, value) => handleOnchange(e, value)}
-          getOptionLabel={(option) => option?.label}
-          sx={{
-            '&.MuiAutocomplete-root .MuiOutlinedInput-root': {
-              ...inputRootStyle,
-              fontSize: inputFontSize,
-              color: inputFontColor,
-              padding: '0px 12px',
-              backgroundColor: `${inputBackgroundColor}`,
-              border: `1px solid ${inputBorderDefaultColor}`,
-              borderRadius: '8px',
-              ':hover': {
-                border: `1px solid ${inputBorderHoverColor}`,
-              },
-              ':focus-within': {
-                border: `1px solid ${inputBorderFocusColor}`,
-              },
-              '& input::placeholder': {
-                fontSize: placeHolderSize,
-                color: placeHolderColor,
-              },
-            },
-            '&.MuiAutocomplete-root .MuiAutocomplete-inputRoot': {
-              paddingRight: '12px !important',
-            },
-          }}
-          renderOption={(props: any, option) => {
-            return (
-              <>
-                {isTextSearch && (
-                  <>
-                    <Box {...props} onClick={() => handleSearchData(option)}>
-                      <Typography
-                        color={listItemLabelColor}
-                        fontSize={listItemLabelSize}
-                        className="title1"
-                        sx={{ ...listItemLabelStyles }}
-                        style={
-                          {
-                            // fontWeight:search&&option?.label?.toLowerCase()?.includes(search?.toLowerCase())&&'600',
-                            // color:search&&option?.label?.toLowerCase()?.includes(search?.toLowerCase())&&'#001C3C',
-                          }
-                        }
-                      >
-                        {option?.label}
-                      </Typography>
-                    </Box>
-                  </>
-                )}
+      <Autocomplete
+        open={isOpen}
+        onOpen={() => handleOpen()}
+        onClose={() => {}}
+        clearOnEscape={true}
+        fullWidth
+        value={searched}
+        options={options}
+        onChange={(e:React.ChangeEvent<{}>, value:any) => handleOnchange(e, value)}
+        getOptionLabel={(option) => option?.label}
+        inputValue={searched?.label || ''}
+        // onSelect={(e:React.ChangeEvent<{}>,option:any)=>handleSelectChange(e,option)}
 
-                {isCardBased && (
-                  <Stack
-                    {...props}
-                    sx={{ p: '14px', cursor: 'pointer' }}
-                    direction={'column'}
-                    onClick={() => handleSearchData(option)}
+        sx={{
+          '&.MuiAutocomplete-root .MuiOutlinedInput-root': {
+            ...inputRootStyle,
+            fontSize: inputFontSize,
+            color: inputFontColor,
+            padding: '0px 12px',
+            backgroundColor: `${inputBackgroundColor}`,
+            border: `1px solid ${inputBorderDefaultColor}`,
+            borderRadius: '8px',
+            ':hover': {
+              border: `1px solid ${inputBorderHoverColor}`,
+            },
+            ':focus-within': {
+              border: `1px solid ${inputBorderFocusColor}`,
+            },
+            '& input::placeholder': {
+              fontSize: placeHolderSize,
+              color: placeHolderColor,
+            },
+          },
+          '&.MuiAutocomplete-root .MuiAutocomplete-inputRoot': {
+            paddingRight: '12px !important',
+          },
+        }}
+        renderOption={(props: any, option) => {
+          return (
+            <>
+              {isTextSearch && (
+                <>
+                  <Box {...props} onClick={() => handleSearchData(option)}>
+                    <Typography
+                      color={listItemLabelColor}
+                      fontSize={listItemLabelSize}
+                      className="title1"
+                      sx={{ ...listItemLabelStyles }}
+                      style={
+                        {
+                          // fontWeight:search&&option?.label?.toLowerCase()?.includes(search?.toLowerCase())&&'600',
+                          // color:search&&option?.label?.toLowerCase()?.includes(search?.toLowerCase())&&'#001C3C',
+                        }
+                      }
+                    >
+                      {option?.label}
+                    </Typography>
+                  </Box>
+                </>
+              )}
+
+              {isCardBased && (
+                <Stack
+                  {...props}
+                  sx={{ p: '14px', cursor: 'pointer' }}
+                  direction={'column'}
+                  onClick={() => handleSearchData(option)}
+                >
+                  <img
+                    src={option?.url}
+                    alt=" "
+                    style={{
+                      // ...cardImgStyle,
+                      width: cardImgWidth,
+                      height: cardImgHeight,
+                      borderRadius: imgBorderRadius,
+                    }}
+                  />
+                  <Typography
+                    color={listItemLabelColor}
+                    fontSize={listItemLabelSize}
+                    noWrap
+                    mt={'6px'}
+                    width={'74px'}
+                    className="title1"
+                    sx={{ ...listItemLabelStyles }}
                   >
+                    {option?.label}
+                  </Typography>
+                </Stack>
+              )}
+
+              {isCardWithTitleBased && (
+                <Stack
+                  {...props}
+                  sx={{
+                    p: '14px',
+                    cursor: 'pointer',
+                    // ':hover': {  backgroundColor: '#665CD7',},
+                  }}
+                  direction={'row'}
+                  alignItems={'center'}
+                  onClick={() => handleSearchData(option)}
+                >
+                  <Box>
                     <img
                       src={option?.url}
                       alt=" "
@@ -222,342 +279,304 @@ const SearchField = (props: SearchFieldProps) => {
                         borderRadius: imgBorderRadius,
                       }}
                     />
+                  </Box>
+                  <Box ml={'8px'}>
                     <Typography
                       color={listItemLabelColor}
                       fontSize={listItemLabelSize}
-                      noWrap
-                      mt={'6px'}
-                      width={'74px'}
+                      fontWeight={600}
                       className="title1"
                       sx={{ ...listItemLabelStyles }}
                     >
                       {option?.label}
                     </Typography>
-                  </Stack>
-                )}
+                    <Typography
+                      color={listItemSubTextColor}
+                      fontSize={listItemSubTextSize}
+                      mt={'6px'}
+                      sx={{ ...listItemSubTextStyles }}
+                    >
+                      {option?.label}
+                    </Typography>
+                  </Box>
+                </Stack>
+              )}
 
-                {isCardWithTitleBased && (
-                  <Stack
-                    {...props}
-                    sx={{
-                      p: '14px',
-                      cursor: 'pointer',
-                      // ':hover': {  backgroundColor: '#665CD7',},
-                    }}
-                    direction={'row'}
-                    alignItems={'center'}
-                    onClick={() => handleSearchData(option)}
-                  >
+              {isShortcutKeyBased && (
+                <>
+                  <Box {...props} onClick={() => handleSearchData(option)}>
                     <Box>
-                      <img
-                        src={option?.url}
-                        alt=" "
-                        style={{
-                          // ...cardImgStyle,
-                          width: cardImgWidth,
-                          height: cardImgHeight,
-                          borderRadius: imgBorderRadius,
-                        }}
-                      />
-                    </Box>
-                    <Box ml={'8px'}>
                       <Typography
                         color={listItemLabelColor}
                         fontSize={listItemLabelSize}
-                        fontWeight={600}
                         className="title1"
                         sx={{ ...listItemLabelStyles }}
                       >
                         {option?.label}
                       </Typography>
-                      <Typography
-                        color={listItemSubTextColor}
-                        fontSize={listItemSubTextSize}
-                        mt={'6px'}
-                        sx={{ ...listItemSubTextStyles }}
-                      >
-                        {option?.label}
-                      </Typography>
                     </Box>
-                  </Stack>
-                )}
+                    <Box
+                      sx={{ display: 'none', mt: '5px' }}
+                      className="enterIcon"
+                    >
+                      <HoverEnter />
+                    </Box>
+                  </Box>
+                </>
+              )}
 
-                {isShortcutKeyBased && (
-                  <>
-                    <Box {...props} onClick={() => handleSearchData(option)}>
+              {isShortComponent && (
+                <>
+                  <Stack
+                    direction={'row'}
+                    columnGap={'8px'}
+                    rowGap={'24px'}
+                    p={'0 14px'}
+                    marginBottom={'16px'}
+                    onClick={() => handleSearchData(option)}
+                  >
+                    <>
+                      <Box>
+                        <Search />
+                      </Box>
                       <Box>
                         <Typography
                           color={listItemLabelColor}
                           fontSize={listItemLabelSize}
+                          fontWeight={600}
                           className="title1"
                           sx={{ ...listItemLabelStyles }}
                         >
                           {option?.label}
                         </Typography>
                       </Box>
-                      <Box
-                        sx={{ display: 'none', mt: '5px' }}
-                        className="enterIcon"
-                      >
-                        <HoverEnter />
-                      </Box>
-                    </Box>
-                  </>
-                )}
-
-                {isShortComponent && (
-                  <>
-                    <Stack
-                      direction={'row'}
-                      columnGap={'8px'}
-                      rowGap={'24px'}
-                      p={'0 14px'}
-                      marginBottom={'16px'}
-                      onClick={() => handleSearchData(option)}
-                    >
-                      <>
-                        <Box>
-                          <Search />
-                        </Box>
-                        <Box>
-                          <Typography
-                            color={listItemLabelColor}
-                            fontSize={listItemLabelSize}
-                            fontWeight={600}
-                            className="title1"
-                            sx={{ ...listItemLabelStyles }}
-                          >
-                            {option?.label}
-                          </Typography>
-                        </Box>
-                      </>
-                    </Stack>
-                  </>
-                )}
-              </>
-            );
-          }}
-          PaperComponent={({ children }) => (
-            <Paper
-              elevation={0}
-              sx={
-                {
-                  height: paperHeight,
-                  minHeight: paperMinHeight,
-                  maxHeight: paperMaxHeight,
-                  overflow: 'scroll',
-
-                  ...styles.paperRootStyle,
-                  ...paperRootStyle,
-                  border: `1px solid ${paperBorderColor}`,
-                  backgroundColor: paperBackgroundColor,
-                  '& .MuiAutocomplete-listbox': {
-                    display: isCardBased && 'flex',
-                    flexWrap: isCardBased && 'wrap',
-                  },
-
-                  '& .MuiAutocomplete-listbox .MuiAutocomplete-option.Mui-focused':
-                    {
-                      backgroundColor: keyDownListBgcolor,
-                      '& .title1': {
-                        color: keyDownListTextColor,
-                      },
-                      '.enterIcon': {
-                        display: 'block',
-                      },
-                    },
-                  '& .MuiAutocomplete-listbox .MuiAutocomplete-option[aria-selected="true"].Mui-focused':
-                    {
-                      backgroundColor: '#ffff',
-                    },
-                  '& .MuiAutocomplete-listbox .MuiAutocomplete-option': {
-                    display: isShortcutKeyBased && 'flex',
-                    justifyContent: isShortcutKeyBased && 'space-between',
-                    alignItems: isShortcutKeyBased && 'center',
-                    ':hover': {
-                      '.enterIcon': {
-                        display: 'block',
-                      },
-                      background: listTextHoverBgColor,
-                      '& .title1': {
-                        color: listTextHoverColor,
-                      },
-                    },
-                  },
-                } as SxProps
-              }
-            >
-              {isRecentSearch && (
-                <Box mb={1}>
-                  <RecentSearch
-                    recentVal={recentSearch}
-                    recentLabel={recentLabel}
-                    recentLabelTextColor={recentLabelTextColor}
-                    recentLabelFontSize={recentLabelFontSize}
-                    recentLabelStyle={recentLabelStyle}
-                    recentSearchItemStyles={recentSearchItemStyles}
-                    recentSearchItemTextColor={recentSearchItemTextColor}
-                    recentSearchItemBgcolor={recentSearchItemBgcolor}
-                    recentSearchItemSize={recentSearchItemSize}
-                  />
-                </Box>
-              )}
-
-              {children}
-
-              {isShortcutKeyBased && (
-                <Box>
-                  <ControlSearch
-                    navigateButtons={navigateData}
-                    controlsRootStyles={controlsRootStyles}
-                    controlsBgColor={controlsBgColor}
-                    controlsTextSize={controlsTextSize}
-                    controlsTextColor={controlsTextColor}
-                  />
-                </Box>
-              )}
-
-              {isShortComponent && (
-                <>
-                  <Divider />
-                  <Stack direction={'column'}>
-                    <Typography
-                      color={recentSearchLabelColor}
-                      fontSize={recentSearchLabelSize}
-                      mt={'24px'}
-                      mb={'12px'}
-                      pl={'16px'}
-                    >
-                      {recentSearchLabel}
-                    </Typography>
-                  </Stack>
-                  <SuggestionRecentSearch
-                    option={recentSearch}
-                    searchValue={search}
-                  />
-
-                  <Divider />
-                  <Stack sx={{ direction: componentColumnDirection }}>
-                    <Stack>
-                      <Typography
-                        color={categoryLabel1Color}
-                        fontSize={categoryLabel1Size}
-                        mt={'24px'}
-                        pl={'16px'}
-                      >
-                        {categoryLabel1}
-                      </Typography>
-                      <FoodCategory
-                        option={primaryCategoryData}
-                        handleCategoryData={handleSearchData}
-                        searchValue={undefined}
-                      />
-                    </Stack>
-                    <Divider />
-                    <Stack>
-                      <Typography
-                        color={categoryLabel2Color}
-                        fontSize={categoryLabel2Size}
-                        mt={'24px'}
-                        pl={'16px'}
-                      >
-                        {categoryLabel2}
-                      </Typography>
-                      <EmployeeCategory
-                        option={secondaryCategoryData}
-                        handleCategoryData={handleSearchData}
-                        searchValue={undefined}
-                      />
-                    </Stack>
+                    </>
                   </Stack>
                 </>
               )}
-            </Paper>
-          )}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              // onKeyDown={(e)=>handleKeyDown(e)}
-              placeholder={placeHolderText}
-              onChange={(e) => requestOnInputSearch(e.target.value)}
-              InputProps={{
-                ...params.InputProps,
-                startAdornment: (
-                  <>
-                    <InputAdornment
-                      position="start"
-                      sx={{ cursor: 'pointer' }}
-                      onClick={() => handleOpen()}
-                    >
-                      {isShortComponent && searched?.url && (
-                        <Stack
-                          direction={'row'}
-                          spacing={'10px'}
-                          alignItems={'center'}
-                        >
-                          <> {startAdornmentIcon}</>
-                          <img
-                            src={searched?.url}
-                            alt=" "
-                            style={{
-                              width: '24px',
-                              height: '24px',
-                              borderRadius: '50%',
-                            }}
-                          />
-                        </Stack>
-                      )}
-                      {searched && searched?.url ? (
-                        <>
-                          {isShortComponent ? (
-                            ''
-                          ) : (
-                            <>
-                              {isTextSearch || isRecentSearch ? (
-                                <>{startAdornmentIcon}</>
-                              ) : (
-                                <img
-                                  src={searched?.url}
-                                  alt=" "
-                                  style={{
-                                    width: '24px',
-                                    height: '24px',
-                                    borderRadius: '50%',
-                                  }}
-                                />
-                              )}
-                            </>
-                          )}
-                        </>
-                      ) : (
-                        <>{startAdornmentIcon}</>
-                      )}
-                    </InputAdornment>
-                  </>
-                ),
-                endAdornment: (
-                  <>
-                    <InputAdornment
-                      position="end"
-                      sx={{ cursor: 'pointer' }}
-                      onClick={() => handleClear()}
-                    >
-                      {endAdornmentIcon}
-                    </InputAdornment>
-                  </>
-                ),
-              }}
-              sx={{
-                padding: '6px 0px',
-                '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
-                  outline: 'none',
-                  border: 'none',
+            </>
+          );
+        }}
+        PaperComponent={({ children }) => (
+          <Paper
+            elevation={0}
+            sx={
+              {
+                height: paperHeight,
+                minHeight: paperMinHeight,
+                maxHeight: paperMaxHeight,
+                overflow: 'scroll',
+
+                ...styles.paperRootStyle,
+                ...paperRootStyle,
+                border: `1px solid ${paperBorderColor}`,
+                backgroundColor: paperBackgroundColor,
+                '& .MuiAutocomplete-listbox': {
+                  display: isCardBased && 'flex',
+                  flexWrap: isCardBased && 'wrap',
                 },
-              }}
-            />
-          )}
-        />
-      </Box>
+
+                '& .MuiAutocomplete-listbox .MuiAutocomplete-option.Mui-focused':
+                  {
+                    backgroundColor: keyDownListBgcolor,
+                    '& .title1': {
+                      color: keyDownListTextColor,
+                    },
+                    '.enterIcon': {
+                      display: 'block',
+                    },
+                  },
+                '& .MuiAutocomplete-listbox .MuiAutocomplete-option[aria-selected="true"].Mui-focused':
+                  {
+                    backgroundColor: '#ffff',
+                  },
+                '& .MuiAutocomplete-listbox .MuiAutocomplete-option': {
+                  display: isShortcutKeyBased && 'flex',
+                  justifyContent: isShortcutKeyBased && 'space-between',
+                  alignItems: isShortcutKeyBased && 'center',
+                  ':hover': {
+                    '.enterIcon': {
+                      display: 'block',
+                    },
+                    background: listTextHoverBgColor,
+                    '& .title1': {
+                      color: listTextHoverColor,
+                    },
+                  },
+                },
+              } as SxProps
+            }
+          >
+            {isRecentSearch && (
+              <Box mb={1}>
+                <RecentSearch
+                  recentVal={recentSearch}
+                  recentLabel={recentLabel}
+                  recentLabelTextColor={recentLabelTextColor}
+                  recentLabelFontSize={recentLabelFontSize}
+                  recentLabelStyle={recentLabelStyle}
+                  recentSearchItemStyles={recentSearchItemStyles}
+                  recentSearchItemTextColor={recentSearchItemTextColor}
+                  recentSearchItemBgcolor={recentSearchItemBgcolor}
+                  recentSearchItemSize={recentSearchItemSize}
+                  handleRecentSearch={handleRecentSearch}
+                />
+              </Box>
+            )}
+
+            {children}
+
+            {isShortcutKeyBased && (
+              <Box>
+                <ControlSearch
+                  navigateButtons={navigateData}
+                  controlsRootStyles={controlsRootStyles}
+                  controlsBgColor={controlsBgColor}
+                  controlsTextSize={controlsTextSize}
+                  controlsTextColor={controlsTextColor}
+                />
+              </Box>
+            )}
+
+            {isShortComponent && (
+              <>
+                <Divider />
+                <Stack direction={'column'}>
+                  <Typography
+                    color={recentSearchLabelColor}
+                    fontSize={recentSearchLabelSize}
+                    mt={'24px'}
+                    mb={'12px'}
+                    pl={'16px'}
+                  >
+                    {recentSearchLabel}
+                  </Typography>
+                </Stack>
+                <SuggestionRecentSearch
+                  option={recentSearch}
+                  searchValue={search}
+                />
+
+                <Divider />
+                <Stack sx={{ direction: componentColumnDirection }}>
+                  <Stack>
+                    <Typography
+                      color={categoryLabel1Color}
+                      fontSize={categoryLabel1Size}
+                      mt={'24px'}
+                      pl={'16px'}
+                    >
+                      {categoryLabel1}
+                    </Typography>
+                    <FoodCategory
+                      option={primaryCategoryData}
+                      handleCategoryData={handleSearchData}
+                      searchValue={undefined}
+                    />
+                  </Stack>
+                  <Divider />
+                  <Stack>
+                    <Typography
+                      color={categoryLabel2Color}
+                      fontSize={categoryLabel2Size}
+                      mt={'24px'}
+                      pl={'16px'}
+                    >
+                      {categoryLabel2}
+                    </Typography>
+                    <EmployeeCategory
+                      option={secondaryCategoryData}
+                      handleCategoryData={handleSearchData}
+                      searchValue={undefined}
+                    />
+                  </Stack>
+                </Stack>
+              </>
+            )}
+          </Paper>
+        )}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            placeholder={placeHolderText}
+            onChange={(e) => requestOnInputSearch(e.target.value)}
+            InputProps={{
+              ...params.InputProps,
+              startAdornment: (
+                <>
+                  <InputAdornment
+                    position="start"
+                    sx={{ cursor: 'pointer' }}
+                    onClick={() => handleOpen()}
+                  >
+                    {isShortComponent && searched?.url && (
+                      <Stack
+                        direction={'row'}
+                        spacing={'10px'}
+                        alignItems={'center'}
+                      >
+                        <> {startAdornmentIcon}</>
+                        <img
+                          src={searched?.url}
+                          alt=" "
+                          style={{
+                            width: '24px',
+                            height: '24px',
+                            borderRadius: '50%',
+                          }}
+                        />
+                      </Stack>
+                    )}
+                    {searched && searched?.url ? (
+                      <>
+                        {isShortComponent ? (
+                          ''
+                        ) : (
+                          <>
+                            {isTextSearch || isRecentSearch ? (
+                              <>{startAdornmentIcon}</>
+                            ) : (
+                              <img
+                                src={searched?.url}
+                                alt=" "
+                                style={{
+                                  width: '24px',
+                                  height: '24px',
+                                  borderRadius: '50%',
+                                }}
+                              />
+                            )}
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <>{startAdornmentIcon}</>
+                    )}
+                  </InputAdornment>
+                </>
+              ),
+              endAdornment: (
+                <>
+                  <InputAdornment
+                    position="end"
+                    sx={{ cursor: 'pointer' }}
+                    onClick={() => handleClear()}
+                  >
+                    {searched.label ? endAdornmentIcon : ''}
+                  </InputAdornment>
+                </>
+              ),
+            }}
+            sx={{
+              padding: '6px 0px',
+              '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+                outline: 'none',
+                border: 'none',
+              },
+            }}
+          />
+        )}
+      />
     </>
   );
 };
@@ -589,9 +608,9 @@ SearchField.defaultProps = {
 
   paperBackgroundColor: '',
   paperBorderColor: '#665CD7',
-  paperHeight:'',
-  paperMinHeight:'',
-  paperMaxHeight:"",
+  paperHeight: '',
+  paperMinHeight: '',
+  paperMaxHeight: '',
 
   listItemSubTextStyles: {},
   listItemSubTextColor: '#E9E9E9',

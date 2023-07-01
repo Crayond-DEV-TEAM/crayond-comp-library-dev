@@ -67,7 +67,7 @@ const cardData =[
 
 Primary.args = {
 
-  options:textSearchData,
+  options:cardData,
 
   isTextSearch: false,
   isRecentSearch: false,

@@ -190,6 +190,7 @@ export const RecentSearch = (props: RecentSearchProps) => {
     recentSearchItemTextColor,
     recentSearchItemBgcolor,
     recentSearchItemSize,
+    handleRecentSearch=()=>{},
   } = props;
 
   return (
@@ -219,6 +220,7 @@ export const RecentSearch = (props: RecentSearchProps) => {
               borderRadius={'8px'}
               minWidth={'fit-content'}
               sx={{ ...recentSearchItemStyles }}
+              onClick={()=>handleRecentSearch(val)}
             >
               {val?.label}
             </Typography>
