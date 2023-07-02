@@ -14,18 +14,6 @@ export default {
 const Template: ComponentStory<typeof SearchField> = (args) => <SearchField {...args} />;
 
 export const Primary = Template.bind({});
-const  textSearchData=[
-  { label: 'Redemption' },
-  { label: 'Henry' },
-  { label: 'Godfather' },
-  { label: 'Dark Knight' },
-  { label: 'Angry Men' },
-  { label: 'Angry women' },
-  { label: 'Angry' },
-  { label: 'Schindler' },
-  { label: 'Pulp Fiction' },
-];
-
 const cardData =[
   {
     label: 'The Redemption',
@@ -65,9 +53,21 @@ const cardData =[
   },
 ];
 
+const textSearchData =[
+  { label: 'Redemption' },
+  { label: 'Henry' },
+  { label: 'Godfather' },
+  { label: 'Dark Knight' },
+  { label: 'Angry Men' },
+  { label: 'Angry women' },
+  { label: 'Angry' },
+  { label: 'Schindler' },
+  { label: 'Pulp Fiction' },
+];
+
 Primary.args = {
 
-  options:cardData,
+  options:textSearchData,
 
   isTextSearch: false,
   isRecentSearch: false,

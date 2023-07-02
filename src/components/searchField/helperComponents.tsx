@@ -8,11 +8,12 @@ import {
 import ClockIcon from '../../assets/clockIcon';
 
 export const SuggestionRecentSearch = (props: SuggestionProp) => {
-  const { searchValue, option } = props;
+  const { searchValue, handleRecentSearch=()=>{},option } = props;
 
   const filteredRows = option.filter((row: any) => {
     return row.label.toLowerCase().includes(searchValue?.toLowerCase());
   });
+
   return (
     <>
       {option?.map((item: any) => (
@@ -27,7 +28,7 @@ export const SuggestionRecentSearch = (props: SuggestionProp) => {
             <Box>
               <ClockIcon />
             </Box>
-            <Box>
+            <Box onClick={()=>handleRecentSearch(item)}>
               <Typography color={'#262626'} fontSize={'14px'} fontWeight={600}>
                 {item?.label}
               </Typography>

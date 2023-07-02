@@ -6,6 +6,7 @@ export interface ParamsProps {
 }
 export interface SuggestionProp {
   searchValue: any;
+  handleRecentSearch:(val:ParamsProps)=>void;
   option: {
     label: string;
     url?: string;
@@ -118,11 +119,11 @@ export interface SearchFieldProps {
   categoryLabel2Size: number;
   primaryCategoryData: {
     label: string;
-    url: string;
+    url?: string;
   }[];
   secondaryCategoryData: {
     label: string;
-    url: string;
+    url?: string;
   }[];
 
   handleInputOnChange: (val: any) => void;

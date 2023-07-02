@@ -1,5 +1,6 @@
 import {
   Autocomplete,
+  AutocompleteChangeReason,
   Box,
   Divider,
   InputAdornment,
@@ -9,7 +10,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useState } from 'react';
+import { ReactEventHandler, useState } from 'react';
 import ArrowUpDownIcon from '../../assets/arrowUpDownIcon';
 import Close from '../../assets/close';
 import EnterIcon from '../../assets/enterIcon';
@@ -129,16 +130,22 @@ const SearchField = (props: SearchFieldProps) => {
 
   const handleSearchData = (val: ParamsProps) => {
     setSearched(val);
-    if (isRecentSearch) {
+    if (isRecentSearch || isShortComponent) {
       setRecentSearch([...recentSearch, val]);
     }
     setIsOpen(false);
   };
 
-  const handleOnchange = (e:React.ChangeEvent<{}>, val: ParamsProps) => {
+  const handleOnchange = (e: React.ChangeEvent<{}>, val: ParamsProps) => {
     setSearched(val);
     if (handleOptionChange) {
       handleOptionChange(val);
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {    
+    if (event.key === 'Escape') {
+      setIsOpen(false);
     }
   };
 
@@ -147,14 +154,7 @@ const SearchField = (props: SearchFieldProps) => {
     setIsOpen(false);
   };
 
-  const handleInputChange = (event:any, value:any, reason:any) => {
-   
-    console.log(reason,"___");
-    console.log(value,"+++");
-  };
-
-  const handleSelectChange = (option:any) => {
-    setSearched(option);
+  const handleSelect = () => {
     setIsOpen(false);
   };
 
@@ -172,11 +172,11 @@ const SearchField = (props: SearchFieldProps) => {
         fullWidth
         value={searched}
         options={options}
-        onChange={(e:React.ChangeEvent<{}>, value:any) => handleOnchange(e, value)}
+        onChange={(e: React.ChangeEvent<{}>, value: any) =>
+          handleOnchange(e, value)
+        }
         getOptionLabel={(option) => option?.label}
-        inputValue={searched?.label || ''}
-        // onSelect={(e:React.ChangeEvent<{}>,option:any)=>handleSelectChange(e,option)}
-
+        onSelect={(e: React.ChangeEvent<{}>) => handleSelect()}
         sx={{
           '&.MuiAutocomplete-root .MuiOutlinedInput-root': {
             ...inputRootStyle,
@@ -455,6 +455,7 @@ const SearchField = (props: SearchFieldProps) => {
                 <SuggestionRecentSearch
                   option={recentSearch}
                   searchValue={search}
+                  handleRecentSearch={handleRecentSearch}
                 />
 
                 <Divider />
@@ -500,6 +501,7 @@ const SearchField = (props: SearchFieldProps) => {
             {...params}
             placeholder={placeHolderText}
             onChange={(e) => requestOnInputSearch(e.target.value)}
+            onKeyDown={(e:any)=>handleKeyDown(e)}
             InputProps={{
               ...params.InputProps,
               startAdornment: (
@@ -589,7 +591,7 @@ SearchField.defaultProps = {
   isCardBased: false,
   isCardWithTitleBased: false,
   isShortcutKeyBased: false,
-  isShortComponent: false,
+  isShortComponent: true,
 
   paperRootStyle: {},
 

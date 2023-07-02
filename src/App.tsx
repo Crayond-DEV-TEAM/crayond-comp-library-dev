@@ -252,14 +252,16 @@ function App() {
         }}
       >
         <SearchField
-          isTextSearch={true}
-          isRecentSearch={true}
+          isTextSearch={false}
+          isRecentSearch={false}
           isCardBased={false}
           isCardWithTitleBased={false}
           isShortcutKeyBased={false}
-          isShortComponent={false}
+          isShortComponent={true}
 
           options={textSearchData}  
+          primaryCategoryData={cardData}
+          secondaryCategoryData={cardData}
 
           placeHolderText="Search henry"
           startAdornmentIcon={<SearchIcon />}
