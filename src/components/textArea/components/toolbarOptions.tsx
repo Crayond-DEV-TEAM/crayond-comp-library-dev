@@ -11,9 +11,16 @@ const formats = [
     //     }
     // ],
     [
-        { className: "ql-bold" },
-        { className: "ql-italic" },
-        { className: "ql-underline" },
+        {
+            className: "ql-bold",
+            value: "bol"
+        },
+        { className: "ql-italic",
+        value: "ital"
+    },
+        { className: "ql-underline",
+        value: "under"
+    },
         { className: "ql-strike" }
     ],
     // [

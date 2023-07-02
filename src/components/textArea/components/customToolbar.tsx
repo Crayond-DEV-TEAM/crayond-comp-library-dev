@@ -1,6 +1,8 @@
 import React from "react";
 import { styled } from '@mui/system';
 import formats from "./toolbarOptions.js";
+import { Typography } from '@mui/material';
+import FormatBoldIcon from '@mui/icons-material/FormatBold';
 
 const renderOptions = (formatData: { options: any; className?: any; }) => {
     const { className, options } = formatData;
@@ -8,18 +10,47 @@ const renderOptions = (formatData: { options: any; className?: any; }) => {
         <select className={className}>
             <option selected="selected"></option>
             {options.map((value: string | number | readonly string[] | undefined) => {
+
                 // eslint-disable-next-line react/jsx-key
-                return <option value={value}></option>;
+                return <option value={value}>
+                    <FormatBoldIcon />
+                </option>;
             })}
         </select>
     );
 };
+
+const formatsSvg = (key: any) => {
+    debugger
+    switch (key) {
+        case 'ql-bold':
+            <FormatBoldIcon />
+        case 'ql-italic':
+            <h1>I</h1>
+        case 'ql-underline':
+            <FormatBoldIcon />
+        case 'ql-strike':
+            <FormatBoldIcon />
+        case 'ql-list':
+            <FormatBoldIcon />
+        case 'ql-script':
+            <FormatBoldIcon />
+        default:
+            break;
+    }
+}
 const renderSingle = (formatData: { options?: any; className?: any; value?: any; }) => {
     const { className, value } = formatData;
-    debugger
-    return <ToolBox className={className} type="button" value={value}>
-            jkasbdkjs
-          </ToolBox >
+    // debugger
+    return <ToolBox type="button" >
+        {formatsSvg(className)}
+        {/* {
+            className === 'ql-bold' ? <FormatBoldIcon /> : <h1>hsad</h1>
+        } */}
+        {/* <Typography sx={{ color: 'red' }}>hsbda</Typography> */}
+        {/* nfsd */}
+        {/* <FormatBoldIcon /> */}
+    </ToolBox >
 };
 
 const ToolBox = styled('button')({
@@ -40,9 +71,11 @@ const CustomToolbar = () => (
                 // eslint-disable-next-line react/jsx-key
                 <span className="ql-formats">
                     {classes.map((formatData: { options: unknown; }) => {
-                        return formatData.options
-                            ? renderOptions(formatData)
-                            : renderSingle(formatData);
+                        debugger
+                        // return formatData.options
+                        //     ? renderOptions(formatData)
+                        //     : renderSingle(formatData);
+                        return renderSingle(formatData);
                     })}
                 </span>
             );
