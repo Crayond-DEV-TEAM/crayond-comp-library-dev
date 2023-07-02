@@ -10,6 +10,7 @@ import { SwitchBox } from './switch';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Input } from './input';
+import { CustomizedSwitches } from '../switch/switch';
 
 
 type Role = {
@@ -173,18 +174,19 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                             </IconButton>
                             <FormGroup sx={styles.switchForm}>
                                 <FormControlLabel sx={{ m: 0, justifyContent: 'center' }}
-                                    control={<SwitchBox
+                                    control={<CustomizedSwitches
                                         onChange={(e: any) => handleSwitch(e?.target?.checked, index)}
                                         sx={{ m: 1 }}
                                         value={isActive}
-                                        color={'primary'}
-                                        customProp={{
-                                            width: '',
-                                            height: '',
-                                            thumbColor: '',
-                                            onChange: undefined,
-                                            color: ''
-                                        }} />}
+                                        // color={'primary'}
+                                        // customProp={{
+                                        //     width: '',
+                                        //     height: '',
+                                        //     thumbColor: '',
+                                        //     onChange: undefined,
+                                        //     color: ''
+                                        // }}
+                                    />}
                                     label={undefined}
                                 />
                             </FormGroup>
