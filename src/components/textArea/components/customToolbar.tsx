@@ -20,21 +20,20 @@ const renderOptions = (formatData: { options: any; className?: any; }) => {
     );
 };
 
-const formatsSvg = (key: any) => {
-    debugger
+const formatsSvg = (key: string) => {
     switch (key) {
         case 'ql-bold':
-            <FormatBoldIcon />
+            return <FormatBoldIcon />
         case 'ql-italic':
-            <h1>I</h1>
+            return
         case 'ql-underline':
-            <FormatBoldIcon />
+            return <FormatBoldIcon />
         case 'ql-strike':
-            <FormatBoldIcon />
+            return <FormatBoldIcon />
         case 'ql-list':
-            <FormatBoldIcon />
+            return <FormatBoldIcon />
         case 'ql-script':
-            <FormatBoldIcon />
+            return <FormatBoldIcon />
         default:
             break;
     }
