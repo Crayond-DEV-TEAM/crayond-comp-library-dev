@@ -41,7 +41,7 @@ function LinearProgressWithLabel(props: LinearProgressProps & ProgressProps) {
   const [isOpen ,setIsOpen]=useState(false);
 
   return (
-    <Stack direction={'row'}>
+    <Stack direction={'row'} alignItems={"center"}>
       <Box sx={{ width: '100%', mr: 1 }}>
         <Tooltip
           open={isShowToolTip && isOpen}
