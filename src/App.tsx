@@ -186,8 +186,11 @@ function App() {
       .required('Please enter email'),
   });
   return (
-    <div className="App" style={{ width: '100vw', height: '100vh' }}>
-<EmptyPages/>
+    <div className="App" style={{ width: '100vw', height: '100vh',backgroundColor:'#fff' }}>
+<EmptyPages
+title1Size={12}title1Weight={800}title1Color={'red'}
+title1={'Henryt'}
+/>
 
       {/* <Screen
        containerStyle={{}}

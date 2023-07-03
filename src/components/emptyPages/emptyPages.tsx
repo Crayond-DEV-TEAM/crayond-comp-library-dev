@@ -1,9 +1,8 @@
-import React from 'react';
 import { Box, Button, Stack, SxProps, Typography } from '@mui/material';
 import EmptyIcon from '../../assets/emptyIcon';
-import { styles } from './styles';
 import EmptyIconB from '../../assets/emptyIconB';
 import { ButtonProps, EmptyPageProps } from './props';
+import { styles } from './styles';
 
 const EmptyPages = (props: EmptyPageProps) => {
   const {
@@ -13,7 +12,7 @@ const EmptyPages = (props: EmptyPageProps) => {
     emptyPageUrlHeight,
     emptyPageUrlWidth,
     iconContainerStyle,
-    handleClickIcon=()=>{},
+    handleClickIcon = () => {},
     emptyPageIconBgColor,
     title1Styles,
     title2Styles,
@@ -40,7 +39,7 @@ const EmptyPages = (props: EmptyPageProps) => {
         {emptyPageInfographic && <Box>{emptyPageInfographic}</Box>}
         {emptyPageIcon && (
           <Box
-           onClick={()=>handleClickIcon()}
+            onClick={() => handleClickIcon()}
             sx={{
               ...styles.iconContainer,
               ...iconContainerStyle,
@@ -61,35 +60,42 @@ const EmptyPages = (props: EmptyPageProps) => {
           </Box>
         )}
         <Stack sx={{ justifyContent: 'center', alignItems: 'center' }}>
-          <Typography
-            sx={{ ...title1Styles }}
-            color={title1Color}
-            fontSize={title1Size}
-            fontWeight={title1Weight}
-            mt={title1MarginTop}
-            mb={title1MarginBottom}
-          >
-            {title1}
-          </Typography>
-          <Typography
-            sx={{ ...title2Styles }}
-            color={title2Color}
-            fontSize={title2Size}
-            fontWeight={title2Weight}
-            mt={title2MarginTop}
-            mb={title2MarginBottom}
-          >
-            {title2}
-          </Typography>
+          {title1 && (
+            <Typography
+              sx={{ ...title1Styles }}
+              color={title1Color}
+              fontSize={title1Size}
+              fontWeight={title1Weight}
+              mt={title1MarginTop}
+              mb={title1MarginBottom}
+            >
+              {title1}
+            </Typography>
+          )}
+          {title2 && (
+            <Typography
+              sx={{ ...title2Styles }}
+              color={title2Color}
+              fontSize={title2Size}
+              fontWeight={title2Weight}
+              mt={title2MarginTop}
+              mb={title2MarginBottom}
+            >
+              {title2}
+            </Typography>
+          )}
         </Stack>
+
         <Stack mt={buttonMarginTop} direction={'row'}>
-          {buttons?.map((btn: ButtonProps) => (
+          {buttons?.map((btn: any) => (
             <Box
-              sx={{
-                ...styles.btnStyle,
-                ...buttonStyles,
-                backgroundColor: btn?.backgroundColor,
-              }}
+              sx={
+                {
+                  ...styles.btnStyle,
+                  ...buttonStyles,
+                  backgroundColor: btn?.backgroundColor,
+                } as SxProps
+              }
               onClick={() => btn?.handleClick()}
             >
               <Button
@@ -112,46 +118,35 @@ const EmptyPages = (props: EmptyPageProps) => {
 export default EmptyPages;
 
 EmptyPages.defaultProps = {
-  containerStyle: { background: '#ffff', minHeight: '100vh' },
+  containerStyle: {},
 
   emptyPageIcon: <EmptyIcon />,
-  emptyPageInfographic: !(<EmptyIconB />),
-  emptyPageUrl:
-    !'https://thumbs.dreamstime.com/b/d-cartoon-man-sleeping-pile-books-illustration-isolated-white-background-248545459.jpg',
-
+  emptyPageInfographic: '',
+  emptyPageUrl: '',
   emptyPageUrlHeight: 225,
   emptyPageUrlWidth: 225,
 
-  handleClickIcon:()=>{},
+  handleClickIcon: () => {},
   iconContainerStyle: {},
-  emptyPageIconBgColor: '#EFEEFB',
+  emptyPageIconBgColor: '',
 
   title1Styles: {},
-  title1MarginTop: 2,
-  title1MarginBottom: 3,
-  title1Size: 16,
-  title1Weight: 600,
-  title1Color: '#3B3B3B',
-  title1: 'Add Bookmark',
+  title1MarginTop: 0,
+  title1MarginBottom: 0,
+  title1Size: 0,
+  title1Weight: 0,
+  title1Color: '',
+  title1: '',
 
   title2Styles: {},
   title2MarginTop: 0,
   title2MarginBottom: 0,
-  title2Size: 14,
-  title2Weight: 500,
-  title2Color: '#3B3B3B',
-  title2: 'Click the above icon to add',
+  title2Size: 12,
+  title2Weight: 0,
+  title2Color: '',
+  title2: '',
 
   buttonMarginTop: 2,
   buttonStyles: {},
-  buttons: [
-    {
-      label: 'Add Now',
-      handleClick: () => {
-        alert('add');
-      },
-      color: '#FFFF',
-      backgroundColor: '#665CD7',
-    },
-  ],
+  buttons: [],
 };
