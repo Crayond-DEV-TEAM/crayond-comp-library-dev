@@ -3,6 +3,7 @@
     font-family: var(--date-fontFamily,"Poppins", sans-serif) ;}
   .rbc-toolbar .rbc-toolbar-label {
     color: var(--date-cell-labelColor,   #262626) !important;
+    flex-grow: 0 !important;
     font-size: var(--date-cell-labelfont,   14px) !important;
     font-weight: var(--date-cell-labelWeight, 500) !important;
 }
@@ -10,8 +11,9 @@
     color: #262626;
 } */
 .rbc-date-cell {
-    color: #262626;
+    color: #262626 !important;
     font-weight: 500;
+    font-size: 12px
 }
 .rbc-off-range-bg {
     background: #FAFAFA;
@@ -32,15 +34,17 @@
 .rbc-header {
     border-bottom: var(--date-head-borderbottom, 1px solid #ddd) !important;
 }
-.rbc-calendar *, .rbc-calendar *:before, .rbc-calendar *:after {
+/* .rbc-calendar *, .rbc-calendar *:before, .rbc-calendar *:after {
     -webkit-box-sizing: inherit;
     box-sizing: inherit;
     color: #000000;
     font-weight: 500;
-}
+    font-size:12px
+} */
 .rbc-toolbar {
     margin-bottom: 10px;
     margin-top: 20px;
+    align-items: center;
 }
 .rbc-toolbar button:active, .rbc-toolbar button.rbc-active {
     background-image: none;
@@ -59,12 +63,23 @@
     background: var(--date-beforeMonthsBgColor, #f1f1f1) !important;
 }
 .rbc-today {
-    background-color: var(--date-todayDateBgcolor, rgb(102 92 215 / 9%)) !important;
+    background-color: var(--date-todayDateBgcolor) !important;
 }
-.rbc-event, .rbc-day-slot .rbc-background-event { 
+/* .rbc-event, .rbc-day-slot .rbc-background-event { 
     background-color: transparent !important;
     outline: none;
     
+    
+} */
+
+.rbc-label {
+    padding: 0 5px;
+    color: #000;
+}
+.rbc-calendar *, .rbc-calendar *:before, .rbc-calendar *:after {
+    color: #929292;
+    font-weight: 500;
+    font-size: 12px;
 }
 .rbc-toolbar button {
     font-size: var(--date-tabFontSize, 14px) !important;
@@ -98,9 +113,27 @@
     /* margin: 10px 25px; */
     transform: translate(20%, -40%);
     color:   var(--date-addEventColor, #463f93) !important;
-    z-index: 999;
+    /* z-index: 999; */
     font-size: 14px;
   }
+  .rbc-current-time-indicator {
+    height: 3px !important;
+    background-color: #FF4040 !important;
+}
+  .rbc-selected-cell{
+    background-color:var(--date-dragandselectBgColor, #a7a4c7) !important;
+
+}
+.dragged-event{
+    background-color: #FF4040 !important;
+
+}
+
+/* .rbc-day-slot .rbc-event, .rbc-day-slot .rbc-background-event{
+    border: 1px solid #265985;
+   background-color:  #265985!important
+} */
+
 
 
   

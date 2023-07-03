@@ -11,6 +11,7 @@ export const customCalenderStyle = {
   },
   eventSelect: {
     marginBottom: '12px',
+    color:'#000',
     fontSize: '14px',
     '& .MuiOutlinedInput-notchedOutline': {
       borderWidth: '2px',
@@ -21,7 +22,8 @@ export const customCalenderStyle = {
       '&.MuiOutlinedInput-input': {
         padding: '9px 14px',
         fontSize: '14px',
-        color: '#919191',
+        color: '#262626',
+        fontWeight:'500'
       },
       '&.MuiButtonBase-root-MuiMenuItem-root': {
         fontSize: '14px!important',
@@ -29,20 +31,40 @@ export const customCalenderStyle = {
     },
   },
   eventtitle: {
+ 
     '& .MuiOutlinedInput-input': {
-      height: '36px',
-      padding: '7px 6px',
+      height: '24px',
+      padding: '0px',
     },
     '& .MuiOutlinedInput-notchedOutline': {
       border: '0px',
+      // borderColor: '#e9e9e9',
+      // borderRadius:'8px'
     },
   },
+  eventtitleList: {
+    padding:'0px 16px',
+ 
+    '& .MuiOutlinedInput-input': {
+      height: '28px',
+      padding: '7px 6px',
+    },
+    '& .MuiOutlinedInput-notchedOutline': {
+      border: '1px solid',
+      borderColor: '#e9e9e9',
+      borderRadius:'8px'
+    },
+    '& .MuiOutlinedInput-root':{
+      pr:'6px'
+    }
+  },
+  
   eventListSx: {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
 
-    borderRadius: '8px',
+    borderRadius: '2px',
     padding: '0px 3px',
     paddingTop: '3px',
     overflowX: 'scroll',
@@ -143,11 +165,12 @@ export const customCalenderStyle = {
       maxWidth: '287px',
       borderRadius: '8px',
       border: '1px solid #E9E9E9',
-      p: 2,
+      p: 2.1,
     },
   },
   dialogHeaderSx: {
-    p: '6px 0px',
+    pb: '6px !important',
+    p:'0px',
     fontSize: '16px',
     fontWeight: '500',
     color: '#262626',
@@ -176,7 +199,7 @@ export const customCalenderStyle = {
   closeSx: {
     color: '#F44F5A',
     position: 'absolute',
-    top: '18px',
+    top: '12px',
     right: '6px',
     p: '4px',
   },
@@ -213,11 +236,11 @@ export const customCalenderStyle = {
     fontWeight: '500',
   },
   yearDaySx: {
-    display: 'flex',
+    fontSize:'14px',
     justifyContent: 'space-between',
     alignItems: 'center',
     border: '2px solid #E9E9E9',
-    padding: '9px 16px',
+    padding: '7px 8px',
     borderRadius: '8px',
     '& .MuiTextField-root': {
       maxWidth: '62px',
@@ -296,7 +319,7 @@ export const customCalenderStyle = {
       border: '0px',
     },
     '& .MuiOutlinedInput-input': {
-      maxWidth: '52px',
+      maxWidth: '74px',
       cursor: 'pointer',
       padding: '0px',
       paddingLeft: '44px',
@@ -332,10 +355,6 @@ export const customCalenderStyle = {
     },
   },
   keyArrowSx: {
-    display: 'block',
-    height: '18px',
-    fontSize: '21px',
-    color: '#3B3B3B',
   },
   totalArrowSx: {
     display: 'block',
@@ -359,6 +378,9 @@ export const customCalenderStyle = {
   eventIconAddSx: {
     padding: '0px',
     paddingRight: '4px',
+    position: 'absolute',
+    top: '12px',
+    p: '4px',
   },
   eventTitleHeadSx: {
     fontSize: '14px',
@@ -370,8 +392,84 @@ export const customCalenderStyle = {
     margin: '0px 5px',
   },
   eventIcons: {
-    fontSize: '14px',
-    color: '#eaeaea',
+    // color: '#3B3B3B',
+    '&:hover':{
+      color:'#665CD7'
+    }
   },
   overAllEventSx: {},
+  errorSx:{
+    fontSize:'14px',
+    color:'#f25252',
+    marginTop: '5px',
+  },
+  arrowCalenderSx:{
+    border:'0px !important',padding:'0px !important' ,
+    "&:hover":{
+     backgroundColor:'transparant !important'
+    }
+  },toolbarSx:{
+         
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: '0px 20px',
+    paddingTop: '16px',
+    paddingBottom: '11px',
+    borderLeft: '1px solid #E9E9E9',
+  },
+  toolBarLabelSx:{
+    color: '#262626',
+    fontSize: '14px',
+    fontWeight: '600',
+    alignItems: 'center',
+  },toolbarViewSx:{
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#F2F2F2',
+    borderRadius: '8px',
+  },
+  ViewToolSx:{
+    fontSize: '12px',
+    '&:hover': {
+      backgroundColor: '#665CD7',
+      color: '#fff',
+    },
+    color:'#fff'
+  },
+  calenderIconSx:{
+  },
+  eventLabel:{
+    padding: '0px 4px', fontSize: '12px', fontWeight: '500',color:'#333333'
+  },
+  textBox: {
+    "& .MuiOutlinedInput-root": {
+      borderRadius: "8px",
+      width: "100%",
+      maxWidth: "320px",
+      "& input::placeholder": {
+        fontFamily: "crayond_regular",
+      },
+      "& .MuiOutlinedInput-input": {
+        p: 1.25,
+        fontWeight: 500,
+        fontSize: "14px",
+      },
+      "& .MuiOutlinedInput-notchedOutline": {
+        borderRadius: "8px",
+        border: "1px solid",
+        borderColor: "rgb(226, 232, 240)",
+      },
+    },
+  },
+  tickSx: {
+    color: "#3fac3fd6",
+    fontSize:'24px',
+  },
+  closeInput: {
+    color: "#F44F5A",
+    fontSize:'24px',
+    ml:'10px',
+  },
 };

@@ -1,23 +1,10 @@
 import React, { useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { CustomCalender } from './index';
-import { EventApi } from '@fullcalendar/core';
-interface EventData {
-  id: string | number;
-  title: string;
-  allDay: boolean;
-  start: Date | null;
-  end: Date | null;
-  startTime: string | null;
-  endTime: string | null;
-  deletable: boolean;
-  eventRemaindTime: string;
-  eventRemind: string;
-  type: string;
-}
-interface calenderLists {
-  calenderTitle: string;
-}
+import { EventData } from './interface';
+import moment from 'moment';
+
+
 
 export default {
   title: 'Components/CustomCalender',
@@ -26,21 +13,34 @@ export default {
 
 const Template: ComponentStory<typeof CustomCalender> = (args) => {
   const [select, setSelect] = useState<number>(0);
+  const remainderOption = [
+    { value: 'min', label: 'Min' },
+    { value: 'hour', label: 'Hours' },
+    { value: 'months', label: 'Months' },
+  ]
+  const [selectedDay, setSelectedDay] = useState(remainderOption?.[0]?.value);
   const [events, setEventsList] = useState<EventData[]>([]);
-  const [modalTitle, setModalTitle] = useState('');
-  const [editEvent, setEditEvent] = useState<EventApi | null>(null);
+  const [eventRemainder, setEventRemainder] = useState<number>(0);
+  const [startTime, setStartTime] = useState(moment().format('HH:mm A'));
+  const [endTime, setEndTime] = useState<string>('00:00');
+  const [editEvent, setEditEvent] = useState<boolean| EventData>(false);
+  const [editValue, setEditValue] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(
+    "Default Calendar"
+  );
+  const [modalContent, setModalContent] = useState<{
+    modalTitle?: string;
+    modalDescription?: string;
+  }>({
+    modalTitle: '',
+    modalDescription: '',
+  });
   const [calenderList, setCalenderList] = useState([
     { calenderTitle: 'Default Calendar' },
     { calenderTitle: 'Event Planning' },
     { calenderTitle: 'Campaign' },
     { calenderTitle: 'Birthday Calendar' },
   ]);
-  const eventCategories = [
-    { name: 'Default Calendar', color: '#DBE9FF' },
-    { name: 'Event Planning', color: '#DBE9FF' },
-    { name: 'Campaign', color: '#F4DBFF' },
-    { name: 'Birthday Calendar', color: '#DBFFE5' },
-  ];
 
   const onCalenderListClick = (index: number) => {
     setSelect(index);
@@ -50,40 +50,60 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
     return Math.random().toString(36).substr(2, 9);
   };
 
-  const onEventDateSelect = (setEvents: EventData) => {
+  const onEventDateSelect = (setEventData: EventData) => {
     const updatedEvent = {
       id: generateUniqueId(),
-      title: setEvents?.title,
-      allDay: setEvents?.allDay,
-      start: setEvents?.start,
-      end: setEvents?.end,
-      deletable: setEvents?.deletable,
-      eventRemaindTime: setEvents?.eventRemaindTime,
-      eventRemind: setEvents?.eventRemind,
-      startTime: setEvents?.startTime,
-      endTime: setEvents?.endTime,
-      type: setEvents?.type,
+      title: setEventData?.title,
+      start: setEventData?.start,
+      des:setEventData?.des,
+      end: setEventData?.end,
+      allDay:setEventData?.allDay,
+      startTime: setEventData?.startTime,
+      endTime: setEventData?.endTime,
+      deletable: setEventData?.deletable,
+      eventRemaindTime: setEventData?.eventRemaindTime,
+      eventRemind: setEventData?.eventRemind,
+      type: setEventData?.type,
     };
-    const updatedEvents = editEvent
-      ? events.map((event: EventData) =>
-          event?.id === editEvent.id ? updatedEvent : event
+
+    if(editEvent && typeof editEvent !== 'boolean') {
+      setEventsList((prevEvents: EventData[]) =>
+        prevEvents.map((event: EventData) =>
+          event.id === editEvent.id ? { ...event, ...updatedEvent } : event
         )
-      : [...events, updatedEvent];
+      );
+    }
+    else {
+      setEventsList((prevState: EventData[]) => [...prevState, updatedEvent]);
+    }
+    setEventRemainder(0);
+    setStartTime(moment().format('HH:mm A'));
+    setEndTime('00:00');
+    setModalContent({ modalTitle: '', modalDescription: '' });
+    setEditEvent(false)
+    setSelectedCategory( "Default Calendar")
 
-    setEventsList((prevState: EventData[]) => [...prevState, ...updatedEvents]);
-
-    setModalTitle('');
-    setEditEvent(null);
   };
+
+  const onEventsEdit = (e: EventData) => {
+    const inx = events.findIndex((x:EventData) => x.id === e.id);
+    events[inx] = {...e,};
+    setEventsList([...events]);
+    setModalContent({ modalTitle: e?.title, modalDescription: e?.des });
+    setEventRemainder( e?.eventRemaindTime)
+    setStartTime(e?.startTime)
+    setEndTime(e?.endTime)
+    setSelectedCategory(e?.type)
+    setSelectedDay(e?.eventRemind)
+  }; 
 
   const onEventDelete = (event: EventData) => {
-    const updatedEvents = events.filter((evt: any) => evt?.id !== event.id);
-    setEventsList(updatedEvents);
-    setEditEvent(null);
-  };
-
-  const onEventEdit = (event: EventData) => {
-    console.log(event,'event')
+      const updatedEvents = events.filter((evt: EventData) => evt.id !== event.id);
+      setEventsList(updatedEvents);
+      setModalContent({ modalTitle: '', modalDescription: '' });
+      setEventRemainder(0);
+    setStartTime(moment().format('HH:mm'));
+    setEndTime('00:00');
   };
 
   const addCalenderList = () => {
@@ -91,19 +111,83 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
     setCalenderList((prevCalenderList) => [...prevCalenderList, newCalender]);
   };
 
+  const closeEventDialog = () => {
+    setModalContent({modalTitle:'',modalDescription:''})
+    setEventRemainder(0);
+    setStartTime(moment().format('HH:mm'));
+    setEndTime('00:00');
+  };
+ 
+  const onEventDialogChange = (value: any, key: string) => {
+    if (key === 'modalTitle' || key === 'modalDescription') {
+      setModalContent({
+        ...modalContent,
+        [key]: value?.target?.value,
+      });
+    }
+    if (key === 'selectEvent') {
+      setSelectedCategory(value.target.value);
+    }
+    if (key === 'startTime') {
+      setStartTime(value?.target?.value);
+    }
+    if (key === 'endTime') {
+      setEndTime(value.target.value);
+    }
+    if (key === 'eventRemainder') {
+      const values = value.target.value;
+      const parsedValue = parseInt(values, 10);
+      if (!isNaN(parsedValue)) {
+        setEventRemainder(parsedValue);
+      }
+    }
+    if (key === 'increase') {
+      setEventRemainder(eventRemainder + 1);
+    }
+    if (key === 'decrease') {
+      if (eventRemainder > 0) {
+        setEventRemainder(eventRemainder - 1);
+      }
+    }
+    if (key === 'dayOption') {
+      setSelectedDay(value.target.value);
+    }
+  };
+
+  const onSelectEventFunc = (e:EventData) => {
+    setEditEvent(e)
+  };
+
+  const handleTextChange = (event:any) => {
+    setEditValue(event.target.value);
+  };
+
+
+  
   return (
     <CustomCalender
       {...args}
       select={select}
       eventsData={events}
-      AddEventValue={modalTitle}
+      editListValue={editValue}
       onEventsDelete={onEventDelete}
-      onEventsEdit={onEventEdit}
-      eventCategories={eventCategories}
+      handleEventChange={handleTextChange}
+      onEventsEdit={onEventsEdit}
       OnEventAdd={onEventDateSelect}
       onCalenderListClick={onCalenderListClick}
       addCalenderList={addCalenderList}
       calenderList={calenderList}
+      closeEventDialog={closeEventDialog}
+      onEventDialogChange={onEventDialogChange}
+      eventDialogTitle={modalContent?.modalTitle}
+      eventDialogDescription={modalContent?.modalDescription}
+      selectedCategoryDialog={selectedCategory}
+      startTimeDialog={startTime}
+      endTimeDialog={endTime}
+      eventRemainder={eventRemainder}
+      selectedDay={selectedDay}
+      onSelectEventFunc={onSelectEventFunc}
+      calenderIconSx={{ml:'6px',mt:'2px'}}
     />
   );
 };
@@ -111,7 +195,8 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
 export const Primary = Template.bind({});
 Primary.args = {
   select: 0,
-  CommonLeaves: ['monday', 'sunday'],
+  CommonLeaves: ['saturday', 'sunday'],
+  calenderTitle:'Calender',
   nationalLeaves: [
     { date: '2023-06-14', title: 'deepavali' },
     { date: '2023-06-23', title: 'pongal' },
@@ -138,7 +223,7 @@ Primary.args = {
       backgroundColor: '#FAFAFA',
     },
     todayDateStyle: {
-      backgroundColor: '#EFEEFB',
+      backgroundColor: '#eaeaea',
     },
     addEventStyle: {
       color: '#665CD7',
@@ -208,7 +293,18 @@ Primary.args = {
   OnEventAdd: (data: EventData) => {
     console.log(data, 'data');
   },
-  onDeleteCalenderList: (data: calenderLists, index: number) => {
-    console.log(data, 'data'), console.log(index, 'index');
+  onEventDialogChange:(value:any,key:string) =>{
+    console.log(value, 'data'), console.log(key, 'index');
   },
+  onSelectEventFunc:(e:EventData)=>{
+    console.log(e,'e')
+  },
+  onSaveCalenderList : () => {
+    alert('calenderList Edit Function Here !!!')
+   }
+   ,
+  onDeleteCalenderList :() => {
+     alert('calenderList Delete Function Here !!!')
+ 
+   },
 };
