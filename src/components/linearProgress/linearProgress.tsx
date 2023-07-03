@@ -6,6 +6,7 @@ import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { styles } from './style';
+import { Stack } from '@mui/material';
 
 interface ProgressProps {
   value: number;
@@ -40,12 +41,12 @@ function LinearProgressWithLabel(props: LinearProgressProps & ProgressProps) {
   const [isOpen ,setIsOpen]=useState(false);
 
   return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+    <Stack direction={'row'}>
       <Box sx={{ width: '100%', mr: 1 }}>
         <Tooltip
           open={isShowToolTip && isOpen}
-          onMouseEnter={() => {setIsOpen(true),console.log('open')}}
-          onMouseLeave={() =>{setIsOpen(false),console.log('close')}}
+          onMouseEnter={() => {setIsOpen(true)}}
+          onMouseLeave={() =>{setIsOpen(false)}}
           title={value}
           placement={'top'}
           componentsProps={{
@@ -84,7 +85,7 @@ function LinearProgressWithLabel(props: LinearProgressProps & ProgressProps) {
           )}${symbols}`}</Typography>
         </Box>
       )}
-    </Box>
+    </Stack>
   );
 }
 

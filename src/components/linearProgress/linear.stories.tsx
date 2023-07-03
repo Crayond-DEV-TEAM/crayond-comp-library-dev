@@ -22,6 +22,6 @@ Primary.args = {
   TooltipBgColor: '',
   TooltipArrowColor: '',
   symbolsColor: '',
-  thumbPrimaryColor: 'green',
-  thumbSecondaryColor: 'lightgreen',
+  thumbPrimaryColor: '',
+  thumbSecondaryColor: '',
 };
