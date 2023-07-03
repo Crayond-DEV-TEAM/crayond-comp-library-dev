@@ -10,10 +10,10 @@ import React from 'react';
 import Card from '../card/card';
 import { Image } from '../image';
 import { InputField } from '../inputField';
-import { MobileInput } from '../mobileInput';
 import { SocialMediaButton } from '../socialMediaButton';
 import { SignupScreenProps } from './props';
 import { signUp_style } from './style';
+import { MobileInput } from '../mobileInput';
 
 const SignupScreen: React.FC<SignupScreenProps> = ({
   option,
@@ -161,10 +161,10 @@ const SignupScreen: React.FC<SignupScreenProps> = ({
               {sectionTwo?.cardData?.mobileNumberSignup?.labelText}
             </Typography>
             <MobileInput
-              handleChange={getMobileNumber}
+              onChange={getMobileNumber}
               error={errorNumber}
-              helperText={mobileNumberErrorMsg}
-              rootWapperstyle={{
+              errorMessage={mobileNumberErrorMsg}
+              inputStyle={{
                 ...signUp_style.textFieldSx,
                 ...sectionTwo?.cardData?.mobileNumberSignup?.mobileFieldstyle,
                 ...{
@@ -215,9 +215,9 @@ const SignupScreen: React.FC<SignupScreenProps> = ({
                   label={sectionTwo?.cardData?.emailWithPassword?.firstName?.label}
                   labelStyle={sectionTwo?.cardData?.emailWithPassword?.firstName?.labelStyle}
                   error={errorName}
-                  helperText={errorNameMsg}
+                  errorMessage={errorNameMsg}
                   onChange={getFirstName}
-                  textFieldStyle={{ ...signUp_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.firstName?.FnameFieldStyle }} type={'text'} />
+                  inputStyle={{ ...signUp_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.firstName?.FnameFieldStyle }} type={'text'} />
               </Box>
               <Box>
                 <InputField
@@ -227,7 +227,7 @@ const SignupScreen: React.FC<SignupScreenProps> = ({
                   label={sectionTwo?.cardData?.emailWithPassword?.lastName?.label}
                   labelStyle={sectionTwo?.cardData?.emailWithPassword?.lastName?.labelStyle}
                   onChange={getLastName}
-                  textFieldStyle={{ ...signUp_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.lastName?.LnameFieldStyle }} type={'text'} />
+                  inputStyle={{ ...signUp_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.lastName?.LnameFieldStyle }} type={'text'} />
               </Box>
             </Box>
             <InputField
@@ -237,9 +237,9 @@ const SignupScreen: React.FC<SignupScreenProps> = ({
               label={sectionTwo?.cardData?.emailWithPassword?.email?.label}
               labelStyle={sectionTwo?.cardData?.emailWithPassword?.email?.labelStyle}
               error={errorMail}
-              helperText={errorMsg}
+              errorMessage={errorMsg}
               onChange={getMailValue}
-              textFieldStyle={{ ...signUp_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.email?.fieldstyle }} type={'text'} />
+              inputStyle={{ ...signUp_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.email?.fieldstyle }} type={'text'} />
             <InputField
               fullWidth
               size="small"
@@ -248,9 +248,9 @@ const SignupScreen: React.FC<SignupScreenProps> = ({
               labelStyle={sectionTwo?.cardData?.emailWithPassword?.password?.labelStyle}
               error={errorPassword}
               value={password}
-              helperText={errorPasswordMsg}
+              errorMessage={errorPasswordMsg}
               onChange={getPasswordValue}
-              textFieldStyle={{ ...signUp_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.password?.fieldstyle }}
+              inputStyle={{ ...signUp_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.password?.fieldstyle }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment
@@ -272,10 +272,10 @@ const SignupScreen: React.FC<SignupScreenProps> = ({
               label={sectionTwo?.cardData?.emailWithPassword?.confirmPassword?.label}
               labelStyle={sectionTwo?.cardData?.emailWithPassword?.confirmPassword?.labelStyle}
               error={errorPasswordConfirm}
-              helperText={errorPasswordMsgConfirm}
+              errorMessage={errorPasswordMsgConfirm}
               onChange={getConfirmPasswordValue}
               value={passwordConfirm}
-              textFieldStyle={{ ...signUp_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.confirmPassword?.fieldstyle }}
+              inputStyle={{ ...signUp_style.textFieldSx, ...sectionTwo?.cardData?.emailWithPassword?.confirmPassword?.fieldstyle }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment
