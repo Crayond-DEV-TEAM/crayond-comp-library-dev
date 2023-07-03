@@ -13,29 +13,29 @@ interface ProgressProps extends SliderProps {
     label: string;
   }[];
   sliderHeight?: number;
-  step: number;
-  value: number;
+  step?: number;
+  value: number[];
   disabled?: boolean;
   valueLabelDisplay?: 'on' | 'off';
   sliderColor?: string;
   thumbColor?: string;
   size?: 'small' | 'medium';
-  customMarks: boolean;
-  minMaxValues: boolean;
-  handleChange: () => void;
+  customMarks?: boolean;
+  minMaxValues?: boolean;
+  handleChangeFun: (event: React.ChangeEvent<HTMLInputElement>|Event, newValue:number[]|[number,number]) => void;
   sliderThumbStyle?: SxProps;
   sliderStyle?: SxProps;
-  minMaxLabel: SxProps;
-  minMaxLabelStyle:SxProps
-  containerStyle: SxProps;
-  minMaxLabelColor: string;
-  minMaxLabelSize: number;
-  minMaxValueColor: string;
-  minMaxValueSize: number;
-  minLabel: string;
-  maxLabel: string;
-  markLabelColor:string,
-  markLabelSize:number,
+  minMaxLabel?: SxProps;
+  minMaxLabelStyle?:SxProps
+  containerStyle?: SxProps;
+  minMaxLabelColor?: string;
+  minMaxLabelSize?: number;
+  minMaxValueColor?: string;
+  minMaxValueSize?: number;
+  minLabel?: string;
+  maxLabel?: string;
+  markLabelColor?:string,
+  markLabelSize?:number,
 }
 
 interface formProps {
@@ -67,29 +67,33 @@ const SliderRange = (props: ProgressProps) => {
     minMaxValueSize,
     markLabelColor,
     markLabelSize,
-    // handleChange = () => {},
-    // value,
+    handleChangeFun,
+    value,
   } = props;
+  
   const [minMax, setMinMax] = useState({
     minValue: 0,
     maxValue: 0,
   });
 
-  const [value, setValue] = useState<number[]>([20, 37]);
+  const [sliderVAl, setValue] = useState<number[]>(value);
 
   const handleChange = (event: Event, newValue:number[]|[number,number]) => {
-    console.log(event,newValue);
-    
+    if(handleChangeFun){
+      handleChangeFun(event,newValue);
+    }
     setValue(newValue as number[]);
-    setMinMax({ minValue: newValue[0], maxValue: value[1] } );
-  };
-  const handleChangeInput = (key: string, val: string) => {
-    setMinMax({ ...minMax, [key]: val });
+    setMinMax({ minValue: newValue[0], maxValue: newValue[1] } );
+  };  
+  const handleChangeInput = (key: string, e:  React.ChangeEvent<HTMLInputElement>) => {
+    setMinMax({ ...minMax, [key]: e.target.value });
     if(key ==='minValue'){
-      setValue([Number(val), minMax?.maxValue]);
+      setValue([Number(e.target.value), minMax?.maxValue]);
+      handleChangeFun(e,[Number(e.target.value), minMax?.maxValue])
     }
     if(key ==='maxValue'){
-      setValue([minMax?.minValue,Number(val)]);
+      setValue([minMax?.minValue,Number(e.target.value)]);
+      handleChangeFun(e,[minMax?.minValue,Number(e.target.value)])
     }
 
   };
@@ -118,7 +122,7 @@ const SliderRange = (props: ProgressProps) => {
             disabled={disabled}
             disableSwap
             marks={customMarks ? marks : []}
-            value={value}
+            value={sliderVAl}
             onChange={(e:Event,val:number | number[],)=>handleChange(e,val as number[])}
             valueLabelDisplay={valueLabelDisplay}
             sx={{
@@ -150,14 +154,14 @@ const SliderRange = (props: ProgressProps) => {
             <Input
              disableUnderline={true}  
               type="number"
-              value={String(value[0])}
+              value={String(sliderVAl[0])}
               sx={{
                 ...styles.inputStyle,
                 color: minMaxValueColor,
                 fontSize: minMaxValueSize,
-              }}
+              } as SxProps}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleChangeInput('minValue', e.target.value)
+                handleChangeInput('minValue', e)
               }
             />
           </Box>
@@ -166,13 +170,13 @@ const SliderRange = (props: ProgressProps) => {
             <Input
               type="number"
               disableUnderline={true}  
-              value={String(value[1])}
+              value={String(sliderVAl[1])}
               sx={{ ...styles.inputStyle,
                 textAlign:'center',
                 color: minMaxValueColor,
                 fontSize: minMaxValueSize}}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                handleChangeInput('maxValue', e.target.value)
+                handleChangeInput('maxValue', e)
               }
             />
           </Box>
@@ -193,7 +197,7 @@ SliderRange.defaultProps = {
   customMarks: false,
   minMaxValue: false,
   valueLabelDisplay: 'off',
-  handleChange: () => {},
+  handleChangeFun: () => {},
   sliderStyle: {},
   minMaxLabel: {},
   containerStyle: { marginTop: '40px' },

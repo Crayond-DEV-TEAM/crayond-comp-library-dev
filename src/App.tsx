@@ -201,24 +201,17 @@ function App() {
       >
         <Slider
           value={value}
-          handleChangeFun={(e, v) =>{ setValue(v as number) ,console.log(e,v)}}       step={10}
-          size={'small'}
-          sliderHeight={5}
-          disabled={false}
-          customMarks={false}
-          progressLabel={false}
-          valueLabelDisplay={'off'}
-          labelColor={'#707070'}
-          labelSize={2}
-          sliderColor={'#665CD7'}
-          thumbColor={'#665CD7'}
-          sliderStyle={{}}
-          symbol={''}
-          labelStyle={{}}
-          sliderThumbStyle={{}}
-          marks={[]} 
-          containerStyle={{}}        />
-        {/* <SliderRange minMaxValues={true}/> */}
+          handleChangeFun={(e, v) => {
+            setValue(v as number), console.log(e, v);
+          }}
+        />
+        <SliderRange
+          value={[20, 40]}
+          step={10}
+          minMaxValue={true}
+          handleChangeFun={(e, v) => console.log(e, v)}
+          minMaxValues={true}
+        />
       </div>
       {/* <Screen
        containerStyle={{}}
@@ -232,7 +225,7 @@ function App() {
       {/* <CommonTable
         Header={[
           {
-            id: 'id',
+            id={'id',
             align: 'left',
             disablePadding: false,
             label: 'Sl No',

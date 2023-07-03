@@ -67,7 +67,7 @@ Primary.argTypes = {
     description: 'number',
     defaultValue: 12,
   },
-  handleChange: {
+  handleChangeFun: {
     description: '()=>{}',
     defaultValue: '',
   },
@@ -98,18 +98,19 @@ Primary.argTypes = {
   },
 };
 Primary.args = {
-  // value: [20,30],
-  handleChange: () => {},
-  markLabelColor: '#707070',
+  value: [10,40],
+  handleChangeFun: (e,v) => {console.log(e,v);
+  },
+  markLabelColor: '',
   markLabelSize: 12,
   minLabel: 'Min',
   maxLabel: 'Max',
   sliderHeight: 8,
-  sliderColor: '#665CD7',
-  thumbColor: '#665CD7',
+  sliderColor: '',
+  thumbColor: '',
   disabled: false,
   valueLabelDisplay: 'off',
-  step: 10,
+  step: 0,
   customMarks: false,
   minMaxValues: false,
   sliderStyle: {},

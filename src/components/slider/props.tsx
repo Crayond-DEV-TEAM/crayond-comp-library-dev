@@ -1,27 +1,27 @@
-import { SliderProps } from "@mui/material";
+import { SliderProps, SxProps } from "@mui/material";
 
 export interface ProgressProps extends SliderProps {
-    marks: {
+    marks?: {
       value: number;
       label: string;
     }[];
-    sliderHeight: number;
-    step: number;
+    sliderHeight?: number;
+    step?: number;
     value: number;
     disabled?: boolean;
-    progressLabel: boolean;
+    progressLabel?: boolean;
     valueLabelDisplay: 'on' | 'off' | undefined;
-    labelColor: string;
-    labelSize: number;
-    sliderColor: string;
-    thumbColor: string;
+    labelColor?: string;
+    labelSize?: number;
+    sliderColor?: string;
+    thumbColor?: string;
     size?: 'small' | 'medium';
-    customMarks: boolean;
+    customMarks?: boolean;
     handleChangeFun: (newVal: Event,value:number|number[]) => void;
-    sliderThumbStyle: object;
-    sliderStyle: object;
-    symbol: string;
-    labelStyle: object;
-    containerStyle: object;
+    sliderThumbStyle?: SxProps;
+    sliderStyle?: SxProps;
+    symbol?: string;
+    labelStyle?: SxProps;
+    containerStyle?: SxProps;
   }
   
