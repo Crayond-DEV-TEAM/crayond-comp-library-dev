@@ -87,14 +87,14 @@ export const styles = {
     border: '1px solid #665CD7',
     borderRadius: '8px',
     cursor: 'pointer',
-    height: '65px',
+    height: '100%',
 
   },
   unSelectedCard: {
     padding: '0px 0px 0px 12px',
     border: '1px solid #E9E9E9',
     borderRadius: '8px',
-    height: '65px',
+    height: '100%',
     cursor: 'pointer',
   },
   roleItemRootSx: {
@@ -185,6 +185,7 @@ export const styles = {
   flexItem: {
     display: 'flex',
     alignItems: 'center',
+    height: '100%',
     justifyContent: 'space-between'
   }
 }

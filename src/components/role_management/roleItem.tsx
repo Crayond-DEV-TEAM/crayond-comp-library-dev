@@ -6,11 +6,10 @@ import CloseIcon from '@mui/icons-material/Close';
 import CheckIcon from '@mui/icons-material/Check';
 import React, { forwardRef, useRef } from 'react';
 import { styles } from './style';
-import { SwitchBox } from './switch';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import { Input } from './input';
 import { CustomizedSwitches } from '../switch/switch';
+import { InputField } from '../inputField';
 
 
 type Role = {
@@ -82,15 +81,23 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                 {
                     editIndex === index && <Box sx={styles?.parentBox}>
                         <span style={{ width: '30%' }} >
-                            <Input
-                                textFieldStyle={{
+                            <InputField
+                                labelStyle={{
+                                    marginTop: '8px'
+                                }}
+                                // errorMessage={stae}
+                                inputStyle={{
                                     justifyContent: 'center',
+                                    marginRight: '8px',
                                     background: inputStyle?.inputBackground ?? 'none',
                                     '& div': {
                                         height: inputStyle?.height ?? '22px',
                                         padding: inputStyle?.padding ?? '0 ',
                                         fontSize: inputStyle?.fontSize ?? '13px',
                                         margin: inputStyle?.margin ?? '0',
+                                        '& input': {
+                                            padding: '0 !important',
+                                        },
                                         '& fieldset': {
                                             border: inputStyle?.border ?? '0 !important',
                                             borderRadius: inputStyle?.borderRadius ?? '0 !important',
@@ -104,15 +111,22 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                             />
                         </span>
                         <span style={{ width: '54%' }}>
-                            <Input
-                                textFieldStyle={{
+                            <InputField
+                                labelStyle={{
+                                    marginTop: '8px'
+                                }}
+                                inputStyle={{
                                     justifyContent: 'center',
+                                    marginRight: '8px',
                                     background: inputStyle?.inputBackground ?? 'none',
                                     '& div': {
                                         height: inputStyle?.height ?? '22px',
                                         padding: inputStyle?.padding ?? '0 ',
                                         fontSize: inputStyle?.fontSize ?? '13px',
                                         margin: inputStyle?.margin ?? '0',
+                                        '& input': {
+                                            padding: '0 !important',
+                                        },
                                         '& fieldset': {
                                             border: inputStyle?.border ?? '0 !important',
                                             borderRadius: inputStyle?.borderRadius ?? '0 !important',
@@ -126,7 +140,7 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
 
                             />
                         </span>
-                        <span style={{ width: '13%' }}>
+                        <span style={{ width: '13%', paddingRight: '12px' }}>
                             <Stack direction={'row'}
                                 alignItems={'center'} justifyContent={'space-around'}
                             >
@@ -176,16 +190,17 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                                 <FormControlLabel sx={{ m: 0, justifyContent: 'center' }}
                                     control={<CustomizedSwitches
                                         onChange={(e: any) => handleSwitch(e?.target?.checked, index)}
-                                        sx={{ m: 1 }}
+
                                         value={isActive}
-                                        // color={'primary'}
-                                        // customProp={{
-                                        //     width: '',
-                                        //     height: '',
-                                        //     thumbColor: '',
-                                        //     onChange: undefined,
-                                        //     color: ''
-                                        // }}
+                                        isLabel={true}
+                                    // color={'primary'}
+                                    // customProp={{
+                                    //     width: '',
+                                    //     height: '',
+                                    //     thumbColor: '',
+                                    //     onChange: undefined,
+                                    //     color: ''
+                                    // }}
                                     />}
                                     label={undefined}
                                 />
@@ -193,7 +208,6 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                         </span>
                     </Box>
                 }
-
             </Box>
         </Box >
     );

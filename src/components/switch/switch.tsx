@@ -55,27 +55,29 @@ const CustomSwitch = styled((props: SwitchProps) => (
 }));
 
 interface CustomizedSwitchesProps {
-  onChange:Function;
-  rowData:object;
+  onChange: Function;
+  rowData: object;
   id: string | number;
-  value:boolean | undefined;
-  label:string;
+  value: boolean | undefined;
+  label: string;
+  isLabel: boolean
 }
-export const CustomizedSwitches = (props: CustomizedSwitchesProps) => { 
-  return(
+export const CustomizedSwitches = (props: CustomizedSwitchesProps) => {
+  return (
     <FormControlLabel
-        control={<CustomSwitch sx={{ m: 1 }} onChange={(event)=>props?.onChange(props?.id, props?.rowData, event)} checked={props?.value} />}
-        label={props.label}
-      />
+      control={<CustomSwitch sx={{ m: 1 }}
+        onChange={(event) => props?.onChange(props?.id, props?.rowData, event)} checked={props?.value} />}
+      label={props?.isLabel ? null : props.label}
+    />
   )
 }
 
 CustomizedSwitches.defaultProps = {
-  onChange: () => {},
+  onChange: () => { },
   value: false,
-  rowData:{},
-  id:1,
-  label:"Label",
+  rowData: {},
+  id: 1,
+  label: "Label",
 };
 
 

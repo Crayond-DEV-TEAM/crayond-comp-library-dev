@@ -108,11 +108,7 @@ const RoleManagement = (props: RoleManagementProps) => {
     const error = state?.error
     if (state?.role?.length === 0) {
       isValid = false
-      error.role = "Role Required"
-    }
-    if (state?.roleNo?.length === 0) {
-      isValid = false
-      error.roleNo = "Role no. Required"
+      error.role = "Role & RoleNo Required"
     }
 
     setState({ ...state, error })

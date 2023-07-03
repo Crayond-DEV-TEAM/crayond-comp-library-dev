@@ -107,8 +107,13 @@ export const Roles = (props: any) => {
                     >
                         <Box sx={{ ...styles.card, ...roleCardSx }}>
                             <Grid container alignItems={'center'} justifyContent={'space-between'}
-                                height={'100%'}>
-                                <Grid item lg={3} md={3} sm={3}>
+                                height={'100%'} sx={{ margin: '12px 0 8px' }}>
+                                <Grid item lg={3} md={3} sm={3} sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    flexDirection: 'inherit'
+                                }}>
                                     {/* <Input
                                         errorMessage={state?.error?.roleNo}
                                         textFieldStyle={{
@@ -137,7 +142,9 @@ export const Roles = (props: any) => {
                                     /> */}
 
                                     <InputField
-                                        errorMessage={state?.error?.roleNo}
+                                        labelStyle={{
+                                            display: 'none'
+                                        }}
                                         inputStyle={{
                                             justifyContent: 'center',
                                             background: inputStyle?.inputBackground ?? 'none',
@@ -147,7 +154,7 @@ export const Roles = (props: any) => {
                                                 fontSize: inputStyle?.fontSize ?? '13px',
                                                 margin: inputStyle?.margin ?? '0',
                                                 '& input': {
-                                                    padding: '0'
+                                                    padding: '0 !important'
                                                 },
                                                 '& fieldset': {
                                                     border: inputStyle?.border ?? '0 !important',
@@ -169,9 +176,16 @@ export const Roles = (props: any) => {
 
                                     />
                                 </Grid>
-                                <Grid item lg={5} md={5} sm={5}>
+                                <Grid item lg={5} md={5} sm={5} sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    flexDirection: 'inherit'
+                                }}>
                                     <InputField
-                                        // errorMessage={state?.error?.roleNo}
+                                        labelStyle={{
+                                            display: 'none'
+                                        }}
                                         inputStyle={{
                                             justifyContent: 'center',
                                             background: inputStyle?.inputBackground ?? 'none',
@@ -181,7 +195,7 @@ export const Roles = (props: any) => {
                                                 fontSize: inputStyle?.fontSize ?? '13px',
                                                 margin: inputStyle?.margin ?? '0',
                                                 '& input': {
-                                                    padding: '0'
+                                                    padding: '0 !important'
                                                 },
                                                 '& fieldset': {
                                                     border: inputStyle?.border ?? '0 !important',
@@ -243,10 +257,15 @@ export const Roles = (props: any) => {
                                     </Stack>
                                 </Grid>
                             </Grid>
+                            <Typography sx={{ mt: 0, mb: 0.5, "caret-color": "transparent" }}
+                                variant="caption"
+                                color="error"
+                                component={'p'}>{state?.error?.role}</Typography>
                         </Box>
                     </Box>
                 }
+
             </Box>
-        </Box>
+        </Box >
     )
 }
