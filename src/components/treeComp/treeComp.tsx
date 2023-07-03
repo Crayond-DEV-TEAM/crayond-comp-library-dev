@@ -305,7 +305,7 @@ TreeComponent.defaultProps = {
     defaultCollapseIcon: < CollapseIcon />,
     checkboxsection: true,
     leftSec: {},
-    heading: 'Basic View',
+    heading: '',
     onChange: () => null,
     checkBoxStyles: {},
     permissionHeadingSx: {},
