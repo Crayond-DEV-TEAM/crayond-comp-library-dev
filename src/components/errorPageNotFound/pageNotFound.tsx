@@ -1,9 +1,10 @@
-import { Box, Typography } from '@mui/material';
+import { Box, SxProps, Typography } from '@mui/material';
 import lightTheme from '../../theme/lightTheme';
 import { BasicButtons } from '../button';
 import { pageNotfoundStyle } from './style';
+import { pageNotFound } from './props';
 
-const PageNotFound = (props: any) => {
+const PageNotFound = (props: pageNotFound) => {
   const {
     pageNotFoundIcon,
     pageNotFoundText,
@@ -17,7 +18,7 @@ const PageNotFound = (props: any) => {
   return (
     <>
       <Box sx={{ ...pageNotfoundStyle.rootStyle, ...rootStyle }}>
-        <Box sx={{ ...pageNotfoundStyle.iconBlock, iconBlockStyle }}>
+        <Box sx={{ ...pageNotfoundStyle.iconBlock, ...iconBlockStyle } as SxProps}>
           {pageNotFoundIcon?.icon}
         </Box>
         <Box sx={{ ...pageNotfoundStyle.pageNotFoundText }}>

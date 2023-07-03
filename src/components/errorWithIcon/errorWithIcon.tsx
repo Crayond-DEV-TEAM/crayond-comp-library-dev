@@ -1,9 +1,9 @@
-import { Box, Typography } from '@mui/material';
+import { Box, SxProps, Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import lightTheme from '../../theme/lightTheme';
 import { BasicButtons } from '../button';
 import { errorStyle } from './style';
-import { errorWithIconProps } from './props';
+import { buttonInterface, errorWithIconProps } from './props';
 
 const ErrorWithIcon = (props: errorWithIconProps) => {
   const {
@@ -31,7 +31,7 @@ const ErrorWithIcon = (props: errorWithIconProps) => {
         aria-describedby="modal-modal-description"
         onBackdropClick={onBackdropClick}
       >
-        <Box sx={{ ...errorStyle.cardRoot, ...cardRootStyle }}>
+        <Box sx={{ ...errorStyle.cardRoot, ...cardRootStyle } as SxProps}>
           <Box sx={{ ...errorStyle.errorIconStyle, ...errorIconStyle }}>
             {errorIcon}
           </Box>
@@ -42,7 +42,7 @@ const ErrorWithIcon = (props: errorWithIconProps) => {
             }}
           >
             <Typography
-              sx={{ ...errorStyle.errorMessageText, ...errorMessageTextStyle }}
+              sx={{ ...errorStyle.errorMessageText, ...errorMessageTextStyle } as SxProps}
             >
               {errorMessage}
             </Typography>
@@ -56,7 +56,7 @@ const ErrorWithIcon = (props: errorWithIconProps) => {
                 ...errorButtonBlockStyle,
               }}
             >
-              {buttons?.map((button: any) => (
+              {buttons?.map((button: buttonInterface) => (
                 <BasicButtons
                   inLineStyles={{
                     background: lightTheme.palette.primary.light,

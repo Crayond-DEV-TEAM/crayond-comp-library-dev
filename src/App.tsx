@@ -25,8 +25,8 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { ProfileThree } from './components/profileThree';
 import yup from './utils/yupSchema';
 import { Screen } from './components/screen';
-import ErrorWithInfographic from './components/errorWithInfographic/errorWithInfographic';
-import { PageNotFound } from './components/errorWith404';
+import ErrorWithInfographic from './components/errorPage/errorWithPage';
+import { PageNotFound } from './components/errorPageNotFound';
 import { ErrorWithIcon } from './components/errorWithIcon';
 
 function App() {

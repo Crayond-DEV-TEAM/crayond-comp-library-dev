@@ -1,21 +1,22 @@
 import type { SxProps, Theme } from '@mui/material'
 
 export interface buttonInterface {
+  map(arg0: (button: buttonInterface) => JSX.Element): import("react").ReactNode;
   label: string,
   onClick: () => void,
-  style: SxProps<Theme>
+  style: SxProps
 }
 
-export interface errorWithinfogarphic {
+export interface ErrorWithPageProps {
   open: boolean;
   handleClose: () => void;
   onBackdropClick: () => void;
-  cardRootStyle: object;
+  cardRootStyle: SxProps;
   buttons: buttonInterface;
   infogarphicIcon: JSX.Element;
   infogarphicMessage: string;
-  textBlockStyle: object;
-  iconStyleBlock: object;
-  messageTextStyle: object;
-  buttonBlock: object;
+  textBlockStyle: SxProps;
+  iconStyleBlock: SxProps;
+  messageTextStyle: SxProps;
+  buttonBlock: SxProps;
 }

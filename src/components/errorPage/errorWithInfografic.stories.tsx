@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import ErrorWithInfographic from './errorWithInfographic';
+import ErrorWithInfographic from './errorWithPage';
 
 export default {
   title: 'components/ErrorWithInfographic',

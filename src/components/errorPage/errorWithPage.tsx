@@ -1,12 +1,12 @@
-import { Box, Typography } from '@mui/material';
+import { Box, SxProps, Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import { infogarphicStyle } from './styles';
-import { BasicButtons } from '../button';
-import React from 'react';
 import InfographicIcon from '../../assets/errorWithInfographic';
 import lightTheme from '../../theme/lightTheme';
+import { BasicButtons } from '../button';
+import { ErrorWithPageProps, buttonInterface } from './props';
+import { infogarphicStyle } from './styles';
 
-const ErrorWithInfographic = (props: any) => {
+const ErrorWithPage = (props: ErrorWithPageProps) => {
   const {
     open,
     handleClose,
@@ -30,20 +30,20 @@ const ErrorWithInfographic = (props: any) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={{ ...infogarphicStyle.cardRoot, ...cardRootStyle }}>
+        <Box sx={{ ...infogarphicStyle.cardRoot, ...cardRootStyle } as SxProps}>
           <Box sx={{ ...infogarphicStyle.iconStyle, ...iconStyleBlock }}>
             <InfographicIcon />
             {infogarphicIcon}
           </Box>
-          <Box sx={{ ...infogarphicStyle.textBlock, textBlockStyle }}>
+          <Box sx={{ ...infogarphicStyle.textBlock, textBlockStyle }as SxProps}>
             <Typography
-              sx={{ ...infogarphicStyle.messageText, ...messageTextStyle }}
+              sx={{ ...infogarphicStyle.messageText, ...messageTextStyle }as SxProps}
             >
               {infogarphicMessage}
             </Typography>
           </Box>
           <Box sx={{ ...infogarphicStyle.buttonBlock, ...buttonBlock }}>
-            {buttons?.map((button: any) => (
+            {buttons?.map((button: buttonInterface) => (
               <BasicButtons
                 inLineStyles={{
                   background: lightTheme.palette.primary.contrastText,
@@ -63,9 +63,9 @@ const ErrorWithInfographic = (props: any) => {
   );
 };
 
-export default ErrorWithInfographic;
+export default ErrorWithPage;
 
-ErrorWithInfographic.defaultProps = {
+ErrorWithPage.defaultProps = {
   open: false,
   handleClose: () => {},
   onBackdropClick: () => {},
