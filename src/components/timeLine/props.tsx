@@ -26,6 +26,9 @@ export interface CardProps {
   text2Color: string;
   text3Size: number;
   text3Color: string;
+  text1Styles:SxProps;
+  text2Styles:SxProps;
+  text3Styles:SxProps;
   profileUrlHeight: number;
   profileUrlWidth: number;
   handleClick: () => void;
@@ -79,5 +82,8 @@ export interface TimelineProps {
   text2Color: string;
   text3Size: number;
   text3Color: string;
+  text1Styles:SxProps;
+  text2Styles:SxProps;
+  text3Styles:SxProps;
   handleClick: () => void;
 }

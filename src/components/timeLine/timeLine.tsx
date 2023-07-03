@@ -4,91 +4,9 @@ import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
-import { Box, Stack, SxProps, Typography } from '@mui/material';
-import { CardProps, TimelineProps } from './props';
-import { styles } from './style';
-
-const Card = (props: CardProps) => {
-  const {
-    data,
-    cardWidth,
-    cardMinWidth,
-    cardMaxWidth,
-    cardMaxHeight,
-    cardMinHeight,
-    cardHeight,
-    CardBackground,
-    CardHoverStyle,
-    CardStyle,
-    hoverBorderStyle,
-    hoverBgColor,
-    text1Size,
-    text1Color,
-    text2Size,
-    text2Color,
-    text3Size,
-    text3Color,
-    profileUrlHeight,
-    profileUrlWidth,
-    profileComponentContainer,
-    profileUrlRadius,
-    handleClick = () => {},
-  } = props;
-  return (
-    <Box
-      onClick={() => handleClick()}
-      sx={{
-        width: cardWidth,
-        minWidth: cardMinWidth,
-        maxWidth: cardMaxWidth,
-        height: cardHeight,
-        minHeight: cardMinHeight,
-        maxHeight: cardMaxHeight,
-        background: CardBackground,
-        '&:hover': {
-          ...CardHoverStyle,
-          border: hoverBorderStyle,
-          backgroundColor: hoverBgColor,
-        },
-        ...styles.cardStyle,
-        ...CardStyle,
-      } as SxProps}
-    >
-      <Box sx={{ display: 'flex' }}>
-        {data.profileComponent && (
-          <Box
-            pr={data.profileComponent && 1}
-            sx={{ ...profileComponentContainer }}
-          >
-            {data.profileComponent}
-          </Box>
-        )}
-        {data.profileUrl && (
-          <img
-            src={data?.profileUrl}
-            alt="profile"
-            height={profileUrlHeight}
-            width={profileUrlWidth}
-            style={{ borderRadius: profileUrlRadius }}
-          />
-        )}
-        <Box pl={data.profileUrl && 1}>
-          <Typography fontSize={text1Size} color={text1Color}>
-            {data.text1}
-          </Typography>
-          <Stack direction={'row'} alignItems={'center'} mt={'10px'}>
-            <Typography fontSize={text2Size} color={text2Color}>
-              {data.text2}
-            </Typography>
-            <Typography fontSize={text3Size} color={text3Color} ml={'4px'}>
-              {data.text3}
-            </Typography>
-          </Stack>
-        </Box>
-      </Box>
-    </Box>
-  );
-};
+import { Box } from '@mui/material';
+import { Card } from './helperComponents';
+import { TimelineProps } from './props';
 
 const TimeLine = (props: TimelineProps) => {
   const {
@@ -125,6 +43,9 @@ const TimeLine = (props: TimelineProps) => {
     text2Color,
     text3Size,
     text3Color,
+    text1Styles,
+    text2Styles,
+    text3Styles,
     handleClick,
     rootStyle,
     profileComponentContainer,
@@ -148,7 +69,7 @@ const TimeLine = (props: TimelineProps) => {
                       display: 'flex',
                       justifyContent: 'center',
                       alignItems: 'center',
-                      margin:"6.5px 0px"
+                      margin: '6.5px 0px',
                     }}
                     children={
                       <>
@@ -158,7 +79,9 @@ const TimeLine = (props: TimelineProps) => {
                             alt="profile"
                             height={TimelineDotProfileUrlHeight}
                             width={TimelineDotProfileUrlWidth}
-                            style={{ borderRadius: TimelineDotProfileUrlRadius }}
+                            style={{
+                              borderRadius: TimelineDotProfileUrlRadius,
+                            }}
                           />
                         ) : (
                           ''
@@ -207,6 +130,9 @@ const TimeLine = (props: TimelineProps) => {
                     profileComponentContainer={profileComponentContainer}
                     profileUrlRadius={profileUrlRadius}
                     handleClick={handleClick}
+                    text1Styles={text1Styles}
+                    text2Styles={text2Styles}
+                    text3Styles={text3Styles}
                   />
                 </TimelineContent>
               </TimelineItem>
@@ -223,110 +149,45 @@ export default TimeLine;
 TimeLine.defaultProps = {
   variation2: false,
 
-  timeLinePosition: 'right',
+  timeLinePosition: '',
   TimelineConnectorColor: '',
-  TimelineConnectorWidth: 2,
+  TimelineConnectorWidth: 0,
 
   TimelineDotVariant: 'filled',
-  TimelineDotHeight: 2,
-  TimelineDotWidth: 2,
-  TimelineDotColor: '#929292',
+  TimelineDotHeight: 0,
+  TimelineDotWidth: 0,
+  TimelineDotColor: '',
   TimelineDotBorder: '',
-  TimelineDotProfileUrlHeight:24,
-  TimelineDotProfileUrlWidth:24,
-  TimelineDotProfileUrlRadius:1,
+  TimelineDotProfileUrlHeight: 0,
+  TimelineDotProfileUrlWidth: 0,
+  TimelineDotProfileUrlRadius: 1,
 
   profileUrlHeight: 24,
   profileUrlWidth: 24,
-  
-  profileUrlRadius:5,
+
+  profileUrlRadius: 5,
   cardWidth: 0,
-  cardMinWidth: 212,
+  cardMinWidth: 0,
   cardMaxWidth: 0,
-  cardMaxHeight: 131,
+  cardMaxHeight: 0,
   cardMinHeight: 0,
-  cardHeight: undefined,
-  CardBackground: '#FFFFFF',
+  cardHeight: 0,
+  CardBackground: '',
   CardHoverStyle: {},
   CardStyle: {},
   hoverBorderStyle: '',
-  hoverBgColor: '#EEEE',
-  text1Size: 10,
-  text1Color: '#929292',
+  hoverBgColor: '',
+  text1Size: 12,
+  text1Color: '',
   text2Size: 12,
-  text2Color: '#3B3B3B',
+  text2Color: '',
   text3Size: 10,
-  text3Color: '#929292',
+  text3Color: '',
+  text1Styles: {},
+  text2Styles: {},
+  text3Styles: {},
   handleClick: () => {},
   profileComponentContainer: {},
-  rootStyle: {
-    background: '#F5F5F5',
-  },
-  timeLineData:[
-    {
-      id: 1,
-      text1: '18 Mins ago',
-      text2: 'Elit convallis',
-      text3: 'invited you',
-      profileComponent:"",
-      profileUrl:
-        'https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922',
-    },
-    {
-      id: 2,
-      text1: '18 Mins ago',
-      text2:
-        'Duis mauris augue, efficitur eu arcu sit amet, posuere dignissim neque. Aenean enim sem, pharetra et magna sit amet, luctus aliquet nibh.',
-      text3: '',
-      profileComponent: '',
-      profileUrl:
-        'https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922',
-    },
-    {
-      id: 3,
-      text1: '18 Mins ago',
-      text2: 'Elit convallis',
-      text3: 'invited you',
-      profileComponent: (
-        <>
-          <img
-            src="https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922"
-            alt="profile"
-            height={'24px'}
-            width={'24px'}
-            style={{ borderRadius: '50%' }}
-          />
-        </>
-      ),
-      profileUrl: '',
-    },
-    {
-      id: 4,
-      text1: '18 Mins ago',
-      text2: 'Elit convallis',
-      text3: 'invited you',
-      profileComponent: (
-        <>
-          <img
-            src="https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922"
-            alt="profile"
-            height={'24px'}
-            width={'24px'}
-            style={{ borderRadius: '50%' }}
-          />
-        </>
-      ),
-      profileUrl: '',
-    },
-    {
-      id: 5,
-      text1: '18 Mins ago',
-      text2:
-        'Duis mauris augue, efficitur eu arcu sit amet, posuere dignissim neque. Aenean enim sem, pharetra et magna sit amet, luctus aliquet nibh.',
-      text3: '',
-      profileComponent: '',
-      profileUrl:
-        'https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922',
-    },
-  ],
+  rootStyle: {},
+  timeLineData: [],
 };

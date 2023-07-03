@@ -100,25 +100,33 @@ export const Primary = Template.bind({});
   CardStyle: {
     description: 'object',
   },
+  text1Styles: {
+    description: 'object',
+  },
+  text2Styles: {
+    description: 'object',
+  },
+  text3Styles: {
+    description: 'object',
+  },
   handleClick: {
     description: '()=>{}',
   },
   profileComponentContainer: {
     description: 'object',
   },
- 
 }),
   (Primary.args = {
     variation2: false,
-    rootStyle:{
-        background:"#F5F5F5"
+    rootStyle: {
+      background: '#F5F5F5',
     },
     timeLinePosition: 'right',
     TimelineConnectorColor: '',
     TimelineConnectorWidth: 2,
-    TimelineDotProfileUrlHeight:24,
-    TimelineDotProfileUrlWidth:24,
-    TimelineDotProfileUrlRadius:1,
+    TimelineDotProfileUrlHeight: 24,
+    TimelineDotProfileUrlWidth: 24,
+    TimelineDotProfileUrlRadius: 1,
     TimelineDotVariant: 'filled',
     TimelineDotHeight: 1.2,
     TimelineDotWidth: 1.2,
@@ -127,13 +135,13 @@ export const Primary = Template.bind({});
     profileUrlHeight: 24,
     profileUrlWidth: 24,
 
-    profileUrlRadius:5,
+    profileUrlRadius: 5,
     cardWidth: 0,
     cardMinWidth: 212,
     cardMaxWidth: 0,
-    cardMaxHeight: 131,
-    cardMinHeight: 0,
-    cardHeight: undefined,
+    cardMaxHeight: 0,
+    cardMinHeight:320,
+    cardHeight: 0,
     CardBackground: '#FFFFFF',
     CardHoverStyle: {},
     CardStyle: {},
@@ -145,15 +153,18 @@ export const Primary = Template.bind({});
     text2Color: '#3B3B3B',
     text3Size: 10,
     text3Color: '#929292',
-    handleClick: () => {alert("Time line")},
-    profileComponentContainer:{},
-    timeLineData:[
+    text1Styles: {},
+    text2Styles: {},
+    text3Styles: {},
+    handleClick: () => {},
+    profileComponentContainer: {},
+    timeLineData: [
       {
         id: 1,
         text1: '18 Mins ago',
         text2: 'Elit convallis',
         text3: 'invited you',
-        profileComponent:"",
+        profileComponent: '',
         profileUrl:
           'https://cdna.artstation.com/p/assets/images/images/053/054/138/large/avetetsuya-studios-alien.jpg?1661309922',
       },
