@@ -28,7 +28,15 @@ const RoleManagement = (props: RoleManagementProps) => {
 
   type EditIndex = number | null | undefined;
   type SearchText = string;
-
+  type initialProps = {
+    roleNo: string,
+    role: string,
+    isActive: boolean,
+    error: {
+      roleNo: string,
+      role: string,
+    }
+  }
 
   const initialState = {
     roleNo: '',
@@ -41,7 +49,7 @@ const RoleManagement = (props: RoleManagementProps) => {
   };
 
   const [roles, setRoles] = useState<Role[]>(roleData);
-  const [state, setState] = useState(initialState)
+  const [state, setState] = useState<initialProps>(initialState)
   const [search, setSearch] = useState<SearchText>('')
 
   const [editIndex, setEditIndex] = useState<EditIndex>(null)
@@ -71,7 +79,7 @@ const RoleManagement = (props: RoleManagementProps) => {
     setRoles([...tempArr]);
   }
 
-  const handleAddChange = (key: { roleNo: string; role: string; }, value: string) => {
+  const handleAddChange = (key: keyof initialProps['error'], value: string) => {
     const error = state?.error;
     error[key] = '';
     setState({ ...state, [key]: value, error })

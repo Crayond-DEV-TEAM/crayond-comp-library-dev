@@ -109,7 +109,7 @@ export const Roles = (props: any) => {
                             <Grid container alignItems={'center'} justifyContent={'space-between'}
                                 height={'100%'}>
                                 <Grid item lg={3} md={3} sm={3}>
-                                    <Input
+                                    {/* <Input
                                         errorMessage={state?.error?.roleNo}
                                         textFieldStyle={{
                                             justifyContent: 'center',
@@ -134,10 +134,74 @@ export const Roles = (props: any) => {
                                         }}
                                         value={state?.roleNo}
                                         onChange={(e: any) => handleAddChange('roleNo', e?.target?.value)}
+                                    /> */}
+
+                                    <InputField
+                                        errorMessage={state?.error?.roleNo}
+                                        inputStyle={{
+                                            justifyContent: 'center',
+                                            background: inputStyle?.inputBackground ?? 'none',
+                                            '& div': {
+                                                height: inputStyle?.height ?? '22px',
+                                                padding: inputStyle?.padding ?? '0 ',
+                                                fontSize: inputStyle?.fontSize ?? '13px',
+                                                margin: inputStyle?.margin ?? '0',
+                                                '& input': {
+                                                    padding: '0'
+                                                },
+                                                '& fieldset': {
+                                                    border: inputStyle?.border ?? '0 !important',
+                                                    borderRadius: inputStyle?.borderRadius ?? '0 !important',
+                                                    borderBottom: inputStyle?.borderBottom ?? '1px solid #D3D3D3 !important',
+                                                }
+                                            },
+                                            '& .MuiFormHelperText-root': {
+                                                display: 'flex',
+                                                color: 'red',
+                                                margin: '0',
+                                                fontSize: '11px'
+                                            }
+                                        }}
+                                        startAdornments={<SearchIcon sx={{ ml: 1, fontSize: '16px', color: '#818181' }} />}
+                                        onChange={(e: any) => handleAddChange('roleNo', e?.target?.value)}
+                                        fullWidth={true}
+                                        value={state?.roleNo}
+
                                     />
                                 </Grid>
                                 <Grid item lg={5} md={5} sm={5}>
-                                    <Input
+                                    <InputField
+                                        // errorMessage={state?.error?.roleNo}
+                                        inputStyle={{
+                                            justifyContent: 'center',
+                                            background: inputStyle?.inputBackground ?? 'none',
+                                            '& div': {
+                                                height: inputStyle?.height ?? '22px',
+                                                padding: inputStyle?.padding ?? '0 ',
+                                                fontSize: inputStyle?.fontSize ?? '13px',
+                                                margin: inputStyle?.margin ?? '0',
+                                                '& input': {
+                                                    padding: '0'
+                                                },
+                                                '& fieldset': {
+                                                    border: inputStyle?.border ?? '0 !important',
+                                                    borderRadius: inputStyle?.borderRadius ?? '0 !important',
+                                                    borderBottom: inputStyle?.borderBottom ?? '1px solid #D3D3D3 !important',
+                                                }
+                                            },
+                                            '& .MuiFormHelperText-root': {
+                                                display: 'flex',
+                                                color: 'red',
+                                                margin: '0',
+                                                fontSize: '11px',
+
+                                            }
+                                        }}
+                                        value={state?.role}
+                                        onChange={(e: any) => handleAddChange('role', e?.target?.value)}
+                                        placeholder='Description'
+                                    />
+                                    {/* <Input
                                         errorMessage={state?.error?.role}
                                         textFieldStyle={{
                                             justifyContent: 'center',
@@ -164,7 +228,7 @@ export const Roles = (props: any) => {
                                         value={state?.role}
                                         onChange={(e: any) => handleAddChange('role', e?.target?.value)}
                                         placeholder='Description'
-                                    />
+                                    /> */}
                                 </Grid>
                                 <Grid item lg={3} md={3} sm={3}>
                                     <Stack direction={'row'} alignItems={'center'} justifyContent={'space-evenly'}>
