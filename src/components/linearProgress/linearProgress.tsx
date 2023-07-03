@@ -1,31 +1,19 @@
 import Box from '@mui/material/Box';
 import LinearProgress, {
-  LinearProgressProps
+  LinearProgressProps,
 } from '@mui/material/LinearProgress';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { styles } from './style';
 import { Stack } from '@mui/material';
-
-interface ProgressProps {
-  value: number;
-  isShowToolTip:boolean;
-  thumbHeight: number;
-  progressLabel: boolean;
-  linearBarStyle: object;
-  symbols: string;
-  symbolsColor: string;
-  TooltipTextColor: string;
-  TooltipBgColor: string;
-  TooltipArrowColor: string;
-  thumbPrimaryColor: string;
-  thumbSecondaryColor: string;
-}
+import { ProgressProps } from './props';
 
 function LinearProgressWithLabel(props: LinearProgressProps & ProgressProps) {
   const {
     value,
+    variant,
+    valueBuffer,
     progressLabel,
     linearBarStyle,
     symbols,
@@ -38,21 +26,25 @@ function LinearProgressWithLabel(props: LinearProgressProps & ProgressProps) {
     thumbPrimaryColor,
     thumbSecondaryColor,
   } = props;
-  const [isOpen ,setIsOpen]=useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <Stack direction={'row'} alignItems={"center"}>
+    <Stack direction={'row'} alignItems={'center'}>
       <Box sx={{ width: '100%', mr: 1 }}>
         <Tooltip
           open={isShowToolTip && isOpen}
-          onMouseEnter={() => {setIsOpen(true)}}
-          onMouseLeave={() =>{setIsOpen(false)}}
+          onMouseEnter={() => {
+            setIsOpen(true);
+          }}
+          onMouseLeave={() => {
+            setIsOpen(false);
+          }}
           title={value}
           placement={'top'}
           componentsProps={{
             tooltip: {
               sx: {
-                color:TooltipTextColor,
+                color: TooltipTextColor,
                 bgcolor: TooltipBgColor,
                 '& .MuiTooltip-arrow': {
                   color: TooltipArrowColor,
@@ -63,18 +55,20 @@ function LinearProgressWithLabel(props: LinearProgressProps & ProgressProps) {
           arrow
         >
           <LinearProgress
+            variant={variant}
+            valueBuffer={valueBuffer}
+            value={value}
             sx={{
               ...styles.linearBarStyle,
               ...linearBarStyle,
-              "&.MuiLinearProgress-root": {
+              '&.MuiLinearProgress-root': {
                 backgroundColor: thumbSecondaryColor,
               },
-              "& .MuiLinearProgress-barColorPrimary": {
+              '& .MuiLinearProgress-barColorPrimary': {
                 backgroundColor: thumbPrimaryColor,
               },
               height: thumbHeight,
             }}
-            {...props}
           />
         </Tooltip>
       </Box>
@@ -92,6 +86,8 @@ function LinearProgressWithLabel(props: LinearProgressProps & ProgressProps) {
 export default function LinearProcess(props: ProgressProps) {
   const {
     value,
+    variant,
+    valueBuffer,
     progressLabel,
     linearBarStyle,
     symbols,
@@ -108,7 +104,7 @@ export default function LinearProcess(props: ProgressProps) {
     <Box sx={{ width: '100%' }}>
       <LinearProgressWithLabel
         value={Number(value) ?? 0}
-        onChange={() => { } }
+        onChange={() => {}}
         thumbHeight={thumbHeight}
         progressLabel={progressLabel}
         linearBarStyle={linearBarStyle}
@@ -118,22 +114,25 @@ export default function LinearProcess(props: ProgressProps) {
         TooltipArrowColor={TooltipArrowColor}
         thumbPrimaryColor={thumbPrimaryColor}
         thumbSecondaryColor={thumbSecondaryColor}
-        symbolsColor={symbolsColor} 
-        isShowToolTip={isShowToolTip} 
-        valueBuffer={40}    
-        />
+        symbolsColor={symbolsColor}
+        isShowToolTip={isShowToolTip}
+        valueBuffer={valueBuffer}
+        variant={variant}
+      />
     </Box>
   );
 }
 
 LinearProcess.defaultProps = {
-  value: 60,
+  value: 0,
+  variant: '',
+  valueBuffer: 0,
   progressLabel: false,
   linearBarStyle: {},
   symbols: '',
   thumbHeight: 10,
-  isShowToolTip:false,
-  TooltipTextColor:'',
+  isShowToolTip: false,
+  TooltipTextColor: '',
   TooltipBgColor: '',
   TooltipArrowColor: '',
   symbolsColor: '',
