@@ -4,7 +4,10 @@ import TreeView from '@mui/lab/TreeView';
 import { styled } from '@mui/material/styles';
 import TreeItem, { treeItemClasses } from '@mui/lab/TreeItem';
 import { styles } from './style';
-import { ExpandIcon, InfoIcon, SettingIcon, CollapseIcon } from './icons';
+import SettingIcon from '../../assets/settingIcon';
+import CollapseIcon from '../../assets/CollapseIcon';
+import ExpandIcon from '../../assets/expandIcon';
+import InfoIcon from '../../assets/InfoIcon';
 import { CheckBoxProps, CustomLabelProps, TreeComponentProps } from './props';
 import { BpCheckedIcon, BpIcon } from './components';
 

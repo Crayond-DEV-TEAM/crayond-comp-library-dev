@@ -4,8 +4,10 @@ import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
 import { TreeComponent } from './components/treeComp';
 import { useState } from 'react';
-import { CollapseIcon, ExpandIcon, InfoIcon, SettingIcon } from './components/treeComp/icons';
-
+import SettingIcon from './assets/settingIcon';
+import CollapseIcon from './assets/CollapseIcon';
+import ExpandIcon from './assets/expandIcon';
+import InfoIcon from './assets/InfoIcon';
 
 function App() {
 

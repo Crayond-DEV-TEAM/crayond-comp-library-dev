@@ -188,7 +188,7 @@ secondary.args = {
         },
 
         {
-          icon: <DocsIcon color='red' />,
+          icon:  color='red' />,
           value: '01 Jan 1998 (25Yrs / Male)',
           breakPoint: {
             xs: 12,
