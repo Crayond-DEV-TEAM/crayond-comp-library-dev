@@ -10,19 +10,18 @@ import { ChatBox } from './components/chatBox';
 
 function App() {
   const chatData = {
-    chatId: 'group_chat_1234',
-    name: 'Awesome Group Chat',
     chatType: 'group',
+    loginUser: 'user_1',
     participants: [
       {
         userId: 'user_1',
-        username: 'John',
-        profileImage:''
+        username: 'Hari',
+        profileImage: '',
       },
       {
         userId: 'user_2',
-        username: 'Emily',
-        profileImage:''
+        username: 'Henry',
+        profileImage: '',
       },
     ],
     messages: [
@@ -80,30 +79,80 @@ function App() {
         },
       },
     ],
+    styles: {
+      chatContainerStyle: {},
+      chatScrollStyle: {},
+      chatListStyle: {},
+      messageContainerStyle: {},
+      messageProfileStyle: {},
+      chatDetailsStyle: {},
+      massagerNameStyle: {},
+      massageTimeStyles: {},
+      senderMessageStyle: {},
+      receiverMessageStyle: {},
+      messageTextStyle: {},
+    },
+    functions: {
+      onClickMassagerProfile: undefined,
+      onClickMassagerContent: undefined,
+    },
   };
 
   const headerData = {
-    name:'New Group',
+    chatName: 'New Group',
     profileImage: '',
     status: 'online',
-    customComponent:null,
-    functions:{
-      onClickProfile:undefined,
-      onClickMore:undefined,
-      onClickMinimize:undefined,
-      onClickClose:undefined,
+    customComponent: null,
+    functions: {
+      onClickProfile: undefined,
+      onClickMore: undefined,
+      onClickMinimize: undefined,
+      onClickClose: undefined,
     },
-    styles:{
-      headerRootStyle:{},
-    }
-  }
+    styles: {
+      headerRootStyle: {},
+      profileIconStyle: {},
+      titleStyle: {},
+      subTitleStyle: {},
+    },
+  };
+
+  const editorData = {
+    inputProps: {
+      onChange: (e: any) => {},
+    },
+    styles: {
+      textEditorStyle: {},
+      iconContainerStyle: {},
+      iconStyle: {},
+      inputStyle: {},
+    },
+    icons: {
+      emojiIcon: undefined,
+      micIcon: undefined,
+      typographyIcon: undefined,
+      attachFileIcon: undefined,
+    },
+    functions: {
+      onClickEmojiIcon: undefined,
+      onClickMicIcon: undefined,
+      onClickTypographyIcon: undefined,
+      onClickAttachFileIcon: undefined,
+    },
+  };
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
       <Typography variant="h3" mb={4}>
         Chat Box
       </Typography>
       <Stack direction={'row'} justifyContent={'center'}>
-        <ChatBox chatData={chatData} />
+        <ChatBox
+          chatId={'chat_1'}
+          chatBoxRootStyle={{}}
+          headerData={headerData}
+          chatData={chatData}
+          editorData={editorData}
+        />
       </Stack>
     </div>
   );
