@@ -8,6 +8,7 @@ import { styles } from './style';
 
 const Sliders = (props: ProgressProps) => {
   const {
+    value,
     step,
     size,
     marks,
@@ -27,7 +28,6 @@ const Sliders = (props: ProgressProps) => {
     handleChangeFun = () => {},
   } = props;
 
-  const [value, setValue] = useState<number>(0);
 
   function valuetext(getAriaLabel: number) {
     return `${getAriaLabel}`;
@@ -44,7 +44,6 @@ const Sliders = (props: ProgressProps) => {
             marks={customMarks ? marks : []}
             value={value}
             onChange={(e, value) => {              
-              setValue(value as number);
               if(handleChangeFun){
                 handleChangeFun(e,value)
               }
@@ -83,17 +82,18 @@ const Sliders = (props: ProgressProps) => {
 };
 
 Sliders.defaultProps = {
-  step: 10,
+  value:0,
+  step: 0,
   size: 'small',
   sliderHeight: 5,
   disabled: false,
   customMarks: false,
   progressLabel: false,
   valueLabelDisplay: 'off',
-  labelColor: '#707070',
+  labelColor: '',
   labelSize: 2,
-  sliderColor: '#665CD7',
-  thumbColor: '#665CD7',
+  sliderColor: '',
+  thumbColor: '',
   handleChangeFun: () => {},
   sliderStyle: {},
   symbol: '',

@@ -5,7 +5,7 @@ import '@fontsource/poppins/700.css';
 import { Viewer } from './components/viewer';
 import DeleteIcon from './assets/deleteIcon';
 import profileImg from './assets/sampleprof.png';
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import CompanyLogo from './assets/companyLogo.png';
 import loginImg from './assets/loginImg.png';
@@ -36,6 +36,7 @@ function App() {
   const [headerCheckbox, setHederCheckbox] = React.useState(true);
   const [alertOpen, setAlertOpen] = React.useState(false);
   const [isDataMask, setIsDataMask] = React.useState(false);
+  const [value, setValue] = useState<number>(0);
   const checkboxHandleChange = (data: any) => {
     if (!selectedCheckbox.includes(data)) {
       setSelectedCheckbox([...selectedCheckbox, data]);
@@ -190,10 +191,34 @@ function App() {
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
       <div
         className="slide"
-        style={{ width: '60%', minHeight: '20%', background: '#fff',padding:5,marginTop:"35px" }}
+        style={{
+          width: '60%',
+          minHeight: '20%',
+          background: '#fff',
+          padding: 5,
+          marginTop: '35px',
+        }}
       >
-        <Slider minMaxValues={false}/>
-        <SliderRange minMaxValues={true}/>
+        <Slider
+          value={value}
+          handleChangeFun={(e, v) =>{ setValue(v as number) ,console.log(e,v)}}       step={10}
+          size={'small'}
+          sliderHeight={5}
+          disabled={false}
+          customMarks={false}
+          progressLabel={false}
+          valueLabelDisplay={'off'}
+          labelColor={'#707070'}
+          labelSize={2}
+          sliderColor={'#665CD7'}
+          thumbColor={'#665CD7'}
+          sliderStyle={{}}
+          symbol={''}
+          labelStyle={{}}
+          sliderThumbStyle={{}}
+          marks={[]} 
+          containerStyle={{}}        />
+        {/* <SliderRange minMaxValues={true}/> */}
       </div>
       {/* <Screen
        containerStyle={{}}

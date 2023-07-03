@@ -78,6 +78,8 @@ const SliderRange = (props: ProgressProps) => {
   const [value, setValue] = useState<number[]>([20, 37]);
 
   const handleChange = (event: Event, newValue:number[]|[number,number]) => {
+    console.log(event,newValue);
+    
     setValue(newValue as number[]);
     setMinMax({ minValue: newValue[0], maxValue: value[1] } );
   };
