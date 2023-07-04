@@ -42,6 +42,7 @@ export interface CalenderProps {
     calenderTitle:string,
     isCustomizeToolbar:boolean;
     onHandleDateSelect:()=>void;
+    onCustomizeEventAdd:(data:EventData)=>void;
     closeEventDialog:()=>void;
     handleEventChange:(e:React.ChangeEvent<HTMLInputElement>)=>void;
     onSaveCalenderList:(val: calenderLists, index: number)=>void;
@@ -189,6 +190,8 @@ export interface CalenderProps {
   export interface CustomizeEventProps {
     start: Date;
     end: Date;
+    action:string,
+    slots:object[],
   }
   
   export interface CommonLeaveDays {

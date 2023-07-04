@@ -101,38 +101,55 @@ export function CustomCalender(props: CalenderProps) {
     endTimeDialog = '',
     eventRemainder = 0,
     selectedDay = '',
-    calenderIconSx={},
+    calenderIconSx = {},
     onSelectEventFunc = () => false,
-    handleEventChange=()=>false,
-    onSaveCalenderList=()=>false,
-    editListValue='',
-    onHandleDateSelect=()=>false,
-    calenderTitle='Calender'
+    handleEventChange = () => false,
+    onSaveCalenderList = () => false,
+    editListValue = '',
+    onHandleDateSelect = () => false,
+    onCustomizeEventAdd = () => false,
+    calenderTitle = 'Calender',
   } = props;
 
   // React BigCalender Moments
   const localizer = momentLocalizer(moment);
 
   // General States
-  const [anchorEl, setAnchorEl] = useState<Element | ((element: Element) => Element) | null | undefined>(null);
+  const [anchorEl, setAnchorEl] = useState<
+    Element | ((element: Element) => Element) | null | undefined
+  >(null);
   const [eventColors, setEventColors] = useState<{ [key: string]: string }>({});
   const [editAccoss, seteditAccoss] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [openTime, setOpenTime] = useState(true);
-  const [error, setError] = useState<{selectevent?: string;startEnd?:string}>({
-    selectevent:'',
-    startEnd:''
+  const [titleDialog, seTtitleDialog] = useState({
+    edit: false,
+    event: false,
+  });
+  const [error, setError] = useState<{
+    selectevent?: string;
+    startEnd?: string;
+  }>({
+    selectevent: '',
+    startEnd: '',
   });
   const [endTimeModal, setEndTimeModal] = useState(true);
   const [isEdit, setIsedit] = useState(false);
   const [isEditList, setIsEditList] = useState(false);
-  const [selectedRange, setSelectedRange] = useState<{start?: Date | null;end?: Date | null;action?: string;}>({ start: null, end: null, action: '' });
-  const selectedStartDate = moment(selectedRange?.start);
-  const [endHourss, endMinutess] = startTimeDialog.split(':');
+  const [selectedRange, setSelectedRange] = useState<{
+    start?: Date | null;
+    end?: Date | null;
+    action?: string;
+  }>({ start: null, end: null, action: '' });
   const [editdata, seteditdata] = useState<any>({});
   const open = Boolean(anchorEl);
 
-  const start = selectedStartDate.clone().set({
+  const selectedStartDate = moment(selectedRange?.start);
+  const [endHourss, endMinutess] = startTimeDialog.split(':');
+
+  const start = selectedStartDate
+    .clone()
+    .set({
       hour: parseInt(endHourss, 10),
       minute: parseInt(endMinutess, 10),
       second: 0,
@@ -141,7 +158,9 @@ export function CustomCalender(props: CalenderProps) {
 
   const selectedEndDate = moment(selectedRange?.end);
   const [endHours, endMinutes] = endTimeDialog.split(':');
-  const end = selectedEndDate.clone().set({
+  const end = selectedEndDate
+    .clone()
+    .set({
       hour: parseInt(endHours, 10),
       minute: parseInt(endMinutes, 10),
       second: 0,
@@ -157,12 +176,22 @@ export function CustomCalender(props: CalenderProps) {
   };
 
   const validation = (): boolean => {
-    if (startTimeDialog?.length === 0 || endTimeDialog?.length === 0) {
-      setError({startEnd:'Please select a valid start and end time'});
+    if (
+      (startTimeDialog?.length === 0 || endTimeDialog?.length === 0) &&
+      selectedCategoryDialog?.length === 0
+    ) {
+      setError({
+        startEnd: 'Please select a valid start and end time',
+        selectevent: 'Please select Event',
+      });
       return false;
     }
-    if(selectedCategoryDialog?.length === 0){
-      setError({selectevent:'Please select Event'});
+    if (startTimeDialog?.length === 0 || endTimeDialog?.length === 0) {
+      setError({ startEnd: 'Please select a valid start and end time' });
+      return false;
+    }
+    if (selectedCategoryDialog?.length === 0) {
+      setError({ selectevent: 'Please select Event' });
       return false;
     }
     return true;
@@ -182,22 +211,21 @@ export function CustomCalender(props: CalenderProps) {
     const multipleDate = slots[slots?.length - 1];
     if (action === 'click') {
       setSelectedRange({ start, action, end: multipleDate });
-      
     } else if (action === 'select') {
       setSelectedRange({ start, end: multipleDate, action });
     }
     if (isEventModal) {
       setOpenModal(true);
-      seteditAccoss(true)
-      setIsedit(false)
-      setOpenTime(true)
-      setEndTimeModal(true)
-      onHandleDateSelect()
+      seteditAccoss(true);
+      setIsedit(false);
+      setOpenTime(true);
+      setEndTimeModal(true);
+      onHandleDateSelect();
+      seTtitleDialog({ edit: false, event: false });
     } else {
-      onCustomizeEvent({ start, end: multipleDate });
+      onCustomizeEvent({ start, end: multipleDate , action, slots });
     }
     seteditdata({});
-    
   };
 
   // Fint the  National Leave
@@ -224,8 +252,8 @@ export function CustomCalender(props: CalenderProps) {
       allDay: false,
       start: start ?? '',
       end: end ?? '',
-      startTime: startTimeDialog,
-      endTime: endTimeDialog,
+      startTime: convert(startTimeDialog),
+      endTime:convert(endTimeDialog),
       deletable: true,
       eventRemaindTime: eventRemainder,
       eventRemind: selectedDay,
@@ -249,17 +277,17 @@ export function CustomCalender(props: CalenderProps) {
         ...prevEventColors,
         [selectedCategoryDialog]: color || '',
       }));
-      if(isEventModal){
+      if (isEventModal) {
         setOpenTime(true);
         setEndTimeModal(true);
         setOpenModal(false);
-        setEndTimeModal(false)
-        seteditAccoss(false)
-        setIsedit(false)
-        setError({selectevent:'',startEnd:''})
+        setEndTimeModal(false);
+        seteditAccoss(false);
+        setIsedit(false);
+        setError({ selectevent: '', startEnd: '' });
       }
     } else {
-      return false;
+      onCustomizeEventAdd(newEvent);
     }
   };
 
@@ -281,11 +309,10 @@ export function CustomCalender(props: CalenderProps) {
     setEndTimeModal(true);
     setOpenModal(false);
     closeEventDialog();
-    setOpenTime(true)
-    setEndTimeModal(true)
-    setError({selectevent:'',startEnd:''})
-    setSelectedRange({ start:null, end:null });
-
+    setOpenTime(true);
+    setEndTimeModal(true);
+    setError({ selectevent: '', startEnd: '' });
+    setSelectedRange({ start: null, end: null });
   };
 
   // Common Leave Days Index
@@ -373,14 +400,16 @@ export function CustomCalender(props: CalenderProps) {
       fontFamily: 'Poppins, sans-serif',
       ...(styleProps?.fontFamily ?? {}),
     },
-    dragandDropStyle:{
-      dragAndSelectBg:'#EFEEFB',
+    dragandDropStyle: {
+      dragAndSelectBg: '#EFEEFB',
       ...(styleProps?.dragAndSelectBg ?? {}),
-    }
+    },
   };
 
   // Events Edits
-  const handleEventEdits = (event: React.MouseEvent<HTMLButtonElement> | null) => {
+  const handleEventEdits = (
+    event: React.MouseEvent<HTMLButtonElement> | null
+  ) => {
     if (event) {
       const newEvent: EventData = {
         id: '',
@@ -397,16 +426,23 @@ export function CustomCalender(props: CalenderProps) {
         type: selectedCategoryDialog,
       };
       onEventsEdit(newEvent);
-      if(isEventModal){
-      seteditdata(event)
-      seteditAccoss(true)
-      setOpenTime(false)
-      setEndTimeModal(false)}
+      if (isEventModal) {
+        seteditdata(event);
+        seteditAccoss(true);
+        setOpenTime(false);
+        setEndTimeModal(false);
+      }
+      seTtitleDialog({
+        edit: true,
+        event: false,
+      });
     }
   };
 
   // //Events Delete
-  const handleEventDelete = (event: React.MouseEvent<HTMLButtonElement> | null  ) => {
+  const handleEventDelete = (
+    event: React.MouseEvent<HTMLButtonElement> | null
+  ) => {
     if (event) {
       const newEvent: EventData = {
         id: editdata?.id,
@@ -428,13 +464,14 @@ export function CustomCalender(props: CalenderProps) {
   };
 
   // Total Event Data
-  const eventList: EventData[] = allEvents.map((event) => {
+  const eventList: EventData[] = allEvents
+    .map((event) => {
       if ('title' in event) {
         return {
           id: event.id,
           title: event.title,
           allDay: event.allDay,
-          des:event.des,
+          des: event.des,
           start: event.start ?? null,
           end: event.end ?? null,
           startTime: event?.startTime,
@@ -442,30 +479,36 @@ export function CustomCalender(props: CalenderProps) {
           deletable: event.deletable,
           eventRemaindTime: event.eventRemaindTime,
           eventRemind: event.eventRemind,
-          type:event?.type,
+          type: event?.type,
         };
       } else {
         return null;
       }
-})
+    })
     .filter((event): event is EventData => event !== null);
 
   // Event Select funcion
   const onSelectEvent = (e: EventData) => {
-    setOpenModal(true);
-    setIsedit(true);
+    if(isEventModal){
+      setOpenModal(true);
+      setIsedit(true);
+      setSelectedRange({ start: e?.start, end: e?.end });
+      seteditdata(e);
+      seteditAccoss(false);
+      setOpenTime(false);
+      setEndTimeModal(false);
+      seTtitleDialog({
+        edit: true,
+        event: true,
+      });
     onEventsEdit(e);
+    }
     onSelectEventFunc(e);
-    setSelectedRange({ start:e?.start, end:e?.end });
-    seteditdata(e);
-    seteditAccoss(false)
-    setOpenTime(false)
-    setEndTimeModal(false)
+   
   };
 
-
   // Even  Style
-  const eventStyleGetter = (event: EventData,) => {
+  const eventStyleGetter = (event: EventData) => {
     const backgroundColor = eventColors[event?.title] || 'transparent';
 
     const isLeaveEvent = eventsleave.some(
@@ -497,51 +540,51 @@ export function CustomCalender(props: CalenderProps) {
     };
   };
 
-
   const MAX_TITLE_LENGTH = 20;
   function truncateText(text: string, maxLength: number) {
-      if (text.length <= maxLength) {
-        return text;
-      }
-      return text.slice(0, maxLength) + '...';
+    if (text.length <= maxLength) {
+      return text;
+    }
+    return text.slice(0, maxLength) + '...';
   }
 
-
   // Event component
-  const EventComponent = ({ event }: EventComponentInferface) => ( 
-    <Box >
-      <Box sx={{display:'flex',alignItems:'center',justifyContent:'start'}}>
+  const EventComponent = ({ event }: EventComponentInferface) => (
+    <Box>
+      <Box
+        sx={{ display: 'flex', alignItems: 'center', justifyContent: 'start' }}
+      >
         <Box>
-        <Typography
-           sx={{ ...customCalenderStyle.eventLabel }}
-        >
-          {truncateText(event.title, MAX_TITLE_LENGTH)}
-        </Typography> 
-        </Box>
-        {!event?.allDay && (
-        <Box sx={{ ...customCalenderStyle?.overAllEventSx }}>
-          <Typography
-            sx={{ fontSize: '12px', fontWeight: '500', color: '#929292' }}
-          >
-            {event?.startTime}
-            {/* {selectedPeriod?.am} */}
+          <Typography sx={{ ...customCalenderStyle.eventLabel }}>
+            {truncateText(event.title, MAX_TITLE_LENGTH)}
           </Typography>
         </Box>
-      )}
+        {!event?.allDay && (
+          <Box sx={{ ...customCalenderStyle?.overAllEventSx }}>
+            <Typography
+              sx={{ fontSize: '12px', fontWeight: '500', color: '#929292' }}
+            >
+              {event?.startTime}
+              {/* {selectedPeriod?.am} */}
+            </Typography>
+          </Box>
+        )}
       </Box>
-        <Typography
-          sx={{ ...customCalenderStyle.eventLabel }}
-        >
-          {event?.des}
-        </Typography>
+      <Typography sx={{ ...customCalenderStyle.eventLabel }}>
+        {event?.des}
+      </Typography>
 
       {/* Display the time only if it is not an all-day event */}
-      
     </Box>
   );
 
   // Custom tool bar
-  const CustomToolbar = ({label,onNavigate,onView,view,}: CustomToolbarProps) => {
+  const CustomToolbar = ({
+    label,
+    onNavigate,
+    onView,
+    view,
+  }: CustomToolbarProps) => {
     const goToBack = () => {
       onNavigate('PREV');
     };
@@ -553,9 +596,7 @@ export function CustomCalender(props: CalenderProps) {
     };
 
     return (
-      <Box
-        sx={{...customCalenderStyle.toolbarSx}}
-      >
+      <Box sx={{ ...customCalenderStyle.toolbarSx }}>
         <IconButton
           sx={{ backgroundColor: '#EEEEEE', padding: '6px' }}
           disableRipple
@@ -584,7 +625,7 @@ export function CustomCalender(props: CalenderProps) {
           </IconButton>
           <Typography
             sx={{
-             ...customCalenderStyle.toolBarLabelSx
+              ...customCalenderStyle.toolBarLabelSx,
             }}
           >
             {label}
@@ -607,34 +648,34 @@ export function CustomCalender(props: CalenderProps) {
         </Box>
         <Box
           sx={{
-           ...customCalenderStyle.toolbarViewSx
+            ...customCalenderStyle.toolbarViewSx,
           }}
         >
           <Button
-            sx={{...customCalenderStyle.ViewToolSx,
+            sx={{
+              ...customCalenderStyle.ViewToolSx,
               backgroundColor: view === 'month' ? '#665CD7' : 'transparent',
               color: view === 'month' ? '#fff' : '#262626',
-             
             }}
             onClick={() => handleViewChange('month')}
           >
             Month
           </Button>
           <Button
-            sx={{...customCalenderStyle.ViewToolSx,
+            sx={{
+              ...customCalenderStyle.ViewToolSx,
               backgroundColor: view === 'week' ? '#665CD7' : 'transparent',
               color: view === 'week' ? '#fff' : '#262626',
-              
             }}
             onClick={() => handleViewChange('week')}
           >
             Week
           </Button>
           <Button
-            sx={{...customCalenderStyle.ViewToolSx,
+            sx={{
+              ...customCalenderStyle.ViewToolSx,
               backgroundColor: view === 'day' ? '#665CD7' : 'transparent',
               color: view === 'day' ? '#fff' : '#262626',
-              
             }}
             onClick={() => handleViewChange('day')}
           >
@@ -647,10 +688,12 @@ export function CustomCalender(props: CalenderProps) {
 
   const onEditCalenderList = () => {
     setIsEditList(true);
-    setAnchorEl(null)
+    setAnchorEl(null);
   };
 
-  const toolbarComponent: any = isCustomizeToolbar ? CustomizedToolbar : CustomToolbar;
+  const toolbarComponent: any = isCustomizeToolbar
+    ? CustomizedToolbar
+    : CustomToolbar;
   const components = {
     event: EventComponent,
     toolbar: toolbarComponent,
@@ -659,24 +702,39 @@ export function CustomCalender(props: CalenderProps) {
   const onCalenderListClicks = (index: number) => {
     if (isEditList && select === index) {
       setIsEditList(false);
-    }else if(select !== index){
-      onCalenderListClick(index)
-      setIsEditList(false)
-    } 
-    
+    } else if (select !== index) {
+      onCalenderListClick(index);
+      setIsEditList(false);
+    }
   };
 
-  const onCloseList =(val:calenderLists,index:number)=>{
+  const onCloseList = (val: calenderLists, index: number) => {
     if (isEditList && select === index) {
       setAnchorEl(null);
       setIsEditList(false);
-    } 
-  }
+    }
+  };
 
-  const onSaveCalenderLists =(val:calenderLists,index:number)=>{
-    setIsEditList(false)
-    onSaveCalenderList(val,index)
-  }
+  const onSaveCalenderLists = (val: calenderLists, index: number) => {
+    setIsEditList(false);
+    onSaveCalenderList(val, index);
+  };
+
+  const convert = (date: string) => {
+    const dateCopy = date.split(':');
+    let hr = dateCopy?.[0];
+    const min = dateCopy?.[1];
+    let ampm = 'AM';
+  
+    if (dateCopy?.[0] && Number(dateCopy?.[0]) >= 12) {
+      hr = String(Number(dateCopy?.[0]) % 12);
+      if (Number(hr) < 10) {
+        hr = '0' + hr;
+      }
+      ampm = 'PM';
+    }
+    return hr + ':' + min + ' ' + ampm;
+  };
 
   // Can Control the Inline style For Calender
   const inlineStyles = {
@@ -698,7 +756,7 @@ export function CustomCalender(props: CalenderProps) {
     '--date-cell-labelWeight': `${defaultStyleProps?.headStyle?.fontWeight}`,
     '--date-fontFamily': `${defaultStyleProps?.fontFamily?.fontFamily}`,
     '--date-eventsColorbackground': `${eventColors}`,
-    '--date-dragandselectBgColor' : `${defaultStyleProps?.dragandDropStyle?.dragAndSelectBg}`
+    '--date-dragandselectBgColor': `${defaultStyleProps?.dragandDropStyle?.dragAndSelectBg}`,
   } as React.CSSProperties;
 
   const inputRef = useRef(null);
@@ -769,128 +827,141 @@ export function CustomCalender(props: CalenderProps) {
             </Typography>
           </Box>
           <Box>
-            {   calenderList &&
+            {calenderList &&
               calenderList?.map((val: calenderLists, index: number) => {
                 return (
-                  <> 
-                  {isEditList && select === index ? 
-                <Box
-                sx={{ ...customCalenderStyle.eventtitleList, paddingTop: '4px' }}
-              >
-                <TextField
-                placeholder="New Calender"
-                label=""
-                value={editListValue}
-                inputRef={inputRef}
-                onChange={handleEventChange}
-                fullWidth
-                inputProps={{
-                  style: {
-                    backgroundColor: '#fff',
-                    fontWeight: '500',
-                    fontSize: '14px',
-                  },
-                }}
-                InputProps={{
-                  endAdornment: (
-                    <>
-                      <IconButton sx={{ p: 0 }} onClick={() => onSaveCalenderLists(val,index)} disableRipple>
-                        <CheckCircleOutlineIcon sx={{color:'green'}} />
-                      </IconButton>
-                      <IconButton
-                        sx={{  p:0}}
-                        onClick={()=>onCloseList(val,index)}
-                        disableRipple
-                      >
-                        <HighlightOffOutlinedIcon
-                          sx={{ ...customCalenderStyle.closeInput }}
-                        />
-                      </IconButton>
-                    </>
-                  ),
-                }}
-              /> 
-                </Box>
-                :
-                <Box
-                    key={index}
-                    
-                    sx={{
-                      ...customCalenderStyle?.calenderlistSx,
-                      backgroundColor:
-                        select === index
-                          ? calenderActiveBgColor
-                          : 'transparent',
-                      padding: select === index ? '6px 20px' : '16px 20px',
-                      ...customCalenderListSx,
-                    }}
-                    onClick={() => onCalenderListClicks(index)}
-                  >
-                    <Box sx={{ ...customCalenderStyle?.totalCalenderSx }}>
-                      <Typography
+                  <>
+                    {isEditList && select === index ? (
+                      <Box
                         sx={{
-                          ...customCalenderStyle.calenderTitle,
-                          color:
-                            select === index ? calenderActiveColor : '#3B3B3B',
-                          fontWeight: select === index ? '600' : '400',
+                          ...customCalenderStyle.eventtitleList,
+                          paddingTop: '4px',
                         }}
                       >
-                        {val?.calenderTitle}
-                      </Typography>
-                      <Box sx={{ ...customCalenderStyle.subSx }}>
-                        {select === index && (
-                          <>
-                            <IconButton
-                              disableRipple
-                              onClick={handleClick}
-                              sx={{ ...customCalenderStyle.moreSx }}
-                              // onMouseOver={handleClick}
-                            >
-                              <MoreHorizIcon />
-                            </IconButton>
-                            <Menu
-                              open={open}
-                              anchorEl={anchorEl}
-                              onClose={handleClose}
-                              sx={{ ...customCalenderStyle.menuSx }}
-                            >
-                              <MenuItem
-                                sx={{ justifyContent: 'space-between' }}
-                              >
-                                <Box
-                                  onClick={() => onEditCalenderList()}
-                                  sx={{ ...customCalenderStyle.editTextSx }}
-                                >
-                                  Edit
-                                </Box>
-                              </MenuItem>
-                              <MenuItem
-                                sx={{ justifyContent: 'space-between' }}
-                              >
-                                <Box
-                                  onClick={() => onDeleteCalenderList(val, index)
-                                  }
-                                  sx={{ ...customCalenderStyle.editTextSx }}
-                                >
-                                  Delete
-                                </Box>
-                              </MenuItem>
-                            </Menu>
-                          </>
-                        )}
-                        <Typography
-                          sx={{
-                            ...customCalenderStyle.countSx,
-                            backgroundColor:
-                              select === index ? '#CAC7F1' : '#EEEEEE',
+                        <TextField
+                          placeholder="New Calender"
+                          label=""
+                          value={editListValue}
+                          inputRef={inputRef}
+                          onChange={handleEventChange}
+                          fullWidth
+                          inputProps={{
+                            style: {
+                              backgroundColor: '#fff',
+                              fontWeight: '500',
+                              fontSize: '14px',
+                            },
                           }}
-                        >
-                          0{getEventCount(val?.calenderTitle)}
-                        </Typography>
+                          InputProps={{
+                            endAdornment: (
+                              <>
+                                <IconButton
+                                  sx={{ p: 0 }}
+                                  onClick={() =>
+                                    onSaveCalenderLists(val, index)
+                                  }
+                                  disableRipple
+                                >
+                                  <CheckCircleOutlineIcon
+                                    sx={{ color: 'green' }}
+                                  />
+                                </IconButton>
+                                <IconButton
+                                  sx={{ p: 0 }}
+                                  onClick={() => onCloseList(val, index)}
+                                  disableRipple
+                                >
+                                  <HighlightOffOutlinedIcon
+                                    sx={{ ...customCalenderStyle.closeInput }}
+                                  />
+                                </IconButton>
+                              </>
+                            ),
+                          }}
+                        />
                       </Box>
-                    </Box>
-                  </Box>
-                }
+                    ) : (
+                      <Box
+                        key={index}
+                        sx={{
+                          ...customCalenderStyle?.calenderlistSx,
+                          backgroundColor:
+                            select === index
+                              ? calenderActiveBgColor
+                              : 'transparent',
+                          padding: select === index ? '6px 20px' : '16px 20px',
+                          ...customCalenderListSx,
+                        }}
+                        onClick={() => onCalenderListClicks(index)}
+                      >
+                        <Box sx={{ ...customCalenderStyle?.totalCalenderSx }}>
+                          <Typography
+                            sx={{
+                              ...customCalenderStyle.calenderTitle,
+                              color:
+                                select === index
+                                  ? calenderActiveColor
+                                  : '#3B3B3B',
+                              fontWeight: select === index ? '600' : '400',
+                            }}
+                          >
+                            {val?.calenderTitle}
+                          </Typography>
+                          <Box sx={{ ...customCalenderStyle.subSx }}>
+                            {select === index && (
+                              <>
+                                <IconButton
+                                  disableRipple
+                                  onClick={handleClick}
+                                  sx={{ ...customCalenderStyle.moreSx }}
+                                  // onMouseOver={handleClick}
+                                >
+                                  <MoreHorizIcon />
+                                </IconButton>
+                                <Menu
+                                  open={open}
+                                  anchorEl={anchorEl}
+                                  onClose={handleClose}
+                                  sx={{ ...customCalenderStyle.menuSx }}
+                                >
+                                  <MenuItem
+                                    sx={{ justifyContent: 'space-between' }}
+                                  >
+                                    <Box
+                                      onClick={() => onEditCalenderList()}
+                                      sx={{ ...customCalenderStyle.editTextSx }}
+                                    >
+                                      Edit
+                                    </Box>
+                                  </MenuItem>
+                                  <MenuItem
+                                    sx={{ justifyContent: 'space-between' }}
+                                  >
+                                    <Box
+                                      onClick={() =>
+                                        onDeleteCalenderList(val, index)
+                                      }
+                                      sx={{ ...customCalenderStyle.editTextSx }}
+                                    >
+                                      Delete
+                                    </Box>
+                                  </MenuItem>
+                                </Menu>
+                              </>
+                            )}
+                            <Typography
+                              sx={{
+                                ...customCalenderStyle.countSx,
+                                backgroundColor:
+                                  select === index ? '#CAC7F1' : '#EEEEEE',
+                              }}
+                            >
+                              0{getEventCount(val?.calenderTitle)}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </Box>
+                    )}
                   </>
                 );
               })}
@@ -924,7 +995,11 @@ export function CustomCalender(props: CalenderProps) {
               open={openModal}
             >
               <DialogTitle sx={{ ...customCalenderStyle.dialogHeaderSx }}>
-                Add New Event
+                {titleDialog?.event
+                  ? 'Event'
+                  : titleDialog?.edit
+                  ? 'Edit Event'
+                  : 'Add New Event'}
               </DialogTitle>
               <Box>
                 {isEdit && (
@@ -937,11 +1012,16 @@ export function CustomCalender(props: CalenderProps) {
                       disableRipple
                       sx={{
                         ...customCalenderStyle.eventIconAddSx,
-                       
+
                         right: '66px',
                       }}
                     >
-                      <EditOutlinedIcon sx={{ ...customCalenderStyle.eventIcons,color: editAccoss ? '#665CD7' : '#000', }} />
+                      <EditOutlinedIcon
+                        sx={{
+                          ...customCalenderStyle.eventIcons,
+                          color: editAccoss ? '#665CD7' : '#000',
+                        }}
+                      />
                     </IconButton>
 
                     <IconButton
@@ -950,14 +1030,16 @@ export function CustomCalender(props: CalenderProps) {
                       color="inherit"
                       aria-label="delete event"
                       disableRipple
-                      disabled={editAccoss=== true ? true : false}
+                      disabled={editAccoss === true ? true : false}
                       sx={{
                         ...customCalenderStyle.eventIconAddSx,
                         color: editdata ? '#3B3B3B' : '#000',
                         right: '36px',
                       }}
                     >
-                      <DeleteOutlinedIcon  sx={{ ...customCalenderStyle.eventIcons }} />
+                      <DeleteOutlinedIcon
+                        sx={{ ...customCalenderStyle.eventIcons }}
+                      />
                     </IconButton>
                   </>
                 )}
@@ -977,7 +1059,7 @@ export function CustomCalender(props: CalenderProps) {
                     value={eventDialogTitle}
                     onChange={(e) => onEventDialogChange(e, 'modalTitle')}
                     fullWidth
-                    disabled={!editAccoss?true:false}
+                    disabled={!editAccoss ? true : false}
                     inputProps={{
                       style: {
                         backgroundColor: '#fff',
@@ -987,11 +1069,11 @@ export function CustomCalender(props: CalenderProps) {
                     }}
                   />
                 </Box>
-                <Box sx={{ ...customCalenderStyle.eventtitle,py:'8px' }}>
+                <Box sx={{ ...customCalenderStyle.eventtitle, py: '8px' }}>
                   <TextField
                     placeholder="Add Description"
                     value={eventDialogDescription}
-                    disabled={!editAccoss?true:false}
+                    disabled={!editAccoss ? true : false}
                     onChange={(
                       e: React.ChangeEvent<
                         HTMLInputElement | HTMLTextAreaElement
@@ -1014,13 +1096,14 @@ export function CustomCalender(props: CalenderProps) {
                   <Select
                     sx={{
                       ...customCalenderStyle.eventSelect,
+                      marginBottom: error?.selectevent ? '0px' : '12px',
                       width: '100%',
                     }}
                     value={selectedCategoryDialog}
                     onChange={(event: SelectChangeEvent<string>) =>
                       onEventDialogChange(event, 'selectEvent')
                     }
-                    disabled={!editAccoss?true:false}
+                    disabled={!editAccoss ? true : false}
                     IconComponent={KeyboardArrowUpIcon}
                     defaultValue={
                       selectedCategoryDialog || eventCategories[0].name
@@ -1039,12 +1122,15 @@ export function CustomCalender(props: CalenderProps) {
                     )}
                   </Select>
                   {error?.selectevent && (
-                    <Typography sx={{ ...customCalenderStyle.errorSx, marginBottom: '12px',                    
-                    }}>
+                    <Typography
+                      sx={{
+                        ...customCalenderStyle.errorSx,
+                        marginBottom: '12px',
+                      }}
+                    >
                       {error?.selectevent}
                     </Typography>
                   )}
-                 
                 </Box>
                 <Box sx={{ marginBottom: '12px' }}>
                   <Typography sx={{ ...customCalenderStyle.dialogTitle }}>
@@ -1070,18 +1156,24 @@ export function CustomCalender(props: CalenderProps) {
                     ) : (
                       <TextField
                         value={startTimeDialog}
-                        onChange={(e) => onEventDialogChange(e, 'startTime')}
+                        onChange={(e) =>
+                          onEventDialogChange(
+                            e,
+                            'startTime'
+                          )
+                        }
                         fullWidth
                         id="time"
                         type="time"
-                        disabled={!editAccoss?true:false}
+                        disabled={!editAccoss ? true : false}
                         inputProps={{
                           style: { backgroundColor: '#fff', fontSize: '14px' },
+                          step: '60', // Set step to 60 minutes to enforce HH:MM format
+                          pattern: '(0[1-9]|1[0-2]):[0-5][0-9] [APap][mM]', // Pattern for HH:MM AM/PM format
                         }}
                         InputLabelProps={{
                           shrink: true,
                         }}
-                       
                       />
                     )}
 
@@ -1099,17 +1191,16 @@ export function CustomCalender(props: CalenderProps) {
                     ) : (
                       <TextField
                         value={endTimeDialog}
-                        onChange={(e) => onEventDialogChange(e, 'endTime')}
+                        onChange={(e) => onEventDialogChange( e, 'endTime')}
                         fullWidth
                         type="time"
-                        disabled={!editAccoss?true:false}
+                        disabled={!editAccoss ? true : false}
                         inputProps={{
                           style: { backgroundColor: '#fff', fontSize: '14px' },
                         }}
                         InputLabelProps={{
                           shrink: true,
                         }}
-                       
                       />
                     )}
                   </Box>
@@ -1142,8 +1233,7 @@ export function CustomCalender(props: CalenderProps) {
                       ) => onEventDialogChange(e, 'eventRemainder')}
                       fullWidth
                       type="number"
-                    disabled={!editAccoss?true:false}
-
+                      disabled={!editAccoss ? true : false}
                       inputProps={{
                         style: { backgroundColor: '#fff', fontSize: '14px' },
                       }}
@@ -1153,31 +1243,28 @@ export function CustomCalender(props: CalenderProps) {
                       InputProps={{
                         endAdornment: (
                           <Box sx={{ ...customCalenderStyle.totalArrowSx }}>
-                            <IconButton  sx={{p:'0',height:'0px',marginTop:'8px'}}  onClick={(e: any) =>
-                              onEventDialogChange(e, 'increase')
-                            }  
-                    disabled={!editAccoss?true:false}
-                            
+                            <IconButton
+                              sx={{ p: '0', height: '0px', marginTop: '8px' }}
+                              onClick={(e: any) =>
+                                onEventDialogChange(e, 'increase')
+                              }
+                              disabled={!editAccoss ? true : false}
                             >
-                            <KeyboardArrowUpIcon 
-                            
-                          
-                            sx={{ ...customCalenderStyle.keyArrowSx }}
-                          />
+                              <KeyboardArrowUpIcon
+                                sx={{ ...customCalenderStyle.keyArrowSx }}
+                              />
                             </IconButton>
-                           <IconButton onClick={(e: any) =>
+                            <IconButton
+                              onClick={(e: any) =>
                                 onEventDialogChange(e, 'decrease')
-                              } sx={{p:'0',height:'0px',marginTop:'-8px'}}
-                    disabled={!editAccoss?true:false}
-                              
-                              >
-                           <KeyboardArrowDownIcon
-                              
-                              sx={{ ...customCalenderStyle.keyArrowSx }}
-                            />
-
-                           </IconButton>
-                            
+                              }
+                              sx={{ p: '0', height: '0px', marginTop: '-8px' }}
+                              disabled={!editAccoss ? true : false}
+                            >
+                              <KeyboardArrowDownIcon
+                                sx={{ ...customCalenderStyle.keyArrowSx }}
+                              />
+                            </IconButton>
                           </Box>
                         ),
                       }}
@@ -1190,7 +1277,7 @@ export function CustomCalender(props: CalenderProps) {
                       onChange={(event: SelectChangeEvent<string>) =>
                         onEventDialogChange(event, 'dayOption')
                       }
-                      disabled={!editAccoss?true:false}
+                      disabled={!editAccoss ? true : false}
                       IconComponent={KeyboardArrowUpIcon}
                       defaultValue={selectedDay || remainderOption[0]?.label}
                     >
@@ -1254,5 +1341,5 @@ CustomCalender.defaultProps = {
   customHeadStyle: {},
   calenderActiveBgColor: '#EFEEFB',
   calenderActiveColor: '#665CD7',
-  calenderTitle:"calender"
+  calenderTitle: 'calender',
 };

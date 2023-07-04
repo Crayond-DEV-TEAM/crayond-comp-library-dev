@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { CustomCalender } from './index';
-import { EventData } from './interface';
-import moment from 'moment';
+import { CustomizeEventProps, EventData } from './interface';
+// import moment from 'moment';
 
 
 
@@ -21,7 +21,7 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
   const [selectedDay, setSelectedDay] = useState(remainderOption?.[0]?.value);
   const [events, setEventsList] = useState<EventData[]>([]);
   const [eventRemainder, setEventRemainder] = useState<number>(0);
-  const [startTime, setStartTime] = useState(moment().format('HH:mm A'));
+  const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState<string>('');
   const [editEvent, setEditEvent] = useState<boolean| EventData>(false);
   const [editValue, setEditValue] = useState('');
@@ -77,7 +77,7 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
       setEventsList((prevState: EventData[]) => [...prevState, updatedEvent]);
     }
     setEventRemainder(0);
-    setStartTime(moment().format('HH:mm A'));
+    setStartTime('');
     setEndTime('00:00');
     setModalContent({ modalTitle: '', modalDescription: '' });
     setEditEvent(false)
@@ -102,7 +102,7 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
       setEventsList(updatedEvents);
       setModalContent({ modalTitle: '', modalDescription: '' });
       setEventRemainder(0);
-    setStartTime(moment().format('HH:mm'));
+    setStartTime('');
     setEndTime('00:00');
   };
 
@@ -114,7 +114,7 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
   const closeEventDialog = () => {
     setModalContent({modalTitle:'',modalDescription:''})
     setEventRemainder(0);
-    setStartTime(moment().format('HH:mm'));
+    setStartTime('');
     setEndTime('');
   };
  
@@ -162,6 +162,14 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
     setEditValue(event.target.value);
   };
 
+  const onHandleDateSelect=()=>{
+    setStartTime('');
+    setEndTime('');
+    setSelectedCategory('')
+   }
+ const  onCustomizeEvent = (e:CustomizeEventProps) => {
+   console.log(e,'customizeevent')
+ }
 
   
   return (
@@ -188,6 +196,8 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
       selectedDay={selectedDay}
       onSelectEventFunc={onSelectEventFunc}
       calenderIconSx={{ml:'6px',mt:'2px'}}
+      onHandleDateSelect={onHandleDateSelect}
+      onCustomizeEvent={onCustomizeEvent}
     />
   );
 };

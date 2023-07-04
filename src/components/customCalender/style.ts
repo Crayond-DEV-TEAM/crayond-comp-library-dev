@@ -30,7 +30,6 @@ export const customCalenderStyle = {
     },
   },
   eventtitle: {
- 
     '& .MuiOutlinedInput-input': {
       height: '24px',
       padding: '0px',
@@ -40,6 +39,8 @@ export const customCalenderStyle = {
       // borderColor: '#e9e9e9',
       // borderRadius:'8px'
     },
+    
+    
   },
   eventtitleList: {
     padding:'0px 16px',
@@ -178,6 +179,11 @@ export const customCalenderStyle = {
   bodyContentSx: {
     padding: '0px',
     pb: '16px',
+    '& .MuiOutlinedInput-input.Mui-disabled': {
+      opacity: 1,
+      '-webkit-text-fill-color': '#373737',
+      color: '#000',
+    },
   },
   timeSx: {
     pt: 2,
