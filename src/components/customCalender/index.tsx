@@ -153,7 +153,7 @@ export function CustomCalender(props: CalenderProps) {
   };
 
   const validation = (): boolean => {
-    if (startTimeDialog?.length === 0 || startTimeDialog?.length === 0) {
+    if (startTimeDialog?.length === 0 || endTimeDialog?.length === 0) {
       setError('Please select a valid start and end time');
       return false;
     }

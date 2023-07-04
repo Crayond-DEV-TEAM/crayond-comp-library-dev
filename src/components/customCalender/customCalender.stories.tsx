@@ -22,7 +22,7 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
   const [events, setEventsList] = useState<EventData[]>([]);
   const [eventRemainder, setEventRemainder] = useState<number>(0);
   const [startTime, setStartTime] = useState(moment().format('HH:mm A'));
-  const [endTime, setEndTime] = useState<string>('00:00');
+  const [endTime, setEndTime] = useState<string>('');
   const [editEvent, setEditEvent] = useState<boolean| EventData>(false);
   const [editValue, setEditValue] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(
