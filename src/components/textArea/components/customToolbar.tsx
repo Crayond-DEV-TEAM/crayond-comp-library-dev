@@ -3,52 +3,51 @@ import { styled } from '@mui/system';
 import formats from "./toolbarOptions.js";
 import { Typography } from '@mui/material';
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
+import FormatItalicIcon from '@mui/icons-material/FormatItalic';
+import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
+import StrikethroughSIcon from '@mui/icons-material/StrikethroughS';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
+import SuperscriptIcon from '@mui/icons-material/Superscript';
+import SubscriptIcon from '@mui/icons-material/Subscript';
 
-const renderOptions = (formatData: { options: any; className?: any; }) => {
-    const { className, options } = formatData;
-    return (
-        <select className={className}>
-            <option selected="selected"></option>
-            {options.map((value: string | number | readonly string[] | undefined) => {
+// const renderOptions = (formatData: { options: any; className?: any; }) => {
+//     const { className, options } = formatData;
+//     return (
+//         <select className={className}>
+//             <option></option>
+//             {options.map((value: string | number | readonly string[] | undefined) => {
 
-                // eslint-disable-next-line react/jsx-key
-                return <option value={value}>
-                    <FormatBoldIcon />
-                </option>;
-            })}
-        </select>
-    );
-};
+//                 // eslint-disable-next-line react/jsx-key
+//                 return <option value={value}>
+//                 </option>;
+//             })}
+//         </select>
+//     );
+// };
 
-const formatsSvg = (key: string) => {
+const formatsSvg = (key: string, value: string) => {
     switch (key) {
         case 'ql-bold':
             return <FormatBoldIcon />
         case 'ql-italic':
-            return
+            return <FormatItalicIcon />
         case 'ql-underline':
-            return <FormatBoldIcon />
+            return <FormatUnderlinedIcon />
         case 'ql-strike':
-            return <FormatBoldIcon />
+            return <StrikethroughSIcon />
         case 'ql-list':
-            return <FormatBoldIcon />
+            return value === 'ordered' ? <FormatListNumberedIcon /> : <FormatListBulletedIcon />
         case 'ql-script':
-            return <FormatBoldIcon />
+            return value === 'sub' ? <SubscriptIcon /> : <SuperscriptIcon />
         default:
             break;
     }
 }
 const renderSingle = (formatData: { options?: any; className?: any; value?: any; }) => {
     const { className, value } = formatData;
-    // debugger
-    return <ToolBox type="button" >
-        {formatsSvg(className)}
-        {/* {
-            className === 'ql-bold' ? <FormatBoldIcon /> : <h1>hsad</h1>
-        } */}
-        {/* <Typography sx={{ color: 'red' }}>hsbda</Typography> */}
-        {/* nfsd */}
-        {/* <FormatBoldIcon /> */}
+    return <ToolBox type="button" style={{ cursor: 'pointer' }}>
+        {formatsSvg(className, value)}
     </ToolBox >
 };
 
@@ -57,29 +56,34 @@ const ToolBox = styled('button')({
     // borderRadius: 4,
     // border: '5px solid red'
     '& svg': {
-        '& path': {
-            fill: 'red !important'
-        }
-    }
+        color: '#3B3B3B !important',
+    },
+    '&:hover': {
+        '& svg': {
+            background: '#EFEEFB !important',
+            // padding:'3px',
+            color: '#665CD7 !important'
+        },
+    },
+    // '& ::focus':{
+    //     background: 'yellow',
+    // },
+
 });
 const CustomToolbar = () => (
     <div id="toolbar">
-        {/* <ToolBox> */}
-        {formats.map((classes: { options: any; }[]) => {
+        {formats.map((classes: ({ className: string; value: string; } | { className: string; value?: undefined; })[], index: number) => {
+            // debugger
             return (
                 // eslint-disable-next-line react/jsx-key
-                <span className="ql-formats">
-                    {classes.map((formatData: { options: unknown; }) => {
+                <span className="ql-formats" key={index}>
+                    {classes.map((formatData: any) => {
                         debugger
-                        // return formatData.options
-                        //     ? renderOptions(formatData)
-                        //     : renderSingle(formatData);
                         return renderSingle(formatData);
                     })}
                 </span>
             );
         })}
-        {/* </ToolBox> */}
 
     </div>
 );

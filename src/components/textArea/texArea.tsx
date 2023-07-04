@@ -1,5 +1,4 @@
 import { Typography, Box } from '@mui/material';
-import { Cusmstyle } from '../table/style';
 import { TextAreaProps } from './props'
 import Editor from './components/editor';
 

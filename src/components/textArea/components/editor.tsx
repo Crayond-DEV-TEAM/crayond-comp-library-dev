@@ -49,7 +49,8 @@ const Editor = () => {
                     height: '200px',
                     color: '#000',
                     '&::before': {
-                        fontStyle: 'inherit !important'
+                        fontStyle: 'inherit !important',
+                        fontWeight: '600'
                     }
                 }
             }}>
