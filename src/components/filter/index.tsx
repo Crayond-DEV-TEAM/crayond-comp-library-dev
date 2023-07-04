@@ -295,7 +295,9 @@ export const CustomFilter: React.FC<FilterComponentProps> = ({
                               }}
                             >
                               {subItem.list}
-                              <CloseIcon style={{ fontSize: '16px',marginLeft:'3px'}} />
+                              <CloseIcon
+                                style={{ fontSize: '16px', marginLeft: '3px' }}
+                              />
                             </span>
                           }
                           bgColor={subItem?.LabelbgColor}
@@ -391,6 +393,9 @@ export const CustomFilter: React.FC<FilterComponentProps> = ({
                                       ...subItem?.listStyle,
                                     },
                                   }}
+                                  onClick={() =>
+                                    getSelectedSubList(index, subIndex)
+                                  }
                                 />
                               </>
                             )}
