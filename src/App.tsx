@@ -25,6 +25,7 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { ProfileThree } from './components/profileThree';
 import yup from './utils/yupSchema';
 import { Screen } from './components/screen';
+import { PricingCard } from './components/pricingCard';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -186,6 +187,7 @@ function App() {
   });
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
+      <PricingCard/>
       <Screen
        containerStyle={{}}
        headerStyle={{}}

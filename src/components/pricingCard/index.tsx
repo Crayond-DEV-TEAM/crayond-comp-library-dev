@@ -1,17 +1,52 @@
 /* eslint-disable react/prop-types */
-import {Box} from '@mui/material';
-import { pricingCard_Style } from './style';
-  export function CustomCalender(props: any) {
+import {Box,Card,CardContent,CardActions,Typography} from '@mui/material';
+import { pricingcardstyle } from './style';
+  export function PricingCard(props: any) {
     const {} = props;
 
+// const pricingCard=[
+// {
+
+// }
+// ]
+
     return (
-      <Box sx={{...pricingCard_Style.rootSx }}>
-       
+      <Box sx={{...pricingcardstyle.rootSx }}>
+         <Box sx={{...pricingcardstyle.totalPricingBoxSx}}>
+                {/* {
+                  pricingCard && pricingCard?.map((val,index)=>{
+                    return( */}
+                      <Box >
+                           <Card sx={{...pricingcardstyle.cardSx}}>
+                             <CardContent>
+                              <Box>
+                                 <Typography sx={{...pricingcardstyle.pricingHeadSx}}>
+                                   Free Trial
+                                  </Typography>
+                                  <Typography sx={{...pricingcardstyle.pricingSubSx}}>
+                                  Scale up at anytime to support your business growth.
+                                  </Typography>
+                              </Box>
+
+                              <Box sx={{...pricingcardstyle.pricingListSx}}>
+
+                              </Box>
+                               
+                             </CardContent>
+                             <CardActions>
+
+                             </CardActions>
+                           </Card>
+                      </Box>
+                    {/* )
+                  })
+                } */}
+         </Box>
       </Box>
     );
   }
   
-  CustomCalender.defaultProps = {
+  PricingCard.defaultProps = {
   
   };
   
