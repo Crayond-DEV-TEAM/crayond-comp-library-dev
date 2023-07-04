@@ -1,11 +1,24 @@
-import { Card as MuiCard, Typography, Box, CardActions } from '@mui/material';
-import React from 'react';
-import { FabProps } from './props';
+import React, { ReactNode } from 'react';
+import { Fab, FabProps } from '@mui/material';
 
-const Fab: React.FC<FabProps> = ({}) => {
-  return <Box></Box>;
+interface CustomFabProps extends FabProps {
+  children: ReactNode;
+}
+
+const CustomFab: React.FC<CustomFabProps> = ({ children, ...rest }) => {
+  return (
+    <Fab
+      color="primary"
+      sx={{
+        position: 'fixed',
+        bottom: '2rem',
+        right: '2rem',
+      }}
+      {...rest}
+    >
+      {children}
+    </Fab>
+  );
 };
 
-export default Fab;
-
-Fab.defaultProps = {};
+export default CustomFab;
