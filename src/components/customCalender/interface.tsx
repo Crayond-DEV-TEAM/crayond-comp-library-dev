@@ -41,6 +41,7 @@ export interface CalenderProps {
     editListValue:string,
     calenderTitle:string,
     isCustomizeToolbar:boolean;
+    onHandleDateSelect:()=>void;
     closeEventDialog:()=>void;
     handleEventChange:(e:React.ChangeEvent<HTMLInputElement>)=>void;
     onSaveCalenderList:(val: calenderLists, index: number)=>void;

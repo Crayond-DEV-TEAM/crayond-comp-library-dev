@@ -115,7 +115,7 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
     setModalContent({modalTitle:'',modalDescription:''})
     setEventRemainder(0);
     setStartTime(moment().format('HH:mm'));
-    setEndTime('00:00');
+    setEndTime('');
   };
  
   const onEventDialogChange = (value: any, key: string) => {

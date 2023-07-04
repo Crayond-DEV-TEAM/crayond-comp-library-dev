@@ -195,12 +195,269 @@ function App() {
       .required('Please enter email'),
   });
 
+  // calender component Function
+   // calender component Function
+   const [select, setSelect] = useState<number>(0);
+   const [events, setEvents] = useState([]);
+   const [eventRemainder, setEventRemainder] = useState(0);
+ 
+   const [modalContent, setModalContent] = useState<{
+     modalTitle?: string;
+     modalDescription?: string;
+   }>({
+     modalTitle: '',
+     modalDescription: '',
+   });
+ 
+   const [editEvent, setEditEvent] = useState(false);
+   const eventCategories = [
+     { name: 'Default Calendar', color: '#DBE9FF' },
+     { name: 'Event Planning', color: '#DBE9FF' },
+     { name: 'Campaign', color: '#F4DBFF' },
+     { name: 'Birthday Calendar', color: '#DBFFE5' },
+   ];
+   const [selectedCategory, setSelectedCategory] = useState('');
+   const remainderOption = [
+     { value: 'min', label: 'Min' },
+     { value: 'hour', label: 'Hours' },
+     { value: 'months', label: 'Months' },
+   ];
+   const [startTime, setStartTime] = useState(moment().format('HH:mm A'));
+   const [endTime, setEndTime] = useState('');
+ 
+   const onCalenderListClick = (index: number) => {
+     setSelect(index);
+   };
+ 
+   const [selectedDay, setSelectedDay] = useState(remainderOption?.[0]?.value);
+ 
+   const generateUniqueId = (): string => {
+     return Math.random().toString(36).substr(2, 9);
+   };
+ 
+   const onEventDateSelect = (setEventData: any) => {
+ 
+     const updatedEvent = {
+       id: generateUniqueId(),
+       title: setEventData?.title,
+       start: setEventData?.start,
+       des:setEventData?.des,
+       end: setEventData?.end,
+       allDay:setEventData?.allDay,
+       startTime: setEventData?.startTime,
+       endTime: setEventData?.endTime,
+       deletable: setEventData?.deletable,
+       eventRemaindTime: setEventData?.eventRemaindTime,
+       eventRemind: setEventData?.eventRemind,
+       type: setEventData?.type,
+     };
+ 
+     if (editEvent) {
+       setEvents((prevEvents: any) =>
+         prevEvents.map((event: any) =>
+           event.id === editEvent.id ? { ...event, ...updatedEvent } : event
+         )
+       );
+     } else {
+       setEvents((prevState): any => [...prevState, updatedEvent]);
+     }
+     setEventRemainder(0);
+     setStartTime(moment().format('HH:mm A'));
+     setEndTime('00:00');
+     setModalContent({ modalTitle: '', modalDescription: '' });
+     setEditEvent(false)
+   };
+    
+ 
+   // const onEventEdit = (event: any) => {
+   //   setEditEvent(event);
+   // };
+ 
+   const calenderList = [
+     { calenderTitle: 'Default Calendar' },
+     { calenderTitle: 'Event Planning' },
+     { calenderTitle: 'Campaign' },
+     { calenderTitle: 'Birthday Calendar' },
+   ];
+ 
+   const nationalLeaves = [
+     { date: '2023-06-14', title: 'deepavali' },
+     { date: '2023-06-23', title: 'pongal' },
+     { date: '2023-06-27', title: 'Holiday Enjoy' },
+   ];
+ 
+   const CommonLeaves = ['saturday', 'sunday'];
+ 
+   const styleProps = {
+     layoutBorderStyle: {
+       borderColor: '#E9E9E9',
+     },
+     beforeMonthStyle: {
+       backgroundColor: '#FAFAFA',
+     },
+     todayDateStyle: {
+       backgroundColor: '#E9E9E9',
+     },
+     addEventStyle: {
+       color: '#665CD7',
+     },
+     tabStyle: {
+       backgroundColor: '#665cd7',
+       color: '#fff',
+       borderColor: '##665cd7',
+       fontSize: '14px',
+       fontWeight: '600',
+     },
+     headStyle: {
+       color: '#000',
+       fontSize: '14px',
+       fontWeight: '500',
+     },
+     fontFamily: {
+       fontFamily: 'Poppins, sans-serif',
+     },
+   };
+ 
+   const onEventsEdit = (e: any) => {
+     console.log(e,'updatedEvent')
+     const inx = events.findIndex((x:any) => x.id === e.id);
+     events[inx] = {...e,};
+     setEvents([...events]);
+     setModalContent({ modalTitle: e?.title, modalDescription: e?.des });
+     setEventRemainder( e?.eventRemaindTime)
+     setStartTime(e?.startTime)
+     setEndTime(e?.endTime)
+     setSelectedCategory(e?.type)
+     setSelectedDay(e?.eventRemind)
+   }; 
+ 
+   const onEventDelete = (event: any) => {
+       const updatedEvents = events.filter((evt: any) => evt.id !== event.id);
+       setEvents(updatedEvents);
+       setModalContent({ modalTitle: '', modalDescription: '' });
+       setEventRemainder(0);
+         setStartTime(moment().format('HH:mm'));
+        setEndTime('');
+   };
+ 
+   const [openModal, setOpenModal] = useState(false);
+ 
+   const onCustomizeEvent = (e: any) => {
+     setOpenModal(true);
+     console.log(e, 'eeeeeee');
+   };
+ 
+   const onEventDialogChange = (value: any, key: any) => {
+     if (key === 'modalTitle' || key === 'modalDescription') {
+       setModalContent({
+         ...modalContent,
+         [key]: value?.target?.value,
+       });
+     }
+     if (key === 'selectEvent') {
+       setSelectedCategory(value.target.value);
+     }
+     if (key === 'startTime') {
+       setStartTime(value?.target?.value);
+     }
+     if (key === 'endTime') {
+       setEndTime(value.target.value);
+     }
+     if (key === 'eventRemainder') {
+       const values = value.target.value;
+       const parsedValue = parseInt(values, 10);
+       if (!isNaN(parsedValue)) {
+         setEventRemainder(parsedValue);
+       }
+     }
+     if (key === 'increase') {
+       setEventRemainder(eventRemainder + 1);
+     }
+     if (key === 'decrease') {
+       if (eventRemainder > 0) {
+         setEventRemainder(eventRemainder - 1);
+       }
+     }
+     if (key === 'dayOption') {
+       setSelectedDay(value.target.value);
+     }
+   };
+ 
+   const closeEventDialog = () => {
+     setModalContent({modalTitle:'',modalDescription:''})
+     setEventRemainder(0);
+     setStartTime(moment().format('HH:mm'));
+     setEndTime('');
+   };
+ 
+   const onSelectEventFunc = (e:any) => {
+     setEditEvent(e)
+   };
+ 
+   const CustomizedToolbar: React.FC<any> = (data: any) => {
+     console.log(data, 'value');
+     return (
+       <Box sx={{ p: '16px 0px', textAlign: 'center' }}>
+         Customize your Header Component
+       </Box>
+     );
+   };
 
-
+   const onHandleDateSelect=()=>{
+    setStartTime(moment().format('HH:mm'));
+    setEndTime('');
+    setSelectedCategory('')
+   }
 
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
-      
+      <CustomCalender
+        select={select}
+        eventsData={events}
+        // onEventEdit={onEventEdit}
+        calenderList={calenderList}
+        onEventsEdit={onEventsEdit}
+        CommonLeaves={CommonLeaves}
+        nationalLeaves={nationalLeaves}
+        eventCategories={eventCategories}
+        onEventsDelete={onEventDelete}
+        OnEventAdd={onEventDateSelect}
+        onCalenderListClick={onCalenderListClick}
+        // eventsIcon={eventsIcon}
+        isEventModal
+        isCustomizeToolbar={false}
+        nationalLeaveBgColor="#efeefb"
+        styleProps={styleProps}
+        remainderOption={remainderOption}
+        onCustomizeEvent={onCustomizeEvent}
+        dialogEvent={modalContent}
+        onEventDialogChange={onEventDialogChange}
+        eventDialogTitle={modalContent?.modalTitle}
+        eventDialogDescription={modalContent?.modalDescription}
+        selectedCategoryDialog={selectedCategory}
+        startTimeDialog={startTime}
+        endTimeDialog={endTime}
+        eventRemainder={eventRemainder}
+        selectedDay={selectedDay}
+        closeEventDialog={closeEventDialog}
+        onSelectEventFunc={onSelectEventFunc}
+        CustomizedToolbar={CustomizedToolbar}
+        onHandleDateSelect={onHandleDateSelect}
+      />
+      {/* <Dialog open={openModal}>
+        <DialogContent>
+                  <TextField
+                    placeholder="Add Event"
+                    value={modalTitle}
+                    onChange={(e) => setModalTitle(e.target.value)}
+                    fullWidth
+                    inputProps={{
+                      style: { backgroundColor: '#fff' },
+                    }}
+                  />
+                  <IconButton onClick={onEventDateSelect}>+</IconButton>
+        </DialogContent>
+      </Dialog> */}
       <Screen
         containerStyle={{}}
         headerStyle={{}}

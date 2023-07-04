@@ -10,7 +10,6 @@ export const customCalenderStyle = {
     paddingBottom: '6px',
   },
   eventSelect: {
-    marginBottom: '12px',
     color:'#000',
     fontSize: '14px',
     '& .MuiOutlinedInput-notchedOutline': {

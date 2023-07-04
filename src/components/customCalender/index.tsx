@@ -106,6 +106,7 @@ export function CustomCalender(props: CalenderProps) {
     handleEventChange=()=>false,
     onSaveCalenderList=()=>false,
     editListValue='',
+    onHandleDateSelect=()=>false,
     calenderTitle='Calender'
   } = props;
 
@@ -118,7 +119,10 @@ export function CustomCalender(props: CalenderProps) {
   const [editAccoss, seteditAccoss] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [openTime, setOpenTime] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState<{selectevent?: string;startEnd?:string}>({
+    selectevent:'',
+    startEnd:''
+  });
   const [endTimeModal, setEndTimeModal] = useState(true);
   const [isEdit, setIsedit] = useState(false);
   const [isEditList, setIsEditList] = useState(false);
@@ -154,7 +158,11 @@ export function CustomCalender(props: CalenderProps) {
 
   const validation = (): boolean => {
     if (startTimeDialog?.length === 0 || endTimeDialog?.length === 0) {
-      setError('Please select a valid start and end time');
+      setError({startEnd:'Please select a valid start and end time'});
+      return false;
+    }
+    if(selectedCategoryDialog?.length === 0){
+      setError({selectevent:'Please select Event'});
       return false;
     }
     return true;
@@ -184,6 +192,7 @@ export function CustomCalender(props: CalenderProps) {
       setIsedit(false)
       setOpenTime(true)
       setEndTimeModal(true)
+      onHandleDateSelect()
     } else {
       onCustomizeEvent({ start, end: multipleDate });
     }
@@ -247,6 +256,7 @@ export function CustomCalender(props: CalenderProps) {
         setEndTimeModal(false)
         seteditAccoss(false)
         setIsedit(false)
+        setError({selectevent:'',startEnd:''})
       }
     } else {
       return false;
@@ -273,6 +283,9 @@ export function CustomCalender(props: CalenderProps) {
     closeEventDialog();
     setOpenTime(true)
     setEndTimeModal(true)
+    setError({selectevent:'',startEnd:''})
+    setSelectedRange({ start:null, end:null });
+
   };
 
   // Common Leave Days Index
@@ -1025,6 +1038,13 @@ export function CustomCalender(props: CalenderProps) {
                       )
                     )}
                   </Select>
+                  {error?.selectevent && (
+                    <Typography sx={{ ...customCalenderStyle.errorSx, marginBottom: '12px',                    
+                    }}>
+                      {error?.selectevent}
+                    </Typography>
+                  )}
+                 
                 </Box>
                 <Box sx={{ marginBottom: '12px' }}>
                   <Typography sx={{ ...customCalenderStyle.dialogTitle }}>
@@ -1093,9 +1113,9 @@ export function CustomCalender(props: CalenderProps) {
                       />
                     )}
                   </Box>
-                  {error && (
+                  {error?.startEnd && (
                     <Typography sx={{ ...customCalenderStyle.errorSx }}>
-                      {error}
+                      {error?.startEnd}
                     </Typography>
                   )}
                 </Box>
