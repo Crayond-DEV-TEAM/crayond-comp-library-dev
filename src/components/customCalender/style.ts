@@ -301,7 +301,7 @@ export const customCalenderStyle = {
         'invert(50%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(50%)',
     },
     '& .MuiTextField-root': {
-      maxWidth: '137px',
+      maxWidth: '117px',
     },
     '& .MuiSelect-select': {
       '&.MuiOutlinedInput-input': {

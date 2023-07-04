@@ -167,6 +167,7 @@ export function CustomCalender(props: CalenderProps) {
     })
     .toDate();
 
+
   const handleClick = (e: React.MouseEvent<Element>) => {
     setAnchorEl(e.currentTarget);
   };
@@ -243,6 +244,7 @@ export function CustomCalender(props: CalenderProps) {
   // Getting all Events Access
   const allEvents = [...eventsData, ...eventsleave];
 
+
   // On Event change
   const onAddEvent = () => {
     let newEvent: EventData = {
@@ -252,7 +254,7 @@ export function CustomCalender(props: CalenderProps) {
       allDay: false,
       start: start ?? '',
       end: end ?? '',
-      startTime: convert(startTimeDialog),
+      startTime:convert(startTimeDialog),
       endTime:convert(endTimeDialog),
       deletable: true,
       eventRemaindTime: eventRemainder,
@@ -406,6 +408,22 @@ export function CustomCalender(props: CalenderProps) {
     },
   };
 
+  const convertTo24HourFormat = (time12Hour:any) => {
+    const [time, modifier] = time12Hour.split(' ');
+    let [hours, minutes] = time.split(':'); 
+    hours = parseInt(hours);
+    if (hours === 12) {
+      hours = modifier === 'AM' ? 0 : 12;
+    } else {
+      hours = modifier === 'AM' ? hours : hours + 12;
+    }
+  
+    hours = hours.toString().padStart(2, '0');
+    minutes = minutes.padStart(2, '0');
+  
+    return `${hours}:${minutes}`;
+  };
+
   // Events Edits
   const handleEventEdits = (
     event: React.MouseEvent<HTMLButtonElement> | null
@@ -451,8 +469,8 @@ export function CustomCalender(props: CalenderProps) {
         allDay: false,
         start: start ?? '',
         end: end ?? '',
-        startTime: startTimeDialog,
-        endTime: endTimeDialog,
+        startTime: convert(startTimeDialog),
+        endTime:  convert(endTimeDialog),
         deletable: true,
         eventRemaindTime: eventRemainder,
         eventRemind: selectedDay,
@@ -487,6 +505,8 @@ export function CustomCalender(props: CalenderProps) {
     })
     .filter((event): event is EventData => event !== null);
 
+  
+
   // Event Select funcion
   const onSelectEvent = (e: EventData) => {
     if(isEventModal){
@@ -503,7 +523,7 @@ export function CustomCalender(props: CalenderProps) {
       });
     onEventsEdit(e);
     }
-    onSelectEventFunc(e);
+    onSelectEventFunc({...e,startTime:convertTo24HourFormat(e?.startTime),endTime:convertTo24HourFormat(e?.endTime)});
    
   };
 
@@ -564,7 +584,7 @@ export function CustomCalender(props: CalenderProps) {
             <Typography
               sx={{ fontSize: '12px', fontWeight: '500', color: '#929292' }}
             >
-              {event?.startTime}
+              {event?.startTime }
               {/* {selectedPeriod?.am} */}
             </Typography>
           </Box>
@@ -1150,7 +1170,7 @@ export function CustomCalender(props: CalenderProps) {
                             padding: openTime || endTimeModal ? '0px 15px' : '',
                           }}
                         >
-                          StartTime
+                       Start Time
                         </Typography>
                       </Box>
                     ) : (
@@ -1168,8 +1188,6 @@ export function CustomCalender(props: CalenderProps) {
                         disabled={!editAccoss ? true : false}
                         inputProps={{
                           style: { backgroundColor: '#fff', fontSize: '14px' },
-                          step: '60', // Set step to 60 minutes to enforce HH:MM format
-                          pattern: '(0[1-9]|1[0-2]):[0-5][0-9] [APap][mM]', // Pattern for HH:MM AM/PM format
                         }}
                         InputLabelProps={{
                           shrink: true,

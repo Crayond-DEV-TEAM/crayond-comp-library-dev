@@ -78,7 +78,7 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
     }
     setEventRemainder(0);
     setStartTime('');
-    setEndTime('00:00');
+    setEndTime('');
     setModalContent({ modalTitle: '', modalDescription: '' });
     setEditEvent(false)
     setSelectedCategory( "Default Calendar")
@@ -103,7 +103,7 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
       setModalContent({ modalTitle: '', modalDescription: '' });
       setEventRemainder(0);
     setStartTime('');
-    setEndTime('00:00');
+    setEndTime('');
   };
 
   const addCalenderList = () => {
@@ -117,6 +117,8 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
     setStartTime('');
     setEndTime('');
   };
+
+  
  
   const onEventDialogChange = (value: any, key: string) => {
     if (key === 'modalTitle' || key === 'modalDescription') {
@@ -155,7 +157,10 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
   };
 
   const onSelectEventFunc = (e:EventData) => {
-    setEditEvent(e)
+     setStartTime(e?.startTime)
+     setEndTime(e?.endTime)
+     setEditEvent(e)
+
   };
 
   const handleTextChange = (event:any) => {
