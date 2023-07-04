@@ -125,7 +125,7 @@ export default function LinearProcess(props: ProgressProps) {
 
 LinearProcess.defaultProps = {
   value: 0,
-  variant: '',
+  variant: 'determinate',
   valueBuffer: 0,
   progressLabel: false,
   linearBarStyle: {},
