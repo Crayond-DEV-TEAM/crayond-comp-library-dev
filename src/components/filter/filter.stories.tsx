@@ -1,8 +1,7 @@
-import React from 'react';
-import { ComponentStory, ComponentMeta } from '@storybook/react';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import { CustomFilter } from './index';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import FunnelIcon from '../../assets/funnelIcon';
+import { CustomFilter } from './index';
 
 export default {
   title: 'components/CustomFilter',
@@ -20,7 +19,6 @@ Primary.args = {
     {
       listName: 'Category',
       selected: false,
-      listIcon: <InboxIcon />,
       subList: [
         {
           list: 'Category1',
@@ -33,11 +31,36 @@ Primary.args = {
           list: 'Category2',
           selected: false,
           listStyle: {},
+          LabelbgColor: '#E9E9E9',
+          LabelColor: '#666666',
         },
         {
           list: 'Category3',
           selected: false,
           listStyle: {},
+          LabelbgColor: '#E9E9E9',
+          LabelColor: '#666666',
+        },
+        {
+          list: 'Category4',
+          selected: false,
+          listStyle: {},
+          LabelbgColor: '#E9E9E9',
+          LabelColor: '#666666',
+        },
+        {
+          list: 'Category5',
+          selected: false,
+          listStyle: {},
+          LabelbgColor: '#E9E9E9',
+          LabelColor: '#666666',
+        },
+        {
+          list: 'Category6',
+          selected: false,
+          listStyle: {},
+          LabelbgColor: '#E9E9E9',
+          LabelColor: '#666666',
         },
       ],
       listNameStyle: {},
@@ -45,20 +68,31 @@ Primary.args = {
     },
     {
       listName: 'product',
-      listIcon: <InboxIcon />,
       selected: false,
       subList: [
         {
           list: 'Product1',
           selected: false,
+          LabelbgColor: '#E9E9E9',
+          LabelColor: '#666666',
         },
         {
           list: 'product2',
           selected: false,
+          LabelbgColor: '#E9E9E9',
+          LabelColor: '#666666',
         },
         {
           list: 'product3',
           selected: false,
+          LabelbgColor: '#E9E9E9',
+          LabelColor: '#666666',
+        },
+        {
+          list: 'product4',
+          selected: false,
+          LabelbgColor: '#E9E9E9',
+          LabelColor: '#666666',
         },
       ],
       subListType: 'chip',
@@ -66,8 +100,6 @@ Primary.args = {
     {
       listName: 'Price',
       selected: false,
-      listIcon: <InboxIcon />,
-
       subList: [
         {
           list: '100',
@@ -85,6 +117,7 @@ Primary.args = {
       subListType: 'checkbox',
     },
   ],
+
   buttons: [
     {
       label: 'Clear all',
@@ -127,6 +160,7 @@ Primary.args = {
     vertical: 'bottom',
     horizontal: 'left',
   },
+
   filterTitle: 'Filter',
   filterTitleStyle: {
     fontSize: '16px',
@@ -145,4 +179,21 @@ Primary.args = {
   labelStyle: {},
   listItemStyle: {},
   maxLabelShow: 2,
+  moreLabelStyle: {
+    backgroundColor: '#E9E9E9',
+    padding: '3px 8px',
+    fontSize: '10px',
+    m: 0,
+    color: '#fff',
+  },
+  titleWrapperStyle: {},
+  btnWrapperStyle: {},
+  selectedchipConStyle: {},
+  searchPlaceHolder: 'Search',
+  searchVariant: 'outlined',
+  searchbarSize: 'small',
+  checkboxStyle: {},
+  chipStyle: {},
+  chipVariant: 'outlined',
+  visibleSubList: 3,
 };

@@ -13,6 +13,7 @@ export const styles = {
     position: 'sticky',
     top: 0,
     zIndex: 1,
+    backgroundColor: '#fff',
   },
   filterTitleStyle: {
     padding: '16px 16px 12px',
@@ -55,6 +56,7 @@ export const styles = {
     display: 'flex',
     gap: 2,
     padding: '10px 16px 16px',
+    backgroundColor: '#fff',
   },
   btnstyle: {
     boxShadow: 'none',
@@ -86,7 +88,7 @@ export const styles = {
     },
     px: 0,
   },
-   checkboxStyle: {
+  checkboxStyle: {
     p: 0,
     pr: 1,
     textAlign: 'left',
