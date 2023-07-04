@@ -1,7 +1,6 @@
 import { Box, Button, Stack, SxProps, Typography } from '@mui/material';
 import EmptyIcon from '../../assets/emptyIcon';
-import EmptyIconB from '../../assets/emptyIconB';
-import { ButtonProps, EmptyPageProps } from './props';
+import { EmptyPageProps } from './props';
 import { styles } from './styles';
 
 const EmptyPages = (props: EmptyPageProps) => {
