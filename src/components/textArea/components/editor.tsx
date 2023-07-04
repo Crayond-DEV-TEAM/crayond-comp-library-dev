@@ -1,20 +1,19 @@
-import React, { useState } from "react";
-import ReactQuill, { Quill, editor } from "react-quill";
-// import ImageResize  from 'quill-image-resize-module';
+import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import CustomToolbar from "./customToolbar";
-import { Styles } from "../style";
-// import styled from 'styled-components';
-import { styled } from '@mui/system';
 import { Box } from '@mui/material';
+import { TextAreaProps } from "../props";
 
 
-const Editor = () => {
-    const [text, setText] = useState("");
+const Editor = (props: TextAreaProps) => {
+    const {
+        value,
+        handleChange,
+        reverseToolbarSx,
+        inputHeight,
+        minWidth,
+        maxWidth } = props
 
-    const handleChange = (html: React.SetStateAction<string>) => {
-        setText(html);
-    };
     const modules = {
         toolbar: {
             container: "#toolbar"
@@ -45,9 +44,34 @@ const Editor = () => {
     return (
         <>
             <Box sx={{
+                display: 'flex',
+                minWidth: minWidth ? minWidth : '100%',
+                maxWidth: maxWidth ? maxWidth : '100%',
+                flexDirection: reverseToolbarSx ? 'column-reverse' : 'column',
                 '.ql-editor': {
-                    height: '200px',
+                    height: inputHeight ? inputHeight : '200px',
                     color: '#000',
+                    '&::-webkit-scrollbar': {
+                        width: '6px !important'
+                    },
+                    '&::-webkit-scrollbar-track': {
+                        background: 'transparent !important'
+                    },
+                    '&::-webkit-scrollbar-thumb': {
+                        background: 'rgba(0, 0, 0, 0.23) !important',
+                        borderRadius: '24px',
+                        transition: 'all 0.5s',
+                        cursor: 'pointer'
+                    },
+                    '&::-webkit-scrollbar-thumb:hover': {
+                        background: 'rgba(146, 151, 165, 1) !important'
+                    },
+                    '&::-webkit-scrollbar-button': {
+                        backgroundColor: 'transparent !important'
+                    },
+                    '&::-webkit-scrollbar-corner': {
+                        backgroundColor: 'transparent !important'
+                    },
                     '&::before': {
                         fontStyle: 'inherit !important',
                         fontWeight: '600'
@@ -56,13 +80,13 @@ const Editor = () => {
             }}>
                 <ReactQuill
                     placeholder="Placeholder"
-                    value={text}
+                    value={value}
                     onChange={handleChange}
                     modules={modules}
                     formats={formats}
                 />
                 <CustomToolbar />
-            </Box>
+            </Box >
 
         </>
     );

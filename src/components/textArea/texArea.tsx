@@ -1,10 +1,10 @@
-import { Typography, Box } from '@mui/material';
+import { Box } from '@mui/material';
 import { TextAreaProps } from './props'
 import Editor from './components/editor';
 
 
 export default function TextArea(props: TextAreaProps) {
-  const { value } = props;
+  const { value, handleChange, reverseToolbarSx, inputHeight,maxWidth, minWidth } = props;
   return (
     <Box sx={{
       background: 'white',
@@ -16,7 +16,13 @@ export default function TextArea(props: TextAreaProps) {
         width: '70%',
         paddingTop: '40px'
       }}>
-        <Editor />
+        <Editor
+          value={value}
+          minWidth={minWidth}
+          maxWidth={maxWidth}
+          handleChange={handleChange}
+          reverseToolbarSx={reverseToolbarSx}
+          inputHeight={inputHeight} />
       </Box>
     </Box>
   );

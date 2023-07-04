@@ -1,7 +1,6 @@
 import React from "react";
 import { styled } from '@mui/system';
 import formats from "./toolbarOptions.js";
-import { Typography } from '@mui/material';
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
@@ -15,18 +14,15 @@ import SubscriptIcon from '@mui/icons-material/Subscript';
 //     const { className, options } = formatData;
 //     return (
 //         <select className={className}>
-//             <option></option>
+//             <option selected="selected"></option>
 //             {options.map((value: string | number | readonly string[] | undefined) => {
-
 //                 // eslint-disable-next-line react/jsx-key
-//                 return <option value={value}>
-//                 </option>;
+//                 return <option value={value}></option>;
 //             })}
 //         </select>
 //     );
 // };
-
-const formatsSvg = (key: string, value: string) => {
+const formatsSvg = (key: string | undefined, value: string | undefined) => {
     switch (key) {
         case 'ql-bold':
             return <FormatBoldIcon />
@@ -44,9 +40,9 @@ const formatsSvg = (key: string, value: string) => {
             break;
     }
 }
-const renderSingle = (formatData: { options?: any; className?: any; value?: any; }) => {
+const renderSingle = (formatData: { className?: string; value?: string; }) => {
     const { className, value } = formatData;
-    return <ToolBox type="button" style={{ cursor: 'pointer' }}>
+    return <ToolBox type="button" className={className} value={value}>
         {formatsSvg(className, value)}
     </ToolBox >
 };
@@ -65,19 +61,14 @@ const ToolBox = styled('button')({
             color: '#665CD7 !important'
         },
     },
-    // '& ::focus':{
-    //     background: 'yellow',
-    // },
-
 });
 const CustomToolbar = () => (
     <div id="toolbar">
         {formats.map((classes: ({ className: string; value: string; } | { className: string; value?: undefined; })[], index: number) => {
             // debugger
             return (
-                // eslint-disable-next-line react/jsx-key
                 <span className="ql-formats" key={index}>
-                    {classes.map((formatData: any) => {
+                    {classes.map((formatData: ({ className: string; value: string; } | { className: string; value?: undefined; })) => {
                         debugger
                         return renderSingle(formatData);
                     })}
