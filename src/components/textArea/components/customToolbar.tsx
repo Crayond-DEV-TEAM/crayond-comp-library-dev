@@ -63,7 +63,10 @@ const ToolBox = styled('button')({
     },
 });
 const CustomToolbar = () => (
-    <div id="toolbar">
+    <div id="toolbar" style={{
+        border: '1px solid #E9E9E9',
+        borderRadius: '4px'
+    }}>
         {formats.map((classes: ({ className: string; value: string; } | { className: string; value?: undefined; })[], index: number) => {
             // debugger
             return (

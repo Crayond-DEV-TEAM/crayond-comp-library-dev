@@ -15,12 +15,14 @@ const formats = [
             className: "ql-bold",
             value: "bol"
         },
-        { className: "ql-italic",
-        value: "ital"
-    },
-        { className: "ql-underline",
-        value: "under"
-    },
+        {
+            className: "ql-italic",
+            value: "ital"
+        },
+        {
+            className: "ql-underline",
+            value: "under"
+        },
         { className: "ql-strike" }
     ],
     // [

@@ -12,8 +12,6 @@ function App() {
   const handleChange = (html: React.SetStateAction<string>) => {
     setText(html);
   };
-  console.log(text);
-
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
       <TextArea
@@ -22,7 +20,9 @@ function App() {
         inputHeight=''
         minWidth=''
         maxWidth=''
-        reverseToolbarSx={false} />
+        reverseToolbarSx={false}
+        border=''
+        borderRadius='' />
     </div>
   );
 }

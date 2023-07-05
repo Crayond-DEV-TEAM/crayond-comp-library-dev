@@ -4,5 +4,7 @@ export interface TextAreaProps {
     inputHeight: string,
     reverseToolbarSx: boolean
     minWidth: string;
-    maxWidth: string
+    maxWidth: string;
+    border: string;
+    borderRadius: string;
 }

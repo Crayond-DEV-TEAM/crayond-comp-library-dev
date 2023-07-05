@@ -4,7 +4,6 @@ import CustomToolbar from "./customToolbar";
 import { Box } from '@mui/material';
 import { TextAreaProps } from "../props";
 
-
 const Editor = (props: TextAreaProps) => {
     const {
         value,
@@ -12,7 +11,9 @@ const Editor = (props: TextAreaProps) => {
         reverseToolbarSx,
         inputHeight,
         minWidth,
-        maxWidth } = props
+        maxWidth,
+        border,
+        borderRadius } = props
 
     const modules = {
         toolbar: {
@@ -47,36 +48,43 @@ const Editor = (props: TextAreaProps) => {
                 display: 'flex',
                 minWidth: minWidth ? minWidth : '100%',
                 maxWidth: maxWidth ? maxWidth : '100%',
+                width: 'auto',
+                borderRadius: borderRadius ? borderRadius : '4px',
+                border: border ? border : '1px solid #E9E9E9 !important',
                 flexDirection: reverseToolbarSx ? 'column-reverse' : 'column',
-                '.ql-editor': {
-                    height: inputHeight ? inputHeight : '200px',
-                    color: '#000',
-                    '&::-webkit-scrollbar': {
-                        width: '6px !important'
-                    },
-                    '&::-webkit-scrollbar-track': {
-                        background: 'transparent !important'
-                    },
-                    '&::-webkit-scrollbar-thumb': {
-                        background: 'rgba(0, 0, 0, 0.23) !important',
-                        borderRadius: '24px',
-                        transition: 'all 0.5s',
-                        cursor: 'pointer'
-                    },
-                    '&::-webkit-scrollbar-thumb:hover': {
-                        background: 'rgba(146, 151, 165, 1) !important'
-                    },
-                    '&::-webkit-scrollbar-button': {
-                        backgroundColor: 'transparent !important'
-                    },
-                    '&::-webkit-scrollbar-corner': {
-                        backgroundColor: 'transparent !important'
-                    },
-                    '&::before': {
-                        fontStyle: 'inherit !important',
-                        fontWeight: '600'
+                '.ql-container': {
+                    border: 'none ! important',
+                    '.ql-editor': {
+                        height: inputHeight ? inputHeight : '200px',
+                        color: '#000',
+                        '&::-webkit-scrollbar': {
+                            width: '6px !important'
+                        },
+                        '&::-webkit-scrollbar-track': {
+                            background: 'transparent !important'
+                        },
+                        '&::-webkit-scrollbar-thumb': {
+                            background: 'rgba(0, 0, 0, 0.23) !important',
+                            borderRadius: '24px',
+                            transition: 'all 0.5s',
+                            cursor: 'pointer'
+                        },
+                        '&::-webkit-scrollbar-thumb:hover': {
+                            background: 'rgba(146, 151, 165, 1) !important'
+                        },
+                        '&::-webkit-scrollbar-button': {
+                            backgroundColor: 'transparent !important'
+                        },
+                        '&::-webkit-scrollbar-corner': {
+                            backgroundColor: 'transparent !important'
+                        },
+                        '&::before': {
+                            fontStyle: 'inherit !important',
+                            fontWeight: '600'
+                        }
                     }
                 }
+
             }}>
                 <ReactQuill
                     placeholder="Placeholder"

@@ -4,7 +4,16 @@ import Editor from './components/editor';
 
 
 export default function TextArea(props: TextAreaProps) {
-  const { value, handleChange, reverseToolbarSx, inputHeight,maxWidth, minWidth } = props;
+  const {
+    value,
+    handleChange,
+    reverseToolbarSx,
+    inputHeight,
+    maxWidth,
+    minWidth,
+    border,
+    borderRadius,
+  } = props;
   return (
     <Box sx={{
       background: 'white',
@@ -19,6 +28,8 @@ export default function TextArea(props: TextAreaProps) {
         <Editor
           value={value}
           minWidth={minWidth}
+          borderRadius={borderRadius}
+          border={border}
           maxWidth={maxWidth}
           handleChange={handleChange}
           reverseToolbarSx={reverseToolbarSx}
