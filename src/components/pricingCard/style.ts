@@ -15,6 +15,7 @@ totalBodySx:{
     pr:'28px',
     pb:'28px'
 },
+
 cardSx:{
     flex:1,
     backgroundColor:'#fff',
@@ -80,6 +81,8 @@ subscriptionDueSx:{
 // variation 2 style starts ----
 totalPricingBoxvarSx:{
     backgroundColor:'#F5F5F5',
+    px:'117px',
+    py:'80px',
 },
 pricingHeadVarSx:{
     fontSize:'24px',
@@ -120,5 +123,30 @@ selctbtn:{
 },
 cardVarSx:{
 
+},
+totalBodySubSx:{
+    flex: '0 0 1',
+    pr:'28px',
+    pb:'28px'
+},
+cardTwoSx:{
+    flex:1,
+    backgroundColor:'#fff',
+    borderRadius:'8px',
+    pt:'34px',pb:'24px',
+    px:'24px',
+    width:'100%',
+    maxWidth:'386px',
+    position:'relative',
+    border:'1px solid',
+  
+},
+paySx:{
+    fontSize:'18px',
+    color:'#666666'
+},
+payCardSx:{
+    p:'26px',
+    borderRadius:'12px'
 }
 };
