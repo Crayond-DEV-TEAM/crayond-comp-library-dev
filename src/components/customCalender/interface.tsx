@@ -37,6 +37,7 @@ export interface CalenderProps {
     endTimeDialog:string,
     eventRemainder:number,
     selectedDay:string,
+    calenderListName:string;
     calenderIconSx:object,
     editListValue:string,
     calenderTitle:string,
@@ -61,6 +62,7 @@ export interface CalenderProps {
     onEditCalenderList: (data: calenderLists, index: number) => void;
     onCustomizeEvent: (data: CustomizeEventProps) => void;
     onEventDialogChange:(value:any | number ,key:string)=>void;
+    onCloseClanderList:(val: calenderLists, index: number)=>void
   }
   export interface CustomTImeFormat {
     hour: string, minute: string

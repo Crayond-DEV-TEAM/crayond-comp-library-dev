@@ -92,6 +92,7 @@ export function CustomCalender(props: CalenderProps) {
     customHeadStyle = {},
     CalenderStyle = {},
     calenderActiveBgColor = '#EFEEFB',
+    calenderListName='My Calender',
     calenderActiveColor = '',
     onEventDialogChange = () => false,
     eventDialogTitle = '',
@@ -105,6 +106,7 @@ export function CustomCalender(props: CalenderProps) {
     onSelectEventFunc = () => false,
     handleEventChange = () => false,
     onSaveCalenderList = () => false,
+    onCloseClanderList=()=>false,
     editListValue = '',
     onHandleDateSelect = () => false,
     onCustomizeEventAdd = () => false,
@@ -599,12 +601,7 @@ export function CustomCalender(props: CalenderProps) {
   );
 
   // Custom tool bar
-  const CustomToolbar = ({
-    label,
-    onNavigate,
-    onView,
-    view,
-  }: CustomToolbarProps) => {
+  const CustomToolbar = ({ label, onNavigate, onView,view,}: CustomToolbarProps) => {
     const goToBack = () => {
       onNavigate('PREV');
     };
@@ -711,9 +708,7 @@ export function CustomCalender(props: CalenderProps) {
     setAnchorEl(null);
   };
 
-  const toolbarComponent: any = isCustomizeToolbar
-    ? CustomizedToolbar
-    : CustomToolbar;
+  const toolbarComponent: any = isCustomizeToolbar ? CustomizedToolbar: CustomToolbar;
   const components = {
     event: EventComponent,
     toolbar: toolbarComponent,
@@ -733,6 +728,7 @@ export function CustomCalender(props: CalenderProps) {
       setAnchorEl(null);
       setIsEditList(false);
     }
+    onCloseClanderList(val,index)
   };
 
   const onSaveCalenderLists = (val: calenderLists, index: number) => {
@@ -843,7 +839,7 @@ export function CustomCalender(props: CalenderProps) {
               }}
             />
             <Typography sx={{ ...customCalenderStyle.calenderHeaderSx }}>
-              My Calender
+             {calenderListName}
             </Typography>
           </Box>
           <Box>
