@@ -19,7 +19,7 @@ export interface SelectBoxProps {
             val: FilmOptionType[]
         ) => void,
         groupedData?: FilmOptionType[],
-        arrData?: FilmOptionType[],
+        arrData?: FilmOptionType[] | undefined,
         defaultValue?: FilmOptionType[],
         label?: string,
         dropdown?: {
@@ -104,7 +104,7 @@ export interface SelectBoxProps {
         isSearch?: boolean,
         handleCheckedItem?: (e: any,
             val: CheckedOption[]) => void,
-        CheckableData?: CheckedOption[],
+        CheckableData: CheckedOption[],
         arrData?: CheckedOption[],
         label?: string,
         defaultValue?: CheckedOption[],

@@ -9,7 +9,6 @@ import React from 'react';
 import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
 import { styled } from '@mui/material/styles';
-import Stack from '@mui/material/Stack';
 
 const SelectBox = (props: SelectBoxProps) => {
   const {
@@ -188,7 +187,7 @@ const SelectBox = (props: SelectBoxProps) => {
             }
             getOptionLabel={(option: FilmOptionType) => option.title}
             onChange={(event, newValue) =>
-              groupingProps?.handleGroupChange(event, newValue as FilmOptionType[])}
+              groupingProps?.handleGroupChange && groupingProps?.handleGroupChange(event, newValue as FilmOptionType[])}
             sx={{
               height: '100%',
               minWidth: groupingProps?.input?.minWidth ? groupingProps?.input?.minWidth : '400px',
@@ -234,9 +233,10 @@ const SelectBox = (props: SelectBoxProps) => {
                     ...params.InputProps,
 
                     endAdornment: (
-                      groupingProps?.isSearch ? (groupingProps?.groupedData?.length > 0 ? null : <InputAdornment position="start">
-                        <SearchIcon />
-                      </InputAdornment>) : null
+                      groupingProps?.isSearch ?
+                        (groupingProps?.groupedData?.length || 0 > 0 ? null : <InputAdornment position="start">
+                          <SearchIcon />
+                        </InputAdornment>) : null
                     ),
                   }}
                 />
@@ -246,7 +246,7 @@ const SelectBox = (props: SelectBoxProps) => {
               groupingProps?.groupedData?.map((option, index) => (
                 <Typography key={index} sx={styles?.checkboxTextSx}>
                   {`${option.title}
-                   ${groupingProps?.groupedData?.length - 1 === index ? '' : ','}`}
+                   ${groupingProps?.groupedData && groupingProps?.groupedData?.length - 1 === index ? '' : ','}`}
                 </Typography>
               ))
             }
@@ -273,6 +273,7 @@ const SelectBox = (props: SelectBoxProps) => {
           />
         )
       case 'checkbox':
+        { console.log(checkboxProps?.CheckableData) }
         return (
           <>
             <Autocomplete
@@ -325,20 +326,22 @@ const SelectBox = (props: SelectBoxProps) => {
                 }
               }
               }
-              options={checkboxProps?.arrData}
-              value={Array.isArray(checkboxProps?.CheckableData) ?
-                checkboxProps?.CheckableData?.length > 0 ?
-                  checkboxProps?.CheckableData : multiple ? [] : null :
-                (checkboxProps?.CheckableData ?? null) || ' '}
+              options={checkboxProps?.arrData || []}
+              // value={multiple ? checkboxProps?.CheckableData : [checkboxProps?.CheckableData] }
+              value={
+                Array.isArray(checkboxProps?.CheckableData) ?
+                  checkboxProps?.CheckableData?.length > 0 ?
+                    checkboxProps?.CheckableData : multiple ? [] : null :
+                  (checkboxProps?.CheckableData ?? null) || ' '}
               onChange={(event, newValue) => {
-                checkboxProps?.handleCheckedItem(event, newValue as CheckedOption[])
+                checkboxProps?.handleCheckedItem && checkboxProps?.handleCheckedItem(event, newValue as CheckedOption[])
               }}
               disableCloseOnSelect
               getOptionLabel={(option) => option.title}
               renderTags={() =>
                 checkboxProps?.CheckableData?.map((option: CheckedOption, index: number) => (
                   <Typography key={index} sx={styles?.checkboxTextSx} >
-                    {`${option.title} ${checkboxProps?.CheckableData?.length - 1 === index ? '' : ','} `}</Typography>
+                    {`${option.title} ${checkboxProps?.CheckableData && checkboxProps?.CheckableData?.length - 1 === index ? '' : ','} `}</Typography>
                 ))
               }
               renderOption={(props, option, { selected }) => {
@@ -360,14 +363,14 @@ const SelectBox = (props: SelectBoxProps) => {
                   < TextField {...params}
                     InputLabelProps={{
                       style: {
-                        display: checkboxProps?.CheckableData?.length > 0 ? 'block' : 'auto',
+                        display: checkboxProps?.CheckableData?.length || 0 > 0 ? 'block' : 'auto',
                         marginTop: '-4px'
                       },
                     }}
                     InputProps={{
                       ...params.InputProps,
                       endAdornment: (
-                        checkboxProps?.isSearch ? (checkboxProps?.CheckableData?.length > 0 ? null : <InputAdornment position="start">
+                        checkboxProps?.isSearch ? (checkboxProps?.CheckableData?.length || 0 > 0 ? null : <InputAdornment position="start">
                           <SearchIcon />
                         </InputAdornment>) : null
                       ),
@@ -389,7 +392,7 @@ const SelectBox = (props: SelectBoxProps) => {
             limitTags={limitTags}
             defaultValue={chipProps?.defaultValue}
             onChange={(event, newValue) => {
-              return chipProps?.handleChipChange(event, newValue as FilmOptionType[]);
+              return chipProps?.handleChipChange && chipProps?.handleChipChange(event, newValue as FilmOptionType[]);
             }}
             selectOnFocus={true}
             multiple={multiple}
@@ -439,7 +442,7 @@ const SelectBox = (props: SelectBoxProps) => {
                 }
               }
             }}
-            options={chipProps?.arrData}
+            options={chipProps?.arrData || []}
             value={
               Array.isArray(chipProps?.chipData) ?
                 chipProps?.chipData?.length > 0 ?
@@ -455,13 +458,13 @@ const SelectBox = (props: SelectBoxProps) => {
                 placeholder={'Select Option'}
                 InputLabelProps={{
                   style: {
-                    display: chipProps?.chipData?.length > 0 ? 'block' : 'auto'
+                    display: chipProps?.chipData?.length || 0 > 0 ? 'block' : 'auto'
                   },
                 }}
                 InputProps={{
                   ...params.InputProps,
                   endAdornment: (
-                    chipProps?.isSearch ? (chipProps?.chipData?.length > 0 ? null : <InputAdornment position="start">
+                    chipProps?.isSearch ? (chipProps?.chipData?.length || 0 > 0 ? null : <InputAdornment position="start">
                       <SearchIcon />
                     </InputAdornment>) : null
                   ),
@@ -560,14 +563,14 @@ const SelectBox = (props: SelectBoxProps) => {
                 }
               }
             }}
-            options={defaultProps?.arrData}
+            options={defaultProps?.arrData || []}
             value={
               Array.isArray(defaultProps?.defaultData) ?
                 defaultProps?.defaultData?.length > 0 ?
                   defaultProps?.defaultData : multiple ? [] : null :
                 (defaultProps?.defaultData ?? null)}
             onChange={(event, newValue) => {
-              defaultProps?.handleDefaultChange(event, newValue as FilmOptionType[])
+              defaultProps?.handleDefaultChange && defaultProps?.handleDefaultChange(event, newValue as FilmOptionType[])
             }}
             getOptionLabel={(option) => option.title}
             multiple={multiple}
@@ -577,14 +580,14 @@ const SelectBox = (props: SelectBoxProps) => {
                 sx={styles?.defaultInputSx}
                 InputLabelProps={{
                   style: {
-                    display: checkboxProps?.CheckableData?.length > 0 ? 'block' : 'auto',
+                    display: checkboxProps?.CheckableData?.length || 0 > 0 ? 'block' : 'auto',
                     marginTop: '-4px'
                   },
                 }}
                 InputProps={{
                   ...params.InputProps,
                   endAdornment: (
-                    defaultProps?.isSearch ? (defaultProps?.defaultData?.length > 0 ? null : <InputAdornment position="start">
+                    defaultProps?.isSearch ? (defaultProps?.defaultData?.length || 0 > 0 ? null : <InputAdornment position="start">
                       <SearchIcon />
                     </InputAdornment>) : null
                   ),
@@ -596,17 +599,16 @@ const SelectBox = (props: SelectBoxProps) => {
               defaultProps?.defaultData?.map((option, index) => (
                 <Typography key={index} sx={styles?.checkboxTextSx}>
                   {`${option.title}
-                       ${defaultProps?.defaultData?.length - 1 === index ? '' : ','}  `}
+                       ${defaultProps?.defaultData && defaultProps?.defaultData?.length - 1 === index ? '' : ','}  `}
                 </Typography>
               ))
             }
             renderOption={(props, option) => {
-              console.log(option)
               return (
 
                 <Typography {...props}
                   sx={hovered === option?.title || (
-                    (Array.isArray(defaultProps?.defaultData) ? defaultProps?.defaultData : [defaultProps?.defaultData]).map(e => e.title).includes(option.title))
+                    (Array.isArray(defaultProps?.defaultData) ? defaultProps?.defaultData : [defaultProps?.defaultData]).map(e => e?.title).includes(option.title))
                     ? {
                       background: '#E9E9E9',
                       color: '#665CD7'
