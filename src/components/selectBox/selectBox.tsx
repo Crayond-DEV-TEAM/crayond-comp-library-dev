@@ -174,7 +174,7 @@ const SelectBox = (props: SelectBoxProps) => {
         return (
           <Autocomplete
             // id="grouped-demo"
-            options={groupingProps?.arrData}
+            options={groupingProps?.arrData || []}
             defaultValue={groupingProps?.defaultValue}
             limitTags={limitTags}
             value={Array.isArray(groupingProps?.groupedData) ?
