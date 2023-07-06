@@ -19,7 +19,7 @@ export interface SelectBoxProps {
             val: FilmOptionType[]
         ) => void,
         groupedData?: FilmOptionType[],
-        arrData?: FilmOptionType[] | undefined,
+        arrData?: FilmOptionType[],
         defaultValue?: FilmOptionType[],
         label?: string,
         dropdown?: {
