@@ -1,8 +1,9 @@
 import { Box, Typography, Grid, Stack } from '@mui/material';
 import { Styles } from './styles';
 import React, { useState } from 'react';
+import { SelectBoxComponent } from '../selectBox';
 
-export default function Action(props: languageProps) {
+export default function Language(props: languageProps) {
   const {
     // actionList,
   } = props;
@@ -10,6 +11,11 @@ export default function Action(props: languageProps) {
   interface languageProps {
     langName: string,
     langText: string
+  }
+
+  interface FilmOptionType {
+    title: string;
+    year: number;
   }
 
   const data = {
@@ -91,14 +97,19 @@ export default function Action(props: languageProps) {
 
   const [selectedLang, setSelectedLang] = useState({
     allData: {
+      langName: '',
+      langText: ''
     },
     suggestionData: {
+      langName: '',
+      langText: ''
     }
   })
 
+  const [optionValue, setOptionValue] = useState([])
+
 
   const handleClick = (val: languageProps, index: number, parent: string) => {
-
     if (parent === 'allData') {
       setSelectedLang({
         ...selectedLang, allData: val
@@ -109,18 +120,56 @@ export default function Action(props: languageProps) {
       })
     }
   }
-  console.log(selectedLang);
+
+  const options = data?.allData?.map((val: FilmOptionType) => {
+    return {
+      title: val?.langName,
+      year: val?.langText
+    }
+  })
+
+  const handleDefaultChange = (val: any, newValue: FilmOptionType[]) => {
+    setOptionValue(newValue)
+  }
+
+  console.log(options);
+
 
   return (
     <Box>
+      <Box p={2}>
+        <SelectBoxComponent
+          rootStyle={{
+            padding: '0',
+            justifyContent: 'end',
+            display: 'flex'
+          }}
+          multiple={false}
+          selectType='default'
+          defaultProps={{
+            isCloseIcon: true,
+            isSearch: true,
+            handleDefaultChange: handleDefaultChange,
+            defaultData: optionValue,
+            arrData: options,
+            defaultValue: [{
+              title: 'Hindi',
+              year: 'हिन्दी',
+            }],
+            label: '',
+            input: {
+              minWidth: '300px'
+            },
+            dropdown: {
+              minWidth: '300px'
+            }
+          }}
 
+        />
+      </Box>
       <Box sx={Styles?.parentBox}>
-        <Stack direction='row' alignItems='center'>
-          <Box>
-            <Typography sx={Styles?.title}>Select your language</Typography>
-            <Typography sx={Styles?.subTitle}>Suggested for you</Typography>
-          </Box>
-        </Stack>
+        <Typography sx={Styles?.title}>Select your language</Typography>
+        <Typography sx={Styles?.subTitle}>Suggested for you</Typography>
         <Grid container>
           {
             data?.suggestionData?.map((val: languageProps, index: number) => (
@@ -153,6 +202,6 @@ export default function Action(props: languageProps) {
   );
 }
 
-Action.defaultProps = {
+Language.defaultProps = {
 
 };
