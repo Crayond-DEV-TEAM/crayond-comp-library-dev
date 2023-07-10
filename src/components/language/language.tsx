@@ -1,4 +1,4 @@
-import { Box, Typography, Grid, Stack } from '@mui/material';
+import { Box, Typography, Grid } from '@mui/material';
 import { Styles } from './styles';
 import React, { useState } from 'react';
 import { SelectBoxComponent } from '../selectBox';
@@ -21,52 +21,42 @@ export default function Language(props: languageProps) {
   const data = {
     allData: [
       {
-        id: 1,
         langName: 'Hindi',
         langText: 'हिन्दी',
       },
       {
-        id: 2,
         langName: 'Tamil',
         langText: 'தமிழ்'
       },
       {
-        id: 3,
         langName: 'Malayalam',
         langText: 'മലയാളം'
       },
       {
-        id: 4,
         langName: 'English',
         langText: 'English'
       },
       {
-        id: 5,
         langName: 'Arabic',
         langText: 'اَلْعَرَبِيَّةُ'
       },
       {
-        id: 6,
         langName: 'Sanskrit',
         langText: 'संस्कृत '
       },
       {
-        id: 7,
         langName: 'Greek',
         langText: 'Ελληνικά'
       },
       {
-        id: 8,
         langName: 'Chinese',
         langText: '中國人'
       },
       {
-        id: 9,
         langName: 'Russian',
         langText: 'французский'
       },
       {
-        id: 10,
         langName: 'Marathi',
         langText: 'मराठी'
       }
@@ -94,8 +84,17 @@ export default function Language(props: languageProps) {
       }
     ]
   }
-
-  const [selectedLang, setSelectedLang] = useState({
+  interface SelectedLangState {
+    allData: {
+      langName: string;
+      langText: string;
+    };
+    suggestionData: {
+      langName: string;
+      langText: string;
+    };
+  }
+  const [selectedLang, setSelectedLang] = useState<SelectedLangState>({
     allData: {
       langName: '',
       langText: ''
@@ -106,10 +105,11 @@ export default function Language(props: languageProps) {
     }
   })
 
-  const [optionValue, setOptionValue] = useState([])
+  const [optionValue, setOptionValue] = useState()
 
 
   const handleClick = (val: languageProps, index: number, parent: string) => {
+    debugger
     if (parent === 'allData') {
       setSelectedLang({
         ...selectedLang, allData: val
@@ -121,18 +121,26 @@ export default function Language(props: languageProps) {
     }
   }
 
-  const options = data?.allData?.map((val: FilmOptionType) => {
+  const options = data?.allData?.map((val: languageProps) => {
     return {
       title: val?.langName,
       year: val?.langText
     }
   })
 
-  const handleDefaultChange = (val: any, newValue: FilmOptionType[]) => {
+  const handleDefaultChange = (val: any, newValue: FilmOptionType) => {
+    debugger
     setOptionValue(newValue)
+    setSelectedLang({
+      ...selectedLang, allData: {
+        langName: newValue?.title || '',
+        langText: newValue?.year || 0,
+
+      }
+    })
   }
 
-  console.log(options);
+  console.log(selectedLang);
 
 
   return (
@@ -147,18 +155,16 @@ export default function Language(props: languageProps) {
           multiple={false}
           selectType='default'
           defaultProps={{
-            isCloseIcon: true,
-            isSearch: true,
+            isSearch: false,
             handleDefaultChange: handleDefaultChange,
             defaultData: optionValue,
             arrData: options,
-            defaultValue: [{
-              title: 'Hindi',
-              year: 'हिन्दी',
-            }],
             label: '',
             input: {
-              minWidth: '300px'
+              minWidth: '300px',
+              backgroundColor: 'white',
+              border: 'none',
+              borderRadius: '8px',
             },
             dropdown: {
               minWidth: '300px'
@@ -173,8 +179,8 @@ export default function Language(props: languageProps) {
         <Grid container>
           {
             data?.suggestionData?.map((val: languageProps, index: number) => (
-              <Grid item xs={3} key={index} onClick={() => handleClick(val, index, 'allData')}>
-                <Box sx={val?.langName === selectedLang?.allData?.langName ? Styles.unSelectedCard : Styles?.card}>
+              <Grid item xs={3} key={index} onClick={() => handleClick(val, index, 'suggestionData')}>
+                <Box sx={val?.langName === selectedLang?.suggestionData?.langName ? Styles.unSelectedCard : Styles?.card}>
                   <Typography sx={Styles?.langName}>{val?.langName}</Typography>
                   <Typography sx={Styles?.langText}>{val?.langText}</Typography>
                 </Box>
@@ -185,11 +191,14 @@ export default function Language(props: languageProps) {
         <Typography mt={1} sx={Styles?.title}>All languages </Typography>
       </Box >
       <Box>
-        <Grid container>
+        <Grid container width={'100%'}
+          sx={{
+            backgroundColor: '#fff'
+          }}>
           {
             data?.allData?.map((val: languageProps, index: number) => (
-              <Grid item xs={3} key={index} onClick={() => handleClick(val, index, 'suggestionData')}>
-                <Box sx={val?.langName === selectedLang?.suggestionData?.langName ? Styles.unSelectedCard : Styles?.card}>
+              <Grid item xs={3} key={index} onClick={() => handleClick(val, index, 'allData')}>
+                <Box sx={val?.langName === selectedLang?.allData?.langName ? Styles.unSelectedCard : Styles?.card}>
                   <Typography sx={Styles?.langName}>{val?.langName}</Typography>
                   <Typography sx={Styles?.langText}>{val?.langText}</Typography>
                 </Box>

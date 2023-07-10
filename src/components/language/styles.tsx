@@ -4,7 +4,7 @@ export const Styles = {
         padding: '16px',
         borderRadius: '8px',
         margin: '8px',
-        cursor:'pointer'
+        cursor: 'pointer'
     },
     unSelectedCard: {
         backgroundColor: '#FFFFFF',
@@ -13,7 +13,7 @@ export const Styles = {
         boxShadow: '0px 3px 6px #00000029',
         border: '1px solid #1F74EA',
         borderRadius: '8px',
-        cursor:'pointer'
+        cursor: 'pointer'
     },
     langText: {
         color: '#98A0AC',
@@ -27,20 +27,20 @@ export const Styles = {
     parentBox: {
         background: '#FFFF',
         padding: '20px',
-        // width: '100%'
+        // width: '80%'
     },
     title: {
         color: '#091B29',
         fontSize: '16px',
         fontWeight: '600',
         marginBottom: '10px',
-        marginLeft:'8px',
+        marginLeft: '8px',
     },
     subTitle: {
         color: '#091B29',
         fontSize: '14px',
         fontWeight: '500',
-        marginLeft:'8px',
+        marginLeft: '8px',
         marginBottom: '17px',
 
     }

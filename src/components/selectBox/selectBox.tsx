@@ -541,6 +541,8 @@ const SelectBox = (props: SelectBoxProps) => {
               height: '100%',
               minWidth: defaultProps?.input?.minWidth ? defaultProps?.input?.minWidth : '400px',
               maxWidth: defaultProps?.input?.maxWidth ? defaultProps?.input?.maxWidth : '400px',
+              background: defaultProps?.input?.backgroundColor ? defaultProps?.input?.backgroundColor : 'unset',
+              borderRadius: defaultProps?.input?.borderRadius ? defaultProps?.input?.borderRadius : '4px',
               '& .MuiAutocomplete-inputRoot': {
                 height: 'auto',
                 minHeight:
