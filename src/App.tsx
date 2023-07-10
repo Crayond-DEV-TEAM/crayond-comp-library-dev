@@ -19,13 +19,21 @@ import DocsIcon from './assets/docsIcon';
 import EditIcon from './assets/editIcon';
 import NotificationIcon from './assets/notificationIcon';
 import AlertIcon from './assets/alertIcon';
-import { Button } from '@mui/material';
+import { Button, SpeedDialIcon } from '@mui/material';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { ProfileThree } from './components/profileThree';
 import yup from './utils/yupSchema';
 import { Screen } from './components/screen';
 import CustomFab from './components/fabButton';
+import SpeedDialTooltipOpen from './components/fabButton';
+import PlaygroundSpeedDial from './components/fabButton';
+import FabButton from './components/fabButton';
+import CustomSpeedDial from './components/fabButton';
+import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import PrintIcon from '@mui/icons-material/Print';
+import ShareIcon from '@mui/icons-material/Share';
 
 function App() {
   const [isSelectedAll, setIsSelectedAll] = React.useState(false);
@@ -186,9 +194,30 @@ function App() {
       .required('Please enter email'),
   });
 
-  const handleFabClick = () => {
-    console.log('FAB button clicked');
-  };
+  const actionsData = [
+    {
+      icon: <FileCopyIcon />,
+      name: 'Copy',
+      onClick: () => {
+        console.log('copied');
+      },
+    },
+    {
+      icon: <SaveIcon />,
+      name: 'Save',
+      onClick: () => {
+        console.log('saved');
+      },
+    },
+    {
+      icon: <PrintIcon />,
+      name: 'Print',
+      onClick: () => {
+        console.log('printed');
+      },
+    },
+    
+  ];
 
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
@@ -201,10 +230,28 @@ function App() {
         bodyComponent={<>Body</>}
         footerComponent={<>Footer</>}
       />
+      <div>
+        <FabButton
+          direction="right"
+          radius={60}
+          semicircle={true}
+          actionsData={actionsData}
+          actionButtonStyle={{
+            backgroundColor: '#fff',
+          }}
+          buttonStyle={{
+            color: 'white',
+            '& .css-tdnsd2-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab': {
+              backgroundColor: 'red',
+              width: '50px',
+              height: '50px',
+            },
+          }}
+          FabIcon={<SpeedDialIcon />}
+          rightDirection={{ bottom: '10px' }}
+        />
+      </div>
 
-      <CustomFab onClick={handleFabClick}>
-        <DeleteIcon />
-      </CustomFab>
       {/* <CommonTable
         Header={[
           {
