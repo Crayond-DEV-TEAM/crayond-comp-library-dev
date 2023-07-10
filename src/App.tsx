@@ -37,6 +37,7 @@ function App() {
   const [alertOpen, setAlertOpen] = React.useState(false);
   const [isDataMask, setIsDataMask] = React.useState(false);
   const [value, setValue] = useState<number>(0);
+  const [valuess, setValuess] = useState<number>(0);
   const checkboxHandleChange = (data: any) => {
     if (!selectedCheckbox.includes(data)) {
       setSelectedCheckbox([...selectedCheckbox, data]);
@@ -200,9 +201,25 @@ function App() {
         }}
       >
         <Slider
-          value={value}
+          value={valuess}
+          step={10}
+          size={'small'}
+          sliderHeight={5}
+          disabled={false}
+          customMarks={false}
+          progressLabel={false}
+          valueLabelDisplay={'off'}
+          labelColor={''}
+          labelSize={2}
+          sliderColor={''}
+          thumbColor={''}
+          sliderStyle={{}}
+          symbol={''}
+          labelStyle={{}}
+          sliderThumbStyle={{}}
+          marks={[]}
           handleChangeFun={(e, v) => {
-            setValue(v as number), console.log(e, v);
+            setValuess(v as number), console.log(e, v);
           }}
         />
         <SliderRange

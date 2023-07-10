@@ -2,9 +2,9 @@ import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
-import { useState } from 'react';
 import { ProgressProps } from './props';
 import { styles } from './style';
+import { SxProps } from '@mui/material';
 
 const Sliders = (props: ProgressProps) => {
   const {
@@ -28,7 +28,6 @@ const Sliders = (props: ProgressProps) => {
     handleChangeFun = () => {},
   } = props;
 
-
   function valuetext(getAriaLabel: number) {
     return `${getAriaLabel}`;
   }
@@ -43,23 +42,25 @@ const Sliders = (props: ProgressProps) => {
             disableSwap
             marks={customMarks ? marks : []}
             value={value}
-            onChange={(e, value) => {              
-              if(handleChangeFun){
-                handleChangeFun(e,value)
+            onChange={(e, value) => {
+              if (handleChangeFun) {
+                handleChangeFun(e, value);
               }
             }}
             valueLabelDisplay={valueLabelDisplay}
-            sx={{
-              height: sliderHeight,
-              color: sliderColor,
-              ...styles.sliderStyle,
-              ...sliderStyle,
-              '& .MuiSlider-thumb': {
-                border: '2px solid #fff',
-                backgroundColor: thumbColor,
-                ...sliderThumbStyle,
-              },
-            }}
+            sx={
+              {
+                height: sliderHeight,
+                color: sliderColor,
+                ...styles.sliderStyle,
+                ...sliderStyle,
+                '& .MuiSlider-thumb': {
+                  border: '2px solid #fff',
+                  backgroundColor: thumbColor,
+                  ...sliderThumbStyle,
+                },
+              } as SxProps
+            }
             getAriaLabel={valuetext}
           />
           {progressLabel && (
@@ -82,8 +83,8 @@ const Sliders = (props: ProgressProps) => {
 };
 
 Sliders.defaultProps = {
-  value:0,
-  step: 0,
+  value: 0,
+  step: 10,
   size: 'small',
   sliderHeight: 5,
   disabled: false,
