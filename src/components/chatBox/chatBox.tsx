@@ -1,7 +1,12 @@
 import Box from '@mui/material/Box';
+import data from '@emoji-mart/data';
+import Picker from '@emoji-mart/react';
 import { styles } from './style';
+import './emojiFont.css';
+
 import {
   Avatar,
+  Badge,
   IconButton,
   InputBase,
   Stack,
@@ -17,7 +22,8 @@ import MicIcon from '../../assets/micIcon';
 import AttachFileIcon from '../../assets/attachFileIcon';
 import MoreIcon from '../../assets/moreIcon';
 import MinimizeIcon from '../../assets/minimizeIcon';
-import { chatBoxProps } from './props';
+import { chatBoxProps, chatMessageProps } from './props';
+import { Thump, Smile, Ohh, Sad, Angry } from '../../assets/emojis';
 
 export default function ChatBox(props: chatBoxProps) {
   const {
@@ -26,6 +32,8 @@ export default function ChatBox(props: chatBoxProps) {
     chatBoxRootStyle,
     chatId,
     editorData = {},
+    onEnterMessage,
+    reactionEnable = true,
   } = props;
   const {
     messages,
@@ -41,14 +49,53 @@ export default function ChatBox(props: chatBoxProps) {
     icons: editorIcon,
     functions: editorFunctions,
   } = editorData;
+  const [openEmoji, setOpenEmoji] = useState('');
 
-  const [chatMessage, setChatMessage ] = useState(messages);
+  const setEmojiOpen = (message: chatMessageProps) => {
+    setOpenEmoji(message?.messageId as string);
+  };
+  const [inputValue, setInputValue] = useState('');
+  const chatInputOnchange = (
+    e: React.ChangeEventHandler<HTMLInputElement> | any
+  ) => {
+    setInputValue(e?.target?.value);
+  };
+
+  const [chatMessage, setChatMessage] = useState(messages);
   const scrollRef = React.useRef<HTMLDivElement | null>(null);
+
+  const onSubmitMessage = (e: React.FormEvent<HTMLFormElement> | any) => {
+    e?.preventDefault();
+    setInputValue('');
+    const content = e?.target?.message?.value;
+
+    const messageData = {
+      messageId: `msg_${new Date().getTime()}`,
+      senderId: loginUser,
+      content: content,
+      timestamp: new Date().toISOString(),
+    };
+
+    const messageList = [...chatMessage, messageData];
+    setChatMessage(messageList);
+    onEnterMessage &&
+      onEnterMessage({
+        event: e,
+        enteredMessage: messageData,
+        messageList: messageList,
+      });
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  };
+  const setEmojiCount = (data: { id: string; data: chatMessageProps }) => {
+    console.log('🚀 ~ file: chatBox.tsx:92 ~ setEmojiCount ~ data:', data);
+  };
   React.useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, []);
+  }, [chatMessage]);
   return (
     <Box
       className="chat-root"
@@ -155,6 +202,7 @@ export default function ChatBox(props: chatBoxProps) {
           ref={scrollRef}
           className="chat-scroll"
           sx={{ ...styles.overflow, ...chatStyles?.chatScrollStyle } as SxProps}
+          onClick={() => setOpenEmoji('')}
         >
           <Box
             className="chat-list"
@@ -165,11 +213,12 @@ export default function ChatBox(props: chatBoxProps) {
               } as SxProps
             }
           >
-            {chatMessage.map((message) => {
+            {chatMessage.map((message: chatMessageProps) => {
               const isYou = message.senderId === loginUser;
               const sender = participants?.find(
                 (send: { userId: string }) => send?.userId === message?.senderId
               );
+
               return (
                 <Stack
                   key={message?.messageId}
@@ -203,6 +252,55 @@ export default function ChatBox(props: chatBoxProps) {
                   >
                     <UserIcon />
                   </Avatar>
+                  {/* badge */}
+                  {!isYou && openEmoji === message?.messageId && (
+                    <Stack
+                      sx={styles.badge}
+                      direction={'row'}
+                      gap="5px"
+                      alignItems={'center'}
+                    >
+                      <IconButton
+                        onClick={() =>
+                          setEmojiCount({ id: 'thump', data: message })
+                        }
+                        size="small"
+                        disableRipple
+                      >
+                        <Thump />
+                      </IconButton>
+                      <IconButton
+                        onClick={() =>
+                          setEmojiCount({ id: 'smile', data: message })
+                        }
+                        size="small"
+                        disableRipple
+                      >
+                        <Smile />
+                      </IconButton>
+                      <IconButton
+                        onClick={() =>
+                          setEmojiCount({ id: 'ohh', data: message })
+                        }
+                        size="small"
+                        disableRipple
+                      >
+                        <Ohh />
+                      </IconButton>
+                      <IconButton size="small" disableRipple>
+                        <Sad />
+                      </IconButton>
+                      <IconButton
+                        onClick={() =>
+                          setEmojiCount({ id: 'angry', data: message })
+                        }
+                        size="small"
+                        disableRipple
+                      >
+                        <Angry />
+                      </IconButton>
+                    </Stack>
+                  )}
                   <Box
                     className="chat-message-details"
                     sx={
@@ -212,66 +310,99 @@ export default function ChatBox(props: chatBoxProps) {
                       } as SxProps
                     }
                   >
-                    <Stack
-                      sx={{ marginBottom: '4px' }}
-                      direction={isYou ? 'row-reverse' : 'row'}
-                      gap="8px"
-                      alignItems={'center'}
-                    >
-                      <Typography
+                    <>
+                      <Stack
+                        sx={{ marginBottom: '4px' }}
+                        direction={isYou ? 'row-reverse' : 'row'}
+                        gap="8px"
+                        alignItems={'center'}
+                      >
+                        <Typography
+                          sx={
+                            {
+                              ...styles.massagerName,
+                              ...chatStyles?.massagerNameStyle,
+                            } as SxProps
+                          }
+                        >
+                          {sender?.username}
+                        </Typography>
+                        <Typography
+                          sx={
+                            {
+                              ...styles.massagerTime,
+                              ...chatStyles?.massageTimeStyles,
+                            } as SxProps
+                          }
+                        >
+                          {moment(message?.timestamp).calendar(new Date(), {
+                            sameDay: `[${moment(message?.timestamp)
+                              .fromNow()
+                              .toString()}]`,
+                            // lastDay: '[Yesterday]',
+                            // lastWeek: '[Last] dddd',
+                            sameElse: 'LLL',
+                          })}
+                        </Typography>
+                      </Stack>
+                      <Box
+                        className="chat-message-body"
+                        onDoubleClick={() => setEmojiOpen(message)}
                         sx={
-                          {
-                            ...styles.massagerName,
-                            ...chatStyles?.massagerNameStyle,
-                          } as SxProps
+                          isYou
+                            ? ({
+                                ...styles.messageBodyYou,
+                                ...chatStyles?.senderMessageStyle,
+                              } as SxProps)
+                            : ({
+                                ...styles.messageBody,
+                                ...chatStyles?.receiverMessageStyle,
+                              } as SxProps)
                         }
                       >
-                        {sender?.username}
-                      </Typography>
-                      <Typography
-                        sx={
-                          {
-                            ...styles.massagerTime,
-                            ...chatStyles?.massageTimeStyles,
-                          } as SxProps
-                        }
-                      >
-                        {moment(message?.timestamp).calendar(new Date(), {
-                          sameDay: `[${moment(message?.timestamp)
-                            .fromNow()
-                            .toString()}]`,
-                          // lastDay: '[Yesterday]',
-                          // lastWeek: '[Last] dddd',
-                          sameElse: 'LLL',
-                        })}
-                      </Typography>
-                    </Stack>
-                    <Box
-                      className="chat-message-body"
-                      sx={
-                        isYou
-                          ? ({
-                              ...styles.messageBodyYou,
-                              ...chatStyles?.senderMessageStyle,
-                            } as SxProps)
-                          : ({
-                              ...styles.messageBody,
-                              ...chatStyles?.receiverMessageStyle,
-                            } as SxProps)
-                      }
-                    >
-                      <Typography
-                        className="chat-message-text"
-                        sx={
-                          {
-                            ...styles.messageText,
-                            ...chatStyles?.messageTextStyle,
-                          } as SxProps
-                        }
-                      >
-                        {message?.content}
-                      </Typography>
-                    </Box>
+                        <Typography
+                          className="chat-message-text"
+                          sx={
+                            {
+                              ...styles.messageText,
+                              ...chatStyles?.messageTextStyle,
+                            } as SxProps
+                          }
+                        >
+                          {message?.content}
+                        </Typography>
+                        {reactionEnable && (
+                          <Stack
+                            sx={{ ...styles.reactionContainer }}
+                            direction={isYou ? 'row-reverse' : 'row'}
+                            gap="8px"
+                            alignItems={'center'}
+                          >
+                            {message?.reactions?.map(() => {
+                              return (
+                                <Box
+                                  sx={
+                                    isYou
+                                      ? ({
+                                          ...styles.reactionBox,
+                                          ...chatStyles?.reactionBoxStyle,
+                                        } as SxProps)
+                                      : ({
+                                          ...styles.reactionBox2,
+                                          ...chatStyles?.reactionBoxReceiverStyle,
+                                        } as SxProps)
+                                  }
+                                >
+                                  <Typography sx={{ fontFamily: 'EmojiMart' }}>
+                                    👍 <span>1</span>
+                                  </Typography>
+                                </Box>
+                              );
+                            })}
+                          </Stack>
+                        )}
+                      </Box>
+                    </>
                   </Box>
                 </Stack>
               );
@@ -303,9 +434,8 @@ export default function ChatBox(props: chatBoxProps) {
             <Box flexGrow={1}>
               <form
                 action=""
-                onSubmit={(e: any) => {
-                  e.preventDefault();
-                  console.log(e.target.message.value);
+                onSubmit={(e) => {
+                  onSubmitMessage(e);
                 }}
               >
                 <InputBase
@@ -315,6 +445,11 @@ export default function ChatBox(props: chatBoxProps) {
                   sx={{ ...styles.inputStyle }}
                   placeholder="Enter message"
                   {...inputProps}
+                  value={inputValue}
+                  onChange={(e) => {
+                    inputProps?.onChange && inputProps?.onChange(e);
+                    chatInputOnchange(e);
+                  }}
                 />
               </form>
             </Box>
@@ -355,10 +490,17 @@ export default function ChatBox(props: chatBoxProps) {
                 editorFunctions?.onClickAttachFileIcon({ event: e })
               }
             >
-              {editorIcon?.attachFileIcon ? editorIcon?.attachFileIcon : <AttachFileIcon />}
+              {editorIcon?.attachFileIcon ? (
+                editorIcon?.attachFileIcon
+              ) : (
+                <AttachFileIcon />
+              )}
             </IconButton>
           </Stack>
         </Box>
+      </Box>
+      <Box sx={{ fontFamily: 'EmojiMart' }}>
+        <Picker data={data} onEmojiSelect={(e: any) => console.log(e)} />
       </Box>
     </Box>
   );

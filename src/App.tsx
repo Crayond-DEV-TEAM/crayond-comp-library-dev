@@ -30,31 +30,21 @@ function App() {
         senderId: 'user_1',
         content: "Hey everyone, how's it going?",
         timestamp: '2023-06-28T10:00:00Z',
-        reactions: {
-          thumbsUp: 3,
-          heart: 1,
-          laugh: 2,
-        },
+        reactions: [{id:'', count:2}, {id:'', count:4}],
       },
       {
         messageId: 'msg_2',
         senderId: 'user_2',
         content: 'Hi John! Things are great here. How about you?',
         timestamp: '2023-06-28T10:05:00Z',
-        reactions: {
-          thumbsUp: 2,
-          laugh: 1,
-        },
+        reactions: [{id:'', count:2}, {id:'', count:4}],
       },
       {
         messageId: 'msg_3',
         senderId: 'user_2',
         content: "Hey guys! I'm doing well too. Any exciting news?",
         timestamp: '2023-06-28T10:10:00Z',
-        reactions: {
-          thumbsUp: 1,
-          heart: 1,
-        },
+        reactions: [{id:'', count:2}, {id:'', count:4}],
       },
       {
         messageId: 'msg_4',
@@ -62,10 +52,7 @@ function App() {
         content:
           'Not much, just enjoying the weekend. How about we plan a meetup?',
         timestamp: '2023-06-19T10:15:00Z',
-        reactions: {
-          thumbsUp: 2,
-          thumbsDown: 1,
-        },
+        reactions: [{id:'', count:2}, {id:'', count:4}],
       },
       {
         messageId: 'msg_5',
@@ -73,10 +60,7 @@ function App() {
         content:
           "That's a great idea! I'm available next week. What about you, Alex?",
         timestamp: '2023-06-29T12:00:00Z',
-        reactions: {
-          thumbsUp: 1,
-          clap: 2,
-        },
+        reactions: [{id:'', count:2}, {id:'', count:4}],
       },
     ],
     styles: {
@@ -140,6 +124,9 @@ function App() {
       onClickAttachFileIcon: undefined,
     },
   };
+  const onEnterMessage = (data: any) => {
+    console.log('🚀 ~ file: App.tsx:144 ~ onEnterMessage ~ data:', data);
+  };
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
       <Typography variant="h3" mb={4}>
@@ -152,6 +139,8 @@ function App() {
           headerData={headerData}
           chatData={chatData}
           editorData={editorData}
+          onEnterMessage={onEnterMessage}
+          reactionEnable={true}
         />
       </Stack>
     </div>

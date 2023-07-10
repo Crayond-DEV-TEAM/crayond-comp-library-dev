@@ -1,17 +1,11 @@
 import { InputBaseProps, SxProps } from '@mui/material';
-import { type } from 'os';
 
 export type chatMessageProps = {
   messageId: string | number;
   senderId: string | number;
   content: string;
   timestamp: string | Date;
-  reactions?: {
-    thumbsUp?: any;
-    heart?: any;
-    laugh?: any;
-    [key: string]: any;
-  };
+  reactions?: Array<any>;
 };
 
 export type participantsProps = {
@@ -22,6 +16,16 @@ export type participantsProps = {
 export interface chatBoxProps {
   chatId: string | number;
   chatBoxRootStyle?: SxProps;
+  reactionEnable?: true | false;
+  onEnterMessage?: ({
+    event,
+    enteredMessage,
+    messageList,
+  }: {
+    event: React.FormEvent<HTMLFormElement>;
+    enteredMessage?: chatMessageProps;
+    messageList?: chatMessageProps[];
+  }) => void;
   headerData: {
     chatName: string;
     profileImage?: string | URL;
@@ -75,6 +79,8 @@ export interface chatBoxProps {
       senderMessageStyle?: SxProps;
       receiverMessageStyle?: SxProps;
       messageTextStyle?: SxProps;
+      reactionBoxStyle?: SxProps;
+      reactionBoxReceiverStyle?: SxProps;
     };
     functions?: {
       onClickMassagerProfile?: ({
