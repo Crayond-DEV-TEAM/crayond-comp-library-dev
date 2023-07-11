@@ -74,12 +74,12 @@ function App() {
         }}
       >
         <SearchField
-          isTextSearch={false}
+          isTextSearch={true}
           isRecentSearch={false}
           isCardBased={false}
           isCardWithTitleBased={false}
           isShortcutKeyBased={false}
-          isShortComponent={true}
+          isShortComponent={false}
 
           options={textSearchData}  
           primaryCategoryData={cardData}
