@@ -27,8 +27,9 @@ export const styles = {
     }
   },
   startIcon: {
-    height: '43px',
+    height: '100%',
     width: '37px',
+    paddingLeft: '8px',
     borderRight: 0,
     display: 'flex',
     alignItems: 'center',
@@ -40,7 +41,7 @@ export const styles = {
   labelStyle: {
     fontSize: '14px',
     fontWeight: '500',
-    color:'#000',
+    color: '#000',
     marginBottom: '8px'
   }
 }

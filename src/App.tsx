@@ -114,7 +114,11 @@ function App() {
           groupedData: groupedData,
           arrData: top100Films,
           defaultValue: [],
-
+          islabel: false,
+          label: 'sdasd',
+          labelPropsSx: {
+            fontSize: '14px'
+          },
           dropdown: {
             minHeight: '',
             maxHeight: '',
@@ -131,12 +135,18 @@ function App() {
             maxHeight: '',
             color: '',
             border: '',
-            borderRadius: ''
+            borderRadius: '',
+            inputPropsSx: {
+              fontWeight: '500'
+            },
+            isStartIcon: true,
+            startEndornment: '',
+            endEndornment: ''
           }
         }}
         defaultProps={{
           isCloseIcon: true,
-          isSearch: true,
+          isSearch: false,
           islabel: false,
           label: 'sdasd',
           labelPropsSx: {
@@ -166,17 +176,24 @@ function App() {
             borderRadius: '',
             inputPropsSx: {
               fontWeight: '500'
-            }
+            },
+            isStartIcon: true,
+            startEndornment: '',
+            endEndornment: ''
           }
         }}
         chipProps={{
           isCloseIcon: true,
-          isSearch: true,
+          isSearch: false,
           handleChipChange: handleChipChange,
           chipData: chipData,
           arrData: top100Films,
           defaultValue: [],
-          label: '',
+          islabel: false,
+          label: 'sdasd',
+          labelPropsSx: {
+            fontSize: '14px'
+          },
           dropdown: {
             minHeight: '',
             maxHeight: '',
@@ -193,7 +210,13 @@ function App() {
             maxHeight: '',
             color: '',
             border: '',
-            borderRadius: ''
+            borderRadius: '',
+            inputPropsSx: {
+              fontWeight: '500'
+            },
+            isStartIcon: true,
+            startEndornment: '',
+            endEndornment: '',
           }
         }}
         checkboxProps={{
@@ -203,7 +226,11 @@ function App() {
           handleCheckedItem: handleCheckedItem,
           CheckableData: checked,
           arrData: checkedArr,
-          label: '',
+          islabel: false,
+          label: 'sdasd',
+          labelPropsSx: {
+            fontSize: '14px'
+          },
           dropdown: {
             minHeight: '',
             maxHeight: '',
@@ -220,10 +247,16 @@ function App() {
             maxHeight: '',
             color: '',
             border: '',
-            borderRadius: ''
+            borderRadius: '',
+            inputPropsSx: {
+              fontWeight: '500'
+            },
+            isStartIcon: true,
+            startEndornment: '',
+            endEndornment: ''
           }
         }}
-        selectType={'default'} multiple={true} />
+        selectType={'chip'} multiple={true} />
     </div>
   )
 }
