@@ -459,7 +459,7 @@ const SearchField = (props: SearchFieldProps) => {
                 />
 
                 <Divider />
-                <Stack sx={{ direction: componentColumnDirection }}>
+                <Stack sx={{ direction: componentColumnDirection } as SxProps}>
                   <Stack>
                     <Typography
                       color={categoryLabel1Color}

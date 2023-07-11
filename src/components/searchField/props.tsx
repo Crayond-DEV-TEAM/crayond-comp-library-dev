@@ -1,5 +1,4 @@
-import { SxProps } from '@mui/material';
-
+import { SxProps } from "@mui/material";
 export interface ParamsProps {
   label: string;
   url?: string;
@@ -24,7 +23,7 @@ export interface ControlsProps {
   controlsBgColor: string;
   controlsTextSize: number;
   controlsTextColor: string;
-  controlsRootStyles: SxProps;
+  controlsRootStyles?: SxProps;
   navigateButtons: {
     navigateLabel: string;
     icon: React.ReactNode;
@@ -37,8 +36,8 @@ export interface RecentSearchProps {
   recentLabel: string;
   recentLabelTextColor: string;
   recentLabelFontSize: number;
-  recentLabelStyle: SxProps;
-  recentSearchItemStyles: SxProps;
+  recentLabelStyle?: SxProps;
+  recentSearchItemStyles?: SxProps;
   recentSearchItemTextColor: string;
   recentSearchItemBgcolor: string;
   recentSearchItemSize: number;
@@ -50,23 +49,23 @@ export interface SearchFieldProps {
     url?: string;
   }[];
 
-  isTextSearch: boolean;
-  isRecentSearch: boolean;
-  isCardBased: boolean;
-  isCardWithTitleBased: boolean;
-  isShortcutKeyBased: boolean;
-  isShortComponent: boolean;
+  isTextSearch?: boolean;
+  isRecentSearch?: boolean;
+  isCardBased?: boolean;
+  isCardWithTitleBased?: boolean;
+  isShortcutKeyBased?: boolean;
+  isShortComponent?: boolean;
 
-  paperRootStyle: SxProps;
+  paperRootStyle?: SxProps;
 
   placeHolderText: string;
-  placeHolderColor: string;
-  placeHolderSize: number;
-  inputRootStyle: SxProps;
-  inputFontSize: number;
-  inputFontColor: string;
-  inputBackgroundColor: string;
-  inputBorderDefaultColor: string;
+  placeHolderColor?: string;
+  placeHolderSize?: number;
+  inputRootStyle?: SxProps;
+  inputFontSize?: number;
+  inputFontColor?: string;
+  inputBackgroundColor?: string;
+  inputBorderDefaultColor?: string;
   inputBorderHoverColor: string;
   inputBorderFocusColor: string;
   startAdornmentIcon: React.ReactNode;
@@ -84,11 +83,11 @@ export interface SearchFieldProps {
   keyDownListTextColor: string;
   listItemSubTextColor: string;
   listItemSubTextSize: number;
-  listItemSubTextStyles: SxProps;
+  listItemSubTextStyles?: SxProps;
   listItemLabelColor: string;
   listItemLabelSize: number;
-  listItemLabelStyles: SxProps;
-  cardImgStyle: SxProps;
+  listItemLabelStyles?: SxProps;
+  cardImgStyle?: SxProps;
   cardImgWidth: number;
   cardImgHeight: number;
   imgBorderRadius: number;
@@ -96,13 +95,13 @@ export interface SearchFieldProps {
   recentLabel: string;
   recentLabelTextColor: string;
   recentLabelFontSize: number;
-  recentLabelStyle: SxProps;
-  recentSearchItemStyles: SxProps;
+  recentLabelStyle?: SxProps;
+  recentSearchItemStyles?: SxProps;
   recentSearchItemTextColor: string;
   recentSearchItemBgcolor: string;
   recentSearchItemSize: number;
 
-  controlsRootStyles: SxProps;
+  controlsRootStyles?: SxProps;
   controlsTextColor: string;
   controlsBgColor: string;
   controlsTextSize: number;
