@@ -50,7 +50,7 @@ function App() {
 
   const textSearchData =[
     { label: 'Redemption' },
-    { label: 'Henry' },
+    { label: 'Random' },
     { label: 'Godfather' },
     { label: 'Dark Knight' },
     { label: 'Angry Men' },
@@ -85,7 +85,7 @@ function App() {
           primaryCategoryData={cardData}
           secondaryCategoryData={cardData}
 
-          placeHolderText="Search henry"
+          placeHolderText="Search..."
           startAdornmentIcon={<SearchIcon />}
           endAdornmentIcon={<Close />}
           inputRootStyle={{}}
