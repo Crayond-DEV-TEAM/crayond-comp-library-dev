@@ -1,4 +1,4 @@
-import { Box, Typography, Checkbox, InputAdornment } from '@mui/material';
+import { Box, Typography, Checkbox, InputAdornment, Stack } from '@mui/material';
 import { SelectBoxProps } from './props';
 import { styles } from './style';
 import Chip from '@mui/material/Chip';
@@ -48,7 +48,9 @@ const SelectBox = (props: SelectBoxProps) => {
       defaultData: [],
       defaultValue: [],
       label: '',
+      islabel: false,
       arrData: [],
+      labelPropsSx: {},
       dropdown: {
         minHeight: '',
         maxHeight: '',
@@ -119,7 +121,10 @@ const SelectBox = (props: SelectBoxProps) => {
         backgroundColor: '',
         color: '',
         border: '',
-        borderRadius: ''
+        borderRadius: '',
+        inputPropsSx: {
+          fontWeight: ''
+        }
       }
     },
     limitTags,
@@ -128,7 +133,7 @@ const SelectBox = (props: SelectBoxProps) => {
 
   const [hovered, setHovered] = React.useState('');
 
-  const handleOptionMouseEnter = (option: string) => {
+  const handleOptionMouseEnter = (option: string | number) => {
     setHovered(option);
   };
 
@@ -203,7 +208,9 @@ const SelectBox = (props: SelectBoxProps) => {
                 paddingRight: '12px !important',
                 paddingBottom: '0px',
                 '& input': {
-                  padding: '0 !important'
+                  padding: '0 !important',
+                  fontWeight: '700',
+
                 },
                 '& .MuiAutocomplete-endAdornment': {
                   '& button': {
@@ -513,119 +520,132 @@ const SelectBox = (props: SelectBoxProps) => {
         )
       case 'default':
         return (
-          <Autocomplete
-            limitTags={limitTags}
-            id="checkboxes-tags-demo"
-            defaultValue={defaultProps?.defaultValue}
-            componentsProps={{
-              popper: {
-                style: {
-                  minWidth:
-                    defaultProps?.dropdown?.minWidth ? defaultProps?.dropdown?.minWidth : '400px',
-                  maxWidth:
-                    defaultProps?.dropdown?.maxWidth ? defaultProps?.dropdown?.maxWidth : '400px',
-                  maxHeight:
-                    defaultProps?.dropdown?.maxHeight ? defaultProps?.dropdown?.maxHeight : '100px',
+          <Box>
+            {
+              defaultProps?.islabel && <Typography sx={{ ...styles?.labelStyle, ...defaultProps?.labelPropsSx }} >{defaultProps?.label}</Typography>
+            }
+            <Autocomplete
+              limitTags={limitTags}
+              id="checkboxes-tags-demo"
+              defaultValue={defaultProps?.defaultValue}
+              componentsProps={{
+                popper: {
+                  style: {
+                    minWidth:
+                      defaultProps?.dropdown?.minWidth ? defaultProps?.dropdown?.minWidth : '400px',
+                    maxWidth:
+                      defaultProps?.dropdown?.maxWidth ? defaultProps?.dropdown?.maxWidth : '400px',
+                    maxHeight:
+                      defaultProps?.dropdown?.maxHeight ? defaultProps?.dropdown?.maxHeight : '100px',
+                    minHeight:
+                      defaultProps?.dropdown?.minHeight ? defaultProps?.dropdown?.minHeight : '100px',
+                  },
+                },
+              }}
+              sx={{
+                height: '100%',
+                minWidth: defaultProps?.input?.minWidth ? defaultProps?.input?.minWidth : '400px',
+                maxWidth: defaultProps?.input?.maxWidth ? defaultProps?.input?.maxWidth : '400px',
+                '& label': {
+                  display: 'none !important'
+                },
+                '& .MuiAutocomplete-inputRoot': {
+                  height: 'auto',
                   minHeight:
-                    defaultProps?.dropdown?.minHeight ? defaultProps?.dropdown?.minHeight : '100px',
-                },
-              },
-            }}
-            sx={{
-              height: '100%',
-              minWidth: defaultProps?.input?.minWidth ? defaultProps?.input?.minWidth : '400px',
-              maxWidth: defaultProps?.input?.maxWidth ? defaultProps?.input?.maxWidth : '400px',
-              '& .MuiAutocomplete-inputRoot': {
-                height: 'auto',
-                minHeight:
-                  defaultProps?.input?.minHeight ? defaultProps?.input?.minHeight : '45px',
-                maxHeight:
-                  defaultProps?.input?.maxHeight ? defaultProps?.input?.maxHeight : 'auto',
-                overflow: 'hidden',
-                paddingTop: '0px',
-                paddingRight: '12px !important',
-                paddingBottom: '0px',
-                '& input': {
-                  padding: '0 !important'
-                },
-                '& span': {
-                  margin: '3px 6px 3px 3px'
-                },
-                '& .MuiAutocomplete-endAdornment': {
-                  '& button': {
-                    display: defaultProps?.isCloseIcon ? 'flex' : 'none'
+                    defaultProps?.input?.minHeight ? defaultProps?.input?.minHeight : '45px',
+                  maxHeight:
+                    defaultProps?.input?.maxHeight ? defaultProps?.input?.maxHeight : 'auto',
+                  overflow: 'hidden',
+                  paddingTop: '0px',
+                  paddingRight: '12px !important',
+                  paddingBottom: '0px',
+                  '& input': {
+                    ...{
+                      padding: '0 !important',
+
+                    },
+                    ...defaultProps?.input?.inputPropsSx
+                  },
+                  '& span': {
+                    margin: '3px 6px 3px 3px'
+                  },
+                  '& .MuiAutocomplete-endAdornment': {
+                    '& button': {
+                      display: defaultProps?.isCloseIcon ? 'flex' : 'none'
+                    }
+                  },
+                  '& fieldset': {
+                    border: 'none'
                   }
-                },
-                '& fieldset': {
+                }
+              }}
+              options={defaultProps?.arrData || []}
+              value={
+                Array.isArray(defaultProps?.defaultData) ?
+                  defaultProps?.defaultData?.length > 0 ?
+                    defaultProps?.defaultData : multiple ? [] : null :
+                  (defaultProps?.defaultData ?? null)
+              }
+              onChange={(event, newValue) => {
+                defaultProps?.handleDefaultChange && defaultProps?.handleDefaultChange(event, newValue as FilmOptionType[])
+              }}
+              getOptionLabel={(option) => option.title}
+              multiple={multiple}
+              renderInput={(params) =>
+                <Stack direction={'row'} alignItems={'center'} sx={{
                   border:
                     defaultProps?.input?.border ? defaultProps?.input?.border : '1px solid rgba(0, 0, 0, 0.23)',
-                  borderRadius: defaultProps?.input?.borderRadius ? defaultProps?.input?.borderRadius : '4px'
-                }
-              }
-            }}
-            options={defaultProps?.arrData || []}
-            value={
-              Array.isArray(defaultProps?.defaultData) ?
-                defaultProps?.defaultData?.length > 0 ?
-                  defaultProps?.defaultData : multiple ? [] : null :
-                (defaultProps?.defaultData ?? null)}
-            onChange={(event, newValue) => {
-              defaultProps?.handleDefaultChange && defaultProps?.handleDefaultChange(event, newValue as FilmOptionType[])
-            }}
-            getOptionLabel={(option) => option.title}
-            multiple={multiple}
-            renderInput={(params) =>
-              <TextField {...params}
-                // label={defaultProps?.label ?? ""}
-                sx={styles?.defaultInputSx}
-                InputLabelProps={{
-                  style: {
-                    display: checkboxProps?.CheckableData?.length || 0 > 0 ? 'block' : 'auto',
-                    marginTop: '-4px'
-                  },
-                }}
-                InputProps={{
-                  ...params.InputProps,
-                  endAdornment: (
-                    defaultProps?.isSearch ? (defaultProps?.defaultData?.length || 0 > 0 ? null : <InputAdornment position="start">
-                      <SearchIcon />
-                    </InputAdornment>) : null
-                  ),
-                }}
-                placeholder={'Select Option'}
-                label={'Select Option'}
-              />}
-            renderTags={() =>
-              defaultProps?.defaultData?.map((option, index) => (
-                <Typography key={index} sx={styles?.checkboxTextSx}>
-                  {`${option.title}
-                       ${defaultProps?.defaultData && defaultProps?.defaultData?.length - 1 === index ? '' : ','}  `}
-                </Typography>
-              ))
-            }
-            renderOption={(props, option) => {
-              return (
-
-                <Typography {...props}
-                  sx={hovered === option?.title || (
-                    (Array.isArray(defaultProps?.defaultData) ? defaultProps?.defaultData : [defaultProps?.defaultData]).map(e => e?.title).includes(option.title))
-                    ? {
-                      background: '#E9E9E9',
-                      color: '#665CD7'
-                    } :
-                    {
-                      background: '#ffff',
-                      color: '#666666'
-
+                  borderRadius: defaultProps?.input?.borderRadius ? defaultProps?.input?.borderRadius : '4px',
+                }}>
+                  <Box sx={{ ...styles?.startIcon }} {...params}>
+                    <SearchIcon />
+                  </Box>
+                  <TextField {...params}
+                    sx={styles?.defaultInputSx}
+                    InputProps={{
+                      ...params.InputProps,
+                      // endAdornment: (
+                      //   defaultProps?.isSearch ? (defaultProps?.defaultData?.length || 0 > 0 ? null : <InputAdornment position="start">
+                      //     <SearchIcon />
+                      //   </InputAdornment>) : null
+                      // ),
                     }}
-                  onMouseEnter={() => handleOptionMouseEnter(option?.title)}
-                  onMouseLeave={handleOptionMouseLeave} >
-                  {option?.title}
-                </Typography >
-              )
-            }
-            }
-          />
+                    placeholder={defaultProps?.defaultData?.length || 0 > 0 ? '' : 'Select Option'}
+                  />
+                </Stack>
+              }
+              renderTags={() =>
+                defaultProps?.defaultData?.map((option, index) => (
+                  <Typography key={index} sx={styles?.checkboxTextSx}>
+                    {`${option.title}
+                       ${defaultProps?.defaultData && defaultProps?.defaultData?.length - 1 === index ? '' : ','}  `}
+                  </Typography>
+                ))
+              }
+              renderOption={(props, option) => {
+                return (
+
+                  <Typography {...props}
+                    sx={hovered === option?.title || (
+                      (Array.isArray(defaultProps?.defaultData) ? defaultProps?.defaultData : [defaultProps?.defaultData]).map(e => e?.title).includes(option.title))
+                      ? {
+                        background: '#E9E9E9',
+                        color: '#665CD7'
+                      } :
+                      {
+                        background: '#ffff',
+                        color: '#666666'
+
+                      }}
+                    onMouseEnter={() => handleOptionMouseEnter(option?.title)}
+                    onMouseLeave={handleOptionMouseLeave} >
+                    {option?.title}
+                  </Typography >
+                )
+              }
+              }
+            />
+          </Box>
         )
       default:
         return
@@ -760,8 +780,8 @@ SelectBox.defaultProps = {
 };
 
 interface FilmOptionType {
-  title: string;
-  year: number;
+  title: string | number;
+  year: string | number;
 }
 
 interface CheckedOption {

@@ -8,8 +8,8 @@ import { SelectBoxComponent } from './components/selectBox';
 function App() {
 
   interface FilmOptionType {
-    title: string;
-    year: number;
+    title: string | number;
+    year: string | number;
   }
 
   interface CheckedOption {
@@ -114,7 +114,7 @@ function App() {
           groupedData: groupedData,
           arrData: top100Films,
           defaultValue: [],
-          label: '',
+
           dropdown: {
             minHeight: '',
             maxHeight: '',
@@ -137,18 +137,23 @@ function App() {
         defaultProps={{
           isCloseIcon: true,
           isSearch: true,
+          islabel: false,
+          label: 'sdasd',
+          labelPropsSx: {
+            fontSize: '14px'
+          },
           handleDefaultChange: handleDefaultChange,
           defaultData: defaultData,
           arrData: top100Films,
           defaultValue: [],
-          label: '',
           dropdown: {
             minHeight: '',
             maxHeight: '',
             maxWidth: '',
             minWidth: '',
             backgroundColor: '',
-            color: ''
+            color: '',
+
           },
           input: {
             minHeight: '',
@@ -158,7 +163,10 @@ function App() {
             maxHeight: '',
             color: '',
             border: '',
-            borderRadius: ''
+            borderRadius: '',
+            inputPropsSx: {
+              fontWeight: '500'
+            }
           }
         }}
         chipProps={{
@@ -215,7 +223,7 @@ function App() {
             borderRadius: ''
           }
         }}
-        selectType={'checkbox'} multiple={true} />
+        selectType={'default'} multiple={true} />
     </div>
   )
 }

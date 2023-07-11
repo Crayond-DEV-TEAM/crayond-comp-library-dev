@@ -1,6 +1,6 @@
 interface FilmOptionType {
-    title: string;
-    year: number;
+    title: string | number;
+    year: string | number;
 }
 
 interface CheckedOption {
@@ -51,6 +51,8 @@ export interface SelectBoxProps {
         arrData?: FilmOptionType[],
         defaultValue?: FilmOptionType[],
         label?: string,
+        labelPropsSx?: object,
+        islabel:boolean,
         dropdown?: {
             minHeight?: string,
             maxWidth?: string,
@@ -67,7 +69,8 @@ export interface SelectBoxProps {
             backgroundColor?: string,
             color?: string,
             border?: string,
-            borderRadius?: string
+            borderRadius?: string,
+            inputPropsSx?: object
         }
     }
     chipProps?: {
