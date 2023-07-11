@@ -128,9 +128,6 @@ const RoleManagement = (props: RoleManagementProps) => {
 
   }
 
-  console.log(state?.error, 'state?.error');
-
-
   const handleSwitch = (e: boolean, index: number) => {
     const tempArr = [...roles]
 
@@ -140,9 +137,6 @@ const RoleManagement = (props: RoleManagementProps) => {
     }
     setRoles([...tempArr]);
   }
-
-  console.log(roles, 'rolesss');
-
 
   return (
     <Box sx={{ ...styles.rootSx, ...rootStyle }}>
