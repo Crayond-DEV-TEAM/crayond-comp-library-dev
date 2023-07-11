@@ -67,6 +67,7 @@ getBtnSx:{
      height:'48px',
      color:'#fff',
      borderRadius:'8px',
+     boxShadow:'none',
      "&:hover":{
      backgroundColor:'#665CD7',
      color:'#fff',
@@ -81,7 +82,7 @@ subscriptionDueSx:{
 // variation 2 style starts ----
 totalPricingBoxvarSx:{
     backgroundColor:'#F5F5F5',
-    px:'117px',
+    px:'16px',
     py:'80px',
 },
 pricingHeadVarSx:{
@@ -124,29 +125,233 @@ selctbtn:{
 cardVarSx:{
 
 },
-totalBodySubSx:{
+totalBodySubSx: {
     flex: '0 0 1',
-    pr:'28px',
-    pb:'28px'
-},
+    pr: '28px',
+    pb: '28px',
+    '@media (max-width: 900px)': {
+        pr: '0',
+       }
+  },
 cardTwoSx:{
     flex:1,
     backgroundColor:'#fff',
     borderRadius:'8px',
     pt:'34px',pb:'24px',
     px:'24px',
-    width:'100%',
-    maxWidth:'386px',
     position:'relative',
     border:'1px solid',
   
 },
 paySx:{
     fontSize:'18px',
-    color:'#666666'
+    color:'#666666',
+    fontWeight:'600',
 },
 payCardSx:{
-    p:'26px',
+    p:'16px',
+    borderRadius:'12px',
+   width: '100%',maxWidth: '330px', mr: '32px',
+    '&:last-child':{
+          mr:'0px'
+    },
+    '@media (max-width: 600px)': {
+       margin:'16px auto',
+       '&:last-child':{
+        mr:'auto'
+      },
+    }
+},
+saveBgSx:{
+    backgroundColor:'#0AAB14',
+    width:'100%',
+    maxWidth:'102px',
+    borderRadius:'8px',
+    fontSize:'12px',
+},
+yearlysx:{
+    display:'flex',
+    alignItems:'center',
+    justifyContent:'space-between',
+    pt: '24px',
+    fontSize:'14px',
+},
+billSx:{
+    borderBottom:'1px solid #D3D3D3',
+    p:'24px',
+
+},
+billSubSx:{
+    border:'1px solid #D3D3D3',
+    borderRadius:'8px'
+},
+billpaymentSx:{
+    width:'100%',
+    maxWidth:'773px',
+},
+proSx:{
+    width:'100%',
+    maxWidth:'386px !important',
+    '@media (max-width: 900px)': {
+        maxWidth:'inherit !important'
+       },
+},
+billAmountSx:{
+    px:'36px',
+    pt:'75px',
     borderRadius:'12px'
-}
+},
+billTitle:{
+    color:'#3B3B3B',
+    fontSize:'14px',
+    fontWeight:'600'
+},
+emailSx:{
+    width:'100%',
+    '& .MuiOutlinedInput-input': {
+        width: '100%',
+        fontWeight: '600 !important',
+        p:'0px',
+        fontSize:'14px',
+        // '& .MuiTextField-root': {
+        //   mt: 1,
+        // },
+      },
+      '& .Mui-focused.MuiOutlinedInput-notchedOutline':{
+        borderColor: '#E9E9E9 !important',
+      },
+      '& .MuiOutlinedInput-root': {
+        p:'0px',
+        '& fieldset': {
+          borderRadius: '4px',
+          border: '0px',
+          borderColor: '#E9E9E9 ',
+         
+         
+        },
+        '&:hover fieldset': {
+          borderColor: 'primary.main',
+        },
+        '& .Mui-focused fieldset': {
+          borderColor: 'primary.main',
+        },
+      },
+},
+billIconSx:{
+    width:'19px',
+    height:'15.29px'
+},
+cardPaymentSx:{
+    display:'flex',
+    justifyContent:'space-between',
+    alignItems:'center',
+    pt:'22px'
+},
+emailEbSx:{
+    '& .MuiOutlinedInput-input': {
+        width: '100%',
+        fontWeight: '600 !important',
+        padding:"0px",
+        fontSize:'14px',
+        // '& .MuiTextField-root': {
+        //   mt: 1,
+        // },
+      },
+      '& .Mui-focused.MuiOutlinedInput-notchedOutline':{
+        borderColor: '#E9E9E9 !important',
+      },
+      '& .MuiOutlinedInput-root': {
+        p:'0px',
+        '& fieldset': {
+          borderRadius: '4px',
+          border: '0px',
+          borderColor: '#E9E9E9 ',
+         
+         
+        },
+        '&:hover fieldset': {
+          borderColor: 'primary.main',
+        },
+        '& .Mui-focused fieldset': {
+          borderColor: 'primary.main',
+        },
+      },
+},
+emailInputSx:{
+    pt:'22px'
+},
+securedSx:{
+    pt:'16px',
+    color:'#BDBDBD',
+    fontSize:'14px',
+},
+startPlanBtn:{
+    backgroundCOlor:'#665CD7',
+    color:'#fff',
+    width:'100%',
+    borderRadius:'8px',
+    height:'48px'
+
+},
+footerCardSx:{
+   position:'absolute',
+   justifyContent:"end",
+   bottom: '26px',
+    right: '42px',
+},
+footerSubHead:{
+    fontSize:'14px',
+    textAlign:'end',
+    color:'#929292',
+    pb:'32px'
+},
+mainFooterSx:{
+    display:'block',
+    justifyContent:'end'
+},
+footerSubBill:{
+    fontSize:'24px',
+    fontWeight:'600',
+    pb:'12px',
+},
+footerSubHeadApply:{
+    fontSize:'16px',
+    color:'#776DEF',
+    textDecoration:'underline',
+    pb:'12px'
+},
+billpaymentFinalSx:{
+    backgroundColor:'#fff',
+    borderRadius:'8px',
+    width:'100%',
+    maxWidth:'773px !important',
+    position:'relative',
+    '@media (max-width: 900px)': {
+       height:'990px',
+       maxWidth:'inherit !important',
+       marginTop:'20px'
+      },
+      
+    },
+    totalPaymentSx:{
+        display: 'flex',
+        pb: '32px',
+        '@media (max-width: 600px)': {
+          display:'block',
+           
+           },
+    },
+    variationSx:{
+        p: '18px 0px !important', justifyContent: 'start'
+    },
+    basicAction:{
+        justifyContent: 'center',pt: '24px !important',p: 0,
+    },
+    basicButtomSx:{
+        width: '100%',   maxWidth: '326px',  margin: '0px 0px 0px auto', 
+    },
+    totalAmountSx:{
+        width: '100%', maxWidth: '434px', textAlign: 'end' 
+    }
+
 };
