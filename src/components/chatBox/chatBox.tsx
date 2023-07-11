@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import data from '@emoji-mart/data';
+import emojiData from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
 import { styles } from './style';
 import './emojiFont.css';
@@ -88,8 +88,44 @@ export default function ChatBox(props: chatBoxProps) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   };
-  const setEmojiCount = (data: { id: string; data: chatMessageProps }) => {
-    console.log('🚀 ~ file: chatBox.tsx:92 ~ setEmojiCount ~ data:', data);
+  const setEmojiCount = (data: {
+    id: string;
+    shortcodes?: string;
+    unified?: string;
+    emoji: any;
+    data: chatMessageProps;
+  }) => {
+    const msgData = chatMessage?.find(
+      (msg: chatMessageProps) => msg?.messageId === data?.data?.messageId
+    );
+    const oldReactions = msgData?.reactions?.find((re) => re.id === data?.id);
+
+    let reactionData = {
+      id: data.id,
+      emoji: data.emoji,
+      count: 1,
+      shortcodes: data.shortcodes,
+      unified: data.unified,
+      senderId: [...(oldReactions?.senderId || []), loginUser],
+    };
+
+    const count = oldReactions?.count || 0;
+    reactionData.count = count + 1;
+    const re = msgData?.reactions || [];
+
+    const messageData: chatMessageProps = {
+      messageId: msgData?.messageId || '',
+      senderId: msgData?.senderId || '',
+      content: msgData?.content || '',
+      timestamp: msgData?.timestamp || '',
+      reactions: [...re, reactionData],
+    };
+    let msg_temp = chatMessage;
+    const chatIndex = chatMessage.findIndex(
+      (val) => val?.messageId === msgData?.messageId
+    );
+    msg_temp[chatIndex] = messageData;
+    setChatMessage(msg_temp);
   };
   React.useEffect(() => {
     if (scrollRef.current) {
@@ -262,7 +298,13 @@ export default function ChatBox(props: chatBoxProps) {
                     >
                       <IconButton
                         onClick={() =>
-                          setEmojiCount({ id: 'thump', data: message })
+                          setEmojiCount({
+                            id: '+1',
+                            emoji: '👍',
+                            shortcodes: ':+1:',
+                            unified: '1f44d',
+                            data: message,
+                          })
                         }
                         size="small"
                         disableRipple
@@ -271,7 +313,13 @@ export default function ChatBox(props: chatBoxProps) {
                       </IconButton>
                       <IconButton
                         onClick={() =>
-                          setEmojiCount({ id: 'smile', data: message })
+                          setEmojiCount({
+                            id: 'grinning',
+                            emoji: '😀',
+                            shortcodes: ':grinning:',
+                            unified: '1f600',
+                            data: message,
+                          })
                         }
                         size="small"
                         disableRipple
@@ -280,7 +328,13 @@ export default function ChatBox(props: chatBoxProps) {
                       </IconButton>
                       <IconButton
                         onClick={() =>
-                          setEmojiCount({ id: 'ohh', data: message })
+                          setEmojiCount({
+                            id: 'open_mouth',
+                            emoji: '😮',
+                            shortcodes: ':open_mouth:',
+                            unified: '1f62e',
+                            data: message,
+                          })
                         }
                         size="small"
                         disableRipple
@@ -292,7 +346,13 @@ export default function ChatBox(props: chatBoxProps) {
                       </IconButton>
                       <IconButton
                         onClick={() =>
-                          setEmojiCount({ id: 'angry', data: message })
+                          setEmojiCount({
+                            id: 'angry',
+                            emoji: '😠',
+                            shortcodes: ':angry:',
+                            unified: '1f620',
+                            data: message,
+                          })
                         }
                         size="small"
                         disableRipple
@@ -378,9 +438,10 @@ export default function ChatBox(props: chatBoxProps) {
                             gap="8px"
                             alignItems={'center'}
                           >
-                            {message?.reactions?.map(() => {
+                            {message?.reactions?.map((reaction, index) => {
                               return (
                                 <Box
+                                  key={index + reaction?.id}
                                   sx={
                                     isYou
                                       ? ({
@@ -394,7 +455,8 @@ export default function ChatBox(props: chatBoxProps) {
                                   }
                                 >
                                   <Typography sx={{ fontFamily: 'EmojiMart' }}>
-                                    👍 <span>1</span>
+                                    {reaction?.emoji}{' '}
+                                    <span>{reaction?.count}</span>
                                   </Typography>
                                 </Box>
                               );
@@ -500,7 +562,7 @@ export default function ChatBox(props: chatBoxProps) {
         </Box>
       </Box>
       <Box sx={{ fontFamily: 'EmojiMart' }}>
-        <Picker data={data} onEmojiSelect={(e: any) => console.log(e)} />
+        <Picker data={emojiData} onEmojiSelect={(e: any) => console.log(e)} />
       </Box>
     </Box>
   );

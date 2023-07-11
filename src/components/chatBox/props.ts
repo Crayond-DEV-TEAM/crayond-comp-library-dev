@@ -5,7 +5,15 @@ export type chatMessageProps = {
   senderId: string | number;
   content: string;
   timestamp: string | Date;
-  reactions?: Array<any>;
+  reactions?: {
+    id: string;
+    emoji: any;
+    count: number;
+    shortcodes?: string;
+    unified?: string;
+    senderId: Array<string | number>;
+    [key: string]: any;
+  }[];
 };
 
 export type participantsProps = {
