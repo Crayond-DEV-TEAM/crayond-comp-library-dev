@@ -44,8 +44,8 @@ export interface SelectBoxProps {
             borderRadius?: string,
             inputPropsSx?: object,
             isStartIcon?: boolean,
-            startEndornment?: Element,
-            endEndornment?: Element,
+            startEndornment?: JSX.Element,
+            endEndornment?: JSX.Element,
         }
     }
     defaultProps?: {
@@ -114,8 +114,8 @@ export interface SelectBoxProps {
             borderRadius?: string,
             inputPropsSx?: object,
             isStartIcon?: boolean,
-            endEndornment?: Element,
-            startEndornment?: Element,
+            endEndornment?: JSX.Element,
+            startEndornment?: JSX.Element,
         }
     }
     checkboxProps?: {
@@ -148,8 +148,8 @@ export interface SelectBoxProps {
             borderRadius?: string,
             inputPropsSx?: object,
             isStartIcon?: boolean,
-            endEndornment?: Element,
-            startEndornment?: Element,
+            endEndornment?: JSX.Element,
+            startEndornment?: JSX.Element,
         }
     },
     selectType: 'default' | 'chip' | 'checkbox' | 'grouping'

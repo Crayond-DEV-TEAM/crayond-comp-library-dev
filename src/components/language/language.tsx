@@ -141,6 +141,9 @@ export default function Language(props: languageProps) {
     })
   }
 
+  console.log(selectedLang);
+
+
   return (
     <Box>
       <Box p={2}>
