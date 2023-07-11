@@ -187,10 +187,17 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                                 )}
                             </IconButton>
                             <FormGroup sx={styles.switchForm}>
-                                <FormControlLabel sx={{ m: 0, justifyContent: 'center' }}
+                                <FormControlLabel sx={{
+                                    m: 0,
+                                    justifyContent: 'center',
+                                    '& label': {
+                                        margin: '0'
+                                    }
+                                }}
                                     control={<CustomizedSwitches
-                                        onChange={(e: any) => handleSwitch(e?.target?.checked, index)}
-
+                                        onChange={(e: any, arr: any, event: any) =>
+                                            handleSwitch(event?.target?.checked, index)
+                                        }
                                         value={isActive}
                                         isLabel={true}
                                     // color={'primary'}

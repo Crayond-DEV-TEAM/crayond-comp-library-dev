@@ -52,14 +52,19 @@ export const Roles = (props: any) => {
                 </Button>
             </Box>
 
-            <Box sx={{ py: 2, px: 1.25 }}>
+            <Box sx={styles?.searchParent}>
                 <InputField
                     placeholder='Search Here'
                     value={search}
+                    labelStyle={{
+                        display: 'none'
+                    }}
                     inputStyle={styles.search}
                     startAdornments={<SearchIcon sx={{ ml: 1, fontSize: '16px', color: '#818181' }} />}
                     onChange={(e: any) => handleSearch('text', e?.target?.value)}
                     fullWidth={true}
+                    isErrorRequired={false}
+                    isLabelRequired={false}
                 />
             </Box>
             <Box sx={styles.overflowItemSx}>
@@ -173,6 +178,7 @@ export const Roles = (props: any) => {
                                         onChange={(e: any) => handleAddChange('roleNo', e?.target?.value)}
                                         fullWidth={true}
                                         value={state?.roleNo}
+                                        placeholder='Role No'
 
                                     />
                                 </Grid>
@@ -260,7 +266,7 @@ export const Roles = (props: any) => {
                             <Typography sx={{ mt: 0, mb: 0.5, "caret-color": "transparent" }}
                                 variant="caption"
                                 color="error"
-                                component={'p'}>{state?.error?.role}</Typography>
+                                component={'p'}>{state?.error?.roleNo}</Typography>
                         </Box>
                     </Box>
                 }

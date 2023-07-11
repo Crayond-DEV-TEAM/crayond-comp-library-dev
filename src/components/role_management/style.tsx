@@ -187,5 +187,8 @@ export const styles = {
     alignItems: 'center',
     height: '100%',
     justifyContent: 'space-between'
+  },
+  searchParent: {
+    padding: '16px 10px 10px 10px'
   }
 }

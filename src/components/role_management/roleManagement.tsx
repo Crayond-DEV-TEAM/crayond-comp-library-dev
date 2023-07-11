@@ -34,7 +34,6 @@ const RoleManagement = (props: RoleManagementProps) => {
     isActive: boolean,
     error: {
       roleNo: string,
-      role: string,
     }
   }
 
@@ -44,7 +43,6 @@ const RoleManagement = (props: RoleManagementProps) => {
     isActive: false,
     error: {
       roleNo: '',
-      role: '',
     }
   };
 
@@ -99,7 +97,6 @@ const RoleManagement = (props: RoleManagementProps) => {
   }
 
   const handleSearch = (key: string, value: string) => {
-    // debugger
     setSearch(value)
   }
 
@@ -108,9 +105,12 @@ const RoleManagement = (props: RoleManagementProps) => {
     const error = state?.error
     if (state?.role?.length === 0) {
       isValid = false
-      error.role = "Role & RoleNo Required"
+      error.roleNo = "Role & RoleNo Required"
     }
-
+    if (state?.roleNo?.length === 0) {
+      isValid = false
+      error.roleNo = "Role & RoleNo Required"
+    }
     setState({ ...state, error })
     return isValid
   }
@@ -128,6 +128,9 @@ const RoleManagement = (props: RoleManagementProps) => {
 
   }
 
+  console.log(state?.error, 'state?.error');
+
+
   const handleSwitch = (e: boolean, index: number) => {
     const tempArr = [...roles]
 
@@ -137,6 +140,9 @@ const RoleManagement = (props: RoleManagementProps) => {
     }
     setRoles([...tempArr]);
   }
+
+  console.log(roles, 'rolesss');
+
 
   return (
     <Box sx={{ ...styles.rootSx, ...rootStyle }}>
