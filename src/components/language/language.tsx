@@ -2,6 +2,7 @@ import { Box, Typography, Grid } from '@mui/material';
 import { Styles } from './styles';
 import React, { useState } from 'react';
 import { SelectBoxComponent } from '../selectBox';
+import GlobeSvg from '../../assets/globe';
 
 export default function Language(props: languageProps) {
   const {
@@ -15,7 +16,7 @@ export default function Language(props: languageProps) {
 
   interface FilmOptionType {
     title: string;
-    year: number;
+    year: string;
   }
 
   const data = {
@@ -130,28 +131,20 @@ export default function Language(props: languageProps) {
 
   const handleDefaultChange = (val: any, newValue: FilmOptionType) => {
     debugger
-    setOptionValue(newValue)
+    setOptionValue(newValue as never)
     setSelectedLang({
       ...selectedLang, allData: {
-        langName: newValue?.title || '',
-        langText: newValue?.year || 0,
+        langName: newValue?.title,
+        langText: newValue?.year,
 
       }
     })
   }
 
-  console.log(selectedLang);
-
-
   return (
     <Box>
       <Box p={2}>
         <SelectBoxComponent
-          rootStyle={{
-            padding: '0',
-            justifyContent: 'end',
-            display: 'flex'
-          }}
           multiple={false}
           selectType='default'
           defaultProps={{
@@ -159,15 +152,26 @@ export default function Language(props: languageProps) {
             handleDefaultChange: handleDefaultChange,
             defaultData: optionValue,
             arrData: options,
+            islabel: false,
             label: '',
             input: {
-              minWidth: '300px',
+              minWidth: '300px !important',
+              maxWidth: '300px !important ',
               backgroundColor: 'white',
-              border: 'none',
               borderRadius: '8px',
+              border: 'none',
+              isStartIcon: true,
+              startEndornment: <GlobeSvg />,
+              inputPropsSx: {
+                fontWeight: '500',
+                color: '#091B29',
+                fontSize: '16px'
+              }
             },
             dropdown: {
-              minWidth: '300px'
+              minWidth: '300px ',
+              maxWidth: '300px '
+
             }
           }}
 

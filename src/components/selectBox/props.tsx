@@ -1,6 +1,7 @@
+
 interface FilmOptionType {
-    title: string;
-    year: number;
+    title: string | number;
+    year: string | number;
 }
 
 interface CheckedOption {
@@ -10,7 +11,7 @@ interface CheckedOption {
 
 export interface SelectBoxProps {
     multiple?: boolean,
-    rootStyle: object,
+    // rootStyleSx: object,
     limitTags?: number;
     groupingProps?: {
         isCloseIcon?: boolean,
@@ -22,6 +23,8 @@ export interface SelectBoxProps {
         arrData?: FilmOptionType[],
         defaultValue?: FilmOptionType[],
         label?: string,
+        labelPropsSx?: object,
+        islabel: boolean,
         dropdown?: {
             minHeight?: string,
             maxWidth?: string,
@@ -38,7 +41,11 @@ export interface SelectBoxProps {
             backgroundColor?: string,
             color?: string,
             border?: string,
-            borderRadius?: string
+            borderRadius?: string,
+            inputPropsSx?: object,
+            isStartIcon?: boolean,
+            startEndornment?: Element,
+            endEndornment?: Element,
         }
     }
     defaultProps?: {
@@ -51,6 +58,8 @@ export interface SelectBoxProps {
         arrData?: FilmOptionType[],
         defaultValue?: FilmOptionType[],
         label?: string,
+        labelPropsSx?: object,
+        islabel: boolean,
         dropdown?: {
             minHeight?: string,
             maxWidth?: string,
@@ -67,7 +76,11 @@ export interface SelectBoxProps {
             backgroundColor?: string,
             color?: string,
             border?: string,
-            borderRadius?: string
+            borderRadius?: string,
+            inputPropsSx?: object,
+            isStartIcon?: boolean,
+            startEndornment?: Element,
+            endEndornment?: Element,
         }
     }
     chipProps?: {
@@ -80,6 +93,8 @@ export interface SelectBoxProps {
         arrData?: FilmOptionType[],
         defaultValue?: FilmOptionType[],
         label?: string,
+        labelPropsSx?: object,
+        islabel: boolean,
         dropdown?: {
             minHeight?: string,
             maxWidth?: string,
@@ -96,7 +111,11 @@ export interface SelectBoxProps {
             backgroundColor?: string,
             color?: string,
             border?: string,
-            borderRadius?: string
+            borderRadius?: string,
+            inputPropsSx?: object,
+            isStartIcon?: boolean,
+            endEndornment?: Element,
+            startEndornment?: Element,
         }
     }
     checkboxProps?: {
@@ -107,6 +126,8 @@ export interface SelectBoxProps {
         CheckableData: CheckedOption[],
         arrData?: CheckedOption[],
         label?: string,
+        labelPropsSx?: object,
+        islabel: boolean,
         defaultValue?: CheckedOption[],
         dropdown?: {
             minHeight?: string,
@@ -124,7 +145,11 @@ export interface SelectBoxProps {
             backgroundColor?: string,
             color?: string,
             border?: string,
-            borderRadius?: string
+            borderRadius?: string,
+            inputPropsSx?: object,
+            isStartIcon?: boolean,
+            endEndornment?: Element,
+            startEndornment?: Element,
         }
     },
     selectType: 'default' | 'chip' | 'checkbox' | 'grouping'
