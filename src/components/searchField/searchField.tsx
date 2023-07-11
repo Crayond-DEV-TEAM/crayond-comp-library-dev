@@ -1,6 +1,5 @@
 import {
   Autocomplete,
-  AutocompleteChangeReason,
   Box,
   Divider,
   InputAdornment,
@@ -8,9 +7,9 @@ import {
   Stack,
   SxProps,
   TextField,
-  Typography,
+  Typography
 } from '@mui/material';
-import { ReactEventHandler, useState } from 'react';
+import { useState } from 'react';
 import ArrowUpDownIcon from '../../assets/arrowUpDownIcon';
 import Close from '../../assets/close';
 import EnterIcon from '../../assets/enterIcon';
@@ -107,7 +106,7 @@ const SearchField = (props: SearchFieldProps) => {
     handleOptionChange = () => {},
   } = props;
 
-  const [searched, setSearched] = useState<ParamsProps>({ label: '', url: '' });
+  const [searched, setSearched] = useState<ParamsProps>({ label: "", url: "" });
   const [search, setSearch] = useState('');
   const [recentSearch, setRecentSearch] = useState<Category1Props['option']>(
     []
@@ -564,7 +563,7 @@ const SearchField = (props: SearchFieldProps) => {
                     sx={{ cursor: 'pointer' }}
                     onClick={() => handleClear()}
                   >
-                    {searched.label ? endAdornmentIcon : ''}
+                    {searched?.label ? endAdornmentIcon : ''}
                   </InputAdornment>
                 </>
               ),
