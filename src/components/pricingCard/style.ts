@@ -6,6 +6,7 @@ totalPricingBoxSx:{
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
+    backgroundColor:'#F5F5F5',
     
     // alignItems: 'center',
 },
@@ -20,14 +21,15 @@ cardSx:{
     flex:1,
     backgroundColor:'#fff',
     borderRadius:'8px',
+    border:'0px',
     width:'100%',
     maxWidth:'368px',
     pt:'34px',pb:'24px',
     px:'24px',
     position:'relative',
-    border:'1px solid',
     display: 'flex',
     flexDirection: 'column',
+    boxShadow:' 0px 0px 6px 2px #d5d5d5c2',
     // height: '445px',
     justifyContent: 'space-between',
    
@@ -141,6 +143,7 @@ cardTwoSx:{
     px:'24px',
     position:'relative',
     border:'1px solid',
+    cursor:'pointer'
   
 },
 paySx:{
@@ -277,6 +280,38 @@ emailEbSx:{
         },
       },
 },
+promoCode:{
+    maxWidth: '218px',
+    '& .MuiOutlinedInput-input': {
+        width: '100%',
+        fontWeight: '600 !important',
+        padding:"0px",
+        fontSize:'14px',
+        color:'#665CD7',
+        // '& .MuiTextField-root': {
+        //   mt: 1,
+        // },
+      },
+      '& .Mui-focused.MuiOutlinedInput-notchedOutline':{
+        borderColor: '#E9E9E9 !important',
+      },
+      '& .MuiOutlinedInput-root': {
+        p:'0px',
+        '& fieldset': {
+          borderRadius: '4px',
+          border: '0px',
+          borderColor: '#E9E9E9 ',
+         
+         
+        },
+        '&:hover fieldset': {
+          borderColor: 'primary.main',
+        },
+        '& .Mui-focused fieldset': {
+          borderColor: 'primary.main',
+        },
+      },
+},
 emailInputSx:{
     pt:'22px'
 },
@@ -318,7 +353,8 @@ footerSubHeadApply:{
     fontSize:'16px',
     color:'#776DEF',
     textDecoration:'underline',
-    pb:'12px'
+    pb:'12px',
+    cursor:'pointer'
 },
 billpaymentFinalSx:{
     backgroundColor:'#fff',
@@ -336,6 +372,7 @@ billpaymentFinalSx:{
     totalPaymentSx:{
         display: 'flex',
         pb: '32px',
+        cursor:'pointer',
         '@media (max-width: 600px)': {
           display:'block',
            

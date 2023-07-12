@@ -14,14 +14,14 @@ interface Pricing {
     }[];
     subcriptionAmountMonthly: string | number;
     subcriptionAmountYearly: string;
-    offerYouSave: string;
+    offerYouSave: string | undefined;
     totalAmount: string;
     subscriptionDue: string;
     getStartedbtn: string;
     currencySymbol: string;
   }
  
-  interface PricingCards extends Pricing {
+  interface PricingCards  {
     title: string;
     description: string;
     pricingList: {
@@ -33,6 +33,7 @@ interface Pricing {
     subscriptionDue: string;
     getStartedbtn: string;
     currencySymbol: string;
+    
   }
 
   interface PaymentData {
@@ -42,16 +43,20 @@ interface Pricing {
     ccv: string;
   }
 
+interface CombinedPricing extends Pricing, PricingCards {}
+
 export default {
   title: 'components/PricingCard',
   component: PricingCard,
 } as ComponentMeta<typeof PricingCard>;
 
 const Template: ComponentStory<typeof PricingCard> = (args) => {
-    const [pricing, setPricing] = useState<Pricing | undefined | PricingCards>(undefined);
+  const [pricing, setPricing] = useState<CombinedPricing | undefined>(undefined);
 
-    const onPricingChanges =(data:Pricing|PricingCards)=>{
-      setPricing(data)
+
+    const onPricingChanges = (data: Pricing | PricingCards, index: number) => {
+      setPricing(data as CombinedPricing);
+      console.log(index,'index')
     }
   
     const onSelectedPlan =(data:Pricing|PricingCards,card:PaymentData)=>{
@@ -99,6 +104,7 @@ const Template: ComponentStory<typeof PricingCard> = (args) => {
       pricing={pricing}
       onPricingChanges={onPricingChanges}
       onStartPlan={onSelectedPlan}
+      
     />
   );
 };
@@ -261,11 +267,11 @@ Primary.args = {
     
         },
       ],
-     onStartPlan : (data: Pricing | PricingCards, cardDetails: PaymentData) => {
-    console.log(data, 'data');
+     onStartPlan : (data, cardDetails) => {
+       console.log(data, 'data');
     console.log(cardDetails, 'cardDetails!!!');
   },
-    onGetStartPlan :(data: Pricing | PricingCards)=>{
+    onGetStartPlan :(data)=>{
     console.log(data, 'data');
   },
       activeColor:"#665CD7",
@@ -280,4 +286,5 @@ Primary.args = {
   paymentSelectedCardSx: {},
   emailInputSx: {},
   ccvsSx: {},
+  
 };

@@ -1,16 +1,7 @@
 /* eslint-disable react/prop-types */
-import {
-  Box,
-  Card,
-  CardContent,
-  CardActions,
-  Typography,
-  IconButton,
-  Grid,
-  InputAdornment,
-} from '@mui/material';
+import {Box,Card,CardContent, CardActions, Typography, IconButton, Grid, InputAdornment,} from '@mui/material';
 import { pricingcardstyle } from './style';
-
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { ReactNode, useEffect, useState } from 'react';
 import { AcceptIcon } from '../../assets/accept';
 import { BasicButtons } from '../button';
@@ -19,35 +10,42 @@ import { EmailIcon } from '../../assets/email';
 import { CardPayment } from '../../assets/cardPayment';
 
 interface PricingCard {
-  variation1: boolean;
-  variation2: boolean;
-  activeColor: string;
-  startPlanBtnStyle: object;
-  footerSubPara: string;
-  getStartedPaymentplan: string;
-  emailHeader:string;
-  billPaymentAmount: string;
+  variation1?: boolean;
+  variation2?: boolean;
+  activeColor?: string;
+  startPlanBtnStyle?: object;
+  footerSubPara?: string;
+  getStartedPaymentplan?: string;
+  emailHeader?:string;
+  billPaymentAmount?: string;
   VariationTwoRigthBox: object;
   variationPositionStyle: object;
-  paymentSelectedCardSx: object;
-  emailInputSx: object;
-  ccvsSx: object;
-  pricingCardVariationOne: PricingCards[];
-  pricing: Pricing;
-  VerfiyIcon:JSX.Element;
-  applyPromoCode:string;
-  cardNumberTitle:string;
-  pricingCardVariationTwo: Pricing[];
-  onStartPlan: (data: Pricing, paymentData: PaymentData) => void;
-  onGetStartPlan: (data: Pricing) => void;
-  onPricingChanges: (data: Pricing, index: number) => void;
+  paymentSelectedCardSx?: object;
+  emailInputSx?: object;
+  ccvsSx?: object;
+  pricingCardVariationOne?: PricingCards[];
+  pricing?:CombinedPricing | undefined;
+  VerfiyIcon?:JSX.Element;
+  applyPromoCode?:string;
+  cardNumberTitle?:string;
+  promoCodeSx?:object;
+  CustomPaymentField?:ReactNode;
+  paymentFooter?:ReactNode;
+  pricingCardVariationTwo?: Pricing[];
+  cardNumberLength?:number,
+  onStartPlan?: (data: Pricing, paymentData: PaymentData) => void;
+  onGetStartPlan?: (data: Pricing |PricingCards) => void;
+  onPricingChanges?: (data: Pricing | PricingCards, index: number) => void;
 }
+
+
 
 interface PaymentData {
   email: string;
   expiry: string;
   cardNumber: string;
   ccv: string;
+  promoCodeNumber:string
 }
 
 interface Pricing {
@@ -60,13 +58,13 @@ interface Pricing {
   }[];
   subcriptionAmountMonthly: string | number;
   subcriptionAmountYearly: string;
-  offerYouSave: string;
-  totalAmount: string;
+  offerYouSave?: string | undefined;
+  totalAmount: string | number;
   subscriptionDue: string;
   getStartedbtn: string;
   currencySymbol: string;
 }
-interface PricingCards {
+interface PricingCards  {
   title: string;
   description: string;
   pricingList: {
@@ -74,12 +72,13 @@ interface PricingCards {
     isCancel: boolean;
     listPoints: string;
   }[];
-  subcriptionAmountMonthly: string | number;
+  subcriptionAmountMonthly: string |number;
   subscriptionDue: string;
   getStartedbtn: string;
   currencySymbol: string;
 
 }
+interface CombinedPricing extends Pricing, PricingCards {}
 
 export function PricingCard(props: PricingCard) {
   const {
@@ -97,13 +96,17 @@ export function PricingCard(props: PricingCard) {
     variationPositionStyle = {},
     paymentSelectedCardSx = {},
     emailInputSx = {},
+    promoCodeSx={},
     ccvsSx = {},
+    CustomPaymentField,
+    paymentFooter,
     onStartPlan = () => false,
     onGetStartPlan = () => false,
     pricingCardVariationOne = [],
     pricingCardVariationTwo = [],
     onPricingChanges = () => false,
     pricing,
+    cardNumberLength,
     VerfiyIcon
   } = props;
 
@@ -111,31 +114,32 @@ export function PricingCard(props: PricingCard) {
     monthly: false,
     yearly: false,
   });
-
+ 
   const [active, setActive] = useState(0);
   const [state, setState] = useState({
     email: '',
     expiry: '',
     cardNumber: '',
     ccv: '',
+    promoCodeNumber:'',
     error: {
       email: '',
       expiry: '',
       cardNumber: '',
       ccv: '',
+      promoCodeNumber:'',
     },
   });
-
+  const [promoCode,setPromoCode]=useState(true);
   const [errorEnable,setErrorEnable]=useState({
     email: false,
     expiry: false,
     cardNumber: false,
     ccv: false,
+    promoCodeNumber:false,
   })
 
-  const handleCardNumberChange = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleCardNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputCardNumber = event.target.value.replace(/[^0-9]/g, '');
     let formattedCardNumber = '';
 
@@ -146,7 +150,7 @@ export function PricingCard(props: PricingCard) {
       formattedCardNumber += inputCardNumber[i];
     }
 
-    formattedCardNumber = formattedCardNumber.slice(0, 19);
+    formattedCardNumber = formattedCardNumber.slice(0, cardNumberLength  ? cardNumberLength : 19);
 
     setState({
       ...state,
@@ -154,9 +158,9 @@ export function PricingCard(props: PricingCard) {
     });
   };
 
-  const onGetStartFunc = () => {
+  const onGetStartFunc = (data:Pricing|PricingCards) => {
     if (pricing) {
-      onGetStartPlan(pricing);
+      onGetStartPlan(data);
     }
   };
 
@@ -220,7 +224,7 @@ export function PricingCard(props: PricingCard) {
     return isValid;
   };
   
-  const onPricingChange = (val: Pricing, index: number) => {
+  const onPricingChange = (val: Pricing | PricingCards, index: number) => {
     onPricingChanges(val, index);
     setActive(index);
   };
@@ -261,6 +265,13 @@ export function PricingCard(props: PricingCard) {
     });
   };
 
+  const handlePromoCode =(event: React.ChangeEvent<HTMLInputElement>)=>{
+    setState({
+      ...state,
+      promoCodeNumber: event?.target?.value,
+    });
+  }
+
   const onPaymentSelect = () => {
     setPaymentActive({
       ...paymentActive,
@@ -277,34 +288,46 @@ export function PricingCard(props: PricingCard) {
     });
   };
 
-  const offerPercentage = pricing?.offerYouSave
-    ? parseInt(pricing.offerYouSave.replace('Save ', '').replace('%', ''))
-    : 0;
-  const yearlyAmount = parseInt(
-    String(pricing?.subcriptionAmountYearly).replace('$', '')
-  );
-  const offerAmount = (yearlyAmount * offerPercentage) / 100;
-  const roundedOfferAmount = Math.ceil(offerAmount);
-  const finalAmount = `${yearlyAmount - roundedOfferAmount}`;
+  const offerPercentage =( pricing && ('offerYouSave' in pricing && pricing?.offerYouSave))
+  ? parseInt(pricing.offerYouSave.match(/\d+/)?.[0] ?? '0')
+  : 0;
 
-  const onGetSeletePlan = () => {
-    if (validate()) {
-      if (pricing) {
-        const { email, expiry, cardNumber, ccv } = state;
-        onStartPlan(
-          { ...pricing, totalAmount: finalAmount },
-          { email, expiry, cardNumber, ccv }
-        );
-        setState({
-          ...state,
-          ccv:'',
-          email:'',
-          expiry:'',
-          cardNumber:'',
-        })
-      }
+const yearlyAmount = parseInt(
+  String(pricing?.subcriptionAmountYearly ?? '0').replace('$', '')
+);
+
+const offerAmount = (yearlyAmount * offerPercentage) / 100;
+const roundedOfferAmount = Math.ceil(offerAmount);
+const finalAmount = yearlyAmount - roundedOfferAmount;
+  
+
+
+const onGetSeletePlan = () => {
+  if (validate()) {
+    if (pricing) {
+      const { email, expiry, cardNumber, ccv, promoCodeNumber } = state;
+      const updatedPricing: Pricing = {
+        ...pricing,
+        subcriptionAmountYearly: String(0), 
+        offerYouSave: '', 
+        totalAmount: finalAmount,
+      };
+
+      onStartPlan(updatedPricing, { email, expiry, cardNumber, ccv, promoCodeNumber });
+      setState({
+        ...state,
+        ccv: '',
+        email: '',
+        expiry: '',
+        cardNumber: '',
+      });
     }
-  };
+  }
+};
+
+  const onPromoCode =()=>{
+    setPromoCode(false)
+  }
 
   useEffect(() => {  setPaymentActive({
       ...paymentActive,
@@ -317,7 +340,7 @@ export function PricingCard(props: PricingCard) {
     <Box sx={{ ...pricingcardstyle.rootSx }}>
       {variation1 && (
         <Box sx={{ ...pricingcardstyle.totalPricingBoxSx }}>
-          {pricingCardVariationOne &&  pricingCardVariationOne?.map((val, index) => {
+          {pricingCardVariationOne &&  pricingCardVariationOne?.map((val:PricingCards, index:number) => {
               return (
                 <Box key={index} sx={{ ...pricingcardstyle.totalBodySx }}>
                   <Card sx={{ ...pricingcardstyle.cardSx }}>
@@ -381,7 +404,7 @@ export function PricingCard(props: PricingCard) {
                       <CardActions sx={{ justifyContent: 'center' }}>
                         <BasicButtons
                           inLineStyles={{ ...pricingcardstyle.getBtnSx }}
-                          onClick={() => onGetStartFunc()}
+                          onClick={() => onGetStartFunc(val)}
                         >
                           {val?.getStartedbtn}
                         </BasicButtons>
@@ -493,7 +516,7 @@ export function PricingCard(props: PricingCard) {
                             {val?.getStartedbtn && (
                               <BasicButtons inLineStyles={{ ...pricingcardstyle.getBtnSx, maxWidth: variation2 ? 'inherit' : '204px',
                                   backgroundColor:  active === index ? `${activeColor}` : '#E3E1F7',
-                                  color:  active === index? '#fff' : `${activeColor}`,  ...startPlanBtnStyle,}}  onClick={() => onGetStartFunc()}
+                                  color:  active === index? '#fff' : `${activeColor}`,  ...startPlanBtnStyle,}}  onClick={() => onGetStartFunc(val)}
                               >
                                 {val?.getStartedbtn}
                               </BasicButtons>
@@ -527,13 +550,6 @@ export function PricingCard(props: PricingCard) {
                         <Typography sx={{   ...pricingcardstyle.pricingsubSx, borderBottom: '0px', pb: '0px', }}>
                           {pricing?.currencySymbol}  {pricing?.subcriptionAmountMonthly}/{pricing?.subscriptionDue}
                         </Typography>
-                        {pricing?.offerYouSave && (
-                          <BasicButtons
-                            inLineStyles={pricingcardstyle.saveBgSx}
-                          >
-                            {pricing?.offerYouSave}
-                          </BasicButtons>
-                        )}
                       </Box>
                     </Box>
                     <Box sx={{ ...pricingcardstyle.payCardSx, ...paymentSelectedCardSx,  border: paymentActive?.yearly  ? `2px solid ${activeColor}` : '2px solid #D3D3D3',}}
@@ -543,9 +559,7 @@ export function PricingCard(props: PricingCard) {
                           <IconButton sx={{  ...pricingcardstyle.selctbtn, p: 0, justifyContent: 'end', }}>
                             {VerfiyIcon}
                           </IconButton>
-                        ) : (
-                          ''
-                        )}
+                        ) : ('')}
                       </Box>
                       <Typography sx={{ ...pricingcardstyle.paySx }}>
                         Pay yearly
@@ -554,14 +568,15 @@ export function PricingCard(props: PricingCard) {
                         <Typography sx={{ ...pricingcardstyle.pricingsubSx,borderBottom: '0px', pb: '0px', }}>
                           {pricing?.currencySymbol} {finalAmount}/{pricing?.subscriptionDue}
                         </Typography>
-                        {pricing?.offerYouSave && (
-                          <BasicButtons inLineStyles={pricingcardstyle.saveBgSx}>
-                            {pricing?.offerYouSave}
-                          </BasicButtons>
-                        )}
+                         {pricing && 'offerYouSave' in pricing && (
+                                  <BasicButtons inLineStyles={pricingcardstyle.saveBgSx}>
+                                  {pricing.offerYouSave}
+                                 </BasicButtons>
+                          )}
                       </Box>
                     </Box>
                   </Box>
+                { CustomPaymentField ? CustomPaymentField : <>    
                   <Box sx={{ ...pricingcardstyle.billSubSx }}>
                     <Box sx={{ ...pricingcardstyle.billSx }}>
                       <Typography sx={{ ...pricingcardstyle.billTitle }}>
@@ -665,16 +680,52 @@ export function PricingCard(props: PricingCard) {
                   <Typography sx={{ ...pricingcardstyle.securedSx }}>
                     Secured from with RBI guidelines
                   </Typography>
+                </>}
                 </CardContent>
                 <CardActions sx={{ ...pricingcardstyle?.footerCardSx }}>
-                  <Box  sx={{ ...pricingcardstyle.totalAmountSx}}>
+                  { paymentFooter ? paymentFooter :  <Box  sx={{ ...pricingcardstyle.totalAmountSx}}>
                     <Typography sx={{ ...pricingcardstyle.footerSubBill }}>
                       {billPaymentAmount}:{pricing?.currencySymbol}
                       {paymentActive?.yearly? finalAmount : pricing?.subcriptionAmountMonthly}
                     </Typography>
-                    <Typography sx={{ ...pricingcardstyle.footerSubHeadApply }}>
+                    { promoCode ?
+                      <Box onClick={onPromoCode}>
+                      <Typography sx={{ ...pricingcardstyle.footerSubHeadApply }}>
                       {applyPromoCode}
-                    </Typography>
+                      </Typography> 
+                      </Box>
+                      :
+    
+                    <Box sx={{ pb:'12px'}}>
+                     <InputField
+                     isErrorRequired={errorEnable?.promoCodeNumber}
+                     error={state?.error?.promoCodeNumber?.length > 0 ? true : false}
+                     errorMessage={state?.error?.promoCodeNumber}
+                     isLabelRequired={false}
+                     placeholder="Enter Promo Code"
+                     inputStyle={{
+                       ...pricingcardstyle.promoCode,
+                       ...promoCodeSx,
+                       '& .MuiOutlinedInput-input': {
+                         color:activeColor,
+                         p:'0px'
+                    
+                       }
+                     }}
+                     value={state?.promoCodeNumber}
+                     onChange={handlePromoCode}
+                     InputProps={{
+                       endAdornment: (
+                         <InputAdornment position="end">
+                           <IconButton onClick={()=>setPromoCode(true)}>
+                           <CancelOutlinedIcon/>
+                           </IconButton>
+                         </InputAdornment>
+                       ),
+                     }}
+                   />
+                      </Box>
+                    }
                     <Typography sx={{ ...pricingcardstyle.footerSubHead }}>
                       {footerSubPara}
                     </Typography>
@@ -689,7 +740,7 @@ export function PricingCard(props: PricingCard) {
                         {getStartedPaymentplan}
                       </BasicButtons>
                     </Box>
-                  </Box>
+                  </Box>}
                 </CardActions>
               </Card>
             </Grid>
@@ -719,5 +770,7 @@ PricingCard.defaultProps = {
   onPricingChanges: () => false,
   pricingCardVariationTwo: [],
   pricingCard: [],
-  VerfiyIcon: <AcceptIcon/>
+  VerfiyIcon: <AcceptIcon/>,
+  promoCodeSx:{},
+
 };
