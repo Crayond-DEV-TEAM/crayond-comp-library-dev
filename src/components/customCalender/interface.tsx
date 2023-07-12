@@ -4,12 +4,12 @@ export interface CalenderProps {
     CommonLeaves: string[];
     nationalLeaves: NationalLeave[];
     eventsIcon: EventIcon[];
-    calenderList: calenderLists[];
+    calenderList?: calenderLists[];
     eventsData: EventData[];
     select: number;
     selectedCategory: string | null;
     searchCalendarList: string;
-    eventCategories: EventCategory[];
+    eventCategories?: EventCategory[];
     remainderOption: DayOption[];
     isEventModal: boolean;
     CustomEventComponent: CustomEventComponentProps;
@@ -50,7 +50,7 @@ export interface CalenderProps {
     onSelectEventFunc:(data:EventData) => void;
     OnEventChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
     onCalenderListClick: (index: number) => void;
-    OnEventAdd: (data: EventData) => void;
+    OnEventAdd?: (data: EventData) => void;
     onCalenderSearch: (e: onCalenderSearchs) => void;
     onEventsDelete: (data: EventData) => void;
     CustomizedToolbar:(data: CustomToolbarProps)=>void;

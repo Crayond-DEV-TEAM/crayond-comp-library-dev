@@ -113,6 +113,7 @@ export function CustomCalender(props: CalenderProps) {
     calenderTitle = 'Calender',
   } = props;
 
+
   // React BigCalender Moments
   const localizer = momentLocalizer(moment);
 
@@ -427,9 +428,7 @@ export function CustomCalender(props: CalenderProps) {
   };
 
   // Events Edits
-  const handleEventEdits = (
-    event: React.MouseEvent<HTMLButtonElement> | null
-  ) => {
+  const handleEventEdits = (  event: React.MouseEvent<HTMLButtonElement> | null ) => {
     if (event) {
       const newEvent: EventData = {
         id: '',
@@ -446,8 +445,8 @@ export function CustomCalender(props: CalenderProps) {
         type: selectedCategoryDialog,
       };
       onEventsEdit(newEvent);
+       seteditdata(event);
       if (isEventModal) {
-        seteditdata(event);
         seteditAccoss(true);
         setOpenTime(false);
         setEndTimeModal(false);
@@ -460,12 +459,10 @@ export function CustomCalender(props: CalenderProps) {
   };
 
   // //Events Delete
-  const handleEventDelete = (
-    event: React.MouseEvent<HTMLButtonElement> | null
-  ) => {
+  const handleEventDelete = (event: React.MouseEvent<HTMLButtonElement> | null) => {
     if (event) {
       const newEvent: EventData = {
-        id: editdata?.id,
+        id: editdata?.id ?? '',
         title: eventDialogTitle ?? '',
         des: eventDialogDescription ?? '',
         allDay: false,
@@ -515,7 +512,6 @@ export function CustomCalender(props: CalenderProps) {
       setOpenModal(true);
       setIsedit(true);
       setSelectedRange({ start: e?.start, end: e?.end });
-      seteditdata(e);
       seteditAccoss(false);
       setOpenTime(false);
       setEndTimeModal(false);
@@ -525,8 +521,8 @@ export function CustomCalender(props: CalenderProps) {
       });
     onEventsEdit(e);
     }
+    seteditdata(e);
     onSelectEventFunc({...e,startTime:convertTo24HourFormat(e?.startTime),endTime:convertTo24HourFormat(e?.endTime)});
-   
   };
 
   // Even  Style
@@ -1121,9 +1117,6 @@ export function CustomCalender(props: CalenderProps) {
                     }
                     disabled={!editAccoss ? true : false}
                     IconComponent={KeyboardArrowUpIcon}
-                    defaultValue={
-                      selectedCategoryDialog || eventCategories[0].name
-                    }
                   >
                     {eventCategories.map(
                       (category: EventCategory, index: number) => (
@@ -1348,7 +1341,7 @@ CustomCalender.defaultProps = {
   isEventModal: true,
   onHandleDateSelect: () => false,
   remainderOption: [],
-  nationalLeaveBgColor: 'red',
+  nationalLeaveBgColor: '#efeefb',
   commonLeaveBgcolor: '#FAFAFA',
   styleProps: {},
   eventTitleHeadStyle: {},

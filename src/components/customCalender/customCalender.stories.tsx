@@ -4,8 +4,6 @@ import { CustomCalender } from './index';
 import { CustomizeEventProps, EventData } from './interface';
 // import moment from 'moment';
 
-
-
 export default {
   title: 'Components/CustomCalender',
   component: CustomCalender,
@@ -25,9 +23,8 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
   const [endTime, setEndTime] = useState<string>('');
   const [editEvent, setEditEvent] = useState<boolean| EventData>(false);
   const [editValue, setEditValue] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState(
-    "Default Calendar"
-  );
+
+  const [selectedCategory, setSelectedCategory] = useState("");
   const [modalContent, setModalContent] = useState<{
     modalTitle?: string;
     modalDescription?: string;
@@ -81,7 +78,6 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
     setEndTime('');
     setModalContent({ modalTitle: '', modalDescription: '' });
     setEditEvent(false)
-    setSelectedCategory( "Default Calendar")
 
   };
 
@@ -116,9 +112,7 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
     setEventRemainder(0);
     setStartTime('');
     setEndTime('');
-  };
-
-  
+  }; 
  
   const onEventDialogChange = (value: any, key: string) => {
     if (key === 'modalTitle' || key === 'modalDescription') {
@@ -172,9 +166,10 @@ const Template: ComponentStory<typeof CustomCalender> = (args) => {
     setEndTime('');
     setSelectedCategory('')
    }
- const  onCustomizeEvent = (e:CustomizeEventProps) => {
+
+   const  onCustomizeEvent = (e:CustomizeEventProps) => {
    console.log(e,'customizeevent')
- }
+   }
 
   
   return (
