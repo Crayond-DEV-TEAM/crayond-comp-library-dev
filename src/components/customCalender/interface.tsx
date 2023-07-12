@@ -1,68 +1,68 @@
 import { ReactNode } from "react";
 
 export interface CalenderProps {
-    CommonLeaves: string[];
-    nationalLeaves: NationalLeave[];
-    eventsIcon: EventIcon[];
+    CommonLeaves?: string[];
+    nationalLeaves?: NationalLeave[];
+    eventsIcon?: EventIcon[];
     calenderList?: calenderLists[];
-    eventsData: EventData[];
-    select: number;
-    selectedCategory: string | null;
-    searchCalendarList: string;
-    eventCategories?: EventCategory[];
-    remainderOption: DayOption[];
+    eventsData?: EventData[];
+    select?: number;
+    selectedCategory?: string | null;
+    searchCalendarList?: string;
+    eventCategories: EventCategory[];
+    remainderOption?: DayOption[];
     isEventModal: boolean;
-    CustomEventComponent: CustomEventComponentProps;
-    calenderCellackgroundColor: string;
-    calendercellBackgroundColor: string;
-    SearchCalenderList: string;
-    styleProps?: Partial<DefaultStyleProps>;
-    CustomEvents: boolean;
-    nationalLeaveBgColor: string;
-    commonLeaveBgcolor: string;
-    calenderActiveBgColor: string;
-    calenderActiveColor: string;
-    customHeadStyle: object;
-    CalenderStyle: object;
-    eventTitleHeadStyle: object;
-    customCalenderListSx: object;
-    SearchCalender: string;
-    editEvent:EventData;
-    addEventBtnSx: object;
-    dialogEvent:object;
-    eventDialogTitle:string | undefined;
-    eventDialogDescription:string  | undefined,
-    selectedCategoryDialog:string,
-    startTimeDialog:string,
-    endTimeDialog:string,
-    eventRemainder:number,
-    selectedDay:string,
-    calenderListName:string;
-    calenderIconSx:object,
-    editListValue:string,
-    calenderTitle:string,
-    isCustomizeToolbar:boolean;
-    onHandleDateSelect:()=>void;
-    onCustomizeEventAdd:(data:EventData)=>void;
-    closeEventDialog:()=>void;
-    handleEventChange:(e:React.ChangeEvent<HTMLInputElement>)=>void;
-    onSaveCalenderList:(val: calenderLists, index: number)=>void;
+    CustomEventComponent?: CustomEventComponentProps;
+    calenderCellackgroundColor?: string;
+    calendercellBackgroundColor?: string;
+    SearchCalenderList?: string;
+    styleProps: Partial<DefaultStyleProps>;
+    CustomEvents?: boolean;
+    nationalLeaveBgColor?: string;
+    commonLeaveBgcolor?: string;
+    calenderActiveBgColor?: string;
+    calenderActiveColor?: string;
+    customHeadStyle?: object;
+    CalenderStyle?: object;
+    eventTitleHeadStyle?: object;
+    customCalenderListSx?: object;
+    SearchCalender?: string;
+    editEvent?:EventData;
+    addEventBtnSx?: object;
+    dialogEvent?:object;
+    eventDialogTitle?:string | undefined;
+    eventDialogDescription?:string  | undefined,
+    selectedCategoryDialog?:string,
+    startTimeDialog?:string,
+    endTimeDialog?:string,
+    eventRemainder?:number,
+    selectedDay?:string,
+    calenderListName?:string;
+    calenderIconSx?:object,
+    editListValue?:string,
+    calenderTitle?:string,
+    isCustomizeToolbar?:boolean;
+    onHandleDateSelect?:()=>void;
+    onCustomizeEventAdd?:(data:EventData)=>void;
+    closeEventDialog?:()=>void;
+    handleEventChange?:(e:React.ChangeEvent<HTMLInputElement>)=>void;
+    onSaveCalenderList?:(val: calenderLists, index: number)=>void;
     onSelectEventFunc:(data:EventData) => void;
-    OnEventChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-    onCalenderListClick: (index: number) => void;
-    OnEventAdd?: (data: EventData) => void;
-    onCalenderSearch: (e: onCalenderSearchs) => void;
+    OnEventChange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+    onCalenderListClick?: (index: number) => void;
+    OnEventAdd: (data: EventData) => void;
+    onCalenderSearch?: (e: onCalenderSearchs) => void;
     onEventsDelete: (data: EventData) => void;
-    CustomizedToolbar:(data: CustomToolbarProps)=>void;
-    addCalenderList: () => void;
-    onDeleteCalenderList: (data: calenderLists, index: number) => void;
-    onCalendarSearch: () => void;
+    CustomizedToolbar?:(data: CustomToolbarProps)=>void;
+    addCalenderList?: () => void;
+    onDeleteCalenderList?: (data: calenderLists, index: number) => void;
+    onCalendarSearch?: () => void;
     onEventsEdit: (data: EventData) => void;
-    onCalenderListSearch: (e: CalendarListSearchProps) => void;
-    onEditCalenderList: (data: calenderLists, index: number) => void;
-    onCustomizeEvent: (data: CustomizeEventProps) => void;
-    onEventDialogChange:(value:any | number ,key:string)=>void;
-    onCloseClanderList:(val: calenderLists, index: number)=>void
+    onCalenderListSearch?: (e: CalendarListSearchProps) => void;
+    onEditCalenderList?: (data: calenderLists, index: number) => void;
+    onCustomizeEvent?: (data: CustomizeEventProps) => void;
+    onEventDialogChange?:(value:any | number ,key:string)=>void;
+    onCloseClanderList?:(val: calenderLists, index: number)=>void
   }
   export interface CustomTImeFormat {
     hour: string, minute: string
