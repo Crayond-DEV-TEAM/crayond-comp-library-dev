@@ -1,5 +1,6 @@
 import { SxProps } from "@mui/material";
 export interface ParamsProps {
+  id:number;
   label: string;
   url?: string;
 }
@@ -7,6 +8,7 @@ export interface SuggestionProp {
   searchValue: any;
   handleRecentSearch:(val:ParamsProps)=>void;
   option: {
+    id:number;
     label: string;
     url?: string;
   }[];
@@ -14,6 +16,7 @@ export interface SuggestionProp {
 export interface Category1Props {
   searchValue: any;
   option: {
+    id:number;
     label: string;
     url?: string;
   }[];
@@ -45,6 +48,7 @@ export interface RecentSearchProps {
 }
 export interface SearchFieldProps {
   options: {
+    id:number;
     label: string;
     url?: string;
   }[];
@@ -58,6 +62,7 @@ export interface SearchFieldProps {
 
   paperRootStyle?: SxProps;
 
+  noOptionsText:string;
   placeHolderText: string;
   placeHolderColor?: string;
   placeHolderSize?: number;
@@ -66,18 +71,18 @@ export interface SearchFieldProps {
   inputFontColor?: string;
   inputBackgroundColor?: string;
   inputBorderDefaultColor?: string;
-  inputBorderHoverColor: string;
-  inputBorderFocusColor: string;
+  inputBorderHoverColor?: string;
+  inputBorderFocusColor?: string;
   startAdornmentIcon: React.ReactNode;
   endAdornmentIcon: React.ReactNode;
 
-  paperBackgroundColor: string;
-  paperBorderColor: string;
-  paperHeight: number;
-  paperMinHeight: number;
-  paperMaxHeight: number;
+  paperBackgroundColor?: string;
+  paperBorderColor?: string;
+  paperHeight?: number;
+  paperMinHeight?: number;
+  paperMaxHeight?: number;
 
-  listTextHoverColor: string;
+  listTextHoverColor?: string;
   listTextHoverBgColor: string;
   keyDownListBgcolor: string;
   keyDownListTextColor: string;
@@ -106,7 +111,7 @@ export interface SearchFieldProps {
   controlsBgColor: string;
   controlsTextSize: number;
 
-  componentColumnDirection: string;
+  componentColumnDirection: 'column'|'column-reverse';
   recentSearchLabelColor: string;
   recentSearchLabelSize: number;
   recentSearchLabel: string;
@@ -117,14 +122,17 @@ export interface SearchFieldProps {
   categoryLabel2Color: string;
   categoryLabel2Size: number;
   primaryCategoryData: {
+    id:number;
     label: string;
     url?: string;
   }[];
   secondaryCategoryData: {
+    id:number;
     label: string;
     url?: string;
   }[];
 
+  onSelectSearchDataFun:(val:any)=>void;
   handleInputOnChange: (val: any) => void;
   handleOptionChange: (val: any) => void;
 
