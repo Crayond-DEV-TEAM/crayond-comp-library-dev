@@ -11,7 +11,7 @@ interface CheckedOption {
 
 export interface SelectBoxProps {
     multiple?: boolean,
-    // rootStyleSx: object,
+    SelectDropdownSx?: object,
     limitTags?: number;
     groupingProps?: {
         isCloseIcon?: boolean,
@@ -79,8 +79,8 @@ export interface SelectBoxProps {
             borderRadius?: string,
             inputPropsSx?: object,
             isStartIcon?: boolean,
-            startEndornment?: Element,
-            endEndornment?: Element,
+            startEndornment?: JSX.Element,
+            endEndornment?: JSX.Element,
         }
     }
     chipProps?: {

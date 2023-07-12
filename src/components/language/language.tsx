@@ -3,6 +3,7 @@ import { Styles } from './styles';
 import React, { useState } from 'react';
 import { SelectBoxComponent } from '../selectBox';
 import GlobeSvg from '../../assets/globe';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export default function Language(props: languageProps) {
   const {
@@ -148,6 +149,11 @@ export default function Language(props: languageProps) {
     <Box>
       <Box p={2}>
         <SelectBoxComponent
+          SelectDropdownSx={{
+            padding: '0',
+            display: 'flex',
+            justifyContent: 'end'
+          }}
           multiple={false}
           selectType='default'
           defaultProps={{
@@ -158,22 +164,23 @@ export default function Language(props: languageProps) {
             islabel: false,
             label: '',
             input: {
-              minWidth: '300px !important',
-              maxWidth: '300px !important ',
+              minWidth: '200px !important',
+              maxWidth: '200px !important ',
               backgroundColor: 'white',
               borderRadius: '8px',
               border: 'none',
               isStartIcon: true,
               startEndornment: <GlobeSvg />,
+              // endEndornment: <KeyboardArrowDownIcon />,
               inputPropsSx: {
                 fontWeight: '500',
                 color: '#091B29',
-                fontSize: '16px'
+                fontSize: '16px',
               }
             },
             dropdown: {
-              minWidth: '300px ',
-              maxWidth: '300px '
+              minWidth: '200px ',
+              maxWidth: '200px '
 
             }
           }}
@@ -198,7 +205,7 @@ export default function Language(props: languageProps) {
         <Typography mt={1} sx={Styles?.title}>All languages </Typography>
       </Box >
       <Box>
-        <Grid container width={'100%'}
+        <Grid container width={'100%'} px={2}
           sx={{
             backgroundColor: '#fff'
           }}>

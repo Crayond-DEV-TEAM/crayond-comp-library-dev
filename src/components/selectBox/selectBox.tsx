@@ -13,7 +13,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 const SelectBox = (props: SelectBoxProps) => {
   const {
-    // rootStyleSx,
+    SelectDropdownSx,
     multiple,
     groupingProps = {
       isCloseIcon: false,
@@ -621,8 +621,8 @@ const SelectBox = (props: SelectBoxProps) => {
         )
       case 'default':
 
-      console.log(defaultProps?.dropdown?.minWidth);
-      
+        console.log(defaultProps?.dropdown?.minWidth);
+
         return (
           <Box>
             {
@@ -690,7 +690,7 @@ const SelectBox = (props: SelectBoxProps) => {
                   (defaultProps?.defaultData ?? null)
               }
               onChange={(event, newValue) => {
-                defaultProps?.handleDefaultChange && defaultProps?.handleDefaultChange(event, newValue as FilmOptionType[] )
+                defaultProps?.handleDefaultChange && defaultProps?.handleDefaultChange(event, newValue as FilmOptionType[])
               }}
               getOptionLabel={(option) => option.title as string}
               multiple={multiple}
@@ -726,7 +726,7 @@ const SelectBox = (props: SelectBoxProps) => {
                       endAdornment: (
                         defaultProps?.isSearch ? (defaultProps?.defaultData?.length || 0 > 0 ? null : <InputAdornment position="start">
                           {defaultProps?.input?.endEndornment ? defaultProps?.input?.endEndornment : <KeyboardArrowDownIcon />}
-                        </InputAdornment>) : null
+                        </InputAdornment>) : <KeyboardArrowDownIcon />
                       ),
                     }}
                     placeholder={defaultProps?.defaultData?.length || 0 > 0 ? '' : 'Select Option'}
@@ -771,7 +771,7 @@ const SelectBox = (props: SelectBoxProps) => {
     }
   }
   return (
-    <Box sx={styles?.rootSx}>
+    <Box sx={{ ...styles?.rootSx, ...SelectDropdownSx }}>
       {/* header */}
       <Box>
         {renderDropdown(selectType)}
