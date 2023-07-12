@@ -95,11 +95,14 @@ export default function ChatBox(props: chatBoxProps) {
     emoji: any;
     data: chatMessageProps;
   }) => {
+    //Get Current Msg
     const msgData = chatMessage?.find(
       (msg: chatMessageProps) => msg?.messageId === data?.data?.messageId
     );
+    //Get Current Reactions
     const oldReactions = msgData?.reactions?.find((re) => re.id === data?.id);
-
+    
+   //Get Current Reactions
     let reactionData = {
       id: data.id,
       emoji: data.emoji,
