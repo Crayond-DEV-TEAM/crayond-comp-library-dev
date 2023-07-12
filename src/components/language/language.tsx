@@ -173,15 +173,14 @@ export default function Language(props: languageProps) {
               startEndornment: <GlobeSvg />,
               // endEndornment: <KeyboardArrowDownIcon />,
               inputPropsSx: {
-                fontWeight: '500',
+                fontWeight: '600',
                 color: '#091B29',
-                fontSize: '16px',
+                fontSize: '14px',
               }
             },
             dropdown: {
               minWidth: '200px ',
               maxWidth: '200px '
-
             }
           }}
 
