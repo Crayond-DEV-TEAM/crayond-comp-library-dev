@@ -1,9 +1,5 @@
-import Box from '@mui/material/Box';
-import emojiData from '@emoji-mart/data';
-import Picker from '@emoji-mart/react';
 import { styles } from './style';
 import './emojiFont.css';
-
 import {
   Avatar,
   Badge,
@@ -12,7 +8,10 @@ import {
   Stack,
   SxProps,
   Typography,
+  Box
 } from '@mui/material';
+import emojiData from '@emoji-mart/data';
+import Picker from '@emoji-mart/react';
 import UserIcon from '../../assets/userIcon';
 import CloseIcon from '../../assets/closeIcon';
 import React, { useState } from 'react';
@@ -24,7 +23,7 @@ import MoreIcon from '../../assets/moreIcon';
 import MinimizeIcon from '../../assets/minimizeIcon';
 import { chatBoxProps, chatMessageProps } from './props';
 import { Thump, Smile, Ohh, Sad, Angry } from '../../assets/emojis';
-
+import AddEmoji from '../../assets/addEmoji';
 export default function ChatBox(props: chatBoxProps) {
   const {
     chatData,
@@ -413,6 +412,21 @@ export default function ChatBox(props: chatBoxProps) {
                         disableRipple
                       >
                         <Angry />
+                      </IconButton>
+                       <IconButton
+                        onClick={() =>
+                          setEmojiCount({
+                            id: 'angry',
+                            emoji: '😠',
+                            shortcodes: ':angry:',
+                            unified: '1f620',
+                            data: message,
+                          })
+                        }
+                        size="small"
+                        disableRipple
+                      >
+                        <AddEmoji color="#ffcc4d" fontSize="24px"/>
                       </IconButton>
                     </Stack>
                   )}
