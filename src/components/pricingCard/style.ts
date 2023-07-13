@@ -14,7 +14,12 @@ totalBodySx:{
     flex: '0 0 1',
     display: 'flex',
     pr:'28px',
-    pb:'28px'
+    pb:'28px',
+    '@media (max-width: 887px)': {
+    pr:'0px',
+      
+     }
+
 },
 
 cardSx:{
@@ -40,6 +45,22 @@ pricingHeadSx:{
     textAlign:'center',
     fontWeight:'600',
     pb:'30px',
+},
+pricingDetailSx:{
+    fontSize:'36px',
+    color:'#000',
+    textAlign:'center',
+    fontWeight:'600',
+    pb:'30px',
+    pt: '27px',
+},
+pricingDetailSubSx:{
+    fontSize:'36px',
+    color:'#000',
+    fontWeight:'600',
+    pt: '24px',
+    pb: '20px',
+    borderBottom:'1px solid #E9E9E9'
 },
 pricingSubSx:{
     fontSize:'18px',
@@ -93,7 +114,7 @@ pricingHeadVarSx:{
     textAlign:'start',
     fontWeight:'600',
     pb:'18px',
-    pt:'12px'
+    pt:'22px'
 },
 
 pricingSubVarSx:{
@@ -139,11 +160,11 @@ cardTwoSx:{
     flex:1,
     backgroundColor:'#fff',
     borderRadius:'8px',
-    pt:'34px',pb:'24px',
-    px:'24px',
+    p:'36px',
     position:'relative',
     border:'1px solid',
-    cursor:'pointer'
+    cursor:'pointer',
+    boxShadow:'none',
   
 },
 paySx:{
@@ -153,16 +174,18 @@ paySx:{
 },
 payCardSx:{
     p:'16px',
+    position:'relative',
     borderRadius:'12px',
    width: '100%',maxWidth: '330px', mr: '32px',
     '&:last-child':{
           mr:'0px'
     },
-    '@media (max-width: 600px)': {
+    '@media (max-width: 1097px)': {
        margin:'16px auto',
        '&:last-child':{
         mr:'auto'
       },
+      width: 'inherit',maxWidth: 'inherit',
     }
 },
 saveBgSx:{
@@ -178,6 +201,9 @@ yearlysx:{
     justifyContent:'space-between',
     pt: '24px',
     fontSize:'14px',
+    '@media (max-width: 429px)': {
+      display:'block'
+     }
 },
 billSx:{
     borderBottom:'1px solid #D3D3D3',
@@ -201,8 +227,14 @@ proSx:{
 },
 billAmountSx:{
     px:'36px',
-    pt:'75px',
-    borderRadius:'12px'
+    borderRadius:'12px',
+    display: 'flex',
+    flexDirection:' column',
+    justifyContent: 'space-between',
+    height:'100%',
+    backgroundColor:'#fff',
+    maxWidth:'773px !important',
+    boxShadow: 'none'
 },
 billTitle:{
     color:'#3B3B3B',
@@ -329,10 +361,12 @@ startPlanBtn:{
 
 },
 footerCardSx:{
-   position:'absolute',
+//    position:'absolute',
    justifyContent:"end",
-   bottom: '26px',
-    right: '42px',
+//    bottom: '26px',
+//     right: '42px',
+    pb:'22px',
+
 },
 footerSubHead:{
     fontSize:'14px',
@@ -357,12 +391,9 @@ footerSubHeadApply:{
     cursor:'pointer'
 },
 billpaymentFinalSx:{
-    backgroundColor:'#fff',
-    borderRadius:'8px',
-    width:'100%',
-    maxWidth:'773px !important',
+    
     position:'relative',
-    '@media (max-width: 900px)': {
+    '@media (max-width: 899px)': {
        height:'990px',
        maxWidth:'inherit !important',
        marginTop:'20px'
@@ -373,7 +404,7 @@ billpaymentFinalSx:{
         display: 'flex',
         pb: '32px',
         cursor:'pointer',
-        '@media (max-width: 600px)': {
+        '@media (max-width: 1097px)': {
           display:'block',
            
            },
@@ -382,7 +413,8 @@ billpaymentFinalSx:{
         p: '18px 0px !important', justifyContent: 'start'
     },
     basicAction:{
-        justifyContent: 'center',pt: '24px !important',p: 0,
+        justifyContent: 'center',pt: '24px !important',p: 0, 
+
     },
     basicButtomSx:{
         width: '100%',   maxWidth: '326px',  margin: '0px 0px 0px auto', 

@@ -266,6 +266,7 @@ Primary.args = {
           currencySymbol:'$'
     
         },
+       
       ],
      onStartPlan : (data, cardDetails) => {
        console.log(data, 'data');
@@ -274,17 +275,18 @@ Primary.args = {
     onGetStartPlan :(data)=>{
     console.log(data, 'data');
   },
-      activeColor:"#665CD7",
-      footerSubPara: 'By clicking "Strat Brainwave Enterprise Plan", you agree to be charged $399 every month, unless you cancel.',
+  activeColor:"#665CD7",
+  footerSubPara: 'By clicking "Strat Brainwave Enterprise Plan", you agree to be charged $399 every month, unless you cancel.',
   applyPromoCode: 'Apply promo code',
   getStartedPaymentplan: ' Start Brainwave Enterprise plan',
   billPaymentAmount: 'Billed now',
   emailHeader:" Billing email",
   cardNumberTitle:'Billing email',
   variationPositionStyle: {},
-  VariationTwoRigthBox: {},
+  Variation2RigthBoxStyle: {},
   paymentSelectedCardSx: {},
   emailInputSx: {},
   ccvsSx: {},
+  commonTextColor : '#3B3B3B',
   
 };

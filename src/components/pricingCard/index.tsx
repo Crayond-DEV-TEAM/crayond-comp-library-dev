@@ -18,17 +18,23 @@ interface PricingCard {
   getStartedPaymentplan?: string;
   emailHeader?:string;
   billPaymentAmount?: string;
-  VariationTwoRigthBox: object;
+  Variation2RigthBoxStyle: object;
   variationPositionStyle: object;
   paymentSelectedCardSx?: object;
+  billAmountStyle?:object;
   emailInputSx?: object;
+  variation2TotalLeftBoxStyle?:object;
   ccvsSx?: object;
   pricingCardVariationOne?: PricingCards[];
   pricing?:CombinedPricing | undefined;
   VerfiyIcon?:JSX.Element;
   applyPromoCode?:string;
   cardNumberTitle?:string;
+  commonTextColor?:string;
+  cardBoxShadow?:string;
+  pricingDetailsListStyle?:object;
   promoCodeSx?:object;
+  variation1TotalPricingBoxStyle?:object;
   CustomPaymentField?:ReactNode;
   paymentFooter?:ReactNode;
   pricingCardVariationTwo?: Pricing[];
@@ -88,16 +94,22 @@ export function PricingCard(props: PricingCard) {
     emailHeader=" Billing email",
     cardNumberTitle=" Billing email",
     startPlanBtnStyle = {},
+    commonTextColor = '#3B3B3B',
     applyPromoCode='',
     footerSubPara = '',
     getStartedPaymentplan = '',
     billPaymentAmount = '',
-    VariationTwoRigthBox = {},
+    Variation2RigthBoxStyle = {},
     variationPositionStyle = {},
     paymentSelectedCardSx = {},
+    billAmountStyle={},
+    pricingDetailsListStyle={},
     emailInputSx = {},
+    cardBoxShadow='none',
     promoCodeSx={},
     ccvsSx = {},
+    variation2TotalLeftBoxStyle={},
+    variation1TotalPricingBoxStyle={},
     CustomPaymentField,
     paymentFooter,
     onStartPlan = () => false,
@@ -339,14 +351,14 @@ const onGetSeletePlan = () => {
   return (
     <Box sx={{ ...pricingcardstyle.rootSx }}>
       {variation1 && (
-        <Box sx={{ ...pricingcardstyle.totalPricingBoxSx }}>
+        <Box sx={{ ...pricingcardstyle.totalPricingBoxSx,...variation1TotalPricingBoxStyle }}>
           {pricingCardVariationOne &&  pricingCardVariationOne?.map((val:PricingCards, index:number) => {
               return (
                 <Box key={index} sx={{ ...pricingcardstyle.totalBodySx }}>
-                  <Card sx={{ ...pricingcardstyle.cardSx }}>
+                  <Card sx={{ ...pricingcardstyle.cardSx , boxShadow: cardBoxShadow ? cardBoxShadow : 'none',}}>
                     <CardContent sx={{ p: '0px' }}>
                       <Box>
-                        <Typography sx={{ ...pricingcardstyle.pricingHeadSx }}>
+                        <Typography sx={{ ...pricingcardstyle.pricingHeadSx,color: commonTextColor ? commonTextColor: '#3B3B3B' }}>
                           {val?.title}
                         </Typography>
                         <Typography sx={{ ...pricingcardstyle.pricingSubSx }}>
@@ -358,7 +370,7 @@ const onGetSeletePlan = () => {
                           return (
                             <Box
                               key={index}
-                              sx={{ ...pricingcardstyle.pricingListSx }}
+                              sx={{ ...pricingcardstyle.pricingListSx,...pricingDetailsListStyle }}
                             >
                               <Box sx={{ ...pricingcardstyle.totalList }}>
                                 <IconButton
@@ -384,7 +396,7 @@ const onGetSeletePlan = () => {
                     </CardContent>
                     <Box>
                       <Typography
-                        sx={{ ...pricingcardstyle.pricingHeadSx, pt: '27px',fontWeight:'500' }}
+                        sx={{ ...pricingcardstyle.pricingDetailSx,  color: commonTextColor ? commonTextColor: '#3B3B3B' }}
                       >
                         {val?.currencySymbol}{val?.subcriptionAmountMonthly}
                         {val?.subcriptionAmountMonthly === 'Free' ? (
@@ -419,13 +431,12 @@ const onGetSeletePlan = () => {
       {variation2 && (
         <Box sx={{ ...pricingcardstyle.totalPricingBoxvarSx }}>
           <Grid  container spacing={1} sx={{ ...pricingcardstyle.variationSx, ...variationPositionStyle }}>
-            <Grid  item xs={12} sm={12} md={4} sx={{ ...pricingcardstyle.proSx, paddingTop: '0px !important' }} >
+            <Grid  item xs={12} sm={12} md={4} sx={{ ...pricingcardstyle.proSx,...variation2TotalLeftBoxStyle, paddingTop: '0px !important' }} >
               {pricingCardVariationTwo &&
                 pricingCardVariationTwo?.map((val, index) => {
                   return (
-                    <Box key={index}>
-                      <Box sx={{ ...pricingcardstyle.totalBodySubSx, pb: index === pricingCardVariationTwo?.length - 1  ? '0px' : '28px', }}>
-                        <Card  sx={{ ...pricingcardstyle.cardTwoSx,  pt: variation2 ? '18px' : '24px',    border:  active === index ? `2px solid ${activeColor}` : 'none',}}
+                      <Box key={index}sx={{ ...pricingcardstyle.totalBodySubSx, pb: index === pricingCardVariationTwo?.length - 1  ? '0px' : '28px', }}>
+                        <Card  sx={{ ...pricingcardstyle.cardTwoSx, boxShadow: cardBoxShadow ? cardBoxShadow : 'none', pt: variation2 ? '18px' : '24px',    border:  active === index ? `2px solid ${activeColor}` : 'none',}}
                           onClick={() => onPricingChange(val, index)} >
                           {active === index ? (
                             <Box sx={{ ...pricingcardstyle.selectIconSx }}>
@@ -442,25 +453,18 @@ const onGetSeletePlan = () => {
                           ) : ('')}
                           <CardContent sx={{ p: '0px' }}>
                             <Box>
-                              <Typography
-                                sx={{ ...pricingcardstyle.pricingHeadVarSx }}
-                              >
+                              <Typography sx={{ ...pricingcardstyle.pricingHeadVarSx,color: commonTextColor ? commonTextColor: '#3B3B3B' }}>
                                 {val?.title}
                               </Typography>
                               <Typography
-                                sx={{ ...pricingcardstyle.pricingSubVarSx }}
+                                sx={{ ...pricingcardstyle.pricingSubVarSx, color: commonTextColor ? commonTextColor: '#3B3B3B' }}
                               >
                                 {val?.description}
                               </Typography>
                             </Box>
                             <Box>
                               <Typography
-                                sx={{
-                                  ...pricingcardstyle.pricingsubSx,
-                                  pt: '24px',
-                                  pb: '20px',
-                                }}
-                              >
+                                sx={{...pricingcardstyle.pricingDetailSubSx,}}>
                                 {val?.currencySymbol}
                                 {val?.subcriptionAmountMonthly}
                                 {val?.subcriptionAmountMonthly === 'Free' ? (
@@ -487,7 +491,7 @@ const onGetSeletePlan = () => {
                                   <Box
                                     key={index}
                                     sx={{
-                                      ...pricingcardstyle.pricingListSubSx,
+                                      ...pricingcardstyle.pricingListSubSx,...pricingDetailsListStyle 
                                     }}
                                   >
                                     <Box sx={{ ...pricingcardstyle.totalList }}>
@@ -503,6 +507,7 @@ const onGetSeletePlan = () => {
                                           textDecoration: val?.isCancel
                                             ? 'line-through'
                                             : 'none',
+                                            color: commonTextColor ? commonTextColor: '#3B3B3B'
                                         }}
                                       >
                                         {val?.listPoints}
@@ -524,13 +529,15 @@ const onGetSeletePlan = () => {
                           </CardActions>
                         </Card>
                       </Box>
-                    </Box>
                   );
                 })}
             </Grid>
-            <Grid   item xs={12} sm={12} md={8} sx={{...pricingcardstyle.billpaymentFinalSx,...VariationTwoRigthBox, }} padding={'0px!important'} >
-              <Card sx={{ ...pricingcardstyle.billAmountSx, boxShadow: 'none' }}>
-                <CardContent>
+            <Grid   item xs={12} sm={12} md={8} sx={{...pricingcardstyle.billpaymentFinalSx,...Variation2RigthBoxStyle }} padding={'0px!important'} >
+              <Card sx={{ ...pricingcardstyle.billAmountSx,...billAmountStyle,  boxShadow: cardBoxShadow ? cardBoxShadow : 'none',      }}>
+                <CardContent sx={{
+                          pt:'75px',
+
+                }}>
                   <Box sx={{ ...pricingcardstyle.totalPaymentSx }}>
                     <Box sx={{  ...pricingcardstyle.payCardSx, ...paymentSelectedCardSx, border: paymentActive?.monthly ? `2px solid ${activeColor}`: '2px solid #D3D3D3',}}
                       onClick={()=>onPaymentSelect()}>
@@ -566,7 +573,7 @@ const onGetSeletePlan = () => {
                       </Typography>
                       <Box sx={{ ...pricingcardstyle.yearlysx }}>
                         <Typography sx={{ ...pricingcardstyle.pricingsubSx,borderBottom: '0px', pb: '0px', }}>
-                          {pricing?.currencySymbol} {finalAmount}/{pricing?.subscriptionDue}
+                          {pricing?.currencySymbol} {pricing?.subcriptionAmountYearly}/{pricing?.subscriptionDue}
                         </Typography>
                          {pricing && 'offerYouSave' in pricing && (
                                   <BasicButtons inLineStyles={pricingcardstyle.saveBgSx}>
@@ -759,10 +766,16 @@ PricingCard.defaultProps = {
   emailHeader:" Billing email",
   cardNumberTitle:'Billing email',
   variationPositionStyle: {},
-  VariationTwoRigthBox: {},
+  Variation2RigthBoxStyle: {},
   paymentSelectedCardSx: {},
+  pricingDetailsListStyle:{},
   emailInputSx: {},
+  variation2TotalLeftBoxStyle:{},
+  cardBoxShadow:"",
+  variation1TotalPricingBoxStyle:{},
+  billAmountStyle:{},
   ccvsSx: {},
+  commonTextColor:'#3B3B3B',
   activeColor: '#665CD7',
   onGetStartPlan: {},
   pricing: {},
