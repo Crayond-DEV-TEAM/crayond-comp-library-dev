@@ -79,9 +79,12 @@ function App() {
     setChecked(convertedValue)
   }
 
-  const handleDefaultChange = (val: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
-      newValue.findIndex((obj: FilmOptionType) =>
+  const handleDefaultChange = (val: any, newValue: unknown) => {
+    debugger
+
+    const value = newValue as FilmOptionType[]
+    const slicedData = value.length > 0 ? value.filter((item: FilmOptionType, index: number) =>
+      value.findIndex((obj: FilmOptionType) =>
         obj.title === item.title && obj.year === item.year) === index) : newValue
     const convertedValue = slicedData as never[];
     setDefaultData(convertedValue)
@@ -256,7 +259,7 @@ function App() {
             endEndornment: ''
           }
         }}
-        selectType={'chip'} multiple={true} />
+        selectType={'default'} multiple={true} />
     </div>
   )
 }

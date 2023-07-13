@@ -682,8 +682,9 @@ const SelectBox = (props: SelectBoxProps) => {
                     defaultProps?.defaultData : multiple ? [] : null :
                   (defaultProps?.defaultData ?? null)
               }
-              onChange={(event, newValue) => {
-                defaultProps?.handleDefaultChange && defaultProps?.handleDefaultChange(event, newValue as FilmOptionType[])
+              onChange={(event, value) => {
+                debugger
+                defaultProps?.handleDefaultChange && defaultProps?.handleDefaultChange(event, value as never)
               }}
               getOptionLabel={(option) => option.title as string}
               multiple={multiple}
