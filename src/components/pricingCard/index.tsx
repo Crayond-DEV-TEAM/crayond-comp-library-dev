@@ -717,8 +717,8 @@ const onGetSeletePlan = () => {
                      InputProps={{
                        endAdornment: (
                          <InputAdornment position="end">
-                           <IconButton onClick={()=>setPromoCode(true)}>
-                           <CancelOutlinedIcon/>
+                           <IconButton disableRipple onClick={()=>setPromoCode(true)}>
+                           <CancelOutlinedIcon sx={{color:activeColor}}/>
                            </IconButton>
                          </InputAdornment>
                        ),
