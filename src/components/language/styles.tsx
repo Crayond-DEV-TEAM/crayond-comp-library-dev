@@ -27,6 +27,7 @@ export const Styles = {
     parentBox: {
         background: '#FFFF',
         padding: '20px',
+        borderRadius: '12px'
         // width: '80%'
     },
     title: {

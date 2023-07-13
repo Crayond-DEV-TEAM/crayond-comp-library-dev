@@ -10,4 +10,9 @@ const Template: ComponentStory<typeof Language> = (args) => <Language {...args} 
 
 export const Primary = Template.bind({});
 Primary.args = {
+  cardStyle: {},
+  unselectedCardStyle: {},
+  cardTitleStyle: {},
+  cardSubtitleStyle: {},
+  languagesBoxStyle: {}
 };
