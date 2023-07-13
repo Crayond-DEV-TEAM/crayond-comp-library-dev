@@ -140,6 +140,7 @@ function App() {
           chatData={chatData}
           editorData={editorData}
           onEnterMessage={onEnterMessage}
+          onReactionChange={console.log}
           reactionEnable={true}
         />
       </Stack>

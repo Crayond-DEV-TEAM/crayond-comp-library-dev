@@ -33,6 +33,7 @@ export default function ChatBox(props: chatBoxProps) {
     chatId,
     editorData = {},
     onEnterMessage,
+    onReactionChange,
     reactionEnable = true,
   } = props;
   const {
@@ -99,35 +100,74 @@ export default function ChatBox(props: chatBoxProps) {
     const msgData = chatMessage?.find(
       (msg: chatMessageProps) => msg?.messageId === data?.data?.messageId
     );
+    // debugger
     //Get Current Reactions
     const oldReactions = msgData?.reactions?.find((re) => re.id === data?.id);
-    
-   //Get Current Reactions
+    const userAlreadyReaction = oldReactions?.senderId.some(
+      (user) => user === loginUser
+    );
+    //&& !re.senderId.includes(loginUser)
+    let reactionDataTemp = msgData?.reactions || [];
+    const reactionIndex = msgData?.reactions?.findIndex(
+      (re) => re.id === data?.id
+    );
+
+    // if (oldReactions) {
+    //Get Current Reactions
     let reactionData = {
       id: data.id,
       emoji: data.emoji,
       count: 1,
       shortcodes: data.shortcodes,
       unified: data.unified,
-      senderId: [...(oldReactions?.senderId || []), loginUser],
+      senderId: userAlreadyReaction
+        ? oldReactions?.senderId || []
+        : [...(oldReactions?.senderId || []), loginUser],
     };
 
     const count = oldReactions?.count || 0;
-    reactionData.count = count + 1;
-    const re = msgData?.reactions || [];
+    reactionData.count = userAlreadyReaction ? count - 1 : count + 1;
+
+    if (reactionIndex !== null && reactionIndex !== undefined) {
+      if (reactionIndex >= 0) {
+        reactionDataTemp[reactionIndex] = reactionData;
+      } else if (reactionIndex < 0) {
+        reactionDataTemp = [...reactionDataTemp, reactionData];
+      }
+    }
+
+    if (userAlreadyReaction) {
+      if (reactionIndex !== null && reactionIndex !== undefined) {
+        const senderIndex = reactionDataTemp[reactionIndex]?.senderId.findIndex(
+          (data) => data === loginUser
+        );
+        reactionDataTemp[reactionIndex]?.senderId.splice(senderIndex, 1);
+        reactionDataTemp[reactionIndex].count =
+          reactionDataTemp[reactionIndex].count - 1;
+        if (reactionDataTemp[reactionIndex].count <= 0) {
+          reactionDataTemp.splice(reactionIndex, 1);
+        }
+      }
+    }
 
     const messageData: chatMessageProps = {
       messageId: msgData?.messageId || '',
       senderId: msgData?.senderId || '',
       content: msgData?.content || '',
       timestamp: msgData?.timestamp || '',
-      reactions: [...re, reactionData],
+      reactions: reactionDataTemp,
     };
     let msg_temp = chatMessage;
     const chatIndex = chatMessage.findIndex(
       (val) => val?.messageId === msgData?.messageId
     );
     msg_temp[chatIndex] = messageData;
+    onReactionChange &&
+      onReactionChange({
+        data: data,
+        enteredMessage: messageData,
+        messageList: msg_temp,
+      });
     setChatMessage(msg_temp);
   };
   React.useEffect(() => {
@@ -344,7 +384,19 @@ export default function ChatBox(props: chatBoxProps) {
                       >
                         <Ohh />
                       </IconButton>
-                      <IconButton size="small" disableRipple>
+                      <IconButton
+                        onClick={() =>
+                          setEmojiCount({
+                            id: 'cry',
+                            emoji: '😢',
+                            shortcodes: ':cry:',
+                            unified: '1f622',
+                            data: message,
+                          })
+                        }
+                        size="small"
+                        disableRipple
+                      >
                         <Sad />
                       </IconButton>
                       <IconButton
@@ -439,6 +491,7 @@ export default function ChatBox(props: chatBoxProps) {
                             sx={{ ...styles.reactionContainer }}
                             direction={isYou ? 'row-reverse' : 'row'}
                             gap="8px"
+                            flexWrap={'wrap'}
                             alignItems={'center'}
                           >
                             {message?.reactions?.map((reaction, index) => {
@@ -459,8 +512,8 @@ export default function ChatBox(props: chatBoxProps) {
                                 >
                                   <Typography sx={{ fontFamily: 'EmojiMart' }}>
                                     {reaction?.emoji}{' '}
-                                    <span>{reaction?.count}</span>
                                   </Typography>
+                                  <p id="count">{reaction?.count}</p>
                                 </Box>
                               );
                             })}
@@ -564,7 +617,7 @@ export default function ChatBox(props: chatBoxProps) {
           </Stack>
         </Box>
       </Box>
-      <Box sx={{ fontFamily: 'EmojiMart' }}>
+      <Box sx={{ fontFamily: 'EmojiMart !important' }}>
         <Picker data={emojiData} onEmojiSelect={(e: any) => console.log(e)} />
       </Box>
     </Box>

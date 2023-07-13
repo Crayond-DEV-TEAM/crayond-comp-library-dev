@@ -34,6 +34,21 @@ export interface chatBoxProps {
     enteredMessage?: chatMessageProps;
     messageList?: chatMessageProps[];
   }) => void;
+  onReactionChange?: ({
+    data,
+    enteredMessage,
+    messageList,
+  }: {
+    data: {
+      id: string;
+      shortcodes?: string;
+      unified?: string;
+      emoji: any;
+      data: chatMessageProps;
+    };
+    enteredMessage?: chatMessageProps;
+    messageList?: chatMessageProps[];
+  }) => void;
   headerData: {
     chatName: string;
     profileImage?: string | URL;

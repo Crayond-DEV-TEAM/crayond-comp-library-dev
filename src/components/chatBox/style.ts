@@ -69,7 +69,7 @@ export const styles: styleProps = {
     alignSelf: 'start',
     cursor: 'pointer',
     transition: 'all .3s',
-    userSelect: 'text',
+    userSelect: 'none',
   },
   messageBodyYou: {
     boxSizing: 'border-box',
@@ -86,6 +86,7 @@ export const styles: styleProps = {
     lineHeight: '18px',
     display: 'inline-block',
     color: '#111111',
+    userSelect: 'text',
   },
   textEditor: {
     backgroundColor: '#E9E9E9',
@@ -104,9 +105,15 @@ export const styles: styleProps = {
     padding: '2px 7px',
     backgroundColor: '#FFFFFF',
     borderRadius: '4px',
-    '&& span': {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+    '&& #count': {
       fontSize: '12px',
       color: '#666666',
+      margin: '0',
+      // alignSelf: 'flex-end',
+      lineHeight: '18px',
     },
   },
   reactionBox2: {
@@ -114,9 +121,15 @@ export const styles: styleProps = {
     padding: '2px 7px',
     backgroundColor: '#FFFFFF',
     borderRadius: '4px',
-    '&& span': {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '6px',
+    '&& #count': {
       fontSize: '12px',
       color: '#666666',
+      margin: '0',
+      // alignSelf: 'flex-end',
+      lineHeight: '18px',
     },
   },
   badge: {
