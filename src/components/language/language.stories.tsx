@@ -6,7 +6,10 @@ export default {
   component: Language,
 } as ComponentMeta<typeof Language>;
 
-const Template: ComponentStory<typeof Language> = (args) => <Language {...args} />;
+const Template: ComponentStory<typeof Language> = (args) =>
+  <Language
+  
+    {...args} />;
 
 export const Primary = Template.bind({});
 Primary.args = {
