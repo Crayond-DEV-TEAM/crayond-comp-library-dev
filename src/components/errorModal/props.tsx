@@ -8,7 +8,7 @@ export interface buttonInterface {
 
 export interface errorWithIconProps {
     open:boolean,
-    errorIconUrl:"",
+    errorIconUrl:string,
     errorIconComponent:JSX.Element,
     buttons: buttonInterface[],
     component:React.ReactNode,
@@ -18,6 +18,7 @@ export interface errorWithIconProps {
     onBackdropClick:() => void,
     errorMessage:string,
     cardRootStyle:SxProps,
+    errorIconUrlStyle:object,
     errorIconStyle:SxProps,
     errorMessageTextStyle:SxProps,
     errorButtonBlockStyle:SxProps,

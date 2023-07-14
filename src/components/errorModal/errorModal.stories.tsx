@@ -15,6 +15,7 @@ export const Primary = Template.bind({});
 Primary.args = {
   open: true,
   errorIconComponent: <AlertIcon />,
+  errorIconUrl:"",
   component: '',
   buttons: [
     {
@@ -32,6 +33,7 @@ Primary.args = {
   onBackdropClick: () => false,
   errorMessage: 'Are you sure, would you like to deactivate signal?',
   cardRootStyle: {},
+  errorIconUrlStyle:{},
   errorIconStyle: {},
   errorMessageTextStyle: {},
   errorButtonBlockStyle: {},

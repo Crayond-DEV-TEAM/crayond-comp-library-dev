@@ -57,12 +57,9 @@ function App() {
         open={open}
         handleClose={handleClose}
         onBackdropClick={() => handleClose()}
-        errorIconComponent={<AlertIcon />}
-        // errorIconUrl={
-          //   <>
-        //     <img src="./assets/sampleprof.png"  alt=''/>
-        //   </>
-        // }
+        // errorIconComponent={null}
+        errorIconUrlStyle={{height:"300px",width:"300px"}}
+        errorIconUrl={'https://plus.unsplash.com/premium_photo-1680740103993-21639956f3f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80'}
         buttons={errorIconButtons}
         errorMessage="Are you sure, would you like to deactivate signal?"
       />

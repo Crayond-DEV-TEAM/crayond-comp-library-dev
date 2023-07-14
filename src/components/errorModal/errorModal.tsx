@@ -16,6 +16,7 @@ const ErrorModal = (props: errorWithIconProps) => {
     errorMessage,
     cardRootStyle,
     errorIconStyle,
+    errorIconUrlStyle,
     errorMessageTextStyle,
     errorButtonBlockStyle,
     errorMessageBlockStyle,
@@ -33,9 +34,17 @@ const ErrorModal = (props: errorWithIconProps) => {
         onBackdropClick={onBackdropClick}
       >
         <Box sx={{ ...errorStyle.cardRoot, ...cardRootStyle } as SxProps}>
-          <Box sx={{ ...errorStyle.errorIconStyle, ...errorIconStyle}}>
-            {}
-            {errorIconComponent}
+          <Box sx={{ ...errorStyle.errorIconStyle, ...errorIconStyle }}>
+            {errorIconUrl &&
+            <Box>
+                <img
+                  src={errorIconUrl}
+                  alt={'error_img'}
+                  style={{...errorIconUrlStyle}}
+                />
+              </Box>
+            }
+            {errorIconComponent && <Box>{errorIconComponent}</Box>}
           </Box>
           <Box
             sx={{
@@ -44,33 +53,40 @@ const ErrorModal = (props: errorWithIconProps) => {
             }}
           >
             <Typography
-              sx={{ ...errorStyle.errorMessageText, ...errorMessageTextStyle } as SxProps}
+              sx={
+                {
+                  ...errorStyle.errorMessageText,
+                  ...errorMessageTextStyle,
+                } as SxProps
+              }
             >
               {errorMessage}
             </Typography>
           </Box>
           {component && (
-            <Box sx={{ ...componentStyle,marginBottom:"30px" }} >{component}</Box>
-          )}
-           <Box
-              sx={{
-                ...errorStyle.errorButtonBlockStyle,
-                ...errorButtonBlockStyle,
-              }}
-            >
-              {buttons?.map((button: buttonInterface) => (
-                <BasicButtons
-                  inLineStyles={{
-                    background: lightTheme.palette.primary.light,
-                    color: lightTheme.palette.primary.main,
-                    ...button?.style,
-                  }}
-                  onClick={()=>button?.onClick()}
-                >
-                  {button?.label}
-                </BasicButtons>
-              ))}
+            <Box sx={{ ...componentStyle, marginBottom: '30px' }}>
+              {component}
             </Box>
+          )}
+          <Box
+            sx={{
+              ...errorStyle.errorButtonBlockStyle,
+              ...errorButtonBlockStyle,
+            }}
+          >
+            {buttons?.map((button: buttonInterface) => (
+              <BasicButtons
+                inLineStyles={{
+                  background: lightTheme.palette.primary.light,
+                  color: lightTheme.palette.primary.main,
+                  ...button?.style,
+                }}
+                onClick={() => button?.onClick()}
+              >
+                {button?.label}
+              </BasicButtons>
+            ))}
+          </Box>
         </Box>
       </Modal>
     </>
@@ -91,6 +107,7 @@ ErrorModal.defaultProps = {
   errorMessage: '',
   cardRootStyle: {},
   errorIconStyle: {},
+  errorIconUrlStyle:{},
   errorMessageTextStyle: {},
   errorButtonBlockStyle: {},
   errorMessageBlockStyle: {},
