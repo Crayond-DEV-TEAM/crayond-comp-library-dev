@@ -13,9 +13,9 @@ import {
   TextField,
   Typography,
   Select,
+  Box,
 } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material';
-import Box from '@mui/material/Box';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import SearchIcon from '@mui/icons-material/Search';
@@ -92,7 +92,7 @@ export function CustomCalender(props: CalenderProps) {
     customHeadStyle = {},
     CalenderStyle = {},
     calenderActiveBgColor = '#EFEEFB',
-    calenderListName='My Calender',
+    calenderListName = 'My Calender',
     calenderActiveColor = '',
     onEventDialogChange = () => false,
     eventDialogTitle = '',
@@ -106,13 +106,12 @@ export function CustomCalender(props: CalenderProps) {
     onSelectEventFunc = () => false,
     handleEventChange = () => false,
     onSaveCalenderList = () => false,
-    onCloseClanderList=()=>false,
+    onCloseClanderList = () => false,
     editListValue = '',
     onHandleDateSelect = () => false,
     onCustomizeEventAdd = () => false,
     calenderTitle = 'Calender',
   } = props;
-
 
   // React BigCalender Moments
   const localizer = momentLocalizer(moment);
@@ -170,7 +169,6 @@ export function CustomCalender(props: CalenderProps) {
     })
     .toDate();
 
-
   const handleClick = (e: React.MouseEvent<Element>) => {
     setAnchorEl(e.currentTarget);
   };
@@ -227,7 +225,7 @@ export function CustomCalender(props: CalenderProps) {
       onHandleDateSelect();
       seTtitleDialog({ edit: false, event: false });
     } else {
-      onCustomizeEvent({ start, end: multipleDate , action, slots });
+      onCustomizeEvent({ start, end: multipleDate, action, slots });
     }
     seteditdata({});
   };
@@ -247,7 +245,6 @@ export function CustomCalender(props: CalenderProps) {
   // Getting all Events Access
   const allEvents = [...eventsData, ...eventsleave];
 
-
   // On Event change
   const onAddEvent = () => {
     let newEvent: EventData = {
@@ -257,8 +254,8 @@ export function CustomCalender(props: CalenderProps) {
       allDay: false,
       start: start ?? '',
       end: end ?? '',
-      startTime:convert(startTimeDialog),
-      endTime:convert(endTimeDialog),
+      startTime: convert(startTimeDialog),
+      endTime: convert(endTimeDialog),
       deletable: true,
       eventRemaindTime: eventRemainder,
       eventRemind: selectedDay,
@@ -411,24 +408,26 @@ export function CustomCalender(props: CalenderProps) {
     },
   };
 
-  const convertTo24HourFormat = (time12Hour:any) => {
+  const convertTo24HourFormat = (time12Hour: any) => {
     const [time, modifier] = time12Hour.split(' ');
-    let [hours, minutes] = time.split(':'); 
+    let [hours, minutes] = time.split(':');
     hours = parseInt(hours);
     if (hours === 12) {
       hours = modifier === 'AM' ? 0 : 12;
     } else {
       hours = modifier === 'AM' ? hours : hours + 12;
     }
-  
+
     hours = hours.toString().padStart(2, '0');
     minutes = minutes.padStart(2, '0');
-  
+
     return `${hours}:${minutes}`;
   };
 
   // Events Edits
-  const handleEventEdits = (  event: React.MouseEvent<HTMLButtonElement> | null ) => {
+  const handleEventEdits = (
+    event: React.MouseEvent<HTMLButtonElement> | null
+  ) => {
     if (event) {
       const newEvent: EventData = {
         id: '',
@@ -445,7 +444,7 @@ export function CustomCalender(props: CalenderProps) {
         type: selectedCategoryDialog,
       };
       onEventsEdit(newEvent);
-       seteditdata(event);
+      seteditdata(event);
       if (isEventModal) {
         seteditAccoss(true);
         setOpenTime(false);
@@ -459,7 +458,9 @@ export function CustomCalender(props: CalenderProps) {
   };
 
   // //Events Delete
-  const handleEventDelete = (event: React.MouseEvent<HTMLButtonElement> | null) => {
+  const handleEventDelete = (
+    event: React.MouseEvent<HTMLButtonElement> | null
+  ) => {
     if (event) {
       const newEvent: EventData = {
         id: editdata?.id ?? '',
@@ -469,7 +470,7 @@ export function CustomCalender(props: CalenderProps) {
         start: start ?? '',
         end: end ?? '',
         startTime: convert(startTimeDialog),
-        endTime:  convert(endTimeDialog),
+        endTime: convert(endTimeDialog),
         deletable: true,
         eventRemaindTime: eventRemainder,
         eventRemind: selectedDay,
@@ -504,25 +505,33 @@ export function CustomCalender(props: CalenderProps) {
     })
     .filter((event): event is EventData => event !== null);
 
-  
-
   // Event Select funcion
   const onSelectEvent = (e: EventData) => {
-    if(isEventModal){
-      setOpenModal(true);
-      setIsedit(true);
-      setSelectedRange({ start: e?.start, end: e?.end });
-      seteditAccoss(false);
-      setOpenTime(false);
-      setEndTimeModal(false);
-      seTtitleDialog({
-        edit: true,
-        event: true,
+    const val_ = nationalLeaves?.find((name: any) => name?.title === e?.title);
+    if (!val_?.title) {
+      if (isEventModal) {
+        setOpenModal(true);
+        setIsedit(true);
+        setSelectedRange({ start: e?.start, end: e?.end });
+        seteditAccoss(false);
+        setOpenTime(false);
+        setEndTimeModal(false);
+        seTtitleDialog({
+          edit: true,
+          event: true,
+        });
+        onEventsEdit(e);
+      }
+
+      seteditdata(e);
+      onSelectEventFunc({
+        ...e,
+        startTime: convertTo24HourFormat(e?.startTime),
+        endTime: convertTo24HourFormat(e?.endTime),
       });
-    onEventsEdit(e);
+    } else {
+      return;
     }
-    seteditdata(e);
-    onSelectEventFunc({...e,startTime:convertTo24HourFormat(e?.startTime),endTime:convertTo24HourFormat(e?.endTime)});
   };
 
   // Even  Style
@@ -582,7 +591,7 @@ export function CustomCalender(props: CalenderProps) {
             <Typography
               sx={{ fontSize: '12px', fontWeight: '500', color: '#929292' }}
             >
-              {event?.startTime }
+              {event?.startTime}
               {/* {selectedPeriod?.am} */}
             </Typography>
           </Box>
@@ -597,7 +606,12 @@ export function CustomCalender(props: CalenderProps) {
   );
 
   // Custom tool bar
-  const CustomToolbar = ({ label, onNavigate, onView,view,}: CustomToolbarProps) => {
+  const CustomToolbar = ({
+    label,
+    onNavigate,
+    onView,
+    view,
+  }: CustomToolbarProps) => {
     const goToBack = () => {
       onNavigate('PREV');
     };
@@ -704,7 +718,9 @@ export function CustomCalender(props: CalenderProps) {
     setAnchorEl(null);
   };
 
-  const toolbarComponent: any = isCustomizeToolbar ? CustomizedToolbar: CustomToolbar;
+  const toolbarComponent: any = isCustomizeToolbar
+    ? CustomizedToolbar
+    : CustomToolbar;
   const components = {
     event: EventComponent,
     toolbar: toolbarComponent,
@@ -724,7 +740,7 @@ export function CustomCalender(props: CalenderProps) {
       setAnchorEl(null);
       setIsEditList(false);
     }
-    onCloseClanderList(val,index)
+    onCloseClanderList(val, index);
   };
 
   const onSaveCalenderLists = (val: calenderLists, index: number) => {
@@ -737,7 +753,7 @@ export function CustomCalender(props: CalenderProps) {
     let hr = dateCopy?.[0];
     const min = dateCopy?.[1];
     let ampm = 'AM';
-  
+
     if (dateCopy?.[0] && Number(dateCopy?.[0]) >= 12) {
       hr = String(Number(dateCopy?.[0]) % 12);
       if (Number(hr) < 10) {
@@ -835,7 +851,7 @@ export function CustomCalender(props: CalenderProps) {
               }}
             />
             <Typography sx={{ ...customCalenderStyle.calenderHeaderSx }}>
-             {calenderListName}
+              {calenderListName}
             </Typography>
           </Box>
           <Box>
@@ -1159,18 +1175,13 @@ export function CustomCalender(props: CalenderProps) {
                             padding: openTime || endTimeModal ? '0px 15px' : '',
                           }}
                         >
-                       Start Time
+                          Start Time
                         </Typography>
                       </Box>
                     ) : (
                       <TextField
                         value={startTimeDialog}
-                        onChange={(e) =>
-                          onEventDialogChange(
-                            e,
-                            'startTime'
-                          )
-                        }
+                        onChange={(e) => onEventDialogChange(e, 'startTime')}
                         fullWidth
                         id="time"
                         type="time"
@@ -1198,7 +1209,7 @@ export function CustomCalender(props: CalenderProps) {
                     ) : (
                       <TextField
                         value={endTimeDialog}
-                        onChange={(e) => onEventDialogChange( e, 'endTime')}
+                        onChange={(e) => onEventDialogChange(e, 'endTime')}
                         fullWidth
                         type="time"
                         disabled={!editAccoss ? true : false}

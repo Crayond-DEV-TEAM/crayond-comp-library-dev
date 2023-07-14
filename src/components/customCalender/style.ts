@@ -239,6 +239,7 @@ export const customCalenderStyle = {
     color: '#929292',
     fontSize: '14px',
     fontWeight: '500',
+    cursor:'pointer'
   },
   yearDaySx: {
     fontSize:'14px',
