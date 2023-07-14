@@ -1,20 +1,20 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import AlertIcon from '../../assets/alertIcon';
-import ErrorWithIcon from './errorWithIcon';
+import ErrorModal from './errorModal';
 
 export default {
-  title: 'components/errorWithIcon',
-  component: ErrorWithIcon,
-} as ComponentMeta<typeof ErrorWithIcon>;
+  title: 'components/ErrorModal',
+  component: ErrorModal,
+} as ComponentMeta<typeof ErrorModal>;
 
-const Template: ComponentStory<typeof ErrorWithIcon> = (args) => (
-  <ErrorWithIcon {...args} />
+const Template: ComponentStory<typeof ErrorModal> = (args) => (
+  <ErrorModal {...args} />
 );
 
 export const Primary = Template.bind({});
 Primary.args = {
   open: true,
-  errorIcon: <AlertIcon />,
+  errorIconComponent: <AlertIcon />,
   component: '',
   buttons: [
     {

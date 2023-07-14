@@ -15,7 +15,7 @@ Primary.args = {
   pageNotFoundIcon: {
     icon: (
       <img
-        src={'/epmtyStatePageNotFound.png'}
+        src={'../../assets/loginImg.png'}
         alt="icon"
         height={'50%'}
         width={'50%'}

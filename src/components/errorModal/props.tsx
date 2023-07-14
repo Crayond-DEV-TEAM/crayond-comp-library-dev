@@ -8,9 +8,11 @@ export interface buttonInterface {
 
 export interface errorWithIconProps {
     open:boolean,
-    errorIcon:JSX.Element,
+    errorIconUrl:"",
+    errorIconComponent:JSX.Element,
     buttons: buttonInterface[],
     component:React.ReactNode,
+
     componentStyle?:SxProps,
     handleClose:() => void,
     onBackdropClick:() => void,

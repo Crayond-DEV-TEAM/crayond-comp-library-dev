@@ -5,10 +5,11 @@ import { BasicButtons } from '../button';
 import { errorStyle } from './style';
 import { buttonInterface, errorWithIconProps } from './props';
 
-const ErrorWithIcon = (props: errorWithIconProps) => {
+const ErrorModal = (props: errorWithIconProps) => {
   const {
     open,
-    errorIcon,
+    errorIconUrl,
+    errorIconComponent,
     component,
     componentStyle,
     buttons,
@@ -32,8 +33,9 @@ const ErrorWithIcon = (props: errorWithIconProps) => {
         onBackdropClick={onBackdropClick}
       >
         <Box sx={{ ...errorStyle.cardRoot, ...cardRootStyle } as SxProps}>
-          <Box sx={{ ...errorStyle.errorIconStyle, ...errorIconStyle }}>
-            {errorIcon}
+          <Box sx={{ ...errorStyle.errorIconStyle, ...errorIconStyle}}>
+            {}
+            {errorIconComponent}
           </Box>
           <Box
             sx={{
@@ -47,10 +49,10 @@ const ErrorWithIcon = (props: errorWithIconProps) => {
               {errorMessage}
             </Typography>
           </Box>
-          {component ? (
-            <Box sx={{ ...componentStyle }}>{component}</Box>
-          ) : (
-            <Box
+          {component && (
+            <Box sx={{ ...componentStyle,marginBottom:"30px" }} >{component}</Box>
+          )}
+           <Box
               sx={{
                 ...errorStyle.errorButtonBlockStyle,
                 ...errorButtonBlockStyle,
@@ -63,24 +65,24 @@ const ErrorWithIcon = (props: errorWithIconProps) => {
                     color: lightTheme.palette.primary.main,
                     ...button?.style,
                   }}
-                  onClick={button?.onClick}
+                  onClick={()=>button?.onClick()}
                 >
                   {button?.label}
                 </BasicButtons>
               ))}
             </Box>
-          )}
         </Box>
       </Modal>
     </>
   );
 };
 
-export default ErrorWithIcon;
+export default ErrorModal;
 
-ErrorWithIcon.defaultProps = {
+ErrorModal.defaultProps = {
   open: true,
-  errorIcon: '',
+  errorIconUrl:"",
+  errorIconComponent: '',
   component: '',
   buttons: [],
   handleOpen: () => {},

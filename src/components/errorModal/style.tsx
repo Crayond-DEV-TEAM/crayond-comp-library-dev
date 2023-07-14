@@ -15,13 +15,16 @@ export const errorStyle = {
 
   errorIconStyle: {
     display: 'flex',
-    margin: 'auto',
+    justifyContent: 'center',
+    alignItems: 'center',
+
     marginBottom: '24px',
   },
 
   errorMessageBlockStyle: {
     display: 'flex',
-    margin: 'auto',
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: '32px',
   },
 
