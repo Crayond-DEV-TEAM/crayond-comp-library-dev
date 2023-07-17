@@ -89,6 +89,10 @@ function App() {
       langText: string;
     };
   }
+
+  interface FilmOptionType {
+    
+  }
   const [selectedLang, setSelectedLang] = useState<SelectedLangState>({
     allData: {
       langName: '',

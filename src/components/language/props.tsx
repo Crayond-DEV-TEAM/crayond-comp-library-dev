@@ -18,22 +18,13 @@ export interface languageInterface {
     cardTitleStyle: object,
     cardSubtitleStyle: object,
     languagesBoxStyle: object,
-    value: object | undefined,
+    value: FilmOptionType[] | undefined,
     options: { title: string, year: string }[],
     handleDefaultChange: (event: any, val: { title: string, year: string }) => void,
     data: {
         allData: { langName: string; langText: string; };
         suggestionData: { langName: string; langText: string; };
     }[],
-    selectedLang: {
-        allData: {
-            langName: string;
-            langText: string;
-        };
-        suggestionData: {
-            langName: string;
-            langText: string;
-        };
-    }[],
+    selectedLang: SelectedLangState,
     handleClick: (val: languageProps, index: number, parent: string) => void
 }
