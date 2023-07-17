@@ -5,6 +5,7 @@ import '@fontsource/poppins/700.css';
 import Close from './assets/close';
 import SearchIcon from './assets/searchIcon';
 import { SearchField } from './components/searchField';
+import { red } from '@mui/material/colors';
 
 function App() {
   const cardData = [
@@ -71,54 +72,54 @@ function App() {
     <div
       className="App"
       style={{
-        width: '100vw',
-        height: '100vh',
-        backgroundColor: 'lightgray',
+        width: '80vw',
+        height: '70vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'flex-start',
-        paddingTop:"30px",
+        padding: '100px',
       }}
     >
-      
-        <SearchField
-          isTextSearch={true}
-          isRecentSearch={true}
-          isCardBased={false}
-          isCardWithTitleBased={false}
-          isShortcutKeyBased={false}
-          isShortComponent={false}
-          options={textSearchData}
-          primaryCategoryData={cardData}
-          secondaryCategoryData={cardData}
-          componentColumnDirection="column"
-          placeHolderText="Search..."
-          startAdornmentIcon={<SearchIcon />}
-          endAdornmentIcon={<Close />}
-          inputRootStyle={{}}
-          placeHolderColor={'#929292'}
-          placeHolderSize={12}
-          inputBackgroundColor={''}
-          inputBorderDefaultColor={'#E9E9E9'}
-          inputBorderHoverColor={'#b4aef4'}
-          inputBorderFocusColor={'#665CD7'}
-          paperBackgroundColor={'#ffffff'}
-          paperBorderColor={'#665CD7'}
-          listTextHoverColor={'#665CD7'}
-          listTextHoverBgColor={'#ffffff'}
-          keyDownListBgcolor={''}
-          keyDownListTextColor={''}
-          cardImgWidth={100}
-          cardImgHeight={100}
-          imgBorderRadius={4}
-          handleInputOnChange={(e) => console.log(e, 'input')}
-          onSelectSearchDataFun={(e) => {
-            console.log(e);
-          }}
-          handleOptionChange={(e) => {
-            console.log(e, 'event');
-          }}
-        />
+      <SearchField
+        isTextSearch={false}
+        isRecentSearch={false}
+        isCardBased={false}
+        isCardWithTitleBased={false}
+        isShortcutKeyBased={false}
+        isShortComponent={false}
+        variant={"isShortcutKeyBased"}
+        options={cardData}
+        primaryCategoryData={cardData}
+        secondaryCategoryData={cardData}
+        recentSearchOption={[]}
+        componentColumnDirection="column"
+        placeHolderText="Search..."
+        startAdornmentIcon={<SearchIcon />}
+        endAdornmentIcon={<Close />}
+        inputRootStyle={{ minHeight: '20px' }}
+        placeHolderColor={'#929292'}
+        placeHolderSize={12}
+        inputBackgroundColor={''}
+        inputBorderDefaultColor={'#E9E9E9'}
+        inputBorderHoverColor={'#b4aef4'}
+        inputBorderFocusColor={'#665CD7'}
+        paperBackgroundColor={'#ffffff'}
+        paperBorderColor={'#665CD7'}
+        listTextHoverColor={'#665CD7'}
+        listTextHoverBgColor={'#ffffff'}
+        listItemSubTextColor={'#666666'}
+        keyDownListBgcolor={''}
+        keyDownListTextColor={''}
+        cardImgWidth={100}
+        cardImgHeight={100}
+        imgBorderRadius={4}
+        handleInputOnChange={(e) => {}}
+        onSelectSearchDataFun={(e) => {}}
+        handleOptionChange={(e) => {}}
+        cardTitleImgWidth={50}
+        cardTitleImgHeight={50}
+        TitleImgBorderRadius={4}
+      />
     </div>
   );
 }

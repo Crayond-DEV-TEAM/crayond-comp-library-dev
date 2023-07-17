@@ -1,14 +1,14 @@
-import { SxProps } from "@mui/material";
+import { SxProps } from '@mui/material';
 export interface ParamsProps {
-  id:number;
+  id: number;
   label: string;
   url?: string;
 }
 export interface SuggestionProp {
   searchValue: any;
-  handleRecentSearch:(val:ParamsProps)=>void;
+  handleRecentSearch: (val: ParamsProps) => void;
   option: {
-    id:number;
+    id: number;
     label: string;
     url?: string;
   }[];
@@ -16,7 +16,7 @@ export interface SuggestionProp {
 export interface Category1Props {
   searchValue: any;
   option: {
-    id:number;
+    id: number;
     label: string;
     url?: string;
   }[];
@@ -44,11 +44,11 @@ export interface RecentSearchProps {
   recentSearchItemTextColor: string;
   recentSearchItemBgcolor: string;
   recentSearchItemSize: number;
-  handleRecentSearch:(val:ParamsProps)=>void;
+  handleRecentSearch: (val: ParamsProps) => void;
 }
 export interface SearchFieldProps {
   options: {
-    id:number;
+    id: number;
     label: string;
     url?: string;
   }[];
@@ -60,9 +60,16 @@ export interface SearchFieldProps {
   isShortcutKeyBased?: boolean;
   isShortComponent?: boolean;
 
+  variant:
+    | 'isTextSearch'
+    | 'isRecentSearch'
+    | 'isCardBased'
+    | 'isCardWithTitleBased'
+    | 'isShortcutKeyBased'
+    | 'isShortComponent';
   paperRootStyle?: SxProps;
 
-  noOptionsText:string;
+  noOptionsText: string;
   placeHolderText: string;
   placeHolderColor?: string;
   placeHolderSize?: number;
@@ -90,6 +97,7 @@ export interface SearchFieldProps {
   listItemSubTextSize: number;
   listItemSubTextStyles?: SxProps;
   listItemLabelColor: string;
+  keyBasedOptionStyle: SxProps;
   listItemLabelSize: number;
   listItemLabelStyles?: SxProps;
   cardImgStyle?: SxProps;
@@ -97,6 +105,11 @@ export interface SearchFieldProps {
   cardImgHeight: number;
   imgBorderRadius: number;
 
+  cardTitleImgWidth:number;
+  cardTitleImgHeight:number;
+  TitleImgBorderRadius:number;
+
+  recentSearchOption: any;
   recentLabel: string;
   recentLabelTextColor: string;
   recentLabelFontSize: number;
@@ -111,7 +124,7 @@ export interface SearchFieldProps {
   controlsBgColor: string;
   controlsTextSize: number;
 
-  componentColumnDirection: 'column'|'column-reverse';
+  componentColumnDirection: 'column' | 'column-reverse';
   recentSearchLabelColor: string;
   recentSearchLabelSize: number;
   recentSearchLabel: string;
@@ -122,17 +135,17 @@ export interface SearchFieldProps {
   categoryLabel2Color: string;
   categoryLabel2Size: number;
   primaryCategoryData: {
-    id:number;
+    id: number;
     label: string;
     url?: string;
   }[];
   secondaryCategoryData: {
-    id:number;
+    id: number;
     label: string;
     url?: string;
   }[];
 
-  onSelectSearchDataFun:(val:any)=>void;
+  onSelectSearchDataFun: (val: any) => void;
   handleInputOnChange: (val: any) => void;
   handleOptionChange: (val: any) => void;
 

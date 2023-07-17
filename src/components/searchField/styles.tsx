@@ -6,4 +6,8 @@ export const styles = {
     borderRadius: '8px',
     boxShadow: '0px 8px 12px #00000014',
   },
+
+  keyBasedOptionStyle:{
+    
+    height:"30px"}
 };

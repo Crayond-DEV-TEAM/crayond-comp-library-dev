@@ -209,7 +209,7 @@ export const RecentSearch = (props: RecentSearchProps) => {
         {recentLabel}
       </Typography>
       <Stack direction={'row'} mt={'8px'} mb={1} overflow={'scroll'}>
-        {recentVal?.map((val: any) => (
+        {recentVal?.map((val: any) => (         
           <>
             <Typography
               fontWeight={600}
