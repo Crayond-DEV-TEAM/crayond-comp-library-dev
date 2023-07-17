@@ -93,6 +93,8 @@ function App() {
   interface FilmOptionType {
     
   }
+
+
   const [selectedLang, setSelectedLang] = useState<SelectedLangState>({
     allData: {
       langName: '',
@@ -127,7 +129,7 @@ function App() {
     }
   })
 
-  const handleDefaultChange = (e: any, val: { title: string, year: string }) => {
+  const handleDefaultChange = (e: any, val: FilmOptionType) => {
     debugger
     setOptionValue(val as never)
     setSelectedLang({
@@ -151,7 +153,11 @@ function App() {
         selectedLang={selectedLang}
         options={options}
         handleDefaultChange={handleDefaultChange}
-        data={data}
+        data={
+          {
+          suggestionData:data?.suggestionData,
+          allData:data?.allData
+        }}
         handleClick={handleClick}
       />
     </div>

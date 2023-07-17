@@ -2,15 +2,32 @@ interface languageProps {
     langName: string,
     langText: string
 }
+
+interface FilmOptionType {
+    title: string,
+     year: string 
+}
+
+interface selectedLanguageObject {
+    allData: {
+      langName: string;
+      langText: string;
+    };
+    suggestionData: {
+      langName: string;
+      langText: string;
+    };
+  }
+
 interface SelectedLangState {
     allData: {
         langName: string;
         langText: string;
-    };
+    }[];
     suggestionData: {
         langName: string;
         langText: string;
-    };
+    }[];
 }
 export interface languageInterface {
     cardStyle: object,
@@ -20,11 +37,8 @@ export interface languageInterface {
     languagesBoxStyle: object,
     value: FilmOptionType[] | undefined,
     options: { title: string, year: string }[],
-    handleDefaultChange: (event: any, val: { title: string, year: string }) => void,
-    data: {
-        allData: { langName: string; langText: string; };
-        suggestionData: { langName: string; langText: string; };
-    }[],
-    selectedLang: SelectedLangState,
+    handleDefaultChange: (event: any, val: FilmOptionType) => void,
+    data:SelectedLangState,
+    selectedLang: selectedLanguageObject,
     handleClick: (val: languageProps, index: number, parent: string) => void
 }

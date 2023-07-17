@@ -21,10 +21,11 @@ export default function Language(props: languageInterface) {
     selectedLang = {
       allData: {
         langName: '',
-
+        langText: ''
       },
       suggestionData: {
         langName: '',
+        langText: ''
       }
     },
     handleClick,
