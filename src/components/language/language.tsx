@@ -11,11 +11,22 @@ export default function Language(props: languageInterface) {
     unselectedCardStyle,
     cardSubtitleStyle,
     languagesBoxStyle,
-    data,
+    data = {
+      allData: [],
+      suggestionData: [],
+    },
     cardTitleStyle,
     value,
     handleDefaultChange,
-    selectedLang,
+    selectedLang = {
+      allData: {
+        langName: '',
+
+      },
+      suggestionData: {
+        langName: '',
+      }
+    },
     handleClick,
     options
   } = props;

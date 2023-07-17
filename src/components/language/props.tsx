@@ -18,10 +18,22 @@ export interface languageInterface {
     cardTitleStyle: object,
     cardSubtitleStyle: object,
     languagesBoxStyle: object,
-    value: object,
+    value: object | undefined,
     options: { title: string, year: string }[],
     handleDefaultChange: (event: any, val: { title: string, year: string }) => void,
-    data: [],
-    selectedLang: SelectedLangState[],
+    data: {
+        allData: { langName: string; langText: string; };
+        suggestionData: { langName: string; langText: string; };
+    }[],
+    selectedLang: {
+        allData: {
+            langName: string;
+            langText: string;
+        };
+        suggestionData: {
+            langName: string;
+            langText: string;
+        };
+    }[],
     handleClick: (val: languageProps, index: number, parent: string) => void
 }
