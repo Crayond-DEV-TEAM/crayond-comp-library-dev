@@ -124,15 +124,14 @@ const SearchField = (props: SearchFieldProps) => {
     setIsOpen(true);
   };
 
-  const handleClose = () => {
-    handleClose();
-  };
+  // const handleClose = () => {
+  //   setIsOpen(false);
+  // };
   const requestOnInputSearch = (val: string) => {
     setSearch(val);
   };
 
   const handleSearchData = (val: ParamsProps) => {
-    debugger;
     if (onSelectSearchDataFun) {
       onSelectSearchDataFun(val);
     }
@@ -144,7 +143,7 @@ const SearchField = (props: SearchFieldProps) => {
         setRecentSearch([...recentSearch, val]);
       }
     }
-    handleClose();
+    // setIsOpen(false);
   };
 
   const handleOnchange = (e: React.ChangeEvent<{}>, val: ParamsProps) => {
@@ -152,21 +151,22 @@ const SearchField = (props: SearchFieldProps) => {
     if (handleOptionChange) {
       handleOptionChange(val);
     }
+    setIsOpen(false);
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Escape') {
-      handleClose();
+      // handleClose();
     }
   };
 
   const handleRecentSearch = (val: ParamsProps) => {
     setSearched(val);
-    handleClose();
+    // handleClose();
   };
 
   const handleSelect = () => {
-    handleClose();
+    // handleClose();
   };
 
   const handleClear = () => {
@@ -175,13 +175,15 @@ const SearchField = (props: SearchFieldProps) => {
 
   return (
     <>
-      <ClickAwayListener onClickAway={() => setIsOpen(false)}>
+      {/* <ClickAwayListener onClickAway={() => setIsOpen(false)}> */}
         <Autocomplete
           open={isOpen}
-          onOpen={() => handleOpen()}
-          onClose={() => handleClose()}
+          onOpen={() => setIsOpen(true)}
+          onClose={() =>setIsOpen(false)}
           clearOnEscape={true}
           fullWidth
+          autoSelect
+          disableListWrap
           value={searched}
           noOptionsText={noOptionsText}
           options={options}
@@ -608,7 +610,7 @@ const SearchField = (props: SearchFieldProps) => {
             />
           )}
         />
-      </ClickAwayListener>
+      {/* </ClickAwayListener> */}
     </>
   );
 };
