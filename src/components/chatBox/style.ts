@@ -9,6 +9,7 @@ export const styles: styleProps = {
     width: '400px',
     border: '1px solid #E9E9E160',
     userSelect: 'none',
+    position: 'relative',
   },
   header: {
     padding: '16px 20px',
@@ -124,6 +125,8 @@ export const styles: styleProps = {
     display: 'flex',
     alignItems: 'center',
     gap: '6px',
+    position: 'relative',
+    zIndex: 3,
     '&& #count': {
       fontSize: '12px',
       color: '#666666',
@@ -140,5 +143,13 @@ export const styles: styleProps = {
     position: 'absolute',
     right: '0',
     top: '-20px',
+  },
+  emojiPickerContainer: {
+    fontFamily: 'EmojiMart !important',
+    position: 'absolute',
+    zIndex: 40,
+    bottom: '66px',
+    borderRadius: '8px',
+    boxShadow: '0px 3px 16px #0000001a',
   },
 };

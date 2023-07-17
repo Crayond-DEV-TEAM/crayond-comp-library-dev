@@ -2,13 +2,12 @@ import { styles } from './style';
 import './emojiFont.css';
 import {
   Avatar,
-  Badge,
   IconButton,
   InputBase,
   Stack,
   SxProps,
   Typography,
-  Box
+  Box,
 } from '@mui/material';
 import emojiData from '@emoji-mart/data';
 import Picker from '@emoji-mart/react';
@@ -23,7 +22,7 @@ import MoreIcon from '../../assets/moreIcon';
 import MinimizeIcon from '../../assets/minimizeIcon';
 import { chatBoxProps, chatMessageProps } from './props';
 import { Thump, Smile, Ohh, Sad, Angry } from '../../assets/emojis';
-import AddEmoji from '../../assets/addEmoji';
+import { AddEmoji, AddEmojiOutline } from '../../assets/addEmoji';
 export default function ChatBox(props: chatBoxProps) {
   const {
     chatData,
@@ -62,10 +61,13 @@ export default function ChatBox(props: chatBoxProps) {
   };
 
   const [chatMessage, setChatMessage] = useState(messages);
+  const [currentMessage, setCurrentMessage] =
+    useState<chatMessageProps | null>();
   const scrollRef = React.useRef<HTMLDivElement | null>(null);
-
+  const [isShowEmojiPiker, setIsShowEmojiPiker] = useState(false);
   const onSubmitMessage = (e: React.FormEvent<HTMLFormElement> | any) => {
     e?.preventDefault();
+    setIsShowEmojiPiker(false);
     setInputValue('');
     const content = e?.target?.message?.value;
 
@@ -84,9 +86,9 @@ export default function ChatBox(props: chatBoxProps) {
         enteredMessage: messageData,
         messageList: messageList,
       });
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
+    setTimeout(() => {
+      handleScroll();
+    }, 500);
   };
   const setEmojiCount = (data: {
     id: string;
@@ -99,19 +101,16 @@ export default function ChatBox(props: chatBoxProps) {
     const msgData = chatMessage?.find(
       (msg: chatMessageProps) => msg?.messageId === data?.data?.messageId
     );
-    // debugger
     //Get Current Reactions
     const oldReactions = msgData?.reactions?.find((re) => re.id === data?.id);
     const userAlreadyReaction = oldReactions?.senderId.some(
       (user) => user === loginUser
     );
-    //&& !re.senderId.includes(loginUser)
     let reactionDataTemp = msgData?.reactions || [];
     const reactionIndex = msgData?.reactions?.findIndex(
       (re) => re.id === data?.id
     );
 
-    // if (oldReactions) {
     //Get Current Reactions
     let reactionData = {
       id: data.id,
@@ -167,13 +166,44 @@ export default function ChatBox(props: chatBoxProps) {
         enteredMessage: messageData,
         messageList: msg_temp,
       });
-    setChatMessage(msg_temp);
+    setChatMessage([...msg_temp]);
   };
-  React.useEffect(() => {
+  const clickAway = () => {
+    if (openEmoji) {
+      setOpenEmoji('');
+    }
+    if (isShowEmojiPiker) {
+      setIsShowEmojiPiker(false);
+    }
+  };
+  const addMoreEmoji = ({ message }: { message: chatMessageProps }) => {
+    setCurrentMessage(message);
+    setIsShowEmojiPiker(true);
+  };
+  const onchangeEmoji = (e: any) => {
+    if (currentMessage?.messageId) {
+      setEmojiCount({
+        data: currentMessage,
+        id: e?.id,
+        shortcodes: e?.shortcodes,
+        unified: e?.unified,
+        emoji: e?.native,
+      });
+      setCurrentMessage(null);
+      setIsShowEmojiPiker(false);
+    } else {
+      console.log(e, 'ddddddddddddddddddd');
+      setInputValue((prv) => prv + e?.native);
+    }
+  };
+  const handleScroll = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [chatMessage]);
+  };
+  React.useEffect(() => {
+    handleScroll();
+  }, []);
   return (
     <Box
       className="chat-root"
@@ -280,7 +310,7 @@ export default function ChatBox(props: chatBoxProps) {
           ref={scrollRef}
           className="chat-scroll"
           sx={{ ...styles.overflow, ...chatStyles?.chatScrollStyle } as SxProps}
-          onClick={() => setOpenEmoji('')}
+          onClick={() => clickAway()}
         >
           <Box
             className="chat-list"
@@ -413,20 +443,12 @@ export default function ChatBox(props: chatBoxProps) {
                       >
                         <Angry />
                       </IconButton>
-                       <IconButton
-                        onClick={() =>
-                          setEmojiCount({
-                            id: 'angry',
-                            emoji: '😠',
-                            shortcodes: ':angry:',
-                            unified: '1f620',
-                            data: message,
-                          })
-                        }
+                      <IconButton
+                        onClick={() => addMoreEmoji({ message: message })}
                         size="small"
                         disableRipple
                       >
-                        <AddEmoji color="#ffcc4d" fontSize="24px"/>
+                        <AddEmoji color="#ffcc4d" fontSize="24px" />
                       </IconButton>
                     </Stack>
                   )}
@@ -465,9 +487,15 @@ export default function ChatBox(props: chatBoxProps) {
                           }
                         >
                           {moment(message?.timestamp).calendar(new Date(), {
-                            sameDay: `[${moment(message?.timestamp)
-                              .fromNow()
-                              .toString()}]`,
+                            sameDay: `[${
+                              moment(message?.timestamp)
+                                .fromNow()
+                                .toString() === 'a few seconds ago'
+                                ? 'Just now'
+                                : moment(message?.timestamp)
+                                    .fromNow()
+                                    .toString()
+                            }]`,
                             // lastDay: '[Yesterday]',
                             // lastWeek: '[Last] dddd',
                             sameElse: 'LLL',
@@ -476,7 +504,7 @@ export default function ChatBox(props: chatBoxProps) {
                       </Stack>
                       <Box
                         className="chat-message-body"
-                        onDoubleClick={() => setEmojiOpen(message)}
+                        // onDoubleClick={() => setEmojiOpen(message)}
                         sx={
                           isYou
                             ? ({
@@ -495,6 +523,7 @@ export default function ChatBox(props: chatBoxProps) {
                             {
                               ...styles.messageText,
                               ...chatStyles?.messageTextStyle,
+                              fontFamily: 'Poppins, EmojiMart, sans-serif',
                             } as SxProps
                           }
                         >
@@ -508,29 +537,56 @@ export default function ChatBox(props: chatBoxProps) {
                             flexWrap={'wrap'}
                             alignItems={'center'}
                           >
-                            {message?.reactions?.map((reaction, index) => {
-                              return (
-                                <Box
-                                  key={index + reaction?.id}
-                                  sx={
-                                    isYou
-                                      ? ({
-                                          ...styles.reactionBox,
-                                          ...chatStyles?.reactionBoxStyle,
-                                        } as SxProps)
-                                      : ({
-                                          ...styles.reactionBox2,
-                                          ...chatStyles?.reactionBoxReceiverStyle,
-                                        } as SxProps)
-                                  }
-                                >
-                                  <Typography sx={{ fontFamily: 'EmojiMart' }}>
-                                    {reaction?.emoji}{' '}
-                                  </Typography>
-                                  <p id="count">{reaction?.count}</p>
-                                </Box>
-                              );
-                            })}
+                            {message?.reactions?.map((reaction, index) => (
+                              <Box
+                                key={index + reaction?.id}
+                                onClick={() => {
+                                  !isYou &&
+                                    setEmojiCount({
+                                      id: reaction?.id,
+                                      shortcodes: reaction?.shortcodes,
+                                      unified: reaction?.unified,
+                                      emoji: reaction?.emoji,
+                                      data: message,
+                                    });
+                                }}
+                                sx={
+                                  isYou
+                                    ? ({
+                                        ...styles.reactionBox,
+                                        ...chatStyles?.reactionBoxStyle,
+                                      } as SxProps)
+                                    : ({
+                                        ...styles.reactionBox2,
+                                        ...chatStyles?.reactionBoxReceiverStyle,
+                                      } as SxProps)
+                                }
+                              >
+                                <Typography sx={{ fontFamily: 'EmojiMart' }}>
+                                  {reaction?.emoji}
+                                </Typography>
+                                <p id="count">{reaction?.count}</p>
+                              </Box>
+                            ))}
+                            {!isYou && (
+                              <Box
+                                onClick={() => setEmojiOpen(message)}
+                                sx={
+                                  {
+                                    ...styles.reactionBox2,
+                                    ...chatStyles?.reactionBoxReceiverStyle,
+                                    display: 'flex',
+                                    padding: '4px 8px',
+                                  } as SxProps
+                                }
+                              >
+                                {/* <Box> */}
+                                <AddEmojiOutline
+                                  style={{ color: '#666666', display: 'block' }}
+                                />
+                                {/* </Box> */}
+                              </Box>
+                            )}
                           </Stack>
                         )}
                       </Box>
@@ -556,10 +612,11 @@ export default function ChatBox(props: chatBoxProps) {
               size="small"
               disableRipple
               sx={editorStyle?.iconStyle}
-              onClick={(e) =>
+              onClick={(e) => {
                 editorFunctions?.onClickEmojiIcon &&
-                editorFunctions?.onClickEmojiIcon({ event: e })
-              }
+                  editorFunctions?.onClickEmojiIcon({ event: e });
+                setIsShowEmojiPiker(true);
+              }}
             >
               {editorIcon?.emojiIcon ? editorIcon?.emojiIcon : <EmojiIcon />}
             </IconButton>
@@ -574,10 +631,16 @@ export default function ChatBox(props: chatBoxProps) {
                   className="chat-input"
                   name={'message'}
                   fullWidth
-                  sx={{ ...styles.inputStyle }}
+                  sx={{
+                    ...styles.inputStyle,
+                    fontFamily: 'Poppins, EmojiMart, sans-serif',
+                  }}
                   placeholder="Enter message"
                   {...inputProps}
                   value={inputValue}
+                  inputProps={{
+                    autocomplete: 'off',
+                  }}
                   onChange={(e) => {
                     inputProps?.onChange && inputProps?.onChange(e);
                     chatInputOnchange(e);
@@ -631,9 +694,14 @@ export default function ChatBox(props: chatBoxProps) {
           </Stack>
         </Box>
       </Box>
-      <Box sx={{ fontFamily: 'EmojiMart !important' }}>
-        <Picker data={emojiData} onEmojiSelect={(e: any) => console.log(e)} />
-      </Box>
+      {isShowEmojiPiker && (
+        <Box sx={{ ...styles.emojiPickerContainer }}>
+          <Picker
+            data={emojiData}
+            onEmojiSelect={(e: any) => onchangeEmoji(e)}
+          />
+        </Box>
+      )}
     </Box>
   );
 }

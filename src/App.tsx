@@ -30,21 +30,21 @@ function App() {
         senderId: 'user_1',
         content: "Hey everyone, how's it going?",
         timestamp: '2023-06-28T10:00:00Z',
-        reactions: [{ id: '+1', emoji: '👍', senderId: ['user_2'], count: 2 }],
+        reactions: [{ id: '+1', emoji: '👍', senderId: ['user_2'], count: 1 }],
       },
       {
         messageId: 'msg_2',
         senderId: 'user_2',
         content: 'Hi John! Things are great here. How about you?',
         timestamp: '2023-06-28T10:05:00Z',
-        reactions: [{ id: '+1', emoji: '👍', senderId: ['user_1'], count: 2 }],
+        reactions: [{ id: '+1', emoji: '👍', senderId: ['user_1'], count: 1 }],
       },
       {
         messageId: 'msg_3',
         senderId: 'user_2',
         content: "Hey guys! I'm doing well too. Any exciting news?",
         timestamp: '2023-06-28T10:10:00Z',
-        reactions: [{ id: '+1', emoji: '👍', senderId: ['user_1'], count: 2 }],
+        reactions: [{ id: '+1', emoji: '👍', senderId: ['user_1'], count: 1 }],
       },
       {
         messageId: 'msg_4',
@@ -52,7 +52,7 @@ function App() {
         content:
           'Not much, just enjoying the weekend. How about we plan a meetup?',
         timestamp: '2023-06-19T10:15:00Z',
-        reactions: [{ id: '+1', emoji: '👍', senderId: ['user_2'], count: 2 }],
+        reactions: [{ id: '+1', emoji: '👍', senderId: ['user_2'], count: 1 }],
       },
       {
         messageId: 'msg_5',
@@ -60,7 +60,7 @@ function App() {
         content:
           "That's a great idea! I'm available next week. What about you, Alex?",
         timestamp: '2023-06-29T12:00:00Z',
-        reactions: [{ id: '+1', senderId: ['user_1'], emoji: '👍', count: 4 }],
+        reactions: [{ id: '+1', senderId: ['user_1'], emoji: '👍', count: 1 }],
       },
     ],
     styles: {
@@ -85,7 +85,7 @@ function App() {
   const headerData = {
     chatName: 'New Group',
     profileImage: '',
-    status: 'online',
+    status: '2 Members',
     customComponent: null,
     functions: {
       onClickProfile: undefined,
@@ -142,6 +142,7 @@ function App() {
           onEnterMessage={onEnterMessage}
           onReactionChange={console.log}
           reactionEnable={true}
+          emojiPickerProps={{}}
         />
       </Stack>
     </div>
