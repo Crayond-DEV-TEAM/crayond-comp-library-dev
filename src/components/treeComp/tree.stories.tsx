@@ -1,6 +1,8 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import TreeComponent from './treeComp';
-import { CollapseIcon, ExpandIcon } from '../../assets/settingIcon';
+import {  ExpandIcon } from '../../assets/expandIcon';
+import   CollapseIcon  from '../../assets/collapseIcon';
+
 
 export default {
     title: 'components/treeComp',
@@ -266,7 +268,7 @@ export default {
 
 } as ComponentMeta<typeof TreeComponent>;
 
-const Template: ComponentStory<typeof TreeView> = (args) => (
+const Template: ComponentStory<typeof TreeComponent> = (args) => (
     <TreeComponent {...args} />
 );
 
