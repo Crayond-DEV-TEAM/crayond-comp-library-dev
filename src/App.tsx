@@ -74,7 +74,7 @@ function App() {
         iconBlockStyle={null}
       />
     </div>
-  );
+  )
 }
 
 export default App;
