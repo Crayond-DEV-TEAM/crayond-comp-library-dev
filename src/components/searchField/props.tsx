@@ -3,6 +3,7 @@ export interface ParamsProps {
   id: number;
   label: string;
   url?: string;
+  subTitle?:string;
 }
 export interface SuggestionProp {
   searchValue: any;
@@ -11,6 +12,7 @@ export interface SuggestionProp {
     id: number;
     label: string;
     url?: string;
+    subTitle?:string;
   }[];
 }
 export interface Category1Props {
@@ -47,9 +49,11 @@ export interface RecentSearchProps {
   handleRecentSearch: (val: ParamsProps) => void;
 }
 export interface SearchFieldProps {
+  
   options: {
     id: number;
     label: string;
+    subTitle?:string;
     url?: string;
   }[];
 
@@ -138,10 +142,12 @@ export interface SearchFieldProps {
     id: number;
     label: string;
     url?: string;
+    subTitle?:string;
   }[];
   secondaryCategoryData: {
     id: number;
     label: string;
+    subTitle?:string;
     url?: string;
   }[];
 

@@ -10,9 +10,9 @@ import ClockIcon from '../../assets/clockIcon';
 export const SuggestionRecentSearch = (props: SuggestionProp) => {
   const { searchValue, handleRecentSearch=()=>{},option } = props;
 
-  const filteredRows = option.filter((row: any) => {
-    return row.label.toLowerCase().includes(searchValue?.toLowerCase());
-  });
+  // const filteredRows = option.filter((row: any) => {
+  //   return row.label.toLowerCase().includes(searchValue?.toLowerCase());
+  // });
 
   return (
     <>
@@ -43,9 +43,9 @@ export const SuggestionRecentSearch = (props: SuggestionProp) => {
 export const FoodCategory = (props: Category1Props) => {
   const { searchValue, option, handleCategoryData = () => {} } = props;
 
-  const filteredRows = option.filter((row: any) => {
-    return row.label.toLowerCase().includes(searchValue?.toLowerCase());
-  });
+  // const filteredRows = option.filter((row: any) => {
+  //   return row.label.toLowerCase().includes(searchValue?.toLowerCase());
+  // });
 
   return (
     <>
@@ -89,9 +89,9 @@ export const FoodCategory = (props: Category1Props) => {
 export const EmployeeCategory = (props: Category1Props) => {
   const { searchValue, option, handleCategoryData = () => {} } = props;
 
-  const filteredRows = option.filter((row: any) => {
-    return row?.label?.toLowerCase()?.includes(searchValue?.toLowerCase());
-  });
+  // const filteredRows = option.filter((row: any) => {
+  //   return row?.label?.toLowerCase()?.includes(searchValue?.toLowerCase());
+  // });
   return (
     <>
       {option?.map((val: any) => (
@@ -126,7 +126,7 @@ export const EmployeeCategory = (props: Category1Props) => {
               {val?.label}
             </Typography>
             <Typography color={'#666666'} fontSize={'10px'} mt={'6px'}>
-              {val?.label}
+              {val?.subTitle}
             </Typography>
           </Box>
         </Stack>
