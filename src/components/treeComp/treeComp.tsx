@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles';
 import TreeItem, { treeItemClasses } from '@mui/lab/TreeItem';
 import { styles } from './style';
 import SettingIcon from '../../assets/settingIcon';
-import CollapseIcon from '../../assets/CollapseIcon';
+import CollapseIcon from '../../assets/collapseIcon';
 import ExpandIcon from '../../assets/expandIcon';
 import InfoIcon from '../../assets/InfoIcon';
 import { CheckBoxProps, CustomLabelProps, TreeComponentProps } from './props';
@@ -100,7 +100,7 @@ export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
         </Grid>
     );
 };
-const StyledTreeItem = styled(TreeItem)<TreeComponentProps>((rootNode: boolean) => {
+const StyledTreeItem = styled(TreeItem)<TreeComponentProps>((rootNode) => {
     return {
         position: 'relative',
         '&:before': {

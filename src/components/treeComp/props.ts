@@ -44,8 +44,8 @@ export interface TreeComponentProps {
     rootNode?: boolean;
     defaultExpandIcon?: JSX.Element;
     defaultCollapseIcon?: JSX.Element;
-    state: any;
-    checkBoxStyles: CheckBoxProps | undefined;
+    state?: any;
+    checkBoxStyles?: CheckBoxProps | undefined;
     leftSec?: {
         breakpoints: object;
     };

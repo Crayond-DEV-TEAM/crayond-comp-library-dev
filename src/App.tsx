@@ -5,7 +5,7 @@ import '@fontsource/poppins/700.css';
 import { TreeComponent } from './components/treeComp';
 import { useState } from 'react';
 import SettingIcon from './assets/settingIcon';
-import CollapseIcon from './assets/CollapseIcon';
+import CollapseIcon from './assets/collapseIcon';
 import ExpandIcon from './assets/expandIcon';
 import InfoIcon from './assets/InfoIcon';
 
