@@ -10,6 +10,7 @@ export const styles: styleProps = {
     border: '1px solid #E9E9E160',
     userSelect: 'none',
     position: 'relative',
+    backgroundColor: '#fff',
   },
   header: {
     padding: '16px 20px',
@@ -151,5 +152,10 @@ export const styles: styleProps = {
     bottom: '66px',
     borderRadius: '8px',
     boxShadow: '0px 3px 16px #0000001a',
+  },
+  dateDivider: {
+    fontSize: '14px',
+    color: '#929292',
+    margin: '26px 0',
   },
 };

@@ -49,6 +49,9 @@ export default function ChatBox(props: chatBoxProps) {
     functions: editorFunctions,
   } = editorData;
   const [openEmoji, setOpenEmoji] = useState('');
+  const [lastDividerDate, setLastDividerDate] = useState<string | Date | null>(
+    null
+  );
 
   const setEmojiOpen = (message: chatMessageProps) => {
     setOpenEmoji(message?.messageId as string);
@@ -204,6 +207,29 @@ export default function ChatBox(props: chatBoxProps) {
   React.useEffect(() => {
     handleScroll();
   }, []);
+
+  const getWeekDays = (date: string | Date) => {
+    const formatted = moment(date).calendar(null, {
+      sameDay: '[Today]',
+      lastDay: '[Yesterday]',
+      lastWeek: 'dddd',
+      sameElse: 'D MMM YYYY',
+    });
+    return formatted;
+  };
+
+  const getIsAfter = (date: string | Date): boolean => {
+    const newDate = moment(date).format('DD MM YYYY');
+    let status = true;
+    if (lastDividerDate) {
+      status = newDate === moment(lastDividerDate).format('DD MM YYYY');
+    }
+    if (status) {
+      setLastDividerDate(newDate);
+    }
+    return status;
+  };
+
   return (
     <Box
       className="chat-root"
@@ -328,271 +354,281 @@ export default function ChatBox(props: chatBoxProps) {
               );
 
               return (
-                <Stack
-                  key={message?.messageId}
-                  direction={isYou ? 'row-reverse' : 'row'}
-                  gap="8px"
-                  sx={
-                    {
-                      ...styles.messageContainer,
-                      marginLeft: isYou ? 'auto' : '0',
-                      ...chatStyles?.messageContainerStyle,
-                    } as SxProps
-                  }
-                  // onClick={chatStyles}
-                >
-                  <Avatar
-                    className="chat-message-profile"
-                    onClick={(e) =>
-                      chatFunctions?.onClickMassagerProfile &&
-                      chatFunctions?.onClickMassagerProfile({
-                        event: e,
-                        profile_details: sender,
-                      })
-                    }
-                    sx={
-                      {
-                        ...styles.messageProfile,
-                        cursor: isYou ? 'initial' : 'pointer',
-                        ...chatStyles?.messageProfileStyle,
-                      } as SxProps
-                    }
-                  >
-                    <UserIcon />
-                  </Avatar>
-                  {/* badge */}
-                  {!isYou && openEmoji === message?.messageId && (
-                    <Stack
-                      sx={styles.badge}
-                      direction={'row'}
-                      gap="5px"
-                      alignItems={'center'}
-                    >
-                      <IconButton
-                        onClick={() =>
-                          setEmojiCount({
-                            id: '+1',
-                            emoji: '👍',
-                            shortcodes: ':+1:',
-                            unified: '1f44d',
-                            data: message,
-                          })
-                        }
-                        size="small"
-                        disableRipple
-                      >
-                        <Thump />
-                      </IconButton>
-                      <IconButton
-                        onClick={() =>
-                          setEmojiCount({
-                            id: 'grinning',
-                            emoji: '😀',
-                            shortcodes: ':grinning:',
-                            unified: '1f600',
-                            data: message,
-                          })
-                        }
-                        size="small"
-                        disableRipple
-                      >
-                        <Smile />
-                      </IconButton>
-                      <IconButton
-                        onClick={() =>
-                          setEmojiCount({
-                            id: 'open_mouth',
-                            emoji: '😮',
-                            shortcodes: ':open_mouth:',
-                            unified: '1f62e',
-                            data: message,
-                          })
-                        }
-                        size="small"
-                        disableRipple
-                      >
-                        <Ohh />
-                      </IconButton>
-                      <IconButton
-                        onClick={() =>
-                          setEmojiCount({
-                            id: 'cry',
-                            emoji: '😢',
-                            shortcodes: ':cry:',
-                            unified: '1f622',
-                            data: message,
-                          })
-                        }
-                        size="small"
-                        disableRipple
-                      >
-                        <Sad />
-                      </IconButton>
-                      <IconButton
-                        onClick={() =>
-                          setEmojiCount({
-                            id: 'angry',
-                            emoji: '😠',
-                            shortcodes: ':angry:',
-                            unified: '1f620',
-                            data: message,
-                          })
-                        }
-                        size="small"
-                        disableRipple
-                      >
-                        <Angry />
-                      </IconButton>
-                      <IconButton
-                        onClick={() => addMoreEmoji({ message: message })}
-                        size="small"
-                        disableRipple
-                      >
-                        <AddEmoji color="#ffcc4d" fontSize="24px" />
-                      </IconButton>
-                    </Stack>
+                <React.Fragment  key={message?.messageId}>
+                  {getIsAfter(message?.timestamp) && (
+                    <Typography sx={styles.dateDivider} align="center">
+                      {getWeekDays(message?.timestamp)}
+                    </Typography>
                   )}
-                  <Box
-                    className="chat-message-details"
+                  <Stack
+                    key={message?.messageId}
+                    direction={isYou ? 'row-reverse' : 'row'}
+                    gap="8px"
                     sx={
                       {
-                        ...styles.chatDetails,
+                        ...styles.messageContainer,
+                        marginLeft: isYou ? 'auto' : '0',
                         ...chatStyles?.messageContainerStyle,
                       } as SxProps
                     }
+                    // onClick={chatStyles}
                   >
-                    <>
+                    <Avatar
+                      className="chat-message-profile"
+                      onClick={(e) =>
+                        chatFunctions?.onClickMassagerProfile &&
+                        chatFunctions?.onClickMassagerProfile({
+                          event: e,
+                          profile_details: sender,
+                        })
+                      }
+                      sx={
+                        {
+                          ...styles.messageProfile,
+                          cursor: isYou ? 'initial' : 'pointer',
+                          ...chatStyles?.messageProfileStyle,
+                        } as SxProps
+                      }
+                    >
+                      <UserIcon />
+                    </Avatar>
+                    {/* badge */}
+                    {!isYou && openEmoji === message?.messageId && (
                       <Stack
-                        sx={{ marginBottom: '4px' }}
-                        direction={isYou ? 'row-reverse' : 'row'}
-                        gap="8px"
+                        sx={styles.badge}
+                        direction={'row'}
+                        gap="5px"
                         alignItems={'center'}
                       >
-                        <Typography
-                          sx={
-                            {
-                              ...styles.massagerName,
-                              ...chatStyles?.massagerNameStyle,
-                            } as SxProps
+                        <IconButton
+                          onClick={() =>
+                            setEmojiCount({
+                              id: '+1',
+                              emoji: '👍',
+                              shortcodes: ':+1:',
+                              unified: '1f44d',
+                              data: message,
+                            })
                           }
+                          size="small"
+                          disableRipple
                         >
-                          {sender?.username}
-                        </Typography>
-                        <Typography
-                          sx={
-                            {
-                              ...styles.massagerTime,
-                              ...chatStyles?.massageTimeStyles,
-                            } as SxProps
+                          <Thump />
+                        </IconButton>
+                        <IconButton
+                          onClick={() =>
+                            setEmojiCount({
+                              id: 'grinning',
+                              emoji: '😀',
+                              shortcodes: ':grinning:',
+                              unified: '1f600',
+                              data: message,
+                            })
                           }
+                          size="small"
+                          disableRipple
                         >
-                          {moment(message?.timestamp).calendar(new Date(), {
-                            sameDay: `[${
-                              moment(message?.timestamp)
-                                .fromNow()
-                                .toString() === 'a few seconds ago'
-                                ? 'Just now'
-                                : moment(message?.timestamp)
-                                    .fromNow()
-                                    .toString()
-                            }]`,
-                            // lastDay: '[Yesterday]',
-                            // lastWeek: '[Last] dddd',
-                            sameElse: 'LLL',
-                          })}
-                        </Typography>
+                          <Smile />
+                        </IconButton>
+                        <IconButton
+                          onClick={() =>
+                            setEmojiCount({
+                              id: 'open_mouth',
+                              emoji: '😮',
+                              shortcodes: ':open_mouth:',
+                              unified: '1f62e',
+                              data: message,
+                            })
+                          }
+                          size="small"
+                          disableRipple
+                        >
+                          <Ohh />
+                        </IconButton>
+                        <IconButton
+                          onClick={() =>
+                            setEmojiCount({
+                              id: 'cry',
+                              emoji: '😢',
+                              shortcodes: ':cry:',
+                              unified: '1f622',
+                              data: message,
+                            })
+                          }
+                          size="small"
+                          disableRipple
+                        >
+                          <Sad />
+                        </IconButton>
+                        <IconButton
+                          onClick={() =>
+                            setEmojiCount({
+                              id: 'angry',
+                              emoji: '😠',
+                              shortcodes: ':angry:',
+                              unified: '1f620',
+                              data: message,
+                            })
+                          }
+                          size="small"
+                          disableRipple
+                        >
+                          <Angry />
+                        </IconButton>
+                        <IconButton
+                          onClick={() => addMoreEmoji({ message: message })}
+                          size="small"
+                          disableRipple
+                        >
+                          <AddEmoji color="#ffcc4d" fontSize="24px" />
+                        </IconButton>
                       </Stack>
-                      <Box
-                        className="chat-message-body"
-                        // onDoubleClick={() => setEmojiOpen(message)}
-                        sx={
-                          isYou
-                            ? ({
-                                ...styles.messageBodyYou,
-                                ...chatStyles?.senderMessageStyle,
-                              } as SxProps)
-                            : ({
-                                ...styles.messageBody,
-                                ...chatStyles?.receiverMessageStyle,
-                              } as SxProps)
-                        }
-                      >
-                        <Typography
-                          className="chat-message-text"
+                    )}
+                    <Box
+                      className="chat-message-details"
+                      sx={
+                        {
+                          ...styles.chatDetails,
+                          ...chatStyles?.messageContainerStyle,
+                        } as SxProps
+                      }
+                    >
+                      <>
+                        <Stack
+                          sx={{ marginBottom: '4px' }}
+                          direction={isYou ? 'row-reverse' : 'row'}
+                          gap="8px"
+                          alignItems={'center'}
+                        >
+                          <Typography
+                            sx={
+                              {
+                                ...styles.massagerName,
+                                ...chatStyles?.massagerNameStyle,
+                              } as SxProps
+                            }
+                          >
+                            {sender?.username}
+                          </Typography>
+                          <Typography
+                            sx={
+                              {
+                                ...styles.massagerTime,
+                                ...chatStyles?.massageTimeStyles,
+                              } as SxProps
+                            }
+                          >
+                            {moment(message?.timestamp).calendar(new Date(), {
+                              sameDay: `[${
+                                moment(message?.timestamp)
+                                  .fromNow()
+                                  .toString() === 'a few seconds ago'
+                                  ? 'Just now'
+                                  : moment(message?.timestamp)
+                                      .fromNow()
+                                      .toString()
+                              }]`,
+                              // lastDay: '[Yesterday]',
+                              // lastWeek: '[Last] dddd',
+                              sameElse: 'LLL',
+                            })}
+                          </Typography>
+                        </Stack>
+                        <Box
+                          className="chat-message-body"
+                          // onDoubleClick={() => setEmojiOpen(message)}
                           sx={
-                            {
-                              ...styles.messageText,
-                              ...chatStyles?.messageTextStyle,
-                              fontFamily: 'Poppins, EmojiMart, sans-serif',
-                            } as SxProps
+                            isYou
+                              ? ({
+                                  ...styles.messageBodyYou,
+                                  ...chatStyles?.senderMessageStyle,
+                                } as SxProps)
+                              : ({
+                                  ...styles.messageBody,
+                                  ...chatStyles?.receiverMessageStyle,
+                                } as SxProps)
                           }
                         >
-                          {message?.content}
-                        </Typography>
-                        {reactionEnable && (
-                          <Stack
-                            sx={{ ...styles.reactionContainer }}
-                            direction={isYou ? 'row-reverse' : 'row'}
-                            gap="8px"
-                            flexWrap={'wrap'}
-                            alignItems={'center'}
+                          <Typography
+                            className="chat-message-text"
+                            sx={
+                              {
+                                ...styles.messageText,
+                                ...chatStyles?.messageTextStyle,
+                                fontFamily: 'Poppins, EmojiMart, sans-serif',
+                              } as SxProps
+                            }
                           >
-                            {message?.reactions?.map((reaction, index) => (
-                              <Box
-                                key={index + reaction?.id}
-                                onClick={() => {
-                                  !isYou &&
-                                    setEmojiCount({
-                                      id: reaction?.id,
-                                      shortcodes: reaction?.shortcodes,
-                                      unified: reaction?.unified,
-                                      emoji: reaction?.emoji,
-                                      data: message,
-                                    });
-                                }}
-                                sx={
-                                  isYou
-                                    ? ({
-                                        ...styles.reactionBox,
-                                        ...chatStyles?.reactionBoxStyle,
-                                      } as SxProps)
-                                    : ({
-                                        ...styles.reactionBox2,
-                                        ...chatStyles?.reactionBoxReceiverStyle,
-                                      } as SxProps)
-                                }
-                              >
-                                <Typography sx={{ fontFamily: 'EmojiMart' }}>
-                                  {reaction?.emoji}
-                                </Typography>
-                                <p id="count">{reaction?.count}</p>
-                              </Box>
-                            ))}
-                            {!isYou && (
-                              <Box
-                                onClick={() => setEmojiOpen(message)}
-                                sx={
-                                  {
-                                    ...styles.reactionBox2,
-                                    ...chatStyles?.reactionBoxReceiverStyle,
-                                    display: 'flex',
-                                    padding: '4px 8px',
-                                  } as SxProps
-                                }
-                              >
-                                {/* <Box> */}
-                                <AddEmojiOutline
-                                  style={{ color: '#666666', display: 'block' }}
-                                />
-                                {/* </Box> */}
-                              </Box>
-                            )}
-                          </Stack>
-                        )}
-                      </Box>
-                    </>
-                  </Box>
-                </Stack>
+                            {message?.content}
+                          </Typography>
+                          {reactionEnable && (
+                            <Stack
+                              sx={{ ...styles.reactionContainer }}
+                              direction={isYou ? 'row-reverse' : 'row'}
+                              gap="8px"
+                              flexWrap={'wrap'}
+                              alignItems={'center'}
+                            >
+                              {message?.reactions?.map((reaction, index) => (
+                                <Box
+                                  key={index + reaction?.id}
+                                  onClick={() => {
+                                    !isYou &&
+                                      setEmojiCount({
+                                        id: reaction?.id,
+                                        shortcodes: reaction?.shortcodes,
+                                        unified: reaction?.unified,
+                                        emoji: reaction?.emoji,
+                                        data: message,
+                                      });
+                                  }}
+                                  sx={
+                                    isYou
+                                      ? ({
+                                          ...styles.reactionBox,
+                                          ...chatStyles?.reactionBoxStyle,
+                                        } as SxProps)
+                                      : ({
+                                          ...styles.reactionBox2,
+                                          ...chatStyles?.reactionBoxReceiverStyle,
+                                        } as SxProps)
+                                  }
+                                >
+                                  <Typography sx={{ fontFamily: 'EmojiMart' }}>
+                                    {reaction?.emoji}
+                                  </Typography>
+                                  <p id="count">{reaction?.count}</p>
+                                </Box>
+                              ))}
+                              {!isYou && (
+                                <Box
+                                  onClick={() => setEmojiOpen(message)}
+                                  sx={
+                                    {
+                                      ...styles.reactionBox2,
+                                      ...chatStyles?.reactionBoxReceiverStyle,
+                                      display: 'flex',
+                                      padding: '4px 8px',
+                                    } as SxProps
+                                  }
+                                >
+                                  {/* <Box> */}
+                                  <AddEmojiOutline
+                                    style={{
+                                      color: '#666666',
+                                      display: 'block',
+                                    }}
+                                  />
+                                  {/* </Box> */}
+                                </Box>
+                              )}
+                            </Stack>
+                          )}
+                        </Box>
+                      </>
+                    </Box>
+                  </Stack>
+                </React.Fragment>
               );
             })}
           </Box>
@@ -639,7 +675,7 @@ export default function ChatBox(props: chatBoxProps) {
                   {...inputProps}
                   value={inputValue}
                   inputProps={{
-                    autocomplete: 'off',
+                    autoComplete: 'off',
                   }}
                   onChange={(e) => {
                     inputProps?.onChange && inputProps?.onChange(e);

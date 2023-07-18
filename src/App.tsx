@@ -59,7 +59,7 @@ function App() {
         senderId: 'user_2',
         content:
           "That's a great idea! I'm available next week. What about you, Alex?",
-        timestamp: '2023-06-29T12:00:00Z',
+        timestamp: '2023-07-11T12:00:00Z',
         reactions: [{ id: '+1', senderId: ['user_1'], emoji: '👍', count: 1 }],
       },
     ],
@@ -128,7 +128,10 @@ function App() {
     console.log('🚀 ~ file: App.tsx:144 ~ onEnterMessage ~ data:', data);
   };
   return (
-    <div className="App" style={{ width: '100vw', height: '100vh' }}>
+    <div
+      className="App"
+      style={{ width: '100vw', height: '100vh', backgroundColor: '#F5F5F5' }}
+    >
       <Typography variant="h3" mb={4}>
         Chat Box
       </Typography>
