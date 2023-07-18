@@ -4,5 +4,4 @@ export { Switch } from './switch';
 export { Progress } from './progress';
 export {PageNotFound} from "./errorPageNotFound";
 export {ErrorWithIcon} from "./errorModal";
-export {ErrorWithPage} from "./errorPage";
 export { SelectBoxComponent } from './selectBox'
