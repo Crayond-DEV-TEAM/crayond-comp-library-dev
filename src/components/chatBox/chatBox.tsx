@@ -33,6 +33,7 @@ export default function ChatBox(props: chatBoxProps) {
     onEnterMessage,
     onReactionChange,
     reactionEnable = true,
+    emojiPickerProps,
   } = props;
   const {
     messages,
@@ -49,9 +50,6 @@ export default function ChatBox(props: chatBoxProps) {
     functions: editorFunctions,
   } = editorData;
   const [openEmoji, setOpenEmoji] = useState('');
-  const [lastDividerDate, setLastDividerDate] = useState<string | Date | null>(
-    null
-  );
 
   const setEmojiOpen = (message: chatMessageProps) => {
     setOpenEmoji(message?.messageId as string);
@@ -70,28 +68,30 @@ export default function ChatBox(props: chatBoxProps) {
   const [isShowEmojiPiker, setIsShowEmojiPiker] = useState(false);
   const onSubmitMessage = (e: React.FormEvent<HTMLFormElement> | any) => {
     e?.preventDefault();
-    setIsShowEmojiPiker(false);
-    setInputValue('');
     const content = e?.target?.message?.value;
+    setIsShowEmojiPiker(false);
+    if (content.trim()) {
+      setInputValue('');
 
-    const messageData = {
-      messageId: `msg_${new Date().getTime()}`,
-      senderId: loginUser,
-      content: content,
-      timestamp: new Date().toISOString(),
-    };
+      const messageData = {
+        messageId: `msg_${new Date().getTime()}`,
+        senderId: loginUser,
+        content: content,
+        timestamp: new Date().toISOString(),
+      };
 
-    const messageList = [...chatMessage, messageData];
-    setChatMessage(messageList);
-    onEnterMessage &&
-      onEnterMessage({
-        event: e,
-        enteredMessage: messageData,
-        messageList: messageList,
-      });
-    setTimeout(() => {
-      handleScroll();
-    }, 500);
+      const messageList = [...chatMessage, messageData];
+      setChatMessage(messageList);
+      onEnterMessage &&
+        onEnterMessage({
+          event: e,
+          enteredMessage: messageData,
+          messageList: messageList,
+        });
+      setTimeout(() => {
+        handleScroll();
+      }, 500);
+    }
   };
   const setEmojiCount = (data: {
     id: string;
@@ -218,15 +218,11 @@ export default function ChatBox(props: chatBoxProps) {
     return formatted;
   };
 
-  const getIsAfter = (date: string | Date): boolean => {
+  var filleterData: string | null = null;
+  const getIsAfter = (date: any): boolean => {
     const newDate = moment(date).format('DD MM YYYY');
-    let status = true;
-    if (lastDividerDate) {
-      status = newDate === moment(lastDividerDate).format('DD MM YYYY');
-    }
-    if (status) {
-      setLastDividerDate(newDate);
-    }
+    let status = filleterData !== newDate ? true : false;
+    filleterData = newDate;
     return status;
   };
 
@@ -354,12 +350,14 @@ export default function ChatBox(props: chatBoxProps) {
               );
 
               return (
-                <React.Fragment  key={message?.messageId}>
-                  {getIsAfter(message?.timestamp) && (
-                    <Typography sx={styles.dateDivider} align="center">
-                      {getWeekDays(message?.timestamp)}
-                    </Typography>
-                  )}
+                <React.Fragment key={message?.messageId}>
+                  <Box>
+                    {getIsAfter(message?.timestamp) && (
+                      <Typography sx={styles.dateDivider} align="center">
+                        {getWeekDays(message?.timestamp)}
+                      </Typography>
+                    )}
+                  </Box>
                   <Stack
                     key={message?.messageId}
                     direction={isYou ? 'row-reverse' : 'row'}
@@ -530,7 +528,7 @@ export default function ChatBox(props: chatBoxProps) {
                               }]`,
                               // lastDay: '[Yesterday]',
                               // lastWeek: '[Last] dddd',
-                              sameElse: 'LLL',
+                              sameElse: 'hh:mm A',
                             })}
                           </Typography>
                         </Stack>
@@ -733,6 +731,7 @@ export default function ChatBox(props: chatBoxProps) {
       {isShowEmojiPiker && (
         <Box sx={{ ...styles.emojiPickerContainer }}>
           <Picker
+            {...emojiPickerProps}
             data={emojiData}
             onEmojiSelect={(e: any) => onchangeEmoji(e)}
           />
@@ -745,6 +744,7 @@ export default function ChatBox(props: chatBoxProps) {
 ChatBox.defaultProps = {
   chatId: '',
   chatBoxRootStyle: {},
+  emojiPickerProps: {},
   chatData: {
     chatType: 'group',
     loginUser: '',
