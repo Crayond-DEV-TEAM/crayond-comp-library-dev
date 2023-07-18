@@ -826,7 +826,7 @@ export default SearchField;
 
 SearchField.defaultProps = {
 
-  variant: 'recent',
+  variant:"isTextSearch",
   options: [],
   paperRootStyle: {},
 

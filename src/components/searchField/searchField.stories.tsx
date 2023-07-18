@@ -78,14 +78,7 @@ const cardData =[
 Primary.args = {
 
   options:cardData,
-
-  isTextSearch: false,
-  isRecentSearch: false,
-  isCardBased: false,
-  isCardWithTitleBased: false,
-  isShortcutKeyBased: false,
-  isShortComponent: false,
-
+  variant: "isTextSearch",
   paperRootStyle: {},
 
   noOptionsText:"No options",
