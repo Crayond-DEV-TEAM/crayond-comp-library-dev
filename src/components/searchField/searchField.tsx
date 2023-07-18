@@ -10,10 +10,7 @@ import {
   Typography,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
-import ArrowUpDownIcon from '../../assets/arrowUpDownIcon';
 import Close from '../../assets/close';
-import EnterIcon from '../../assets/enterIcon';
-import EscapeIcon from '../../assets/escapeIcon';
 import HoverEnter from '../../assets/hoverEnter';
 import Search from '../../assets/search';
 import {
