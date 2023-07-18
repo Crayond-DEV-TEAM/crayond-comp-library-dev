@@ -96,12 +96,12 @@ const ErrorModal = (props: errorWithIconProps) => {
 export default ErrorModal;
 
 ErrorModal.defaultProps = {
-  open: true,
+  open: false,
   errorIconUrl:"",
   errorIconComponent: '',
+  componentStyle:{},
   component: '',
   buttons: [],
-  handleOpen: () => {},
   handleClose: () => {},
   onBackdropClick: () => {},
   errorMessage: '',

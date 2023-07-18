@@ -5,7 +5,6 @@ import '@fontsource/poppins/700.css';
 import React from 'react';
 import ErrorModal from './components/errorModal/errorModal';
 import { PageNotFound } from './components/errorPageNotFound';
-import AlertIcon from './assets/alertIcon';
 
 function App() {
   const [open, setOpen] = React.useState(false);
@@ -26,14 +25,14 @@ function App() {
       style: { background: '#F44F5A', color: '#FFFF', padding: '10px' },
     },
   ];
- 
+
   //page not found props
-  const pageNotFoundIcon = {
-    icon: <img src={'/Error.svg'} alt="icon" height={'50%'} width={'50%'} />,
-  };
- 
+  const pageNotFoundIconComponent = (
+    <img src={'/Error.svg'} alt="icon" height={'50%'} width={'50%'} />
+  );
+
   const pageNotFoundText = 'Page not found !!!';
-  
+
   const goBackButton = {
     label: 'Go back',
     onClick: () => {},
@@ -58,23 +57,27 @@ function App() {
         handleClose={handleClose}
         onBackdropClick={() => handleClose()}
         // errorIconComponent={null}
-        errorIconUrlStyle={{height:"300px",width:"300px"}}
-        errorIconUrl={'https://plus.unsplash.com/premium_photo-1680740103993-21639956f3f0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=688&q=80'}
+        errorIconUrlStyle={{ height: '300px', width: '300px' }}
+        errorIconUrl={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRV1McZvRXOsoMKSC_5REpN19R9QGj_rDSHrg&usqp=CAU"}
         buttons={errorIconButtons}
         errorMessage="Are you sure, would you like to deactivate signal?"
       />
 
       <PageNotFound
-        pageNotFoundIcon={pageNotFoundIcon}
+        pageNotFoundIconComponent={!pageNotFoundIconComponent}
         pageNotFoundText={pageNotFoundText}
         goBackButton={goBackButton}
-        ButtonBlockStyle={null}
-        messageTextStyle={null}
-        rootStyle={null}
-        iconBlockStyle={null}
+        pageNotFoundIconUrl={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRV1McZvRXOsoMKSC_5REpN19R9QGj_rDSHrg&usqp=CAU"}
+        ButtonBlockStyle={{}}
+        messageTextStyle={{}}
+        rootStyle={{}}
+        iconBlockStyle={{}}
+        urlImgHeight={300}
+        urlImgWidth={300}
+        urlImgStyle={{}}
       />
     </div>
-  )
+  );
 }
 
 export default App;

@@ -25,5 +25,6 @@ export const pageNotfoundStyle = {
   iconBlock: {
     display: 'flex',
     justifyContent: 'center',
+    alignItems: 'center',
   },
 };

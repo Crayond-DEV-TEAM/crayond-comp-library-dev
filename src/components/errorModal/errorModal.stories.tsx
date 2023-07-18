@@ -16,6 +16,7 @@ Primary.args = {
   open: true,
   errorIconComponent: <AlertIcon />,
   errorIconUrl:"",
+  componentStyle:{},
   component: '',
   buttons: [
     {

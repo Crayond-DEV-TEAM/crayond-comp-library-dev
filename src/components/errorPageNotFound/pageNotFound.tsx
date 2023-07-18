@@ -7,7 +7,11 @@ import AlertIcon from '../../assets/alertIcon';
 
 const PageNotFound = (props: pageNotFound) => {
   const {
-    pageNotFoundIcon,
+    pageNotFoundIconComponent,
+    pageNotFoundIconUrl,
+    urlImgHeight,
+    urlImgWidth,
+    urlImgStyle,
     pageNotFoundText,
     goBackButton,
     ButtonBlockStyle,
@@ -19,8 +23,13 @@ const PageNotFound = (props: pageNotFound) => {
   return (
     <>
       <Box sx={{ ...pageNotfoundStyle.rootStyle, ...rootStyle }}>
-        <Box sx={{ ...pageNotfoundStyle.iconBlock, ...iconBlockStyle } as SxProps}>
-          {pageNotFoundIcon?.icon}
+        <Box
+          sx={{ ...pageNotfoundStyle.iconBlock, ...iconBlockStyle } as SxProps}
+        >
+          {pageNotFoundIconComponent && pageNotFoundIconComponent}
+          {pageNotFoundIconUrl && (
+            <img src={pageNotFoundIconUrl}  height={urlImgHeight} width={urlImgWidth} style={{...urlImgStyle}}/>
+          )}
         </Box>
         <Box sx={{ ...pageNotfoundStyle.pageNotFoundText }}>
           <Typography
@@ -54,7 +63,11 @@ export default PageNotFound;
 PageNotFound.args = {
   open: true,
   errorIcon: <AlertIcon />,
-  component: '',
+  pageNotFoundIconComponent: '',
+  pageNotFoundIconUrl: '',
+  urlImgHeight:0,
+  urlImgWidth:0,
+  urlImgStyle:{},
   buttons: [
     {
       label: 'open',
@@ -69,6 +82,7 @@ PageNotFound.args = {
   ],
   handleClose: () => false,
   onBackdropClick: () => false,
+
   errorMessage: 'Are you sure, would you like to deactivate signal?',
   cardRootStyle: {},
   errorIconStyle: {},
