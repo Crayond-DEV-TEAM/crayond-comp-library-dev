@@ -31,12 +31,6 @@ const SearchField = (props: SearchFieldProps) => {
   const {
     options,
 
-    isTextSearch,
-    isRecentSearch,
-    isCardBased,
-    isCardWithTitleBased,
-    isShortcutKeyBased,
-    isShortComponent,
     variant,
 
     paperRootStyle,
@@ -72,7 +66,6 @@ const SearchField = (props: SearchFieldProps) => {
     listItemLabelColor,
     keyBasedOptionStyle,
     listItemLabelSize,
-    cardImgStyle,
     cardImgWidth,
     cardImgHeight,
     imgBorderRadius,
@@ -219,38 +212,47 @@ const SearchField = (props: SearchFieldProps) => {
           '&.MuiAutocomplete-root .MuiAutocomplete-inputRoot': {
             paddingRight: '12px !important',
           },
-          '& .MuiAutocomplete-noOptions': {
-            backgroundColor: 'red',
-          },
         }}
         renderOption={(props: any, option) => {
+          
           if (variant === 'isShortcutKeyBased') {
             return (
               <>
-                <Box
-                  {...props}
-                  onClick={() => handleSearchData(option)}
-                  height={'30px'}
-                >
-                  <Box>
-                    <Typography
-                      color={listItemLabelColor}
-                      fontSize={listItemLabelSize}
-                      className="title1"
-                      sx={{ ...listItemLabelStyles }}
-                    >
-                      {option?.label}
-                    </Typography>
-                  </Box>
+                {option?.label && (
                   <Box
-                    sx={{ display: 'none', mt: '5px' }}
-                    className="enterIcon"
+                    {...props}
+                    onClick={() => handleSearchData(option)}
+                    height={'30px'}
+                    sx={{
+                      ':hover': {
+                        backgroundColor: `${listTextHoverBgColor}!important`,
+                        '.title1': {
+                          color: listTextHoverColor,
+                        },
+                      },
+                    }}
                   >
-                    <HoverEnter />
+                    <Box>
+                      <Typography
+                        color={listItemLabelColor}
+                        fontSize={listItemLabelSize}
+                        className="title1"
+                        sx={{ ...listItemLabelStyles }}
+                      >
+                        {option?.label}
+                      </Typography>
+                    </Box>
+                    <Box
+                      sx={{ display: 'none', mt: '5px' }}
+                      className="enterIcon"
+                    >
+                      <HoverEnter />
+                    </Box>
                   </Box>
-                </Box>
-                {variant === 'isShortcutKeyBased' && (
-                  <Box sx={{ bottom: '0px' }}>
+                )}
+
+                {/* {option?.variant === 'isShortcutKeyBased' && (
+                  <Box sx={{ bottom: '0px' ,position:"sticky"}}>
                     <ControlSearch
                       navigateButtons={navigateData}
                       controlsRootStyles={controlsRootStyles}
@@ -259,7 +261,7 @@ const SearchField = (props: SearchFieldProps) => {
                       controlsTextColor={controlsTextColor}
                     />
                   </Box>
-                )}
+                )} */}
               </>
             );
           }
@@ -268,22 +270,35 @@ const SearchField = (props: SearchFieldProps) => {
             case 'isTextSearch':
               return (
                 <>
-                  <Box {...props} onClick={() => handleSearchData(option)}>
-                    <Typography
-                      color={listItemLabelColor}
-                      fontSize={listItemLabelSize}
-                      className="title1"
-                      sx={{ ...listItemLabelStyles }}
-                      style={
-                        {
-                          // fontWeight:search&&option?.label?.toLowerCase()?.includes(search?.toLowerCase())&&'600',
-                          // color:search&&option?.label?.toLowerCase()?.includes(search?.toLowerCase())&&'#001C3C',
-                        }
-                      }
+                  {option?.label && (
+                    <Box
+                      {...props}
+                      onClick={() => handleSearchData(option)}
+                      sx={{
+                        ':hover': {
+                          backgroundColor: `${listTextHoverBgColor}!important`,
+                          '.title1': {
+                            color: listTextHoverColor,
+                          },
+                        },
+                      }}
                     >
-                      {option?.label}
-                    </Typography>
-                  </Box>
+                      <Typography
+                        color={listItemLabelColor}
+                        fontSize={listItemLabelSize}
+                        className="title1"
+                        sx={{ ...listItemLabelStyles }}
+                        // style={
+                        //   {
+                        //     // fontWeight:search&&option?.label?.toLowerCase()?.includes(search?.toLowerCase())&&'600',
+                        //     // color:search&&option?.label?.toLowerCase()?.includes(search?.toLowerCase())&&'#001C3C',
+                        //   }
+                        // }
+                      >
+                        {option?.label}
+                      </Typography>
+                    </Box>
+                  )}
                 </>
               );
 
@@ -307,12 +322,23 @@ const SearchField = (props: SearchFieldProps) => {
                     </Box>
                   )}
                   {option?.label && (
-                    <Box {...props} onClick={() => handleSearchData(option)}>
+                    <Box
+                      {...props}
+                      onClick={() => handleSearchData(option)}
+                      sx={{
+                        ':hover': {
+                          backgroundColor: `${listTextHoverBgColor}!important`,
+                          '.title1': {
+                            color: listTextHoverColor,
+                          },
+                        },
+                      }}
+                    >
                       <Typography
                         color={listItemLabelColor}
                         fontSize={listItemLabelSize}
                         className="title1"
-                        sx={{ ...listItemLabelStyles, mb: '10px' }}
+                        sx={{ ...listItemLabelStyles }}
                       >
                         {option?.label}
                       </Typography>
@@ -327,9 +353,18 @@ const SearchField = (props: SearchFieldProps) => {
                   {option?.label && (
                     <Stack
                       {...props}
-                      sx={{ p: '14px', cursor: 'pointer' }}
                       direction={'column'}
                       onClick={() => handleSearchData(option)}
+                      sx={{
+                        p: '14px',
+                        cursor: 'pointer',
+                        ':hover': {
+                          backgroundColor: `${listTextHoverBgColor}!important`,
+                          '.title1': {
+                            color: listTextHoverColor,
+                          },
+                        },
+                      }}
                     >
                       <img
                         src={option?.url}
@@ -363,13 +398,19 @@ const SearchField = (props: SearchFieldProps) => {
                   {option?.label && (
                     <Stack
                       {...props}
-                      sx={{
-                        p: '14px',
-                        cursor: 'pointer',
-                      }}
                       direction={'row'}
                       alignItems={'center'}
                       onClick={() => handleSearchData(option)}
+                      sx={{
+                        p: '14px',
+                        cursor: 'pointer',
+                        ':hover': {
+                          backgroundColor: `${listTextHoverBgColor}!important`,
+                          '.title1': {
+                            color: listTextHoverColor,
+                          },
+                        },
+                      }}
                     >
                       <Box>
                         <img
@@ -517,7 +558,7 @@ const SearchField = (props: SearchFieldProps) => {
                         rowGap={'24px'}
                         p={'0 14px'}
                         pt={'5px'}
-                        marginBottom={'16px'}
+                        marginBottom={'8px'}
                         onClick={() => handleSearchData(option)}
                       >
                         <>
@@ -576,10 +617,13 @@ const SearchField = (props: SearchFieldProps) => {
                     </Stack>
                   )}
 
-                  {option?.recentVal?.length >0 && (
+                  {option?.recentVal?.length > 0 && (
                     <>
                       <Divider />
-                      <Stack direction={'column'} pt={'6px'}>
+                      <Stack
+                        direction={'column'}
+                        pt={'6px'}
+                      >
                         <Typography
                           color={recentSearchLabelColor}
                           fontSize={recentSearchLabelSize}
@@ -592,11 +636,7 @@ const SearchField = (props: SearchFieldProps) => {
                         <SuggestionRecentSearch
                           option={recentSearch}
                           searchValue={search}
-                          handleRecentSearch={function (
-                            val: ParamsProps
-                          ): void {
-                            throw new Error('Function not implemented.');
-                          }}
+                          handleRecentSearch={handleRecentSearch}
                         />
                       </Stack>
                       <Divider />
@@ -617,24 +657,25 @@ const SearchField = (props: SearchFieldProps) => {
                 height: paperHeight,
                 minHeight: paperMinHeight,
                 maxHeight: paperMaxHeight,
-                overflow: 'scroll',
-
                 ...styles.paperRootStyle,
                 ...paperRootStyle,
                 border: `1px solid ${paperBorderColor}`,
-                // backgroundColor: paperBackgroundColor,
+                backgroundColor: paperBackgroundColor,
+
                 '&.MuiPaper-root .MuiAutocomplete-listbox': {
                   display:
                     variant === 'isCardWithTitleBased' ? 'block' : 'flex',
+                  margin: 0,
                 },
                 '& .MuiAutocomplete-listbox': {
                   display: variant === 'isCardBased' && 'flex',
                   flexWrap: variant === 'isCardBased' && 'wrap',
+                  padding: variant === 'isShortcutKeyBased' && '10px',
                 },
 
                 '& .MuiAutocomplete-listbox .MuiAutocomplete-option.Mui-focused':
                   {
-                    // backgroundColor: keyDownListBgcolor,
+                    backgroundColor: keyDownListBgcolor,
                     '& .title1': {
                       color: keyDownListTextColor,
                     },
@@ -648,7 +689,8 @@ const SearchField = (props: SearchFieldProps) => {
                   },
                 '&.MuiPaper-root.MuiPaper-root .MuiAutocomplete-listbox': {
                   flexDirection:
-                    variant === 'isShortComponent'
+                    variant === 'isShortComponent' ||
+                    variant === 'isShortcutKeyBased'
                       ? 'column-reverse'
                       : 'column',
                   padding: 0,
@@ -659,6 +701,9 @@ const SearchField = (props: SearchFieldProps) => {
                     variant === 'isShortcutKeyBased' && 'space-between',
                   alignItems: variant === 'isShortcutKeyBased' && 'center',
                   minHeight: '25px',
+                  ':hover': {
+                    borderRadius: '50px',
+                  },
                 },
                 '& .MuiAutocomplete-option .MuiBox-root': {
                   ':hover': {
@@ -666,6 +711,7 @@ const SearchField = (props: SearchFieldProps) => {
                       display: 'block',
                     },
                     background: listTextHoverBgColor,
+                    borderRadius: '10px',
                     '& .title1': {
                       color: listTextHoverColor,
                     },
@@ -675,6 +721,15 @@ const SearchField = (props: SearchFieldProps) => {
             }
           >
             {children}
+            {variant === 'isShortcutKeyBased' && (
+              <ControlSearch
+                navigateButtons={navigateData}
+                controlsRootStyles={controlsRootStyles}
+                controlsBgColor={controlsBgColor}
+                controlsTextSize={controlsTextSize}
+                controlsTextColor={controlsTextColor}
+              />
+            )}
           </Paper>
         )}
         renderInput={(params) => (
@@ -694,7 +749,7 @@ const SearchField = (props: SearchFieldProps) => {
               startAdornment: (
                 <>
                   <InputAdornment position="start" sx={{ cursor: 'pointer' }}>
-                    {isShortComponent && searched?.url && (
+                    {variant === 'isShortComponent' && searched?.url && (
                       <Stack
                         direction={'row'}
                         spacing={'10px'}
@@ -714,7 +769,7 @@ const SearchField = (props: SearchFieldProps) => {
                     )}
                     {searched && searched?.url ? (
                       <>
-                        {isShortComponent ? (
+                        {variant === 'isShortComponent' ? (
                           ''
                         ) : (
                           <>
@@ -770,12 +825,6 @@ const SearchField = (props: SearchFieldProps) => {
 export default SearchField;
 
 SearchField.defaultProps = {
-  isTextSearch: false,
-  isRecentSearch: false,
-  isCardBased: false,
-  isCardWithTitleBased: false,
-  isShortcutKeyBased: false,
-  isShortComponent: true,
 
   variant: 'recent',
   options: [],
@@ -797,9 +846,9 @@ SearchField.defaultProps = {
 
   paperBackgroundColor: '',
   paperBorderColor: '#665CD7',
-  paperHeight: '',
-  paperMinHeight: '',
-  paperMaxHeight: '',
+  paperHeight: undefined,
+  paperMinHeight: undefined,
+  paperMaxHeight: undefined,
 
   listItemSubTextStyles: {},
   listItemSubTextColor: '#E9E9E9',
@@ -855,24 +904,5 @@ SearchField.defaultProps = {
   handleInputOnChange: () => {},
   handleOptionChange: () => {},
 
-  navigateData: [
-    {
-      navigateLabel: 'To Navigate',
-      icon: <ArrowUpDownIcon />,
-      onClick: () => {},
-      url: '',
-    },
-    {
-      navigateLabel: 'To Select',
-      icon: <EnterIcon />,
-      onClick: () => {},
-      url: '',
-    },
-    {
-      navigateLabel: 'To Escape',
-      icon: <EscapeIcon />,
-      onClick: () => {},
-      url: '',
-    },
-  ],
+  navigateData: [],
 };

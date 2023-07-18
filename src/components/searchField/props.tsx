@@ -89,31 +89,31 @@ export interface SearchFieldProps {
 
   paperBackgroundColor?: string;
   paperBorderColor?: string;
-  paperHeight?: number;
-  paperMinHeight?: number;
-  paperMaxHeight?: number;
+  paperHeight?: number|undefined;
+  paperMinHeight?: number|undefined;
+  paperMaxHeight?: number|undefined;
 
   listTextHoverColor?: string;
   listTextHoverBgColor: string;
   keyDownListBgcolor: string;
-  keyDownListTextColor: string;
+  keyDownListTextColor?: string;
   listItemSubTextColor: string;
   listItemSubTextSize: number;
   listItemSubTextStyles?: SxProps;
   listItemLabelColor: string;
-  keyBasedOptionStyle: SxProps;
-  listItemLabelSize: number;
+  keyBasedOptionStyle?: SxProps;
+  listItemLabelSize?: number;
   listItemLabelStyles?: SxProps;
   cardImgStyle?: SxProps;
-  cardImgWidth: number;
-  cardImgHeight: number;
-  imgBorderRadius: number;
+  cardImgWidth?: number;
+  cardImgHeight?: number;
+  imgBorderRadius?: number;
 
-  cardTitleImgWidth:number;
-  cardTitleImgHeight:number;
-  TitleImgBorderRadius:number;
+  cardTitleImgWidth?:number;
+  cardTitleImgHeight?:number;
+  TitleImgBorderRadius?:number;
 
-  recentSearchOption: any;
+  recentSearchOption?: any;
   recentLabel: string;
   recentLabelTextColor: string;
   recentLabelFontSize: number;

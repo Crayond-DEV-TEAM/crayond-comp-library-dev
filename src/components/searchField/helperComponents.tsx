@@ -54,7 +54,7 @@ export const FoodCategory = (props: Category1Props) => {
           <Stack
             {...props}
             sx={{
-              p: '14px',
+              p: '8px 14px',
               cursor: 'pointer',
             }}
             direction={'column'}
@@ -98,7 +98,7 @@ export const EmployeeCategory = (props: Category1Props) => {
         <Stack
           {...props}
           sx={{
-            p: '14px',
+            p: '8px 14px',
             cursor: 'pointer',
           }}
           direction={'row'}
@@ -149,7 +149,7 @@ export const ControlSearch = (props: ControlsProps) => {
         {
           ...controlsRootStyles,
           cursor: 'pointer',
-          minHeight: '34px',
+          minHeight: '30px',
           padding: '9px',
           borderBottomRightRadius: '8px',
           borderBottomLeftRadius: '8px',
@@ -198,7 +198,7 @@ export const RecentSearch = (props: RecentSearchProps) => {
     <Stack
       style={{
         cursor: 'pointer',
-        padding: '9px',
+        padding: '9px 14px',
       }}
     >
       <Typography

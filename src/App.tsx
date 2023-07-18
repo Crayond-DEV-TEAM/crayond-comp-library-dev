@@ -5,6 +5,9 @@ import '@fontsource/poppins/700.css';
 import Close from './assets/close';
 import SearchIcon from './assets/searchIcon';
 import { SearchField } from './components/searchField';
+import ArrowUpDownIcon from './assets/arrowUpDownIcon';
+import EnterIcon from './assets/enterIcon';
+import EscapeIcon from './assets/escapeIcon';
 
 function App() {
   const cardData = [
@@ -93,26 +96,27 @@ function App() {
     }
   ];
 
-  const textSearchDatas = [
+  const navigation =[
     {
-      label: 'Search',
-      variant: 'isShortcutKeyBased',
-      data: [
-        { label: 'Redemption', id: 1 },
-        { label: 'Random', id: 2 },
-        { label: 'Godfather', id: 3 },
-        { label: 'Dark Knight', id: 4 },
-        { label: 'Angry Men', id: 5 },
-        { label: 'Angry women', id: 6 },
-        { label: 'Angry', id: 7 },
-        { label: 'Schindler', id: 8 },
-        { label: 'Mandela', id: 9 },
-        { label: 'savanna', id: 10 },
-        { label: 'surely', id: 11 },
-        { label: 'Pulp Fiction', id: 12 },
-      ],
+      navigateLabel: 'To Navigate',
+      icon: <ArrowUpDownIcon />,
+      onClick: () => {},
+      url: '',
     },
-  ];
+    {
+      navigateLabel: 'To Select',
+      icon: <EnterIcon />,
+      onClick: () => {},
+      url: '',
+    },
+    {
+      navigateLabel: 'To Escape',
+      icon: <EscapeIcon />,
+      onClick: () => {},
+      url: '',
+    },
+  ]
+
   const textSearchData = [
         { label: 'Redemption', id: 1 },
         { label: 'Random', id: 2 },
@@ -125,6 +129,9 @@ function App() {
         { label: 'Mandela', id: 9 },
         { label: 'savanna', id: 10 },
         { label: 'surely', id: 11 },
+        { label: 'Pulp Fiction', id: 12 },
+        { label: 'Pulp Fiction', id: 12 },
+        { label: 'Pulp Fiction', id: 12 },
         { label: 'Pulp Fiction', id: 12 },
   ];
 
@@ -141,44 +148,63 @@ function App() {
       }}
     >
       <SearchField
-        isTextSearch={false}
-        isRecentSearch={false}
-        isCardBased={false}
-        isCardWithTitleBased={false}
-        isShortcutKeyBased={false}
-        isShortComponent={false}
         variant={"isShortComponent"}
+
         options={cardData}
         primaryCategoryData={cardData}
         secondaryCategoryData={cardData2}
+        navigateData={navigation}
         recentSearchOption={[]}
-        componentColumnDirection="column"
+
+
         placeHolderText="Search..."
-        startAdornmentIcon={<SearchIcon />}
-        endAdornmentIcon={<Close />}
-        inputRootStyle={{ minHeight: '20px' }}
         placeHolderColor={'#929292'}
         placeHolderSize={12}
-        inputBackgroundColor={''}
+        inputBackgroundColor={""}
         inputBorderDefaultColor={'#E9E9E9'}
         inputBorderHoverColor={'#b4aef4'}
         inputBorderFocusColor={'#665CD7'}
-        paperBackgroundColor={'#ffffff'}
-        paperBorderColor={'#665CD7'}
+        startAdornmentIcon={<SearchIcon />}
+        endAdornmentIcon={<Close />}
+        inputRootStyle={{ minHeight: '20px'}}
+        
+        listItemLabelColor={'#929292'}
         listTextHoverColor={'#665CD7'}
-        listTextHoverBgColor={'#ffffff'}
+        listTextHoverBgColor={'#fff'}
         listItemSubTextColor={'#666666'}
-        keyDownListBgcolor={''}
-        keyDownListTextColor={''}
+
+        paperBorderColor={'#665CD7'}
+        paperBackgroundColor={'#fff'}
+        paperRootStyle={{}}
+        paperHeight={undefined} 
+        paperMinHeight={300} 
+        paperMaxHeight={undefined} 
+
+        recentLabel={'Recent Search'}
+        recentLabelTextColor={"#929292"}
+        recentLabelFontSize={10}
+        recentLabelStyle={{}}
+        recentSearchItemStyles={{fontWeight:"500"}}
+        recentSearchItemTextColor={"#666666"}
+        recentSearchItemBgcolor={"#E9E9E9"}
+        recentSearchItemSize={10}
+
         cardImgWidth={100}
         cardImgHeight={100}
         imgBorderRadius={4}
-        handleInputOnChange={(e) => {}}
-        onSelectSearchDataFun={(e) => {}}
-        handleOptionChange={(e) => {}}
+
         cardTitleImgWidth={50}
         cardTitleImgHeight={50}
         TitleImgBorderRadius={4}
+
+        keyDownListBgcolor={''}
+        keyDownListTextColor={''}
+        
+        componentColumnDirection={"column"}
+        handleInputOnChange={(e) => {}}
+        onSelectSearchDataFun={(e) => {}}
+        handleOptionChange={(e) => {}}
+       
       />
     </div>
   );
