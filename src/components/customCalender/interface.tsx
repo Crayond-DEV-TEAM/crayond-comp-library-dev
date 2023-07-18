@@ -1,3 +1,4 @@
+import { SxProps } from "@mui/material";
 import { ReactNode } from "react";
 
 export interface CalenderProps {
@@ -22,13 +23,14 @@ export interface CalenderProps {
     commonLeaveBgcolor?: string;
     calenderActiveBgColor?: string;
     calenderActiveColor?: string;
-    customHeadStyle?: object;
+    customHeadStyle?: SxProps;
     CalenderStyle?: object;
-    eventTitleHeadStyle?: object;
-    customCalenderListSx?: object;
+    monthSx?:SxProps;
+    eventTitleHeadStyle?: SxProps;
+    customCalenderListSx?: SxProps;
     SearchCalender?: string;
     editEvent?:EventData;
-    addEventBtnSx?: object;
+    addEventBtnSx?: SxProps;
     dialogEvent?:object;
     eventDialogTitle?:string | undefined;
     eventDialogDescription?:string  | undefined,
@@ -38,7 +40,7 @@ export interface CalenderProps {
     eventRemainder?:number,
     selectedDay?:string,
     calenderListName?:string;
-    calenderIconSx?:object,
+    calenderIconSx?:SxProps,
     editListValue?:string,
     calenderTitle?:string,
     isCustomizeToolbar?:boolean;

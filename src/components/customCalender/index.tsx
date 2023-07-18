@@ -625,7 +625,7 @@ export function CustomCalender(props: CalenderProps) {
     return (
       <Box sx={{ ...customCalenderStyle.toolbarSx }}>
         <IconButton
-          sx={{ backgroundColor: '#EEEEEE', padding: '6px' }}
+          sx={{ backgroundColor: '#EEEEEE', padding: '6px',...customCalenderStyle.arrowBackSx }}
           disableRipple
           onClick={goToBack}
         >
@@ -633,9 +633,11 @@ export function CustomCalender(props: CalenderProps) {
         </IconButton>
         <Box
           sx={{
+            ...customCalenderStyle.monthSx,
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
+           
           }}
         >
           <IconButton
@@ -1132,7 +1134,7 @@ export function CustomCalender(props: CalenderProps) {
                       onEventDialogChange(event, 'selectEvent')
                     }
                     disabled={!editAccoss ? true : false}
-                    IconComponent={KeyboardArrowUpIcon}
+                    IconComponent={KeyboardArrowDownIcon}
                   >
                     {eventCategories.map(
                       (category: EventCategory, index: number) => (
@@ -1354,7 +1356,35 @@ CustomCalender.defaultProps = {
   remainderOption: [],
   nationalLeaveBgColor: '#efeefb',
   commonLeaveBgcolor: '#FAFAFA',
-  styleProps: {},
+  styleProps: {
+    layoutBorderStyle: {
+      borderColor: '#E9E9E9',
+    },
+    beforeMonthStyle: {
+      backgroundColor: '#FAFAFA',
+    },
+    todayDateStyle: {
+      backgroundColor: '#eaeaea',
+    },
+    addEventStyle: {
+      color: '#665CD7',
+    },
+    tabStyle: {
+      backgroundColor: '#665cd7',
+      color: '#fff',
+      borderColor: '##665cd7',
+      fontSize: '14px',
+      fontWeight: '600',
+    },
+    headStyle: {
+      color: '#000',
+      fontSize: '14px',
+      fontWeight: '500',
+    },
+    fontFamily: {
+      fontFamily: 'Poppins, sans-serif',
+    },
+  },
   eventTitleHeadStyle: {},
   customHeadStyle: {},
   calenderActiveBgColor: '#EFEEFB',

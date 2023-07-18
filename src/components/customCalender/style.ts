@@ -423,6 +423,26 @@ export const customCalenderStyle = {
     paddingTop: '16px',
     paddingBottom: '11px',
     borderLeft: '1px solid #E9E9E9',
+
+    '@media screen and (max-width: 500px)': {
+     display:'block',
+     width:'100%',
+     maxWidth:'350px',
+     margin:'0px auto',
+    borderLeft: '0px',
+
+
+    },
+  },
+  monthSx:{
+    '@media screen and (max-width: 500px)': {
+      padding:'8px'
+     },
+  },
+  arrowBackSx:{
+    '@media screen and (max-width: 500px)': {
+      display:'none'
+     },
   },
   toolBarLabelSx:{
     color: '#262626',
