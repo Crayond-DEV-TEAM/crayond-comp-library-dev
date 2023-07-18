@@ -51,8 +51,8 @@ export interface SelectBoxProps {
     defaultProps?: {
         isCloseIcon?: boolean,
         isSearch?: boolean,
-        handleDefaultChange?: (e: any,
-            val: FilmOptionType[]
+        handleDefaultChange?: (e: React.SyntheticEvent,
+            val: FilmOptionType
         ) => void,
         defaultData?: FilmOptionType[],
         arrData?: FilmOptionType[],

@@ -269,7 +269,7 @@ const SelectBox = (props: SelectBoxProps) => {
                   minWidth: groupingProps?.input?.minWidth ? groupingProps?.input?.minWidth : '400px',
                   maxWidth: groupingProps?.input?.maxWidth ? groupingProps?.input?.maxWidth : '400px',
                   margin: '0 !important',
-                  background: groupingProps?.input?.backgroundColor ? check?.input?.backgroundColor : '#fff'
+                  background: groupingProps?.input?.backgroundColor ? groupingProps?.input?.backgroundColor : '#fff'
                 }}>
                   {
                     groupingProps?.input?.isStartIcon && <Box sx={{ ...styles?.startIcon }} {...params}>
@@ -690,7 +690,7 @@ const SelectBox = (props: SelectBoxProps) => {
                   (defaultProps?.defaultData ?? null)
               }
               onChange={(event, newValue) => {
-                defaultProps?.handleDefaultChange && defaultProps?.handleDefaultChange(event, newValue as FilmOptionType[])
+                defaultProps?.handleDefaultChange && defaultProps?.handleDefaultChange(event, newValue as FilmOptionType)
               }}
               getOptionLabel={(option) => option.title as string}
               multiple={multiple}

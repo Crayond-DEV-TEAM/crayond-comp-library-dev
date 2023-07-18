@@ -4,8 +4,8 @@ interface languageProps {
 }
 
 interface FilmOptionType {
-    title: string,
-     year: string 
+  title: string | number;
+  year: string | number;
 }
 
 interface selectedLanguageObject {
@@ -37,7 +37,7 @@ export interface languageInterface {
     languagesBoxStyle: object,
     value: FilmOptionType[] | undefined,
     options: { title: string, year: string }[],
-    handleDefaultChange: (event: any, val: FilmOptionType) => void,
+    handleDefaultChange: (event: React.SyntheticEvent, val: FilmOptionType) => void,
     data:SelectedLangState,
     selectedLang: selectedLanguageObject,
     handleClick: (val: languageProps, index: number, parent: string) => void

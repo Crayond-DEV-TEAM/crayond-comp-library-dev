@@ -9,8 +9,8 @@ function App() {
   }
 
   interface FilmOptionType {
-    title: string;
-    year: string;
+    title: string | number;
+    year: string | number; 
   }
 
   const data = {
@@ -90,11 +90,6 @@ function App() {
     };
   }
 
-  interface FilmOptionType {
-    
-  }
-
-
   const [selectedLang, setSelectedLang] = useState<SelectedLangState>({
     allData: {
       langName: '',
@@ -129,13 +124,13 @@ function App() {
     }
   })
 
-  const handleDefaultChange = (e: any, val: FilmOptionType) => {
+  const handleDefaultChange = (e: React.SyntheticEvent, val: FilmOptionType) => {
     debugger
     setOptionValue(val as never)
     setSelectedLang({
       ...selectedLang, allData: {
-        langName: val?.title,
-        langText: val?.year,
+        langName: val?.title as string,
+        langText: val?.year as string,
       }
     })
   }
