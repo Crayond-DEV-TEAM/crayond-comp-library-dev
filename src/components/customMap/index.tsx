@@ -49,7 +49,7 @@ const MapComponent = (props:any) => {
     }
   }, [currentLocation]);
 
-  const getDistance = (location1: any, location2: any) => {
+  const getDistance = (location1: number, location2: number) => {
     const rad = (x: number) => (x * Math.PI) / 180;
     const R = 6371; // Earth's radius in kilometers
     const dLat = rad(location2.lat - location1.lat);
@@ -122,11 +122,6 @@ const MapComponent = (props:any) => {
   const onMarkerMouseOut = () => {
     setHoveredMarker(null);
   };
-  // const RadiusCircle = <MapPointer />;
-  // const RadiusCirlceSvg = ReactDOMServer.renderToString(RadiusCircle);
-  
-  // const mapPinned = <MapPointer />;
-  // const mapPinnedSvg = ReactDOMServer.renderToString(mapPinned);
 
   return (
     <LoadScript googleMapsApiKey="">
