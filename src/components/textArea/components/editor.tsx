@@ -80,7 +80,7 @@ const Editor = (props: TextAreaProps) => {
                         },
                         '&::before': {
                             fontStyle: 'inherit !important',
-                            fontWeight: '600'
+                            fontWeight: '500'
                         }
                     }
                 }
