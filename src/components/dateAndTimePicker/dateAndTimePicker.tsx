@@ -34,6 +34,7 @@ export default function DateAndTimePicker(props: DateAndTimePickerProps) {
             {...props}
             label={labelVariant === 'standard' ? '' : label}
             onChange={(newValue) => onChange(newValue)}
+            format='mm/yyyy'
           />
         ) : (
           <DatePicker

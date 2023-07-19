@@ -1,223 +1,224 @@
-import '@fontsource/poppins/400.css';
-import '@fontsource/poppins/500.css';
-import '@fontsource/poppins/600.css';
-import '@fontsource/poppins/700.css';
-import { useState } from 'react';
-import { SelectBoxComponent } from './components/selectBox';
+import moment from 'moment';
+import DeleteIcon from './assets/deleteIcon';
+import { PaymentUI } from './components/paymentUI';
+import { Item } from './components/paymentUI/props';
 
 function App() {
-
-  interface FilmOptionType {
-    title: string;
-    year: number;
-  }
-
-  interface CheckedOption {
-    title: string;
-    isChecked: boolean;
-  }
-
-  const top100Films = [
-    { title: 'Option 1', year: 1994 },
-    { title: 'Option 2', year: 1972 },
-    { title: 'Option 3', year: 1974 },
-    { title: 'Option 4', year: 2008 },
-    { title: 'Option 5', year: 1957 },
-    { title: "Option 6", year: 1993 },
-    { title: 'Option 7', year: 1994 },
-
+  const sectionOne: Item[] = [
+    {
+      breakpoints: {
+        sm: 8,
+        md: 8,
+        lg: 8,
+        xs: 6,
+      },
+      label: 'Credit /debit card Number',
+      fullWidth: true,
+      inputType: 'input',
+      type: 'number',
+      value: '',
+      maxNumber: 16,
+      errorMessage: 'please Enter card Number',
+      endAdornment: <DeleteIcon />,
+    },
+    {
+      breakpoints: {
+        sm: 4,
+        md: 4,
+        lg: 4,
+        xs: 6,
+      },
+      label: 'Account holder Name',
+      fullWidth: true,
+      inputType: 'input',
+      value: '',
+      errorMessage: 'please Enter Name',
+    },
+    {
+      breakpoints: {
+        sm: 4,
+        md: 5,
+        lg: 4,
+        xs: 6,
+      },
+      label: 'Month / Year',
+      fullWidth: true,
+      inputType: 'date',
+      dateFormat: 'MM-DD-YYYY',
+      value: moment().toString(),
+      error: false,
+      errorMessage: 'please select any value',
+    },
+    {
+      breakpoints: {
+        sm: 4,
+        md: 3,
+        lg: 4,
+        xs: 6,
+      },
+      label: 'Cvv',
+      fullWidth: true,
+      inputType: 'input',
+      value: '',
+      maxNumber: 3,
+      errorMessage: 'please Enter Valid Cvv',
+      type:'number'
+    },
   ];
 
-  const CheckBoxData = [
-    { title: 'The Shawshank Redemption', isChecked: false },
-    { title: 'The Godfather', isChecked: false },
-    { title: 'The Godfather: Part II', isChecked: false },
-    { title: 'The Dark Knight', isChecked: false },
-    { title: '12 Angry Men', isChecked: false },
-    { title: "Schindler's List", isChecked: false },
-    { title: 'Pulp Fiction', isChecked: false },
+  const sectionTwo: Item[] = [
     {
-      title: 'The Lord of the Rings: The Return of the King',
-      isChecked: false,
-    },
-    { title: 'The Good, the Bad and the Ugly', isChecked: false },
-    { title: 'Fight Club', isChecked: false },
-    {
-      title: 'The Lord of the Rings: The Fellowship of the Ring',
-      isChecked: false,
+      breakpoints: {
+        sm: 6,
+        md: 6,
+        lg: 6,
+        xs: 6,
+      },
+      label: 'First Name',
+      inputType: 'input',
+      value: '',
+      fullWidth: true,
+      errorMessage: 'please Enter First Name',
     },
     {
-      title: 'Star Wars: Episode V - The Empire Strikes Back',
-      isChecked: false,
+      breakpoints: {
+        sm: 6,
+        md: 6,
+        lg: 6,
+        xs: 6,
+      },
+      label: 'Last Name',
+      inputType: 'input',
+      value: '',
+      fullWidth: true,
+      errorMessage: 'please Enter Last Name',
     },
-    { title: 'Forrest Gump', isChecked: false },
-    { title: 'Inception', isChecked: false },
-    { title: "One Flew Over the Cuckoo's Nest", isChecked: false },
-    { title: 'Goodfellas', isChecked: false },
-    { title: 'The Matrix', isChecked: false },
-    { title: 'Seven Samurai', isChecked: false },
     {
-      title: 'Star Wars: Episode IV - A New Hope',
-      isChecked: false,
+      breakpoints: {
+        sm: 6,
+        md: 6,
+        lg: 6,
+        xs: 6,
+      },
+      label: 'Address Line 1',
+      inputType: 'input',
+      value: '',
+      fullWidth: true,
+      errorMessage: 'please Enter Address',
+    },
+    {
+      breakpoints: {
+        sm: 6,
+        md: 6,
+        lg: 6,
+        xs: 6,
+      },
+      label: 'Address Line 2',
+      inputType: 'input',
+      value: '',
+      fullWidth: true,
+      errorMessage: 'please Enter Address',
+    },
+    {
+      breakpoints: {
+        sm: 6,
+        md: 6,
+        lg: 6,
+        xs: 6,
+      },
+      label: 'City',
+      inputType: 'dropdown',
+      fullWidth: true,
+      selectOption: [{ label: 'chennai', value: 'chennai' }],
+      value: '',
+      errorMessage: 'please select any value',
+    },
+    {
+      breakpoints: {
+        sm: 6,
+        md: 6,
+        lg: 6,
+        xs: 6,
+      },
+      label: 'Zip code/ Postal code',
+      fullWidth: true,
+      type: 'number',
+      value: '',
+      inputType: 'input',
+      errorMessage: 'please Enter Zip code/ Postal code',
+    },
+    {
+      breakpoints: {
+        sm: 6,
+        md: 6,
+        lg: 6,
+        xs: 6,
+      },
+      label: 'State',
+      inputType: 'dropdown',
+      fullWidth: true,
+      value: '',
+      selectOption: [{ label: 'New York', value: 'New York' }],
+      errorMessage: 'please select any value',
+    },
+    {
+      breakpoints: {
+        sm: 6,
+        md: 6,
+        lg: 6,
+        xs: 6,
+      },
+      label: 'Country',
+      inputType: 'dropdown',
+      fullWidth: true,
+      value: '',
+      selectOption: [
+        { label: 'US', value: 'US' },
+        { label: 'IN', value: 'US' },
+      ],
+      errorMessage: 'please select any value',
     },
   ];
 
-  const [checked, setChecked] = useState([])
-  const [checkedArr] = useState([...CheckBoxData])
-  const [defaultData, setDefaultData] = useState([])
-  const [groupedData, setGroupedData] = useState([])
-  const [chipData, setChipData] = useState([])
+  const paymentSections = [
+    {
+      subTitle: 'Card Details',
+      items: sectionOne,
+    },
+    {
+      subTitle: 'Billing Details',
+      items: sectionTwo,
+    },
+  ];
 
-  const handleCheckedItem = (event: object, newValue: CheckedOption[]) => {
-    const slicedData = newValue.length > 0 ? newValue?.filter((item: CheckedOption, index: number) =>
-      newValue.findIndex((obj: CheckedOption) =>
-        obj.title === item.title && obj.isChecked === item.isChecked) === index) : newValue
-    const convertedValue = slicedData as never[];
-
-    console.log(convertedValue, '00000');
-
-    setChecked(convertedValue)
-  }
-
-  const handleDefaultChange = (val: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
-      newValue.findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index) : newValue
-    const convertedValue = slicedData as never[];
-    setDefaultData(convertedValue)
-  }
-  const handleGroupChange = (event: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
-      newValue.findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index) : newValue
-    const convertedValue = slicedData as never[];
-    setGroupedData(convertedValue)
-  }
-
-  const handleChipChange = (val: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
-      newValue.findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index) : newValue
-    const convertedValue = slicedData as never[];
-    setChipData(convertedValue)
-  }
-
+  const buttons = [
+    {
+      buttonText: 'Make payment',
+      onClick: (data: any) => {
+        console.log('clicked', data);
+      },
+      breakpoints: {
+        sm: 4,
+        md: 4,
+        lg: 4,
+        xs: 6,
+      },
+    },
+  ];
 
   return (
-    <div className="App" style={{ width: '100vw', background: '#fff', height: '100vh' }}>
-      <SelectBoxComponent
-        limitTags={2}
-        groupingProps={{
-          isCloseIcon: true,
-          isSearch: true,
-          handleGroupChange: handleGroupChange,
-          groupedData: groupedData,
-          arrData: top100Films,
-          defaultValue: [],
-          label: '',
-          dropdown: {
-            minHeight: '',
-            maxHeight: '',
-            maxWidth: '',
-            minWidth: '',
-            backgroundColor: '',
-            color: ''
-          },
-          input: {
-            minHeight: '',
-            minWidth: '',
-            backgroundColor: '',
-            maxWidth: '',
-            maxHeight: '',
-            color: '',
-            border: '',
-            borderRadius: ''
-          }
-        }}
-        defaultProps={{
-          isCloseIcon: true,
-          isSearch: true,
-          handleDefaultChange: handleDefaultChange,
-          defaultData: defaultData,
-          arrData: top100Films,
-          defaultValue: [],
-          label: '',
-          dropdown: {
-            minHeight: '',
-            maxHeight: '',
-            maxWidth: '',
-            minWidth: '',
-            backgroundColor: '',
-            color: ''
-          },
-          input: {
-            minHeight: '',
-            minWidth: '',
-            backgroundColor: '',
-            maxWidth: '',
-            maxHeight: '',
-            color: '',
-            border: '',
-            borderRadius: ''
-          }
-        }}
-        chipProps={{
-          isCloseIcon: true,
-          isSearch: true,
-          handleChipChange: handleChipChange,
-          chipData: chipData,
-          arrData: top100Films,
-          defaultValue: [],
-          label: '',
-          dropdown: {
-            minHeight: '',
-            maxHeight: '',
-            maxWidth: '',
-            minWidth: '',
-            backgroundColor: '',
-            color: ''
-          },
-          input: {
-            minHeight: '',
-            minWidth: '',
-            backgroundColor: '',
-            maxWidth: '',
-            maxHeight: '',
-            color: '',
-            border: '',
-            borderRadius: ''
-          }
-        }}
-        checkboxProps={{
-          isCloseIcon: true,
-          isSearch: true,
-          defaultValue: [],
-          handleCheckedItem: handleCheckedItem,
-          CheckableData: checked,
-          arrData: checkedArr,
-          label: '',
-          dropdown: {
-            minHeight: '',
-            maxHeight: '',
-            maxWidth: '',
-            minWidth: '',
-            backgroundColor: '',
-            color: ''
-          },
-          input: {
-            minHeight: '',
-            minWidth: '',
-            backgroundColor: '',
-            maxWidth: '',
-            maxHeight: '',
-            color: '',
-            border: '',
-            borderRadius: ''
-          }
-        }}
-        selectType={'checkbox'} multiple={true} />
+    <div
+      className="App"
+      style={{ width: '100vw', background: '#fff', height: '100vh' }}
+    >
+      <PaymentUI
+        title="Billing & Payment"
+        description="Cras gravida bibendum dolor eu varius. Morbi fermentum velit nisl, eget vehicula lorem sodales eget."
+        section={paymentSections}
+        buttons={buttons}
+      />
     </div>
-  )
+  );
 }
 
 export default App;
