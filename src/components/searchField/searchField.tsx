@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Close from '../../assets/close';
 import HoverEnter from '../../assets/hoverEnter';
 import Search from '../../assets/search';
@@ -60,7 +60,6 @@ const SearchField = (props: SearchFieldProps) => {
     listItemSubTextSize,
     listItemLabelStyles,
     listItemLabelColor,
-    keyBasedOptionStyle,
     listItemLabelSize,
     cardImgWidth,
     cardImgHeight,
@@ -84,7 +83,6 @@ const SearchField = (props: SearchFieldProps) => {
     controlsBgColor,
     controlsTextColor,
     controlsTextSize,
-    navigateData,
 
     componentColumnDirection,
     recentSearchLabelColor,
@@ -116,7 +114,6 @@ const SearchField = (props: SearchFieldProps) => {
   );
 
   const [isOpen, setIsOpen] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
 
   const requestOnInputSearch = (val: string) => {
     setSearch(val);
@@ -161,26 +158,15 @@ const SearchField = (props: SearchFieldProps) => {
     setSearched({ id: 0, label: '', url: '' });
   };
 
-  const scrollTop = () => {
-    if (scrollRef.current) {
-      scrollRef.current.style;
-      console.log('ooo',scrollRef.current.scrollHeight);
-    }
-  };
   useEffect(() => {
     setRecentSearch(recentSearchOption);
   }, [recentSearchOption]);
 
-  // useEffect(() => {
-  //   scrollTop();
-  // }, [isOpen]);
   return (
     <>
       <Autocomplete
         open={isOpen}
-        onOpen={() =>{setTimeout(() => {
-          scrollTop();
-        }, 1000); setIsOpen(true)}}
+        onOpen={() =>{setIsOpen(true)}}
         onClose={() => setIsOpen(false)}
         clearOnEscape={true}
         fullWidth
@@ -260,18 +246,6 @@ const SearchField = (props: SearchFieldProps) => {
                     </Box>
                   </Box>
                 )}
-
-                {/* {option?.variant === 'isShortcutKeyBased' && (
-                  <Box sx={{ bottom: '0px' ,position:"sticky"}}>
-                    <ControlSearch
-                      navigateButtons={navigateData}
-                      controlsRootStyles={controlsRootStyles}
-                      controlsBgColor={controlsBgColor}
-                      controlsTextSize={controlsTextSize}
-                      controlsTextColor={controlsTextColor}
-                    />
-                  </Box>
-                )} */}
               </>
             );
           }
@@ -319,14 +293,14 @@ const SearchField = (props: SearchFieldProps) => {
                     <Box mb={1}>
                       <RecentSearch
                         recentVal={option?.recentVal}
-                        recentLabel={recentLabel}
-                        recentLabelTextColor={recentLabelTextColor}
-                        recentLabelFontSize={recentLabelFontSize}
+                        recentLabel={recentLabel||""}
+                        recentLabelTextColor={recentLabelTextColor||""}
+                        recentLabelFontSize={recentLabelFontSize||0}
                         recentLabelStyle={recentLabelStyle}
                         recentSearchItemStyles={recentSearchItemStyles}
-                        recentSearchItemTextColor={recentSearchItemTextColor}
-                        recentSearchItemBgcolor={recentSearchItemBgcolor}
-                        recentSearchItemSize={recentSearchItemSize}
+                        recentSearchItemTextColor={recentSearchItemTextColor||""}
+                        recentSearchItemBgcolor={recentSearchItemBgcolor||""}
+                        recentSearchItemSize={recentSearchItemSize||0}
                         handleRecentSearch={handleRecentSearch}
                       />
                     </Box>
@@ -526,7 +500,7 @@ const SearchField = (props: SearchFieldProps) => {
                               {categoryLabel1}
                             </Typography>
                             <FoodCategory
-                              option={primaryCategoryData}
+                              option={primaryCategoryData||[]}
                               handleCategoryData={handleSearchData}
                               searchValue={undefined}
                             />
@@ -546,7 +520,7 @@ const SearchField = (props: SearchFieldProps) => {
                               {categoryLabel2}
                             </Typography>
                             <EmployeeCategory
-                              option={secondaryCategoryData}
+                              option={secondaryCategoryData||[]}
                               handleCategoryData={handleSearchData}
                               searchValue={undefined}
                             />
@@ -650,9 +624,9 @@ const SearchField = (props: SearchFieldProps) => {
             {variant === 'isShortcutKeyBased' && (
               <ControlSearch
                 controlsRootStyles={controlsRootStyles}
-                controlsBgColor={controlsBgColor}
-                controlsTextSize={controlsTextSize}
-                controlsTextColor={controlsTextColor}
+                controlsBgColor={controlsBgColor||""}
+                controlsTextSize={controlsTextSize||0}
+                controlsTextColor={controlsTextColor||""}
               />
             )}
           </Paper>
@@ -826,6 +800,4 @@ SearchField.defaultProps = {
   onSelectSearchDataFun: () => {},
   handleInputOnChange: () => {},
   handleOptionChange: () => {},
-
-  navigateData: [],
 };
