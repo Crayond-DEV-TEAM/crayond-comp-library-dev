@@ -1,4 +1,4 @@
-import { SxProps, Theme } from '@mui/material';
+import { SxProps } from '@mui/material';
 import { ReactElement } from 'react';
 
 interface DataRowLogic {
@@ -6,13 +6,13 @@ interface DataRowLogic {
     [index: number]: { title: string; permission: {} };
 }
 export interface TreeViewProps {
-    sx?: SxProps<Theme>;
-    rootStyle?: object;
-    formControlPropsSx?: object;
+    sx?: SxProps;
+    rootStyle?: SxProps;
+    formControlPropsSx?: SxProps;
     onSubmit: () => void;
     heading?: ReactElement | string,
-    permissionHeadingSx?: object;
-    checkboxTitleSx?: object;
+    permissionHeadingSx?: SxProps;
+    checkboxTitleSx?: SxProps;
     submitBtnText?: ReactElement | string;
     submitBtnOptions?: {
         variant: "contained" | "text" | "outlined" | undefined,

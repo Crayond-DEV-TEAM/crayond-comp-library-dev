@@ -1,4 +1,4 @@
-import { SxProps, Theme } from '@mui/material';
+import { SxProps } from '@mui/material';
 import { ReactElement } from 'react';
 
 
@@ -33,7 +33,7 @@ export interface CustomLabelProps {
 
 }
 export interface TreeComponentProps {
-    sx?: SxProps<Theme>;
+    sx?: SxProps;
     checkboxsection?: boolean;
     index?: number;
     nodes?: any,
