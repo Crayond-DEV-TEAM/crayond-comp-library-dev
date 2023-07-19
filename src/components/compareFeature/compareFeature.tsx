@@ -22,6 +22,7 @@ const CompareFeature = (props: CompareFeatureProps) => {
 
     rowIconAlign,
     iconRootStyle,
+    rowBorderColor,
   } = props;
 
   const columnData = [
@@ -103,18 +104,19 @@ const CompareFeature = (props: CompareFeatureProps) => {
                   sx={{
                     color: compareRowTitleColor,
                     fontSize: compareRowTitleSize,
+                    borderColor:rowBorderColor ,
                     ...compareRowTitleStyle,
                   }}
                 >
                   {row?.title}
                 </TableCell>
-                <TableCell align={rowIconAlign} sx={{ ...iconRootStyle }}>
+                <TableCell align={rowIconAlign} sx={{ ...iconRootStyle ,borderColor:rowBorderColor }}>
                   {row?.Starter}
                 </TableCell>
-                <TableCell align={rowIconAlign} sx={{ ...iconRootStyle }}>
+                <TableCell align={rowIconAlign} sx={{ ...iconRootStyle ,borderColor:rowBorderColor  }}>
                   {row?.Personal}
                 </TableCell>
-                <TableCell align={rowIconAlign} sx={{ ...iconRootStyle }}>
+                <TableCell align={rowIconAlign} sx={{ ...iconRootStyle ,borderColor:rowBorderColor  }}>
                   {row?.Professional}
                 </TableCell>
               </TableRow>
@@ -141,4 +143,5 @@ CompareFeature.defaultProps = {
 
   rowIconAlign: '',
   iconRootStyle: {},
+  rowBorderColor:""
 };

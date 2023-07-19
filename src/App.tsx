@@ -6,13 +6,19 @@ import { useState } from 'react';
 import { CompareFeature } from './components/compareFeature';
 
 function App() {
-
-
   return (
-    <div className="App" style={{ width: '80vw', background: '#fff', height: '50vh',padding:"100px" }}>
-     <CompareFeature/>
+    <div
+      className="App"
+      style={{
+        width: '80vw',
+        background: '#fff',
+        height: '50vh',
+        padding: '100px',
+      }}
+    >
+      <CompareFeature rowBorderColor={''} />
     </div>
-  )
+  );
 }
 
 export default App;

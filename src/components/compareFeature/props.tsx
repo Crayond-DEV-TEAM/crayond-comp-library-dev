@@ -13,4 +13,5 @@ export interface CompareFeatureProps {
 
   rowIconAlign: 'left' | 'right' | 'center';
   iconRootStyle: SxProps;
+  rowBorderColor:string;
 }
