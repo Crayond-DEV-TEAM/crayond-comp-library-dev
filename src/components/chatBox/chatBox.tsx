@@ -195,7 +195,6 @@ export default function ChatBox(props: chatBoxProps) {
       setCurrentMessage(null);
       setIsShowEmojiPiker(false);
     } else {
-      console.log(e, 'ddddddddddddddddddd');
       setInputValue((prv) => prv + e?.native);
     }
   };
@@ -219,7 +218,7 @@ export default function ChatBox(props: chatBoxProps) {
   };
 
   var filleterData: string | null = null;
-  const getIsAfter = (date: any): boolean => {
+  const getIsAfter = (date: string | Date): boolean => {
     const newDate = moment(date).format('DD MM YYYY');
     let status = filleterData !== newDate ? true : false;
     filleterData = newDate;

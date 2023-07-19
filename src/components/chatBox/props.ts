@@ -155,6 +155,7 @@ export interface chatBoxProps {
   };
 }
 
+//This Props defined Emoji Mart Package 
 export type emojiProps = {
   autoFocus?: {
     value: boolean;
