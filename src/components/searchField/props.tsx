@@ -5,6 +5,12 @@ export interface ParamsProps {
   url?: string;
   subTitle?:string;
 }
+export interface  navigateButtons {
+  navigateLabel: string;
+  icon: React.ReactNode;
+  onClick: () => void;
+  url?: string;
+}[];
 export interface SuggestionProp {
   searchValue: any;
   handleRecentSearch: (val: ParamsProps) => void;
@@ -29,12 +35,6 @@ export interface ControlsProps {
   controlsTextSize: number;
   controlsTextColor: string;
   controlsRootStyles?: SxProps;
-  navigateButtons: {
-    navigateLabel: string;
-    icon: React.ReactNode;
-    onClick: () => void;
-    url?: string;
-  }[];
 }
 export interface RecentSearchProps {
   recentVal: Array<any>;
@@ -89,7 +89,6 @@ export interface SearchFieldProps {
 
   paperBackgroundColor?: string;
   paperBorderColor?: string;
-  paperHeight?: number|undefined;
   paperMinHeight?: number|undefined;
   paperMaxHeight?: number|undefined;
 

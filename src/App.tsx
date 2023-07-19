@@ -96,26 +96,7 @@ function App() {
     }
   ];
 
-  const navigation =[
-    {
-      navigateLabel: 'To Navigate',
-      icon: <ArrowUpDownIcon />,
-      onClick: () => {},
-      url: '',
-    },
-    {
-      navigateLabel: 'To Select',
-      icon: <EnterIcon />,
-      onClick: () => {},
-      url: '',
-    },
-    {
-      navigateLabel: 'To Escape',
-      icon: <EscapeIcon />,
-      onClick: () => {},
-      url: '',
-    },
-  ]
+
 
   const textSearchData = [
         { label: 'Redemption', id: 1 },
@@ -129,6 +110,9 @@ function App() {
         { label: 'Mandela', id: 9 },
         { label: 'savanna', id: 10 },
         { label: 'surely', id: 11 },
+        { label: 'Pulp Fiction', id: 12 },
+        { label: 'Pulp Fiction', id: 12 },
+        { label: 'Pulp Fiction', id: 12 },
         { label: 'Pulp Fiction', id: 12 },
         { label: 'Pulp Fiction', id: 12 },
         { label: 'Pulp Fiction', id: 12 },
@@ -148,12 +132,11 @@ function App() {
       }}
     >
       <SearchField
-        variant={"isShortComponent"}
+        variant={"isShortcutKeyBased"}
 
         options={cardData}
         primaryCategoryData={cardData}
         secondaryCategoryData={cardData2}
-        navigateData={navigation}
         recentSearchOption={[]}
 
 
@@ -176,9 +159,8 @@ function App() {
         paperBorderColor={'#665CD7'}
         paperBackgroundColor={'#fff'}
         paperRootStyle={{}}
-        paperHeight={undefined} 
-        paperMinHeight={300} 
-        paperMaxHeight={undefined} 
+        paperMinHeight={200} 
+        paperMaxHeight={400} 
 
         recentLabel={'Recent Search'}
         recentLabelTextColor={"#929292"}

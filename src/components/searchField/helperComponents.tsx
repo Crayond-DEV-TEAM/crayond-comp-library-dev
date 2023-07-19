@@ -6,6 +6,9 @@ import {
   SuggestionProp,
 } from './props';
 import ClockIcon from '../../assets/clockIcon';
+import ArrowUpDownIcon from '../../assets/arrowUpDownIcon';
+import EnterIcon from '../../assets/enterIcon';
+import EscapeIcon from '../../assets/escapeIcon';
 
 export const SuggestionRecentSearch = (props: SuggestionProp) => {
   const { searchValue, handleRecentSearch=()=>{},option } = props;
@@ -136,8 +139,28 @@ export const EmployeeCategory = (props: Category1Props) => {
 };
 
 export const ControlSearch = (props: ControlsProps) => {
+
+  const navigation =[
+    {
+      navigateLabel: 'To Navigate',
+      icon: <ArrowUpDownIcon />,
+      onClick: () => {},
+      url: '',
+    },
+    {
+      navigateLabel: 'To Select',
+      icon: <EnterIcon />,
+      onClick: () => {},
+      url: '',
+    },
+    {
+      navigateLabel: 'To Escape',
+      icon: <EscapeIcon />,
+      onClick: () => {},
+      url: '',
+    },
+  ]
   const {
-    navigateButtons,
     controlsRootStyles,
     controlsBgColor,
     controlsTextSize,
@@ -160,7 +183,7 @@ export const ControlSearch = (props: ControlsProps) => {
       columnGap={'20px'}
       bgcolor={controlsBgColor}
     >
-      {navigateButtons?.map((val: any) => (
+      {navigation?.map((val: any) => (
         <Stack
           direction={'row'}
           alignItems={'center'}

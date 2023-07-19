@@ -9,7 +9,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Close from '../../assets/close';
 import HoverEnter from '../../assets/hoverEnter';
 import Search from '../../assets/search';
@@ -48,7 +48,6 @@ const SearchField = (props: SearchFieldProps) => {
 
     paperBackgroundColor,
     paperBorderColor,
-    paperHeight,
     paperMinHeight,
     paperMaxHeight,
 
@@ -115,7 +114,9 @@ const SearchField = (props: SearchFieldProps) => {
   const [recentSearch, setRecentSearch] = useState<Category1Props['option']>(
     []
   );
+
   const [isOpen, setIsOpen] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const requestOnInputSearch = (val: string) => {
     setSearch(val);
@@ -138,6 +139,8 @@ const SearchField = (props: SearchFieldProps) => {
 
   const handleOnchange = (e: React.ChangeEvent<{}>, val: ParamsProps) => {
     setSearched(val);
+    setRecentSearch([...recentSearch, val]);
+
     if (handleOptionChange) {
       handleOptionChange(val);
     }
@@ -158,15 +161,26 @@ const SearchField = (props: SearchFieldProps) => {
     setSearched({ id: 0, label: '', url: '' });
   };
 
+  const scrollTop = () => {
+    if (scrollRef.current) {
+      scrollRef.current.style;
+      console.log('ooo',scrollRef.current.scrollHeight);
+    }
+  };
   useEffect(() => {
     setRecentSearch(recentSearchOption);
   }, [recentSearchOption]);
 
+  // useEffect(() => {
+  //   scrollTop();
+  // }, [isOpen]);
   return (
     <>
       <Autocomplete
         open={isOpen}
-        onOpen={() => setIsOpen(true)}
+        onOpen={() =>{setTimeout(() => {
+          scrollTop();
+        }, 1000); setIsOpen(true)}}
         onClose={() => setIsOpen(false)}
         clearOnEscape={true}
         fullWidth
@@ -211,7 +225,6 @@ const SearchField = (props: SearchFieldProps) => {
           },
         }}
         renderOption={(props: any, option) => {
-          
           if (variant === 'isShortcutKeyBased') {
             return (
               <>
@@ -367,7 +380,6 @@ const SearchField = (props: SearchFieldProps) => {
                         src={option?.url}
                         alt=" "
                         style={{
-                          // ...cardImgStyle,
                           width: cardImgWidth,
                           height: cardImgHeight,
                           borderRadius: imgBorderRadius,
@@ -444,201 +456,104 @@ const SearchField = (props: SearchFieldProps) => {
                 </>
               );
 
-              return (
-                <>
-                  {option?.data?.map((val: any) => (
-                    <>
-                      <Stack
-                        onClick={() => handleSearchData(val)}
-                        direction={'row'}
-                        sx={{
-                          ...keyBasedOptionStyle,
-                          ...styles.keyBasedOptionStyle,
-                          display: 'flex',
-                          justifyContent: 'space-between',
-                          alignItems: 'center',
-                          padding: ' 4px 16px',
-                          // overflow:"scroll",
-                          ':hover': {
-                            backgroundColor: 'green',
-                            // backgroundColor: keyDownListBgcolor,
-                            '& .title1': {
-                              // color: keyDownListTextColor,
-                              color: 'red',
-                            },
-                            '.enterIcon': {
-                              display: 'block',
-                            },
-                          },
-                        }}
-                      >
-                        <Box>
-                          <Typography
-                            color={listItemLabelColor}
-                            fontSize={listItemLabelSize}
-                            className="title1"
-                            sx={{ ...listItemLabelStyles }}
-                          >
-                            {val?.label}
-                          </Typography>
-                        </Box>
-                        <Box
-                          sx={{ display: 'block', mt: '5px' }}
-                          className="enterIcon"
-                        >
-                          <HoverEnter />
-                        </Box>
-                      </Stack>
-                    </>
-                    // <Box
-                    //   key={val?.id}
-                    //   {...props}
-                    //   onClick={() => handleSearchData(val)}
-                    //   sx={{
-                    //     ...keyBasedOptionStyle,
-                    //     ...styles.keyBasedOptionStyle,
-                    //     display: 'flex',
-                    //     direction: 'row',
-                    //     ':hover':{
-                    //       backgroundColor: keyDownListBgcolor,
-                    //       '& .title1': {
-                    //         color: keyDownListTextColor,
-                    //       },
-                    //       '.enterIcon': {
-                    //         display: 'block',
-                    //       }
-                    //     }
-
-                    //   }}
-                    // >
-                    //   <Box>
-                    //     <Typography
-                    //       color={listItemLabelColor}
-                    //       fontSize={listItemLabelSize}
-                    //       className="title1"
-                    //       sx={{ ...listItemLabelStyles }}
-                    //     >
-                    //       {val?.label}
-                    //     </Typography>
-                    //   </Box>
-                    //   <Box
-                    //     sx={{ display: 'none', mt: '5px' }}
-                    //     className="enterIcon"
-                    //   >
-                    //     <HoverEnter />
-                    //   </Box>
-                    // </Box>
-                  ))}
-
-                  {option?.data && (
-                    <Box sx={{ bottom: '0px' }}>
-                      <ControlSearch
-                        navigateButtons={navigateData}
-                        controlsRootStyles={controlsRootStyles}
-                        controlsBgColor={controlsBgColor}
-                        controlsTextSize={controlsTextSize}
-                        controlsTextColor={controlsTextColor}
-                      />
-                    </Box>
-                  )}
-                </>
-              );
-
             case 'isShortComponent':
               return (
                 <>
-                  {option?.label && (
-                    <>
-                      <Stack
-                        direction={'row'}
-                        columnGap={'8px'}
-                        rowGap={'24px'}
-                        p={'0 14px'}
-                        pt={'5px'}
-                        marginBottom={'8px'}
-                        onClick={() => handleSearchData(option)}
-                      >
+                    {option?.label && (
+                      <>
+                        <Stack
+                          direction={'row'}
+                          columnGap={'8px'}
+                          rowGap={'24px'}
+                          p={'0 14px'}
+                          pt={'5px'}
+                          marginBottom={'8px'}
+                          onClick={() => handleSearchData(option)}
+                        >
+                          <>
+                            <Box>
+                              <Search />
+                            </Box>
+                            <Box>
+                              <Typography
+                                color={listItemLabelColor}
+                                fontSize={listItemLabelSize}
+                                fontWeight={600}
+                                className="title1"
+                                sx={{ ...listItemLabelStyles }}
+                              >
+                                {option?.label}
+                              </Typography>
+                            </Box>
+                          </>
+                        </Stack>
+                      </>
+                    )}
+
+                    {option?.recentVal?.length > 0 && (
+                      <>
+                        <Divider />
+                        <Stack direction={'column'} pt={'6px'}>
+                          <Typography
+                            color={recentSearchLabelColor}
+                            fontSize={recentSearchLabelSize}
+                            mt={'24px'}
+                            mb={'12px'}
+                            pl={'16px'}
+                          >
+                            {recentSearchLabel}
+                          </Typography>
+                          <SuggestionRecentSearch
+                            option={recentSearch}
+                            searchValue={search}
+                            handleRecentSearch={handleRecentSearch}
+                          />
+                        </Stack>
+                        <Divider />
+                      </>
+                    )}
+
+                    <Stack direction={componentColumnDirection}>
+                      {option?.primaryData?.length > 0 && (
                         <>
                           <Box>
-                            <Search />
+                            <Typography
+                              color={categoryLabel1Color}
+                              fontSize={categoryLabel1Size}
+                              mt={'24px'}
+                              pl={'16px'}
+                            >
+                              {categoryLabel1}
+                            </Typography>
+                            <FoodCategory
+                              option={primaryCategoryData}
+                              handleCategoryData={handleSearchData}
+                              searchValue={undefined}
+                            />
                           </Box>
+                          <Divider />
+                        </>
+                      )}
+                      {option?.secondaryData?.length > 0 && (
+                        <>
                           <Box>
                             <Typography
-                              color={listItemLabelColor}
-                              fontSize={listItemLabelSize}
-                              fontWeight={600}
-                              className="title1"
-                              sx={{ ...listItemLabelStyles }}
+                              color={categoryLabel2Color}
+                              fontSize={categoryLabel2Size}
+                              mt={'24px'}
+                              pl={'16px'}
                             >
-                              {option?.label}
+                              {categoryLabel2}
                             </Typography>
+                            <EmployeeCategory
+                              option={secondaryCategoryData}
+                              handleCategoryData={handleSearchData}
+                              searchValue={undefined}
+                            />
                           </Box>
                         </>
-                      </Stack>
-                    </>
-                  )}
-
-                  {option?.primaryData && option?.primaryData && (
-                    <Stack direction={componentColumnDirection}>
-                      <Box>
-                        <Typography
-                          color={categoryLabel1Color}
-                          fontSize={categoryLabel1Size}
-                          mt={'24px'}
-                          pl={'16px'}
-                        >
-                          {categoryLabel1}
-                        </Typography>
-                        <FoodCategory
-                          option={primaryCategoryData}
-                          handleCategoryData={handleSearchData}
-                          searchValue={undefined}
-                        />
-                      </Box>
-                      <Divider />
-                      <Box>
-                        <Typography
-                          color={categoryLabel2Color}
-                          fontSize={categoryLabel2Size}
-                          mt={'24px'}
-                          pl={'16px'}
-                        >
-                          {categoryLabel2}
-                        </Typography>
-                        <EmployeeCategory
-                          option={secondaryCategoryData}
-                          handleCategoryData={handleSearchData}
-                          searchValue={undefined}
-                        />
-                      </Box>
+                      )}
                     </Stack>
-                  )}
-
-                  {option?.recentVal?.length > 0 && (
-                    <>
-                      <Divider />
-                      <Stack
-                        direction={'column'}
-                        pt={'6px'}
-                      >
-                        <Typography
-                          color={recentSearchLabelColor}
-                          fontSize={recentSearchLabelSize}
-                          mt={'24px'}
-                          mb={'12px'}
-                          pl={'16px'}
-                        >
-                          {recentSearchLabel}
-                        </Typography>
-                        <SuggestionRecentSearch
-                          option={recentSearch}
-                          searchValue={search}
-                          handleRecentSearch={handleRecentSearch}
-                        />
-                      </Stack>
-                      <Divider />
-                    </>
-                  )}
                 </>
               );
 
@@ -648,16 +563,21 @@ const SearchField = (props: SearchFieldProps) => {
         }}
         PaperComponent={({ children }) => (
           <Paper
+            // ref={scrollRef}
+            
             elevation={0}
             sx={
               {
-                height: paperHeight,
                 minHeight: paperMinHeight,
                 maxHeight: paperMaxHeight,
                 ...styles.paperRootStyle,
                 ...paperRootStyle,
                 border: `1px solid ${paperBorderColor}`,
                 backgroundColor: paperBackgroundColor,
+                overflow: 'scroll',
+                '::-webkit-scrollbar': {
+                  display: 'none',
+                },
 
                 '&.MuiPaper-root .MuiAutocomplete-listbox': {
                   display:
@@ -689,9 +609,15 @@ const SearchField = (props: SearchFieldProps) => {
                     variant === 'isShortComponent' ||
                     variant === 'isShortcutKeyBased'
                       ? 'column-reverse'
+                      : variant === 'isCardBased'
+                      ? 'inherit'
                       : 'column',
                   padding: 0,
+                  borderRadius:"8px",
+                  overflow: variant === 'isShortcutKeyBased' && 'scroll',
+                  height: variant === 'isShortcutKeyBased' && paperMinHeight,
                 },
+
                 '& .MuiAutocomplete-listbox .MuiAutocomplete-option': {
                   display: variant === 'isShortcutKeyBased' && 'flex',
                   justifyContent:
@@ -699,7 +625,9 @@ const SearchField = (props: SearchFieldProps) => {
                   alignItems: variant === 'isShortcutKeyBased' && 'center',
                   minHeight: '25px',
                   ':hover': {
-                    borderRadius: '50px',
+                    borderRadius:
+                      variant === 'isTextSearch' ||
+                      (variant === 'isRecentSearch' && '50px'),
                   },
                 },
                 '& .MuiAutocomplete-option .MuiBox-root': {
@@ -716,11 +644,11 @@ const SearchField = (props: SearchFieldProps) => {
                 },
               } as SxProps
             }
+            // placement="top-start"
           >
-            {children}
+            <Box>{children}</Box>
             {variant === 'isShortcutKeyBased' && (
               <ControlSearch
-                navigateButtons={navigateData}
                 controlsRootStyles={controlsRootStyles}
                 controlsBgColor={controlsBgColor}
                 controlsTextSize={controlsTextSize}
@@ -822,8 +750,7 @@ const SearchField = (props: SearchFieldProps) => {
 export default SearchField;
 
 SearchField.defaultProps = {
-
-  variant:"isTextSearch",
+  variant: 'isTextSearch',
   options: [],
   paperRootStyle: {},
 
@@ -843,7 +770,6 @@ SearchField.defaultProps = {
 
   paperBackgroundColor: '',
   paperBorderColor: '#665CD7',
-  paperHeight: undefined,
   paperMinHeight: undefined,
   paperMaxHeight: undefined,
 

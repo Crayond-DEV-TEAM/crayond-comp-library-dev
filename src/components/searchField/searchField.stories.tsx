@@ -97,7 +97,6 @@ Primary.args = {
 
   paperBackgroundColor: '',
   paperBorderColor: '#665CD7',
-  paperHeight:undefined,
   paperMinHeight:undefined,
   paperMaxHeight:undefined,
 
@@ -142,28 +141,5 @@ Primary.args = {
   onSelectSearchDataFun:()=>{},
   handleInputOnChange:()=>{},
   handleOptionChange:()=>{},
-
-  navigateData: [
-    {
-      navigateLabel: 'To Navigate',
-      icon: <ArrowUpDownIcon />,
-      onClick: () => {
-        alert('hii');
-      },
-      url: '',
-    },
-    {
-      navigateLabel: 'To Select',
-      icon: <EnterIcon />,
-      onClick: () => {},
-      url: '',
-    },
-    {
-      navigateLabel: 'To Escape',
-      icon: <EscapeIcon />,
-      onClick: () => {},
-      url: '',
-    },
-  ],
 
 };
