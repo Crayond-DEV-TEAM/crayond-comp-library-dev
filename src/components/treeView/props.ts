@@ -1,11 +1,9 @@
 import { SxProps, Theme } from '@mui/material';
 import { ReactElement } from 'react';
 
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface PermissionLogic {}
 interface DataRowLogic {
     map(arg0: (e: any, parentIndex: number) => JSX.Element): import("react").ReactNode;
-    [index: number]: { title: string; permission:PermissionLogic };
+    [index: number]: { title: string; permission: {} };
 }
 export interface TreeViewProps {
     sx?: SxProps<Theme>;
