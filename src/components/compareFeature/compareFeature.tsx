@@ -6,8 +6,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import TickIcon from '../../assets/tickIcon';
+import { CompareFeatureProps } from './props';
 
-const CompareFeature = (props: any) => {
+const CompareFeature = (props: CompareFeatureProps) => {
   const {
     compareHeadingColor,
     compareHeadingSize,
