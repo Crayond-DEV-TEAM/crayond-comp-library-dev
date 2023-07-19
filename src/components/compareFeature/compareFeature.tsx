@@ -5,7 +5,6 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import TickIcon from '../../assets/tickIcon';
 import { CompareFeatureProps } from './props';
 
 const CompareFeature = (props: CompareFeatureProps) => {
@@ -23,56 +22,16 @@ const CompareFeature = (props: CompareFeatureProps) => {
     rowIconAlign,
     iconRootStyle,
     rowBorderColor,
-  } = props;
 
-  const columnData = [
-    { id: 1, title: '' },
-    { id: 2, title: 'Starter' },
-    { id: 3, title: 'Personal' },
-    { id: 4, title: 'Professional' },
-  ];
-  const rowData = [
-    {
-      id: 1,
-      title: 'Import Data from Cloud Storage Services',
-      Starter: <TickIcon />,
-      Personal: <TickIcon />,
-      Professional: <TickIcon />,
-    },
-    {
-      id: 2,
-      title: 'Upload Excel and CSV Files',
-      Starter: '',
-      Personal: <TickIcon />,
-      Professional: <TickIcon />,
-    },
-    {
-      id: 3,
-      title: 'Export Charts',
-      Starter: <TickIcon />,
-      Personal: '',
-      Professional: <TickIcon />,
-    },
-    {
-      id: 3,
-      title: 'Import Data from Cloud Storage Services',
-      Starter: <TickIcon />,
-      Personal: <TickIcon />,
-      Professional: <TickIcon />,
-    },
-    {
-      id: 4,
-      title: 'Share Charts with Other Users',
-      Starter: <TickIcon />,
-      Personal: <TickIcon />,
-      Professional: <TickIcon />,
-    },
-  ];
+    rowData,
+    columnData,
+    tableRootStyle,
+  } = props;
 
   return (
     <>
       <TableContainer>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table sx={{...tableRootStyle }}>
           <TableHead>
             <TableRow sx={{ 'th, td': { borderBottom: 'none' } }}>
               {columnData.map((column) => (
@@ -104,19 +63,28 @@ const CompareFeature = (props: CompareFeatureProps) => {
                   sx={{
                     color: compareRowTitleColor,
                     fontSize: compareRowTitleSize,
-                    borderColor:rowBorderColor ,
+                    borderColor: rowBorderColor,
                     ...compareRowTitleStyle,
                   }}
                 >
                   {row?.title}
                 </TableCell>
-                <TableCell align={rowIconAlign} sx={{ ...iconRootStyle ,borderColor:rowBorderColor }}>
+                <TableCell
+                  align={rowIconAlign}
+                  sx={{ ...iconRootStyle, borderColor: rowBorderColor }}
+                >
                   {row?.Starter}
                 </TableCell>
-                <TableCell align={rowIconAlign} sx={{ ...iconRootStyle ,borderColor:rowBorderColor  }}>
+                <TableCell
+                  align={rowIconAlign}
+                  sx={{ ...iconRootStyle, borderColor: rowBorderColor }}
+                >
                   {row?.Personal}
                 </TableCell>
-                <TableCell align={rowIconAlign} sx={{ ...iconRootStyle ,borderColor:rowBorderColor  }}>
+                <TableCell
+                  align={rowIconAlign}
+                  sx={{ ...iconRootStyle, borderColor: rowBorderColor }}
+                >
                   {row?.Professional}
                 </TableCell>
               </TableRow>
@@ -143,5 +111,8 @@ CompareFeature.defaultProps = {
 
   rowIconAlign: '',
   iconRootStyle: {},
-  rowBorderColor:""
+  rowBorderColor: '',
+  tableRootStyle:{},
+  rowData: [],
+  columnData: [],
 };

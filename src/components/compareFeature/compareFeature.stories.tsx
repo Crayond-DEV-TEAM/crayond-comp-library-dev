@@ -1,5 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import CompareFeature from './compareFeature';
+import TickIcon from '../../assets/tickIcon';
 export default {
   title: 'components/CompareFeature',
   component: CompareFeature,
@@ -9,6 +10,49 @@ const Template: ComponentStory<typeof CompareFeature> = (args) => (
   <CompareFeature {...args} />
 );
 
+const columnData = [
+  { id: 1, title: '' },
+  { id: 2, title: 'Starter' },
+  { id: 3, title: 'Personal' },
+  { id: 4, title: 'Professional' },
+];
+const rowData = [
+  {
+    id: 1,
+    title: 'Import Data from Cloud Storage Services',
+    Starter: <TickIcon />,
+    Personal: <TickIcon />,
+    Professional: <TickIcon />,
+  },
+  {
+    id: 2,
+    title: 'Upload Excel and CSV Files',
+    Starter: '',
+    Personal: <TickIcon />,
+    Professional: <TickIcon />,
+  },
+  {
+    id: 3,
+    title: 'Export Charts',
+    Starter: <TickIcon />,
+    Personal: '',
+    Professional: <TickIcon />,
+  },
+  {
+    id: 3,
+    title: 'Import Data from Cloud Storage Services',
+    Starter: <TickIcon />,
+    Personal: <TickIcon />,
+    Professional: <TickIcon />,
+  },
+  {
+    id: 4,
+    title: 'Share Charts with Other Users',
+    Starter: <TickIcon />,
+    Personal: <TickIcon />,
+    Professional: <TickIcon />,
+  },
+];
 export const Primary = Template.bind({});
 
 Primary.argTypes = {
@@ -36,6 +80,9 @@ Primary.argTypes = {
   iconRootStyle: {
     description: 'object',
   },
+  tableRootStyle: {
+    description: 'object',
+  },
   compareHeadingAlign: {
     description: '"center"|"left"|"right"',
   },
@@ -45,6 +92,12 @@ Primary.argTypes = {
   rowIconAlign: {
     description: '"center"|"left"|"right"',
   },
+  columnData:{
+    description:"[array]"
+  },
+  rowData:{
+    description:"[array]"
+  }
 };
 
 Primary.args = {
@@ -61,4 +114,8 @@ Primary.args = {
   rowIconAlign: 'center',
   rowBorderColor: '',
   iconRootStyle: {},
+  tableRootStyle:{},
+  
+  columnData:columnData,
+  rowData:rowData,
 };
