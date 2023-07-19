@@ -8,7 +8,21 @@ export default {
 
 const Template: ComponentStory<typeof Language> = (args) =>
   <Language
-  
+  // cardStyle={{}}
+  // unselectedCardStyle={{}}
+  // cardTitleStyle={{}}
+  // cardSubtitleStyle={{}}
+  // languagesBoxStyle={{}}
+  // value={args?.value}
+  // selectedLang={args?.selectedLang}
+  // options={args?.options}
+  // handleDefaultChange={handleDefaultChange}
+  // data={
+  //   {
+  //   suggestionData:data?.suggestionData,
+  //   allData:data?.allData
+  // }}
+  // handleClick={handleClick}
     {...args} />;
 
 export const Primary = Template.bind({});

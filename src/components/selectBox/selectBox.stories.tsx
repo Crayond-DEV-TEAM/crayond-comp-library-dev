@@ -33,8 +33,8 @@ export default {
 
 const Template: ComponentStory<typeof SelectBox> = (args) => {
   interface FilmOptionType {
-    title: string;
-    year: number;
+    title: string | number;
+    year: number | string;
   }
 
   interface CheckedOption {
@@ -133,6 +133,7 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
         handleGroupChange: handleGroupChange,
         groupedData: groupedData,
         arrData: top100Films,
+        islabel:false,
         label: '',
         dropdown: {
           minHeight: '',
