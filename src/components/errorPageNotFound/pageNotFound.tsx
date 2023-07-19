@@ -83,7 +83,7 @@ PageNotFound.args = {
   handleClose: () => false,
   onBackdropClick: () => false,
 
-  errorMessage: 'Are you sure, would you like to deactivate signal?',
+  errorMessage: '',
   cardRootStyle: {},
   errorIconStyle: {},
   errorMessageTextStyle: {},

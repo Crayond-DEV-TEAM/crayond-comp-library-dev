@@ -1,13 +1,12 @@
 import { SxProps } from '@mui/system';
-import { ReactNode } from 'react';
-
+import React, { ReactNode } from 'react';
 export interface pageNotFound {
   pageNotFoundIconComponent?: ReactNode;
   pageNotFoundIconUrl: string;
   pageNotFoundText: string;
   urlImgHeight?: number;
   urlImgWidth?: number;
-  urlImgStyle?: object;
+  urlImgStyle?:React.CSSProperties;
   goBackButton: {
     label: String;
     onClick: () => void;

@@ -1,6 +1,5 @@
-import { Box, SxProps, Typography } from '@mui/material';
+import { Box, SxProps, Typography, useTheme } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import lightTheme from '../../theme/lightTheme';
 import { BasicButtons } from '../button';
 import { errorStyle } from './style';
 import { buttonInterface, errorWithIconProps } from './props';
@@ -23,6 +22,8 @@ const ErrorModal = (props: errorWithIconProps) => {
     handleClose,
     onBackdropClick,
   } = props;
+
+  const lightTheme = useTheme();
 
   return (
     <>
