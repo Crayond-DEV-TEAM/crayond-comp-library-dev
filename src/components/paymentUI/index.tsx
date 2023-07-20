@@ -22,6 +22,7 @@ export function PaymentUI(props: PaymentUIProps) {
     subTitleStyle,
     rootStyle,
     buttons = [],
+    buttonContainerStyle,
   } = props;
 
   const [sectionValue, setSection] = useState(section);
@@ -160,6 +161,19 @@ export function PaymentUI(props: PaymentUIProps) {
           placeholder={item.placeholder}
           errorMessage={item.errorMessage}
           required={item.required}
+          // sx={{
+          //   '& .MuiOutlinedInput-root': {
+          //     '& fieldset': {
+          //       borderColor: 'red', // Replace 'red' with your desired border color
+          //     },
+          //     '&:hover fieldset': {
+          //       borderColor: 'green', // Replace 'green' with your desired hover border color
+          //     },
+          //     '&.Mui-focused fieldset': {
+          //       borderColor: 'blue', // Replace 'blue' with your desired focused border color
+          //     },
+          //   },
+          // }}
         />
       );
     } else if (item.inputType === 'date') {
@@ -175,7 +189,7 @@ export function PaymentUI(props: PaymentUIProps) {
           }
           type={item.dateType}
           value={moment(item.value).format(item.dateFormat)}
-          // error={item.error}
+          error={item.error}
           errorMessage={item.errorMessage}
           required={item.required}
           format="MM / YYYY"
@@ -246,9 +260,9 @@ export function PaymentUI(props: PaymentUIProps) {
         </Box>
       ))}
 
-      <Grid container spacing={1} {...gridContainerProps}>
+      <Grid container spacing={1} {...gridContainerProps} sx={{mt:2,...buttonContainerStyle}}>
         {buttons.map((item) => (
-          <Grid item key={item.buttonText} {...item.breakpoints}>
+          <Grid item key={item.buttonText} {...item.breakpoints} >
             <BasicButtons
               onClick={() => getUpdateCardDetails(item)}
               inLineStyles={item.styles}
@@ -437,4 +451,5 @@ PaymentUI.defaultProps = {
   subTitleStyle: {},
   rootStyle: {},
   buttons: [],
+  buttonContainerStyle:{}
 };

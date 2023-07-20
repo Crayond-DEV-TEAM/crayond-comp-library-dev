@@ -39,4 +39,5 @@ export interface PaymentUIProps {
     styles?: object;
     breakpoints?: GridProps;
   }[];
+  buttonContainerStyle?: SxProps;
 }

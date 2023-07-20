@@ -132,6 +132,7 @@ function App() {
       selectOption: [{ label: 'chennai', value: 'chennai' }],
       value: '',
       errorMessage: 'please select any value',
+      
     },
     {
       breakpoints: {
@@ -216,6 +217,7 @@ function App() {
         description="Cras gravida bibendum dolor eu varius. Morbi fermentum velit nisl, eget vehicula lorem sodales eget."
         section={paymentSections}
         buttons={buttons}
+        buttonContainerStyle={{}}
       />
     </div>
   );
