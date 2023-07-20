@@ -13,6 +13,7 @@ export default function TextArea(props: TextAreaProps) {
     minWidth,
     border,
     borderRadius,
+    placeholder,
   } = props;
   return (
     <Box sx={{
@@ -33,7 +34,9 @@ export default function TextArea(props: TextAreaProps) {
           maxWidth={maxWidth}
           handleChange={handleChange}
           reverseToolbarSx={reverseToolbarSx}
-          inputHeight={inputHeight} />
+          inputHeight={inputHeight} 
+          placeholder={placeholder}
+          />
       </Box>
     </Box>
   );

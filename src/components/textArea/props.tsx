@@ -7,4 +7,5 @@ export interface TextAreaProps {
     maxWidth?: string;
     border?: string;
     borderRadius?: string;
+    placeholder?:  string
 }

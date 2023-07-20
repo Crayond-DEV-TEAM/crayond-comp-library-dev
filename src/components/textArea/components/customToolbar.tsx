@@ -22,6 +22,7 @@ import SubscriptIcon from '@mui/icons-material/Subscript';
 //         </select>
 //     );
 // };
+
 const formatsSvg = (key: string | undefined, value: string | undefined) => {
     switch (key) {
         case 'ql-bold':
@@ -48,16 +49,12 @@ const renderSingle = (formatData: { className?: string; value?: string; }) => {
 };
 
 const ToolBox = styled('button')({
-    // padding: 8,
-    // borderRadius: 4,
-    // border: '5px solid red'
     '& svg': {
         color: '#3B3B3B !important',
     },
     '&:hover': {
         '& svg': {
             background: '#EFEEFB !important',
-            // padding:'3px',
             color: '#665CD7 !important'
         },
     },

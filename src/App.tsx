@@ -24,7 +24,8 @@ function App() {
         maxWidth=''
         reverseToolbarSx={false}
         border=''
-        borderRadius='' />
+        borderRadius=''
+        placeholder='' />
     </div>
   )
 }

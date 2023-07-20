@@ -13,7 +13,9 @@ const Editor = (props: TextAreaProps) => {
         minWidth,
         maxWidth,
         border,
-        borderRadius } = props
+        borderRadius,
+        placeholder
+     } = props
 
     const modules = {
         toolbar: {
@@ -87,7 +89,7 @@ const Editor = (props: TextAreaProps) => {
 
             }}>
                 <ReactQuill
-                    placeholder="Placeholder"
+                    placeholder= {placeholder ? placeholder : "Placeholder"}
                     value={value}
                     onChange={handleChange}
                     modules={modules}
