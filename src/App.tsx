@@ -45,7 +45,7 @@ function App() {
       fullWidth: true,
       inputType: 'date',
       dateFormat: 'MM-DD-YYYY',
-      value: moment().toString(),
+      value: '',
       error: false,
       errorMessage: 'please select any value',
     },

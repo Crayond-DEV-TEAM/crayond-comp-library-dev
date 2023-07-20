@@ -13,14 +13,14 @@ import { styles } from './style';
 
 export function PaymentUI(props: PaymentUIProps) {
   const {
-    title = 'Payment',
-    description = 'Please provide the following details:',
-    section = [],
-    gridContainerProps = {},
-    titleStyle = {},
-    descStyle = {},
-    subTitleStyle = {},
-    rootStyle = {},
+    title ,
+    description ,
+    section ,
+    gridContainerProps,
+    titleStyle,
+    descStyle,
+    subTitleStyle,
+    rootStyle,
     buttons = [],
   } = props;
 
@@ -175,7 +175,7 @@ export function PaymentUI(props: PaymentUIProps) {
           }
           type={item.dateType}
           value={moment(item.value).format(item.dateFormat)}
-          error={item.error}
+          // error={item.error}
           errorMessage={item.errorMessage}
           required={item.required}
           format="MM / YYYY"
