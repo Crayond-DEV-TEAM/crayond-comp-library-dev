@@ -91,7 +91,7 @@ function App() {
         search={''}
       />
     </div>
-  );
+  )
 }
 
 export default App;
