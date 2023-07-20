@@ -39,11 +39,11 @@ export interface inputStyle {
 
 export interface switchStyle {
     customProp?: {
-        width: string,
-        height: string,
-        thumbColor: string,
+        width?: string,
+        height?: string,
+        thumbColor?: string,
         onChange?: ((event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void),
-        color: string
+        color?: string
     };
 }
 
@@ -73,6 +73,9 @@ export interface RoleManagementProps {
 
     onEditRole?: (x: Role, index: number | undefined) => void,
     handleChange?: (key: string, e: any, index: number) => void,
+    handleChangeCallback?: (e: any) => void | undefined;
+    handleSaveCallback?: (e: any) => void | undefined;
+    handleSwitchCallback?: (e: any) => void | undefined,
     handleSave?: (x: Role, index: number) => void,
     handleAddChange?: (key: any, value: string) => void,
     handleAddSave?: (e: Role) => void,

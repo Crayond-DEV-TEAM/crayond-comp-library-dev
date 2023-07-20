@@ -23,7 +23,10 @@ const RoleManagement = (props: RoleManagementProps) => {
     closeIconPropSx,
     roleUnselectedCardSx,
     roleNoProps,
-    editIconProps
+    editIconProps,
+    handleChangeCallback,
+    handleSwitchCallback,
+    handleSaveCallback,
     } = props;
 
   type Role = {
@@ -93,6 +96,9 @@ const RoleManagement = (props: RoleManagementProps) => {
       roleNo: tempArr[index].roleNo, [key]: e,
       role: tempArr[index].role, [key]: e,
     }
+    if(handleChangeCallback) {
+      handleChangeCallback({allRoles: roles, data:e })
+    }
     setRoles([...tempArr]);
   }
 
@@ -107,6 +113,9 @@ const RoleManagement = (props: RoleManagementProps) => {
     tempArr[index] = x;
     setRoles([...tempArr]);
     setEditIndex(null)
+    if(handleSaveCallback){
+      handleSaveCallback({allRoles: roles, data:x })
+    }
   }
 
   const handleClose = () => {
@@ -157,6 +166,10 @@ const RoleManagement = (props: RoleManagementProps) => {
     }
 
     setRoles([...tempArr]);
+    if(handleSwitchCallback){
+      handleSwitchCallback({allRoles: roles, data:e })
+    }
+
   }
 
   return (

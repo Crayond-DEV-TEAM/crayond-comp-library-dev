@@ -23,6 +23,9 @@ function App() {
         roleUnselectedCardSx= {{}}
         roleNoProps={{}}
         editIconProps={{}}
+        handleChangeCallback={(e) =>console.log(e, 'inputchangeCallBack')}
+        handleSwitchCallback={(e) =>console.log(e, 'SwitchCallBack')}
+        handleSaveCallback={(e) =>console.log(e, 'saveCallBack')}
         heading='Role Management'
           roles={[
           {

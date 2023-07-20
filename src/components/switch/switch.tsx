@@ -65,7 +65,9 @@ interface CustomizedSwitchesProps {
 }
 export const CustomizedSwitches = (props: CustomizedSwitchesProps) => {
   return (
-    <FormControlLabel
+    <FormControlLabel style={{
+      margin:'8px'
+    }}
       control={<CustomSwitch sx={props?.swtichSx}
         onChange={(event) => props?.onChange(props?.id, props?.rowData, event)} checked={props?.value} />}
       label={props?.isLabel ? null : props.label}
