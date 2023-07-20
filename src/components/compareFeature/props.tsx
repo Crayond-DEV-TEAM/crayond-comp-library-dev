@@ -19,16 +19,16 @@ export interface CompareFeatureProps {
   rowData: {
     id: number;
     title: string;
-    Starter: React.ReactNode;
-    Personal: React.ReactNode;
-    Professional: React.ReactNode;
-    style:React.CSSProperties;
+    Starter?: React.ReactNode;
+    Personal?: React.ReactNode;
+    Professional?: React.ReactNode;
+    style?:React.CSSProperties;
   }[];
   
   columnData: {
     id: number;
-    key:string;
-    title: string;
+    key?:string;
+    title?: string;
     style?:React.CSSProperties;
 
   }[];
