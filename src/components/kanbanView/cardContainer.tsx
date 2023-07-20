@@ -1,9 +1,8 @@
 import { Box, Typography } from '@mui/material';
-import { view_styles } from './styles';
-import CardItems from './cardItem';
-import { BasicButtons } from '../button';
 import { boolean } from 'yup';
+import CardItems from './cardItem';
 import { ContainerProps } from './props';
+import { view_styles } from './styles';
 
 
 const CardContainer = (props: ContainerProps) => {

@@ -62,9 +62,9 @@ const KanbanView = (props: DragProps) => {
     // styles.top = `${cursorPosition.x}`;
     // styles.transform = `translate(${x}px, ${y}px)`;
 
-    setTimeout(function () {
-      styles.display = 'none';
-    }, 0);
+    // setTimeout(function () {
+    //   styles.display = 'none';
+    // }, 0);
   };
 
   const onDragStart = (evt: React.DragEvent<HTMLDivElement>, id: any) => {
@@ -73,10 +73,12 @@ const KanbanView = (props: DragProps) => {
     evt.dataTransfer.effectAllowed = 'move';
     evt.currentTarget.classList.add('dragged');
     let styles = evt.currentTarget.style;
-    styles.opacity = '100';
     
     setTimeout(function () {
-      styles.display = 'none';
+      // styles.display = 'block';
+      styles.border= '2px dashed #665CD7';
+      styles.borderRadius='8px';
+      
     }, 0);
     setIsDragging(true);
 
@@ -93,6 +95,7 @@ const KanbanView = (props: DragProps) => {
 
     setTimeout(function () {
       styles.display = 'block';
+      styles.border= 'none';
     }, 0);
   };
 
