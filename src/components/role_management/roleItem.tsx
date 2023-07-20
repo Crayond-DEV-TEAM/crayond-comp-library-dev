@@ -56,6 +56,7 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
         handleSave = () => false,
         handleClose = () => false,
         handleSwitch = () => false,
+        switchStyle ={}
     } = props;
 
     const ref = useRef(null);
@@ -76,7 +77,8 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
             ref={ref}
         >
             <Box
-                sx={clickIndex === index ? { ...styles.card, ...roleCardSx } : { ...styles.unSelectedCard, ...roleUnselectedCardSx }}
+                sx={clickIndex === index ? { ...styles.card, ...roleCardSx } : 
+                { ...styles.unSelectedCard, ...roleUnselectedCardSx }}
                 onMouseEnter={handleHover} onMouseLeave={handleHoverLeave}>
                 {
                     editIndex === index && <Box sx={styles?.parentBox}>
@@ -195,6 +197,7 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                                     }
                                 }}
                                     control={<CustomizedSwitches
+                                        swtichSx={switchStyle}
                                         onChange={(e: any, arr: any, event: any) =>
                                             handleSwitch(event?.target?.checked, index)
                                         }

@@ -1,5 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import RoleManagement from './roleManagement';
+import { useState } from 'react';
+
 
 export default {
   title: 'components/roleManagement',
@@ -150,9 +152,136 @@ export default {
 
 } as ComponentMeta<typeof RoleManagement>;
 
-const Template: ComponentStory<typeof RoleManagement> = (args) => (
-  <RoleManagement {...args} />
-);
+const Template: ComponentStory<typeof RoleManagement> = (args) => {
+  const initialState = {
+    roleNo: '',
+    role: '',
+    isActive: false,
+    error: {
+      roleNo: '',
+    }
+  };
+
+  type initialProps = {
+    roleNo: string,
+    role: string,
+    isActive: boolean,
+    error: {
+      roleNo: string,
+    }
+  }
+
+  type Role = {
+    roleNo: string;
+    role: string;
+    isActive: boolean;
+  };
+
+  const roleData: Role[] = [
+    {
+      roleNo: 'RL077',
+      role: 'Role 1',
+      isActive: false,
+    },
+    {
+      roleNo: 'RL045',
+      role: 'Role 2',
+      isActive: false,
+    },
+  ];
+  type EditIndex = number | null | undefined;
+  
+  const [roles, setRoles] = useState<Role[]>(roleData);
+  const [state, setState] = useState<initialProps>(initialState)
+
+  const handleChange = (key: string, e: object, index: number) => {
+    const tempArr = [...roles]
+
+    tempArr[index] = {
+      ...tempArr[index],
+      roleNo: tempArr[index].roleNo, [key]: e,
+      role: tempArr[index].role, [key]: e,
+    }
+    setRoles([...tempArr]);
+  }
+
+  const handleAddChange = (key: keyof initialProps['error'], value: string) => {
+    const error = state?.error;
+    error[key] = '';
+    setState({ ...state, [key]: value, error })
+  }
+
+  const handleSave = (x: Role, index: number) => {
+    debugger
+    const tempArr = [...roles]
+    tempArr[index] = x;
+    setRoles([...tempArr]);
+    console.log(tempArr, 'tempArr========');
+    
+  }
+
+  const validate = () => {
+    let isValid = true;
+    const error = state?.error
+    if (state?.role?.length === 0) {
+      isValid = false
+      error.roleNo = "Role & RoleNo Required"
+    }
+    if (state?.roleNo?.length === 0) {
+      isValid = false
+      error.roleNo = "Role & RoleNo Required"
+    }
+    setState({ ...state, error })
+    return isValid
+  }
+
+  const handleAddSave = (e: Role) => {
+    const tempArr = [...roles]
+
+    if (validate()) {
+      tempArr.push(e)
+      setRoles([...tempArr]);
+      setState(initialState)
+    }
+
+    
+    
+  }
+
+  const handleSwitch = (e: boolean, index: number) => {
+    const tempArr = [...roles]
+
+    tempArr[index] = {
+      ...tempArr[index],
+      isActive: e
+    }
+    setRoles([...tempArr]);
+  }
+
+ return (
+  <RoleManagement
+        heading={args?.heading}
+        title={args?.title}
+        rootStyle={args?.rootStyle}
+        rolesGrid={args?.rolesGrid}
+        rolesView= {args?.rolesView}
+        roleTitleSx={args?.roleTitleSx}
+        subRootPropsSx={args?.subRootPropsSx}
+        search={args?.search}
+        handleAddSave={(e) =>{
+          debugger
+          console.log(e, 'e');
+        }}
+        handleAddChange={handleAddChange}
+        handleChange={handleChange}
+        handleSave={handleSave}
+        handleSwitch={handleSwitch}
+        add={args?.add}
+        
+        switchStyle={args?.switchStyle}
+  {...args} />
+)
+};
 
 
 export const Primary = Template.bind({});

@@ -5,7 +5,26 @@ import { Roles } from './roles';
 import { useState } from 'react';
 
 const RoleManagement = (props: RoleManagementProps) => {
-  const { rootStyle, rolesView, rolesGrid, roleTitleSx, subRootPropsSx } = props;
+  const { 
+    heading,
+    rootStyle,
+    rolesView, 
+    rolesGrid, 
+    roleTitleSx, 
+    subRootPropsSx,
+    switchStyle,
+    inputStyle,
+    roleBoxSx,
+    roleHeadBorderSx,
+    titlePropsSx,
+    addIconSx,
+    roleCardSx,
+    checkIconPropsSx,
+    closeIconPropSx,
+    roleUnselectedCardSx,
+    roleNoProps,
+    editIconProps
+    } = props;
 
   type Role = {
     roleNo: string;
@@ -116,6 +135,7 @@ const RoleManagement = (props: RoleManagementProps) => {
   }
 
   const handleAddSave = (e: Role) => {
+    debugger
     const tempArr = [...roles]
 
     if (validate()) {
@@ -135,13 +155,14 @@ const RoleManagement = (props: RoleManagementProps) => {
       ...tempArr[index],
       isActive: e
     }
+
     setRoles([...tempArr]);
   }
 
   return (
     <Box sx={{ ...styles.rootSx, ...rootStyle }}>
       <Box sx={styles?.headingPx}>
-        <Typography sx={{ ...styles?.roleHeading, ...roleTitleSx }}>Role Management</Typography>
+        <Typography sx={{ ...styles?.roleHeading, ...roleTitleSx }}>{heading}</Typography>
       </Box>
 
       <Box sx={{ ...styles?.subRootSx, ...subRootPropsSx }}>
@@ -164,6 +185,18 @@ const RoleManagement = (props: RoleManagementProps) => {
               search={search}
               handleSwitch={handleSwitch}
               add={add}
+              roleBoxSx={roleBoxSx}
+              roleHeadBorderSx={roleHeadBorderSx}
+              titlePropsSx={titlePropsSx}
+              roleCardSx={roleCardSx}
+              switchStyle={switchStyle}
+              inputStyle={inputStyle}
+              addIconSx={addIconSx}
+              checkIconPropsSx={checkIconPropsSx}
+              closeIconPropSx={closeIconPropSx}
+              roleUnselectedCardSx={roleUnselectedCardSx}
+              roleNoProps={roleNoProps}
+              editIconProps={editIconProps}
             />
           </Grid>
           <Grid item {...rolesView?.breakpoints} height={'100%'}>
@@ -177,6 +210,7 @@ const RoleManagement = (props: RoleManagementProps) => {
 export default RoleManagement
 
 RoleManagement.defaultProps = {
+  heading:'Role Management',
   title: 'Roles',
   rootStyle: {},
   rolesGrid: {

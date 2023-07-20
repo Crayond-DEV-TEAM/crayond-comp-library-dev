@@ -10,7 +10,21 @@ function App() {
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
       <RoleManagement
-        roles={[
+        roleTitleSx={{}}
+        subRootPropsSx={{}}
+        switchStyle={{}}
+        roleBoxSx={{}}
+        roleHeadBorderSx= {{}}
+        titlePropsSx= {{}}
+        addIconSx={{}}
+        roleCardSx= {{}}
+        checkIconPropsSx={{}}
+        closeIconPropSx={{}} 
+        roleUnselectedCardSx= {{}}
+        roleNoProps={{}}
+        editIconProps={{}}
+        heading='Role Management'
+          roles={[
           {
             roleNo: 'RL077',
             role: 'Role 1',
@@ -26,24 +40,24 @@ function App() {
           //   role: 'Role 3',
           //   isActive: false,
           // },
-        ]}
-        rolesGrid={{
+          ]}
+          rolesGrid={{
           breakpoints: {
             xs: 12,
             sm: 5,
             md: 4,
             lg: 4
           }
-        }}
-        rolesView={{
+          }}
+          rolesView={{
           breakpoints: {
             xs: 12,
             sm: 9,
             md: 8,
             lg: 9
           }
-        }}
-        inputStyle={{
+          }}
+          inputStyle={{
           type: '',
           helperText: '',
           placeholder: '',
@@ -67,7 +81,11 @@ function App() {
           border: '',
           borderRadius: '',
           borderBottom: ''
-        }} editIndex={undefined} clickIndex={undefined} title={''} search={''}      // search={''}
+          }} 
+        editIndex={undefined} 
+        clickIndex={undefined} 
+        title={''} 
+        search={''}
       />
     </div>
   );
