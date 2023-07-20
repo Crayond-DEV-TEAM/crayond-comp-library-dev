@@ -56,7 +56,8 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
         handleSave = () => false,
         handleClose = () => false,
         handleSwitch = () => false,
-        switchStyle ={}
+        switchStyle ={},
+        state,
     } = props;
 
     const ref = useRef(null);
@@ -91,19 +92,19 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                                 inputStyle={{
                                     justifyContent: 'center',
                                     marginRight: '8px',
-                                    background: inputStyle?.inputBackground ?? 'none',
+                                    background: inputStyle?.inputBackground ? inputStyle?.inputBackground : 'none',
                                     '& div': {
-                                        height: inputStyle?.height ?? '22px',
-                                        padding: inputStyle?.padding ?? '0 ',
-                                        fontSize: inputStyle?.fontSize ?? '13px',
-                                        margin: inputStyle?.margin ?? '0',
+                                        height: inputStyle?.height ? inputStyle?.height : '22px',
+                                        padding: inputStyle?.padding ? inputStyle?.padding : '0 ',
+                                        fontSize: inputStyle?.fontSize ? inputStyle?.fontSize : '13px',
+                                        margin: inputStyle?.margin ? inputStyle?.margin : '0',
                                         '& input': {
                                             padding: '0 !important',
                                         },
                                         '& fieldset': {
-                                            border: inputStyle?.border ?? '0 !important',
-                                            borderRadius: inputStyle?.borderRadius ?? '0 !important',
-                                            borderBottom: inputStyle?.borderBottom ?? '1px solid #D3D3D3 !important',
+                                            border: inputStyle?.border ? inputStyle?.border : '0 !important',
+                                            borderRadius: inputStyle?.borderRadius ? inputStyle?.borderRadius : '0 !important',
+                                            borderBottom: inputStyle?.borderBottom ? inputStyle?.borderBottom : '1px solid #D3D3D3 !important',
                                         }
                                     }
                                 }}
@@ -120,19 +121,20 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                                 inputStyle={{
                                     justifyContent: 'center',
                                     marginRight: '8px',
-                                    background: inputStyle?.inputBackground ?? 'none',
+                                    background: inputStyle?.inputBackground ? inputStyle?.inputBackground : 'none',
                                     '& div': {
-                                        height: inputStyle?.height ?? '22px',
-                                        padding: inputStyle?.padding ?? '0 ',
-                                        fontSize: inputStyle?.fontSize ?? '13px',
-                                        margin: inputStyle?.margin ?? '0',
+                                        height: inputStyle?.height ? inputStyle?.height : '22px',
+                                        padding: inputStyle?.padding ? inputStyle?.padding : '0 ',
+                                        fontSize: inputStyle?.fontSize ? inputStyle?.fontSize : '13px',
+                                        margin: inputStyle?.margin ? inputStyle?.margin : '0',
                                         '& input': {
                                             padding: '0 !important',
                                         },
                                         '& fieldset': {
-                                            border: inputStyle?.border ?? '0 !important',
-                                            borderRadius: inputStyle?.borderRadius ?? '0 !important',
-                                            borderBottom: inputStyle?.borderBottom ?? '1px solid #D3D3D3 !important',
+                                            border: inputStyle?.border ? inputStyle?.border : '0 !important',
+                                            borderRadius: inputStyle?.borderRadius ? 
+                                            inputStyle?.borderRadius : '0 !important',
+                                            borderBottom: inputStyle?.borderBottom ? inputStyle?.borderBottom : '1px solid #D3D3D3 !important',
                                         }
                                     }
                                 }}

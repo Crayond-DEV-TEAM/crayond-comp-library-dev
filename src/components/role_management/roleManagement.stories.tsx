@@ -212,7 +212,6 @@ const Template: ComponentStory<typeof RoleManagement> = (args) => {
   }
 
   const handleSave = (x: Role, index: number) => {
-    debugger
     const tempArr = [...roles]
     tempArr[index] = x;
     setRoles([...tempArr]);
@@ -269,7 +268,6 @@ const Template: ComponentStory<typeof RoleManagement> = (args) => {
         subRootPropsSx={args?.subRootPropsSx}
         search={args?.search}
         handleAddSave={(e) =>{
-          debugger
           console.log(e, 'e');
         }}
         handleAddChange={handleAddChange}

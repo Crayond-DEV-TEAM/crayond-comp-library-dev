@@ -108,16 +108,6 @@ const RoleManagement = (props: RoleManagementProps) => {
     setState({ ...state, [key]: value, error })
   }
 
-  const handleSave = (x: Role, index: number) => {
-    const tempArr = [...roles]
-    tempArr[index] = x;
-    setRoles([...tempArr]);
-    setEditIndex(null)
-    if(handleSaveCallback){
-      handleSaveCallback({allRoles: roles, data:x })
-    }
-  }
-
   const handleClose = () => {
     setEditIndex(null)
     setAdd(false)
@@ -143,8 +133,20 @@ const RoleManagement = (props: RoleManagementProps) => {
     return isValid
   }
 
+  const handleSave = (x: Role, index: number) => {
+    const tempArr = [...roles]
+
+      if (validate()) {
+        tempArr[index] = x;
+        setRoles([...tempArr]);
+        setEditIndex(null)
+          if(handleSaveCallback){
+            handleSaveCallback({allRoles: roles, data:x })
+          }
+    }
+  }
+
   const handleAddSave = (e: Role) => {
-    debugger
     const tempArr = [...roles]
 
     if (validate()) {
