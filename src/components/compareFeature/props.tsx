@@ -1,4 +1,5 @@
 import { SxProps } from '@mui/material';
+import React from 'react';
 
 export interface CompareFeatureProps {
   compareHeadingColor?: string;
@@ -6,12 +7,11 @@ export interface CompareFeatureProps {
   compareHeadingStyle?: SxProps;
   compareHeadingAlign?: 'left' | 'right' | 'center';
 
-  rowTitleAlign?: 'left' | 'right' | 'center';
+  rowAlign?: 'left' | 'right' | 'center';
   compareRowTitleColor?: string;
   compareRowTitleSize?: 12;
   compareRowTitleStyle?: SxProps;
 
-  rowIconAlign?: 'left' | 'right' | 'center';
   iconRootStyle?: SxProps;
   rowBorderColor?: string;
   tableRootStyle?:SxProps;
@@ -22,9 +22,14 @@ export interface CompareFeatureProps {
     Starter: React.ReactNode;
     Personal: React.ReactNode;
     Professional: React.ReactNode;
+    style:React.CSSProperties;
   }[];
+  
   columnData: {
     id: number;
+    key:string;
     title: string;
+    style?:React.CSSProperties;
+
   }[];
 }

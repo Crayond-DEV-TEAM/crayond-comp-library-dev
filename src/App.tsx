@@ -6,25 +6,27 @@ import { CompareFeature } from './components/compareFeature';
 import TickIcon from './assets/tickIcon';
 
 const columnData = [
-  { id: 1, title: '' },
-  { id: 2, title: 'Starter' },
-  { id: 3, title: 'Personal' },
-  { id: 4, title: 'Professional' },
+  { id: 1, key: 'title', title: '', style: {} },
+  { id: 2, key: 'Starter', title: 'Starter', style: {} },
+  { id: 3, key: 'Personal', title: 'Personal', style: {} },
+  { id: 4, key: 'Professional', title: 'Professional', style: {}},
 ];
 const rowData = [
   {
     id: 1,
     title: 'Import Data from Cloud Storage Services',
+    Personal: "",
     Starter: <TickIcon />,
-    Personal: <TickIcon />,
     Professional: <TickIcon />,
+    style: {},
   },
   {
     id: 2,
     title: 'Upload Excel and CSV Files',
-    Starter: '',
+    Starter:<TickIcon />,
     Personal: <TickIcon />,
     Professional: <TickIcon />,
+    style: {}
   },
   {
     id: 3,
@@ -32,6 +34,7 @@ const rowData = [
     Starter: <TickIcon />,
     Personal: '',
     Professional: <TickIcon />,
+    style: {},
   },
   {
     id: 3,
@@ -39,6 +42,7 @@ const rowData = [
     Starter: <TickIcon />,
     Personal: <TickIcon />,
     Professional: <TickIcon />,
+    style: {},
   },
   {
     id: 4,
@@ -46,8 +50,11 @@ const rowData = [
     Starter: <TickIcon />,
     Personal: <TickIcon />,
     Professional: <TickIcon />,
+    style: {},
   },
 ];
+
+
 
 function App() {
   return (
@@ -61,7 +68,17 @@ function App() {
       }}
     >
       <CompareFeature
+        compareHeadingColor={''}
+        compareHeadingSize={12}
+        compareHeadingStyle={{}}
+        compareHeadingAlign={"left"}
+        rowAlign={'left'}
+        compareRowTitleColor={''}
+        compareRowTitleSize={12}
+        compareRowTitleStyle={{}}
+        iconRootStyle={{}}
         rowBorderColor={''}
+        tableRootStyle={{}}
         columnData={columnData}
         rowData={rowData}
       />

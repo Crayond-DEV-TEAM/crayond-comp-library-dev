@@ -6,6 +6,13 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { CompareFeatureProps } from './props';
+import { styles } from './styles';
+import { SxProps } from '@mui/material';
+
+const RowComponent = (row: any, column: any) => {
+  const cellValue = row[column?.key];
+  return cellValue;
+};
 
 const CompareFeature = (props: CompareFeatureProps) => {
   const {
@@ -14,13 +21,11 @@ const CompareFeature = (props: CompareFeatureProps) => {
     compareHeadingStyle,
     compareHeadingAlign,
 
-    rowTitleAlign,
+    rowAlign,
     compareRowTitleColor,
     compareRowTitleSize,
     compareRowTitleStyle,
 
-    rowIconAlign,
-    iconRootStyle,
     rowBorderColor,
 
     rowData,
@@ -31,22 +36,28 @@ const CompareFeature = (props: CompareFeatureProps) => {
   return (
     <>
       <TableContainer>
-        <Table sx={{...tableRootStyle }}>
+        <Table sx={{ ...tableRootStyle }}>
           <TableHead>
             <TableRow sx={{ 'th, td': { borderBottom: 'none' } }}>
-              {columnData.map((column) => (
-                <TableCell
-                  key={column?.id}
-                  align={compareHeadingAlign}
-                  sx={{
-                    color: compareHeadingColor,
-                    fontSize: compareHeadingSize,
-                    ...compareHeadingStyle,
-                  }}
-                >
-                  {column?.title}
-                </TableCell>
-              ))}
+              {Array.isArray(columnData) && columnData?.length > 0
+                ? columnData.map((column) => (
+                    <TableCell
+                      key={column?.id}
+                      align={compareHeadingAlign}
+                      sx={
+                        {
+                          color: compareHeadingColor,
+                          fontSize: compareHeadingSize,
+                          ...compareHeadingStyle,
+                          ...styles.compareHeadingStyle,
+                          ...column?.style,
+                        } as SxProps
+                      }
+                    >
+                      {column?.title}
+                    </TableCell>
+                  ))
+                : null}
             </TableRow>
           </TableHead>
 
@@ -56,37 +67,25 @@ const CompareFeature = (props: CompareFeatureProps) => {
                 key={row?.id}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
-                <TableCell
-                  component="th"
-                  scope="row"
-                  align={rowTitleAlign}
-                  sx={{
-                    color: compareRowTitleColor,
-                    fontSize: compareRowTitleSize,
-                    borderColor: rowBorderColor,
-                    ...compareRowTitleStyle,
-                  }}
-                >
-                  {row?.title}
-                </TableCell>
-                <TableCell
-                  align={rowIconAlign}
-                  sx={{ ...iconRootStyle, borderColor: rowBorderColor }}
-                >
-                  {row?.Starter}
-                </TableCell>
-                <TableCell
-                  align={rowIconAlign}
-                  sx={{ ...iconRootStyle, borderColor: rowBorderColor }}
-                >
-                  {row?.Personal}
-                </TableCell>
-                <TableCell
-                  align={rowIconAlign}
-                  sx={{ ...iconRootStyle, borderColor: rowBorderColor }}
-                >
-                  {row?.Professional}
-                </TableCell>
+                {columnData?.map((column) => (
+                  <TableCell
+                    component="th"
+                    scope="row"
+                    align={rowAlign}
+                    sx={
+                      {
+                        color: compareRowTitleColor,
+                        fontSize: compareRowTitleSize,
+                        borderColor: rowBorderColor,
+                        ...styles.compareRowTitleStyle,
+                        ...compareRowTitleStyle,
+                        ...row?.style,
+                      } as SxProps
+                    }
+                  >
+                    <>{RowComponent(row, column)}</>
+                  </TableCell>
+                ))}
               </TableRow>
             ))}
           </TableBody>
@@ -104,15 +103,14 @@ CompareFeature.defaultProps = {
   compareHeadingStyle: {},
   compareHeadingAlign: '',
 
-  rowTitleAlign: '',
+  rowAlign: '',
   compareRowTitleColor: '',
   compareRowTitleSize: 12,
   compareRowTitleStyle: {},
 
-  rowIconAlign: '',
   iconRootStyle: {},
   rowBorderColor: '',
-  tableRootStyle:{},
+  tableRootStyle: {},
   rowData: [],
   columnData: [],
 };
