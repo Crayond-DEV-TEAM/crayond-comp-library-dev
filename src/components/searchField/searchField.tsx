@@ -768,7 +768,7 @@ SearchField.defaultProps = {
   TitleImgBorderRadius: 4,
 
   recentSearchOption: [],
-  recentLabel: 'Recent Search',
+  recentLabel: '',
   recentLabelTextColor: '#393939dd',
   recentLabelFontSize: 12,
   recentLabelStyle: {},
@@ -786,14 +786,14 @@ SearchField.defaultProps = {
 
   recentSearchLabelColor: '#393939dd',
   recentSearchLabelSize: 12,
-  recentSearchLabel: 'Recent Search',
+  recentSearchLabel: '',
 
   categoryLabel1Color: '#393939dd',
   categoryLabel1Size: 12,
-  categoryLabel1: ' CATEGORY SUGGEST 1',
+  categoryLabel1: '',
   categoryLabel2Color: '#393939dd',
   categoryLabel2Size: 12,
-  categoryLabel2: 'CATEGORY SUGGEST 2',
+  categoryLabel2: '',
   primaryCategoryData: [],
   secondaryCategoryData: [],
 

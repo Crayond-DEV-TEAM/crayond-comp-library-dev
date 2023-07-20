@@ -132,7 +132,7 @@ function App() {
       }}
     >
       <SearchField
-        variant={"isShortcutKeyBased"}
+        variant={"isShortComponent"}
 
         options={cardData}
         primaryCategoryData={cardData}
