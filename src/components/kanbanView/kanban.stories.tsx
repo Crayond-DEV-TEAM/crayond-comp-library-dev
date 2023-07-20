@@ -12,18 +12,24 @@ const Template: ComponentStory<typeof KanbanView> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  cardContainerStyle:{},
-  cardRootStyle:{},
-  bottomButtonStyle:{},
-  childCardStyle:{},
-  containerTitleStyle:{},
-  handleClickNotifyIcon: () => {alert("handleClickNotifyIcon")},
-  handleClickMoreIcon: () => {alert("handleClickMoreIcon")},
-  handleAddNewButton: () => {alert("handleAddNewButton")},
-  cardContainerData:[
-    {title:"Progress"},
-    {title:"Pending"},
-    {title:"Completed"},
+  cardContainerStyle: {},
+  cardRootStyle: {},
+  bottomButtonStyle: {},
+  childCardStyle: {},
+  containerTitleStyle: {},
+  handleClickNotifyIcon: () => {
+    alert('handleClickNotifyIcon');
+  },
+  handleClickMoreIcon: () => {
+    alert('handleClickMoreIcon');
+  },
+  handleAddNewButton: () => {
+    alert('handleAddNewButton');
+  },
+  cardContainerData: [
+    { title: 'Progress' },
+    { title: 'Pending' },
+    { title: 'Completed' },
   ],
   cardData: [
     {
@@ -32,7 +38,7 @@ Primary.args = {
       status: 'Progress',
       cardTitle: 'Progress Create Components',
       isActive: true,
-      notifyIcon: <img src="/notifi.svg" alt="noti" />,
+      notifyIcon: <img src="/notifi.svg" alt="notify" />,
       moreIcon: <img src="/more.svg" alt="more" />,
       subTitles: [
         {
@@ -53,7 +59,6 @@ Primary.args = {
         { img: '/sample.jpg', height: '', width: '' },
       ],
       created_at: 'On 17 Mar, 23',
-
     },
     {
       id: 2,
@@ -61,7 +66,7 @@ Primary.args = {
       status: 'Progress',
       cardTitle: 'Progress Create Components',
       isActive: true,
-      notifyIcon: <img src="/activeNotify.svg" alt="noti" />,
+      notifyIcon: <img src="/activeNotify.svg" alt="notify" />,
       moreIcon: <img src="/more.svg" alt="more" />,
       subTitles: [
         {
@@ -89,7 +94,7 @@ Primary.args = {
       status: 'Progress',
       cardTitle: 'Progress Create Components',
       isActive: true,
-      notifyIcon: <img src="/notifi.svg" alt="noti" />,
+      notifyIcon: <img src="/notifi.svg" alt="notify" />,
       moreIcon: <img src="/more.svg" alt="more" />,
       subTitles: [
         {
@@ -110,7 +115,6 @@ Primary.args = {
         { img: '/sample.jpg', height: '', width: '' },
       ],
       created_at: 'On 17 Mar, 23',
-
     },
     {
       id: 4,
@@ -118,7 +122,7 @@ Primary.args = {
       status: 'Pending',
       cardTitle: 'Pending Create Components',
       isActive: true,
-      notifyIcon: <img src="/activeNotify.svg" alt="noti" />,
+      notifyIcon: <img src="/activeNotify.svg" alt="notify" />,
       moreIcon: <img src="/more.svg" alt="more" />,
       subTitles: [
         {
@@ -146,7 +150,7 @@ Primary.args = {
       status: 'Pending',
       cardTitle: 'Pending Create Components',
       isActive: true,
-      notifyIcon: <img src="/notifi.svg" alt="noti" />,
+      notifyIcon: <img src="/notifi.svg" alt="notify" />,
       moreIcon: <img src="/more.svg" alt="more" />,
       subTitles: [
         {
@@ -174,7 +178,7 @@ Primary.args = {
       status: 'Completed',
       cardTitle: ' Completed Create Components',
       isActive: true,
-      notifyIcon: <img src="/notifi.svg" alt="noti" />,
+      notifyIcon: <img src="/notifi.svg" alt="notify" />,
       moreIcon: <img src="/more.svg" alt="more" />,
       subTitles: [
         {
@@ -195,7 +199,6 @@ Primary.args = {
         { img: '/sample.jpg', height: '', width: '' },
       ],
       created_at: 'On 17 Mar, 23',
-
     },
     {
       id: 7,
@@ -203,7 +206,7 @@ Primary.args = {
       status: 'Completed',
       cardTitle: 'Completed Create Components',
       isActive: true,
-      notifyIcon: <img src="/notifi.svg" alt="noti" />,
+      notifyIcon: <img src="/notifi.svg" alt="notify" />,
       moreIcon: <img src="/more.svg" alt="more" />,
       subTitles: [
         {
@@ -224,7 +227,6 @@ Primary.args = {
         { img: '/sample.jpg', height: '', width: '' },
       ],
       created_at: 'On 17 Mar, 23',
-
     },
     {
       id: 8,
@@ -232,7 +234,7 @@ Primary.args = {
       status: 'Completed',
       cardTitle: 'Completed Create Components',
       isActive: true,
-      notifyIcon: <img src="/activeNotify.svg" alt="noti" />,
+      notifyIcon: <img src="/activeNotify.svg" alt="notify" />,
       moreIcon: <img src="/more.svg" alt="more" />,
       subTitles: [
         {
@@ -253,7 +255,6 @@ Primary.args = {
         { img: '/sample.jpg', height: '', width: '' },
       ],
       created_at: 'On 17 Mar, 23',
-
     },
     {
       id: 9,
@@ -261,7 +262,7 @@ Primary.args = {
       status: 'Pending',
       cardTitle: 'Pending Create Components',
       isActive: true,
-      notifyIcon: <img src="/activeNotify.svg" alt="noti" />,
+      notifyIcon: <img src="/activeNotify.svg" alt="notify" />,
       moreIcon: <img src="/more.svg" alt="more" />,
       subTitles: [
         {
@@ -282,8 +283,6 @@ Primary.args = {
         { img: '/sample.jpg', height: '', width: '' },
       ],
       created_at: 'On 17 Mar, 23',
-
     },
   ],
-
 };

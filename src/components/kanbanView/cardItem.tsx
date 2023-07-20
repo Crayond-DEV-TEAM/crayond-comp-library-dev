@@ -6,55 +6,7 @@ import {
   Typography,
 } from '@mui/material';
 import { view_styles } from './styles';
-
-interface CardItemProps {
-  onDragStart: (
-    e: React.DragEvent<HTMLDivElement>,
-    id: number | string
-  ) => void;
-  onDragEnd: (e: React.DragEvent<HTMLDivElement>, id: number | string) => void;
-  onDragLeave: (
-    e: React.DragEvent<HTMLDivElement>,
-    id: number | string
-  ) => void;
-  onDragEnter: (
-    e: React.DragEvent<HTMLDivElement>,
-    id: number | string
-  ) => void;
-  onDrag: (e: React.DragEvent<HTMLDivElement>, id: number | string) => void;
-  childItems: {
-    id: number;
-    title: string;
-    status: string;
-    cardTitle: string;
-    component: React.ReactNode;
-    isActive: boolean;
-    notifyIcon: React.ReactNode;
-    moreIcon: React.ReactNode;
-    subTitles: [
-      {
-        label: string;
-        bgColor: string;
-        borderColor: string;
-        textColor: string;
-      }
-    ];
-    images: [{ img: string; height: string | number; width: string | number }];
-    created_at: string;
-    done?: boolean;
-  };
-  childCardStyle: object;
-  childCardComponentStyle: object;
-  isDragging: boolean;
-  isDropped: { x: number; y: number };
-  handleClickNotifyIcon: () => void;
-  handleClickMoreIcon: () => void;
-  onMouseUp: (e: React.MouseEvent<HTMLDivElement>, id: number | string) => void;
-  onMouseDown: (
-    e: React.MouseEvent<HTMLDivElement>,
-    id: number | string
-  ) => void;
-}
+import { CardItemProps } from './props';
 
 const CardItems = (props: CardItemProps) => {
   const {
@@ -69,34 +21,31 @@ const CardItems = (props: CardItemProps) => {
     handleClickNotifyIcon = () => {},
     childCardComponentStyle,
     childItems,
-    isDragging,
+    isDragging=true,
     isDropped,
     childCardStyle,
   } = props;
 
- 
   return (
     <>
       {childItems?.component ? (
-       
-          <div
-            onDragEnter={(e) => onDragEnter(e, childItems?.id)}
-            onDragLeave={(e) => onDragLeave(e, childItems?.id)}
-            onDragStart={(e) => onDragStart(e, childItems?.id)}
-            onDragEnd={(e) => onDragEnd(e, childItems?.id)}
-            onDrag={(e) => onDrag(e, childItems?.id)}
-            onMouseDown={(e) => onMouseDown(e, childItems?.id)}
-            onClick={(e) => onMouseUp(e, childItems?.id)}
-            style={{
-              ...view_styles.childBoxContainer,
-              ...childCardComponentStyle,
-            }}
-            draggable
-          >
-            {childItems?.component}
-          </div>
+        <Box
+          onDragEnter={(e) => onDragEnter(e, childItems?.id)}
+          onDragLeave={(e) => onDragLeave(e, childItems?.id)}
+          onDragStart={(e) => onDragStart(e, childItems?.id)}
+          onDragEnd={(e) => onDragEnd(e, childItems?.id)}
+          onDrag={(e) => onDrag(e, childItems?.id)}
+          onMouseDown={(e) => onMouseDown(e, childItems?.id)}
+          onClick={(e) => onMouseUp(e, childItems?.id)}
+          style={{
+            ...view_styles.childBoxContainer,
+            ...childCardComponentStyle,
+          }}
+          draggable
+        >
+          {childItems?.component}
+        </Box>
       ) : (
-      
         <Box
           onDragEnter={(e) => onDragEnter(e, childItems?.id)}
           onDragLeave={(e) => onDragLeave(e, childItems?.id)}
@@ -105,7 +54,7 @@ const CardItems = (props: CardItemProps) => {
           onDrag={(e) => onDrag(e, childItems?.id)}
           onMouseDown={(e) => onMouseDown(e, childItems?.id)}
           onMouseUp={(e) => onMouseUp(e, childItems?.id)}
-          sx={{ ...view_styles.childBoxContainer, ...childCardStyle}}
+          sx={{ ...view_styles.childBoxContainer, ...childCardStyle }}
           draggable
         >
           <Box sx={{ ...view_styles.childTitleContainer }}>

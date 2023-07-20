@@ -3,50 +3,8 @@ import { view_styles } from './styles';
 import CardItems from './cardItem';
 import { BasicButtons } from '../button';
 import { boolean } from 'yup';
-interface ContainerProps {
-  onDragOver: (
-    e: React.DragEvent<HTMLDivElement>,
-    status: boolean,
-    title: any
-  ) => void;
-  onDrop: (
-    e: React.DragEvent<HTMLDivElement>,
-    status: boolean,
-    title: string
-  ) => void;
-  onDrag: (
-    e: React.DragEvent<HTMLDivElement>,
-    id: string|number
-  ) => void;
-  onDragEnd: (e: React.DragEvent<HTMLDivElement>) => void;
-  onDragStart: (
-    e: React.DragEvent<HTMLDivElement>,
-    id: number | string
-  ) => void;
-  onDragEnter: (
-    e: React.DragEvent<HTMLDivElement>,
-    id: number | string
-  ) => void;
-  onDragLeave: (
-    e: React.DragEvent<HTMLDivElement>,
-    id: number | string
-  ) => void;
-  cardContainerStyle: object;
-  childCardStyle: object;
-  childCardComponentStyle: object;
-  containerTitleStyle: object;
-  bottomButtonStyle: object;
-  childItems: any;
-  isDropped: any;
-  isDragging: boolean;
-  containerData: { title: string };
-  handleClickNotifyIcon: () => void;
-  handleClickMoreIcon: () => void;
-  handleAddNewButton: () => void;
-  onMouseUp: (e: React.MouseEvent<HTMLDivElement>, id: number | string) => void;
-  onMouseDown: (e: React.MouseEvent<HTMLDivElement>, id: number | string) => void;
-  buttonName:string,
-}
+import { ContainerProps } from './props';
+
 
 const CardContainer = (props: ContainerProps) => {
   const {
@@ -77,7 +35,7 @@ const CardContainer = (props: ContainerProps) => {
   return (
     <>
       <div
-        onDragEnd={(e) => onDragEnd(e)}
+        // onDragEnd={(e) => onDragEnd(e)}
         onDragOver={(e) => onDragOver(e, false, containerData?.title)}
         onDrop={(e) => onDrop(e, false, containerData?.title)}
       >
@@ -115,7 +73,7 @@ const CardContainer = (props: ContainerProps) => {
           </Box>
 
           <Box
-            sx={{ ...view_styles.addTodoButton, ...bottomButtonStyle}}
+            sx={{ ...view_styles.addTodoButton, ...bottomButtonStyle }}
             onClick={handleAddNewButton}
           >
             <span style={{ marginTop: '5px' }}>
@@ -137,11 +95,11 @@ CardContainer.defaultProps = {
   onDragStart: () => {},
   onDragEnter: () => {},
   onDragLeave: () => {},
-  onMouseUp : () => {},
+  onMouseUp: () => {},
   onMouseDown: () => {},
   cardContainerStyle: {},
   childCardStyle: {},
-  bottomButtonStyle:{},
+  bottomButtonStyle: {},
   childCardComponentStyle: {},
   containerTitleStyle: {},
   childItems: [],
@@ -151,7 +109,7 @@ CardContainer.defaultProps = {
   handleClickNotifyIcon: () => {},
   handleClickMoreIcon: () => {},
   handleAddNewButton: () => {},
-  buttonName:"'Add New'",
+  buttonName: "'Add New'",
 };
 
 export default CardContainer;

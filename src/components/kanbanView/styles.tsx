@@ -2,12 +2,13 @@ export const view_styles = {
   rootStyle: {
     display: 'flex',
     columnGap: '40px',
-    flexWrap: 'wrap',
+    // flexWrap: 'wrap',
     rowGap: '20px',
+    minWidth:"100%",
   },
 
   cardContainer: {
-    width: ' 367px',
+    minWidth: ' 350px',
     background: '#F1F1F1',
     height: '637px',
     padding: '16px',
