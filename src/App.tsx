@@ -224,7 +224,8 @@ function App() {
    setPricing( pricingCardVariationTwo?.[0])
   },[])
 return(
-  <PricingCard  variation1={true}
+ <div style={{width:'100vw',height:'100%'}}>
+   <PricingCard  variation1={true}
   pricing={pricing}
   variation2
   onPricingChanges={onPricingChanges}
@@ -234,6 +235,7 @@ return(
   onGetStartPlan={onGetStartPlan}
   
   />
+ </div>
 )
 }
 

@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import {Box,Card,CardContent, CardActions, Typography, IconButton, Grid, InputAdornment,} from '@mui/material';
+import {Box,Card,CardContent, CardActions, Typography, IconButton, Grid, InputAdornment, SxProps,} from '@mui/material';
 import { pricingcardstyle } from './style';
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined';
 import { ReactNode, useEffect, useState } from 'react';
@@ -37,6 +37,8 @@ interface PricingCard {
   variation1TotalPricingBoxStyle?:object;
   CustomPaymentField?:ReactNode;
   paymentFooter?:ReactNode;
+  pricingCardSx?:SxProps;
+  pricingCardOneSx?:SxProps;
   pricingCardVariationTwo?: Pricing[];
   cardNumberLength?:number,
   onStartPlan?: (data: Pricing, paymentData: PaymentData) => void;
@@ -97,6 +99,7 @@ export function PricingCard(props: PricingCard) {
     commonTextColor = '#3B3B3B',
     applyPromoCode='',
     footerSubPara = '',
+    pricingCardSx={},
     getStartedPaymentplan = '',
     billPaymentAmount = '',
     Variation2RigthBoxStyle = {},
@@ -108,6 +111,7 @@ export function PricingCard(props: PricingCard) {
     cardBoxShadow='none',
     promoCodeSx={},
     ccvsSx = {},
+    pricingCardOneSx={},
     variation2TotalLeftBoxStyle={},
     variation1TotalPricingBoxStyle={},
     CustomPaymentField,
@@ -355,7 +359,7 @@ const onGetSeletePlan = () => {
           {pricingCardVariationOne &&  pricingCardVariationOne?.map((val:PricingCards, index:number) => {
               return (
                 <Box key={index} sx={{ ...pricingcardstyle.totalBodySx }}>
-                  <Card sx={{ ...pricingcardstyle.cardSx , boxShadow: cardBoxShadow ? cardBoxShadow : 'none',}}>
+                  <Card sx={{ ...pricingcardstyle.cardSx , boxShadow: cardBoxShadow ? cardBoxShadow : 'none', ...pricingCardOneSx} as SxProps}>
                     <CardContent sx={{ p: '0px' }}>
                       <Box>
                         <Typography sx={{ ...pricingcardstyle.pricingHeadSx,color: commonTextColor ? commonTextColor: '#3B3B3B' }}>
@@ -436,7 +440,7 @@ const onGetSeletePlan = () => {
                 pricingCardVariationTwo?.map((val, index) => {
                   return (
                       <Box key={index}sx={{ ...pricingcardstyle.totalBodySubSx, pb: index === pricingCardVariationTwo?.length - 1  ? '0px' : '28px', }}>
-                        <Card  sx={{ ...pricingcardstyle.cardTwoSx, boxShadow: cardBoxShadow ? cardBoxShadow : 'none', pt: variation2 ? '18px' : '24px',    border:  active === index ? `2px solid ${activeColor}` : 'none',}}
+                        <Card  sx={{ ...pricingcardstyle.cardTwoSx, ...pricingCardSx, boxShadow: cardBoxShadow ? cardBoxShadow : 'none', pt: variation2 ? '18px' : '24px',    border:  active === index ? `2px solid ${activeColor}` : '2px solid #fff',} as SxProps}
                           onClick={() => onPricingChange(val, index)} >
                           {active === index ? (
                             <Box sx={{ ...pricingcardstyle.selectIconSx }}>

@@ -165,6 +165,7 @@ cardTwoSx:{
     border:'1px solid',
     cursor:'pointer',
     boxShadow:'none',
+    boxSizing:'content-box'
   
 },
 paySx:{
