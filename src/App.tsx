@@ -24,7 +24,7 @@ function App() {
         border=''
         borderRadius='' />
     </div>
-  );
+  )
 }
 
 export default App;

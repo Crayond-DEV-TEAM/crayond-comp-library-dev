@@ -3,3 +3,4 @@ export { CommonTable } from './table';
 export { Switch } from './switch';
 export { Progress } from './progress';
 export { TextArea } from './textArea'
+export { SelectBoxComponent } from './selectBox'
