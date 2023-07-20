@@ -1,5 +1,5 @@
 import type { SxProps, Theme } from '@mui/material'
-
+import React from 'react'
 export interface buttonInterface {
     label: string,
     onClick: () => void,
@@ -18,7 +18,7 @@ export interface errorWithIconProps {
     onBackdropClick?:() => void,
     errorMessage:string,
     cardRootStyle?:SxProps,
-    errorIconUrlStyle?:object,
+    errorIconUrlStyle?:React.CSSProperties,
     errorIconStyle?:SxProps,
     errorMessageTextStyle?:SxProps,
     errorButtonBlockStyle?:SxProps,

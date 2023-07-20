@@ -1,9 +1,8 @@
-import { Box, SxProps, Typography } from '@mui/material';
-import lightTheme from '../../theme/lightTheme';
-import { BasicButtons } from '../button';
-import { pageNotfoundStyle } from './style';
-import { pageNotFound } from './props';
+import { Box, SxProps, Typography, useTheme } from '@mui/material';
 import AlertIcon from '../../assets/alertIcon';
+import { BasicButtons } from '../button';
+import { pageNotFound } from './props';
+import { pageNotfoundStyle } from './style';
 
 const PageNotFound = (props: pageNotFound) => {
   const {
@@ -19,6 +18,8 @@ const PageNotFound = (props: pageNotFound) => {
     rootStyle,
     iconBlockStyle,
   } = props;
+
+  const lightTheme = useTheme();
 
   return (
     <>
