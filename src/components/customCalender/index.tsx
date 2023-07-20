@@ -986,7 +986,7 @@ export function CustomCalender(props: CalenderProps) {
                                   select === index ? '#CAC7F1' : '#EEEEEE',
                               }}
                             >
-                              0{getEventCount(val?.calenderTitle)}
+                              {getEventCount(val?.calenderTitle)  >=9 ? getEventCount(val?.calenderTitle) : `0${getEventCount(val?.calenderTitle)}` }
                             </Typography>
                           </Box>
                         </Box>
