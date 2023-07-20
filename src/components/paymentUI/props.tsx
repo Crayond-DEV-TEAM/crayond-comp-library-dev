@@ -19,6 +19,7 @@ export interface Item {
   dateType?: 'date' | 'dateAndTime';
   maxNumber?: Number | String;
   dateFormat?: String;
+  cardImage?:boolean;
 }
 
 export interface PaymentUIProps {

@@ -13,9 +13,9 @@ import { styles } from './style';
 
 export function PaymentUI(props: PaymentUIProps) {
   const {
-    title ,
-    description ,
-    section ,
+    title,
+    description,
+    section,
     gridContainerProps,
     titleStyle,
     descStyle,
@@ -96,13 +96,7 @@ export function PaymentUI(props: PaymentUIProps) {
   };
 
   const getInputField = (item: any) => {
-    if (
-      item.inputType === 'input' &&
-      (item.label.toLowerCase().includes('credit /debit card number') ||
-        item.label.toLowerCase().includes('card number') ||
-        item.label.toLowerCase().includes('credit card number') ||
-        item.label.toLowerCase().includes('debit card number'))
-    ) {
+    if (item.inputType === 'input') {
       const cardImage = getCardImage(cardType);
       return (
         <InputField
@@ -117,7 +111,7 @@ export function PaymentUI(props: PaymentUIProps) {
           InputProps={{
             endAdornment: (
               <>
-                {cardImage && (
+                {item.cardImage && cardImage && (
                   <InputAdornment position="end">
                     <img
                       src={cardImage}
@@ -133,21 +127,6 @@ export function PaymentUI(props: PaymentUIProps) {
           inputStyle={{ ...item.inputStyle, ...styles.inputStyle }}
         />
       );
-    } else if (item.inputType === 'input') {
-      return (
-        <InputField
-          label={item.label}
-          value={item.value}
-          inputStyle={{ ...item.inputStyle, ...styles.inputStyle }}
-          onChange={(e) => handleInputChange(e, item)}
-          error={item.error}
-          inputProps={{ max: item.maxNumber }}
-          errorMessage={item.errorMessage}
-          type={item.type}
-          fullWidth={item.fullWidth}
-          required={item.required}
-        />
-      );
     } else if (item.inputType === 'dropdown') {
       return (
         <Dropdown
@@ -161,19 +140,6 @@ export function PaymentUI(props: PaymentUIProps) {
           placeholder={item.placeholder}
           errorMessage={item.errorMessage}
           required={item.required}
-          // sx={{
-          //   '& .MuiOutlinedInput-root': {
-          //     '& fieldset': {
-          //       borderColor: 'red', // Replace 'red' with your desired border color
-          //     },
-          //     '&:hover fieldset': {
-          //       borderColor: 'green', // Replace 'green' with your desired hover border color
-          //     },
-          //     '&.Mui-focused fieldset': {
-          //       borderColor: 'blue', // Replace 'blue' with your desired focused border color
-          //     },
-          //   },
-          // }}
         />
       );
     } else if (item.inputType === 'date') {
@@ -188,6 +154,7 @@ export function PaymentUI(props: PaymentUIProps) {
             handleInputChange(e, item)
           }
           type={item.dateType}
+          place
           value={moment(item.value).format(item.dateFormat)}
           error={item.error}
           errorMessage={item.errorMessage}
@@ -203,13 +170,15 @@ export function PaymentUI(props: PaymentUIProps) {
     const updatedSection = sectionValue.map((sec) => ({
       ...sec,
       items: sec.items.map((i) =>
-        i.value === '' ? { ...i, error: true } : { ...i, error: false }
+        i.value === '' && i.required
+          ? { ...i, error: true }
+          : { ...i, error: false }
       ),
     }));
     setSection(updatedSection);
 
     const hasEmptyValue = updatedSection.some((sec) =>
-      sec.items.some((i) => i.value === '')
+      sec.items.some((i) => i.required && i.value === '')
     );
     if (!hasEmptyValue) {
       item.onClick(updatedSection);
@@ -260,9 +229,14 @@ export function PaymentUI(props: PaymentUIProps) {
         </Box>
       ))}
 
-      <Grid container spacing={1} {...gridContainerProps} sx={{mt:2,...buttonContainerStyle}}>
+      <Grid
+        container
+        spacing={1}
+        {...gridContainerProps}
+        sx={{ mt: 2, ...buttonContainerStyle }}
+      >
         {buttons.map((item) => (
-          <Grid item key={item.buttonText} {...item.breakpoints} >
+          <Grid item key={item.buttonText} {...item.breakpoints}>
             <BasicButtons
               onClick={() => getUpdateCardDetails(item)}
               inLineStyles={item.styles}
@@ -451,5 +425,5 @@ PaymentUI.defaultProps = {
   subTitleStyle: {},
   rootStyle: {},
   buttons: [],
-  buttonContainerStyle:{}
+  buttonContainerStyle: {},
 };

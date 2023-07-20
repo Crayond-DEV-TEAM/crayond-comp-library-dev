@@ -20,6 +20,7 @@ export default function DateAndTimePicker(props: DateAndTimePickerProps) {
     value,
     onChange,
   } = props;
+  
   return (
     <Box sx={styles.root}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
