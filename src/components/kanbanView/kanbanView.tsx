@@ -29,14 +29,6 @@ const KanbanView = (props: DragProps) => {
     //  console.log(event,id,"handleOnDragLeave")
   };
 
-  const handleMouseDown = (event: React.MouseEvent) => {
-    // console.log(event,"handleMouseDown")
-  };
-
-  const handleMouseUp = (event: React.MouseEvent) => {
-    // console.log(event,"handleMouseUp")
-  };
-
   const handleOnDragEnter = (
     evt: React.DragEvent<HTMLDivElement>,
     id: string | number
@@ -44,58 +36,35 @@ const KanbanView = (props: DragProps) => {
     // console.log(evt,"handleOnDragEnter")
   };
 
-  const handleOnDrag = (
-    evt: React.DragEvent<HTMLDivElement>,
-    id: string | number
-  ) => {
-    evt.preventDefault();
-    let styles = evt.currentTarget.style;
-    // console.log(evt,"handleOnDrag");
 
-    // setPosition({ x: evt.clientX, y: evt.clientY });
-    // styles.width = '335px';
-    // styles.padding = '12px';
-    // styles.backgroundColor = '#FFFFFF';
-    // styles.position = 'absolute';
-
-    // styles.left = `${cursorPosition.y}`;
-    // styles.top = `${cursorPosition.x}`;
-    // styles.transform = `translate(${x}px, ${y}px)`;
-
-    // setTimeout(function () {
-    //   styles.display = 'none';
-    // }, 0);
-  };
-
-  const onDragStart = (evt: React.DragEvent<HTMLDivElement>, id: any) => {
-    // console.log(evt,"handleOnDrag");
+  const onDragStart = (evt: React.DragEvent<HTMLDivElement>|any, id: any) => {
     evt.dataTransfer.setData('listId', id);
     evt.dataTransfer.effectAllowed = 'move';
     evt.currentTarget.classList.add('dragged');
     let styles = evt.currentTarget.style;
-    
+    let childStyles = evt.target.children[0];
+      styles.width="210px"
+         
     setTimeout(function () {
-      // styles.display = 'block';
-      styles.border= '2px dashed #665CD7';
-      styles.borderRadius='8px';
-      
+      styles.display = 'block';
+      styles.border = '2px dashed #665CD7';
+      styles.backgroundColor="#F1F1F1";
+      childStyles.style.visibility="hidden";
     }, 0);
     setIsDragging(true);
-
-
-    // setPosition({ x: evt.clientX, y: evt.clientY });
   };
 
-  const onDragEnd = (evt: React.DragEvent<HTMLDivElement>) => {
+  const onDragEnd = (evt: React.DragEvent<HTMLDivElement>|any) => {
     evt.currentTarget.classList.remove('dragged');
     evt.dataTransfer.clearData('listId');
     let styles = evt.currentTarget.style;
-
-    // setPosition({ x: evt.clientX, y: evt.clientY });
+    let childStyles = evt.target.children[0];
 
     setTimeout(function () {
       styles.display = 'block';
-      styles.border= 'none';
+      styles.border = 'none';
+      styles.backgroundColor="#FFFF";
+      childStyles.style.visibility="visible";
     }, 0);
   };
 
@@ -106,28 +75,25 @@ const KanbanView = (props: DragProps) => {
   ) => {
     evt.preventDefault();
     setIsDropped({ status: status });
-    // console.log("hover");
   };
 
   const onDrop = (
-    evt: React.DragEvent<HTMLDivElement>,
-    dragging: boolean,
-    status: string
+    evt: React.DragEvent<HTMLDivElement>|any,
+    status: boolean,
+    title:string,
   ) => {
     evt.preventDefault();
     let dataId = evt.dataTransfer.getData('listId');
     let tasks = create;
-    console.log(tasks, '0000');
-    console.log(dataId, 'dataId');
-
     let updated = tasks?.map((task: cardDataProp) => {
       if (task?.id.toString() === dataId.toString()) {
-        task.status = status;
+        task.status = title;
       }
       return task;
     });
     setCreate(updated);
     setIsDragging(false);
+    
   };
 
   const getChildItemUsingType = (type: string) => {
@@ -156,9 +122,6 @@ const KanbanView = (props: DragProps) => {
             onDragEnter={handleOnDragEnter}
             onDragLeave={handleOnDragLeave}
             onDrop={onDrop}
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            onDrag={handleOnDrag}
             onDragOver={onDragOver}
             handleClickNotifyIcon={handleClickNotifyIcon}
             handleClickMoreIcon={handleClickMoreIcon}

@@ -88,11 +88,6 @@ export interface ContainerProps {
   handleClickNotifyIcon: () => void;
   handleClickMoreIcon: () => void;
   handleAddNewButton: () => void;
-  onMouseUp: (e: React.MouseEvent<HTMLDivElement>, id: number | string) => void;
-  onMouseDown: (
-    e: React.MouseEvent<HTMLDivElement>,
-    id: number | string
-  ) => void;
   buttonName: string;
 }
 
@@ -138,9 +133,4 @@ export interface CardItemProps {
   isDropped: { x: number; y: number };
   handleClickNotifyIcon: () => void;
   handleClickMoreIcon: () => void;
-  onMouseUp: (e: React.MouseEvent<HTMLDivElement>, id: number | string) => void;
-  onMouseDown: (
-    e: React.MouseEvent<HTMLDivElement>,
-    id: number | string
-  ) => void;
 }

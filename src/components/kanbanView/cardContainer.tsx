@@ -14,8 +14,6 @@ const CardContainer = (props: ContainerProps) => {
     onDragEnd,
     onDragEnter,
     onDragLeave,
-    onMouseUp,
-    onMouseDown,
     handleClickNotifyIcon,
     handleClickMoreIcon,
     handleAddNewButton,
@@ -56,8 +54,6 @@ const CardContainer = (props: ContainerProps) => {
                   onDragEnd={onDragEnd}
                   onDragEnter={onDragEnter}
                   onDragLeave={onDragLeave}
-                  onMouseDown={onMouseDown}
-                  onMouseUp={onMouseUp}
                   handleClickNotifyIcon={handleClickNotifyIcon}
                   handleClickMoreIcon={handleClickMoreIcon}
                   isDragging={isDragging}
@@ -66,9 +62,7 @@ const CardContainer = (props: ContainerProps) => {
                 />
               </>
             ))}
-            {isDragging && containerData?.title === isDropped?.status && (
-              <Box sx={{ ...view_styles.childOnDraggedBox }} draggable></Box>
-            )}
+            
           </Box>
 
           <Box

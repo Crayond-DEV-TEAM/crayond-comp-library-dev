@@ -4,12 +4,12 @@ import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
 import KanbanView from './components/kanbanView/kanbanView';
 
-const cardContainerData= [
+const cardContainerData = [
   { title: 'Progress' },
   { title: 'Pending' },
   { title: 'Completed' },
 ];
-const cardData= [
+const cardData = [
   {
     id: 1,
     title: 'title1',
@@ -265,19 +265,14 @@ const cardData= [
 ];
 
 function App() {
- 
-  return(
+  return (
     <>
-    <div style={{height:"100vh",width:"100vh",background:"#ffff"}}>
-      <h2>Kamban view</h2>
-    <KanbanView
-    cardData={cardData}
-    cardContainerData={cardContainerData}
-    />
-    </div>
+      <div style={{ height: '100vh', width: '100vh', background: '#ffff' }}>
+        <h2>Kamban view</h2>
+        <KanbanView cardData={cardData} cardContainerData={cardContainerData} />
+      </div>
     </>
-  ) 
-  
+  );
 }
 
 export default App;
