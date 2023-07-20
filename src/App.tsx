@@ -12,8 +12,10 @@ function App() {
   const handleChange = (html: React.SetStateAction<string>) => {
     setText(html);
   };
+
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
+      <h1>{text}</h1>
       <TextArea
         handleChange={handleChange}
         value={text}

@@ -69,6 +69,7 @@ const CustomToolbar = () => (
     }}>
         {formats.map((classes: ({ className: string; value: string; } | { className: string; 
         value?: undefined; })[], index: number) => {
+            debugger
             return (
                 <span className="ql-formats" key={index}>
                     {classes.map((formatData: ({ className: string; value: string; } | { className: string; value?: undefined; })) => {
