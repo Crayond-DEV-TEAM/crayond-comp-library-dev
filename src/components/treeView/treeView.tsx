@@ -1,7 +1,7 @@
 import { Box, Button, CheckboxProps, FormControl, Grid, Stack, Typography, Divider } from '@mui/material';
 import { styles } from './style';
 import { Checkbox } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import { SxProps, styled } from '@mui/material/styles';
 import { TreeViewProps } from './props';
 import { BpCheckedIcon, BpIcon } from './checkboxComp';
 
@@ -71,7 +71,7 @@ export default function TreeView(props: TreeViewProps) {
               {
                 Object.keys(dataRow?.[0]?.permission)?.map((val: string, i: number) => {
                   return (
-                    <Typography sx={{ ...styles?.headItems, ...permissionHeadingSx }} key={i}>
+                    <Typography sx={{ ...styles?.headItems, ...permissionHeadingSx  } as SxProps} key={i}>
                       {val}</Typography>
                   )
                 })

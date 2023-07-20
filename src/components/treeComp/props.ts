@@ -29,7 +29,14 @@ export interface CustomLabelProps {
     index?: number | string;
     formControlPropsSx?: object;
     state?: any;
-    checkBoxStyles: CheckBoxProps | { checkboxBorderRadius: string; checkboxIcon: null; uncheckedIcon: null; checkboxWidth: string; checkboxHeight: string; };
+    checkBoxStyles: CheckBoxProps | { 
+        checkboxBorderRadius: string; 
+        checkboxIcon: null; 
+        uncheckedIcon: null; 
+        checkboxWidth: string; 
+        checkboxHeight: string;
+        disable: boolean
+    };
 
 }
 export interface TreeComponentProps {
@@ -45,7 +52,6 @@ export interface TreeComponentProps {
     defaultExpandIcon?: JSX.Element;
     defaultCollapseIcon?: JSX.Element;
     state?: any;
-    checkBoxStyles?: CheckBoxProps | undefined;
     leftSec?: {
         breakpoints: object;
     };

@@ -253,14 +253,6 @@ function App() {
         }}
         heading=''
         onChange={onChange}
-        checkBoxStyles={{
-          // checkboxIcon: '',
-          // uncheckedIcon: '',
-          checkboxBorderRadius: '8px',
-          disable: false,
-          isCheckBox: false,
-          onChange: () => null
-        }}
         permissionHeadingSx={undefined}
         setEdit={false}
         customLabel={{
@@ -271,13 +263,18 @@ function App() {
           labelText: '',
           fontsize: '44px',
           isCheckBox: false,
-          disable: false,
           onChange: () => null,
           index: '',
           formControlPropsSx: {},
           state: [],
-          checkBoxStyles: {
-            onChange: () => null
+          checkBoxStyles:{
+            // checkboxIcon: '',
+            // uncheckedIcon: '',
+            checkboxBorderRadius: '8px',
+            disable: false,
+            isCheckBox: false,
+            onChange: () => null,
+            
           }
         }} />
 
