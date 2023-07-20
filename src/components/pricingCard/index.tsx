@@ -26,7 +26,7 @@ interface PricingCard {
   variation2TotalLeftBoxStyle?:object;
   ccvsSx?: object;
   pricingCardVariationOne?: PricingCards[];
-  pricing?:CombinedPricing | undefined;
+  pricing:CombinedPricing | undefined;
   VerfiyIcon?:JSX.Element;
   applyPromoCode?:string;
   cardNumberTitle?:string;
@@ -575,11 +575,11 @@ const onGetSeletePlan = () => {
                         <Typography sx={{ ...pricingcardstyle.pricingsubSx,borderBottom: '0px', pb: '0px', }}>
                           {pricing?.currencySymbol} {pricing?.subcriptionAmountYearly}/{pricing?.subscriptionDue}
                         </Typography>
-                         {pricing && 'offerYouSave' in pricing && (
+                         {pricing?.offerYouSave && 'offerYouSave' in pricing ? (
                                   <BasicButtons inLineStyles={pricingcardstyle.saveBgSx}>
                                   {pricing.offerYouSave}
                                  </BasicButtons>
-                          )}
+                          ):''}
                       </Box>
                     </Box>
                   </Box>

@@ -2,244 +2,239 @@ import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css'; 
-import { Viewer } from './components/viewer';
-import DeleteIcon from './assets/deleteIcon';
-import profileImg from './assets/sampleprof.png';
-import React, { Component } from 'react';
-import { FcGoogle } from 'react-icons/fc';
-import CompanyLogo from './assets/companyLogo.png';
-import loginImg from './assets/loginImg.png';
-import LoginScreen from './components/loginPage/login';
-import SignupScreen from './components/signUpPage/signUp';
-import { BasicButtons, CommonTable } from '@components';
-import FunnelIcon from './assets/funnelIcon';
-import SearchIcon from './assets/searchIcon';
-import DownloadIcon from './assets/downloadIcon';
-import DocsIcon from './assets/docsIcon';
-import EditIcon from './assets/editIcon';
-import NotificationIcon from './assets/notificationIcon';
-import AlertIcon from './assets/alertIcon';
-import { Button } from '@mui/material';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import { ProfileThree } from './components/profileThree';
-import yup from './utils/yupSchema';
-import { Screen } from './components/screen';
+import React, { ReactNode, useEffect, useState } from 'react';
+import { AcceptIcon } from './assets/accept';
+import { CancelIcon } from './assets/cancel';
 import { PricingCard } from './components/pricingCard';
 
+interface Pricing {
+  title: string;
+  description: string;
+  pricingList: {
+    icon: ReactNode;
+    isCancel: boolean;
+    listPoints: string;
+  }[];
+  subcriptionAmountMonthly: string | number;
+  subcriptionAmountYearly: string;
+  offerYouSave: string | undefined;
+  totalAmount: string;
+  subscriptionDue: string;
+  getStartedbtn: string;
+  currencySymbol: string;
+}
+
+interface PricingCards  {
+  title: string;
+  description: string;
+  pricingList: {
+    icon: ReactNode;
+    isCancel: boolean;
+    listPoints: string;
+  }[];
+  subcriptionAmountMonthly: string | number;
+  subscriptionDue: string;
+  getStartedbtn: string;
+  currencySymbol: string;
+  
+}
+
+interface PaymentData {
+  email: string;
+  expiry: string;
+  cardNumber: string;
+  ccv: string;
+}
+
+interface CombinedPricing extends Pricing, PricingCards {}
 function App() {
-
-  interface FilmOptionType {
-    title: string;
-    year: number;
+  const [pricing, setPricing] = useState<CombinedPricing | undefined>(undefined);
+  const onPricingChanges = (data: Pricing | PricingCards, index: number) => {
+    setPricing(data as CombinedPricing);
+    console.log(index,'index')
   }
 
-  interface CheckedOption {
-    title: string;
-    isChecked: boolean;
+  const onSelectedPlan =(data:Pricing|PricingCards,card:PaymentData)=>{
+         console.log(data,'data dtata')
+         console.log(card,'cardcardcard')
   }
 
-  const top100Films = [
-    { title: 'Option 1', year: 1994 },
-    { title: 'Option 2', year: 1972 },
-    { title: 'Option 3', year: 1974 },
-    { title: 'Option 4', year: 2008 },
-    { title: 'Option 5', year: 1957 },
-    { title: "Option 6", year: 1993 },
-    { title: 'Option 7', year: 1994 },
-
-  ];
-
-  const CheckBoxData = [
-    { title: 'The Shawshank Redemption', isChecked: false },
-    { title: 'The Godfather', isChecked: false },
-    { title: 'The Godfather: Part II', isChecked: false },
-    { title: 'The Dark Knight', isChecked: false },
-    { title: '12 Angry Men', isChecked: false },
-    { title: "Schindler's List", isChecked: false },
-    { title: 'Pulp Fiction', isChecked: false },
+ const pricingCardVariationOne=[
     {
-      title: 'The Lord of the Rings: The Return of the King',
-      isChecked: false,
+      title: 'Free',
+      description: 'Scale up at anytime to support your business growth.',
+      pricingList: [
+        {
+          icon: <AcceptIcon/>,
+          isCancel: false,
+          listPoints: 'Import data from multiple sources.',
+        },
+        {
+            icon: <AcceptIcon/>,  
+          isCancel: false,
+          listPoints: 'Secure hosted data warehouse & Automatic DataDecoder ETL.',
+        },
+        {
+          icon: <AcceptIcon/>,
+          isCancel: false,
+          listPoints: 'Export charts and datasets & uploads up to 2 MB each.',
+        },
+        {
+          icon: <CancelIcon/>,
+          isCancel: true,
+          listPoints: 'Embed charts on 3rd party sites.',
+        },
+      ],
+      subcriptionAmountMonthly: 'Free',
+      subscriptionDue: 'month',
+      getStartedbtn: 'Get Started',
+      currencySymbol:'$'
     },
-    { title: 'The Good, the Bad and the Ugly', isChecked: false },
-    { title: 'Fight Club', isChecked: false },
     {
-      title: 'The Lord of the Rings: The Fellowship of the Ring',
-      isChecked: false,
+        title: 'Personal',
+        description: 'Scale up at anytime to support your business growth.',
+        pricingList: [
+          {
+            icon: <AcceptIcon/>,
+            isCancel: false,
+            listPoints: 'Import data from multiple sources.',
+          },
+          {
+              icon: <AcceptIcon/>,  
+            isCancel: false,
+            listPoints: 'Secure hosted data warehouse & Automatic DataDecoder ETL.',
+          },
+          {
+            icon: <AcceptIcon/>,
+            isCancel: false,
+            listPoints: 'Export charts and datasets & uploads up to 2 MB each.',
+          },
+          {
+            icon: <CancelIcon/>,
+            isCancel: true,
+            listPoints: 'Embed charts on 3rd party sites.',
+          },
+        ],
+        subcriptionAmountMonthly: '15',
+        subscriptionDue: 'month',
+        getStartedbtn: 'Get Started',
+        currencySymbol:'$'
+      },
+      {
+        title: 'Family',
+        description: 'Scale up at anytime to support your business growth.',
+        pricingList: [
+          {
+            icon: <AcceptIcon/>,
+            isCancel: false,
+            listPoints: 'Import data from multiple sources.',
+          },
+          {
+              icon: <AcceptIcon/>,  
+            isCancel: false,
+            listPoints: 'Secure hosted data warehouse & Automatic DataDecoder ETL.',
+          },
+          {
+            icon: <AcceptIcon/>,
+            isCancel: false,
+            listPoints: 'Export charts and datasets & uploads up to 2 MB each.',
+          },
+          {
+              icon: <CancelIcon/>,
+            isCancel: true,
+            listPoints: 'Embed charts on 3rd party sites.',
+          },
+        ],
+        subcriptionAmountMonthly: '6',
+        subscriptionDue: 'month',
+        getStartedbtn: 'Get Started',
+        currencySymbol:'$'
+      },
+  ]
+
+  const  pricingCardVariationTwo= [
+    {
+      title: 'Free',
+      description: ' More advanced AI.',
+      pricingList: [
+        {
+          icon: <AcceptIcon />,
+          isCancel: false,
+          listPoints: '30 days history',
+        },
+        {
+          icon: <AcceptIcon />,
+          isCancel: false,
+          listPoints: 'Up to 1000 message/mo',
+        },
+        {
+          icon: <AcceptIcon />,
+          isCancel: false,
+          listPoints: 'Limited AI',
+        },
+      ],
+
+      subcriptionAmountMonthly: '0',
+      subcriptionAmountYearly: '0',
+      offerYouSave:'',
+      subscriptionDue: 'month',
+      totalAmount:'',
+      getStartedbtn: '',
+      currencySymbol:'$',
+
     },
     {
-      title: 'Star Wars: Episode V - The Empire Strikes Back',
-      isChecked: false,
+      title: 'Pro',
+      description: 'More advanced AI',
+      pricingList: [
+        {
+          icon: <AcceptIcon />,
+          isCancel: false,
+          listPoints: 'Email Support',
+        },
+        {
+          icon: <AcceptIcon />,
+          isCancel: false,
+          listPoints: 'Unlimited messages',
+        },
+        {
+          icon: <AcceptIcon />,
+          isCancel: false,
+          listPoints: 'Access to AI',
+        },
+      ],
+
+      subcriptionAmountMonthly: '399',
+      subcriptionAmountYearly: '399',
+      subscriptionDue: 'month',
+      offerYouSave:'50%',
+      totalAmount:'',
+      getStartedbtn: 'Get Started',
+      currencySymbol:'$'
+
     },
-    { title: 'Forrest Gump', isChecked: false },
-    { title: 'Inception', isChecked: false },
-    { title: "One Flew Over the Cuckoo's Nest", isChecked: false },
-    { title: 'Goodfellas', isChecked: false },
-    { title: 'The Matrix', isChecked: false },
-    { title: 'Seven Samurai', isChecked: false },
-    {
-      title: 'Star Wars: Episode IV - A New Hope',
-      isChecked: false,
-    },
-  ];
+   
+  ]
 
-  const [checked, setChecked] = useState([])
-  const [checkedArr] = useState([...CheckBoxData])
-  const [defaultData, setDefaultData] = useState([])
-  const [groupedData, setGroupedData] = useState([])
-  const [chipData, setChipData] = useState([])
-
-  const handleCheckedItem = (event: object, newValue: CheckedOption[]) => {
-    const slicedData = newValue.length > 0 ? newValue?.filter((item: CheckedOption, index: number) =>
-      newValue.findIndex((obj: CheckedOption) =>
-        obj.title === item.title && obj.isChecked === item.isChecked) === index) : newValue
-    const convertedValue = slicedData as never[];
-
-    console.log(convertedValue, '00000');
-
-    setChecked(convertedValue)
+  const onGetStartPlan =(data:any)=>{
+    console.log(data,'data')
   }
-
-  const handleDefaultChange = (val: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
-      newValue.findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index) : newValue
-    const convertedValue = slicedData as never[];
-    setDefaultData(convertedValue)
-  }
-  const handleGroupChange = (event: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
-      newValue.findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index) : newValue
-    const convertedValue = slicedData as never[];
-    setGroupedData(convertedValue)
-  }
-
-  const handleChipChange = (val: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
-      newValue.findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index) : newValue
-    const convertedValue = slicedData as never[];
-    setChipData(convertedValue)
-  }
-
-
-  return (
-    <div className="App" style={{ width: '100vw', background: '#fff', height: '100vh' }}>
-      <SelectBoxComponent
-        limitTags={2}
-        groupingProps={{
-          isCloseIcon: true,
-          isSearch: true,
-          handleGroupChange: handleGroupChange,
-          groupedData: groupedData,
-          arrData: top100Films,
-          defaultValue: [],
-          label: '',
-          dropdown: {
-            minHeight: '',
-            maxHeight: '',
-            maxWidth: '',
-            minWidth: '',
-            backgroundColor: '',
-            color: ''
-          },
-          input: {
-            minHeight: '',
-            minWidth: '',
-            backgroundColor: '',
-            maxWidth: '',
-            maxHeight: '',
-            color: '',
-            border: '',
-            borderRadius: ''
-          }
-        }}
-        defaultProps={{
-          isCloseIcon: true,
-          isSearch: true,
-          handleDefaultChange: handleDefaultChange,
-          defaultData: defaultData,
-          arrData: top100Films,
-          defaultValue: [],
-          label: '',
-          dropdown: {
-            minHeight: '',
-            maxHeight: '',
-            maxWidth: '',
-            minWidth: '',
-            backgroundColor: '',
-            color: ''
-          },
-          input: {
-            minHeight: '',
-            minWidth: '',
-            backgroundColor: '',
-            maxWidth: '',
-            maxHeight: '',
-            color: '',
-            border: '',
-            borderRadius: ''
-          }
-        }}
-        chipProps={{
-          isCloseIcon: true,
-          isSearch: true,
-          handleChipChange: handleChipChange,
-          chipData: chipData,
-          arrData: top100Films,
-          defaultValue: [],
-          label: '',
-          dropdown: {
-            minHeight: '',
-            maxHeight: '',
-            maxWidth: '',
-            minWidth: '',
-            backgroundColor: '',
-            color: ''
-          },
-          input: {
-            minHeight: '',
-            minWidth: '',
-            backgroundColor: '',
-            maxWidth: '',
-            maxHeight: '',
-            color: '',
-            border: '',
-            borderRadius: ''
-          }
-        }}
-        checkboxProps={{
-          isCloseIcon: true,
-          isSearch: true,
-          defaultValue: [],
-          handleCheckedItem: handleCheckedItem,
-          CheckableData: checked,
-          arrData: checkedArr,
-          label: '',
-          dropdown: {
-            minHeight: '',
-            maxHeight: '',
-            maxWidth: '',
-            minWidth: '',
-            backgroundColor: '',
-            color: ''
-          },
-          input: {
-            minHeight: '',
-            minWidth: '',
-            backgroundColor: '',
-            maxWidth: '',
-            maxHeight: '',
-            color: '',
-            border: '',
-            borderRadius: ''
-          }
-        }}
-        selectType={'checkbox'} multiple={true} />
-    </div>
-  )
+ 
+  useEffect(()=>{
+   setPricing( pricingCardVariationTwo?.[0])
+  },[])
+return(
+  <PricingCard  variation1={true}
+  pricing={pricing}
+  variation2
+  onPricingChanges={onPricingChanges}
+  pricingCardVariationOne={pricingCardVariationOne}
+  pricingCardVariationTwo={pricingCardVariationTwo}
+  onStartPlan={onSelectedPlan}
+  onGetStartPlan={onGetStartPlan}
+  
+  />
+)
 }
 
 export default App;

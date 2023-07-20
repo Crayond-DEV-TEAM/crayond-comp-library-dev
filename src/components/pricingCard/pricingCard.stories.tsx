@@ -88,7 +88,7 @@ const Template: ComponentStory<typeof PricingCard> = (args) => {
   
         subcriptionAmountMonthly: '0',
         subcriptionAmountYearly: '0',
-        offerYouSave:'20%',
+        offerYouSave:'',
         subscriptionDue: 'month',
         totalAmount:'',
         getStartedbtn: '',
