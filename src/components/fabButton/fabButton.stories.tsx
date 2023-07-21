@@ -60,4 +60,5 @@ Primary.args = {
   closeIcon: <CloseIcon />,
   openIcon: <AddIcon />,
   isOpen: false,
+  variant:'clickable'
 };

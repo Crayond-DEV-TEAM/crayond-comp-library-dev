@@ -60,13 +60,13 @@ function App() {
         <FabButton
           direction="right"
           radius={60}
-          semicircle={false}
+          semicircle={true}
           actionsData={actionsData}
           actionButtonStyle={{
             backgroundColor: '#fff',
           }}
           buttonStyle={{}}
-          directionStyle={{ bottom: '10px' }}
+          directionStyle={{ bottom: '0px' }}
           closeIcon={<CloseIcon />}
           openIcon={<AddIcon />}
           isOpen={fabOpen}
@@ -76,6 +76,7 @@ function App() {
           onMainButtonClick={() => {
             console.log('Main FAB button clicked!');
           }}
+          variant='clickable'
         />
       </div>
     </div>

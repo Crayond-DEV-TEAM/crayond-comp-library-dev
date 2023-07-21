@@ -14,6 +14,7 @@ export interface FabButtonProps {
   openIcon: React.ReactNode;
   onToggle: () => void;
   onMainButtonClick: () => void;
+  variant: 'hoverable' | 'clickable';
 }
 interface ActionData {
   name: string;

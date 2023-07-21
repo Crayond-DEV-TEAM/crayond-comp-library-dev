@@ -1,29 +1,30 @@
-import React from 'react';
-import { Fab } from '@mui/material';
 import Box from '@mui/material/Box';
 import ClickAwayListener from '@mui/material/ClickAwayListener';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
+import React from 'react';
 import { FabButtonProps } from './props';
 
 export function FabButton(props: FabButtonProps) {
   const {
     direction = 'up',
-    radius = 100,
-    semicircle = false,
+    radius,
+    semicircle,
     actionsData = [],
     buttonStyle,
     actionButtonStyle,
     directionStyle,
     buttonConStyle,
     closeIcon,
-    isOpen = false,
+    isOpen,
     openIcon,
     onToggle = () => {},
     onMainButtonClick = () => {},
+    variant,
   } = props;
 
   const [open, setOpen] = React.useState(isOpen);
+  const [hover, setHover] = React.useState(false);
 
   const onOpenHandle = () => {
     setOpen((prevOpen) => !prevOpen);
@@ -95,8 +96,26 @@ export function FabButton(props: FabButtonProps) {
     }
   };
 
+  const handleMouseEnter = () => {
+    if (variant === 'hoverable' && !semicircle) {
+      setHover(true);
+      onToggle();
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (variant === 'hoverable' && !semicircle) {
+      setHover(false);
+      onToggle();
+    }
+  };
+
   return (
-    <Box sx={{ ...getAlignStyle() }}>
+    <Box
+      sx={{ ...getAlignStyle() }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <ClickAwayListener onClickAway={() => setOpen(false)}>
         <SpeedDial
           ariaLabel="SpeedDial"
@@ -114,25 +133,25 @@ export function FabButton(props: FabButtonProps) {
             ...buttonConStyle,
           }}
           onClick={() => {
-            onToggle();
-            actionsData.length === 0 ? onMainButtonClick() : onOpenHandle();
-          }}
-          onMouseEnter={() => {
-            if (!semicircle) {
-              onOpenHandle();
+            if (
+              variant === 'clickable' ||
+              (variant === 'hoverable' && !hover)
+            ) {
               onToggle();
-            }
-          }}
-          onMouseLeave={() => {
-            if (!semicircle && !isOpen) {
-              setOpen(false);
-              onToggle();
+              actionsData.length === 0 ? onMainButtonClick() : onOpenHandle();
             }
           }}
           icon={
-            actionsData.length === 0 ? openIcon : isOpen ? closeIcon : openIcon
+            actionsData.length === 0
+              ? openIcon
+              : isOpen || (variant === 'hoverable' && hover)
+              ? closeIcon
+              : openIcon
           }
-          open={open}
+          open={
+            (variant === 'hoverable' && hover) ||
+            (variant === 'clickable' && open)
+          }
           direction={direction}
         >
           {actionsData.map((action, index) => {
@@ -175,3 +194,18 @@ export function FabButton(props: FabButtonProps) {
     </Box>
   );
 }
+FabButton.defaultProps = {
+  direction: 'up',
+  radius: 100,
+  semicircle: false,
+  actionsData: [],
+  isOpen: false,
+  variant: 'clickable',
+  onToggle: () => {},
+  onMainButtonClick: () => {},
+  buttonStyle: {},
+  actionButtonStyle: {},
+  directionStyle: {},
+  buttonConStyle: {},
+  closeIcon: {},
+};
