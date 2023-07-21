@@ -46,7 +46,7 @@ export default function DateAndTimePicker(props: DateAndTimePickerProps) {
             {...props}
             onChange={(newValue) => onChange(newValue)}
             // defaultValue={dayjs(new Date(value ?? ""))}
-            value={dayjs(new Date(value)) ?? null}
+            value={value ? dayjs(new Date(value)) : null}
             label={labelVariant === 'standard' ? null : label}
           />
         )}
@@ -73,4 +73,5 @@ DateAndTimePicker.defaultProps = {
   label: 'My Label',
   labelVariant: 'standard',
   type: 'date',
+  value: null
 };

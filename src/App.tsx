@@ -3,6 +3,7 @@ import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
 import KanbanView from './components/kanbanView/kanbanView';
+import { DateAndTimePicker } from './components/dateAndTimePicker';
 
 const cardContainerData= [
   { title: 'Progress' },
@@ -270,6 +271,7 @@ function App() {
     <>
     <div style={{height:"100vh",width:"100vh",background:"#ffff"}}>
       <h2>Kamban view</h2>
+      <DateAndTimePicker value="" />
     <KanbanView
     cardData={cardData}
     cardContainerData={cardContainerData}

@@ -51,7 +51,13 @@ const KanbanView = (props: DragProps) => {
     evt.preventDefault();
     let styles = evt.currentTarget.style;
     // console.log(evt,"handleOnDrag");
-
+    // console.log("🚀 ~ file: kanbanView.tsx:113 ~ KanbanView ~ evt:", evt)
+    setTimeout(() => {
+      // let childElements = evt.target.children[0];
+        // evt.currentTarget.style.opacity = '1'
+        console.log("🚀 ~ file: kanbanView.tsx:58 ~ setTimeout ~ evt.currentTarget:", evt.currentTarget)
+      // console.log("🚀 ~ file: kanbanView.tsx:112 ~ KanbanView ~ evt:", evt.target.style)
+    }, 0);
     // setPosition({ x: evt.clientX, y: evt.clientY });
     // styles.width = '335px';
     // styles.padding = '12px';
@@ -67,21 +73,22 @@ const KanbanView = (props: DragProps) => {
     // }, 0);
   };
 
-  const onDragStart = (evt: React.DragEvent<HTMLDivElement>, id: any) => {
+  const onDragStart = (evt: React.DragEvent<HTMLDivElement> | any, id: any) => {
     // console.log(evt,"handleOnDrag");
     evt.dataTransfer.setData('listId', id);
     evt.dataTransfer.effectAllowed = 'move';
     evt.currentTarget.classList.add('dragged');
     let styles = evt.currentTarget.style;
-    
+    let childElements = evt.target.children[0]; 
     setTimeout(function () {
       // styles.display = 'block';
-      styles.border= '2px dashed #665CD7';
-      styles.borderRadius='8px';
-      
+      styles.border = '2px dashed #665CD7';
+      // console.log("🚀 ~ file: kanbanView.tsx:81 ~ styles:", styles)
+      styles.borderRadius = '8px';
+      styles.backgroundColor = '#F1F1F1';
+      childElements.style.visibility = 'hidden';
     }, 0);
     setIsDragging(true);
-
 
     // setPosition({ x: evt.clientX, y: evt.clientY });
   };
@@ -89,13 +96,17 @@ const KanbanView = (props: DragProps) => {
   const onDragEnd = (evt: React.DragEvent<HTMLDivElement>) => {
     evt.currentTarget.classList.remove('dragged');
     evt.dataTransfer.clearData('listId');
+    console.log("🚀 ~ file: kanbanView.tsx:94 ~ onDragEnd ~ evt:", evt)
     let styles = evt.currentTarget.style;
-
+    let childElements = evt.target.children[0];
     // setPosition({ x: evt.clientX, y: evt.clientY });
 
     setTimeout(function () {
       styles.display = 'block';
-      styles.border= 'none';
+      styles.border = 'none';
+      styles.backgroundColor = '#ffff';
+      childElements.style.visibility = 'visible';
+      childElements.style.opacity = "0.8";
     }, 0);
   };
 
@@ -105,6 +116,12 @@ const KanbanView = (props: DragProps) => {
     status: string
   ) => {
     evt.preventDefault();
+    // console.log("🚀 ~ file: kanbanView.tsx:113 ~ KanbanView ~ evt:", evt)
+    // setTimeout(() => {
+    //   let childElements = evt.target.children[0];
+    //   childElements.style.backgroundColor = 'red'
+    //   // console.log("🚀 ~ file: kanbanView.tsx:112 ~ KanbanView ~ evt:", evt.target.style)
+    // }, 0);
     setIsDropped({ status: status });
     // console.log("hover");
   };

@@ -1,10 +1,17 @@
-export const view_styles = {
+import { SxProps } from "@mui/material";
+
+export const view_styles:{[key:string] : SxProps} = {
   rootStyle: {
     display: 'flex',
     columnGap: '40px',
     // flexWrap: 'wrap',
     rowGap: '20px',
-    minWidth:"100%",
+    minWidth: '100%',
+
+    '& .dragged': {
+      border: '30px solid red',
+      opacity: 1,
+    },
   },
 
   cardContainer: {

@@ -66,9 +66,9 @@ const CardContainer = (props: ContainerProps) => {
                 />
               </>
             ))}
-            {isDragging && containerData?.title === isDropped?.status && (
+            {/* {isDragging && containerData?.title === isDropped?.status && (
               <Box sx={{ ...view_styles.childOnDraggedBox }} draggable></Box>
-            )}
+            )} */}
           </Box>
 
           <Box
