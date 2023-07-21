@@ -110,6 +110,7 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                                 }}
                                 value={roleNo}
                                 onChange={(e: any) => handleChange('roleNo', e?.target?.value, index)}
+                                placeholder='Role No'
 
                             />
                         </span>
@@ -150,7 +151,9 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                             >
                                 <IconButton sx={{ ...styles.CheckIcon, ...checkIconPropsSx }}
                                     onClick={() => handleSave(x, index)}>
-                                    <CheckIcon />
+                                    {
+                                        (name !== '' && roleNo !== '') ? <CheckIcon />  : null
+                                    } 
                                 </IconButton>
                                 <IconButton sx={{ ...styles.closeIcon, ...closeIconPropSx }}
                                     onClick={handleClose}>

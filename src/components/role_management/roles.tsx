@@ -161,7 +161,7 @@ export const Roles = (props: any) => {
 
                                     />
                                 </Grid>
-                                <Grid item lg={5} md={5} sm={5} sx={{
+                                <Grid item lg={5.5} md={5} sm={5} sx={{
                                     display: 'flex',
                                     justifyContent: 'center',
                                     alignItems: 'center',
