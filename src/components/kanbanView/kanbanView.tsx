@@ -23,31 +23,31 @@ const KanbanView = (props: DragProps) => {
   const [isDropped, setIsDropped] = useState({ status: '' });
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [fromIndex, setFromIndex] = useState(0);
-  const [hoverId,setHoverId] = useState(0);
+  const [hoverId, setHoverId] = useState(0);
 
-  const moveElement=(array: any[], fromIndex: any, toIndex: any)=>{
+  const moveElement = (array: any[], fromIndex: any, toIndex: any) => {
     const element = array.splice(fromIndex, 1)[0];
     array.splice(toIndex, 0, element);
     return array;
-  }
+  };
 
-  const filterCardStatus =(array: any,key:string)=>{
-    let status= array.filter((val: any) => val?.status === key)
+  const filterCardStatus = (array: any, key: string) => {
+    let status = array.filter((val: any) => val?.status === key);
     return status;
   };
 
   const getChildItemUsingType = (type: string) => {
     return create?.filter((data: any) => data?.status === type);
   };
-  
+
   const handleOnDragLeave = (event: React.MouseEvent, id: number | string) => {
+    setHoverId(0);
   };
 
   const handleOnDragEnter = (
     evt: React.DragEvent<HTMLDivElement>,
     id: string | number
-  ) => {
-  };
+  ) => {};
 
   const onDragOver = (
     evt: React.DragEvent<HTMLDivElement>,
@@ -63,26 +63,7 @@ const KanbanView = (props: DragProps) => {
     items: cardDataProp,
     index: number
   ) => {
-    let styles = evt.currentTarget.style;
-        // styles.marginTop="60px";
-    const fromIndexes = fromIndex;
-    const toIndexes = index;
-    const statusKey = items.status;
-    
-
-    let filterContainerData = filterCardStatus(create,statusKey);
-
-    let changeIndex = moveElement(filterContainerData,fromIndex,toIndexes)
-
-    const uniqueArray = changeIndex
-    .map((item) => item.id)
-    .map((id, index, self) => {
-      return self.indexOf(id) === index ? changeIndex[index] : null;
-    })
-    .filter((item) => item !== null);
-    
-    console.log(fromIndexes, 'from', toIndexes, 'to',items,"items",changeIndex,"👍",create,"😍");
-    // setCreate([...changeIndex,...create]);
+    setFromIndex(index);
     setHoverId(items?.id);
   };
 
@@ -96,8 +77,6 @@ const KanbanView = (props: DragProps) => {
     evt.currentTarget.classList.add('dragged');
     let styles = evt.currentTarget.style;
     let childStyles = evt.target.children[0];
-    // styles.width="210px"
-    console.log(index, '👍');
 
     setFromIndex(index);
     setIsDragging(true);
@@ -111,13 +90,26 @@ const KanbanView = (props: DragProps) => {
 
   const onDragEnd = (
     evt: React.DragEvent<HTMLDivElement> | any,
-    items: object,
+    items: cardDataProp,
     index: number
   ) => {
     evt.currentTarget.classList.remove('dragged');
     evt.dataTransfer.clearData('listId');
     let styles = evt.currentTarget.style;
     let childStyles = evt.target.children[0];
+    const statusKey = items.status;
+
+    let filterContainerData = filterCardStatus(create, statusKey);
+
+    let changeIndex = moveElement(filterContainerData, index, fromIndex);
+
+    const ids = changeIndex?.map((val) => val.id);
+
+    const oldArr = create.filter((val: any) => !ids.includes(val.id));
+
+    setCreate([...oldArr, ...changeIndex]);
+
+    setHoverId(0);
 
     setTimeout(function () {
       styles.display = 'block';
@@ -125,8 +117,6 @@ const KanbanView = (props: DragProps) => {
       styles.backgroundColor = '#FFFF';
       childStyles.style.visibility = 'visible';
     }, 0);
-    setHoverId(0);
-
   };
 
   const onDrop = (
@@ -145,6 +135,7 @@ const KanbanView = (props: DragProps) => {
     });
     setCreate(updated);
     setIsDragging(false);
+    setHoverId(0);
   };
 
   useEffect(() => {

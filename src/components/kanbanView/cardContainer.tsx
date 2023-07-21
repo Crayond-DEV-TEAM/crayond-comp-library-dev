@@ -29,12 +29,10 @@ const CardContainer = (props: ContainerProps) => {
     isDragging,
     buttonName,
   } = props;
-  // console.log(childItems,"childItems");
 
   return (
     <>
       <div
-        // onDragEnd={(e) => onDragEnd(e)}
         onDragOver={(e) => onDragOver(e, false, containerData?.title)}
         onDrop={(e) => onDrop(e, false, containerData?.title)}
       >
@@ -69,7 +67,7 @@ const CardContainer = (props: ContainerProps) => {
                   getIndex={index}
                 />
 
-                {items.id=== hoverId && (
+                {items.id === hoverId && (
                   <Box
                     sx={{ ...view_styles.childOnDraggedBox }}
                     draggable

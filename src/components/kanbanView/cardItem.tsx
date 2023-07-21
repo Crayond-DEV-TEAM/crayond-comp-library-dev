@@ -24,7 +24,6 @@ const CardItems = (props: CardItemProps) => {
     childCardStyle,
     getIndex,
   } = props;
-  // console.log(childItems?.status==="Completed");
 
   return (
     <>

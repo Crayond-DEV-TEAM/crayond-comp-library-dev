@@ -1,4 +1,4 @@
-import { SxProps } from "@mui/material";
+import { SxProps } from '@mui/material';
 
 export interface DragProps {
   cardRootStyle: SxProps;
@@ -68,7 +68,7 @@ export interface ContainerProps {
   onDragEnd: (
     e: React.DragEvent<HTMLDivElement>,
     // id: number,
-    items: object,
+    items: cardDataProp,
     getIndex: number
   ) => void;
   onDragStart: (
@@ -92,7 +92,7 @@ export interface ContainerProps {
     getIndex: number
   ) => void;
 
-  hoverId:number|null;
+  hoverId: number | null;
   cardContainerStyle: SxProps;
   childCardStyle: SxProps;
   childCardComponentStyle: SxProps;
@@ -116,10 +116,9 @@ export interface CardItemProps {
   ) => void;
   onDragEnd: (
     e: React.DragEvent<HTMLDivElement>,
-    item: object,
-    // id: number | string,
+    item: cardDataProp,
     getIndex: number
-  ) => void|undefined;
+  ) => void | undefined;
   onDragLeave: (
     e: React.DragEvent<HTMLDivElement>,
     id: number | string,
