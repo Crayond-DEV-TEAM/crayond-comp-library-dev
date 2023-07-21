@@ -111,6 +111,7 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                                 value={roleNo}
                                 onChange={(e: any) => handleChange('roleNo', e?.target?.value, index)}
                                 placeholder='Role No'
+                                isErrorRequired={false}
 
                             />
                         </span>
@@ -142,6 +143,7 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                                 value={name}
                                 onChange={(e: any) => handleChange('role', e?.target?.value, index)}
                                 placeholder='Description'
+                                isErrorRequired={false}
 
                             />
                         </span>

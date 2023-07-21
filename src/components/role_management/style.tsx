@@ -180,7 +180,8 @@ export const styles = {
       md: 'space-around',
       sm: 'space-evenly',
       xs: 'space-evenly'
-    }
+    },
+    marginBottom:'8px'
   },
   flexItem: {
     display: 'flex',
