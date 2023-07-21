@@ -42,6 +42,7 @@ const formatsSvg = (key: string | undefined, value: string | undefined) => {
     }
 }
 const renderSingle = (formatData: { className?: string; value?: string; }) => {
+    debugger
     const { className, value } = formatData;
     return <ToolBox type="button" className={className} value={value}>
         {formatsSvg(className, value)}
@@ -64,17 +65,15 @@ const CustomToolbar = () => (
         border: '1px solid #E9E9E9',
         borderRadius: '4px'
     }}>
-        {formats.map((classes: ({ className: string; value: string; } | { className: string; 
-        value?: undefined; })[], index: number) => {
-            debugger
-            return (
-                <span className="ql-formats" key={index}>
-                    {classes.map((formatData: ({ className: string; value: string; } | { className: string; value?: undefined; })) => {
-                        return renderSingle(formatData);
-                    })}
-                </span>
-            );
-        })}
+        <span className="ql-formats" >
+        {formats.map((classes: any, index: number) => {
+            return (<span>
+                {
+                    renderSingle(classes)
+                }
+                </span>);
+            })}
+            </span>
 
     </div>
 );

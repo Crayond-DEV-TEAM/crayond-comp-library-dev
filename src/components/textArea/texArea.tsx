@@ -14,18 +14,16 @@ export default function TextArea(props: TextAreaProps) {
     border,
     borderRadius,
     placeholder,
+    background,
+    parentSx
   } = props;
   return (
     <Box sx={{
-      background: 'white',
+      ...{background: background ? background : '#fff',
       width: '100%',
-      height: '100%'
+      height: '100%'},
+      ...parentSx
     }}>
-      <Box sx={{
-        margin: 'auto',
-        width: '70%',
-        paddingTop: '40px'
-      }}>
         <Editor
           value={value}
           minWidth={minWidth}
@@ -37,7 +35,6 @@ export default function TextArea(props: TextAreaProps) {
           inputHeight={inputHeight} 
           placeholder={placeholder}
           />
-      </Box>
     </Box>
   );
 }

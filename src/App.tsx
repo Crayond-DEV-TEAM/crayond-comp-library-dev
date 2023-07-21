@@ -4,6 +4,7 @@ import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
 import { TextArea } from './components/textArea';
 import React, { useState } from "react";
+import { Box } from '@mui/material';
 
 function App() {
 
@@ -14,18 +15,29 @@ function App() {
   };
 
   return (
-    <div className="App" style={{ width: '100vw', height: '100vh' }}>
+    <div className="App" style={{ width: '100vw', height: '100vh', background: 'white', }}>
       <h1>{text}</h1>
-      <TextArea
-        handleChange={handleChange}
-        value={text}
-        inputHeight=''
-        minWidth=''
-        maxWidth=''
-        reverseToolbarSx={false}
-        border=''
-        borderRadius=''
-        placeholder='' />
+      <Box sx={{
+        margin: 'auto',
+        width: '70%',
+        paddingTop: '40px',
+      }}>
+        <TextArea
+          handleChange={handleChange}
+          background=''
+          parentSx={{}}
+          value={text}
+          inputHeight=''
+          minWidth=''
+          maxWidth=''
+          reverseToolbarSx={false}
+          border=''
+          borderRadius=''
+          placeholder=''
+          ReactQuillProps={{}}
+           />
+      </Box>
+     
     </div>
   )
 }

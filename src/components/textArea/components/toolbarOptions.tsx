@@ -10,7 +10,7 @@ const formats = [
     //         options: ["small", "large", "huge"]
     //     }
     // ],
-    [
+    // [
         {
             className: "ql-bold",
             value: "bol"
@@ -23,8 +23,8 @@ const formats = [
             className: "ql-underline",
             value: "under"
         },
-        { className: "ql-strike" }
-    ],
+        { className: "ql-strike" },
+    // ],
     // [
     //     {
     //         className: "ql-color",
@@ -35,7 +35,7 @@ const formats = [
     //         options: colors
     //     }
     // ],
-    [
+    // [
         {
             className: "ql-list",
             value: "ordered"
@@ -52,8 +52,8 @@ const formats = [
         //     className: "ql-indent",
         //     value: "+1"
         // }
-    ],
-    [
+    // ],
+    // [
         {
             className: "ql-script",
             value: "sub"
@@ -62,7 +62,7 @@ const formats = [
             className: "ql-script",
             value: "super"
         }
-    ],
+    // ],
     // [
     //     {
     //         className: "ql-header",
@@ -79,7 +79,7 @@ const formats = [
     //         className: "ql-code-block"
     //     }
     // ],
-    [
+    // [
         // {
         //     className: 'ql-direction',
         //     value: 'rtl'
@@ -88,13 +88,13 @@ const formats = [
         //     className: 'ql-align',
         //     options: ['right', 'center', 'justify']
         // }
-    ],
-    [
+    // ],
+    // [
         // { className: 'ql-link' },
         // { className: 'ql-image' },
         // { className: 'ql-video' },
         // { className: 'ql-formula' }
-    ],
+    // ],
 
 ]
 // const colors = ["red", "green", "blue", "orange", "violet"]

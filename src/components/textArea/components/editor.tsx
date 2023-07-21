@@ -14,7 +14,8 @@ const Editor = (props: TextAreaProps) => {
         maxWidth,
         border,
         borderRadius,
-        placeholder
+        placeholder,
+        ReactQuillProps
      } = props
 
     const modules = {
@@ -94,6 +95,7 @@ const Editor = (props: TextAreaProps) => {
                     onChange={handleChange}
                     modules={modules}
                     formats={formats}
+                    {...ReactQuillProps}
                 />
                 <CustomToolbar />
             </Box >
