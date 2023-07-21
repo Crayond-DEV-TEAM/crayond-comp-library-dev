@@ -27,10 +27,15 @@ Primary.args = {
             lg: 8,
             xs: 6,
           },
-          maxNumber: 16,
           label: 'Credit /debit card Number',
+          cardImage: true,
           fullWidth: true,
           inputType: 'input',
+          type: 'number',
+          value: '',
+          maxNumber: 16,
+          errorMessage: 'please Enter card Number',
+          required: true,
         },
         {
           breakpoints: {
@@ -42,6 +47,9 @@ Primary.args = {
           label: 'Account holder Name',
           fullWidth: true,
           inputType: 'input',
+          value: '',
+          errorMessage: 'please Enter Name',
+          required: true,
         },
         {
           breakpoints: {
@@ -53,6 +61,11 @@ Primary.args = {
           label: 'Month / Year',
           fullWidth: true,
           inputType: 'date',
+          dateFormat: 'MM-YYYY',
+          value: '',
+          error: false,
+          errorMessage: 'please select any value',
+          required: true,
         },
         {
           breakpoints: {
@@ -64,8 +77,11 @@ Primary.args = {
           label: 'Cvv',
           fullWidth: true,
           inputType: 'input',
+          value: '',
           maxNumber: 3,
-          type:'number'
+          errorMessage: 'please Enter Valid Cvv',
+          type: 'number',
+          required: true,
         },
       ],
     },

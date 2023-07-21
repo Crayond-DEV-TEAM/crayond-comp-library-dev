@@ -132,7 +132,7 @@ export function PaymentUI(props: PaymentUIProps) {
         <Dropdown
           label={item.label}
           labelStyle={item.labelStyle}
-          inputStyle={item.inputStyle}
+          inputStyle={{ ...item.inputStyle, ...styles.dropdownStyle }}
           selectOption={item.selectOption}
           onChange={(e) => handleInputChange(e, item)}
           value={item.value}
@@ -266,6 +266,7 @@ PaymentUI.defaultProps = {
           label: 'Credit /debit card Number',
           fullWidth: true,
           inputType: 'input',
+          required: true,
         },
         {
           breakpoints: {

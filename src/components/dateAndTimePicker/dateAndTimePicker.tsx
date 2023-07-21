@@ -17,10 +17,10 @@ export default function DateAndTimePicker(props: DateAndTimePickerProps) {
     errorMessage,
     helperText,
     error,
-    value,
+    value = null,
     onChange,
   } = props;
-  
+
   return (
     <Box sx={styles.root}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -35,20 +35,20 @@ export default function DateAndTimePicker(props: DateAndTimePickerProps) {
             {...props}
             label={labelVariant === 'standard' ? '' : label}
             onChange={(newValue) => onChange(newValue)}
-            format='mm/yyyy'
+          
           />
         ) : (
           <DatePicker
             sx={{
               ...styles.datePicker,
               '& fieldset': {
-                border: `1px solid ${error ? '#FF4D4A' : '#E9E9E9'}`,
+                border: `1px solid ${error === true ? '#FF4D4A' : '#E9E9E9'}`,
               },
             }}
             {...props}
             onChange={(newValue) => onChange(newValue)}
             // defaultValue={dayjs(new Date(value ?? ""))}
-            value={dayjs(new Date(value)) ?? null}
+            value={value ? dayjs(new Date(value)) : null}
             label={labelVariant === 'standard' ? null : label}
           />
         )}
@@ -75,4 +75,5 @@ DateAndTimePicker.defaultProps = {
   label: 'My Label',
   labelVariant: 'standard',
   type: 'date',
+  value: null,
 };

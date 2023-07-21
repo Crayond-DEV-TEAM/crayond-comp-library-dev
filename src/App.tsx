@@ -2,6 +2,8 @@ import moment from 'moment';
 import DeleteIcon from './assets/deleteIcon';
 import { PaymentUI } from './components/paymentUI';
 import { Item } from './components/paymentUI/props';
+import { RenderForm } from './components/renderForm';
+import { ProfileThree } from './components/profileThree';
 
 function App() {
   const sectionOne: Item[] = [
@@ -232,6 +234,7 @@ function App() {
         section={paymentSections}
         buttons={buttons}
         buttonContainerStyle={{}}
+      
       />
     </div>
   );
