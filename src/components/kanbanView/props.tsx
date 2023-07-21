@@ -1,10 +1,12 @@
+import { SxProps } from "@mui/material";
+
 export interface DragProps {
-  cardRootStyle: object;
-  childCardStyle: object;
-  cardContainerStyle: object;
-  bottomButtonStyle: object;
-  containerTitleStyle: object;
-  childCardComponentStyle: object;
+  cardRootStyle: SxProps;
+  childCardStyle: SxProps;
+  cardContainerStyle: SxProps;
+  bottomButtonStyle: SxProps;
+  containerTitleStyle: SxProps;
+  childCardComponentStyle: SxProps;
   handleClickNotifyIcon: () => void;
   handleClickMoreIcon: () => void;
   handleAddNewButton: () => void;
@@ -63,24 +65,39 @@ export interface ContainerProps {
     title: string
   ) => void;
   onDrag: (e: React.DragEvent<HTMLDivElement>, id: string | number) => void;
-  onDragEnd: (e: React.DragEvent<HTMLDivElement>) => void;
+  onDragEnd: (
+    e: React.DragEvent<HTMLDivElement>,
+    // id: number,
+    items: object,
+    getIndex: number
+  ) => void;
   onDragStart: (
     e: React.DragEvent<HTMLDivElement>,
-    id: number | string
+    id: number | string,
+    getIndex: number
   ) => void;
   onDragEnter: (
     e: React.DragEvent<HTMLDivElement>,
-    id: number | string
+    id: number | string,
+    getIndex: number
   ) => void;
   onDragLeave: (
     e: React.DragEvent<HTMLDivElement>,
-    id: number | string
+    id: number | string,
+    getIndex: number
   ) => void;
-  cardContainerStyle: object;
-  childCardStyle: object;
-  childCardComponentStyle: object;
-  containerTitleStyle: object;
-  bottomButtonStyle: object;
+  onDragHoverChildCard: (
+    e: React.DragEvent<HTMLDivElement>,
+    items: cardDataProp,
+    getIndex: number
+  ) => void;
+
+  hoverId:number|null;
+  cardContainerStyle: SxProps;
+  childCardStyle: SxProps;
+  childCardComponentStyle: SxProps;
+  containerTitleStyle: SxProps;
+  bottomButtonStyle: SxProps;
   childItems: any;
   isDropped: any;
   isDragging: boolean;
@@ -94,18 +111,37 @@ export interface ContainerProps {
 export interface CardItemProps {
   onDragStart: (
     e: React.DragEvent<HTMLDivElement>,
-    id: number | string
+    id: number | string,
+    getIndex: number
   ) => void;
-  onDragEnd: (e: React.DragEvent<HTMLDivElement>, id: number | string) => void;
+  onDragEnd: (
+    e: React.DragEvent<HTMLDivElement>,
+    item: object,
+    // id: number | string,
+    getIndex: number
+  ) => void|undefined;
   onDragLeave: (
     e: React.DragEvent<HTMLDivElement>,
-    id: number | string
+    id: number | string,
+    getIndex: number
   ) => void;
   onDragEnter: (
     e: React.DragEvent<HTMLDivElement>,
-    id: number | string
+    id: number | string,
+    getIndex: number
   ) => void;
-  onDrag: (e: React.DragEvent<HTMLDivElement>, id: number | string) => void;
+
+  onDrag: (
+    e: React.DragEvent<HTMLDivElement>,
+    id: number | string,
+    getIndex: number
+  ) => void;
+  onDragHoverChildCard: (
+    e: React.DragEvent<HTMLDivElement>,
+    items: cardDataProp,
+    getIndex: number
+  ) => void;
+
   childItems: {
     id: number;
     title: string;
@@ -127,8 +163,9 @@ export interface CardItemProps {
     created_at: string;
     done?: boolean;
   };
-  childCardStyle: object;
-  childCardComponentStyle: object;
+  getIndex: number;
+  childCardStyle: SxProps;
+  childCardComponentStyle: SxProps;
   isDragging: boolean;
   isDropped: { x: number; y: number };
   handleClickNotifyIcon: () => void;

@@ -96,7 +96,7 @@ const cardData = [
   },
   {
     id: 4,
-    title: 'title4',
+    title: 'title1',
     status: 'Pending',
     cardTitle: 'Pending Create Components',
     isActive: true,
@@ -124,7 +124,7 @@ const cardData = [
   },
   {
     id: 5,
-    title: 'title5',
+    title: 'title2',
     status: 'Pending',
     cardTitle: 'Pending Create Components',
     isActive: true,
@@ -152,9 +152,9 @@ const cardData = [
   },
   {
     id: 6,
-    title: 'title3',
-    status: 'Completed',
-    cardTitle: ' Completed Create Components',
+    title: 'title2',
+    status: 'Pending',
+    cardTitle: ' Pending Create Components',
     isActive: true,
     notifyIcon: <img src="/notifi.svg" alt="notify" />,
     moreIcon: <img src="/more.svg" alt="more" />,
@@ -180,7 +180,7 @@ const cardData = [
   },
   {
     id: 7,
-    title: 'title3',
+    title: 'title1',
     status: 'Completed',
     cardTitle: 'Completed Create Components',
     isActive: true,
@@ -208,7 +208,7 @@ const cardData = [
   },
   {
     id: 8,
-    title: 'title3',
+    title: 'title2',
     status: 'Completed',
     cardTitle: 'Completed Create Components',
     isActive: true,
@@ -237,8 +237,8 @@ const cardData = [
   {
     id: 9,
     title: 'title3',
-    status: 'Pending',
-    cardTitle: 'Pending Create Components',
+    status: 'Completed',
+    cardTitle: 'Completed Create Components',
     isActive: true,
     notifyIcon: <img src="/activeNotify.svg" alt="notify" />,
     moreIcon: <img src="/more.svg" alt="more" />,

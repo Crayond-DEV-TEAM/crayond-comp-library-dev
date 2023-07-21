@@ -1,9 +1,8 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, SxProps } from '@mui/material';
 import { boolean } from 'yup';
 import CardItems from './cardItem';
 import { ContainerProps } from './props';
 import { view_styles } from './styles';
-
 
 const CardContainer = (props: ContainerProps) => {
   const {
@@ -17,6 +16,7 @@ const CardContainer = (props: ContainerProps) => {
     handleClickNotifyIcon,
     handleClickMoreIcon,
     handleAddNewButton,
+    onDragHoverChildCard,
     cardContainerStyle,
     containerData,
     childCardStyle,
@@ -24,10 +24,12 @@ const CardContainer = (props: ContainerProps) => {
     bottomButtonStyle,
     childCardComponentStyle,
     childItems,
+    hoverId,
     isDropped,
     isDragging,
     buttonName,
   } = props;
+  // console.log(childItems,"childItems");
 
   return (
     <>
@@ -36,7 +38,11 @@ const CardContainer = (props: ContainerProps) => {
         onDragOver={(e) => onDragOver(e, false, containerData?.title)}
         onDrop={(e) => onDrop(e, false, containerData?.title)}
       >
-        <Box sx={{ ...view_styles.cardContainer, ...cardContainerStyle }}>
+        <Box
+          sx={
+            { ...view_styles.cardContainer, ...cardContainerStyle } as SxProps
+          }
+        >
           <Typography
             sx={{ ...view_styles.containerTitleStyle, ...containerTitleStyle }}
           >
@@ -54,15 +60,23 @@ const CardContainer = (props: ContainerProps) => {
                   onDragEnd={onDragEnd}
                   onDragEnter={onDragEnter}
                   onDragLeave={onDragLeave}
+                  onDragHoverChildCard={onDragHoverChildCard}
                   handleClickNotifyIcon={handleClickNotifyIcon}
                   handleClickMoreIcon={handleClickMoreIcon}
                   isDragging={isDragging}
                   isDropped={isDropped}
-                  key={index}
+                  key={items?.id}
+                  getIndex={index}
                 />
+
+                {items.id=== hoverId && (
+                  <Box
+                    sx={{ ...view_styles.childOnDraggedBox }}
+                    draggable
+                  ></Box>
+                )}
               </>
             ))}
-            
           </Box>
 
           <Box

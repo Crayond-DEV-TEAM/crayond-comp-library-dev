@@ -22,50 +22,31 @@ const KanbanView = (props: DragProps) => {
   const [isDragging, setIsDragging] = useState(false);
   const [isDropped, setIsDropped] = useState({ status: '' });
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [fromIndex, setFromIndex] = useState(0);
+  const [hoverId,setHoverId] = useState(0);
 
-  const { x, y } = position;
+  const moveElement=(array: any[], fromIndex: any, toIndex: any)=>{
+    const element = array.splice(fromIndex, 1)[0];
+    array.splice(toIndex, 0, element);
+    return array;
+  }
 
+  const filterCardStatus =(array: any,key:string)=>{
+    let status= array.filter((val: any) => val?.status === key)
+    return status;
+  };
+
+  const getChildItemUsingType = (type: string) => {
+    return create?.filter((data: any) => data?.status === type);
+  };
+  
   const handleOnDragLeave = (event: React.MouseEvent, id: number | string) => {
-    //  console.log(event,id,"handleOnDragLeave")
   };
 
   const handleOnDragEnter = (
     evt: React.DragEvent<HTMLDivElement>,
     id: string | number
   ) => {
-    // console.log(evt,"handleOnDragEnter")
-  };
-
-
-  const onDragStart = (evt: React.DragEvent<HTMLDivElement>|any, id: any) => {
-    evt.dataTransfer.setData('listId', id);
-    evt.dataTransfer.effectAllowed = 'move';
-    evt.currentTarget.classList.add('dragged');
-    let styles = evt.currentTarget.style;
-    let childStyles = evt.target.children[0];
-      styles.width="210px"
-         
-    setTimeout(function () {
-      styles.display = 'block';
-      styles.border = '2px dashed #665CD7';
-      styles.backgroundColor="#F1F1F1";
-      childStyles.style.visibility="hidden";
-    }, 0);
-    setIsDragging(true);
-  };
-
-  const onDragEnd = (evt: React.DragEvent<HTMLDivElement>|any) => {
-    evt.currentTarget.classList.remove('dragged');
-    evt.dataTransfer.clearData('listId');
-    let styles = evt.currentTarget.style;
-    let childStyles = evt.target.children[0];
-
-    setTimeout(function () {
-      styles.display = 'block';
-      styles.border = 'none';
-      styles.backgroundColor="#FFFF";
-      childStyles.style.visibility="visible";
-    }, 0);
   };
 
   const onDragOver = (
@@ -77,10 +58,81 @@ const KanbanView = (props: DragProps) => {
     setIsDropped({ status: status });
   };
 
+  const onDragHoverChildCard = (
+    evt: React.DragEvent<HTMLDivElement> | any,
+    items: cardDataProp,
+    index: number
+  ) => {
+    let styles = evt.currentTarget.style;
+        // styles.marginTop="60px";
+    const fromIndexes = fromIndex;
+    const toIndexes = index;
+    const statusKey = items.status;
+    
+
+    let filterContainerData = filterCardStatus(create,statusKey);
+
+    let changeIndex = moveElement(filterContainerData,fromIndex,toIndexes)
+
+    const uniqueArray = changeIndex
+    .map((item) => item.id)
+    .map((id, index, self) => {
+      return self.indexOf(id) === index ? changeIndex[index] : null;
+    })
+    .filter((item) => item !== null);
+    
+    console.log(fromIndexes, 'from', toIndexes, 'to',items,"items",changeIndex,"👍",create,"😍");
+    // setCreate([...changeIndex,...create]);
+    setHoverId(items?.id);
+  };
+
+  const onDragStart = (
+    evt: React.DragEvent<HTMLDivElement> | any,
+    id: any,
+    index: number
+  ) => {
+    evt.dataTransfer.setData('listId', id);
+    evt.dataTransfer.effectAllowed = 'move';
+    evt.currentTarget.classList.add('dragged');
+    let styles = evt.currentTarget.style;
+    let childStyles = evt.target.children[0];
+    // styles.width="210px"
+    console.log(index, '👍');
+
+    setFromIndex(index);
+    setIsDragging(true);
+    setTimeout(function () {
+      styles.display = 'block';
+      styles.border = '2px dashed #665CD7';
+      styles.backgroundColor = '#F1F1F1';
+      childStyles.style.visibility = 'hidden';
+    }, 0);
+  };
+
+  const onDragEnd = (
+    evt: React.DragEvent<HTMLDivElement> | any,
+    items: object,
+    index: number
+  ) => {
+    evt.currentTarget.classList.remove('dragged');
+    evt.dataTransfer.clearData('listId');
+    let styles = evt.currentTarget.style;
+    let childStyles = evt.target.children[0];
+
+    setTimeout(function () {
+      styles.display = 'block';
+      styles.border = 'none';
+      styles.backgroundColor = '#FFFF';
+      childStyles.style.visibility = 'visible';
+    }, 0);
+    setHoverId(0);
+
+  };
+
   const onDrop = (
-    evt: React.DragEvent<HTMLDivElement>|any,
+    evt: React.DragEvent<HTMLDivElement> | any,
     status: boolean,
-    title:string,
+    title: string
   ) => {
     evt.preventDefault();
     let dataId = evt.dataTransfer.getData('listId');
@@ -93,16 +145,11 @@ const KanbanView = (props: DragProps) => {
     });
     setCreate(updated);
     setIsDragging(false);
-    
-  };
-
-  const getChildItemUsingType = (type: string) => {
-    return create?.filter((data: any) => data?.status === type);
   };
 
   useEffect(() => {
     setCreate(cardData);
-  }, [create, position]);
+  }, []);
   return (
     <>
       <Box sx={{ ...view_styles.rootStyle, ...cardRootStyle }}>
@@ -123,10 +170,12 @@ const KanbanView = (props: DragProps) => {
             onDragLeave={handleOnDragLeave}
             onDrop={onDrop}
             onDragOver={onDragOver}
+            onDragHoverChildCard={onDragHoverChildCard}
             handleClickNotifyIcon={handleClickNotifyIcon}
             handleClickMoreIcon={handleClickMoreIcon}
             handleAddNewButton={handleAddNewButton}
             key={container?.title}
+            hoverId={hoverId}
           />
         ))}
       </Box>

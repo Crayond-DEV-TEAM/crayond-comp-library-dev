@@ -4,6 +4,7 @@ import {
   Box,
   IconButton,
   Typography,
+  SxProps,
 } from '@mui/material';
 import { view_styles } from './styles';
 import { CardItemProps } from './props';
@@ -15,42 +16,49 @@ const CardItems = (props: CardItemProps) => {
     onDragEnter = () => {},
     onDragLeave = () => {},
     onDrag = () => {},
+    onDragHoverChildCard = () => {},
     handleClickMoreIcon = () => {},
     handleClickNotifyIcon = () => {},
     childCardComponentStyle,
     childItems,
     childCardStyle,
+    getIndex,
   } = props;
+  // console.log(childItems?.status==="Completed");
 
   return (
     <>
       {childItems?.component ? (
         <Box
-          onDragEnter={(e) => onDragEnter(e, childItems?.id)}
-          onDragLeave={(e) => onDragLeave(e, childItems?.id)}
-          onDragStart={(e) => onDragStart(e, childItems?.id)}
-          onDragEnd={(e) => onDragEnd(e, childItems?.id)}
-          onDrag={(e) => onDrag(e, childItems?.id)}
-          style={{
+          onDragOver={(e) => onDragHoverChildCard(e, childItems, getIndex)}
+          onDragEnter={(e) => onDragEnter(e, childItems?.id, getIndex)}
+          onDragLeave={(e) => onDragLeave(e, childItems?.id, getIndex)}
+          onDragStart={(e) => onDragStart(e, childItems?.id, getIndex)}
+          onDragEnd={(e) => onDragEnd(e, childItems, getIndex)}
+          onDrag={(e) => onDrag(e, childItems?.id, getIndex)}
+          sx={{
             ...view_styles.childBoxContainer,
             ...childCardComponentStyle,
-          }}
+          } as SxProps}
           draggable
         >
           {childItems?.component}
         </Box>
       ) : (
+        <>
         <Box
-          onDragEnter={(e) => onDragEnter(e, childItems?.id)}
-          onDragLeave={(e) => onDragLeave(e, childItems?.id)}
-          onDragStart={(e) => onDragStart(e, childItems?.id)}
-          onDragEnd={(e) => onDragEnd(e, childItems?.id)}
-          onDrag={(e) => onDrag(e, childItems?.id)}
+          onDragOver={(e) => onDragHoverChildCard(e, childItems, getIndex)}
+          onDragEnter={(e) => onDragEnter(e, childItems?.id, getIndex)}
+          onDragLeave={(e) => onDragLeave(e, childItems?.id, getIndex)}
+          onDragStart={(e) => onDragStart(e, childItems?.id, getIndex)}
+          onDragEnd={(e) => onDragEnd(e, childItems, getIndex)}
+          onDrag={(e) => onDrag(e, childItems?.id, getIndex)}
           sx={{ ...view_styles.childBoxContainer, ...childCardStyle }}
           draggable
         >
           <Box>
             <Box sx={{ ...view_styles.childTitleContainer }}>
+              <span style={{color:"red"}}>{childItems.id}</span>
               <Box>
                 <Typography sx={{ ...view_styles.titleStyle }}>
                   {childItems?.cardTitle}
@@ -113,6 +121,7 @@ const CardItems = (props: CardItemProps) => {
             </Box>
           </Box>
         </Box>
+        </>
       )}
     </>
   );
@@ -124,7 +133,7 @@ CardItems.defaultProps = {
   onDragLeave: () => {},
   onDragEnter: () => {},
   onDrag: () => {},
- 
+
   childItems: {
     id: 0,
     title: '',
