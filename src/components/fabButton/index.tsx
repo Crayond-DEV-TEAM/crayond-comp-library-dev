@@ -6,7 +6,7 @@ import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
 import { FabButtonProps } from './props';
 
-export default function FabButton(props: FabButtonProps) {
+export function FabButton(props: FabButtonProps) {
   const {
     direction = 'up',
     radius = 100,
@@ -19,8 +19,8 @@ export default function FabButton(props: FabButtonProps) {
     closeIcon,
     isOpen = false,
     openIcon,
-    onToggle,
-    onMainButtonClick,
+    onToggle = () => {},
+    onMainButtonClick = () => {},
   } = props;
 
   const [open, setOpen] = React.useState(isOpen);
@@ -98,101 +98,80 @@ export default function FabButton(props: FabButtonProps) {
   return (
     <Box sx={{ ...getAlignStyle() }}>
       <ClickAwayListener onClickAway={() => setOpen(false)}>
-        {actionsData.length === 0 ? (
-          <Fab
-            aria-label="MainButton"
-            sx={{
-              position: 'absolute',
-              bottom: 16,
+        <SpeedDial
+          ariaLabel="SpeedDial"
+          sx={{
+            position: 'absolute',
+            bottom: 16,
+            '& .MuiSpeedDial-fab:focus': {
+              outline: 'none',
+              boxShadow: 'none',
               ...buttonStyle,
-              '& .MuiSpeedDial-fab:focus': {
-                outline: 'none',
-                boxShadow: 'none',
-                ...buttonStyle,
-              },
-              '& .MuiSpeedDial-fab': {
-                ...buttonStyle,
-              },
-              ...buttonConStyle,
-            }}
-            onClick={onMainButtonClick}
-          >
-            {isOpen ? closeIcon : openIcon}
-          </Fab>
-        ) : (
-          <SpeedDial
-            ariaLabel="SpeedDial"
-            sx={{
-              position: 'absolute',
-              bottom: 16,
+            },
+            '& .MuiSpeedDial-fab': {
               ...buttonStyle,
-              '& .MuiSpeedDial-fab:focus': {
-                outline: 'none',
-                boxShadow: 'none',
-                ...buttonStyle,
-              },
-              '& .MuiSpeedDial-fab': {
-                ...buttonStyle,
-              },
-              ...buttonConStyle,
-            }}
-            onClick={() => {
-              if (onToggle) {
-                onToggle();
-              }
+            },
+            ...buttonConStyle,
+          }}
+          onClick={() => {
+            onToggle();
+            actionsData.length === 0 ? onMainButtonClick() : onOpenHandle();
+          }}
+          onMouseEnter={() => {
+            if (!semicircle) {
               onOpenHandle();
-            }}
-            icon={isOpen ? closeIcon : openIcon}
-            open={open}
-            direction={direction}
-          >
-            {actionsData.map((action, index) => {
-              const position = calculatePosition(index);
+              onToggle();
+            }
+          }}
+          onMouseLeave={() => {
+            if (!semicircle && !isOpen) {
+              setOpen(false);
+              onToggle();
+            }
+          }}
+          icon={
+            actionsData.length === 0 ? openIcon : isOpen ? closeIcon : openIcon
+          }
+          open={open}
+          direction={direction}
+        >
+          {actionsData.map((action, index) => {
+            const position = calculatePosition(index);
 
-              return (
-                <SpeedDialAction
-                  key={action.name}
-                  icon={action.icon}
-                  tooltipTitle={action.tooltipTitle}
-                  tooltipOpen={action.tooltipOpen}
-                  onClick={() => handleButtonClick(index)}
-                  sx={{
+            return (
+              <SpeedDialAction
+                key={action.name}
+                icon={action.icon}
+                tooltipTitle={action.tooltipTitle}
+                tooltipOpen={action.tooltipOpen}
+                onClick={() => handleButtonClick(index)}
+                sx={{
+                  '& .MuiSpeedDial-actions': {
+                    flexDirection: 'column-reverse',
+                    marginBottom: '12px',
+                    paddingBottom: '12px',
+                    paddingTop: '0',
+                  },
+                  ...(semicircle && {
+                    position: 'absolute',
+                    left: '50%',
+                    top: '50%',
+                    transform: `translate(-30%, -70%) translate(${position.x}px, ${position.y}px)`,
+                    borderRadius: '50%',
+                    ml: -1,
                     '& .MuiSpeedDial-actions': {
                       flexDirection: 'column-reverse',
                       marginBottom: '12px',
                       paddingBottom: '12px',
-                      paddingTop: '0',
                     },
-                    ...(semicircle && {
-                      position: 'absolute',
-                      left: '50%',
-                      top: '50%',
-                      transform: `translate(-30%, -70%) translate(${position.x}px, ${position.y}px)`,
-                      borderRadius: '50%',
-                      ml: -1,
-                      '& .MuiSpeedDial-actions': {
-                        flexDirection: 'column-reverse',
-                        marginBottom: '12px',
-                        paddingBottom: '12px',
-                      },
-                    }),
-                    ...actionButtonStyle,
-                  }}
-                />
-              );
-            })}
-          </SpeedDial>
-        )}
+                  }),
+                  ...actionButtonStyle,
+                }}
+              />
+            );
+          })}
+        </SpeedDial>
       </ClickAwayListener>
     </Box>
   );
 }
-
-FabButton.defaultProps = {
-  direction: 'up',
-  radius: 100,
-  semicircle: false,
-  actionsData: [],
-  onToggle: () => {},
-  onMainButtonClick: () => {},
-};

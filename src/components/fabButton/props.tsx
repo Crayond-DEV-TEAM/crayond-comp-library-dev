@@ -10,10 +10,10 @@ export interface FabButtonProps {
   directionStyle?: React.CSSProperties;
   buttonConStyle?: React.CSSProperties;
   closeIcon?: React.ReactNode;
-  isOpen?: boolean;
-  openIcon?: React.ReactNode;
-  onToggle?: () => void;
-  onMainButtonClick?: () => void;
+  isOpen: boolean;
+  openIcon: React.ReactNode;
+  onToggle: () => void;
+  onMainButtonClick: () => void;
 }
 interface ActionData {
   name: string;

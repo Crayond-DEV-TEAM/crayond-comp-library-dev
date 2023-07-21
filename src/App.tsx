@@ -8,7 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
 import PrintIcon from '@mui/icons-material/Print';
 import SaveIcon from '@mui/icons-material/Save';
-import FabButton from './components/fabButton';
+import { FabButton } from './components/fabButton';
 import { Screen } from './components/screen';
 
 function App() {
@@ -39,7 +39,14 @@ function App() {
   ];
 
   return (
-    <div className="App" style={{ fontFamily: 'Poppins, sans-serif', width: '100vw', height: '100vh' }}>
+    <div
+      className="App"
+      style={{
+        fontFamily: 'Poppins, sans-serif',
+        width: '100vw',
+        height: '100vh',
+      }}
+    >
       <Screen
         containerStyle={{}}
         headerStyle={{}}
@@ -53,17 +60,12 @@ function App() {
         <FabButton
           direction="right"
           radius={60}
-          semicircle={true}
-          // actionsData={actionsData}
+          semicircle={false}
+          actionsData={actionsData}
           actionButtonStyle={{
             backgroundColor: '#fff',
           }}
-          buttonStyle={{
-            color: 'white',
-            backgroundColor: 'red',
-            width: '50px',
-            height: '50px',
-          }}
+          buttonStyle={{}}
           directionStyle={{ bottom: '10px' }}
           closeIcon={<CloseIcon />}
           openIcon={<AddIcon />}

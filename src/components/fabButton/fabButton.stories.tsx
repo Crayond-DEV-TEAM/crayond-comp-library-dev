@@ -1,10 +1,13 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import FabButton from './index';
+import CloseIcon from '@mui/icons-material/Close';
 import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
-import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
+import SaveIcon from '@mui/icons-material/Save';
 import ShareIcon from '@mui/icons-material/Share';
-import { SpeedDialIcon } from '@mui/material';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { FabButton } from './index';
+
+import AddIcon from '@mui/icons-material/Add';
+
 export default {
   title: 'CommonTable/FabButton',
   component: FabButton,
@@ -45,21 +48,16 @@ const actionsData = [
   },
 ];
 Primary.args = {
-  direction: 'left',
+  direction: 'right',
   radius: 60,
-  semicircle: true,
+  semicircle: false,
   actionsData: actionsData,
   actionButtonStyle: {
     backgroundColor: '#fff',
   },
-  buttonStyle: {
-    color: 'white',
-    '& .css-tdnsd2-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab': {
-      backgroundColor: 'red',
-      width: '50px',
-      height: '50px',
-    },
-  },
-  FabIcon: <SpeedDialIcon />,
-  leftDirection:  {right: '310px'},
+  buttonStyle: {},
+  directionStyle: { bottom: '10px' },
+  closeIcon: <CloseIcon />,
+  openIcon: <AddIcon />,
+  isOpen: false,
 };
