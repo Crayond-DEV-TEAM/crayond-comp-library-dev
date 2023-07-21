@@ -35,6 +35,17 @@ function App() {
           borderRadius=''
           placeholder=''
           ReactQuillProps={{}}
+          formatButtons={[
+            {
+              className:'ql-bold',
+              value:'bol'
+            },
+            {
+              className:'ql-italic',
+              value:'ital'
+            },
+            
+          ]}
            />
       </Box>
      
