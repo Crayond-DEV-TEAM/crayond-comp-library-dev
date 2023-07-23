@@ -196,4 +196,5 @@ Primary.args = {
   chipStyle: {},
   chipVariant: 'outlined',
   visibleSubList: 3,
+  badgeColor: 'secondary',
 };

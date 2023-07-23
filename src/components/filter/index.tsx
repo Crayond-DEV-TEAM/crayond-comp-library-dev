@@ -5,6 +5,7 @@ import {
 } from '@mui/icons-material';
 import CloseIcon from '@mui/icons-material/Close';
 import {
+  Badge,
   Box,
   Checkbox,
   Chip,
@@ -59,9 +60,11 @@ export const CustomFilter: React.FC<FilterComponentProps> = ({
   searchbarSize,
   checkboxStyle,
   chipVariant,
+  badgeColor,
 }) => {
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
   const [filteredCustomData, setFilteredCustomData] = useState([...customData]);
+  const [filterStatus, setFilterStatus] = useState(true);
   const [previousCustomData, setPreviousCustomData] =
     useState(filteredCustomData);
   const [unfilteredCustomData, setUnfilteredCustomData] = useState([
@@ -171,10 +174,16 @@ export const CustomFilter: React.FC<FilterComponentProps> = ({
   };
 
   const getResultData = (item: any) => {
+    const isAnySubItemSelected = unfilteredCustomData
+      .map((item) => item.subList.some((subItem) => subItem.selected))
+      .some((isSelected) => isSelected);
+    console.log(isAnySubItemSelected);
+    setFilterStatus(isAnySubItemSelected ? false : true);
     item.onClick(unfilteredCustomData, getClearState, setAnchorEl);
   };
 
   const getClearState = () => {
+    setFilterStatus(true);
     setPreviousCustomData((prevCustomData) => {
       const updatedCustomData = prevCustomData.map((item) => ({
         ...item,
@@ -192,7 +201,7 @@ export const CustomFilter: React.FC<FilterComponentProps> = ({
   }, [previousCustomData]);
 
   return (
-    <Box sx={{ ...rootStyle }}>
+    <Box sx={{ ...rootStyle, marginTop: 2 }}>
       <BasicButtons
         aria-describedby={id}
         variant="contained"
@@ -202,7 +211,9 @@ export const CustomFilter: React.FC<FilterComponentProps> = ({
           ...filterButtonStyle,
         }}
       >
-        {icon}
+        <Badge color={badgeColor} variant="dot" invisible={filterStatus}>
+          {icon}
+        </Badge>
       </BasicButtons>
       <Popover
         id={id}
@@ -497,4 +508,5 @@ CustomFilter.defaultProps = {
   searchbarSize: 'small',
   checkboxStyle: {},
   chipVariant: 'outlined',
+  badgeColor: 'primary',
 };

@@ -63,4 +63,5 @@ export interface FilterComponentProps {
   searchbarSize?: 'small' | 'medium';
   checkboxStyle?: SxProps;
   chipVariant?: 'filled' | 'outlined';
+  badgeColor: 'success' | 'primary' | 'secondary' | 'error';
 }
