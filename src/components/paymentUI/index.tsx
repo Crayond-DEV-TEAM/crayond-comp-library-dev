@@ -1,5 +1,4 @@
 import { Box, Grid, InputAdornment, SxProps, Typography } from '@mui/material';
-import moment from 'moment';
 import { useState } from 'react';
 import RuPayIcon from '../../assets/Rupay-Logo.png';
 import MasterCardIcon from '../../assets/masterCard.png';
@@ -33,7 +32,7 @@ export function PaymentUI(props: PaymentUIProps) {
     const maxLength = item.maxNumber;
     let slicedValue = '';
     if (typeof inputType !== 'string') {
-      slicedValue = e.format(item.dateFormat);
+      slicedValue = e;
     } else {
       const newValue = e.target.value;
       slicedValue = maxLength ? newValue.slice(0, Number(maxLength)) : newValue;
@@ -41,13 +40,7 @@ export function PaymentUI(props: PaymentUIProps) {
 
     const updatedItem = { ...item, value: slicedValue, error: false };
 
-    if (
-      item.inputType === 'input' &&
-      (item.label.toLowerCase().includes('credit /debit card number') ||
-        item.label.toLowerCase().includes('card number') ||
-        item.label.toLowerCase().includes('credit card number') ||
-        item.label.toLowerCase().includes('debit card number'))
-    ) {
+    if (item.inputDet === 'cardNumber') {
       if (slicedValue.length !== 16) {
         updatedItem.error = true;
         updatedItem.errorMessage = 'Please enter valid card number';
@@ -58,13 +51,10 @@ export function PaymentUI(props: PaymentUIProps) {
       setCardType(getCardType(slicedValue));
     }
 
-    if (
-      item.inputType === 'input' &&
-      item.label.toLowerCase().includes('cvv')
-    ) {
+    if (item.inputDet === 'cvv') {
       if (slicedValue.length !== 3) {
         updatedItem.error = true;
-        updatedItem.errorMessage = 'plese Enter valid CVV';
+        updatedItem.errorMessage = 'please Enter valid CVV';
       } else {
         updatedItem.error = false;
         updatedItem.errorMessage = '';
@@ -116,7 +106,7 @@ export function PaymentUI(props: PaymentUIProps) {
                     <img
                       src={cardImage}
                       alt="Card Type"
-                      style={{ width: '25px', height: 'auto' }}
+                      style={{ width: '41px', height: '24px' }}
                     />
                   </InputAdornment>
                 )}
@@ -154,12 +144,11 @@ export function PaymentUI(props: PaymentUIProps) {
             handleInputChange(e, item)
           }
           type={item.dateType}
-          place
-          value={moment(item.value).format(item.dateFormat)}
+          value={item.value}
           error={item.error}
           errorMessage={item.errorMessage}
           required={item.required}
-          format="MM / YYYY"
+          format={item.dateFormat}
         />
       );
     }

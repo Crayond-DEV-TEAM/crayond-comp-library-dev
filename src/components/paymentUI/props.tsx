@@ -6,7 +6,7 @@ export interface Item {
   labelStyle?: SxProps;
   inputStyle?: SxProps;
   selectOption?: { label: string; value: string }[];
-  value?: string | number;
+  value?: string | number | Date;
   error?: boolean;
   placeholder?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -19,7 +19,8 @@ export interface Item {
   dateType?: 'date' | 'dateAndTime';
   maxNumber?: Number | String;
   dateFormat?: String;
-  cardImage?:boolean;
+  cardImage?: boolean;
+  inputDet: 'cardNumber' | 'cvv' | 'text';
 }
 
 export interface PaymentUIProps {

@@ -15,7 +15,7 @@ function App() {
         xs: 6,
       },
       label: 'Credit /debit card Number',
-      cardImage:true,
+      cardImage: true,
       fullWidth: true,
       inputType: 'input',
       type: 'number',
@@ -23,7 +23,8 @@ function App() {
       maxNumber: 16,
       errorMessage: 'please Enter card Number',
       endAdornment: <DeleteIcon />,
-      required:true
+      required: true,
+      inputDet: 'cardNumber',
     },
     {
       breakpoints: {
@@ -37,7 +38,8 @@ function App() {
       inputType: 'input',
       value: '',
       errorMessage: 'please Enter Name',
-      required:true,
+      required: true,
+      inputDet: 'text',
     },
     {
       breakpoints: {
@@ -49,11 +51,12 @@ function App() {
       label: 'Month / Year',
       fullWidth: true,
       inputType: 'date',
-      dateFormat: 'MM-YYYY',
+      dateFormat: 'MM / YYYY',
       value: '',
       error: false,
       errorMessage: 'please select any value',
-      required:true
+      required: true,
+      inputDet: 'text',
     },
     {
       breakpoints: {
@@ -68,8 +71,9 @@ function App() {
       value: '',
       maxNumber: 3,
       errorMessage: 'please Enter Valid Cvv',
-      type:'number',
-      required:true
+      type: 'number',
+      required: true,
+      inputDet: 'cvv',
     },
   ];
 
@@ -86,7 +90,8 @@ function App() {
       value: '',
       fullWidth: true,
       errorMessage: 'please Enter First Name',
-      required:true
+      required: true,
+      inputDet: 'text',
     },
     {
       breakpoints: {
@@ -100,7 +105,8 @@ function App() {
       value: '',
       fullWidth: true,
       errorMessage: 'please Enter Last Name',
-      required:false
+      required: false,
+      inputDet: 'text',
     },
     {
       breakpoints: {
@@ -114,7 +120,8 @@ function App() {
       value: '',
       fullWidth: true,
       errorMessage: 'please Enter Address',
-      required:true
+      required: true,
+      inputDet: 'text',
     },
     {
       breakpoints: {
@@ -128,7 +135,8 @@ function App() {
       value: '',
       fullWidth: true,
       errorMessage: 'please Enter Address',
-      required:false
+      required: false,
+      inputDet: 'text',
     },
     {
       breakpoints: {
@@ -143,8 +151,8 @@ function App() {
       selectOption: [{ label: 'chennai', value: 'chennai' }],
       value: '',
       errorMessage: 'please select any value',
-      required:true
-      
+      required: true,
+      inputDet: 'text',
     },
     {
       breakpoints: {
@@ -159,8 +167,9 @@ function App() {
       value: '',
       inputType: 'input',
       errorMessage: 'please Enter Zip code/ Postal code',
-      required:true,
-      maxNumber:6
+      required: true,
+      maxNumber: 6,
+      inputDet: 'text',
     },
     {
       breakpoints: {
@@ -175,7 +184,8 @@ function App() {
       value: '',
       selectOption: [{ label: 'New York', value: 'New York' }],
       errorMessage: 'please select any value',
-      required:true
+      required: true,
+      inputDet: 'text',
     },
     {
       breakpoints: {
@@ -193,7 +203,8 @@ function App() {
         { label: 'IN', value: 'IN' },
       ],
       errorMessage: 'please select any value',
-      required:true
+      required: true,
+      inputDet: 'text',
     },
   ];
 
@@ -234,7 +245,6 @@ function App() {
         section={paymentSections}
         buttons={buttons}
         buttonContainerStyle={{}}
-      
       />
     </div>
   );
