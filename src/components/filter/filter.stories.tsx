@@ -14,7 +14,7 @@ const Template: ComponentStory<typeof CustomFilter> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  icon: <FunnelIcon color="#fff" width="36px" height="36px" />,
+  icon: <FunnelIcon color="#fff" width="16px" height="16px" />,
   customData: [
     {
       listName: 'Category',
@@ -196,5 +196,5 @@ Primary.args = {
   chipStyle: {},
   chipVariant: 'outlined',
   visibleSubList: 3,
-  badgeColor: 'secondary',
+  badgeColor:'secondary'
 };
