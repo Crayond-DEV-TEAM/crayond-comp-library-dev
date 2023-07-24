@@ -150,6 +150,7 @@ export function FabButton(props: FabButtonProps) {
           }
           open={
             (variant === 'hoverable' && hover) ||
+            (variant === 'hoverable' && semicircle && open) ||
             (variant === 'clickable' && open)
           }
           direction={direction}

@@ -60,7 +60,7 @@ function App() {
         <FabButton
           direction="right"
           radius={60}
-          semicircle={true}
+          semicircle={false}
           actionsData={actionsData}
           actionButtonStyle={{
             backgroundColor: '#fff',
