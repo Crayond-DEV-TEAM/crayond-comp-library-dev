@@ -4,9 +4,10 @@ import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
 import { useState } from 'react';
 import { SelectBoxComponent } from './components/selectBox';
+import CardPage from './components/cardPage';
+import sampleImage from './assets/loginImg.png';
 
 function App() {
-
   interface FilmOptionType {
     title: string;
     year: number;
@@ -23,9 +24,8 @@ function App() {
     { title: 'Option 3', year: 1974 },
     { title: 'Option 4', year: 2008 },
     { title: 'Option 5', year: 1957 },
-    { title: "Option 6", year: 1993 },
+    { title: 'Option 6', year: 1993 },
     { title: 'Option 7', year: 1994 },
-
   ];
 
   const CheckBoxData = [
@@ -62,49 +62,95 @@ function App() {
     },
   ];
 
-  const [checked, setChecked] = useState([])
-  const [checkedArr] = useState([...CheckBoxData])
-  const [defaultData, setDefaultData] = useState([])
-  const [groupedData, setGroupedData] = useState([])
-  const [chipData, setChipData] = useState([])
+  const buttons = [
+    {
+      text: 'Button',
+      onClick: () => {
+        console.log('Button 1');
+      },
+      style: { width: '78px' },
+    },
+    {
+      text: 'Button',
+      onClick: () => {
+        console.log('Button e');
+      },
+      style: { width: '78px' },
+    },
+  ];
+  const [checked, setChecked] = useState([]);
+  const [checkedArr] = useState([...CheckBoxData]);
+  const [defaultData, setDefaultData] = useState([]);
+  const [groupedData, setGroupedData] = useState([]);
+  const [chipData, setChipData] = useState([]);
 
   const handleCheckedItem = (event: object, newValue: CheckedOption[]) => {
-    const slicedData = newValue.length > 0 ? newValue?.filter((item: CheckedOption, index: number) =>
-      newValue.findIndex((obj: CheckedOption) =>
-        obj.title === item.title && obj.isChecked === item.isChecked) === index) : newValue
+    const slicedData =
+      newValue.length > 0
+        ? newValue?.filter(
+            (item: CheckedOption, index: number) =>
+              newValue.findIndex(
+                (obj: CheckedOption) =>
+                  obj.title === item.title && obj.isChecked === item.isChecked
+              ) === index
+          )
+        : newValue;
     const convertedValue = slicedData as never[];
 
     console.log(convertedValue, '00000');
 
-    setChecked(convertedValue)
-  }
+    setChecked(convertedValue);
+  };
 
   const handleDefaultChange = (val: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
-      newValue.findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index) : newValue
+    const slicedData =
+      newValue.length > 0
+        ? newValue.filter(
+            (item: FilmOptionType, index: number) =>
+              newValue.findIndex(
+                (obj: FilmOptionType) =>
+                  obj.title === item.title && obj.year === item.year
+              ) === index
+          )
+        : newValue;
     const convertedValue = slicedData as never[];
-    setDefaultData(convertedValue)
-  }
+    setDefaultData(convertedValue);
+  };
   const handleGroupChange = (event: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
-      newValue.findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index) : newValue
+    const slicedData =
+      newValue.length > 0
+        ? newValue.filter(
+            (item: FilmOptionType, index: number) =>
+              newValue.findIndex(
+                (obj: FilmOptionType) =>
+                  obj.title === item.title && obj.year === item.year
+              ) === index
+          )
+        : newValue;
     const convertedValue = slicedData as never[];
-    setGroupedData(convertedValue)
-  }
+    setGroupedData(convertedValue);
+  };
 
   const handleChipChange = (val: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
-      newValue.findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index) : newValue
+    const slicedData =
+      newValue.length > 0
+        ? newValue.filter(
+            (item: FilmOptionType, index: number) =>
+              newValue.findIndex(
+                (obj: FilmOptionType) =>
+                  obj.title === item.title && obj.year === item.year
+              ) === index
+          )
+        : newValue;
     const convertedValue = slicedData as never[];
-    setChipData(convertedValue)
-  }
-
+    setChipData(convertedValue);
+  };
 
   return (
-    <div className="App" style={{ width: '100vw', background: '#fff', height: '100vh' }}>
+    <div
+      className="App"
+      style={{ width: '100vw', background: '#fff', height: '100vh' }}
+    >
       <SelectBoxComponent
         limitTags={2}
         groupingProps={{
@@ -121,7 +167,7 @@ function App() {
             maxWidth: '',
             minWidth: '',
             backgroundColor: '',
-            color: ''
+            color: '',
           },
           input: {
             minHeight: '',
@@ -131,8 +177,8 @@ function App() {
             maxHeight: '',
             color: '',
             border: '',
-            borderRadius: ''
-          }
+            borderRadius: '',
+          },
         }}
         defaultProps={{
           isCloseIcon: true,
@@ -148,7 +194,7 @@ function App() {
             maxWidth: '',
             minWidth: '',
             backgroundColor: '',
-            color: ''
+            color: '',
           },
           input: {
             minHeight: '',
@@ -158,8 +204,8 @@ function App() {
             maxHeight: '',
             color: '',
             border: '',
-            borderRadius: ''
-          }
+            borderRadius: '',
+          },
         }}
         chipProps={{
           isCloseIcon: true,
@@ -175,7 +221,7 @@ function App() {
             maxWidth: '',
             minWidth: '',
             backgroundColor: '',
-            color: ''
+            color: '',
           },
           input: {
             minHeight: '',
@@ -185,8 +231,8 @@ function App() {
             maxHeight: '',
             color: '',
             border: '',
-            borderRadius: ''
-          }
+            borderRadius: '',
+          },
         }}
         checkboxProps={{
           isCloseIcon: true,
@@ -202,7 +248,7 @@ function App() {
             maxWidth: '',
             minWidth: '',
             backgroundColor: '',
-            color: ''
+            color: '',
           },
           input: {
             minHeight: '',
@@ -212,12 +258,15 @@ function App() {
             maxHeight: '',
             color: '',
             border: '',
-            borderRadius: ''
-          }
+            borderRadius: '',
+          },
         }}
-        selectType={'checkbox'} multiple={true} />
+        selectType={'checkbox'}
+        multiple={true}
+      />
+      <CardPage cardImage={sampleImage} buttons={buttons} />
     </div>
-  )
+  );
 }
 
 export default App;
