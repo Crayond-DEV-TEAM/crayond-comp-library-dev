@@ -105,7 +105,6 @@ function App() {
 
 
   const handleClick = (val: languageProps, index: number, parent: string) => {
-    debugger
     if (parent === 'allData') {
       setSelectedLang({
         ...selectedLang, allData: val
