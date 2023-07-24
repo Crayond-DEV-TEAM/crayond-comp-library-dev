@@ -1,9 +1,5 @@
 import { SxProps } from "@mui/material";
 
-interface EditorFormatButtons {
-    formats: ('ql-font' | 'ql-size' | 'ql-bold' | 'ql-italic' | 'ql-underline' | 'ql-strike' | 'ql-color' | 'ql-background' | 'ql-list' | 'ql-indent' | 'ql-script' | 'ql-header' | 'ql-blockquote' | 'ql-code-block' | 'ql-direction' | 'ql-align' | 'ql-link' | 'ql-image' | 'ql-video' | 'ql-formula')[];
-}
-
 export interface TextAreaProps {
     value: string,
     handleChange: (html: string) => void,
@@ -17,20 +13,6 @@ export interface TextAreaProps {
     background?: string;
     parentSx?: SxProps;
     reactQuillProps: ReactQuillProps;
-    formatButtons?: EditorFormatButtons;
-    state?: ({
-        className: string;
-        options: string[];
-        value?: undefined;
-    } | {
-        className: string;
-        value: string;
-        options?: undefined;
-    } | {
-        className: string;
-        options?: undefined;
-        value?: undefined;
-    })[]
     
 }
  interface RangeStatic {

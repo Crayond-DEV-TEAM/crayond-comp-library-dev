@@ -16,7 +16,6 @@ const Editor = (props: TextAreaProps) => {
         borderRadius,
         placeholder,
         reactQuillProps,
-        state
      } = props
 
     const modules = {
@@ -53,6 +52,7 @@ const Editor = (props: TextAreaProps) => {
                 minWidth: minWidth ? minWidth : '100%',
                 maxWidth: maxWidth ? maxWidth : '100%',
                 width: 'auto',
+                margin:'auto',
                 borderRadius: borderRadius ? borderRadius : '4px',
                 border: border ? border : '1px solid #E9E9E9 !important',
                 flexDirection: reverseToolbarSx ? 'column-reverse' : 'column',
@@ -98,7 +98,7 @@ const Editor = (props: TextAreaProps) => {
                     formats={formats}
                     {...reactQuillProps}
                 />
-                <CustomToolbar state={state} />
+                <CustomToolbar />
             </Box >
 
         </>

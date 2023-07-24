@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import formats from './components/toolbarOptions';
 
 
-
 export default function TextArea(props: TextAreaProps) {
   const {
     value,
@@ -20,17 +19,9 @@ export default function TextArea(props: TextAreaProps) {
     background,
     parentSx,
     reactQuillProps,
-    formatButtons,
   } = props;
 
   const [state, setState] = useState([...formats]);
-
-  useEffect(() =>{
-    const filteredArray = state.filter((val) => formatButtons?.formats?.includes(val?.className))
-    console.log(filteredArray, 'tempArray');
-    
-    setState(filteredArray)
-  },[])
 
   return (
     <Box sx={{
@@ -49,9 +40,8 @@ export default function TextArea(props: TextAreaProps) {
         reverseToolbarSx={reverseToolbarSx}
         inputHeight={inputHeight}
         placeholder={placeholder} 
-        reactQuillProps={reactQuillProps} 
-        formatButtons={formatButtons}    
-        state={state}     />
+        reactQuillProps={reactQuillProps}
+           />
     </Box>
   );
 }
