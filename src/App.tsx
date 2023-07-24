@@ -2018,6 +2018,11 @@ function App() {
         rootStyle={{ height: '100%', width: '100%' }}
       />
     </div>
+import '@fontsource/poppins/700.css';
+
+function App() {
+  return (
+    <div className="App" style={{ width: '100vw', height: '100vh' }}></div>
   );
 }
 
