@@ -3,20 +3,33 @@ import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
 import { TextArea } from './components/textArea';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box } from '@mui/material';
 
 function App() {
 
   const [text, setText] = useState("");
 
-  const handleChange = (html: React.SetStateAction<string>) => {
+
+  const handleChange = (html: string) => {
     setText(html);
   };
-
+  const formatButtons = {
+    formats: [
+      'ql-font',
+      'ql-size',
+      'ql-bold',
+      'ql-italic',
+      'ql-underline',
+      'ql-strike',
+      'ql-list',
+      'ql-script'
+    ]
+  }
+  
   return (
     <div className="App" style={{ width: '100vw', height: '100vh', background: 'white', }}>
-      <h1>{text}</h1>
+      {/* <h1>{text}</h1> */}
       <Box sx={{
         margin: 'auto',
         width: '70%',
@@ -24,6 +37,7 @@ function App() {
       }}>
         <TextArea
           handleChange={handleChange}
+          formatButtons={formatButtons}
           background=''
           parentSx={{}}
           value={text}
@@ -34,18 +48,7 @@ function App() {
           border=''
           borderRadius=''
           placeholder=''
-          ReactQuillProps={{}}
-          formatButtons={[
-            {
-              className:'ql-bold',
-              value:'bol'
-            },
-            {
-              className:'ql-italic',
-              value:'ital'
-            },
-            
-          ]}
+          reactQuillProps={{}}
            />
       </Box>
      

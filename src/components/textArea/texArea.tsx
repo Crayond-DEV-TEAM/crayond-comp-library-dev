@@ -1,6 +1,9 @@
 import { Box } from '@mui/material';
 import { TextAreaProps } from './props'
 import Editor from './components/editor';
+import { useEffect, useState } from "react";
+import formats from './components/toolbarOptions';
+
 
 
 export default function TextArea(props: TextAreaProps) {
@@ -15,8 +18,20 @@ export default function TextArea(props: TextAreaProps) {
     borderRadius,
     placeholder,
     background,
-    parentSx
+    parentSx,
+    reactQuillProps,
+    formatButtons,
   } = props;
+
+  const [state, setState] = useState([...formats]);
+
+  useEffect(() =>{
+    const filteredArray = state.filter((val) => formatButtons?.formats?.includes(val?.className))
+    console.log(filteredArray, 'tempArray');
+    
+    setState(filteredArray)
+  },[])
+
   return (
     <Box sx={{
       ...{background: background ? background : '#fff',
@@ -25,16 +40,18 @@ export default function TextArea(props: TextAreaProps) {
       ...parentSx
     }}>
         <Editor
-          value={value}
-          minWidth={minWidth}
-          borderRadius={borderRadius}
-          border={border}
-          maxWidth={maxWidth}
-          handleChange={handleChange}
-          reverseToolbarSx={reverseToolbarSx}
-          inputHeight={inputHeight} 
-          placeholder={placeholder}
-          />
+        value={value}
+        minWidth={minWidth}
+        borderRadius={borderRadius}
+        border={border}
+        maxWidth={maxWidth}
+        handleChange={handleChange}
+        reverseToolbarSx={reverseToolbarSx}
+        inputHeight={inputHeight}
+        placeholder={placeholder} 
+        reactQuillProps={reactQuillProps} 
+        formatButtons={formatButtons}    
+        state={state}     />
     </Box>
   );
 }
