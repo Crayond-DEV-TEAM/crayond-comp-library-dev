@@ -54,7 +54,7 @@ export function PaymentUI(props: PaymentUIProps) {
     if (item.inputDet === 'cvv') {
       if (slicedValue.length !== 3) {
         updatedItem.error = true;
-        updatedItem.errorMessage = 'please Enter valid CVV';
+        updatedItem.errorMessage = 'Please Enter valid CVV';
       } else {
         updatedItem.error = false;
         updatedItem.errorMessage = '';
@@ -106,7 +106,7 @@ export function PaymentUI(props: PaymentUIProps) {
                     <img
                       src={cardImage}
                       alt="Card Type"
-                      style={{ width: '41px', height: '24px' }}
+                      style={{ width: '28px', height: 'fit-content' }}
                     />
                   </InputAdornment>
                 )}
