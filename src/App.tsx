@@ -4,9 +4,10 @@ import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
 import { useState } from 'react';
 import { SelectBoxComponent } from './components/selectBox';
+import { Label } from './components/label';
+import { Link } from './components/link';
 
-function App() {
-
+const App: React.FC = () => {
   interface FilmOptionType {
     title: string;
     year: number;
@@ -23,9 +24,8 @@ function App() {
     { title: 'Option 3', year: 1974 },
     { title: 'Option 4', year: 2008 },
     { title: 'Option 5', year: 1957 },
-    { title: "Option 6", year: 1993 },
+    { title: 'Option 6', year: 1993 },
     { title: 'Option 7', year: 1994 },
-
   ];
 
   const CheckBoxData = [
@@ -62,162 +62,216 @@ function App() {
     },
   ];
 
-  const [checked, setChecked] = useState([])
-  const [checkedArr] = useState([...CheckBoxData])
-  const [defaultData, setDefaultData] = useState([])
-  const [groupedData, setGroupedData] = useState([])
-  const [chipData, setChipData] = useState([])
+  const [checked, setChecked] = useState([]);
+  const [checkedArr] = useState([...CheckBoxData]);
+  const [defaultData, setDefaultData] = useState([]);
+  const [groupedData, setGroupedData] = useState([]);
+  const [chipData, setChipData] = useState([]);
 
   const handleCheckedItem = (event: object, newValue: CheckedOption[]) => {
-    const slicedData = newValue.length > 0 ? newValue?.filter((item: CheckedOption, index: number) =>
-      newValue.findIndex((obj: CheckedOption) =>
-        obj.title === item.title && obj.isChecked === item.isChecked) === index) : newValue
+    const slicedData =
+      newValue.length > 0
+        ? newValue?.filter(
+            (item: CheckedOption, index: number) =>
+              newValue.findIndex(
+                (obj: CheckedOption) =>
+                  obj.title === item.title && obj.isChecked === item.isChecked
+              ) === index
+          )
+        : newValue;
     const convertedValue = slicedData as never[];
 
     console.log(convertedValue, '00000');
 
-    setChecked(convertedValue)
-  }
+    setChecked(convertedValue);
+  };
 
   const handleDefaultChange = (val: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
-      newValue.findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index) : newValue
+    const slicedData =
+      newValue.length > 0
+        ? newValue.filter(
+            (item: FilmOptionType, index: number) =>
+              newValue.findIndex(
+                (obj: FilmOptionType) =>
+                  obj.title === item.title && obj.year === item.year
+              ) === index
+          )
+        : newValue;
     const convertedValue = slicedData as never[];
-    setDefaultData(convertedValue)
-  }
+    setDefaultData(convertedValue);
+  };
+
   const handleGroupChange = (event: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
-      newValue.findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index) : newValue
+    const slicedData =
+      newValue.length > 0
+        ? newValue.filter(
+            (item: FilmOptionType, index: number) =>
+              newValue.findIndex(
+                (obj: FilmOptionType) =>
+                  obj.title === item.title && obj.year === item.year
+              ) === index
+          )
+        : newValue;
     const convertedValue = slicedData as never[];
-    setGroupedData(convertedValue)
-  }
+    setGroupedData(convertedValue);
+  };
 
   const handleChipChange = (val: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
-      newValue.findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index) : newValue
+    const slicedData =
+      newValue.length > 0
+        ? newValue.filter(
+            (item: FilmOptionType, index: number) =>
+              newValue.findIndex(
+                (obj: FilmOptionType) =>
+                  obj.title === item.title && obj.year === item.year
+              ) === index
+          )
+        : newValue;
     const convertedValue = slicedData as never[];
-    setChipData(convertedValue)
-  }
+    setChipData(convertedValue);
+  };
 
+  const consoling = () => {
+    console.log('label button clicked');
+  };
 
   return (
-    <div className="App" style={{ width: '100vw', background: '#fff', height: '100vh' }}>
-      <SelectBoxComponent
-        limitTags={2}
-        groupingProps={{
-          isCloseIcon: true,
-          isSearch: true,
-          handleGroupChange: handleGroupChange,
-          groupedData: groupedData,
-          arrData: top100Films,
-          defaultValue: [],
-          label: '',
-          dropdown: {
-            minHeight: '',
-            maxHeight: '',
-            maxWidth: '',
-            minWidth: '',
-            backgroundColor: '',
-            color: ''
-          },
-          input: {
-            minHeight: '',
-            minWidth: '',
-            backgroundColor: '',
-            maxWidth: '',
-            maxHeight: '',
-            color: '',
-            border: '',
-            borderRadius: ''
-          }
-        }}
-        defaultProps={{
-          isCloseIcon: true,
-          isSearch: true,
-          handleDefaultChange: handleDefaultChange,
-          defaultData: defaultData,
-          arrData: top100Films,
-          defaultValue: [],
-          label: '',
-          dropdown: {
-            minHeight: '',
-            maxHeight: '',
-            maxWidth: '',
-            minWidth: '',
-            backgroundColor: '',
-            color: ''
-          },
-          input: {
-            minHeight: '',
-            minWidth: '',
-            backgroundColor: '',
-            maxWidth: '',
-            maxHeight: '',
-            color: '',
-            border: '',
-            borderRadius: ''
-          }
-        }}
-        chipProps={{
-          isCloseIcon: true,
-          isSearch: true,
-          handleChipChange: handleChipChange,
-          chipData: chipData,
-          arrData: top100Films,
-          defaultValue: [],
-          label: '',
-          dropdown: {
-            minHeight: '',
-            maxHeight: '',
-            maxWidth: '',
-            minWidth: '',
-            backgroundColor: '',
-            color: ''
-          },
-          input: {
-            minHeight: '',
-            minWidth: '',
-            backgroundColor: '',
-            maxWidth: '',
-            maxHeight: '',
-            color: '',
-            border: '',
-            borderRadius: ''
-          }
-        }}
-        checkboxProps={{
-          isCloseIcon: true,
-          isSearch: true,
-          defaultValue: [],
-          handleCheckedItem: handleCheckedItem,
-          CheckableData: checked,
-          arrData: checkedArr,
-          label: '',
-          dropdown: {
-            minHeight: '',
-            maxHeight: '',
-            maxWidth: '',
-            minWidth: '',
-            backgroundColor: '',
-            color: ''
-          },
-          input: {
-            minHeight: '',
-            minWidth: '',
-            backgroundColor: '',
-            maxWidth: '',
-            maxHeight: '',
-            color: '',
-            border: '',
-            borderRadius: ''
-          }
-        }}
-        selectType={'checkbox'} multiple={true} />
-    </div>
-  )
-}
+    <>
+      <div>
+        <SelectBoxComponent
+          limitTags={2}
+          groupingProps={{
+            isCloseIcon: true,
+            isSearch: true,
+            handleGroupChange: handleGroupChange,
+            groupedData: groupedData,
+            arrData: top100Films,
+            defaultValue: [],
+            label: '',
+            dropdown: {
+              minHeight: '',
+              maxHeight: '',
+              maxWidth: '',
+              minWidth: '',
+              backgroundColor: '',
+              color: '',
+            },
+            input: {
+              minHeight: '',
+              minWidth: '',
+              backgroundColor: '',
+              maxWidth: '',
+              maxHeight: '',
+              color: '',
+              border: '',
+              borderRadius: '',
+            },
+          }}
+          defaultProps={{
+            isCloseIcon: true,
+            isSearch: true,
+            handleDefaultChange: handleDefaultChange,
+            defaultData: defaultData,
+            arrData: top100Films,
+            defaultValue: [],
+            label: '',
+            dropdown: {
+              minHeight: '',
+              maxHeight: '',
+              maxWidth: '',
+              minWidth: '',
+              backgroundColor: '',
+              color: '',
+            },
+            input: {
+              minHeight: '',
+              minWidth: '',
+              backgroundColor: '',
+              maxWidth: '',
+              maxHeight: '',
+              color: '',
+              border: '',
+              borderRadius: '',
+            },
+          }}
+          chipProps={{
+            isCloseIcon: true,
+            isSearch: true,
+            handleChipChange: handleChipChange,
+            chipData: chipData,
+            arrData: top100Films,
+            defaultValue: [],
+            label: '',
+            dropdown: {
+              minHeight: '',
+              maxHeight: '',
+              maxWidth: '',
+              minWidth: '',
+              backgroundColor: '',
+              color: '',
+            },
+            input: {
+              minHeight: '',
+              minWidth: '',
+              backgroundColor: '',
+              maxWidth: '',
+              maxHeight: '',
+              color: '',
+              border: '',
+              borderRadius: '',
+            },
+          }}
+          checkboxProps={{
+            isCloseIcon: true,
+            isSearch: true,
+            defaultValue: [],
+            handleCheckedItem: handleCheckedItem,
+            CheckableData: checked,
+            arrData: checkedArr,
+            label: '',
+            dropdown: {
+              minHeight: '',
+              maxHeight: '',
+              maxWidth: '',
+              minWidth: '',
+              backgroundColor: '',
+              color: '',
+            },
+            input: {
+              minHeight: '',
+              minWidth: '',
+              backgroundColor: '',
+              maxWidth: '',
+              maxHeight: '',
+              color: '',
+              border: '',
+              borderRadius: '',
+            },
+          }}
+          selectType={'checkbox'}
+          multiple={true}
+        />
+      </div>
+
+      <div>
+        <Label
+          color="white"
+          bgColor="black"
+          label="Label component"
+          onClickFun={() => consoling()}
+        />
+      </div> 
+
+      <div>
+        <Link
+          id="3"
+          label="View"
+          viewHandel={() => consoling()}
+          rowData={undefined}
+        />
+      </div>
+    </>
+  );
+};
 
 export default App;
