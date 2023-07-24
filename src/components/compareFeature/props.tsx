@@ -21,14 +21,14 @@ export interface CompareFeatureProps {
     Starter?: React.ReactNode;
     Personal?: React.ReactNode;
     Professional?: React.ReactNode;
-    style?:React.CSSProperties;
+    style?:SxProps;
   }[];
   
   columnData: {
     id: number;
     key?:string;
     title?: string;
-    style?:React.CSSProperties;
+    style?:SxProps;
 
   }[];
 }
