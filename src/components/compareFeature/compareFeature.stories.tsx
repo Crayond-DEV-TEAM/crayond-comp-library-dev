@@ -82,9 +82,7 @@ Primary.argTypes = {
   compareRowTitleStyle: {
     description: 'object',
   },
-  iconRootStyle: {
-    description: 'object',
-  },
+
   tableRootStyle: {
     description: 'object',
   },
@@ -112,7 +110,6 @@ Primary.args = {
   compareRowTitleSize: 12,
   compareRowTitleStyle: {},
 
-  iconRootStyle: {},
   rowBorderColor: '',
   tableRootStyle: {},
   rowData:columnData,

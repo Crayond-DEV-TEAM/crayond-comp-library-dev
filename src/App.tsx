@@ -76,7 +76,6 @@ function App() {
         compareRowTitleColor={''}
         compareRowTitleSize={12}
         compareRowTitleStyle={{}}
-        iconRootStyle={{}}
         rowBorderColor={''}
         tableRootStyle={{}}
         columnData={columnData}

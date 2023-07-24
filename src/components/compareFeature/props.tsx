@@ -12,7 +12,6 @@ export interface CompareFeatureProps {
   compareRowTitleSize?: 12;
   compareRowTitleStyle?: SxProps;
 
-  iconRootStyle?: SxProps;
   rowBorderColor?: string;
   tableRootStyle?:SxProps;
 
