@@ -4,11 +4,15 @@ export const view_styles = {
     columnGap: '40px',
     // flexWrap: 'wrap',
     rowGap: '20px',
-    minWidth:"100%",
+    minWidth: '100%',
+    padding: '10px',
+    '@media (max-width:560px)': {
+      justifyContent: 'center',
+    },
   },
 
   cardContainer: {
-    minWidth: ' 350px',
+    maxWidth: ' 350px',
     background: '#F1F1F1',
     height: '637px',
     padding: '16px',

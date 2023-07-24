@@ -12,6 +12,7 @@ const Template: ComponentStory<typeof KanbanView> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
+  
   cardContainerStyle: {},
   cardRootStyle: {},
   bottomButtonStyle: {},
@@ -26,11 +27,12 @@ Primary.args = {
   handleAddNewButton: () => {
     alert('handleAddNewButton');
   },
-  cardContainerData: [
-    { title: 'Progress' },
-    { title: 'Pending' },
-    { title: 'Completed' },
+   cardContainerData :[
+    { title: 'Progress', orderNumber: 1 },
+    { title: 'Pending', orderNumber: 2 },
+    { title: 'Completed', orderNumber:3 },
   ],
+  
   cardData: [
     {
       id: 1,

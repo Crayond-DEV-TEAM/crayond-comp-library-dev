@@ -82,7 +82,7 @@ const CardContainer = (props: ContainerProps) => {
             onClick={handleAddNewButton}
           >
             <span style={{ marginTop: '5px' }}>
-              <img src="/add-Todo.svg" alt="noti" />
+              <img src="/add-Todo.svg" alt="button" />
             </span>
             <span style={{ color: '#665CD7' }}>{buttonName}</span>
           </Box>

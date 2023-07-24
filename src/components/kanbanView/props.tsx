@@ -1,6 +1,7 @@
 import { SxProps } from '@mui/material';
 
 export interface DragProps {
+  
   cardRootStyle: SxProps;
   childCardStyle: SxProps;
   cardContainerStyle: SxProps;
@@ -10,7 +11,7 @@ export interface DragProps {
   handleClickNotifyIcon: () => void;
   handleClickMoreIcon: () => void;
   handleAddNewButton: () => void;
-  cardContainerData: { title: string }[];
+  cardContainerData: { title: string ,orderNumber:number}[];
   cardData: {
     id: number;
     title: string;

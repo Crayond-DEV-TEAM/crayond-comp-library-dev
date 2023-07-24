@@ -1,8 +1,8 @@
-import { Box } from '@mui/material';
+import { Grid } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import CardContainer from './cardContainer';
-import { view_styles } from './styles';
 import { DragProps, cardDataProp } from './props';
+import { view_styles } from './styles';
 
 const KanbanView = (props: DragProps) => {
   const {
@@ -21,7 +21,6 @@ const KanbanView = (props: DragProps) => {
   const [create, setCreate] = useState<any>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [isDropped, setIsDropped] = useState({ status: '' });
-  const [position, setPosition] = useState({ x: 0, y: 0 });
   const [fromIndex, setFromIndex] = useState(0);
   const [hoverId, setHoverId] = useState(0);
 
@@ -77,6 +76,9 @@ const KanbanView = (props: DragProps) => {
     evt.currentTarget.classList.add('dragged');
     let styles = evt.currentTarget.style;
     let childStyles = evt.target.children[0];
+    styles.opacity=1;
+    styles.backgroundColor="#FFFF"
+    styles.width="250px !important"
 
     setFromIndex(index);
     setIsDragging(true);
@@ -143,33 +145,38 @@ const KanbanView = (props: DragProps) => {
   }, []);
   return (
     <>
-      <Box sx={{ ...view_styles.rootStyle, ...cardRootStyle }}>
+      <Grid
+        container
+        sx={{ ...view_styles.rootStyle, ...cardRootStyle }}
+      >
         {cardContainerData.map((container) => (
-          <CardContainer
-            childItems={getChildItemUsingType(container?.title)}
-            containerData={container}
-            childCardStyle={childCardStyle}
-            bottomButtonStyle={bottomButtonStyle}
-            containerTitleStyle={containerTitleStyle}
-            cardContainerStyle={cardContainerStyle}
-            childCardComponentStyle={childCardComponentStyle}
-            isDragging={isDragging}
-            isDropped={isDropped}
-            onDragStart={onDragStart}
-            onDragEnd={onDragEnd}
-            onDragEnter={handleOnDragEnter}
-            onDragLeave={handleOnDragLeave}
-            onDrop={onDrop}
-            onDragOver={onDragOver}
-            onDragHoverChildCard={onDragHoverChildCard}
-            handleClickNotifyIcon={handleClickNotifyIcon}
-            handleClickMoreIcon={handleClickMoreIcon}
-            handleAddNewButton={handleAddNewButton}
-            key={container?.title}
-            hoverId={hoverId}
-          />
+          <Grid item order ={container?.orderNumber}>
+            <CardContainer
+              childItems={getChildItemUsingType(container?.title)}
+              containerData={container}
+              childCardStyle={childCardStyle}
+              bottomButtonStyle={bottomButtonStyle}
+              containerTitleStyle={containerTitleStyle}
+              cardContainerStyle={cardContainerStyle}
+              childCardComponentStyle={childCardComponentStyle}
+              isDragging={isDragging}
+              isDropped={isDropped}
+              onDragStart={onDragStart}
+              onDragEnd={onDragEnd}
+              onDragEnter={handleOnDragEnter}
+              onDragLeave={handleOnDragLeave}
+              onDrop={onDrop}
+              onDragOver={onDragOver}
+              onDragHoverChildCard={onDragHoverChildCard}
+              handleClickNotifyIcon={handleClickNotifyIcon}
+              handleClickMoreIcon={handleClickMoreIcon}
+              handleAddNewButton={handleAddNewButton}
+              key={container?.title}
+              hoverId={hoverId}
+            />
+          </Grid>
         ))}
-      </Box>
+      </Grid>
     </>
   );
 };

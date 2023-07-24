@@ -5,16 +5,17 @@ import '@fontsource/poppins/700.css';
 import KanbanView from './components/kanbanView/kanbanView';
 
 const cardContainerData = [
-  { title: 'Progress' },
-  { title: 'Pending' },
-  { title: 'Completed' },
+  { title: 'Progress', orderNumber: 1 },
+  { title: 'Pending', orderNumber: 2 },
+  { title: 'Completed', orderNumber: 3 },
 ];
+
 const cardData = [
   {
     id: 1,
     title: 'title1',
     status: 'Progress',
-    cardTitle: 'Progress Create Components',
+    cardTitle: 'Progress Create Components..1',
     isActive: true,
     notifyIcon: <img src="/notifi.svg" alt="notify" />,
     moreIcon: <img src="/more.svg" alt="more" />,
@@ -42,7 +43,7 @@ const cardData = [
     id: 2,
     title: 'title2',
     status: 'Progress',
-    cardTitle: 'Progress Create Components',
+    cardTitle: 'Progress Create Components...2',
     isActive: true,
     notifyIcon: <img src="/activeNotify.svg" alt="notify" />,
     moreIcon: <img src="/more.svg" alt="more" />,
@@ -70,7 +71,7 @@ const cardData = [
     id: 3,
     title: 'title3',
     status: 'Progress',
-    cardTitle: 'Progress Create Components',
+    cardTitle: 'Progress Create Components...3',
     isActive: true,
     notifyIcon: <img src="/notifi.svg" alt="notify" />,
     moreIcon: <img src="/more.svg" alt="more" />,
@@ -98,7 +99,7 @@ const cardData = [
     id: 4,
     title: 'title1',
     status: 'Pending',
-    cardTitle: 'Pending Create Components',
+    cardTitle: 'Pending Create Components...1',
     isActive: true,
     notifyIcon: <img src="/activeNotify.svg" alt="notify" />,
     moreIcon: <img src="/more.svg" alt="more" />,
@@ -126,7 +127,7 @@ const cardData = [
     id: 5,
     title: 'title2',
     status: 'Pending',
-    cardTitle: 'Pending Create Components',
+    cardTitle: 'Pending Create Components...2',
     isActive: true,
     notifyIcon: <img src="/notifi.svg" alt="notify" />,
     moreIcon: <img src="/more.svg" alt="more" />,
@@ -154,7 +155,7 @@ const cardData = [
     id: 6,
     title: 'title2',
     status: 'Pending',
-    cardTitle: ' Pending Create Components',
+    cardTitle: ' Pending Create Components...3',
     isActive: true,
     notifyIcon: <img src="/notifi.svg" alt="notify" />,
     moreIcon: <img src="/more.svg" alt="more" />,
@@ -182,7 +183,7 @@ const cardData = [
     id: 7,
     title: 'title1',
     status: 'Completed',
-    cardTitle: 'Completed Create Components',
+    cardTitle: 'Completed Create Components...1',
     isActive: true,
     notifyIcon: <img src="/notifi.svg" alt="notify" />,
     moreIcon: <img src="/more.svg" alt="more" />,
@@ -210,7 +211,7 @@ const cardData = [
     id: 8,
     title: 'title2',
     status: 'Completed',
-    cardTitle: 'Completed Create Components',
+    cardTitle: 'Completed Create Components...2',
     isActive: true,
     notifyIcon: <img src="/activeNotify.svg" alt="notify" />,
     moreIcon: <img src="/more.svg" alt="more" />,
@@ -238,7 +239,7 @@ const cardData = [
     id: 9,
     title: 'title3',
     status: 'Completed',
-    cardTitle: 'Completed Create Components',
+    cardTitle: 'Completed Create Components...3',
     isActive: true,
     notifyIcon: <img src="/activeNotify.svg" alt="notify" />,
     moreIcon: <img src="/more.svg" alt="more" />,
@@ -267,8 +268,7 @@ const cardData = [
 function App() {
   return (
     <>
-      <div style={{ height: '100vh', width: '100vh', background: '#ffff' }}>
-        <h2>Kamban view</h2>
+      <div style={{ height: '100vh', width: '100vw', background: '#ffff' }}>
         <KanbanView cardData={cardData} cardContainerData={cardContainerData} />
       </div>
     </>
