@@ -5,7 +5,7 @@ import '@fontsource/poppins/700.css';
 import { Viewer } from './components/viewer';
 import DeleteIcon from './assets/deleteIcon';
 import profileImg from './assets/sampleprof.png';
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import CompanyLogo from './assets/companyLogo.png';
 import loginImg from './assets/loginImg.png';
@@ -19,133 +19,118 @@ import DocsIcon from './assets/docsIcon';
 import EditIcon from './assets/editIcon';
 import NotificationIcon from './assets/notificationIcon';
 import AlertIcon from './assets/alertIcon';
-import { Button } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { ProfileThree } from './components/profileThree';
 import yup from './utils/yupSchema';
 import { Screen } from './components/screen';
 import LinearProcess from './components/linearProgress/linearProgress';
+import { CustomButtonGroup } from './components/buttonGroup';
+import { CustomRating } from './components/rating';
+import SmilyHeart from './assets/smily_heart';
+import SmilyHeartDisabled from './assets/smily_heart_disabled';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import StarIcon from '@mui/icons-material/Star';
 
 function App() {
-  const [isSelectedAll, setIsSelectedAll] = React.useState(false);
-  const [selectedCheckbox, setSelectedCheckbox] = React.useState([1, 2]);
-  const [switchList, setSwitchList] = React.useState([1, 4]);
-  const [headerSelect, setHederSelect] = React.useState('');
-  const [headerCheckbox, setHederCheckbox] = React.useState(true);
-  const [alertOpen, setAlertOpen] = React.useState(false);
-  const [isDataMask, setIsDataMask] = React.useState(false);
-  const checkboxHandleChange = (data: any) => {
-    if (!selectedCheckbox.includes(data)) {
-      setSelectedCheckbox([...selectedCheckbox, data]);
-    } else {
-      const index = selectedCheckbox.indexOf(data);
-      if (index > -1) {
-        selectedCheckbox.splice(index, 1);
-        setSelectedCheckbox([...selectedCheckbox]);
-      }
-    }
-  };
-  const setHederSearch = (value: any) => {
-    console.log('🚀 ~ file: App.tsx:31 ~ setHederSearch ~ value:', value);
-  };
-  const SelectAll = (data: any | undefined, isRestSet: boolean | undefined) => {
-    if (!isRestSet) {
-      setSelectedCheckbox([...data]);
-      setIsSelectedAll(true);
-    } else {
-      setSelectedCheckbox([]);
-      setIsSelectedAll(false);
-    }
-  };
-  const handleSwitch = (id: any) => {
-    if (!switchList.includes(id)) {
-      setSwitchList([...switchList, id]);
-    } else {
-      const index = switchList.indexOf(id);
-      if (index > -1) {
-        switchList.splice(index, 1);
-        setSwitchList([...switchList]);
-      }
-    }
-  };
-  const downloadMethod = (e: Event) => {
-    console.log('Download Method working!', e);
-  };
-  const fillerMethod = () => {
-    setIsDataMask(!isDataMask);
-    console.log('Filter Method working!');
-  };
-  const primaryBtnMethod = () => {
-    console.log('primary Btn Method working!');
-  };
-  const secondaryBtnMethod = () => {
-    console.log('secondary Btn Method working!');
-  };
 
-  /// for profile
+  interface FilmOptionType {
+    title: string;
+    year: number;
+  }
 
-  // const formList = [
-  //   {
-  //     type: 'title',
-  //     containerStyle: {},
-  //     gridStyle: {},
-  //     breakPoint: {
-  //       xs: 12,
-  //       sm: 6,
-  //       md: 6,
-  //       lg: 6,
-  //       lx: 6,
-  //     },
-  //   },
-  //   // {
-  //   //   type: 'input',
-  //   //   containerStyle:{},
-  //   //   gridStyle:{},
-  //   //   breakPoint:{
-  //   //     xs:12,
-  //   //     sm:12,
-  //   //     md:6,
-  //   //     lg:6,
-  //   //     lx:6
-  //   //   },
-  //   // },
-  //   // {
-  //   //   type: 'date',
-  //   // },
-  //   // {
-  //   //   type: 'dateAndTime',
-  //   // },
-  // ];
+  interface CheckedOption {
+    title: string;
+    isChecked: boolean;
+  }
 
-  // const profileProps = {
-  //   formList:formList
-  // }
-  const [isEdit, setIsEdit] = React.useState(true);
-  const onSubmitFun = (data: object) => {
-    console.log('🚀 ~ file: App.tsx:121 ~ onSubmitBtn ~ data:', data);
-    // if (isEdit) {
-    //   if (formValidator3()) {
-    //     setIsEdit(false);
-    //   }
-    // } else {
-    //   setIsEdit(true);
-    // }
-  };
-  const img =
-    'https://loveshayariimages.in/wp-content/uploads/2022/08/dp-pic-whatsapp-150x150.jpg';
-  const [profile, setProfile] = React.useState(img);
-  const uploadProfile = (event: any) => {
-    console.log(
-      event.target.files,
-      '🚀 ~ file: App.tsx:133 ~ uploadProfile ~ event:',
-      URL.createObjectURL(event.target.files[0])
-    );
-    setProfile(URL.createObjectURL(event.target.files[0]));
-  };
-  const deleteProfile = () => {
-    setProfile('');
-  };
+  const top100Films = [
+    { title: 'Option 1', year: 1994 },
+    { title: 'Option 2', year: 1972 },
+    { title: 'Option 3', year: 1974 },
+    { title: 'Option 4', year: 2008 },
+    { title: 'Option 5', year: 1957 },
+    { title: "Option 6", year: 1993 },
+    { title: 'Option 7', year: 1994 },
+
+  ];
+
+  const CheckBoxData = [
+    { title: 'The Shawshank Redemption', isChecked: false },
+    { title: 'The Godfather', isChecked: false },
+    { title: 'The Godfather: Part II', isChecked: false },
+    { title: 'The Dark Knight', isChecked: false },
+    { title: '12 Angry Men', isChecked: false },
+    { title: "Schindler's List", isChecked: false },
+    { title: 'Pulp Fiction', isChecked: false },
+    {
+      title: 'The Lord of the Rings: The Return of the King',
+      isChecked: false,
+    },
+    { title: 'The Good, the Bad and the Ugly', isChecked: false },
+    { title: 'Fight Club', isChecked: false },
+    {
+      title: 'The Lord of the Rings: The Fellowship of the Ring',
+      isChecked: false,
+    },
+    {
+      title: 'Star Wars: Episode V - The Empire Strikes Back',
+      isChecked: false,
+    },
+    { title: 'Forrest Gump', isChecked: false },
+    { title: 'Inception', isChecked: false },
+    { title: "One Flew Over the Cuckoo's Nest", isChecked: false },
+    { title: 'Goodfellas', isChecked: false },
+    { title: 'The Matrix', isChecked: false },
+    { title: 'Seven Samurai', isChecked: false },
+    {
+      title: 'Star Wars: Episode IV - A New Hope',
+      isChecked: false,
+    },
+  ];
+
+  const [checked, setChecked] = useState([])
+  const [checkedArr] = useState([...CheckBoxData])
+  const [defaultData, setDefaultData] = useState([])
+  const [groupedData, setGroupedData] = useState([])
+  const [chipData, setChipData] = useState([])
+
+  const handleCheckedItem = (event: object, newValue: CheckedOption[]) => {
+    const slicedData = newValue.length > 0 ? newValue?.filter((item: CheckedOption, index: number) =>
+      newValue.findIndex((obj: CheckedOption) =>
+        obj.title === item.title && obj.isChecked === item.isChecked) === index) : newValue
+    const convertedValue = slicedData as never[];
+
+    console.log(convertedValue, '00000');
+
+    setChecked(convertedValue)
+  }
+
+  const handleDefaultChange = (val: any, newValue: FilmOptionType[]) => {
+    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
+      newValue.findIndex((obj: FilmOptionType) =>
+        obj.title === item.title && obj.year === item.year) === index) : newValue
+    const convertedValue = slicedData as never[];
+    setDefaultData(convertedValue)
+  }
+  const handleGroupChange = (event: any, newValue: FilmOptionType[]) => {
+    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
+      newValue.findIndex((obj: FilmOptionType) =>
+        obj.title === item.title && obj.year === item.year) === index) : newValue
+    const convertedValue = slicedData as never[];
+    setGroupedData(convertedValue)
+  }
+
+  const handleChipChange = (val: any, newValue: FilmOptionType[]) => {
+    const slicedData = newValue.length > 0 ? newValue.filter((item: FilmOptionType, index: number) =>
+      newValue.findIndex((obj: FilmOptionType) =>
+        obj.title === item.title && obj.year === item.year) === index) : newValue
+    const convertedValue = slicedData as never[];
+    setChipData(convertedValue)
+  }
+
 
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -185,6 +170,70 @@ function App() {
       .email('Please enter valid email')
       .required('Please enter email'),
   });
+
+  const buttons = [
+    { label: 'Button 1', value: 1, startIcon: <FcGoogle />, isdisabled: false },
+    { label: 'Button 2', value: 2, isdisabled: false },
+    { label: 'Button 3', value: 3, isdisabled: false },
+  ];
+  const handleButtonChange = (e: any, value: any) => {
+    console.log(e, value, 'value');
+  };
+  const customIcons = [
+    {
+      SelectIcon: <SmilyHeart />,
+      unSelectIcon: <SmilyHeartDisabled />,
+      label: 'Totally wrong',
+      value: 0,
+    },
+    {
+      SelectIcon: <SmilyHeart />,
+      unSelectIcon: <SmilyHeartDisabled />,
+      label: 'Not liked it',
+      value: 0,
+    },
+    {
+      SelectIcon: <SmilyHeart />,
+      unSelectIcon: <SmilyHeartDisabled />,
+      label: 'Average',
+      value: 0,
+    },
+    {
+      SelectIcon: <SmilyHeart />,
+      unSelectIcon: <SmilyHeartDisabled />,
+      label: 'Liked it',
+      value: 0,
+    },
+    {
+      SelectIcon: <SmilyHeart />,
+      unSelectIcon: <SmilyHeartDisabled />,
+      label: 'Loved it',
+      value: 0,
+    },
+  ];
+
+  const styledRating = [
+    {
+      filled: <FavoriteIcon />,
+      unFilled: <FavoriteBorderIcon />,
+      starValue: 0.5,
+      remark: '100',
+      maximumIcon: 5,
+    },
+    {
+      filled: <StarIcon style={{ color: 'red' }} />,
+      unFilled: (
+        <StarIcon
+          style={{ color: 'green', opacity: 0.55 }}
+          fontSize="inherit"
+        />
+      ),
+      starValue: 3.5,
+      remark: '200 Reviews',
+      maximumIcon: 8,
+    },
+  ];
+
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
       <div
@@ -193,14 +242,58 @@ function App() {
         <LinearProcess />
       </div>
       {/* <Screen
-       containerStyle={{}}
-       headerStyle={{}}
-       bodyStyle={{}}
-       footerStyle={{}}
-       headerComponent={<>Header</>}
-       bodyComponent={<>Body</>}
-       footerComponent={<>Footer</>}
+        containerStyle={{}}
+        headerStyle={{}}
+        bodyStyle={{}}
+        footerStyle={{}}
+        headerComponent={<>Header</>}
+        bodyComponent={<>Body</>}
+        footerComponent={<>Footer</>}
       /> */}
+
+      <CustomButtonGroup
+        buttons={buttons}
+        onClick={handleButtonChange}
+        variant="contained"
+        size="medium"
+        disabled={false}
+        selectedColor="#fff"
+        unselectBgColor={'#665CD7'}
+        selectedBgColor={'#4B42B8'}
+        color="#fff"
+        btnStyle={{
+          '&:hover': {
+            opacity: 1,
+          },
+          borderRadius: '4px',
+        }}
+      />
+
+      <Box sx={{ mt: 2 }}>
+        <CustomRating
+          customIcons={customIcons}
+          variant="star"
+          styledRating={styledRating}
+          remarkStyle={{}}
+          selectedLabelStyle={{}}
+          emojiContainerStyle={{}}
+          onMouseEnter={(index: number) => {
+            console.log(index);
+          }}
+          onMouseLeave={(index: number) => {
+            console.log(index);
+          }}
+          onClick={(data) => {
+            console.log(data);
+          }}
+          isReadOnly={false}
+          isLabelVisible={true}
+          children={<BasicButtons />}
+          childrenStyle={{ m: 3 }}
+          precision={0.5}
+        />
+      </Box>
+
       {/* <CommonTable
         Header={[
           {
@@ -210,921 +303,43 @@ function App() {
             label: 'Sl No',
             isSortable: true,
           },
-          {
-            id: 'checkbox',
-            align: 'left',
-            disablePadding: false,
-            label: 'Select',
-            variant: 'CHECKBOX',
-            isSortable: false,
-          },
-          {
-            id: 'name',
-            align: 'left',
-            disablePadding: false,
-            label: 'Dessert',
-            isSortable: true,
-          },
-          {
-            id: 'calories',
-            align: 'left',
-            disablePadding: false,
-            label: 'Calories',
-            isSortable: true,
-          },
-          {
-            id: 'fat',
-            align: 'left',
-            disablePadding: false,
-            label: 'Fat (g)',
-            isSortable: true,
-          },
-          {
-            id: 'carbs',
-            align: 'left',
-            disablePadding: false,
-            label: 'Carbs (g)',
-            isSortable: true,
-          },
-          {
-            id: 'protein',
-            align: 'left',
-            disablePadding: false,
-            label: 'Protein (g)',
-            isSortable: true,
-          },
-          {
-            id: 'profile',
-            align: 'center',
-            disablePadding: false,
-            label: 'Profile',
-            isSortable: false,
-          },
-          {
-            id: 'overall_progress',
-            align: 'left',
-            disablePadding: false,
-            label: 'Overall Progress',
-            isSortable: true,
-          },
-          {
-            id: 'production',
-            align: 'left',
-            disablePadding: false,
-            label: 'Production',
-            isSortable: false,
-          },
-          {
-            id: 'status',
-            align: 'left',
-            disablePadding: false,
-            label: 'Status',
-            isSortable: false,
-          },
-          {
-            id: 'performance',
-            align: 'center',
-            disablePadding: false,
-            label: 'Performance',
-            isSortable: false,
-          },
-          {
-            id: 'signals',
-            align: 'center',
-            disablePadding: false,
-            label: 'Signals',
-            isSortable: false,
-          },
-          {
-            id: 'reporting_to',
-            align: 'center',
-            disablePadding: false,
-            label: 'Reporting to',
-            isSortable: false,
-          },
-          {
-            id: 'global_rating',
-            align: 'center',
-            disablePadding: false,
-            label: 'Global Rating',
-            isSortable: false,
-          },
-          {
-            id: 'growth',
-            align: 'center',
-            disablePadding: false,
-            label: 'Growth',
-            isSortable: false,
-          },
-          {
-            id: 'experience',
-            align: 'center',
-            disablePadding: false,
-            label: 'Experience',
-            isSortable: false,
-          },
-          {
-            id: 'link',
-            align: 'center',
-            disablePadding: false,
-            label: 'Link',
-            isSortable: false,
-          },
-          {
-            id: 'custom',
-            align: 'center',
-            disablePadding: false,
-            label: 'Custom',
-            isSortable: false,
-          },
-
-          {
-            id: 'alert_type',
-            align: 'center',
-            disablePadding: false,
-            label: 'Alert Type',
-            isSortable: false,
-          },
-          {
-            id: 'password',
-            align: 'left',
-            disablePadding: false,
-            label: 'Password',
-            isSortable: false,
-          },
-          {
-            id: 'response',
-            align: 'left',
-            disablePadding: false,
-            label: 'Response',
-            isSortable: false,
-          },
-          {
-            id: 'action',
-            align: 'center',
-            disablePadding: false,
-            label: 'Action',
-            isSortable: false,
-          },
-        ]}
-        dataList={[
-          {
-            id: 1,
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            profile: {
-              // image: 'sample.jpg',
-              label: 'Hariharan',
-            },
-            overall_progress: '45',
-            production: [{
-              label: 'Sufficient',
-              color: '#7692cc',
-              bgColor: '#e2eafa',
-              onClickFun:()=>console.log("Label clicked")
-            },
-            {
-              label: 'Insufficient',
-              color: '#AE7330',
-              bgColor: '#FCEDDD',
-            },
-            {
-              label: 'Insufficient',
-              color: '#AE7330',
-              bgColor: '#FCEDDD',
-            }
-          ],
-            status: true,
-            performance: 'Completely away',
-            signals: [
-              {
-                name: 'Hari',
-                label: 'Excelent',
-                color: '#007C32',
-              },
-              {
-                name: 'Anbu',
-                label: 'Very Good',
-                color: '#4C9E29',
-              },
-              {
-                name: 'Ram',
-                label: 'Good',
-                color: '#F2B824',
-              },
-              {
-                name: 'Babu',
-                label: 'Good',
-                color: '#F2EB24',
-              },
-              {
-                name: 'S',
-                label: 'Bad',
-                color: '#DE1010',
-              },
-            ],
-            reporting_to: [
-              {
-                image: 'sample.jpg',
-                label: 'Hariharan',
-              },
-              {
-                image: 'sample.jpg',
-                label: 'Ram',
-              },
-              {
-                image: 'sample.jpg',
-                label: 'Hariharan',
-              },
-              {
-                image: 'sample.jpg',
-                label: 'Babu',
-              },
-              {
-                image: 'sample.jpg',
-                label: 'Siva',
-              },
-            ],
-            global_rating: 4,
-            growth: {
-              value: 2.5,
-              variant: 'POSITIVE',
-            },
-            experience: '2023-03-15T18:43:21.055Z',
-            custom: <BasicButtons>Button 1</BasicButtons>,
-            alert_type: {
-              label: 'Filter',
-              color: '#7692cc',
-              bgColor: '#e2eafa',
-              icon: <FunnelIcon />,
-            },
-            response: {
-              label: 'sent',
-              icon: <FunnelIcon />,
-            },
-            password: '23456789087654dfds',
-          },
-          {
-            id: 2,
-            name: 'cake',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile: {
-              image: 'sample.jpg',
-              label: 'Hari Ram',
-            },
-            overall_progress: '35',
-            production: [{
-              label: 'Sufficient',
-              color: '#7692cc',
-              bgColor: '#e2eafa',
-              onClickFun:()=>console.log("Label clicked")
-            },
-            {
-              label: 'Insufficient',
-              color: '#AE7330',
-              bgColor: '#FCEDDD',
-            }
-          ],
-            status: false,
-            performance: 'Need to improve a lot',
-            signals: [
-              {
-                name: 'Hari',
-                label: 'Excelent',
-                color: '#007C32',
-              },
-              {
-                name: 'Ram',
-                label: 'Good',
-                color: '#F2B824',
-              },
-              {
-                name: 'Anbu',
-                label: 'Very Good',
-                color: '#4C9E29',
-              },
-              {
-                name: 'S',
-                label: 'Bad',
-                color: '#DE1010',
-              },
-              {
-                name: 'Babu',
-                label: 'Good',
-                color: '#F2EB24',
-              },
-            ],
-            reporting_to: [
-              {
-                image: 'sample.jpg',
-                label: 'Ram',
-              },
-              {
-                image: 'sample.jpg',
-                label: 'Hariharan',
-              },
-              {
-                image: 'sample.jpg',
-                label: 'Hariharan',
-              },
-              {
-                image: 'sample.jpg',
-                label: 'Siva',
-              },
-            ],
-            global_rating: 3,
-            growth: {
-              value: 0.5,
-              variant: 'NEGATIVE',
-            },
-            experience: '2023-03-05T18:43:21.055Z',
-            custom: <BasicButtons>Button 2</BasicButtons>,
-            alert_type: {
-              label: 'Insufficient',
-              color: '#AE7330',
-              bgColor: '#FCEDDD',
-              icon: <FunnelIcon />,
-            },
-            response: {
-              label: 'sent',
-              icon: <FunnelIcon />,
-            },
-            password: 'dsufasuyawe7632908r78',
-          },
-          {
-            id: 3,
-            name: 'T',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile: {
-              image: 'sample.jpg',
-              label: 'Siva',
-            },
-            overall_progress: '67',
-            production: [{
-              label: 'Sufficient',
-              color: '#7692cc',
-              bgColor: '#e2eafa',
-              onClickFun:()=>console.log("Label clicked")
-            },
-            {
-              label: 'Insufficient',
-              color: '#AE7330',
-              bgColor: '#FCEDDD',
-            }
-          ],
-            status: true,
-            performance: 'Impactful',
-            signals: [
-              {
-                name: 'S',
-                label: 'Bad',
-                color: '#DE1010',
-              },
-              {
-                name: 'Ram',
-                label: 'Good',
-                color: '#F2B824',
-              },
-              {
-                name: 'Anbu',
-                label: 'Very Good',
-                color: '#4C9E29',
-              },
-              {
-                name: 'Hari',
-                label: 'Excelent',
-                color: '#007C32',
-              },
-              {
-                name: 'Babu',
-                label: 'Good',
-                color: '#F2EB24',
-              },
-            ],
-            reporting_to: [
-              {
-                image: 'sample.jpg',
-                label: 'Siva',
-              },
-              {
-                image: 'sample.jpg',
-                label: 'Ram',
-              },
-              {
-                image: 'sample.jpg',
-                label: 'Hariharan',
-              },
-            ],
-            global_rating: 1,
-            growth: {
-              value: 0.1,
-              variant: 'NEGATIVE',
-            },
-            experience: '2022-01-15T18:43:21.055Z',
-            custom: <BasicButtons>Button 3</BasicButtons>,
-            alert_type: {
-              label: 'Delete',
-              color: '#F44F5A',
-              bgColor: '#FCCACD',
-              icon: <DeleteIcon />,
-            },
-            response: {
-              label: 'Not Delivered',
-              icon: <DeleteIcon />,
-            },
-            password: '64528327asdjkfdsjads89087654dfds',
-          },
-          {
-            id: 4,
-            name: 'Pie',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile: {
-              image: 'sample.jpg',
-              label: 'Kumar',
-            },
-            overall_progress: '98',
-            production: [{
-              label: 'Sufficient',
-              color: '#7692cc',
-              bgColor: '#e2eafa',
-              onClickFun:()=>console.log("Label clicked")
-            },
-            {
-              label: 'Insufficient',
-              color: '#AE7330',
-              bgColor: '#FCEDDD',
-            }
-          ],
-            status: false,
-            performance: 'Need to improve',
-            signals: [
-              {
-                name: 'S',
-                label: 'Bad',
-                color: '#DE1010',
-              },
-              {
-                name: 'Babu',
-                label: 'Good',
-                color: '#F2EB24',
-              },
-              {
-                name: 'Anbu',
-                label: 'Very Good',
-                color: '#4C9E29',
-              },
-              {
-                name: 'Hari',
-                label: 'Excelent',
-                color: '#007C32',
-              },
-              {
-                name: 'Ram',
-                label: 'Good',
-                color: '#F2B824',
-              },
-            ],
-            reporting_to: [
-              {
-                image: 'sample.jpg',
-                label: 'Ram',
-              },
-              {
-                image: 'sample.jpg',
-                label: 'Hariharan',
-              },
-            ],
-            global_rating: 3.5,
-            growth: {
-              value: 3.2,
-              variant: 'POSITIVE',
-            },
-            experience: '2023-01-11T18:43:21.055Z',
-            custom: <BasicButtons>Button 4</BasicButtons>,
-            alert_type: {
-              label: 'Edit',
-              color: '#6f6f6f',
-              bgColor: '#DEDEDE',
-              icon: <EditIcon />,
-            },
-            response: {
-              label: 'sent',
-              icon: <FunnelIcon />,
-            },
-            password: 'KJGKJDGKYWT^&*^&',
-          },
-          {
-            id: 5,
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3,
-            profile: {
-              image: 'sample.jpg',
-              label: 'Hariharan',
-            },
-            overall_progress: '45',
-            production: [{
-              label: 'Sufficient',
-              color: '#7692cc',
-              bgColor: '#e2eafa',
-              onClickFun:()=>console.log("Label clicked")
-            },
-            {
-              label: 'Insufficient',
-              color: '#AE7330',
-              bgColor: '#FCEDDD',
-            }
-          ],
-            status: true,
-            performance: 'Good',
-            signals: [
-              {
-                name: 'Hari',
-                label: 'Excelent',
-                color: '#007C32',
-              },
-              {
-                name: 'Ram',
-                label: 'Good',
-                color: '#F2B824',
-              },
-              {
-                name: 'Anbu',
-                label: 'Very Good',
-                color: '#4C9E29',
-              },
-              {
-                name: 'S',
-                label: 'Bad',
-                color: '#DE1010',
-              },
-              {
-                name: 'Babu',
-                label: 'Good',
-                color: '#F2EB24',
-              },
-            ],
-            reporting_to: [
-              {
-                image: 'sample.jpg',
-                label: 'Hariharan',
-              },
-            ],
-            global_rating: 4.5,
-            growth: {
-              value: 1.2,
-              variant: 'POSITIVE',
-            },
-            experience: '2023-02-25T18:43:21.055Z',
-            custom: <BasicButtons>Button 5</BasicButtons>,
-            alert_type: {
-              label: 'Delete',
-              color: '#F44F5A',
-              bgColor: '#FCCACD',
-              icon: <DeleteIcon />,
-            },
-            response: {
-              label: 'sent',
-              icon: <FunnelIcon />,
-            },
-            password: '23456789ey087654dfds',
-          },
-          {
-            id: 6,
-            name: 'cake',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile: {
-              image: 'sample.jpg',
-              label: 'Hari Ram',
-            },
-            overall_progress: '35',
-            production: [{
-              label: 'Sufficient',
-              color: '#7692cc',
-              bgColor: '#e2eafa',
-              onClickFun:()=>console.log("Label clicked")
-            },
-            {
-              label: 'Insufficient',
-              color: '#AE7330',
-              bgColor: '#FCEDDD',
-            }
-          ],
-            status: false,
-            performance: 'Very Good',
-            signals: [
-              {
-                name: 'Hari',
-                label: 'Excelent',
-                color: '#007C32',
-              },
-              {
-                name: 'Anbu',
-                label: 'Very Good',
-                color: '#4C9E29',
-              },
-              {
-                name: 'Ram',
-                label: 'Good',
-                color: '#F2B824',
-              },
-              {
-                name: 'Babu',
-                label: 'Good',
-                color: '#F2EB24',
-              },
-              {
-                name: 'S',
-                label: 'Bad',
-                color: '#DE1010',
-              },
-            ],
-            reporting_to: [
-              {
-                image: 'sample.jpg',
-                label: 'Hariharan',
-              },
-            ],
-            global_rating: 4,
-            growth: {
-              value: 0.74,
-              variant: 'NEGATIVE',
-            },
-            experience: '2022-12-15T18:43:21.055Z',
-            custom: <BasicButtons>Button 6</BasicButtons>,
-            alert_type: {
-              label: 'Delete',
-              color: '#F44F5A',
-              bgColor: '#FCCACD',
-              icon: <DeleteIcon />,
-            },
-            response: {
-              label: 'sent',
-              icon: <FunnelIcon />,
-            },
-            password: 'sadsdsadsadsasdsdd',
-          },
-          {
-            id: 7,
-            name: 'T',
-            calories: 5,
-            fat: 7,
-            carbs: 167,
-            protein: 34.3,
-            profile: {
-              image: 'sample.jpg',
-              label: 'Siva',
-            },
-            overall_progress: '67',
-            production: [{
-              label: 'Sufficient',
-              color: '#7692cc',
-              bgColor: '#e2eafa',
-              onClickFun:()=>console.log("Label clicked")
-            },
-            {
-              label: 'Insufficient',
-              color: '#AE7330',
-              bgColor: '#FCEDDD',
-            }
-          ],
-            status: true,
-            performance: 'Spectacular',
-            signals: [
-              {
-                name: 'Hari',
-                label: 'Excelent',
-                color: '#007C32',
-              },
-              {
-                name: 'Ram',
-                label: 'Good',
-                color: '#F2B824',
-              },
-              {
-                name: 'Anbu',
-                label: 'Very Good',
-                color: '#4C9E29',
-              },
-              {
-                name: 'S',
-                label: 'Bad',
-                color: '#DE1010',
-              },
-              {
-                name: 'Babu',
-                label: 'Good',
-                color: '#F2EB24',
-              },
-            ],
-            reporting_to: [
-              {
-                image: 'sample.jpg',
-                label: 'Hari Ram',
-              },
-              {
-                image: 'sample.jpg',
-                label: 'Hariharan',
-              },
-            ],
-            global_rating: 2,
-            growth: {
-              value: 0.63,
-              variant: 'NEGATIVE',
-            },
-            experience: '2022-06-02T18:43:21.055Z',
-            custom: <BasicButtons>Button 7</BasicButtons>,
-            alert_type: {
-              label: 'Delete',
-              color: '#F44F5A',
-              bgColor: '#FCCACD',
-              icon: <DeleteIcon />,
-            },
-            response: {
-              label: 'sent',
-              icon: <FunnelIcon />,
-            },
-            password: 'asdfhaselkf98wer',
-          },
-        ]}
-        tableData={[
-          { type: ['INCREMENT'], name: 'id', width: 100 },
-          { type: ['CHECKBOX'], name: 'checkbox' },
-          { type: ['TEXT'], name: 'name', width: 30 },
-          { type: ['TEXT'], name: 'calories' },
-          { type: ['TEXT'], name: 'fat' },
-          { type: ['TEXT'], name: 'carbs' },
-          { type: ['TEXT'], name: 'protein' },
-          { type: ['IMAGE_WITH_LABEL'], name: 'profile', variant: 'circular' },
-          { type: ['PROGRESS'], name: 'overall_progress', width: 200 },
-          { type: ['LABEL'], name: 'production' },
-          {
-            type: ['SWITCH'],
-            name: 'status',
-            switchText: [{ label_1: 'No', label_2: 'Yes' }],
-          },
-          { type: ['PERFORMANCE'], name: 'performance' },
-          { type: ['AVATAR_NAME'], name: 'signals' },
-          {
-            type: ['IMAGE_WITH_PROFILES'],
-            name: 'reporting_to',
-            variant: 'circular',
-          },
-          { type: ['STAR_RATING'], name: 'global_rating' },
-          { type: ['GROWTH'], name: 'growth' },
-          { type: ['DATE'], name: 'experience', format: 'YYYY MMM DD' },
-          {
-            type: ['LINK'],
-            name: 'link',
-            label: 'view',
-            viewHandel: (id: string | number, rowData: object, e: Event) => {
-              console.log(id, rowData, e);
-            },
-          },
-          { type: ['CUSTOM'], name: 'custom' },
-          { type: ['ICON_WITH_LABEL'], name: 'alert_type' },
-          { type: ['MASK_DATA'], name: 'password', maskText: '*', width: 150 },
-          { type: ['ICON_WITH_TEXT'], name: 'response' },
-          {
-            type: ['ACTION'],
-            name: 'action',
-            variant: [
-              {
-                icon: <EditIcon />,
-                method: (id: string | number, rowData: object, e: Event) => {
-                  console.log(id, rowData, e);
-                },
-              },
-              {
-                icon: <DeleteIcon width={'16px'} height={'16px'} />,
-                method: (id: string | number, rowData: object, e: Event) => {
-                  console.log(id, rowData, e);
-                },
-              },
-              {
-                icon: <NotificationIcon />,
-                method: (id: string | number, rowData: object, e: Event) => {
-                  console.log(id, rowData, e);
-                },
-              },
-            ],
-          },
-        ]}
-        headerOptions={{
-          fontSize: '16px',
-          fontWeight: '500',
-          color: '#818181',
-          bgColor: '#EAEAEA',
-          borderBottom: '0px solid #E6E6E6',
-          padding: '12px',
+          input: {
+            minHeight: '',
+            minWidth: '',
+            backgroundColor: '',
+            maxWidth: '',
+            maxHeight: '',
+            color: '',
+            border: '',
+            borderRadius: ''
+          }
         }}
-        rowOptions={{
-          rowOddBgColor: '#fff',
-          rowEvenBgColor: '#F7F7F7',
-        }}
-        cellOptions={{
-          fontSize: '16px',
-          fontWeight: '500',
-          color: '#353448',
-          // bgColor: '#fff',
-          borderBottom: '0px solid #E6E6E6',
-          padding: '12px',
-        }}
-        paginationOption={{
-          isEnable: true,
-          rowPerPage: 5,
-          rowsPerPageOptions: [5, 10, 25],
-        }}
-        tableBackground={'#ffffff'}
-        selectedCheckbox={selectedCheckbox}
-        switchList={switchList}
-        checkboxHandleChange={checkboxHandleChange}
-        setSelectedCheckbox={setSelectedCheckbox}
-        SelectAll={SelectAll}
-        isSelectedAll={isSelectedAll}
-        handleSwitch={handleSwitch}
-        tableMinWidth={'3350px'}
-        tableMinHeight={'365px'}
-        tableMaxHeight={'365px'}
-        // tableMaxWidth={'500px'}
-        tableName={'Team Member'}
-        paddingAll={'0px'}
-        padding={['1px', '1px', '1px', '1px']}
-        marginAll={'0px'}
-        margin={['0px', '1px', '0px', '1px']}
-        tableBorderRadius={'12px'}
-        dense={'medium'}
-        isDataMask={isDataMask}
-        noDataFound={{
-          fontSize: '16px',
-          fontWeight: '600',
-          color: '#353448',
-          bgColor: '#F7F7F7',
-          text: 'No Data Found',
-          component: null,
-        }}
-        stickyOptions={{
-          stickyHeader: true,
-          stickyLeft: ['id', 'checkbox'],
-          stickyRight: ['action', 'response'],
-        }}
-        alertOptions={{
-          isEnable: true,
-          alertOpen: alertOpen,
-          setAlertOpen: setAlertOpen,
-          title: 'Are you sure, would you like to deactivate?',
-          description: '',
-          primaryText: 'Yes',
-          secondaryText: 'No',
-          icon: <AlertIcon />,
-        }}
-        HeaderComponent={{
-          variant: 1,
-          styles: {
-            padding: '10px 0',
-            margin: '0',
+        defaultProps={{
+          isCloseIcon: true,
+          isSearch: true,
+          handleDefaultChange: handleDefaultChange,
+          defaultData: defaultData,
+          arrData: top100Films,
+          defaultValue: [],
+          label: '',
+          dropdown: {
+            minHeight: '',
+            maxHeight: '',
+            maxWidth: '',
+            minWidth: '',
+            backgroundColor: '',
+            color: ''
           },
-          headerSelect: headerSelect,
-          setHederSelect: setHederSelect,
-          searchPlaceholder: 'Search',
-          selectOption: [
-            {
-              label: 'Status',
-              value: '',
-            },
-            {
-              label: 'Active',
-              value: 'active',
-            },
-            {
-              label: 'Inactive',
-              value: 'inactive',
-            },
-          ],
-          setHederSearch: setHederSearch,
-          deleteIcon: <DeleteIcon />,
-          downloadIcon: <DownloadIcon />,
-          funnelIcon: <FunnelIcon />,
-          searchIcon: <SearchIcon />,
-          fillerMethod: fillerMethod,
-          downloadMethod: downloadMethod,
+          input: {
+            minHeight: '',
+            minWidth: '',
+            backgroundColor: '',
+            maxWidth: '',
+            maxHeight: '',
+            color: '',
+            border: '',
+            borderRadius: ''
+          }
         }}
         // HeaderComponent={{
         //   variant: 2,
@@ -1413,9 +628,7 @@ function App() {
           btnList: [
             {
               buttonText: 'Edit',
-              onClick: () => {
-                console.log('Edit');
-              },
+              onClick: () => { console.log('Edit') },
               breakPoint: {
                 xs: 12,
                 sm: 12,
@@ -1423,12 +636,14 @@ function App() {
                 lg: 12,
                 lx: 12,
               },
-              btnStyle: { width: '100%', backgroundColor: '#665CD7' },
-              btnListConStyle: { mt: 3 },
+              btnStyle: { width: '100%' ,backgroundColor:'#665CD7'},
+              btnListConStyle: { mt: 3 }
             },
           ],
+
         }}
       />
+     
 
       <ProfileThree
         isEditMode={isEdit}
@@ -1439,7 +654,7 @@ function App() {
             fontWeight: '600',
             color: '#11111199',
           },
-          icon: <DocsIcon color="#665Cff" />,
+          icon: <DocsIcon color='#665Cff' />,
         }}
         uploadOptions={{
           imgScr: profile,
@@ -1466,11 +681,11 @@ function App() {
           cancelButton: {
             visible: true,
             title: 'Cancel',
-            onClick: (data: object) => console.log(data),
+            onClick: (data: object) =>console.log(data),
             sx: {},
-            variant: 'outlined',
+            variant:"outlined"
           },
-          customButton: {
+          customButton: { 
             component: <></>,
           },
           yupSchemaValidation: formSchema,
@@ -1497,308 +712,13 @@ function App() {
                 lg: 12,
                 lx: 12,
               },
-              inputProps: {
-                value: 'Basic Details',
-                sx: {
-                  fontSize: '16px',
-                  color: '#111111',
-                  fontWeight: '500',
-                  margin: '0 0 8px 0',
-                },
-              },
-            },
-            {
-              type: 'input',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'First Name',
-                name: 'firstName',
-                labelVariant: 'standard',
-                // rules: {
-                //   required: 'Please enter First name',
-                //   minLength: {
-                //     value: 5,
-                //     message: 'min length is 4',
-                //   },
-                //   maxLength: {
-                //     value: 15,
-                //     message: 'min length is 14',
-                //   },
-                // },
-              },
-            },
-            {
-              type: 'input',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'Last Name',
-                name: 'lastName',
-                labelVariant: 'standard',
-                rules: {
-                  required: 'Please enter Last name',
-                  minLength: {
-                    value: 5,
-                    message: 'min length is 4',
-                  },
-                  maxLength: {
-                    value: 15,
-                    message: 'min length is 14',
-                  },
-                },
-              },
-            },
-            {
-              type: 'date',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'DOB',
-                name: 'dob',
-                labelVariant: 'standard',
-                rules: {
-                  required: 'Please enter DOB',
-                },
-                inputFormat: 'dd-MM-yyyy',
-                // components:{
-                //   OpenPickerIcon: <DocsIcon/>
-                // },
-              },
-            },
-            {
-              type: 'chipSelect',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                label: 'Gender',
-                name: 'gender',
-                labelVariant: 'standard',
-                rules: {
-                  required: 'Please enter Gender',
-                },
-                options: [
-                  { label: 'Male', value: 'Male' },
-                  { label: 'Female', value: 'Female' },
-                  { label: 'Others', value: 'Others' },
-                ],
-              },
-            },
-            {
-              type: 'dropDown',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'Designation',
-                name: 'designation',
-                labelVariant: 'standard',
-                rules: {
-                  required: 'Please enter Designation',
-                },
-                selectOption: [
-                  { label: 'Developer', value: 'Developer' },
-                  { label: 'Designer', value: 'Designer' },
-                  { label: 'designation', value: 'designation' },
-                ],
-              },
-            },
-            {
-              type: 'heading',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 12,
-                md: 12,
-                lg: 12,
-                lx: 12,
-              },
-              inputProps: {
-                value: 'Contact Information',
-                sx: {
-                  fontSize: '16px',
-                  color: '#111111',
-                  fontWeight: '500',
-                  margin: '18px 0 8px 0',
-                },
-              },
-            },
-            {
-              type: 'mobileNumberInput',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                label: 'Mobile Number',
-                name: 'mobileNumber',
-                labelVariant: 'standard',
-                required: true,
-                // rules: {
-                // required: 'Please enter Designation',
-                // minLength: {
-                //   value: 5,
-                //   message: 'min length is 4',
-                // },
-                // maxLength: {
-                //   value: 15,
-                //   message: 'min length is 14',
-                // },
-                // },
-                // error:true,
-                // errorMessage: 'Please enter Mobile number',
-              },
-            },
-            {
-              type: 'input',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'Email ID',
-                name: 'email',
-                labelVariant: 'standard',
-                rules: {
-                  required: 'Please enter Email',
-                  minLength: {
-                    value: 5,
-                    message: 'min length is 4',
-                  },
-                  maxLength: {
-                    value: 15,
-                    message: 'min length is 14',
-                  },
-                },
-                errorMessage: 'Please enter Email Id',
-              },
-            },
-            {
-              type: 'input',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'Address Line 1',
-                name: 'address1',
-                labelVariant: 'standard',
-                rules: {
-                  required: 'Please enter Address 1',
-                  minLength: {
-                    value: 5,
-                    message: 'min length is 4',
-                  },
-                  maxLength: {
-                    value: 15,
-                    message: 'min length is 14',
-                  },
-                },
-                errorMessage: 'Please enter Address Line 1',
-              },
-            },
-            {
-              type: 'input',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              inputProps: {
-                type: 'text',
-                label: 'Address Line 2',
-                name: 'address2',
-                labelVariant: 'standard',
-                rules: {
-                  required: 'Please enter Address 2',
-                  minLength: {
-                    value: 5,
-                    message: 'min length is 4',
-                  },
-                  maxLength: {
-                    value: 15,
-                    message: 'min length is 14',
-                  },
-                },
-                errorMessage: 'Please enter Address Line 2',
-              },
-            },
-            {
-              type: 'custom',
-              containerStyle: {},
-              gridStyle: {},
-              breakPoint: {
-                xs: 12,
-                sm: 6,
-                md: 6,
-                lg: 6,
-                lx: 6,
-              },
-              component: <BasicButtons>Custom Com</BasicButtons>,
+              btnStyle: { width: '100%', backgroundColor: '#665CD7' },
+              btnListConStyle: { mt: 3 },
             },
           ],
         }}
       />
+
       <SignupScreen
         option="mobileNumberSignup"
         sectionOne={{
@@ -2064,7 +984,7 @@ function App() {
         rootStyle={{ height: '100%', width: '100%' }}
       />
     </div>
-  );
+  )
 }
 
 export default App;
