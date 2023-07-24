@@ -1,5 +1,6 @@
 
-export interface ButtonProps  {
+export interface ButtonProps {
+  label?: String;
   id?: any,
   type?: "button" | "submit" | "reset",
   name?: string | "button",
@@ -13,4 +14,7 @@ export interface ButtonProps  {
   disabled?: boolean,
   bgColor?:string,
   href: string
+  startIcon?:React.ReactNode;
+  endIcon?:React.ReactNode;
+  component?:string;
 };
