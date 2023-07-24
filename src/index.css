@@ -90,23 +90,3 @@ button:focus-visible {
     border-image: none !important;
   }
 }
-
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  border-radius: 10px;
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.23); 
-  border-radius: 10px;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(146, 151, 165, 1); 
-}

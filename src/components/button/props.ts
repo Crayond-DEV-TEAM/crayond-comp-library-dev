@@ -1,6 +1,5 @@
 
 export interface ButtonProps {
-  label?: String;
   id?: any,
   type?: "button" | "submit" | "reset",
   name?: string | "button",
