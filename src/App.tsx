@@ -25,6 +25,7 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import { ProfileThree } from './components/profileThree';
 import yup from './utils/yupSchema';
 import { Screen } from './components/screen';
+import LinearProcess from './components/linearProgress/linearProgress';
 import { CustomButtonGroup } from './components/buttonGroup';
 import { CustomRating } from './components/rating';
 import SmilyHeart from './assets/smily_heart';
@@ -235,7 +236,12 @@ function App() {
 
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
-      <Screen
+      <div
+        style={{ height: '30%', backgroundColor: '#ffff', paddingTop: '10%' }}
+      >
+        <LinearProcess />
+      </div>
+      {/* <Screen
         containerStyle={{}}
         headerStyle={{}}
         bodyStyle={{}}
@@ -243,7 +249,7 @@ function App() {
         headerComponent={<>Header</>}
         bodyComponent={<>Body</>}
         footerComponent={<>Footer</>}
-      />
+      /> */}
 
       <CustomButtonGroup
         buttons={buttons}
@@ -622,9 +628,83 @@ function App() {
           btnList: [
             {
               buttonText: 'Edit',
-              onClick: () => {
-                console.log('Edit');
+              onClick: () => { console.log('Edit') },
+              breakPoint: {
+                xs: 12,
+                sm: 12,
+                md: 12,
+                lg: 12,
+                lx: 12,
               },
+              btnStyle: { width: '100%' ,backgroundColor:'#665CD7'},
+              btnListConStyle: { mt: 3 }
+            },
+          ],
+
+        }}
+      />
+     
+
+      <ProfileThree
+        isEditMode={isEdit}
+        titleOptions={{
+          title: 'My Profile',
+          sxProps: {
+            fontSize: '16px',
+            fontWeight: '600',
+            color: '#11111199',
+          },
+          icon: <DocsIcon color='#665Cff' />,
+        }}
+        uploadOptions={{
+          imgScr: profile,
+          buttonEnabled: true,
+          deleteProfile: deleteProfile,
+          uploadProfile: uploadProfile,
+          variant: 'rounded',
+        }}
+        afterProfileComponent={<>Custom Component here...</>}
+        overallSxProps={{
+          backgroundColor: '#DAE8FC',
+          padding: '20px 0',
+        }}
+        cardSxProps={{}}
+        gridContainerProps={{ columnSpacing: 3, spacing: 0 }}
+        renderForm={{
+          formButtonContainerStyle: {},
+          submitButton: {
+            visible: true,
+            title: 'Save',
+            onClick: (data: object) => onSubmitFun(data),
+            sx: {},
+          },
+          cancelButton: {
+            visible: true,
+            title: 'Cancel',
+            onClick: (data: object) =>console.log(data),
+            sx: {},
+            variant:"outlined"
+          },
+          customButton: { 
+            component: <></>,
+          },
+          yupSchemaValidation: formSchema,
+          defaultValues: {
+            address1: 'My Address 1',
+            address2: 'My Address 2',
+            designation: 'Developer',
+            email: 'hari@gmail.co',
+            dob: '12/06/2022',
+            firstName: 'Hari',
+            gender: 'Male',
+            lastName: 'Haran',
+            mobileNumber: { mobile: '845678906789', mobile_code: '+91' },
+          },
+          formList: [
+            {
+              type: 'heading',
+              containerStyle: {},
+              gridStyle: {},
               breakPoint: {
                 xs: 12,
                 sm: 12,
@@ -640,36 +720,49 @@ function App() {
       />
 
       <SignupScreen
-        option='mobileNumberSignup'
+        option="mobileNumberSignup"
         sectionOne={{
           breakpoints: { xs: 12, md: 3, sm: 4, lg: 3 },
-          image: { src: loginImg, height:'100%', width: '100%',style:{
-            height:'100%', width: '100%'
-          } },
+          image: {
+            src: loginImg,
+            height: '100%',
+            width: '100%',
+            style: {
+              height: '100%',
+              width: '100%',
+            },
+          },
           // backgroundWrapStyle:{height: '100%', width: '100%'},
           // component: <BasicButtons />
         }}
         sectionTwo={{
           breakpoints: { xs: 12, md: 9, sm: 8, lg: 9 },
-          WraperStyle:{},
-          cardParentStyle:{},
-          cardData:{
-            title:'Welcome!',
-            description:'One positive feedback per day or week can make us grow exponentially',
-            logo:{
-              logoSrc: CompanyLogo, logoHeight: '29px', logoWidth: '147px',
-              alt:'logo',
-              logoStyle:{},
+          WraperStyle: {},
+          cardParentStyle: {},
+          cardData: {
+            title: 'Welcome!',
+            description:
+              'One positive feedback per day or week can make us grow exponentially',
+            logo: {
+              logoSrc: CompanyLogo,
+              logoHeight: '29px',
+              logoWidth: '147px',
+              alt: 'logo',
+              logoStyle: {},
             },
-            childrenStyle:{},
-            mobileNumberSignup:{
-              labelText:'Mobile Number',
-              labelStyle:{},
-              mobileFieldstyle:{contryCodefontSize:'14px',fontWeight:'600',numberFontSize:'16px'},
-              dropDownStyle:{width:'120px'}
+            childrenStyle: {},
+            mobileNumberSignup: {
+              labelText: 'Mobile Number',
+              labelStyle: {},
+              mobileFieldstyle: {
+                contryCodefontSize: '14px',
+                fontWeight: '600',
+                numberFontSize: '16px',
+              },
+              dropDownStyle: { width: '120px' },
             },
-            socialMedia:{
-              socialMediaList:[
+            socialMedia: {
+              socialMediaList: [
                 {
                   label: 'SignUp with google',
                   icon: <FcGoogle />,
@@ -715,48 +808,48 @@ function App() {
                   },
                   SocialMediaButtonStyle: {},
                 },
-              ],        
+              ],
             },
-            emailWithPassword:{
-              nameStyle:{},
-              firstName:{
-                FnameFieldStyle:{},
-                labelStyle:{},
-                label:'First Name'
+            emailWithPassword: {
+              nameStyle: {},
+              firstName: {
+                FnameFieldStyle: {},
+                labelStyle: {},
+                label: 'First Name',
               },
-              lastName:{
-                LnameFieldStyle:{},
-                labelStyle:{},
-                label:'Last Name'
-              },        
-              email:{
-                fieldstyle:{},
-                labelStyle:{},
-                label:'Email'
+              lastName: {
+                LnameFieldStyle: {},
+                labelStyle: {},
+                label: 'Last Name',
               },
-              password:{
-                label:'Password',
-                labelStyle:{},
-                fieldstyle:{},
+              email: {
+                fieldstyle: {},
+                labelStyle: {},
+                label: 'Email',
+              },
+              password: {
+                label: 'Password',
+                labelStyle: {},
+                fieldstyle: {},
                 visbleIcon: <VisibilityOutlinedIcon />,
                 invisibleIcon: <VisibilityOffOutlinedIcon />,
               },
-              confirmPassword:{
-                label:'Confirm Password',
-                labelStyle:{},
-                fieldstyle:{},
+              confirmPassword: {
+                label: 'Confirm Password',
+                labelStyle: {},
+                fieldstyle: {},
                 visbleIcon: <VisibilityOutlinedIcon />,
                 invisibleIcon: <VisibilityOffOutlinedIcon />,
-              }
+              },
             },
-            bottomText:'You have an account?',
-            buttonText:'Sign Up',
-            titleStyle:{},
-            cardStyle:{},
-            btnStyle:{},
-            signupActionText:'Login',
-            actionstyle:{},
-            bottomTextStyle:{},
+            bottomText: 'You have an account?',
+            buttonText: 'Sign Up',
+            titleStyle: {},
+            cardStyle: {},
+            btnStyle: {},
+            signupActionText: 'Login',
+            actionstyle: {},
+            bottomTextStyle: {},
             onLoginClick: () => {
               console.log('login');
             },
@@ -782,7 +875,6 @@ function App() {
           // backgroundWrapStyle:{height: '100%', width: '100%'},
           // component: <BasicButtons />
         }}
-        
         sectionTwo={{
           breakpoints: { xs: 12, md: 9, sm: 8, lg: 9 },
           WraperStyle: {},
