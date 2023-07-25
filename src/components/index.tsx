@@ -3,11 +3,12 @@ export { CommonTable } from './table';
 export { Switch } from './switch';
 export { LinearProcess} from './linearProgress';
 export { Progress } from './progress';
+export { Header } from './header';
+export { Sidebar } from './sidebar';
 export {Footer} from "./footer"
 export { MobileNavbar } from './mobileNavbar';
 export {TimeLine} from "./timeLine";
 export {PageNotFound} from "./errorPageNotFound";
-export {ErrorModal} from "./errorModal";
 export {EmptyPages} from './emptyPages'
 export {SingleInputDateRangePicker}from "./dateRangePicker";
 export {SingleDatePicker} from './datePicker';
