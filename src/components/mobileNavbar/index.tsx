@@ -112,7 +112,6 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({
     </Box>
   );
 };
-
 MobileNavbar.defaultProps = {
   items: [],
   onClick: () => {},
