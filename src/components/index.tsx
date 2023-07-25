@@ -3,6 +3,7 @@ export { CommonTable } from './table';
 export { Switch } from './switch';
 export { LinearProcess} from './linearProgress';
 export { Progress } from './progress';
+export { CustomFilter } from './filter';
 export { Header } from './header';
 export { Sidebar } from './sidebar';
 export {Footer} from "./footer"
