@@ -3,6 +3,7 @@ export { CommonTable } from './table';
 export { Switch } from './switch';
 export { LinearProcess} from './linearProgress';
 export { Progress } from './progress';
+export {Footer} from "./footer"
 export { MobileNavbar } from './mobileNavbar';
 export {TimeLine} from "./timeLine";
 export {PageNotFound} from "./errorPageNotFound";
