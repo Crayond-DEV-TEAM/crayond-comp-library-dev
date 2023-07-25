@@ -120,7 +120,6 @@ const NestedMenuContextProvider: React.FunctionComponent<NestedMenuContextProvid
   const store = createStore(props);
   const { children } = props;
 
-  console.log("render context");
   return (
     <NestedMenuContext.Provider value={store}>
       {children}
