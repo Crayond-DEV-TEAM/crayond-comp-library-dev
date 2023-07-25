@@ -1,5 +1,3 @@
-import { background } from '@storybook/theming';
-
 export const footer_style = {
   background: {
     background: '#FAFAFA',
