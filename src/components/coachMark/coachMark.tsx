@@ -1,78 +1,145 @@
 import { styles } from './styles';
 import React, { useRef, useState } from "react";
 import Box from '@mui/material/Box';
-import { CoachMark, ICoachProps } from "react-coach-mark";
-import { Stack , Typography} from '@mui/material';
+import { Stack , Typography } from '@mui/material';
+import Joyride, { STATUS } from "react-joyride";
 
 export default function CoachMarkComponent(props: any) {
 
-  const ref1 = useRef(null);
-  const ref2 = useRef(null);
-  const ref3 = useRef(null);
-  const ref4 = useRef(null);
-  const ref5 = useRef(null);
-  const [rerender, setRerender] = React.useState<number>(0);
-  const [activatedNumber, setActivateNumber] = useState<number>(0);
-  const NextButton = <button onClick={() => setActivateNumber(activatedNumber + 1)}>Next</button>;
-
-  React.useEffect(() => { /* needed so that ref gets updates value to be passed as prop */
-      setRerender(rerender + 1);
-  }, [ref1.current])
-
-  const coachList : Array<ICoachProps> =  [
+  const [{ run, steps }, setState] = useState({
+    run: true,
+    steps: [
       {
-          activate: activatedNumber === 0,
-          component: <div>I can do this {NextButton} </div>,
-          reference: ref1,
-          tooltip: { position: 'bottom' }
+        content: <h2>Let's begin our journey!</h2>,
+        locale: { skip: <strong>SKIP</strong> },
+        placement: "center",
+        target: "body"
       },
       {
-          activate: activatedNumber === 1,
-          component: <div>I can be long. {NextButton}</div>,
-          reference: ref2,
-          tooltip: { position: 'bottom' }
+        content: <h2>Here is first step!</h2>,
+        placement: "bottom",
+        target: "#step-1",
+        title: "First step"
       },
       {
-          activate: activatedNumber === 2,
-          component: <div>ok big one. {NextButton}</div>,
-          reference: ref3,
-          tooltip: { position: 'top' }
+        content: <h2>Here is second step!</h2>,
+        placement: "bottom",
+        target: "#step-2",
+        title: "Second step"
       },
       {
-          activate: activatedNumber === 3,
-          component: <div>fill this. {NextButton}</div>,
-          reference: ref4,
-          tooltip: { position: 'left' }
+        content: <h2>Here is third step!</h2>,
+        placement: "bottom",
+        target: "#step-3",
+        title: "Third step"
       },
       {
-          activate: activatedNumber === 4,
-          component: <div>Submit here. {NextButton}</div>,
-          reference: ref5,
-          tooltip: { position: 'right' }
-      }
-  ]
-  const coach = coachList[activatedNumber]
-
+        content: <h2>Here is fourth step!</h2>,
+        placement: "bottom",
+        target: "#step-4",
+        title: "Fourth step"
+      },
+      {
+        content: <h2>Here is fifth step!</h2>,
+        placement: "bottom",
+        target: "#step-5",
+        title: "Fifth step"
+      },
+      {
+        content: <h2>Here is six step!</h2>,
+        placement: "bottom",
+        target: "#step-6",
+        title: "Six step"
+      },
+    ]
+  });
   return (
-    <>
-
-    <Stack direction={'row'} alignItems={'center'}>
-      <Box sx={{
-      }}>
-        <h2 ref={ref1}>1st Button</h2>
-        <h2 ref={ref2}>2nd Button</h2>
-
-        <h2 ref={ref3}>3rd Button</h2>
-
-        <h2 ref={ref4}>4th Button</h2>
-
-        <h2 ref={ref5}>5th Button</h2>
-
-      </Box>
-    </Stack>
-    
-    <CoachMark {...coach} />
-</>
+    <div style={{
+      background: "#797979",
+      height: "100vh",
+      display: "flex",
+      gap: "8px",
+      padding: 10,
+      color: "white",
+      justifyContent: "center",
+      alignItems: "center"
+    }}>
+      <Joyride
+        continuous
+        callback={() => {}}
+        run={run}
+        steps={[
+          {
+            content: <h2>Let's begin our journey!</h2>,
+            locale: { skip: <strong>SKIP</strong> },
+            placement: "center",
+            target: "body"
+          },
+          {
+            content: <h2>Here is first step!</h2>,
+            placement: "bottom",
+            target: "#step-1",
+            title: "First step"
+          },
+          {
+            content: <h2>Here is second step!</h2>,
+            placement: "bottom",
+            target: "#step-2",
+            title: "Second step"
+          },
+          {
+            content: <h2>Here is third step!</h2>,
+            placement: "bottom",
+            target: "#step-3",
+            title: "Third step"
+          },
+          {
+            content: <h2>Here is fourth step!</h2>,
+            placement: "bottom",
+            target: "#step-4",
+            title: "Fourth step"
+          },
+          {
+            content: <h2>Here is fifth step!</h2>,
+            placement: "bottom",
+            target: "#step-5",
+            title: "Fifth step"
+          },
+          {
+            content: <h2>Here is six step!</h2>,
+            placement: "bottom",
+            target: "#step-6",
+            title: "Six step"
+          },
+        ]}
+        hideCloseButton
+        scrollToFirstStep
+        showSkipButton
+        showProgress
+      />
+      {
+        [1, 2, 3, 4, 5, 6].map((item) => {
+          return (
+            <div
+              key={item}
+              id={`step-${item}`}
+              style={{
+                border: "1px solid white",
+                width: "100px",
+                height: "100px",
+                background: "#0c1d2b",
+                borderRadius: "8px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {item}
+            </div>
+          )
+        })
+      }
+    </div>
   );
 }
 
