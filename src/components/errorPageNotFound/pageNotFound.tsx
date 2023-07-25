@@ -63,24 +63,13 @@ export default PageNotFound;
 
 PageNotFound.args = {
   open: true,
-  errorIcon: <AlertIcon />,
+  errorIcon: undefined,
   pageNotFoundIconComponent: '',
   pageNotFoundIconUrl: '',
   urlImgHeight:0,
   urlImgWidth:0,
   urlImgStyle:{},
-  buttons: [
-    {
-      label: 'open',
-      onClick: () => {},
-      style: { background: '#EFEEFB', color: '#665CD7', padding: '10px' },
-    },
-    {
-      label: 'Close',
-      onClick: () => {},
-      style: { background: '#F44F5A', color: '#FFFF', padding: '10px' },
-    },
-  ],
+  buttons: [],
   handleClose: () => false,
   onBackdropClick: () => false,
 
