@@ -14,6 +14,7 @@ import {
   Typography,
   Select,
   Box,
+  PopoverVirtualElement,
 } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
@@ -117,9 +118,7 @@ export function CustomCalender(props: CalenderProps) {
   const localizer = momentLocalizer(moment);
 
   // General States
-  const [anchorEl, setAnchorEl] = useState<
-    Element | ((element: Element) => Element) | null | undefined
-  >(null);
+  const [anchorEl, setAnchorEl] = useState<Element | (() => Element) | PopoverVirtualElement | (() => PopoverVirtualElement) | null>(null);
   const [eventColors, setEventColors] = useState<{ [key: string]: string }>({});
   const [editAccoss, seteditAccoss] = useState(false);
   const [openModal, setOpenModal] = useState(false);
