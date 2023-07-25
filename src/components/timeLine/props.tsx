@@ -6,7 +6,7 @@ export interface CardProps {
     text1: string;
     text2: string;
     text3: string;
-    profileComponent: React.ReactNode;
+    profileComponent?: React.ReactNode;
     profileUrl: string;
   };
   cardWidth: number;
@@ -14,26 +14,26 @@ export interface CardProps {
   cardMaxWidth: number;
   cardMaxHeight: number;
   cardMinHeight: number;
-  cardHeight: number | undefined;
-  CardBackground: string;
-  CardHoverStyle: SxProps;
-  CardStyle: SxProps;
-  hoverBorderStyle: string;
-  hoverBgColor: string;
-  text1Size: number;
-  text1Color: string;
-  text2Size: number;
-  text2Color: string;
-  text3Size: number;
-  text3Color: string;
-  text1Styles:SxProps;
-  text2Styles:SxProps;
-  text3Styles:SxProps;
-  profileUrlHeight: number;
-  profileUrlWidth: number;
+  cardHeight?: number | undefined;
+  CardBackground?: string;
+  CardHoverStyle?: SxProps;
+  CardStyle?: SxProps;
+  hoverBorderStyle?: string;
+  hoverBgColor?: string;
+  text1Size?: number;
+  text1Color?: string;
+  text2Size?: number;
+  text2Color?: string;
+  text3Size?: number;
+  text3Color?: string;
+  text1Styles?:SxProps;
+  text2Styles?:SxProps;
+  text3Styles?:SxProps;
+  profileUrlHeight?: number;
+  profileUrlWidth?: number;
   handleClick: () => void;
-  profileUrlRadius: number;
-  profileComponentContainer: SxProps;
+  profileUrlRadius?: number;
+  profileComponentContainer?: SxProps;
 }
 
 export interface TimelineProps {
