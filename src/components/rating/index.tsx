@@ -44,6 +44,7 @@ export const CustomRating: React.FC<RadioGroupRatingProps> = ({
       onClick(updatedIconSet[index]);
     }
   };
+  
   const handleRatingChange = (newValue: number | null, index: number) => {
     if (newValue !== null) {
       const updatedStyledIconSet = styledIconSet?.map((item, i) => {

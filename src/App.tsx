@@ -2,10 +2,12 @@ import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
-import { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { SelectBoxComponent } from './components/selectBox';
 import { Label } from './components/label';
 import { Link } from './components/link';
+import { Switch } from './components/switch';
+import { AvatarName } from './components/avatarName';
 
 const App: React.FC = () => {
   interface FilmOptionType {
@@ -133,6 +135,10 @@ const App: React.FC = () => {
 
   const consoling = () => {
     console.log('label button clicked');
+  };
+
+  const switchChange = (id: string | number, rowData: object, event: React.ChangeEvent<HTMLInputElement>) =>{
+    event.target.checked = !event.target.checked;
   };
 
   return (
@@ -270,6 +276,10 @@ const App: React.FC = () => {
           rowData={undefined}
         />
       </div>
+
+      {/* <Switch onChange={() => switchChange}/> */}
+
+      <AvatarName profiles={[{name:"chandru", label:"worldhit", color:"red"}]} />
     </>
   );
 };
