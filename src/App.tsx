@@ -18,13 +18,13 @@ function App() {
       cardImage: true,
       fullWidth: true,
       inputType: 'input',
-      type: 'number',
+      type: 'text',
       value: '',
-      maxNumber: 16,
+      maxNumber: 19,
       errorMessage: 'please Enter card Number',
       endAdornment: <DeleteIcon />,
       required: true,
-      inputDet: 'cardNumber',
+      validationType: 'cardNumber',
     },
     {
       breakpoints: {
@@ -39,7 +39,7 @@ function App() {
       value: '',
       errorMessage: 'please Enter Name',
       required: true,
-      inputDet: 'text',
+      validationType: 'text',
     },
     {
       breakpoints: {
@@ -56,7 +56,7 @@ function App() {
       error: false,
       errorMessage: 'please select any value',
       required: true,
-      inputDet: 'text',
+      validationType: 'text',
     },
     {
       breakpoints: {
@@ -73,7 +73,7 @@ function App() {
       errorMessage: 'please Enter Valid Cvv',
       type: 'number',
       required: true,
-      inputDet: 'cvv',
+      validationType: 'cvv',
     },
   ];
 
@@ -91,7 +91,7 @@ function App() {
       fullWidth: true,
       errorMessage: 'please Enter First Name',
       required: true,
-      inputDet: 'text',
+      validationType: 'text',
     },
     {
       breakpoints: {
@@ -106,7 +106,7 @@ function App() {
       fullWidth: true,
       errorMessage: 'please Enter Last Name',
       required: false,
-      inputDet: 'text',
+      validationType: 'text',
     },
     {
       breakpoints: {
@@ -121,7 +121,7 @@ function App() {
       fullWidth: true,
       errorMessage: 'please Enter Address',
       required: true,
-      inputDet: 'text',
+      validationType: 'text',
     },
     {
       breakpoints: {
@@ -136,7 +136,7 @@ function App() {
       fullWidth: true,
       errorMessage: 'please Enter Address',
       required: false,
-      inputDet: 'text',
+      validationType: 'text',
     },
     {
       breakpoints: {
@@ -152,7 +152,7 @@ function App() {
       value: '',
       errorMessage: 'please select any value',
       required: true,
-      inputDet: 'text',
+      validationType: 'text',
     },
     {
       breakpoints: {
@@ -169,7 +169,7 @@ function App() {
       errorMessage: 'please Enter Zip code/ Postal code',
       required: true,
       maxNumber: 6,
-      inputDet: 'text',
+      validationType: 'postalCode',
     },
     {
       breakpoints: {
@@ -185,7 +185,7 @@ function App() {
       selectOption: [{ label: 'New York', value: 'New York' }],
       errorMessage: 'please select any value',
       required: true,
-      inputDet: 'text',
+      validationType: 'text',
     },
     {
       breakpoints: {
@@ -204,7 +204,7 @@ function App() {
       ],
       errorMessage: 'please select any value',
       required: true,
-      inputDet: 'text',
+      validationType: 'text',
     },
   ];
 

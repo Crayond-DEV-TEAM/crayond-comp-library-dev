@@ -38,20 +38,53 @@ export function PaymentUI(props: PaymentUIProps) {
       slicedValue = maxLength ? newValue.slice(0, Number(maxLength)) : newValue;
     }
 
-    const updatedItem = { ...item, value: slicedValue, error: false };
+    let updatedItem = {
+      ...item,
+      value: slicedValue,
+      error: false,
+    };
 
-    if (item.inputDet === 'cardNumber') {
-      if (slicedValue.length !== 16) {
+    if (item.validationType === 'cardNumber') {
+      const formattedValue = slicedValue.replace(/[^0-9]/g, '');
+
+      let formattedCardNumber = '';
+      for (let i = 0; i < formattedValue.length; i++) {
+        if (i > 0 && i % 4 === 0) {
+          formattedCardNumber += ' ';
+        }
+        formattedCardNumber += formattedValue[i];
+      }
+
+      const cardNumber = formattedCardNumber.slice(
+        0,
+        maxLength ? Number(maxLength) : 19
+      );
+
+      updatedItem = { ...item, value: cardNumber, error: false };
+
+      if (cardNumber.length !== maxLength) {
         updatedItem.error = true;
         updatedItem.errorMessage = 'Please enter valid card number';
       } else {
         updatedItem.error = false;
         updatedItem.errorMessage = '';
       }
-      setCardType(getCardType(slicedValue));
+
+      setSection((prevSection) =>
+        prevSection.map((sec) =>
+          sec.items.includes(item)
+            ? {
+                ...sec,
+                items: sec.items.map((i) => (i === item ? updatedItem : i)),
+              }
+            : sec
+        )
+      );
+
+      setCardType(getCardType(formattedValue));
     }
 
-    if (item.inputDet === 'cvv') {
+    if (item.validationType === 'cvv') {
       if (slicedValue.length !== 3) {
         updatedItem.error = true;
         updatedItem.errorMessage = 'Please Enter valid CVV';
@@ -61,7 +94,17 @@ export function PaymentUI(props: PaymentUIProps) {
       }
     }
 
-    const updatedSection = sectionValue.map((sec) =>
+    if (item.validationType === 'postalCode') {
+      if (slicedValue.length !== maxLength) {
+        updatedItem.error = true;
+        updatedItem.errorMessage = 'Please enter valid Postal Code';
+      } else {
+        updatedItem.error = false;
+        updatedItem.errorMessage = '';
+      }
+    }
+    
+     const updatedSection = sectionValue.map((sec) =>
       sec.items.includes(item)
         ? {
             ...sec,
@@ -71,6 +114,8 @@ export function PaymentUI(props: PaymentUIProps) {
     );
     setSection(updatedSection);
   };
+
+
 
   const getCardImage = (cardType: string) => {
     switch (cardType) {

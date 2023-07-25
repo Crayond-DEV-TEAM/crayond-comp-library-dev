@@ -20,7 +20,7 @@ export interface Item {
   maxNumber?: Number | String;
   dateFormat?: String;
   cardImage?: boolean;
-  inputDet: 'cardNumber' | 'cvv' | 'text';
+  validationType: 'cardNumber' | 'cvv' | 'text' | 'postalCode';
 }
 
 export interface PaymentUIProps {
