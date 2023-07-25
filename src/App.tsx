@@ -15,7 +15,6 @@ function App() {
      <Box width={'80%'} margin={'auto'} sx={
       {
         background:'#000'
-
       }
      }>
      <CoachMark />

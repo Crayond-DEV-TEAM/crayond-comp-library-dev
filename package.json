@@ -47,7 +47,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0",
-    "react-joyride": "^2.5.4",
+    "react-joyride": "^2.5.5",
     "serve": "^14.1.2",
     "yup": "^1.1.1"
   },
