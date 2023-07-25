@@ -5,7 +5,7 @@ export { LinearProcess} from './linearProgress';
 export { Progress } from './progress';
 export {TimeLine} from "./timeLine";
 export {PageNotFound} from "./errorPageNotFound";
-export {ErrorWithIcon} from "./errorModal";
+export {ErrorModal} from "./errorModal";
 export {EmptyPages} from './emptyPages'
 export {SingleInputDateRangePicker}from "./dateRangePicker";
 export {SingleDatePicker} from './datePicker';
