@@ -60,7 +60,7 @@ function App() {
         <FabButton
           direction="right"
           radius={60}
-          semicircle={false}
+          semicircle={true}
           actionsData={actionsData}
           actionButtonStyle={{
             backgroundColor: '#fff',
@@ -76,11 +76,12 @@ function App() {
           onMainButtonClick={() => {
             console.log('Main FAB button clicked!');
           }}
-          variant='clickable'
+          variant='hoverable'
         />
       </div>
     </div>
   );
 }
+
 
 export default App;
