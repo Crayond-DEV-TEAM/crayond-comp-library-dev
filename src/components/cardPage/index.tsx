@@ -8,12 +8,13 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Divider,
   Typography,
 } from '@mui/material';
 import { BasicButtons } from '../button';
 
 export default function CardPage(props: CardPageProps) {
-  const { cardImage, buttons, ...rest } = props;
+  const { cardImage, buttons, title, mailId, mobile, divider, ...rest } = props;
   return (
     <Box>
       <Card sx={{ maxWidth: 345 }}>
@@ -25,9 +26,37 @@ export default function CardPage(props: CardPageProps) {
             alt="green iguana"
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Lizard
-            </Typography>
+            {title && (
+              <>
+                <Typography gutterBottom component="div">
+                  {title}
+                </Typography>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Typography
+                    gutterBottom
+                    component="div"
+                    sx={{ color: '#666666', fontSize: '14px' }}
+                  >
+                    {mailId}
+                  </Typography>
+                  <Box
+                    sx={{
+                      width: '7px',
+                      height: '7px',
+                      backgroundColor: '#666666',
+                      borderRadius: '100%',
+                    }}
+                  ></Box>
+                  <Typography
+                    component="div"
+                    sx={{ color: '#666666', fontSize: '14px' }}
+                  >
+                    {mobile}
+                  </Typography>
+                </Box>
+              </>
+            )}
+            {divider && <Divider  />}
             <Typography variant="body2" color="text.secondary">
               Lizards are a widespread group of squamate reptiles, with over
               6,000 species, ranging across all continents except Antarctica

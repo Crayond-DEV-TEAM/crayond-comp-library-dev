@@ -91,8 +91,8 @@ function App() {
             (item: CheckedOption, index: number) =>
               newValue.findIndex(
                 (obj: CheckedOption) =>
-                  obj.title === item.title && obj.isChecked === item.isChecked
-              ) === index
+                  obj.title === item.title && obj.isChecked === item.isChecked,
+              ) === index,
           )
         : newValue;
     const convertedValue = slicedData as never[];
@@ -109,8 +109,8 @@ function App() {
             (item: FilmOptionType, index: number) =>
               newValue.findIndex(
                 (obj: FilmOptionType) =>
-                  obj.title === item.title && obj.year === item.year
-              ) === index
+                  obj.title === item.title && obj.year === item.year,
+              ) === index,
           )
         : newValue;
     const convertedValue = slicedData as never[];
@@ -123,8 +123,8 @@ function App() {
             (item: FilmOptionType, index: number) =>
               newValue.findIndex(
                 (obj: FilmOptionType) =>
-                  obj.title === item.title && obj.year === item.year
-              ) === index
+                  obj.title === item.title && obj.year === item.year,
+              ) === index,
           )
         : newValue;
     const convertedValue = slicedData as never[];
@@ -138,8 +138,8 @@ function App() {
             (item: FilmOptionType, index: number) =>
               newValue.findIndex(
                 (obj: FilmOptionType) =>
-                  obj.title === item.title && obj.year === item.year
-              ) === index
+                  obj.title === item.title && obj.year === item.year,
+              ) === index,
           )
         : newValue;
     const convertedValue = slicedData as never[];
@@ -264,7 +264,14 @@ function App() {
         selectType={'checkbox'}
         multiple={true}
       />
-      <CardPage cardImage={sampleImage} buttons={buttons} />
+      <CardPage
+        cardImage={sampleImage}
+        buttons={buttons}
+        title={'Jerry Foster'}
+        mailId={'ethan.holmes@mail.com'}
+        mobile={'(621)668-1434'}
+        divider={true}
+      />
     </div>
   );
 }
