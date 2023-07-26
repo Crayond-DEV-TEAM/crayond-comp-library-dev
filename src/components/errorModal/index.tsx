@@ -1,1 +1,1 @@
-export { default as ErrorWithIcon } from "./errorWithIcon";
+export { default as ErrorModal } from "./errorModal";

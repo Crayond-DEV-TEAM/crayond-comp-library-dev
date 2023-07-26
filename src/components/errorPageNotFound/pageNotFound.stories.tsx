@@ -13,9 +13,7 @@ const Template: ComponentStory<typeof PageNotFound> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
-  pageNotFoundIconComponent: (
-    !<InfographicIcon/>
-  ),
+  pageNotFoundIconComponent: "",
   pageNotFoundIconUrl:"" ,
   goBackButton: {
     label: 'Go back',
