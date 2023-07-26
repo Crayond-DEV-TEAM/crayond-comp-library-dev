@@ -22,11 +22,14 @@ interface ProgressProps extends SliderProps {
   size?: 'small' | 'medium';
   customMarks?: boolean;
   minMaxValues?: boolean;
-  handleChangeFun: (event: React.ChangeEvent<HTMLInputElement>|Event, newValue:number[]|[number,number]) => void;
+  handleChangeFun: (
+    event: React.ChangeEvent<HTMLInputElement> | Event,
+    newValue: number[] | [number, number],
+  ) => void;
   sliderThumbStyle?: SxProps;
   sliderStyle?: SxProps;
   minMaxLabel?: SxProps;
-  minMaxLabelStyle?:SxProps
+  minMaxLabelStyle?: SxProps;
   containerStyle?: SxProps;
   minMaxLabelColor?: string;
   minMaxLabelSize?: number;
@@ -34,8 +37,8 @@ interface ProgressProps extends SliderProps {
   minMaxValueSize?: number;
   minLabel?: string;
   maxLabel?: string;
-  markLabelColor?:string,
-  markLabelSize?:number,
+  markLabelColor?: string;
+  markLabelSize?: number;
 }
 
 interface formProps {
@@ -70,7 +73,7 @@ const SliderRange = (props: ProgressProps) => {
     handleChangeFun,
     value,
   } = props;
-  
+
   const [minMax, setMinMax] = useState({
     minValue: 0,
     maxValue: 0,
@@ -78,24 +81,29 @@ const SliderRange = (props: ProgressProps) => {
 
   const [sliderVAl, setValue] = useState<number[]>(value);
 
-  const handleChange = (event: Event, newValue:number[]|[number,number]) => {
-    if(handleChangeFun){
-      handleChangeFun(event,newValue);
+  const handleChange = (
+    event: Event,
+    newValue: number[] | [number, number],
+  ) => {
+    if (handleChangeFun) {
+      handleChangeFun(event, newValue);
     }
     setValue(newValue as number[]);
-    setMinMax({ minValue: newValue[0], maxValue: newValue[1] } );
-  };  
-  const handleChangeInput = (key: string, e:  React.ChangeEvent<HTMLInputElement>) => {
+    setMinMax({ minValue: newValue[0], maxValue: newValue[1] });
+  };
+  const handleChangeInput = (
+    key: string,
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     setMinMax({ ...minMax, [key]: e.target.value });
-    if(key ==='minValue'){
+    if (key === 'minValue') {
       setValue([Number(e.target.value), minMax?.maxValue]);
-      handleChangeFun(e,[Number(e.target.value), minMax?.maxValue])
+      handleChangeFun(e, [Number(e.target.value), minMax?.maxValue]);
     }
-    if(key ==='maxValue'){
-      setValue([minMax?.minValue,Number(e.target.value)]);
-      handleChangeFun(e,[minMax?.minValue,Number(e.target.value)])
+    if (key === 'maxValue') {
+      setValue([minMax?.minValue, Number(e.target.value)]);
+      handleChangeFun(e, [minMax?.minValue, Number(e.target.value)]);
     }
-
   };
 
   return (
@@ -123,19 +131,23 @@ const SliderRange = (props: ProgressProps) => {
             disableSwap
             marks={customMarks ? marks : []}
             value={sliderVAl}
-            onChange={(e:Event,val:number | number[],)=>handleChange(e,val as number[])}
+            onChange={(e: Event, val: number | number[]) =>
+              handleChange(e, val as number[])
+            }
             valueLabelDisplay={valueLabelDisplay}
-            sx={{
-              height: sliderHeight,
-              color: sliderColor,
-              ...styles.sliderStyle,
-              ...sliderStyle,
-              '& .MuiSlider-thumb': {
-                border: '2px solid #fff',
-                backgroundColor: thumbColor,
-                ...sliderThumbStyle,
-              },
-            }as SxProps}
+            sx={
+              {
+                height: sliderHeight,
+                color: sliderColor,
+                ...styles.sliderStyle,
+                ...sliderStyle,
+                '& .MuiSlider-thumb': {
+                  border: '2px solid #fff',
+                  backgroundColor: thumbColor,
+                  ...sliderThumbStyle,
+                },
+              } as SxProps
+            }
           />
         </Box>
       </Stack>
@@ -152,30 +164,36 @@ const SliderRange = (props: ProgressProps) => {
               {minLabel}
             </Typography>
             <Input
-             disableUnderline={true}  
+              disableUnderline={true}
               type="number"
               value={String(sliderVAl[0])}
-              sx={{
-                ...styles.inputStyle,
-                color: minMaxValueColor,
-                fontSize: minMaxValueSize,
-              } as SxProps}
+              sx={
+                {
+                  ...styles.inputStyle,
+                  color: minMaxValueColor,
+                  fontSize: minMaxValueSize,
+                } as SxProps
+              }
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 handleChangeInput('minValue', e)
               }
             />
           </Box>
           <Box sx={{ ...styles.childBox }}>
-            <Typography sx={{ ...styles.minMaxLabel ,...minMaxLabelStyle }}>{maxLabel}</Typography>
+            <Typography sx={{ ...styles.minMaxLabel, ...minMaxLabelStyle }}>
+              {maxLabel}
+            </Typography>
             <Input
               type="number"
-              disableUnderline={true}  
+              disableUnderline={true}
               value={String(sliderVAl[1])}
-              sx={{ ...styles.inputStyle,
-                textAlign:'center',
+              sx={{
+                ...styles.inputStyle,
+                textAlign: 'center',
                 color: minMaxValueColor,
-                fontSize: minMaxValueSize}}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                fontSize: minMaxValueSize,
+              }}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 handleChangeInput('maxValue', e)
               }
             />
@@ -208,8 +226,8 @@ SliderRange.defaultProps = {
   minMaxValueSize: 14,
   minLabel: 'Min',
   maxLabel: 'Max',
-  markLabelColor:"#707070",
-  markLabelSize:12,
+  markLabelColor: '#707070',
+  markLabelSize: 12,
 };
 
 export default SliderRange;
