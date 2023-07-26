@@ -82,14 +82,12 @@ Primary.argTypes = {
   compareRowTitleStyle: {
     description: 'object',
   },
-
   tableRootStyle: {
     description: 'object',
   },
   compareHeadingAlign: {
     description: '"center"|"left"|"right"',
   },
-
   columnData:{
     description:"[array]"
   },
