@@ -1,5 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import  CardPage  from './index';
+import  {CardPage}  from './index';
 import sampleImage from '../../assets/sampleprof.png';
 
 export default {

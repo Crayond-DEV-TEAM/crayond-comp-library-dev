@@ -1,25 +1,26 @@
 export { BasicButtons } from './button';
-export { CommonTable } from './table';
-export { Switch } from './switch';
-export { LinearProcess} from './linearProgress';
-export { Progress } from './progress';
-export {SearchField} from './searchField';
-export {CustomCalender} from './customCalender'
-export { CustomFilter } from './filter';
-export { Header } from './header';
-export { Sidebar } from './sidebar';
-export {Footer} from "./footer"
-export { MobileNavbar } from './mobileNavbar';
-export {TimeLine} from "./timeLine";
-export { ErrorModal } from "./errorModal";
-export {PageNotFound} from "./errorPageNotFound";
-export {EmptyPages} from './emptyPages'
-export {SingleInputDateRangePicker}from "./dateRangePicker";
-export {SingleDatePicker} from './datePicker';
-export {Slider} from './slider';
-export {SliderRange} from './sliderRange';
-export { StepperMobile, CustomStepper } from './stepper';
-export { CustomRating } from './rating';
 export { CustomButtonGroup } from './buttonGroup';
-export { SelectBoxComponent } from './selectBox'
-export {CircleProgress} from "./circleBar"
+export { CardPage } from './cardPage';
+export { CircleProgress } from './circleBar';
+export { CustomCalender } from './customCalender';
+export { SingleDatePicker } from './datePicker';
+export { SingleInputDateRangePicker } from './dateRangePicker';
+export { EmptyPages } from './emptyPages';
+export { ErrorModal } from './errorModal';
+export { PageNotFound } from './errorPageNotFound';
+export { CustomFilter } from './filter';
+export { Footer } from './footer';
+export { Header } from './header';
+export { LinearProcess } from './linearProgress';
+export { MobileNavbar } from './mobileNavbar';
+export { Progress } from './progress';
+export { CustomRating } from './rating';
+export { SearchField } from './searchField';
+export { SelectBoxComponent } from './selectBox';
+export { Sidebar } from './sidebar';
+export { Slider } from './slider';
+export { SliderRange } from './sliderRange';
+export { CustomStepper, StepperMobile } from './stepper';
+export { Switch } from './switch';
+export { CommonTable } from './table';
+export { TimeLine } from './timeLine';

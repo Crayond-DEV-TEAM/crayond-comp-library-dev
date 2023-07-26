@@ -12,7 +12,7 @@ import { BasicButtons } from '../button';
 import { CardPageProps } from './props';
 import { styles } from './style';
 
-export default function CardPage(props: CardPageProps) {
+export function CardPage(props: CardPageProps) {
   const {
     cardImage,
     buttons,
