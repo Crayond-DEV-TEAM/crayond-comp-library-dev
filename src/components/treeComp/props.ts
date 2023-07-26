@@ -53,10 +53,20 @@ export interface TreeComponentProps {
     defaultCollapseIcon?: JSX.Element;
     state?: any;
     leftSec?: {
-        breakpoints: object;
+        breakpoints: {
+            xs: number;
+            md: number;
+            sm: number;
+            lg: number;
+          };
     };
     rightSec?: {
-        breakpoints: object;
+        breakpoints: {
+            xs: number;
+            md: number;
+            sm: number;
+            lg: number;
+          };
     };
     heading?: string;
     permissionHeadingSx?: object | undefined;
