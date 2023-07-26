@@ -8,6 +8,7 @@ import {
   MarkerClusterer,
   MarkerF,
   OverlayView,
+  OverlayViewF,
 } from '@react-google-maps/api';
 import { Box, Typography, IconButton, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
@@ -60,7 +61,7 @@ export const MapComponent = (props: MapMainComponent) => {
   } = props;
 
   const [hoveredMarker, setHoveredMarker] = useState<locationsData | null>(
-    null
+    null,
   );
   const [currentLocation, setCurrentLocation] = useState<latLAng | any>();
   const [filteredLocations, setFilteredLocations] = useState<
@@ -97,7 +98,7 @@ export const MapComponent = (props: MapMainComponent) => {
   };
 
   const onMarkerClicks = (e: any) => {
-    if (isSmallScreen) {
+    if (!deatilsCardCustomizes && isSmallScreen) {
       setHoveredMarker(e);
     }
     onMarkerClick(e);
@@ -145,7 +146,7 @@ export const MapComponent = (props: MapMainComponent) => {
         onCalculateRoutes(results);
       } else {
         alert(
-          'No route found. Please check your origin and destination addresses.'
+          'No route found. Please check your origin and destination addresses.',
         );
       }
     } catch (error) {
@@ -176,7 +177,7 @@ export const MapComponent = (props: MapMainComponent) => {
       } else {
         // If no results are returned, show an alert
         alert(
-          'No route found. Please check your origin and destination addresses.'
+          'No route found. Please check your origin and destination addresses.',
         );
       }
     } catch (error) {
@@ -209,7 +210,7 @@ export const MapComponent = (props: MapMainComponent) => {
         },
         (error) => {
           console.log('Error getting current location:', error);
-        }
+        },
       );
     } else {
       console.log('Geolocation is not supported by this browser.');
@@ -229,7 +230,7 @@ export const MapComponent = (props: MapMainComponent) => {
     if (currentLocation && locations) {
       const filtered = locations?.filter(
         (location: locationsData) =>
-          getDistance(currentLocation, location.location) <= radiusDistance
+          getDistance(currentLocation, location.location) <= radiusDistance,
       );
       setFilteredLocations(filtered);
     }
@@ -375,7 +376,7 @@ export const MapComponent = (props: MapMainComponent) => {
             }
           </MarkerClusterer>
         )}
-        {hoveredMarker ? (
+        {hoveredMarker && (
           <OverlayView
             position={{
               lat: hoveredMarker.location.lat,
@@ -410,24 +411,26 @@ export const MapComponent = (props: MapMainComponent) => {
               </Box>
             </Box>
           </OverlayView>
-        ) : (
-          deatilsCardCustomizes && (
-            <OverlayView
-              position={{
-                lat: customCardLocation?.location?.lat,
-                lng: customCardLocation?.location.lng,
-              }}
-              mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-              getPixelPositionOffset={(width, height) => ({
-                x: -(width / 2),
-                y: -(height / 2),
-              })}
-            >
-              {deatilsCardCustomize}
-            </OverlayView>
-          )
         )}
-        {hoveredMarker ? (
+        {deatilsCardCustomizes && (
+          <OverlayViewF
+            position={{
+              lat: customCardLocation?.location?.lat,
+              lng: customCardLocation?.location.lng,
+            }}
+            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+            getPixelPositionOffset={(width, height) => ({
+              x: -(width / 2),
+              y: -(height / 2),
+            })}
+          >
+            <Box>
+              textsdsadasdasdasd
+              {deatilsCardCustomize}
+            </Box>
+          </OverlayViewF>
+        )}
+        {hoveredMarker && (
           <Box
             sx={{
               ...customMapStyle.OverlayQuerySx,
@@ -470,9 +473,8 @@ export const MapComponent = (props: MapMainComponent) => {
               </Box>
             </Box>
           </Box>
-        ) : (
-          deatilsCardCustomizes && <>{responsiveDetailsCustomize}</>
         )}
+        {deatilsCardCustomizes && <>{responsiveDetailsCustomize}</>}
         {directionsResponse && (
           <DirectionsRenderer directions={directionsResponse} />
         )}
@@ -556,6 +558,10 @@ MapComponent.defaultProps = {
   zoomControl: true,
   streetViewControl: true,
   mapTypeControl: true,
+  onMarkerMouseOver: () => false,
+  onMarkerClustererClick: () => false,
   onClearRoute: () => false,
   onCalculateRoutes: () => false,
+  onMarkerClick: () => false,
+  onMarkerMouseOut: () => false,
 };

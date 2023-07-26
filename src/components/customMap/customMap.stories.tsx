@@ -14,7 +14,7 @@ const Template: ComponentStory<typeof MapComponent> = (args) => (
     {...args}
     googleMapApiKey=""
     zoom={13}
-    isSearchRequired
+    isSearchRequired={true}
     setDefaultRoute={false}
     fullscreenControl
   />
@@ -59,4 +59,8 @@ Primary.args = {
   mapTypeControl: true,
   onClearRoute: () => false,
   onCalculateRoutes: () => false,
+  onMarkerMouseOver: () => false,
+  onMarkerClustererClick: () => false,
+  onMarkerClick: () => false,
+  onMarkerMouseOut: () => false,
 };
