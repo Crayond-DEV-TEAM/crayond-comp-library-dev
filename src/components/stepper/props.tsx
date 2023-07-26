@@ -7,6 +7,7 @@ export interface StepData {
   color?: string;
   icon?: string | React.ReactNode | SVGRectElement;
   completeBadge?: React.ReactNode;
+
   stepperStyle?: {
     anchorOrigin?:
       | string
@@ -28,6 +29,7 @@ export interface StepData {
     badgeStyle?:SxProps;
     
   };
+  
 }
 
 export interface CustomStepperProps {

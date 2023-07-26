@@ -13,6 +13,8 @@ export const StepperMobile: React.FC<CustomStepperProps> = ({
   styles = {},
   activeStepMobile = 0,
 }) => {
+
+
   const getColor = (status: string) => {
     if (status === 'start')
       return {
@@ -91,7 +93,11 @@ export const StepperMobile: React.FC<CustomStepperProps> = ({
             value={((activeStepMobile + 1) / steps.length) * 100}
           />
         </Box>
+       
+         {/* content rendering */}
         <Box sx={{ height: 255, p: 2 }}>{steps[activeStepMobile]?.content}</Box>
+      
+      
         <MobileStepper
           variant="dots"
           sx={{
@@ -105,6 +111,8 @@ export const StepperMobile: React.FC<CustomStepperProps> = ({
           backButton={null}
         />
       </Paper>
+     
+     
       <Box
         sx={
           {
@@ -134,6 +142,7 @@ export const StepperMobile: React.FC<CustomStepperProps> = ({
             </BasicButtons>
           )
         )}
+
       </Box>
     </Box>
   );

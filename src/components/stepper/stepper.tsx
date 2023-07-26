@@ -78,6 +78,7 @@ export const CustomStepper: React.FC<CustomStepperProps> = ({
 
   return (
     <Box sx={{ ...styles.rootStyle, ...Styles.rootStyle }}>
+
       <Box
         sx={{
           backgroundColor: '#fff',
@@ -86,6 +87,7 @@ export const CustomStepper: React.FC<CustomStepperProps> = ({
           ...styles.stepperParent,
         }}
       >
+
         <Stepper nonLinear activeStep={activeStep}>
           {steps.map((step: StepData, index: number) => (
             <Step
@@ -133,9 +135,11 @@ export const CustomStepper: React.FC<CustomStepperProps> = ({
             </Step>
           ))}
         </Stepper>
+
         <Box sx={{ ...Styles.contentStyle, ...styles.contentStyle }}>
           {content}
         </Box>
+
         <Box sx={{ ...Styles.buttonArea, ...styles.buttonsContainer }as SxProps}>
           {buttons.map((button: ButtonProps, index: number) => (
             <BasicButtons
@@ -148,6 +152,7 @@ export const CustomStepper: React.FC<CustomStepperProps> = ({
             </BasicButtons>
           ))}
         </Box>
+        
       </Box>
     </Box>
   );
