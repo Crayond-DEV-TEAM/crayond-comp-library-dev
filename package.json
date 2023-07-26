@@ -34,11 +34,7 @@
     "@hookform/resolvers": "^3.1.0",
     "@mui/core": "^5.0.0-alpha.54",
     "@mui/icons-material": "^5.11.11",
-<<<<<<< HEAD
-    "@mui/lab": "^5.0.0-alpha.133",
-=======
     "@mui/lab": "^5.0.0-alpha.134",
->>>>>>> 1e1bc1e0f33b8b419ca5db5f64309d3b5467bdad
     "@mui/material": "^5.11.6",
     "@mui/x-date-pickers": "^6.3.1",
     "ajv": "^8.12.0",
