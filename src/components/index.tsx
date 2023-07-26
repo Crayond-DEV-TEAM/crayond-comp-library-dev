@@ -3,6 +3,7 @@ export { CommonTable } from './table';
 export { Switch } from './switch';
 export { LinearProcess } from './linearProgress';
 export { Progress } from './progress';
+export { CompareFeature } from './compareFeature';
 export { SearchField } from './searchField';
 export { CustomCalender } from './customCalender';
 export { CustomFilter } from './filter';
