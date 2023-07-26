@@ -28,11 +28,21 @@ export interface TreeViewProps {
     checkboxBgColor?: string;
     dataRow: DataRowLogic;
     leftSec?: {
-        breakpoints: object;
+        breakpoints: {
+            xs: number;
+            md: number;
+            sm: number;
+            lg: number;
+          };
     };
     rightSec?: {
-        breakpoints: object;
+        breakpoints: {
+            xs: number;
+            md: number;
+            sm: number;
+            lg: number;
+          };
     }
-    dividerPropsSx?: object
+    dividerPropsSx?: SxProps
 
 }
