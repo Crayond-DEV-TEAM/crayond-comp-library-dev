@@ -5,7 +5,7 @@ import '@fontsource/poppins/700.css';
 import { useState } from 'react';
 import { SelectBoxComponent } from './components/selectBox';
 import CardPage from './components/cardPage';
-import sampleImage from './assets/loginImg.png';
+import sampleImage from './assets/sampleprof.png';
 
 function App() {
   interface FilmOptionType {
@@ -76,6 +76,7 @@ function App() {
         console.log('Button e');
       },
       style: { width: '78px' },
+      disabled: true,
     },
   ];
   const [checked, setChecked] = useState([]);
@@ -271,6 +272,20 @@ function App() {
         mailId={'ethan.holmes@mail.com'}
         mobile={'(621)668-1434'}
         divider={true}
+        desc={'Integer ac interdum lacus. Nunc porta semper lacus a varius.'}
+        variant={'contentOriented'}
+        cardStyle={{}}
+        cardWrapperStyle={{}}
+        cardMediastyle={{}}
+        cardContentStyle={{}}
+        titleStyle={{}}
+        subTitleWrapStyle={{}}
+        mailIdStyle={{}}
+        dotStyle={{}}
+        mobileNumberStyle={{}}
+        dividerStyle={{}}
+        descStyle={{}}
+        buttonWrapStyle={{}}
       />
     </div>
   );
