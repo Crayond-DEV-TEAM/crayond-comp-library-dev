@@ -1,6 +1,13 @@
 import { SxProps } from '@mui/material';
 import { ReactElement } from 'react';
 
+interface TreeNode {
+    id: string;
+    name: string;
+    child?: TreeNode[];
+    allowed: string[];
+    permissions: string[];
+  }
 
 export interface CheckBoxProps {
     checkboxIcon?: ReactElement;
@@ -10,7 +17,6 @@ export interface CheckBoxProps {
     checkboxHeight?: number;
     disable?: boolean;
     isCheckBox?: boolean;
-    onClick?: (e: any) => void;
     checked?: boolean;
     onChange: (e: any) => void,
 }
@@ -20,15 +26,15 @@ export interface CustomLabelProps {
         parentChild?: JSX.Element
     };
     labelText?: string;
-    fontsize?: any;
+    labelStyleSx?:  SxProps;
     test?: string;
     isCheckBox?: boolean;
     disable?: boolean;
-    onChange?: (e: any, val: any, id: string, data: any) => void;
+    onChange?: (e: any, val: string, id: string, data: []) => void;
     nodes?: any;
     index?: number | string;
-    formControlPropsSx?: object;
-    state?: any;
+    formControlPropsSx?: SxProps;
+    state?: TreeNode;
     checkBoxStyles: CheckBoxProps | { 
         checkboxBorderRadius: string; 
         checkboxIcon: null; 
@@ -45,13 +51,13 @@ export interface TreeComponentProps {
     index?: number;
     nodes?: any,
     test?: string;
-    setEdit?: any;
-    onChange?: (e: any, val: any, id: string, data: any) => void;
+    setEdit?: boolean;
+    onChange?: (e: any, val: string, id: string, data: []) => void;
     customLabel?: CustomLabelProps | undefined;
     rootNode?: boolean;
     defaultExpandIcon?: JSX.Element;
     defaultCollapseIcon?: JSX.Element;
-    state?: any;
+    state?: TreeNode;
     leftSec?: {
         breakpoints: {
             xs: number;
@@ -69,7 +75,7 @@ export interface TreeComponentProps {
           };
     };
     heading?: string;
-    permissionHeadingSx?: object | undefined;
+    permissionHeadingSx?: SxProps;
     disable?: boolean
 }
 

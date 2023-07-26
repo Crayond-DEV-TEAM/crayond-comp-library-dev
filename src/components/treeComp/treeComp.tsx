@@ -1,7 +1,7 @@
 import { Checkbox, Grid, FormControl } from '@mui/material';
 import { Box, Typography } from '@mui/material';
 import TreeView from '@mui/lab/TreeView';
-import { styled } from '@mui/material/styles';
+import { SxProps, styled } from '@mui/material/styles';
 import TreeItem, { treeItemClasses } from '@mui/lab/TreeItem';
 import { styles } from './style';
 import SettingIcon from '../../assets/settingIcon';
@@ -14,12 +14,12 @@ import { BpCheckedIcon, BpIcon } from './components';
 export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
     const {
         labelText = '',
-        fontsize = '',
+        labelStyleSx,
         isCheckBox = false,
         test = '',
         onChange = () => null,
         nodes = [],
-        state = [],
+        state,
         formControlPropsSx,
         iconProp = {
             parent: '',
@@ -68,7 +68,7 @@ export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
             <Grid item xs={'auto'} sx={styles?.labelTextGridSx}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <Box>{stylesProps()?.iconProp}</Box>
-                    <Typography sx={{ ...styles?.child, ...fontsize }}>
+                    <Typography sx={{ ...styles?.child, ...labelStyleSx } as SxProps}>
                         {labelText}</Typography>
                 </Box>
             </Grid>
@@ -144,7 +144,7 @@ const renderTree = (
     index: number,
     state: object[],
     customLabel: CustomLabelProps | {
-        fontsize: string; 
+        labelStyleSx: SxProps; 
         iconProp: {
             parent: JSX.Element,
             parentChild: JSX.Element,
@@ -176,7 +176,7 @@ const renderTree = (
                 nodes={nodes}
                 state={state}
                 index={index}
-                fontsize={customLabel?.fontsize}
+                labelStyleSx={customLabel?.labelStyleSx}
                 test={test}
                 checkBoxStyles={customLabel?.checkBoxStyles} />}
             heading={''}
@@ -233,7 +233,7 @@ function BpCheckbox(props: CheckBoxProps) {
 export default function TreeComponent(props: TreeComponentProps) {
     const {
         customLabel = {
-            fontsize: '',
+            labelStyleSx: {},
             iconProp: {
                 parent: <></>,
                 parentChild: <></>
@@ -249,7 +249,7 @@ export default function TreeComponent(props: TreeComponentProps) {
         },
         state = [],
         checkboxsection = false,
-        setEdit,
+        setEdit = false,
         onChange = () => false,
         defaultExpandIcon,
         defaultCollapseIcon,
@@ -260,7 +260,7 @@ export default function TreeComponent(props: TreeComponentProps) {
         ...rest
     } = props;
     return (
-        <Box
+        <Box    
             sx={styles?.widthItem}
             {...rest}
         >
