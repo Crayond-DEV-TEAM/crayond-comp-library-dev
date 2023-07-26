@@ -6,7 +6,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import { CompareFeatureProps } from './props';
-import { styles } from './styles';
 import { SxProps } from '@mui/material';
 
 const RowComponent = (row: any, column: any) => {
@@ -49,7 +48,6 @@ const CompareFeature = (props: CompareFeatureProps) => {
                           color: compareHeadingColor,
                           fontSize: compareHeadingSize,
                           ...compareHeadingStyle,
-                          ...styles.compareHeadingStyle,
                           ...column?.style,
                         } as SxProps
                       }
@@ -77,7 +75,6 @@ const CompareFeature = (props: CompareFeatureProps) => {
                         color: compareRowTitleColor,
                         fontSize: compareRowTitleSize,
                         borderColor: rowBorderColor,
-                        ...styles.compareRowTitleStyle,
                         ...compareRowTitleStyle,
                         ...row?.style,
                       } as SxProps
