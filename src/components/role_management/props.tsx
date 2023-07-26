@@ -6,6 +6,15 @@ type Role = {
     isActive: boolean;
 };
 
+type initialProps = {
+    roleNo: string,
+    role: string,
+    isActive: boolean,
+    error: {
+      roleNo: string,
+    }
+  }
+
 export interface inputStyle {
     type?: string;
     helperText?: string;
@@ -14,16 +23,16 @@ export interface inputStyle {
     isReadOnly?: boolean;
     isError?: boolean;
     multiline?: boolean;
-    rowsMax?: any;
+    rowsMax?: string | number;
     rows?: number;
     minRows?: number;
     maxRows?: number;
     fullWidth?: boolean | undefined;
     value?: string;
-    endAdornment?: any;
-    startAdornment?: any;
+    endAdornment?: object;
+    startAdornment?: object;
     header?: string;
-    textFieldStyle?: object | any;
+    textFieldStyle?: SxProps;
     disabled?: boolean;
     variant?: "" | "standard" | "filled" | "outlined";
     onChange?: (event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void;
@@ -72,18 +81,18 @@ export interface RoleManagementProps {
     search?: string,
 
     onEditRole?: (x: Role, index: number | undefined) => void,
-    handleChange?: (key: string, e: any, index: number) => void,
-    handleChangeCallback?: (e: any) => void | undefined;
-    handleSaveCallback?: (e: any) => void | undefined;
-    handleSwitchCallback?: (e: any) => void | undefined,
+    handleChange?: (key: string, e: object, index: number) => void,
+    handleChangeCallback?: (e: object) => void | undefined;
+    handleSaveCallback?: (e: object) => void | undefined;
+    handleSwitchCallback?: (e: object) => void | undefined,
     handleSave?: (x: Role, index: number) => void,
-    handleAddChange?: (key: any, value: string) => void,
+    handleAddChange?: (key: keyof initialProps['error'], value: string) => void,
     handleAddSave?: (e: Role) => void,
     handleAddRole?: () => void,
     handleRoleClick?: (x: Role, index: number | undefined) => void,
     handleClose?: () => void,
     handleSearch?: (key: string, value: string) => void,
-    handleSwitch?: (e: any, index: number) => void,
+    handleSwitch?: (e: boolean, index: number) => void,
     rolesGrid?: {
         breakpoints: object,
     },

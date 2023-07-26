@@ -147,7 +147,6 @@ const RoleManagement = (props: RoleManagementProps) => {
   }
 
   const handleAddSave = (e: Role) => {
-    debugger
     const tempArr = [...roles]
 
     if (validate()) {
