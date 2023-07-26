@@ -68,7 +68,7 @@ function App() {
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
       <MapComponent
-        googleMapApiKey="AIzaSyC1djjqNS2RDzmsA5Ryf2wgoH6_dse-DjA"
+        googleMapApiKey=""
         locations={locations}
        center={{
         lat: 9.8777183,
