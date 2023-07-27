@@ -3,10 +3,7 @@ export { CommonTable } from './table';
 export { Switch } from './switch';
 export { LinearProcess} from './linearProgress';
 export { Progress } from './progress';
-<<<<<<< HEAD
 export { RoleManagement } from './role_management';
-export { SelectBoxComponent } from './selectBox'
-=======
 export {SearchField} from './searchField';
 export {CustomCalender} from './customCalender'
 export { CustomFilter } from './filter';
@@ -27,4 +24,3 @@ export { CustomRating } from './rating';
 export { CustomButtonGroup } from './buttonGroup';
 export { SelectBoxComponent } from './selectBox'
 export {CircleProgress} from "./circleBar"
->>>>>>> 1e1bc1e0f33b8b419ca5db5f64309d3b5467bdad

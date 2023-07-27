@@ -65,7 +65,7 @@ export interface RoleManagementProps {
     roleNo?: string;
     isActive?: boolean;
     name?: string;
-    x?: object | undefined;
+    x?: Role;
     index?: number | undefined;
     roles?: { roleNo?: string; role?: string; isActive?: boolean; }[],
     state?: {
@@ -81,21 +81,28 @@ export interface RoleManagementProps {
     search?: string,
 
     onEditRole?: (index: number | undefined) => void,
-    handleChange?: (key: string, e: object, index: number | undefined) => void,
+    handleChange?: (key: string, e: object, index: number) => void,
     handleChangeCallback?: (e: object) => void | undefined;
     handleSaveCallback?: (e: object) => void | undefined;
     handleSwitchCallback?: (e: object) => void | undefined,
-    handleSave?: (x: Role, index: number | undefined) => void,
+    handleSave?: (x: Role, index: number) => void,
     handleAddChange?: (key: keyof initialProps['error'], value: string) => void,
     handleAddSave?: (e: Role) => void,
     handleAddRole?: () => void,
     handleRoleClick?: ( index: number | undefined) => void,
     handleClose?: () => void,
     handleSearch?: (key: string, value: string) => void,
-    handleSwitch?: (e: boolean, index: number | undefined) => void,
+    handleSwitch?: (e: boolean, index: number) => void,
     rolesView?: {
-        breakpoints: object
+        breakpoints: {
+            xs?: number; md?: number; sm?: number; lg?: number 
+        }
     },
+    rolesGrid?: {
+        breakpoints: {
+            xs?: number; md?: number; sm?: number; lg?: number 
+        }
+    }
     roleTitleSx?: SxProps,
     subRootPropsSx?: SxProps,
     roleBoxSx?: SxProps,

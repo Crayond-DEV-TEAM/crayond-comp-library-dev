@@ -30,7 +30,7 @@ export interface RoleItemProps {
     isActive?: boolean;
     onEdit?: (x: object | undefined, index: number | undefined) => void;
     handleChange?: (key: string, e: object, index: number | undefined) => void;
-    handleSave?: (x: Role, index: number | undefined) => void;
+    handleSave?: (x: Role, index: number) => void;
     handleClose?: () => void;
 }
 
@@ -110,7 +110,8 @@ export const RoleItem = forwardRef((props: RoleManagementProps): JSX.Element => 
                                     }
                                 }}
                                 value={roleNo}
-                                onChange={(e: any) => handleChange('roleNo', e?.target?.value, index)}
+                                onChange={(e: any) => handleChange('roleNo', e?.target?.value, 
+                                index as number)}
                                 placeholder='Role No'
                                 isErrorRequired={false}
 
@@ -142,7 +143,7 @@ export const RoleItem = forwardRef((props: RoleManagementProps): JSX.Element => 
                                     }
                                 }}
                                 value={name}
-                                onChange={(e: any) => handleChange('role', e?.target?.value, index)}
+                                onChange={(e: any) => handleChange('role', e?.target?.value, index as number)}
                                 placeholder='Description'
                                 isErrorRequired={false}
 
@@ -153,7 +154,7 @@ export const RoleItem = forwardRef((props: RoleManagementProps): JSX.Element => 
                                 alignItems={'center'} justifyContent={'space-around'}
                             >
                                 <IconButton sx={{ ...styles.CheckIcon, ...checkIconPropsSx }}
-                                    onClick={() => handleSave(x, index)}>
+                                    onClick={() => handleSave(x as Role, index as number)}>
                                     {
                                         (name !== '' && roleNo !== '') ? <CheckIcon />  : null
                                     } 
@@ -207,7 +208,7 @@ export const RoleItem = forwardRef((props: RoleManagementProps): JSX.Element => 
                                     control={<CustomizedSwitches
                                         swtichSx={switchStyle}
                                         onChange={(e: any, arr: any, event: any) =>
-                                            handleSwitch(event?.target?.checked, index)
+                                            handleSwitch(event?.target?.checked, index as number)
                                         }
                                         value={isActive}
                                         isLabel={true}
