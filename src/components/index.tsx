@@ -3,6 +3,7 @@ export { CommonTable } from './table';
 export { Switch } from './switch';
 export { LinearProcess } from './linearProgress';
 export { Progress } from './progress';
+export { FileUpload } from './fileUpload';
 export { SelectBoxComponent } from './selectBox';
 export { FabButton } from './fabButton';
 export { PaymentUI } from './paymentUI';
