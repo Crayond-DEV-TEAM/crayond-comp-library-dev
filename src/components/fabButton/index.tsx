@@ -144,7 +144,7 @@ export function FabButton(props: FabButtonProps) {
           icon={
             actionsData.length === 0
               ? openIcon
-              : isOpen || (variant === 'hoverable' && hover)
+              : open || (variant === 'hoverable' && hover)
               ? closeIcon
               : openIcon
           }

@@ -3,14 +3,6 @@ export const dropdown_style = {
     '.MuiPaper-root': {
       left: 4,
     },
-    // '& .MuiOutlinedInput-notchedOutline': {
-    //   borderWidth: '1.5px',
-    //   borderColor: '#888888',
-    //   borderRadius: 2,
-    // },
-    // '&:hover .MuiOutlinedInput-notchedOutline': {
-    //   borderColor: '#888888',
-    // },
     "& .MuiSelect-select":{
        padding:"12px 16px"
     },
