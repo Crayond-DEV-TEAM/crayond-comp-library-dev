@@ -7,6 +7,8 @@ import { inputField_Style } from './style';
 
 const InputField: React.FC<InputFieldProps> = ({
   label,
+  isLabelRequired =true,
+  isErrorRequired=true,
   value, 
   inputStyle,
   labelStyle,
@@ -18,7 +20,7 @@ const InputField: React.FC<InputFieldProps> = ({
 }) => {
   return (
     <>
-      {labelVariant === 'standard' && (
+      {isLabelRequired && labelVariant === 'standard' && (
         <InputLabel
           sx={{ ...inputField_Style.labelSx, ...labelStyle }}
         >
@@ -34,14 +36,14 @@ const InputField: React.FC<InputFieldProps> = ({
         sx={{ ...inputField_Style.textFieldSx, ...inputStyle }}
         {...rest}
       />
-       <Typography
+      { isErrorRequired && <Typography
         sx={{ mt: 0.5, mb: 0,"caret-color": "transparent"}}
         variant="caption"
         color="error"
         component={'p'}
       >
         {error && errorMessage}&nbsp;
-      </Typography>
+      </Typography>}
     </>
   );
 };

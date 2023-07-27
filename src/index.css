@@ -27,9 +27,10 @@ a:hover {
 body {
   font-family: "Poppins", sans-serif;
   margin: 0;
-  display: flex;
+  /* display: flex; */
   place-items: center;
-  min-width: 320px;
+  /* min-width: 320px; */
+  width: 100%;
   min-height: 100vh;
 }
 
@@ -52,10 +53,10 @@ button {
 button:hover {
   border-color: #646cff;
 }
-button:focus,
+/* button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
+} */
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -89,4 +90,24 @@ button:focus-visible {
     border: none !important;
     border-image: none !important;
   }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.23); 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(146, 151, 165, 1); 
 }

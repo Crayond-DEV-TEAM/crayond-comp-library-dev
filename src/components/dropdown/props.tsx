@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { SxProps } from '@mui/system';
 import { InputFieldProps } from '../inputField/props';
+import { SxProps } from '@mui/material';
 
 export interface DropDownProps {
   autoWidth?: boolean;
