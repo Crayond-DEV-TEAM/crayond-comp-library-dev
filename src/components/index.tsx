@@ -4,6 +4,7 @@ export { Switch } from './switch';
 export { LinearProcess } from './linearProgress';
 export { Progress } from './progress';
 export { SelectBoxComponent } from './selectBox';
+export { FabButton } from './fabButton';
 export { PaymentUI } from './paymentUI';
 export { CompareFeature } from './compareFeature';
 export { SearchField } from './searchField';
