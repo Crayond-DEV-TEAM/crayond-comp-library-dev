@@ -1,10 +1,8 @@
-import moment from 'moment';
-import DeleteIcon from './assets/deleteIcon';
-import { PaymentUI } from './components/paymentUI';
-import { Item } from './components/paymentUI/props';
-import { RenderForm } from './components/renderForm';
-import { ProfileThree } from './components/profileThree';
-
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
+import {BasicButtons} from "./components";
 function App() {
   const sectionOne: Item[] = [
     {
@@ -235,20 +233,8 @@ function App() {
   ];
 
   return (
-    <div
-      className="App"
-      style={{ width: '100vw', background: '#fff', height: '100vh' }}
-    >
-      <PaymentUI
-        title="Billing & Payment"
-        description="Cras gravida bibendum dolor eu varius. Morbi fermentum velit nisl, eget vehicula lorem sodales eget."
-        section={paymentSections}
-        buttons={buttons}
-        buttonContainerStyle={{}}
-      />
-    </div>
+    <div className="App" style={{ width: '100vw', height: '100vh' }}><BasicButtons >asdadsasdasda</BasicButtons> Check  <code>App.tsx</code></div>
   );
 }
-
 
 export default App;
