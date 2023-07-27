@@ -35,7 +35,9 @@ const EmptyPages = (props: EmptyPageProps) => {
   return (
     <>
       <Stack sx={{ ...styles.containerStyle, ...containerStyle } as SxProps}>
+        
         {emptyPageInfographic && <Box>{emptyPageInfographic}</Box>}
+        
         {emptyPageIcon && (
           <Box
             onClick={() => handleClickIcon()}
@@ -48,6 +50,7 @@ const EmptyPages = (props: EmptyPageProps) => {
             {emptyPageIcon}
           </Box>
         )}
+        
         {emptyPageUrl && (
           <Box>
             <img
@@ -58,6 +61,7 @@ const EmptyPages = (props: EmptyPageProps) => {
             />
           </Box>
         )}
+        
         <Stack sx={{ justifyContent: 'center', alignItems: 'center' }}>
           {title1 && (
             <Typography
@@ -85,6 +89,7 @@ const EmptyPages = (props: EmptyPageProps) => {
           )}
         </Stack>
 
+
         <Stack mt={buttonMarginTop} direction={'row'}>
           {buttons?.map((btn: any) => (
             <Box
@@ -109,6 +114,8 @@ const EmptyPages = (props: EmptyPageProps) => {
             </Box>
           ))}
         </Stack>
+
+        
       </Stack>
     </>
   );
