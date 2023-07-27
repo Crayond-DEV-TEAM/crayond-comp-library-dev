@@ -14,15 +14,9 @@ import { Box, Typography, IconButton, TextField } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import mapCircle from '../../assets/mapCircle.png';
 import NearMeIcon from '@mui/icons-material/NearMe';
-import pinned from '../../assets/pinned.svg';
-import adayar from '../../assets/adayar.jpg';
-import junior from '../../assets/junior.jpeg';
 import { customMapStyle } from './style';
-
 import { BasicButtons } from '../button';
-import {
-  MapMainComponent,
-  MapObject,
+import { MapMainComponent, MapObject,
   latLAng,
   locationsData,
 } from './interface';
@@ -493,65 +487,10 @@ MapComponent.defaultProps = {
     width: '100%',
   },
   radiusDistance: 1200000000,
-  locations: [
-    {
-      name: 'Adayar',
-      location: {
-        lat: 13.003387,
-        lng: 80.255043,
-      },
-      address:
-        'Adyar is a large neighbourhood in south Chennai, Tamil Nadu, India',
-      image: adayar,
-      pinnedIcon: pinned,
-    },
-    {
-      name: 'Neelankarai',
-      location: {
-        lat: 12.949282,
-        lng: 80.255013,
-      },
-      address:
-        'Neelangarai is a census town and is a locality in the south of Chennai.',
-      image: '',
-      pinnedIcon: pinned,
-    },
-    {
-      name: 'Bay Breeze Suites',
-      location: {
-        lat: 12.95790649960084,
-        lng: 80.26010930368109,
-      },
-      address:
-        '4/222, Pushpa Ave, MGR Salai, Palavakkam, Chennai, Tamil Nadu 600041',
-      image: '',
-      pinnedIcon: pinned,
-    },
-    {
-      name: 'Palavakam Beach',
-      location: {
-        lat: 12.965173638501662,
-        lng: 80.26237489796081,
-      },
-      address: '28, MGR Salai, Palavakkam, Chennai, Tamil Nadu 600041',
-      image: '',
-      pinnedIcon: pinned,
-    },
-    {
-      name: 'Junior Kuppanna, ECR',
-      location: {
-        lat: 12.956786921292327,
-        lng: 80.25718652012615,
-      },
-      address:
-        '2/546, LHC, East Coast Rd, illam, Neelankarai, Chennai, Tamil Nadu 600041',
-      image: junior,
-      pinnedIcon: pinned,
-    },
-  ],
+  locations: [],
   mapRadiusIcon: mapCircle,
-  origin: { lat: 13.003387, lng: 80.255043 },
-  destination: { lat: 12.95790649960084, lng: 80.26010930368109 },
+  origin: { lat: 0, lng: 0 },
+  destination: { lat: 0, lng:0 },
   setDefaultRoute: true,
   isSearchRequired: true,
   fullscreenControl: true,
