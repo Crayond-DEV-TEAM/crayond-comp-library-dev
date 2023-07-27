@@ -3,11 +3,11 @@ import { Avatar, AvatarGroup, Box, IconButton, SxProps, Typography } from '@mui/
 import { styles } from './styles';
 
 const DragItem = (props:any) => {
-const {item,index,childItems,handleClickNotifyIcon,handleClickMoreIcon}= props;
+const {item,index,childItems,snapshot,handleClickNotifyIcon,handleClickMoreIcon}= props;
   
   return (
     <>
-      <Draggable key={item.id} draggableId={item.id.toString()} index={index}>
+      <Draggable  key={item.id} draggableId={item.id.toString()} index={index} >
         {(provided, snapshot) => {
           return (
 
@@ -34,6 +34,7 @@ const {item,index,childItems,handleClickNotifyIcon,handleClickMoreIcon}= props;
                  {...provided.dragHandleProps}
                   sx={{ ...styles.childBoxContainer,
                     ...provided.draggableProps.style,
+                    border: snapshot.isDragging ? "1px solid #665CD7":""
                    
                 }}
                 >

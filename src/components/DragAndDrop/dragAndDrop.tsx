@@ -6,6 +6,7 @@ import MoreIcon from '../../assets/moreIcon';
 import NormalNotification from '../../assets/normalNotification';
 import DragContainerCard from './dragContainer';
 import { styles } from './styles';
+import AddNewButtonIcon from '../../assets/addNewBtn';
 
 const cardData = [
   {
@@ -322,19 +323,45 @@ const taskStatus = {
   requested: {
     name: 'Requested',
     items: cardData,
+    bottomButton: {
+      icon: <AddNewButtonIcon />,
+      buttonLabel: 'Add New',
+    },
   },
   inProgress: {
     name: 'Progress',
     items: [],
+    bottomButton: {
+      icon: <AddNewButtonIcon />,
+      buttonLabel: 'Add New',
+    },
   },
   done: {
     name: 'Done',
     items: [],
+    bottomButton: {
+      icon: <AddNewButtonIcon />,
+      buttonLabel: 'Add New',
+    },
   },
 };
+
 const DragAndDrop = (props: any) => {
   const [columns, setColumns] = useState(taskStatus);
+  const [dragItemIndex, setDragItemIndex] = useState(0);
 
+  const onDragStart = (result: any) => {
+    const { source, destination } = result;
+    setDragItemIndex(source);
+  };
+
+  const onDragUpdate = (val: any) => {
+     const {destination,draggableId,source}=val;
+    setDragItemIndex(destination)
+    console.log(val);
+  };
+  console.log(dragItemIndex,);
+  
   const onDragEnd = (result: any, columns: any, setColumns: any) => {
     if (!result.destination) return;
     const { source, destination } = result;
@@ -370,6 +397,7 @@ const DragAndDrop = (props: any) => {
         },
       });
     }
+    // setDragItemIndex(0)
   };
 
   return (
@@ -377,14 +405,18 @@ const DragAndDrop = (props: any) => {
       <div>
         <Box sx={{ ...styles.rootStyle }}>
           <DragDropContext
+            onDragUpdate={(result) => onDragUpdate(result)}
+            onDragStart={(result) => onDragStart(result)}
             onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
           >
-            {Object.entries(columns).map(([columnId, column], index) => {
+            {Object.entries(columns)?.map(([columnId, column], index) => {
               return (
                 <DragContainerCard
                   columnId={columnId}
                   column={column}
+                  data={columns}
                   index={index}
+                  dragItemIndex={dragItemIndex}
                 />
               );
             })}
