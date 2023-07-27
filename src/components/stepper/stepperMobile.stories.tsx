@@ -90,7 +90,7 @@ export default {
     'steps.completeBadge': {
       description: 'This is the badge which we used for completed icon ',
     },
-    'styles.buttonsContainer': {
+    'styles.buttonsContainerMob': {
       description: 'The style for the buttons parent.',
     },
     'styles.btnStyle': {
@@ -168,10 +168,10 @@ Primary.args = {
     },
   ],
   styles: {
-    buttonsContainer: {},
+    buttonsContainerMob: {},
     btnStyle: { width: '30px' },
     rootStyle: {},
-    contentStyle: {},
+    stepperParent: {},
   },
   mobileButtons: [
     {
