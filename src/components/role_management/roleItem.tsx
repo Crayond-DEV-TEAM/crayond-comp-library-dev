@@ -10,6 +10,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { CustomizedSwitches } from '../switch/switch';
 import { InputField } from '../inputField';
+import { RoleManagementProps } from './props';
 
 
 type Role = {
@@ -25,17 +26,17 @@ export interface RoleItemProps {
     name?: string;
     x?: object | undefined;
     roleNo?: string;
-    handleRoleClick?: (x: object | undefined, index: number | undefined) => void;
+    handleRoleClick?: (index: number | undefined) => void;
     isActive?: boolean;
     onEdit?: (x: object | undefined, index: number | undefined) => void;
     handleChange?: (key: string, e: object, index: number | undefined) => void;
-    handleSave?: (x: Role | undefined, index: number | undefined) => void;
+    handleSave?: (x: Role, index: number | undefined) => void;
     handleClose?: () => void;
 }
 
 
 // eslint-disable-next-line react/display-name
-export const RoleItem = forwardRef((props: any): JSX.Element => {
+export const RoleItem = forwardRef((props: RoleManagementProps): JSX.Element => {
     const {
         isActive,
         onEditRole = () => false,
@@ -171,7 +172,7 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                             <span style={{ maxWidth: '60%' }}>
 
                                 <Typography noWrap
-                                    sx={{ ...styles.roleNo, roleNoProps }}>
+                                    sx={{ ...styles.roleNo, roleNoProps } as SxProps}>
                                     {roleNo}-{name}
                                 </Typography>
                             </span>
@@ -180,7 +181,7 @@ export const RoleItem = forwardRef((props: any): JSX.Element => {
                             <IconButton
                                 sx={{ ...styles.editIcon, ...editIconProps }}
                                 disableRipple
-                                onClick={() => onEditRole(x, index)}
+                                onClick={() => onEditRole(index)}
                                 aria-owns={anchorEl ? 'simple-menu' : undefined}
                                 aria-haspopup="true"
                             >

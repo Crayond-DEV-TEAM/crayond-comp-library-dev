@@ -242,9 +242,6 @@ const Template: ComponentStory<typeof RoleManagement> = (args) => {
       setRoles([...tempArr]);
       setState(initialState)
     }
-
-    
-    
   }
 
   const handleSwitch = (e: boolean, index: number) => {

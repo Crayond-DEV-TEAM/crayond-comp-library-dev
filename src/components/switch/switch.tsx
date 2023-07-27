@@ -61,7 +61,15 @@ interface CustomizedSwitchesProps {
   value: boolean | undefined;
   label: string;
   isLabel: boolean,
-  swtichSx: SxProps
+  swtichSx: {
+    customProp?: {
+      width?: string,
+      height?: string,
+      thumbColor?: string,
+      onChange?: ((event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void),
+      color?: string
+  };
+  }
 }
 export const CustomizedSwitches = (props: CustomizedSwitchesProps) => {
   return (

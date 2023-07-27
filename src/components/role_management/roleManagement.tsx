@@ -80,11 +80,11 @@ const RoleManagement = (props: RoleManagementProps) => {
     setAdd(true)
   }
 
-  const onEditRole = (x: object | undefined, index: number | null | undefined) => {
+  const onEditRole = (index: number | null | undefined) => {
     setEditIndex(index)
   }
 
-  const handleRoleClick = (x: object | undefined, index: number | undefined) => {
+  const handleRoleClick = (index: number | undefined) => {
     setCickIndex(index)
   }
 

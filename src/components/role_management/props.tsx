@@ -66,7 +66,7 @@ export interface RoleManagementProps {
     isActive?: boolean;
     name?: string;
     x?: object | undefined;
-    index?: number;
+    index?: number | undefined;
     roles?: { roleNo?: string; role?: string; isActive?: boolean; }[],
     state?: {
         role?: string,
@@ -80,22 +80,19 @@ export interface RoleManagementProps {
     add?: boolean,
     search?: string,
 
-    onEditRole?: (x: Role, index: number | undefined) => void,
-    handleChange?: (key: string, e: object, index: number) => void,
+    onEditRole?: (index: number | undefined) => void,
+    handleChange?: (key: string, e: object, index: number | undefined) => void,
     handleChangeCallback?: (e: object) => void | undefined;
     handleSaveCallback?: (e: object) => void | undefined;
     handleSwitchCallback?: (e: object) => void | undefined,
-    handleSave?: (x: Role, index: number) => void,
+    handleSave?: (x: Role, index: number | undefined) => void,
     handleAddChange?: (key: keyof initialProps['error'], value: string) => void,
     handleAddSave?: (e: Role) => void,
     handleAddRole?: () => void,
-    handleRoleClick?: (x: Role, index: number | undefined) => void,
+    handleRoleClick?: ( index: number | undefined) => void,
     handleClose?: () => void,
     handleSearch?: (key: string, value: string) => void,
-    handleSwitch?: (e: boolean, index: number) => void,
-    rolesGrid?: {
-        breakpoints: object,
-    },
+    handleSwitch?: (e: boolean, index: number | undefined) => void,
     rolesView?: {
         breakpoints: object
     },
