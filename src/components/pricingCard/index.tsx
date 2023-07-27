@@ -530,6 +530,7 @@ export function PricingCard(props: PricingCard) {
                             <IconButton
                               sx={{
                                 ...pricingcardstyle.selctbtn,
+                                right:'-20px',
                                 p: 0,
                                 justifyContent: 'end',
                               }}

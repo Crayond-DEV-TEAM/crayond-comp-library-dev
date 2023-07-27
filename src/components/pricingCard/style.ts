@@ -149,6 +149,7 @@ cardVarSx:{
 
 },
 totalBodySubSx: {
+    position:'relative',
     flex: '0 0 1',
     pr: '28px',
     pb: '28px',
