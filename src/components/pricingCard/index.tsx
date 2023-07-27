@@ -93,6 +93,7 @@ interface PricingCards {
   getStartedbtn: string;
   currencySymbol: string;
 }
+
 interface CombinedPricing extends Pricing, PricingCards {}
 
 export function PricingCard(props: PricingCard) {

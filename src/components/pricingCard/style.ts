@@ -58,8 +58,8 @@ pricingDetailSubSx:{
     fontSize:'36px',
     color:'#000',
     fontWeight:'600',
-    pt: '24px',
-    pb: '20px',
+    pt: '19px',
+    pb: '19px',
     borderBottom:'1px solid #E9E9E9'
 },
 pricingSubSx:{
@@ -113,7 +113,7 @@ pricingHeadVarSx:{
     color:'#665CD7',
     textAlign:'start',
     fontWeight:'600',
-    pb:'18px',
+    pb:'16px',
     pt:'22px'
 },
 
