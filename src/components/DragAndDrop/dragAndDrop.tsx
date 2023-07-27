@@ -357,10 +357,8 @@ const DragAndDrop = (props: any) => {
 
   const onDragUpdate = (val: any) => {
      const {destination,draggableId,source}=val;
-    setDragItemIndex(destination)
-    console.log(val);
+    // setDragItemIndex(destination)
   };
-  console.log(dragItemIndex,);
   
   const onDragEnd = (result: any, columns: any, setColumns: any) => {
     if (!result.destination) return;

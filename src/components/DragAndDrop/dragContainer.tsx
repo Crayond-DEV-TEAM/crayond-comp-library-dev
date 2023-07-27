@@ -47,7 +47,7 @@ const DragContainerCard = (props: any) => {
                         return (
                           <>
                             <DragItem item={item} index={index} snapshot={snapshot}/>
-                             {index === dragItemIndex?.index && (
+                             {index === dragItemIndex?.index && columnId === dragItemIndex?.droppableId && (
                               <Box
                                 sx={{
                                   minHeight: snapshot.isDraggingOver? '120px':"",
