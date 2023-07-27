@@ -17,10 +17,10 @@ export interface Item {
   endAdornment?: React.ReactNode;
   type?: 'number' | 'text';
   dateType?: 'date' | 'dateAndTime';
-  maxNumber?: Number | String;
-  dateFormat?: String;
+  maxNumber?: number | string;
+  dateFormat?: string;
   cardImage?: boolean;
-  validationType: 'cardNumber' | 'cvv' | 'text' | 'postalCode';
+  validationType?: 'cardNumber' | 'cvv' | 'text' | 'postalCode';
 }
 
 export interface PaymentUIProps {
