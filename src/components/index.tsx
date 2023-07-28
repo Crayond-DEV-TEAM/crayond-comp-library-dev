@@ -5,6 +5,7 @@ export { LinearProcess } from './linearProgress';
 export { Progress } from './progress';
 export { TreeComponent } from './treeComp';
 export {TreeView} from './treeView'
+export { RoleManagement } from './role_management';
 export {CustomCalender} from './customCalender'
 export { CompareFeature } from './compareFeature';
 export { SingleDatePicker } from './datePicker';

@@ -1,6 +1,6 @@
 import React from 'react';
 import Switch, { SwitchProps } from '@mui/material/Switch';
-import { styled } from '@mui/material/styles';
+import { SxProps, styled } from '@mui/material/styles';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 const CustomSwitch = styled((props: SwitchProps) => (
@@ -60,14 +60,25 @@ interface CustomizedSwitchesProps {
   id: string | number;
   value: boolean | undefined;
   label: string;
+  isLabel?: boolean,
+  swtichSx?: {
+    customProp?: {
+      width?: string,
+      height?: string,
+      thumbColor?: string,
+      onChange?: ((event: React.ChangeEvent<HTMLInputElement>, checked: boolean) => void),
+      color?: string
+  };
+  }
 }
 export const CustomizedSwitches = (props: CustomizedSwitchesProps) => {
   return (
-    <FormControlLabel
-      control={<CustomSwitch sx={{ m: 1 }}
-        onChange={(event) => props?.onChange(props?.id, props?.rowData, event)}
-        checked={props?.value} />}
-      label={props.label}
+    <FormControlLabel style={{
+      margin:'8px'
+    }}
+      control={<CustomSwitch sx={props?.swtichSx}
+        onChange={(event) => props?.onChange(props?.id, props?.rowData, event)} checked={props?.value} />}
+      label={props?.isLabel ? null : props.label}
     />
   )
 }
