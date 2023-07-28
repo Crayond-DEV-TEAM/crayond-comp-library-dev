@@ -3,8 +3,9 @@ export { CommonTable } from './table';
 export { Switch } from './switch';
 export { LinearProcess } from './linearProgress';
 export { Progress } from './progress';
+export { RoleManagement } from './role_management';
+export {CustomCalender} from './customCalender'
 export { CompareFeature } from './compareFeature';
-export { CustomCalender } from './customCalender';
 export { SingleDatePicker } from './datePicker';
 export { SingleInputDateRangePicker } from './dateRangePicker';
 export { EmptyPages } from './emptyPages';

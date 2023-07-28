@@ -1,4 +1,4 @@
-import { TextFieldProps, SxProps} from "@mui/material";
+import { TextFieldProps, SxProps } from "@mui/material";
 
 export interface InputFieldProps extends Omit<TextFieldProps, 'variant'> {
   label?: string | undefined;
@@ -24,7 +24,7 @@ export interface InputFieldProps extends Omit<TextFieldProps, 'variant'> {
   startAdornments?: React.ReactNode;
   endAdornments?: React.ReactNode;
   onChange?: (e: any) => any;
-  labelStyle?:SxProps;
+  labelStyle?: SxProps;
   labelVariant?: 'standard' | 'floating';
   errorMessage?:string;
   inputStyle?:SxProps;
