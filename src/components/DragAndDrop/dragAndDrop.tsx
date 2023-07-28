@@ -348,19 +348,25 @@ const taskStatus = {
 
 const DragAndDrop = (props: any) => {
   const [columns, setColumns] = useState(taskStatus);
-  const [dragItemIndex, setDragItemIndex] = useState(0);
+  const [dragItemIndex, setDragItemIndex] = useState("");
 
   const onDragStart = (result: any) => {
-    const { source, destination } = result;
+    const { source,draggableId, destination } = result;
+    console.log(result,"onDragStart");
+    
     setDragItemIndex(source);
   };
 
   const onDragUpdate = (val: any) => {
      const {destination,draggableId,source}=val;
     setDragItemIndex(destination)
+    console.log(val,"ondragUpdate");
   };
   
   const onDragEnd = (result: any, columns: any, setColumns: any) => {
+   console.log(result,"ondragEnd");
+   
+
     if (!result.destination) return;
     const { source, destination } = result;
 
@@ -395,7 +401,7 @@ const DragAndDrop = (props: any) => {
         },
       });
     }
-    // setDragItemIndex(0)
+    setDragItemIndex("")
   };
 
   return (
@@ -412,8 +418,8 @@ const DragAndDrop = (props: any) => {
                 <DragContainerCard
                   columnId={columnId}
                   column={column}
-                  data={columns}
-                  index={index}
+                  // data={columns}
+                  // index={index}
                   dragItemIndex={dragItemIndex}
                 />
               );
