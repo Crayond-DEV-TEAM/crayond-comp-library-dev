@@ -5,8 +5,8 @@ interface TreeNode {
     id: string;
     name: string;
     child?: TreeNode[];
-    allowed: string[];
-    permissions: string[];
+    allowed?: string[] | undefined;
+    permissions?: string[] | undefined;
   }
 
 export interface CheckBoxProps {
@@ -30,11 +30,11 @@ export interface CustomLabelProps {
     test?: string;
     isCheckBox?: boolean;
     disable?: boolean;
-    onChange?: (e: any, val: string, id: string, data: []) => void;
+    onChange?: (e: any, val: string, id: string, data: TreeNode[]) => void;
     nodes?: any;
     index?: number | string;
     formControlPropsSx?: SxProps;
-    state?: TreeNode;
+    state?: TreeNode[];
     checkBoxStyles: CheckBoxProps | { 
         checkboxBorderRadius: string; 
         checkboxIcon: null; 
@@ -52,12 +52,12 @@ export interface TreeComponentProps {
     nodes?: any,
     test?: string;
     setEdit?: boolean;
-    onChange?: (e: any, val: string, id: string, data: []) => void;
+    onChange?: (e: any, val: string, id: string, data: TreeNode[]) => void;
     customLabel?: CustomLabelProps | undefined;
     rootNode?: boolean;
     defaultExpandIcon?: JSX.Element;
     defaultCollapseIcon?: JSX.Element;
-    state?: TreeNode;
+    state?: TreeNode[];
     leftSec?: {
         breakpoints: {
             xs: number;

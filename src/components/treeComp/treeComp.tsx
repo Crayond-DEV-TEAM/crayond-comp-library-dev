@@ -11,6 +11,15 @@ import InfoIcon from '../../assets/InfoIcon';
 import { CheckBoxProps, CustomLabelProps, TreeComponentProps } from './props';
 import { BpCheckedIcon, BpIcon } from './components';
 
+interface TreeNode {
+    id: string;
+    name: string;
+    child?: TreeNode[];
+    allowed?: string[] | undefined;
+    permissions?: string[] | undefined;
+  }
+
+
 export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
     const {
         labelText = '',
@@ -61,6 +70,7 @@ export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
             return {}
         }
     })
+    
     return (
         <Grid container
             sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'nowrap' }}
@@ -79,9 +89,8 @@ export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
                 }}
             >
                 {isCheckBox &&
-                    filter?.map((val: {
-                        value: string
-                    }, i: number) => {
+                    filter?.map((
+                        val?: { value?: string | undefined}, i?: number) => {
                         return (
                             <FormControl key={i}
                                 sx={{ ...styles?.formControl, ...formControlPropsSx }}
@@ -90,8 +99,8 @@ export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
                                     disable={checkBoxStyles?.disable}
                                     checkboxBorderRadius={checkBoxStyles?.checkboxBorderRadius}
                                     key={i}
-                                    onChange={(e: any) => onChange(e?.target?.checked, val?.value, props?.nodes?.id, state)}
-                                    checked={nodes?.allowed?.includes(val?.value) ? true : false}
+                                    onChange={(e: any) => onChange(e?.target?.checked, val?.value as string, props?.nodes?.id, state as TreeNode[]) }
+                                    checked={(nodes?.allowed as string[])?.includes(val?.value) ? true : false}
                                 /> : ""}
                             </FormControl>
                         )
@@ -140,9 +149,9 @@ const renderTree = (
     test: string,
     isCheckBox: boolean,
     setEdit: boolean,
-    onChange: (e: any, val: string, id: string, data: []) => void,
+    onChange: (e: any, val: string, id: string, data: TreeNode[]) => void,
     index: number,
-    state: object[],
+    state: TreeNode[],
     customLabel: CustomLabelProps | {
         labelStyleSx: SxProps; 
         iconProp: {
@@ -247,7 +256,7 @@ export default function TreeComponent(props: TreeComponentProps) {
               checkboxHeight: '',
           },
         },
-        state = [],
+        state,
         checkboxsection = false,
         setEdit = false,
         onChange = () => false,
@@ -280,7 +289,7 @@ export default function TreeComponent(props: TreeComponentProps) {
                             checkboxsection &&
                             state?.[1]?.permissions?.map((val: string, i: number) => {
                                 return (
-                                    <Typography sx={{ ...styles?.headItems, ...permissionHeadingSx }} key={i}>
+                                    <Typography sx={{ ...styles?.headItems, ...permissionHeadingSx } as SxProps} key={i}>
                                         {val}</Typography>
                                 )
                             })
@@ -288,7 +297,7 @@ export default function TreeComponent(props: TreeComponentProps) {
                     </Grid>
                 </Grid>
             }
-            {state?.length > 0 && (
+            {state && state.length > 0 && (
                 <TreeView
                     defaultCollapseIcon={defaultCollapseIcon}
                     defaultExpandIcon={defaultExpandIcon}

@@ -15,8 +15,8 @@ function App() {
     id: string;
     name: string;
     child?: TreeNode[];
-    allowed?: string[];
-    permissions?: string[];
+    allowed?: string[] | undefined;
+    permissions?: string[] | undefined;
   }
 
   const initialTreeData: TreeNode[] = [
@@ -216,8 +216,9 @@ function App() {
 
   const [state, setState] = useState<TreeNode[]>(initialTreeData);
 
-  const onChange = (e: any, val: string, id: string, data: []) => {
-    const listingPermission = data?.map((item: any) => {
+  const onChange = (e: any, val: string | undefined, id: string, data: TreeNode[]) => {
+
+    const listingPermission = data?.map((item: any) => {  
       if (item?.id === id) {
         if (e) {
           item?.allowed.push(val)
@@ -274,13 +275,6 @@ function App() {
           onChange: () => null,
           index: '',
           formControlPropsSx: {},
-          state: {
-            id: '',
-            name: '',
-            child: [],
-            allowed: [],
-            permissions: [],
-          },
           checkBoxStyles:{
             // checkboxIcon: '',
             // uncheckedIcon: '',
