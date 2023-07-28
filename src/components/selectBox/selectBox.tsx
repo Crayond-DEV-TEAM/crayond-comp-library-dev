@@ -223,7 +223,7 @@ const SelectBox = (props: SelectBoxProps) => {
               groupBy={(option: FilmOptionType) => option.title as string}
               getOptionLabel={(option: FilmOptionType) => option.title as string}
               onChange={(event, newValue) =>
-                groupingProps?.handleGroupChange && groupingProps?.handleGroupChange(event, newValue as FilmOptionType[])}
+                groupingProps?.handleGroupChange && groupingProps?.handleGroupChange(event, newValue as FilmOptionType)}
               sx={{
                 height: '100%',
                 minWidth: groupingProps?.input?.minWidth ? groupingProps?.input?.minWidth : '400px',
@@ -476,7 +476,7 @@ const SelectBox = (props: SelectBoxProps) => {
               limitTags={limitTags}
               defaultValue={chipProps?.defaultValue}
               onChange={(event, newValue) => {
-                return chipProps?.handleChipChange && chipProps?.handleChipChange(event, newValue as FilmOptionType[]);
+                return chipProps?.handleChipChange && chipProps?.handleChipChange(event, newValue as FilmOptionType);
               }}
               selectOnFocus={true}
               multiple={multiple}

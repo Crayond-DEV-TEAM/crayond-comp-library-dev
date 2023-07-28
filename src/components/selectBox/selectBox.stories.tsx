@@ -101,7 +101,7 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
     setChecked(convertedValue)
   }
 
-  const handleDefaultChange = (val: any, newValue: FilmOptionType[]) => {
+  const handleDefaultChange = (val: any, newValue: FilmOptionType) => {
     const slicedData = newValue.filter((item: FilmOptionType, index: number) =>
       newValue.findIndex((obj: FilmOptionType) =>
         obj.title === item.title && obj.year === item.year) === index)

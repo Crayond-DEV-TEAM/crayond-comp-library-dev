@@ -17,7 +17,7 @@ export interface SelectBoxProps {
         isCloseIcon?: boolean,
         isSearch?: boolean,
         handleGroupChange?: (e: any,
-            val: FilmOptionType[]
+            val: FilmOptionType
         ) => void,
         groupedData?: FilmOptionType[],
         arrData?: FilmOptionType[],
@@ -87,7 +87,7 @@ export interface SelectBoxProps {
         isCloseIcon?: boolean,
         isSearch?: boolean,
         handleChipChange?: (e: any,
-            val: FilmOptionType[]
+            val: FilmOptionType
         ) => void,
         chipData?: FilmOptionType[],
         arrData?: FilmOptionType[],
