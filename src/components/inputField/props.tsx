@@ -26,8 +26,8 @@ export interface InputFieldProps extends Omit<TextFieldProps, 'variant'> {
   onChange?: (e: any) => any;
   labelStyle?: SxProps;
   labelVariant?: 'standard' | 'floating';
-  errorMessage?: string;
-  inputStyle?: SxProps;
-  isLabelRequired?: boolean;
-  isErrorRequired?: boolean
+  errorMessage?:string;
+  inputStyle?:SxProps;
+  isLabelRequired?:boolean;
+  isErrorRequired?:boolean;
 }

@@ -75,15 +75,14 @@ Primary.argTypes = {
     description: 'object',
     defaultValue: {},
   },
-  minMaxLabel: {
-    description: 'string',
+  maxLabelStyle: {
+    description: 'object',
     defaultValue: '',
   },
-  minMaxLabelStyle: {
-    description: 'string',
+  minLabelStyle: {
+    description: 'object',
     defaultValue: '',
   },
-
   containerStyle: {
     description: 'object',
     defaultValue: {},
@@ -114,8 +113,8 @@ Primary.args = {
   customMarks: false,
   minMaxValues: false,
   sliderStyle: {},
-  minMaxLabelStyle:{},
-  minMaxLabel: {},
+  maxLabelStyle:{},
+  minLabelStyle:{},
   containerStyle: {},
   sliderThumbStyle: {},
   marks: [

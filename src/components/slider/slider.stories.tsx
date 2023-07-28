@@ -6,34 +6,10 @@ export default {
   component: Sliders,
 } as ComponentMeta<typeof Sliders>;
 
-const Template: ComponentStory<typeof Sliders> = (args) => {
+const Template: ComponentStory<typeof Sliders> = (args) => (
+<Sliders {...args}/>
+)
 
-  const [value, setValue] = useState<number>(0);
-
-  return (
-    <Sliders
-      {...args}
-      value={value}
-      step={10}
-      size={'small'}
-      sliderHeight={5}
-      disabled={false}
-      customMarks={false}
-      progressLabel={false}
-      valueLabelDisplay={'off'}
-      labelColor={'#707070'}
-      labelSize={2}
-      sliderColor={'#665CD7'}
-      thumbColor={'#665CD7'}
-      handleChangeFun={(e,v) =>{setValue(v as number);console.log(e,v)}}
-      sliderStyle={{}}
-      symbol={''}
-      labelStyle={{}}
-      sliderThumbStyle={{}}
-      marks={[]}
-    />
-  );
-  }
 
 export const Primary = Template.bind({});
 Primary.argTypes = {
@@ -115,7 +91,7 @@ Primary.argTypes = {
   },
 };
 Primary.args = {
-  value:20,
+  value:10,
   step: 0,
   size: 'small',
   sliderHeight: 5,

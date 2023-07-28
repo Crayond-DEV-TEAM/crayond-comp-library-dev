@@ -175,6 +175,7 @@ const SearchField = (props: SearchFieldProps) => {
         noOptionsText={noOptionsText}
         options={[
           {
+            label:"",
             recentVal: recentSearch,
             variant: variant,
             primaryData: primaryCategoryData,
@@ -210,7 +211,7 @@ const SearchField = (props: SearchFieldProps) => {
             paddingRight: '12px !important',
           },
         }}
-        renderOption={(props: any, option) => {
+        renderOption={(props: any, option:any) => {
           if (variant === 'isShortcutKeyBased') {
             return (
               <>

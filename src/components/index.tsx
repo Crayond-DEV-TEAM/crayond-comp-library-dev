@@ -1,26 +1,31 @@
 export { BasicButtons } from './button';
 export { CommonTable } from './table';
 export { Switch } from './switch';
-export { LinearProcess} from './linearProgress';
+export { LinearProcess } from './linearProgress';
 export { Progress } from './progress';
 export { RoleManagement } from './role_management';
-export {SearchField} from './searchField';
 export {CustomCalender} from './customCalender'
+export { CompareFeature } from './compareFeature';
+export { SingleDatePicker } from './datePicker';
+export { SingleInputDateRangePicker } from './dateRangePicker';
+export { EmptyPages } from './emptyPages';
+export { ErrorModal } from './errorModal';
+export { PageNotFound } from './errorPageNotFound';
+export { FabButton } from './fabButton';
+export { FileUpload } from './fileUpload';
 export { CustomFilter } from './filter';
+export { Footer } from './footer';
 export { Header } from './header';
-export { Sidebar } from './sidebar';
-export {Footer} from "./footer"
 export { MobileNavbar } from './mobileNavbar';
-export {TimeLine} from "./timeLine";
-export { ErrorModal } from "./errorModal";
-export {PageNotFound} from "./errorPageNotFound";
-export {EmptyPages} from './emptyPages'
-export {SingleInputDateRangePicker}from "./dateRangePicker";
-export {SingleDatePicker} from './datePicker';
-export {Slider} from './slider';
-export {SliderRange} from './sliderRange';
-export { StepperMobile, CustomStepper } from './stepper';
+export { PaymentUI } from './paymentUI';
 export { CustomRating } from './rating';
+export { SearchField } from './searchField';
+export { SelectBoxComponent } from './selectBox';
+export { Sidebar } from './sidebar';
+export { Slider } from './slider';
+export { SliderRange } from './sliderRange';
+export { CustomStepper, StepperMobile } from './stepper';
+export { TimeLine } from './timeLine';
 export { CustomButtonGroup } from './buttonGroup';
-export { SelectBoxComponent } from './selectBox'
-export {CircleProgress} from "./circleBar"
+export {MapComponent} from './customMap';
+export { CircleProgress } from './circleBar';
