@@ -37,7 +37,7 @@ import moment from 'moment';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import CloseIcon from '@mui/icons-material/Close';
-import './customCalenderStyle.css';
+import './css/customCalenderStyle.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { customCalenderStyle } from './style';
 import { useRef, useState } from 'react';
@@ -768,7 +768,7 @@ export function CustomCalender(props: CalenderProps) {
 
   // Can Control the Inline style For Calender
   const inlineStyles = {
-    '--date-cell-borderColumn': `1px solid #000`,
+    '--date-cell-borderColumn': `1px solid ${defaultStyleProps?.layoutBorderStyle?.borderColor}`,
     '--date-cell-borderRow': `1px solid ${defaultStyleProps?.layoutBorderStyle?.borderColor}`,
     '--date-borderOverallCalender': `1px solid ${defaultStyleProps?.layoutBorderStyle?.borderColor}`,
     '--date-head-borderbottom': `1px solid ${defaultStyleProps?.layoutBorderStyle?.borderColor}`,
