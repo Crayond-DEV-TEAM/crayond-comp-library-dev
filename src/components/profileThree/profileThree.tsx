@@ -106,12 +106,12 @@ export default function ProfileThree(props: ProfileThreeProps) {
 }
 
 ProfileThree.defaultProps = {
-  isEditMode:false,
-  titleOptions:{},
-  overallSxProps:{},
-  renderForm:{},
-  uploadOptions:{},
-  cardSxProps:{},
-  gridContainerProps:{},
-  afterProfileComponent:null,
+  isEditMode: false,
+  titleOptions: {},
+  overallSxProps: {},
+  renderForm: {},
+  uploadOptions: {},
+  cardSxProps: {},
+  gridContainerProps: {},
+  afterProfileComponent: null,
 };
