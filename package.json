@@ -8,8 +8,12 @@
   "exports": {
     ".": {
       "import": "./dist/index.js"
+    },
+    "./style.css": {
+      "import": "./dist/style.css"
     }
   },
+  
   "files": [
     "dist"
   ],
