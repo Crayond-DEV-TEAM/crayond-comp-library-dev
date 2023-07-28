@@ -60,8 +60,8 @@ interface CustomizedSwitchesProps {
   id: string | number;
   value: boolean | undefined;
   label: string;
-  isLabel: boolean,
-  swtichSx: {
+  isLabel?: boolean,
+  swtichSx?: {
     customProp?: {
       width?: string,
       height?: string,

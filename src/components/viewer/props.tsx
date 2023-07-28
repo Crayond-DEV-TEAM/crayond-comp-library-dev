@@ -5,10 +5,11 @@ export interface ViewerProps {
         gridStyle?: object;
         profileimage?: {
             breakpoints: {
-                xs: number;
-                md: number;
-                sm: number;
-                lg: number;
+                xs?: number;
+                md?: number;
+                sm?: number;
+                lg?: number;
+                lx?: number;
               };
             profileImgStyle?: object;
             imgSrc: string | any;
@@ -24,10 +25,11 @@ export interface ViewerProps {
         };
         form?: {
             breakpoints: {
-                xs: number;
-                md: number;
-                sm: number;
-                lg: number;
+                xs?: number;
+                md?: number;
+                sm?: number;
+                lg?: number;
+                lx?: number;
               };
             title?: string;
             subTitle?: string;
