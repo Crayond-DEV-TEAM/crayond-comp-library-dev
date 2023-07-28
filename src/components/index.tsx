@@ -1,12 +1,13 @@
-export { BasicButtons } from './button';
+export { BasicButtons } from './button';;
 export { CommonTable } from './table';
 export { Switch } from './switch';
 export { LinearProcess } from './linearProgress';
 export { Progress } from './progress';
+export { ChatBox } from './chatBox';
 export { TreeComponent } from './treeComp';
-export {TreeView} from './treeView'
+export { TreeView } from './treeView';
 export { RoleManagement } from './role_management';
-export {CustomCalender} from './customCalender'
+export { CustomCalender } from './customCalender';
 export { CompareFeature } from './compareFeature';
 export { SingleDatePicker } from './datePicker';
 export { SingleInputDateRangePicker } from './dateRangePicker';
@@ -29,5 +30,5 @@ export { SliderRange } from './sliderRange';
 export { CustomStepper, StepperMobile } from './stepper';
 export { TimeLine } from './timeLine';
 export { CustomButtonGroup } from './buttonGroup';
-export {MapComponent} from './customMap';
+export { MapComponent } from './customMap';
 export { CircleProgress } from './circleBar';
