@@ -37,7 +37,7 @@ import moment from 'moment';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import CloseIcon from '@mui/icons-material/Close';
-// import './customCalenderStyle.css';
+import './customCalenderStyle.css';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { customCalenderStyle } from './style';
 import { useRef, useState } from 'react';
