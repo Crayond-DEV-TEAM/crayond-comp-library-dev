@@ -16,7 +16,7 @@ export interface CustomButtonGroupProps {
   size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
   selectedColor: string;
-  unselectBgColor: string;
+  unselectBgColor?: string;
   color?: string;
   selectedBgColor: string;
   fontSize?: string | number;
