@@ -9,7 +9,7 @@ export interface ViewerProps {
                 md?: number;
                 sm?: number;
                 lg?: number;
-                lx?: number;
+                xl?: number;
               };
             profileImgStyle?: object;
             imgSrc: string | any;
@@ -29,7 +29,7 @@ export interface ViewerProps {
                 md?: number;
                 sm?: number;
                 lg?: number;
-                lx?: number;
+                xl?: number;
               };
             title?: string;
             subTitle?: string;
