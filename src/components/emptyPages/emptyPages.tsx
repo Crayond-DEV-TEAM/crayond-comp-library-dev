@@ -1,5 +1,6 @@
-import { Box, Button, Stack, SxProps, Typography } from '@mui/material';
+import { Box, Stack, SxProps, Typography } from '@mui/material';
 import EmptyIcon from '../../assets/emptyIcon';
+import { BasicButtons } from '../button';
 import { EmptyPageProps } from './props';
 import { styles } from './styles';
 
@@ -25,6 +26,7 @@ const EmptyPages = (props: EmptyPageProps) => {
     title2Size,
     title2Weight,
     buttonStyles,
+    buttonColumnGap,
     containerStyle,
     title1MarginTop,
     title1MarginBottom,
@@ -85,27 +87,21 @@ const EmptyPages = (props: EmptyPageProps) => {
           )}
         </Stack>
 
-        <Stack mt={buttonMarginTop} direction={'row'}>
+        <Stack mt={buttonMarginTop} direction={'row'} columnGap={buttonColumnGap} >
           {buttons?.map((btn: any) => (
             <Box
-              sx={
-                {
-                  ...styles.btnStyle,
-                } as SxProps
-              }
               onClick={() => btn?.handleClick()}
             >
-              <Button
-                sx={{
+              <BasicButtons
+                inLineStyles={{
                   ...buttonStyles,
+                  ...styles.btnStyle,
                   backgroundColor: btn?.backgroundColor,
                   color: btn?.color,
-                  padding: '0px',
-                  textTransform: 'none',
                 }}
               >
                 {btn?.label}
-              </Button>
+              </BasicButtons>
             </Box>
           ))}
         </Stack>
@@ -145,6 +141,7 @@ EmptyPages.defaultProps = {
   title2Color: '',
   title2: '',
 
+  buttonColumnGap:2,
   buttonMarginTop: 2,
   buttonStyles: {},
   buttons: [],
