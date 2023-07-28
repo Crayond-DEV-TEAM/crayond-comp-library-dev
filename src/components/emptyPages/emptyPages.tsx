@@ -91,14 +91,14 @@ const EmptyPages = (props: EmptyPageProps) => {
               sx={
                 {
                   ...styles.btnStyle,
-                  ...buttonStyles,
-                  backgroundColor: btn?.backgroundColor,
                 } as SxProps
               }
               onClick={() => btn?.handleClick()}
             >
               <Button
                 sx={{
+                  ...buttonStyles,
+                  backgroundColor: btn?.backgroundColor,
                   color: btn?.color,
                   padding: '0px',
                   textTransform: 'none',

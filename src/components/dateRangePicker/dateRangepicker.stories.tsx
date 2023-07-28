@@ -108,6 +108,12 @@ Primary.argTypes = {
   endCalendarMaxHeight: {
     description: 'number',
   },
+  startCalendarHeight: {
+    description: 'number',
+  },
+  endCalendarHeight: {
+    description: 'number',
+  },
   addMoreButtons:{
     description:"[{label:name,handleFunction:()=>{}}]"
   },
@@ -185,9 +191,11 @@ Primary.args = {
   [{label:"name",handleFunction:()=>{}}],
 
   startCalendarMaxHeight:undefined,
-  startCalendarMinHeight:310,
+  startCalendarMinHeight:undefined,
   endCalendarMaxHeight:undefined,
-  endCalendarMinHeight:310,
+  endCalendarMinHeight:undefined,
+  startCalendarHeight: undefined,
+  endCalendarHeight: undefined,
   
   maxDateEnd: undefined,
   minDateEnd: undefined,
