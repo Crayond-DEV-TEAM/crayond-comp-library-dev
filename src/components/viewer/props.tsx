@@ -5,18 +5,11 @@ export interface ViewerProps {
         gridStyle?: object;
         profileimage?: {
             breakpoints: {
-<<<<<<< HEAD
-                xs: number;
-                md: number;
-                sm: number;
-                lg: number;
-=======
                 xs?: number;
                 md?: number;
                 sm?: number;
                 lg?: number;
                 lx?: number;
->>>>>>> 75aae9bd07687c8303a262ff4a1eb5e4b00586d6
               };
             profileImgStyle?: object;
             imgSrc: string | any;
