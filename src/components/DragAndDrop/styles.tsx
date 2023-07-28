@@ -29,6 +29,7 @@ export const styles = {
   minHeight: "530px",
   borderRadius:"12px",
   opacity:1,
+  position: "relative"
   },
   titleStyle: {
     color: '#3B3B3B',

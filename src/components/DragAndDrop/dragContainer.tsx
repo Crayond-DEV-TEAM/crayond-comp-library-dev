@@ -31,9 +31,7 @@ const DragContainerCard = (props: any) => {
 
           <div style={{ margin: 0 }}>
             <Droppable droppableId={columnId} key={columnId} >
-              {(provided, snapshot) => {
-
-                return (
+              {(provided, snapshot) => (
                   <>
                     <Box
                       {...provided.droppableProps}
@@ -42,12 +40,27 @@ const DragContainerCard = (props: any) => {
                         ...styles.columnContainerStyle
                       }}
                     >
-                      {column?.items?.map((item: { id: number }, index: any) => {
-                        
+                      {column?.items?.map((item:any, index: number) => {
                         return (
                           <>
-                            <DragItem item={item} index={index} snapshot={snapshot}/>
-                             {index === dragItemIndex?.index && columnId === dragItemIndex?.droppableId && (
+                            <DragItem key={item?.id} item={item} index={index} snapshot={snapshot}/>
+
+                            <Box
+                             sx={{ width: "auto",position: "absolute",
+                             display: "flex",
+                             alignItems: "center",
+                             justifyContent: "flex-start",
+                             flexDirection: "column",
+                             height: "100%"
+                            }}
+                            >
+                             {snapshot.isDraggingOver && index === dragItemIndex?.index&&(
+                              <Box sx={{border:"2px dashed #665CD7",height:"120px",width:"350px",marginTop:"0px",borderRadius:"8px "}}>
+
+                              </Box>
+                             )}
+                            </Box>
+                             {/* {index === dragItemIndex?.index && columnId === dragItemIndex?.droppableId && (
                               <Box
                                 sx={{
                                   minHeight: snapshot.isDraggingOver? '120px':"",
@@ -58,7 +71,7 @@ const DragContainerCard = (props: any) => {
                                     : '',
                                 }}
                               ></Box>
-                            )} 
+                            )}  */}
                           </>
                         );
                       })}
@@ -66,8 +79,7 @@ const DragContainerCard = (props: any) => {
                       {provided.placeholder}
                     </Box>
                   </>
-                );
-              }}
+              )}
             </Droppable>
             <Box
               sx={{

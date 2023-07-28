@@ -46,7 +46,6 @@
     "jspdf-autotable": "^3.5.28",
     "moment": "^2.29.4",
     "react": "^18.2.0",
-    "react-beautiful-dnd": "^13.1.1",
     "react-big-calendar": "^1.8.1",
     "react-dnd": "^16.0.1",
     "react-dom": "^18.2.0",
