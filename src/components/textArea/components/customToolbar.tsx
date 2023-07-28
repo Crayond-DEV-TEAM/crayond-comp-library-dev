@@ -1,6 +1,4 @@
-import React from "react";
 import { styled } from '@mui/system';
-import formats from "./toolbarOptions.js";
 import FormatBoldIcon from '@mui/icons-material/FormatBold';
 import FormatItalicIcon from '@mui/icons-material/FormatItalic';
 import FormatUnderlinedIcon from '@mui/icons-material/FormatUnderlined';
@@ -10,18 +8,20 @@ import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import SuperscriptIcon from '@mui/icons-material/Superscript';
 import SubscriptIcon from '@mui/icons-material/Subscript';
 
-// const renderOptions = (formatData: { options: any; className?: any; }) => {
-//     const { className, options } = formatData;
-//     return (
-//         <select className={className}>
-//             <option selected="selected"></option>
-//             {options.map((value: string | number | readonly string[] | undefined) => {
-//                 // eslint-disable-next-line react/jsx-key
-//                 return <option value={value}></option>;
-//             })}
-//         </select>
-//     );
-// };
+const renderOptions = (formatData: { options: any; className?: any; }) => {
+    const { className, options } = formatData;
+    // debugger
+    return (
+        <select className={className}>
+            <option selected={true}></option>
+            {options?.map((value: string | number | readonly string[] | undefined) => {
+                // eslint-disable-next-line react/jsx-key
+                return <option value={value}></option>;
+            })}
+        </select>
+    );
+};
+
 const formatsSvg = (key: string | undefined, value: string | undefined) => {
     switch (key) {
         case 'ql-bold':
@@ -62,22 +62,26 @@ const ToolBox = styled('button')({
         },
     },
 });
-const CustomToolbar = () => (
-    <div id="toolbar" style={{
-        border: '1px solid #E9E9E9',
-        borderRadius: '4px'
-    }}>
-        {formats.map((classes: any, index: number) => {
-            debugger
-            return (
-                <span className="ql-formats" key={index}>
+const CustomToolbar = (props: any) => {
+    console.log(props?.state, 'props?.state');
+    
+    return (
+        <div id="toolbar" style={{
+            border: '1px solid #E9E9E9',
+            borderRadius: '4px'
+        }}>
+            <span className="ql-formats" >
+            {props?.state?.map((classes: any, index: number) => {
+                return (<span>
                     {
-                        renderSingle(classes)
+                      classes?.options ? renderOptions(classes) : renderSingle(classes)
                     }
+                    </span>);
+                })
+                }
                 </span>
-            );
-        })}
-
-    </div>
-);
+    
+        </div>
+    )
+};
 export default CustomToolbar;

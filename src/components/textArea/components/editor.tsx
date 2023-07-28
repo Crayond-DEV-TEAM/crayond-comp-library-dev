@@ -16,6 +16,7 @@ const Editor = (props: TextAreaProps) => {
         borderRadius,
         placeholder,
         reactQuillProps,
+        state
      } = props
 
     const modules = {
@@ -26,7 +27,6 @@ const Editor = (props: TextAreaProps) => {
     const formats = [
         "font",
         "size",
-        "bold",
         "underline",
         "strike",
         "color",
@@ -98,7 +98,7 @@ const Editor = (props: TextAreaProps) => {
                     formats={formats}
                     {...reactQuillProps}
                 />
-                <CustomToolbar />
+                <CustomToolbar state={state} />
             </Box >
 
         </>
