@@ -2,14 +2,14 @@ import { ReactNode } from "react";
 import { SxProps } from "@mui/material/styles";
 
 export interface MapMainComponent {
-    RadiusStyle?: object;
-    markerLabelStyle?: object;
     googleMapApiKey: string;
     zoom?: number;
-    mapStyles?: object;
     radiusDistance: number;
     locations?: locationsData[];
     mapRadiusIcon?: string;
+    RadiusStyle?: object;
+    markerLabelStyle?: object;
+    mapStyles?: object;
     deatilsCardCustomize?: ReactNode;
     responsiveDetailsCustomize?:ReactNode;
     deatilsCardCustomizes?: boolean;
