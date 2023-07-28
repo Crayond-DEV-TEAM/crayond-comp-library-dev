@@ -9,9 +9,9 @@ import { Styles } from './style';
 
 export const StepperMobile: React.FC<CustomStepperProps> = ({
   steps,
-  mobileButtons = [],
+  buttons = [],
   styles = {},
-  activeStepMobile = 0,
+  activeStep = 0,
 }) => {
   const getColor = (status: string) => {
     if (status === 'start')
@@ -59,28 +59,28 @@ export const StepperMobile: React.FC<CustomStepperProps> = ({
           <Box
             sx={{
               ...Styles?.iconBackgroundMobile,
-              ...getColor(steps[activeStepMobile]?.status),
+              ...getColor(steps[activeStep]?.status),
             }}
           >
-            {renderIcon(steps[activeStepMobile]?.icon)}
+            {renderIcon(steps[activeStep]?.icon)}
           </Box>
 
-          <Box sx={{ ...steps[activeStepMobile]?.stepperStyle?.textAreaStyle }}>
+          <Box sx={{ ...steps[activeStep]?.stepperStyle?.textAreaStyle }}>
             <Typography
               sx={{
                 ...Styles?.labelStyle,
-                ...steps[activeStepMobile]?.stepperStyle?.labelStyle,
+                ...steps[activeStep]?.stepperStyle?.labelStyle,
               }}
             >
-              {steps[activeStepMobile]?.label}
+              {steps[activeStep]?.label}
             </Typography>
             <Typography
               sx={{
                 ...Styles?.subTitleMobStyle,
-                ...steps[activeStepMobile]?.stepperStyle?.subTitleMobStyle,
+                ...steps[activeStep]?.stepperStyle?.subTitleMobStyle,
               }}
             >
-              STEPS {activeStepMobile + 1} / {steps.length}
+              STEPS {activeStep + 1} / {steps.length}
             </Typography>
           </Box>
         </Box>
@@ -88,19 +88,19 @@ export const StepperMobile: React.FC<CustomStepperProps> = ({
         <Box sx={{ padding: 0 }}>
           <LinearProgress
             variant="determinate"
-            value={((activeStepMobile + 1) / steps.length) * 100}
+            value={((activeStep + 1) / steps.length) * 100}
           />
         </Box>
-        <Box sx={{ height: 255, p: 2 }}>{steps[activeStepMobile]?.content}</Box>
+        <Box sx={{ height: 255, p: 2 }}>{steps[activeStep]?.content}</Box>
         <MobileStepper
           variant="dots"
           sx={{
             ...Styles?.progressStyle,
-            ...steps[activeStepMobile]?.stepperStyle?.progressStyle,
+            ...steps[activeStep]?.stepperStyle?.progressStyle,
           }}
           steps={steps.length}
           position="static"
-          activeStep={activeStepMobile}
+          activeStep={activeStep}
           nextButton={null}
           backButton={null}
         />
@@ -109,21 +109,12 @@ export const StepperMobile: React.FC<CustomStepperProps> = ({
         sx={
           {
             ...Styles?.buttonAreaMob,
-            ...styles?.buttonsContainerMob,
+            ...styles?.buttonsContainer,
           } as SxProps
         }
       >
-        {mobileButtons.map((button: ButtonProps, index: number) =>
-          activeStepMobile !== steps.length - 1 ? (
-            <BasicButtons
-              key={index}
-              disabled={button.disabled}
-              onClick={button.onClick}
-              inLineStyles={{...styles.btnStyle as SxProps}}
-            >
-              {button.label}
-            </BasicButtons>
-          ) : (
+        {buttons.map((button: ButtonProps, index: number) =>
+          activeStep !== steps.length - 1 && (
             <BasicButtons
               key={index}
               disabled={button.disabled}
@@ -141,7 +132,7 @@ export const StepperMobile: React.FC<CustomStepperProps> = ({
 
 StepperMobile.defaultProps = {
   steps: [],
-  mobileButtons: [],
-  activeStepMobile: 0,
+  buttons: [],
+  activeStep: 0,
   styles: {},
 };

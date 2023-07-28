@@ -27,8 +27,10 @@ export const PopoverPopupState = (props: PopoverPopupProps) => {
       maxDateEnd,
       minDateEnd,
   
+      startCalendarHeight,
       startCalendarMaxHeight,
       startCalendarMinHeight,
+      endCalendarHeight,
       endCalendarMaxHeight,
       endCalendarMinHeight,
   
@@ -104,6 +106,7 @@ export const PopoverPopupState = (props: PopoverPopupProps) => {
                   views={startViews}
                   openTo={openTo}
                   Day={StartDay}
+                  height={startCalendarHeight}
                   maxHeight={startCalendarMaxHeight}
                   minHeight={startCalendarMinHeight}
                   maxDate={dayjs(`${maxDateStart}`)}
@@ -133,6 +136,7 @@ export const PopoverPopupState = (props: PopoverPopupProps) => {
                   views={endViews}
                   openTo={openTo}
                   Day={EndDay}
+                  height={endCalendarHeight} 
                   maxHeight={endCalendarMaxHeight}
                   minHeight={endCalendarMinHeight}
                   maxDate={dayjs(`${maxDateEnd}`)}
@@ -150,7 +154,7 @@ export const PopoverPopupState = (props: PopoverPopupProps) => {
                   selectedDateColor={selectedDateColor}
                   selectedHoverBgColor={selectedHoverBgColor}
                   selectedHoverTextColor={selectedHoverTextColor}
-                />
+                  />
               </Box>
             </Box>
             <Box

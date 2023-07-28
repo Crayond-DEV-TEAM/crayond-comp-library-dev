@@ -20,6 +20,8 @@ export const MyCustomLayout = (props: MyCustomLayoutProps) => {
     disablePast,
     selectedDay,
     Day,
+    height,
+    maxHeight,
     minHeight,
     maxDate,
     minDate,
@@ -29,9 +31,9 @@ export const MyCustomLayout = (props: MyCustomLayoutProps) => {
     selectedDateColor,
     selectedHoverBgColor,
     selectedHoverTextColor,
-    onChange = () => {},
-    onMonthChange = () => {},
-    onYearChange = () => {},
+    onChange = () => { },
+    onMonthChange = () => { },
+    onYearChange = () => { },
   } = props;
 
   const [state, setState] = useState(value);
@@ -45,8 +47,10 @@ export const MyCustomLayout = (props: MyCustomLayoutProps) => {
         sx={{
           ...styles.calenderStyle,
           ...calenderStyle,
-            minHeight: minHeight,
           fontWeight: '600',
+          maxHeight: maxHeight,
+          minHeight: minHeight,
+          height: height,
         }}
         onChange={(e: Dayjs | null) => onChange(e)}
         onYearChange={(e: Dayjs) => onYearChange(e)}
@@ -129,15 +133,15 @@ export const StartDay = (
       sx={
         dayIsBetween
           ? {
-              px: 2.5,
-              mx: 0,
-              backgroundColor: `${backgroundColor}`,
-              color: `${color}`,
-              '&:hover, &:focus': {
-                backgroundColor: `${hoverBgColor}`,
-                color: `${hoverTextColor}`,
-              },
-            }
+            px: 2.5,
+            mx: 0,
+            backgroundColor: `${backgroundColor}`,
+            color: `${color}`,
+            '&:hover, &:focus': {
+              backgroundColor: `${hoverBgColor}`,
+              color: `${hoverTextColor}`,
+            },
+          }
           : {}
       }
       dayIsBetween={dayIsBetween}
@@ -184,15 +188,15 @@ export const EndDay = (
       sx={
         dayIsBetween
           ? {
-              px: 2.5,
-              mx: 0,
-              backgroundColor: `${backgroundColor}`,
-              color: `${color}`,
-              '&:hover, &:focus': {
-                backgroundColor: `${hoverBgColor}`,
-                color: `${hoverTextColor}`,
-              },
-            }
+            px: 2.5,
+            mx: 0,
+            backgroundColor: `${backgroundColor}`,
+            color: `${color}`,
+            '&:hover, &:focus': {
+              backgroundColor: `${hoverBgColor}`,
+              color: `${hoverTextColor}`,
+            },
+          }
           : {}
       }
       dayIsBetween={dayIsBetween}

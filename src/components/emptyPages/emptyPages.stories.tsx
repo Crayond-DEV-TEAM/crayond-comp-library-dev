@@ -68,6 +68,9 @@ Primary.argTypes = {
   buttonMarginTop: {
     description: 'number',
   },
+  buttonColumnGap: {
+    description: 'number',
+  },
   buttons: {
     description:
       '[ {label:"",handleClick:()=>{},color:"", backgroundColor:"" } ]',
@@ -75,14 +78,16 @@ Primary.argTypes = {
 };
 
 Primary.args = {
-  containerStyle: { background: '#ffff',minHeight: '100vh' },
+  containerStyle: { background: '#ffff', minHeight: '100vh' },
 
   emptyPageUrlHeight: 225,
   emptyPageUrlWidth: 225,
 
   iconContainerStyle: {},
   emptyPageIconBgColor: '#EFEEFB',
-  handleClickIcon:()=>{alert('icon')},
+  handleClickIcon: () => {
+    alert('icon');
+  },
   title1Styles: {},
   title2Styles: {},
 
@@ -100,12 +105,12 @@ Primary.args = {
   title2MarginTop: 0,
   title2MarginBottom: 0,
 
-  emptyPageIcon:<EmptyIcon />,
+  emptyPageIcon: <EmptyIcon />,
   emptyPageInfographic: '',
   // !<EmptyIconB />,
-  emptyPageUrl:'',
-    // 'https://thumbs.dreamstime.com/b/d-cartoon-man-sleeping-pile-books-illustration-isolated-white-background-248545459.jpg',
-
+  emptyPageUrl: '',
+  // 'https://thumbs.dreamstime.com/b/d-cartoon-man-sleeping-pile-books-illustration-isolated-white-background-248545459.jpg',
+  buttonColumnGap: 2,
   buttonMarginTop: 2,
   buttonStyles: {},
   buttons: [

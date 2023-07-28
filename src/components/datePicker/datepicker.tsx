@@ -112,7 +112,7 @@ const SingleDatePicker = (props: SingleDatePickerProps) => {
 SingleDatePicker.defaultProps = {
   onChangeFun: () => {},
   value: '',
-  views: [],
+  views: ['year',"month","date"],
   inputStyleRoot: {},
   dateFormat: 'DD MMM YY',
   disablePast: false,

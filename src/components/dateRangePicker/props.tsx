@@ -23,8 +23,9 @@ export interface MyCustomLayoutProps {
   onYearChange: (e: Dayjs) => void;
   maxDate: Dayjs;
   minDate: Dayjs;
-  maxHeight: number;
-  minHeight: number;
+  maxHeight: number |undefined;
+  minHeight: number|undefined;
+  height:number|undefined;
   calenderStyle: SxProps;
   selectedRangeBgColor: string;
   selectedDateColor: string;
@@ -67,10 +68,12 @@ export interface PopoverPopupProps {
   selectedDateColor: string;
   selectedRangeBgColor: string;
 
-  startCalendarMaxHeight: number;
-  startCalendarMinHeight: number;
-  endCalendarMaxHeight: number;
-  endCalendarMinHeight: number;
+  startCalendarHeight:number|undefined;
+  startCalendarMaxHeight: number|undefined;
+  startCalendarMinHeight: number|undefined;
+  endCalendarHeight:number|undefined;
+  endCalendarMaxHeight: number|undefined;
+  endCalendarMinHeight: number|undefined;
 
   selectedHoverBgColor: string;
   selectedHoverTextColor: string;
@@ -122,10 +125,12 @@ export interface DateRangePickerProps {
   endCalendarStyle: SxProps;
   startCalendarStyle: SxProps;
 
-  startCalendarMaxHeight: number;
-  startCalendarMinHeight: number;
-  endCalendarMaxHeight: number;
-  endCalendarMinHeight: number;
+  startCalendarHeight:number|undefined;
+  startCalendarMaxHeight: number|undefined;
+  startCalendarMinHeight: number|undefined;
+  endCalendarHeight:number|undefined;
+  endCalendarMaxHeight: number|undefined;
+  endCalendarMinHeight: number|undefined;
 
   leftInputCalendarIcon: React.ReactNode;
   rightInputCalendarIcon: React.ReactNode;

@@ -1,6 +1,6 @@
 import { SxProps } from '@mui/system';
 import React, { ReactNode } from 'react';
-export interface pageNotFound {
+export interface pageNotFoundProps {
   pageNotFoundIconComponent?: ReactNode;
   pageNotFoundIconUrl: string;
   pageNotFoundText: string;

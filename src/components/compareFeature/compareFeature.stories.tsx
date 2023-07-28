@@ -11,25 +11,27 @@ const Template: ComponentStory<typeof CompareFeature> = (args) => (
 );
 
 const columnData = [
-  { id: 1, title: '' },
-  { id: 2, title: 'Starter' },
-  { id: 3, title: 'Personal' },
-  { id: 4, title: 'Professional' },
+  { id: 1, key: 'title', title: '', style: {} },
+  { id: 2, key: 'Starter', title: 'Starter', style: {} },
+  { id: 3, key: 'Personal', title: 'Personal', style: {} },
+  { id: 4, key: 'Professional', title: 'Professional', style: {}},
 ];
 const rowData = [
   {
     id: 1,
     title: 'Import Data from Cloud Storage Services',
+    Personal: "",
     Starter: <TickIcon />,
-    Personal: <TickIcon />,
     Professional: <TickIcon />,
+    style: {},
   },
   {
     id: 2,
     title: 'Upload Excel and CSV Files',
-    Starter: '',
+    Starter:<TickIcon />,
     Personal: <TickIcon />,
     Professional: <TickIcon />,
+    style: {}
   },
   {
     id: 3,
@@ -37,6 +39,7 @@ const rowData = [
     Starter: <TickIcon />,
     Personal: '',
     Professional: <TickIcon />,
+    style: {},
   },
   {
     id: 3,
@@ -44,6 +47,7 @@ const rowData = [
     Starter: <TickIcon />,
     Personal: <TickIcon />,
     Professional: <TickIcon />,
+    style: {},
   },
   {
     id: 4,
@@ -51,6 +55,7 @@ const rowData = [
     Starter: <TickIcon />,
     Personal: <TickIcon />,
     Professional: <TickIcon />,
+    style: {},
   },
 ];
 export const Primary = Template.bind({});
@@ -77,19 +82,10 @@ Primary.argTypes = {
   compareRowTitleStyle: {
     description: 'object',
   },
-  iconRootStyle: {
-    description: 'object',
-  },
   tableRootStyle: {
     description: 'object',
   },
   compareHeadingAlign: {
-    description: '"center"|"left"|"right"',
-  },
-  rowTitleAlign: {
-    description: '"center"|"left"|"right"',
-  },
-  rowIconAlign: {
     description: '"center"|"left"|"right"',
   },
   columnData:{
@@ -101,21 +97,19 @@ Primary.argTypes = {
 };
 
 Primary.args = {
+
   compareHeadingColor: '',
   compareHeadingSize: 12,
   compareHeadingStyle: {},
-  compareHeadingAlign: 'center',
+  compareHeadingAlign:"left",
 
-  rowTitleAlign: 'center',
+  rowAlign:"left",
   compareRowTitleColor: '',
   compareRowTitleSize: 12,
   compareRowTitleStyle: {},
 
-  rowIconAlign: 'center',
   rowBorderColor: '',
-  iconRootStyle: {},
-  tableRootStyle:{},
-  
-  columnData:columnData,
-  rowData:rowData,
+  tableRootStyle: {},
+  rowData:columnData,
+  columnData:rowData,
 };

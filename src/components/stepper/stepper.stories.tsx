@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import CheckMark from '../../assets/checkmark';
-import stepperIcon from '../../assets/stepperIcon.png';
+import StepperIcon from '../../assets/stepperIcon';
 import { CustomStepper } from './stepper';
 
 export default {
@@ -125,7 +125,7 @@ Primary.args = {
   steps: [
     {
       label: 'akila',
-      icon: stepperIcon,
+      icon: <StepperIcon/>,
       status: 'completed',
       content: 'fefyguyrgf',
       color: 'green',
@@ -151,19 +151,19 @@ Primary.args = {
     },
     {
       label: 'settings',
-      icon: stepperIcon,
+      icon: <StepperIcon/>,
       status: 'inprogress',
       color: 'green',
     },
     {
       label: 'settings',
-      icon: stepperIcon,
+      icon: <StepperIcon/>,
       status: 'inprogress',
       color: 'green',
     },
     {
       label: 'settings',
-      icon: stepperIcon,
+      icon: <StepperIcon/>,
       status: 'inprogress',
       color: 'green',
     },
