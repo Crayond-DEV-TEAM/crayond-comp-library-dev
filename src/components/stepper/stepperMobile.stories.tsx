@@ -1,6 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
-import CheckMark from '../../assets/checkmark';
-import stepperIcon from '../../assets/stepperIcon.png';
+import StepperIcon from '../../assets/stepperIcon';
 import { StepperMobile } from './stepperMobile';
 
 export default {
@@ -17,54 +16,25 @@ export default {
       description:
         ' we can control the styles for button area,buttons,rootstyle and content style with this ',
     },
-    mobileButtons: {
+    buttons: {
       description:
         'collection of button. here we can add buttons and their functions',
     },
-    activeStepMobile: {
+    activeStep: {
       description: 'active step mobile is used for active state',
     },
     'steps.stepperStyle': {
       description:
-        'To control or modify the step styles, it contains stepWrapStyle,stepActiveStyle,stepInActiveStyle,iconCompletedStyle,anchorOrigin and etc..',
-    },
-    'steps.stepperStyle.stepWrapStyle': {
-      description: 'To style the steps',
-    },
-    'steps.stepperStyle.stepActiveStyle': {
-      description: 'The style for the active step.',
-    },
-    'steps.stepperStyle.stepInActiveStyle': {
-      description: 'The style for the InActive step.',
-    },
-    'steps.stepperStyle.iconCompletedStyle': {
-      description: 'To style the icon completed style',
-    },
-    'steps.stepperStyle.anchorOrigin': {
-      description:
-        'we can change position of the badge which is used for icon completed (tick icon)',
-    },
-    'steps.stepperStyle.iconActiveStyle': {
-      description: 'The style for the active icon.',
-    },
-    'steps.stepperStyle.iconInActiveStyle': {
-      description: 'The style for the inActive icon.',
+        'To control or modify the step styles, it contain  and etc..',
     },
     'steps.stepperStyle.labelStyle': {
       description: 'The style for label/title which in used in the step.',
-    },
-    'steps.stepperStyle.statusStyle': {
-      description:
-        'The style for the status/description/subtitle which in used in the step.',
     },
     'steps.stepperStyle.textAreaStyle': {
       description: 'The style for the active step.',
     },
     'steps.stepperStyle.subTitleMobStyle': {
       description: 'The style for subtitle of step in mobileview .',
-    },
-    'steps.stepperStyle.titleBoxMobStyle': {
-      description: 'The style for parent of the header in mobileview .',
     },
     'steps.stepperStyle.progressStyle': {
       description:
@@ -83,14 +53,7 @@ export default {
       description:
         'The content connect with stepper it may be a form, component or anything',
     },
-    'steps.color': {
-      description:
-        'This color represents the status color.we can override the color of the status',
-    },
-    'steps.completeBadge': {
-      description: 'This is the badge which we used for completed icon ',
-    },
-    'styles.buttonsContainerMob': {
+    'styles.buttonsContainer': {
       description: 'The style for the buttons parent.',
     },
     'styles.btnStyle': {
@@ -125,24 +88,11 @@ Primary.args = {
   steps: [
     {
       label: 'akila',
-      icon: stepperIcon,
+      icon: <StepperIcon />,
       status: 'completed',
-      content: 'fefyguyrgf',
-      color: 'green',
-      completeBadge: <CheckMark />,
+      content: 'First Step',
       stepperStyle: {
-        stepWrapStyle: {},
-        stepActiveStyle: {},
-        stepInActiveStyle: {},
-        iconCompletedStyle: {},
-        iconActiveStyle: {},
-        iconInActiveStyle: {},
-        anchorOrigin: {
-          vertical: 'top',
-          horizontal: 'right',
-        },
         labelStyle: {},
-        statusStyle: {},
         textAreaStyle: {},
         subTitleMobStyle: {},
         progressStyle: {},
@@ -150,30 +100,27 @@ Primary.args = {
     },
     {
       label: 'settings',
-      icon: stepperIcon,
+      icon: <StepperIcon />,
       status: 'inprogress',
-      color: 'green',
     },
     {
       label: 'settings',
-      icon: stepperIcon,
+      icon: <StepperIcon />,
       status: 'inprogress',
-      color: 'green',
     },
     {
       label: 'settings',
-      icon: stepperIcon,
+      icon: <StepperIcon />,
       status: 'inprogress',
-      color: 'green',
     },
   ],
   styles: {
-    buttonsContainerMob: {},
-    btnStyle: { width: '30px' },
+    buttonsContainer: {},
+    btnStyle: { width: '183px' },
     rootStyle: {},
     stepperParent: {},
   },
-  mobileButtons: [
+  buttons: [
     {
       label: 'Back',
       onClick: () => {
@@ -187,13 +134,6 @@ Primary.args = {
         console.log('jhcdc');
       },
     },
-    {
-      label: 'submit',
-      disabled: false,
-      onClick: () => {
-        console.log('jhcdc');
-      },
-    },
   ],
-  activeStepMobile: 2,
+  activeStep: 0,
 };
