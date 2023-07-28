@@ -24,5 +24,6 @@ export const styles = {
     alignItems: 'center',
     cursor: 'pointer',
     margin: 1,
+    textTransform: 'none',
   },
 };

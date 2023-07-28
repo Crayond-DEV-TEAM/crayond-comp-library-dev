@@ -4,7 +4,13 @@ export interface ViewerProps {
         viewBodyStyle: object;
         gridStyle?: object;
         profileimage?: {
-            breakpoints: object;
+            breakpoints: {
+                xs?: number;
+                md?: number;
+                sm?: number;
+                lg?: number;
+                lx?: number;
+              };
             profileImgStyle?: object;
             imgSrc: string | any;
             variant?: 'circular'
@@ -18,7 +24,13 @@ export interface ViewerProps {
             onClick?:Function | any;
         };
         form?: {
-            breakpoints: object;
+            breakpoints: {
+                xs?: number;
+                md?: number;
+                sm?: number;
+                lg?: number;
+                lx?: number;
+              };
             title?: string;
             subTitle?: string;
             description?: string;

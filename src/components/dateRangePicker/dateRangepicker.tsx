@@ -9,7 +9,9 @@ import { EndDay, StartDay } from './helperComponents';
 import { styles } from './style';
 import { DateRangePickerProps } from './props';
 
-export default function SingleInputDateRangePicker(props: DateRangePickerProps                                                                       ) {
+export default function SingleInputDateRangePicker(
+  props: DateRangePickerProps,
+) {
   const {
     rightInputCalendarIcon,
     leftInputCalendarIcon,
@@ -53,6 +55,8 @@ export default function SingleInputDateRangePicker(props: DateRangePickerProps  
     startCalendarMinHeight,
     endCalendarMaxHeight,
     endCalendarMinHeight,
+    startCalendarHeight,
+    endCalendarHeight,
 
     onMonthChangeStartFun,
     onMonthChangeEndFun,
@@ -69,7 +73,7 @@ export default function SingleInputDateRangePicker(props: DateRangePickerProps  
   const [nextMonth, setNextMonth] = useState('');
   const [startYear, setStartYear] = useState<any>(null);
   const [isOpenCalendar, setOpenCalendar] = useState<HTMLButtonElement | null>(
-    null
+    null,
   );
 
   const findCurrentMonth = (month: Date) => {
@@ -130,7 +134,7 @@ export default function SingleInputDateRangePicker(props: DateRangePickerProps  
     setStartYear(date);
   };
 
-  const handleYearChangeEnd = async (e:  Dayjs | any) => {
+  const handleYearChangeEnd = async (e: Dayjs | any) => {
     if (onYearChangeEndFun) {
       onYearChangeEndFun(e);
     }
@@ -148,7 +152,7 @@ export default function SingleInputDateRangePicker(props: DateRangePickerProps  
     setNextMonth(days);
   };
 
-  const handleStartDateChange = (date: Dayjs | any ) => {
+  const handleStartDateChange = (date: Dayjs | any) => {
     if (handleStartDateChangeFun) {
       handleStartDateChangeFun(date);
     }
@@ -173,7 +177,7 @@ export default function SingleInputDateRangePicker(props: DateRangePickerProps  
     }
   };
 
-  const handleOpenCalendar = (event:  Event | any) => {
+  const handleOpenCalendar = (event: Event | any) => {
     setOpenCalendar(event.currentTarget);
   };
 
@@ -285,7 +289,7 @@ export default function SingleInputDateRangePicker(props: DateRangePickerProps  
         startDateHandleChange={(date: Dayjs | null) =>
           handleStartDateChange(date)
         }
-        onMonthChangeStart={(date:dayjs.Dayjs) => onMonthChangeStart(date)}
+        onMonthChangeStart={(date: dayjs.Dayjs) => onMonthChangeStart(date)}
         onMonthChangeEnd={(date: Dayjs) => onMonthChangeEnd(date)}
         onYearChangeStart={(date: Dayjs) => handleYearChangeStart(date)}
         onYearChangeEnd={(date: Dayjs) => handleYearChangeEnd(date)}
@@ -303,6 +307,8 @@ export default function SingleInputDateRangePicker(props: DateRangePickerProps  
         startCalendarMinHeight={startCalendarMinHeight}
         endCalendarMaxHeight={endCalendarMaxHeight}
         endCalendarMinHeight={endCalendarMinHeight}
+        startCalendarHeight={startCalendarHeight}
+        endCalendarHeight={endCalendarHeight}
       />
     </>
   );
@@ -346,9 +352,11 @@ SingleInputDateRangePicker.defaultProps = {
   startCalendarStyle: {},
 
   startCalendarMaxHeight: undefined,
-  startCalendarMinHeight: 310,
+  startCalendarMinHeight: undefined,
   endCalendarMaxHeight: undefined,
-  endCalendarMinHeight: 310,
+  endCalendarMinHeight: undefined,
+  startCalendarHeight: undefined,
+  endCalendarHeight: undefined,
 
   leftInputCalendarIcon: (
     <>
