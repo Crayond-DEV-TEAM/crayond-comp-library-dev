@@ -2,9 +2,6 @@ import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
-import { Viewer } from './components/viewer';
-import DeleteIcon from './assets/deleteIcon';
-import React from 'react';
 import { Stack, Typography } from '@mui/material';
 import { ChatBox } from './components/chatBox';
 
@@ -132,7 +129,7 @@ function App() {
       className="App"
       style={{ width: '100vw', height: '100vh', backgroundColor: '#F5F5F5' }}
     >
-      <Typography variant="h3" mb={4}>
+      <Typography variant="h4" mb={4}>
         Chat Box
       </Typography>
       <Stack direction={'row'} justifyContent={'center'}>
