@@ -1,10 +1,9 @@
 import { Box, SxProps, Typography, useTheme } from '@mui/material';
-import AlertIcon from '../../assets/alertIcon';
 import { BasicButtons } from '../button';
-import { pageNotFound } from './props';
+import { pageNotFoundProps } from './props';
 import { pageNotfoundStyle } from './style';
 
-const PageNotFound = (props: pageNotFound) => {
+const PageNotFound = (props: pageNotFoundProps) => {
   const {
     pageNotFoundIconComponent,
     pageNotFoundIconUrl,
