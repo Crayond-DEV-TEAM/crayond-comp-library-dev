@@ -62,7 +62,6 @@ export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
 
 
     const filter = state?.[1]?.permissions?.map((v: string) => {
-        debugger
         if (nodes?.permissions?.includes(v)) {
             return {
                 value: v
