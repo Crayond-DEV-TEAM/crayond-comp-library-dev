@@ -3,9 +3,9 @@ import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
 import { useState } from 'react';
-import { SelectBoxComponent } from './components/selectBox';
-import { CardPage } from './components/cardPage';
 import sampleImage from './assets/sampleprof.png';
+import { CardPage } from './components/cardPage';
+import { SelectBoxComponent } from './components/selectBox';
 
 function App() {
   interface FilmOptionType {
