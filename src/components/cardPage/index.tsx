@@ -154,12 +154,12 @@ export function CardPage(props: CardPageProps) {
   );
 }
 CardPage.defaultProps = {
-  variant: 'contentOriented',
-  title: 'Jerry Foster',
-  mailId: 'ethan.holmes@mail.com',
-  mobile: '(621)668-1434',
+  variant: '',
+  title: '',
+  mailId: '',
+  mobile: '',
   divider: true,
-  desc: 'Integer ac interdum lacus. Nunc porta semper lacus a varius.',
+  desc: '',
   cardStyle: {},
   cardWrapperStyle: {},
   cardMediastyle: {},

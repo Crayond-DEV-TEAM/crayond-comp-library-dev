@@ -1,7 +1,8 @@
 export { BasicButtons } from './button';
-export { CustomButtonGroup } from './buttonGroup';
-export { CardPage } from './cardPage';
-export { CircleProgress } from './circleBar';
+export { CommonTable } from './table';
+export { Switch } from './switch';
+export { LinearProcess } from './linearProgress';
+export { Progress } from './progress';
 export { CompareFeature } from './compareFeature';
 export { CustomCalender } from './customCalender';
 export { SingleDatePicker } from './datePicker';
@@ -24,3 +25,6 @@ export { Slider } from './slider';
 export { SliderRange } from './sliderRange';
 export { CustomStepper, StepperMobile } from './stepper';
 export { TimeLine } from './timeLine';
+export { CustomButtonGroup } from './buttonGroup';
+export {MapComponent} from './customMap';
+export { CircleProgress } from './circleBar';
