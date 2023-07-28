@@ -12,8 +12,8 @@ import InfoIcon from './assets/InfoIcon';
 function App() {
   
   interface TreeNode {
-    id: string;
-    name: string;
+    id?: string;
+    name?: string;
     child?: TreeNode[];
     allowed?: string[] | undefined;
     permissions?: string[] | undefined;

@@ -2,8 +2,8 @@ import { SxProps } from '@mui/material';
 import { ReactElement } from 'react';
 
 interface TreeNode {
-    id: string;
-    name: string;
+    id?: string;
+    name?: string;
     child?: TreeNode[];
     allowed?: string[] | undefined;
     permissions?: string[] | undefined;
@@ -31,7 +31,7 @@ export interface CustomLabelProps {
     isCheckBox?: boolean;
     disable?: boolean;
     onChange?: (e: any, val: string, id: string, data: TreeNode[]) => void;
-    nodes?: any;
+    nodes?: TreeNode;
     index?: number | string;
     formControlPropsSx?: SxProps;
     state?: TreeNode[];
@@ -49,7 +49,7 @@ export interface TreeComponentProps {
     sx?: SxProps;
     checkboxsection?: boolean;
     index?: number;
-    nodes?: any,
+    nodes?: TreeNode,
     test?: string;
     setEdit?: boolean;
     onChange?: (e: any, val: string, id: string, data: TreeNode[]) => void;

@@ -12,8 +12,8 @@ import { CheckBoxProps, CustomLabelProps, TreeComponentProps } from './props';
 import { BpCheckedIcon, BpIcon } from './components';
 
 interface TreeNode {
-    id: string;
-    name: string;
+    id?: string;
+    name?: string;
     child?: TreeNode[];
     allowed?: string[] | undefined;
     permissions?: string[] | undefined;
@@ -27,7 +27,7 @@ export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
         isCheckBox = false,
         test = '',
         onChange = () => null,
-        nodes = [],
+        nodes,
         state,
         formControlPropsSx,
         iconProp = {
@@ -62,6 +62,7 @@ export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
 
 
     const filter = state?.[1]?.permissions?.map((v: string) => {
+        debugger
         if (nodes?.permissions?.includes(v)) {
             return {
                 value: v
@@ -99,7 +100,7 @@ export const CustomLabel = (props: CustomLabelProps): JSX.Element => {
                                     disable={checkBoxStyles?.disable}
                                     checkboxBorderRadius={checkBoxStyles?.checkboxBorderRadius}
                                     key={i}
-                                    onChange={(e: any) => onChange(e?.target?.checked, val?.value as string, props?.nodes?.id, state as TreeNode[]) }
+                                    onChange={(e: any) => onChange(e?.target?.checked, val?.value as string, props?.nodes?.id as string, state as TreeNode[]) }
                                     checked={(nodes?.allowed as string[])?.includes(val?.value) ? true : false}
                                 /> : ""}
                             </FormControl>
@@ -141,11 +142,7 @@ const StyledTreeItem = styled(TreeItem)<TreeComponentProps>((rootNode) => {
     };
 });
 const renderTree = (
-    nodes: {
-        child: [];
-        id: string,
-        name: string
-    },
+    nodes: TreeNode,
     test: string,
     isCheckBox: boolean,
     setEdit: boolean,
@@ -198,11 +195,7 @@ const renderTree = (
         // delete={nodes?.delete}
         >
             {Array.isArray(nodes?.child)
-                ? nodes?.child?.map((node: {
-                    child: [];
-                    id: string,
-                    name: string
-                }) =>
+                ? nodes?.child?.map((node: TreeNode) =>
                     renderTree(node, test + 'child', isCheckBox, setEdit, onChange, index, state, customLabel),
                 )
                 : null}
