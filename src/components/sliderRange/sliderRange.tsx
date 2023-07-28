@@ -25,8 +25,8 @@ interface ProgressProps extends SliderProps {
   handleChangeFun: (event: React.ChangeEvent<HTMLInputElement>|Event, newValue:number[]|[number,number]) => void;
   sliderThumbStyle?: SxProps;
   sliderStyle?: SxProps;
-  minMaxLabel?: SxProps;
-  minMaxLabelStyle?:SxProps
+  maxLabelStyle?: SxProps;
+  minLabelStyle?:SxProps
   containerStyle?: SxProps;
   minMaxLabelColor?: string;
   minMaxLabelSize?: number;
@@ -58,7 +58,8 @@ const SliderRange = (props: ProgressProps) => {
     sliderStyle,
     containerStyle,
     minMaxValues,
-    minMaxLabelStyle,
+    maxLabelStyle,
+    minLabelStyle,
     minMaxLabelColor,
     minMaxLabelSize,
     minLabel,
@@ -145,6 +146,7 @@ const SliderRange = (props: ProgressProps) => {
             <Typography
               sx={{
                 ...styles.minMaxLabel,
+                ...minLabelStyle,
                 color: minMaxLabelColor,
                 fontSize: minMaxLabelSize,
               }}
@@ -166,7 +168,7 @@ const SliderRange = (props: ProgressProps) => {
             />
           </Box>
           <Box sx={{ ...styles.childBox }}>
-            <Typography sx={{ ...styles.minMaxLabel ,...minMaxLabelStyle }}>{maxLabel}</Typography>
+            <Typography sx={{ ...styles.minMaxLabel ,...maxLabelStyle }}>{maxLabel}</Typography>
             <Input
               type="number"
               disableUnderline={true}  
@@ -199,8 +201,9 @@ SliderRange.defaultProps = {
   valueLabelDisplay: 'off',
   handleChangeFun: () => {},
   sliderStyle: {},
-  minMaxLabel: {},
-  containerStyle: { marginTop: '40px' },
+  maxLabelStyle:{},
+  minLabelStyle:{},
+  containerStyle: {},
   sliderThumbStyle: {},
   minMaxLabelColor: '#929292',
   minMaxLabelSize: 12,

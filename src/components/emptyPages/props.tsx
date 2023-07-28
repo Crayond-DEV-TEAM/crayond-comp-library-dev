@@ -30,6 +30,7 @@ export interface EmptyPageProps {
   title2Color?: string;
   title2?: string;
 
+  buttonColumnGap:number;
   buttonMarginTop?: number;
   buttonStyles?: {};
   buttons?: {
