@@ -17,8 +17,10 @@ function App() {
       'ql-italic',
       'ql-underline',
       'ql-strike',
-      // 'ql-list',
-      // 'ql-script'
+      // 'ql-color',
+      // 'ql-background',
+      'ql-script',
+      'ql-list',
     ]
   }
 

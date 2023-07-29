@@ -44,17 +44,21 @@ export default function TextArea(props: TextAreaProps) {
   } = props;
 
   
-  const [state, setState] = useState([...formats]);
+  const [state, setState] = useState(formats);
+  const [is_loading, set_is_loading] = useState(true);
 
   useEffect(() =>{
-    const filteredArray = state.filter((val) => 
+    const filteredArray = formats.filter((val) => 
     formatButtons?.formats?.includes(val?.className as QuillEditorFormat))
     console.log(filteredArray, 'tempArray');
     
     setState(filteredArray)
+    set_is_loading(false)
   },[])
 
   return (
+    <>
+    {is_loading?<h1>Loading</h1>:
     <Box sx={{
       ...{background: background ? background : '#fff',
       width: '100%',
@@ -71,11 +75,11 @@ export default function TextArea(props: TextAreaProps) {
         reverseToolbarSx={reverseToolbarSx}
         inputHeight={inputHeight}
         placeholder={placeholder} 
-        reactQuillProps={reactQuillProps} 
-        formatButtons={formatButtons}    
+        reactQuillProps={reactQuillProps}
         state={state} 
            />
-    </Box>
+    </Box>}
+    </>
   );
 }
 

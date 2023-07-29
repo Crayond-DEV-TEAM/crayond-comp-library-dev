@@ -22,30 +22,6 @@ const renderOptions = (formatData: { options: any; className?: any; }) => {
     );
 };
 
-const formatsSvg = (key: string | undefined, value: string | undefined) => {
-    switch (key) {
-        case 'ql-bold':
-            return <FormatBoldIcon />
-        case 'ql-italic':
-            return <FormatItalicIcon />
-        case 'ql-underline':
-            return <FormatUnderlinedIcon />
-        case 'ql-strike':
-            return <StrikethroughSIcon />
-        case 'ql-list':
-            return value === 'ordered' ? <FormatListNumberedIcon /> : <FormatListBulletedIcon />
-        case 'ql-script':
-            return value === 'sub' ? <SubscriptIcon /> : <SuperscriptIcon />
-        default:
-            break;
-    }
-}
-const renderSingle = (formatData: { className?: string; value?: string; }) => {
-    const { className, value } = formatData;
-    return <ToolBox type="button" className={className} value={value}>
-        {formatsSvg(className, value)}
-    </ToolBox >
-};
 
 const ToolBox = styled('button')({
     // padding: 8,
@@ -62,6 +38,33 @@ const ToolBox = styled('button')({
         },
     },
 });
+
+const formatsSvg = (key: string | undefined, value: string | undefined) => {
+    switch (key) {
+        case 'ql-bold':
+            return <FormatBoldIcon />
+        case 'ql-italic':
+            return <FormatItalicIcon />
+        case 'ql-underline':
+            return <FormatUnderlinedIcon />
+        case 'ql-strike':
+            return <StrikethroughSIcon />
+        case 'ql-script':
+            return value === 'sub' ? <SubscriptIcon /> : <SuperscriptIcon />
+        case 'ql-list':
+            return value === 'ordered' ? <FormatListNumberedIcon /> : <FormatListBulletedIcon />
+        default:
+            break;
+    }
+}
+const renderSingle = (formatData: { className?: string; value?: string; }) => {
+    const { className, value } = formatData;
+    debugger
+    return <ToolBox type="button" className={className} value={value}>
+        {formatsSvg(className, value)}
+    </ToolBox>
+};
+
 const CustomToolbar = (props: any) => {
     console.log(props?.state, 'props?.state');
     
