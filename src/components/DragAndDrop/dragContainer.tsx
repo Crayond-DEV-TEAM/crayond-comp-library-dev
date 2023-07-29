@@ -4,15 +4,9 @@ import DragItem from './dragItem';
 import { styles } from './styles';
 
 const DragContainerCard = (props: any) => {
-  const { column, columnId, dragItemIndex } = props;
+  const { column, columnId, dragItemIndex, rowDropShadowProps } = props;
 
-  // console.log(column);
-  // console.log(columnId);
-  // console.log(dragItemIndex)
-  
-  
-
-  // const showDragShadow = dragItemIndex?.droppableId === columnId;
+  console.log(rowDropShadowProps);
 
   return (
     <>
@@ -38,7 +32,7 @@ const DragContainerCard = (props: any) => {
           </Typography>
 
           <div style={{ margin: 0 }}>
-            <Droppable droppableId={columnId} key={columnId}>
+            <Droppable droppableId={columnId} key={columnId} type="column">
               {(provided, snapshot) => (
                 <>
                   <Box
@@ -49,7 +43,6 @@ const DragContainerCard = (props: any) => {
                     }}
                   >
                     {column?.items?.map((item: any, index: number) => {
-                      
                       return (
                         <>
                           <DragItem
@@ -58,34 +51,33 @@ const DragContainerCard = (props: any) => {
                             index={index}
                             snapshot={snapshot}
                           />
-
-                          <Box
-                            sx={{
-                              width: 'auto',
-                              position: 'absolute',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'flex-start',
-                              flexDirection: 'column',
-                              height: '100%',
-                              marginTop: '0px',
-                            }}
-                          >
-                            {snapshot?.isDraggingOver&& (
-                              <Box
-                                sx={{
-                                  border: '2px dashed #665CD7',
-                                  height: '126px',
-                                  width: '350px',
-                                  borderRadius: '8px ',
-                                }}
-                              ></Box>
-                            )}
-                          </Box>
                         </>
                       );
                     })}
-
+                    <Box
+                      sx={{
+                        width: 'auto',
+                        position: 'absolute',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'flex-start',
+                        flexDirection: 'column',
+                        height: '100%',
+                        marginTop: '0px',
+                      }}
+                    >
+                      {snapshot?.isDraggingOver && (
+                        <Box
+                          sx={{
+                            border: '2px dashed #665CD7',
+                            height: rowDropShadowProps.height,
+                            width: '350px',
+                            borderRadius: '8px ',
+                            marginTop: rowDropShadowProps.marginTop,
+                          }}
+                        ></Box>
+                      )}
+                    </Box>
                     {provided.placeholder}
                   </Box>
                 </>

@@ -7,6 +7,7 @@ import NormalNotification from '../../assets/normalNotification';
 import DragContainerCard from './dragContainer';
 import { styles } from './styles';
 import AddNewButtonIcon from '../../assets/addNewBtn';
+import { RowDropShadow } from './props';
 
 const cardData = [
   {
@@ -346,21 +347,86 @@ const taskStatus = {
   },
 };
 
+const getDraggedElement = (draggableId: any) => {
+  console.log(draggableId, 'draggedElement');
+
+  const queryAttr = 'data-rfd-drag-handle-draggable-id';
+  const domQuery = `[${queryAttr}='${draggableId}']`;
+  const draggedElement = document.querySelector(domQuery);
+  return draggedElement;
+};
+
+const getUpdatedChildrenArray = (
+  draggedElement: Element,
+  destinationIndex: number,
+  sourceIndex: number,
+) => {
+  const child: Element[] = [...draggedElement!.parentNode!.children];
+
+  if (destinationIndex === sourceIndex) return child;
+  const draggedItem = child[sourceIndex];
+
+  child.splice(sourceIndex, 1);
+
+  return child.splice(0, destinationIndex, draggedItem);
+}
+
 const DragAndDrop = (props: any) => {
   const [columns, setColumns] = useState(taskStatus);
   const [dragItemIndex, setDragItemIndex] = useState("");
+  const [rowDropShadowProps, setRowDropShadowProps] = useState<RowDropShadow>({
+    marginTop: 0,
+    height: 0,
+  });
+
+  const getStyle = (
+    updatedChildrenArray: Element[],
+    destinationIndex: number,
+    property: string,
+    clientDirection: 'clientHeight' | 'clientWidth',
+  ) =>
+    updatedChildrenArray.slice(0, destinationIndex).reduce((total, curr) => {
+      const style = window.getComputedStyle(curr);
+      const prop = parseFloat(style[property]);
+      return total + curr[clientDirection] + prop;
+    }, 0);
+
+
+  const handleDropShadowRow = (event: any, destinationIndex: number, sourceIndex: number) => {
+    const draggedElement = getDraggedElement(event.draggableId);
+    console.log(draggedElement, 'henry');
+
+    if (!draggedElement) return;
+    const { clientHeight } = draggedElement as Element;
+    const updatedChildrenArray: Element[] = getUpdatedChildrenArray(
+      draggedElement as Element,
+      destinationIndex,
+      sourceIndex,
+    );
+    const marginTop = getStyle(
+      updatedChildrenArray,
+      destinationIndex,
+      'marginBottom',
+      'clientHeight',
+    );
+    
+    setRowDropShadowProps({
+      height: clientHeight + 2,
+      marginTop: marginTop + 2 * destinationIndex,
+    });
+  };
 
   const onDragStart = (result: any) => {
     const { source,draggableId, destination } = result;
     console.log(result,"onDragStart");
-    
-    setDragItemIndex(source);
+    handleDropShadowRow(result,source.index,source.index)
+    // setDragItemIndex(source);
   };
 
   const onDragUpdate = (val: any) => {
      const {destination,draggableId,source}=val;
-    setDragItemIndex(destination)
-    console.log(val,"ondragUpdate");
+     handleDropShadowRow(val,destination.index, source.index)
+    // console.log(val,"ondragUpdate");
   };
   
   const onDragEnd = (result: any, columns: any, setColumns: any) => {
@@ -420,6 +486,7 @@ const DragAndDrop = (props: any) => {
                   column={column}
                   // data={columns}
                   // index={index}
+                  rowDropShadowProps={rowDropShadowProps}
                   dragItemIndex={dragItemIndex}
                 />
               );

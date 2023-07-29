@@ -8,6 +8,11 @@ export interface DragStart {
     index: number;
   };
 }
+
+export interface RowDropShadow {
+  marginTop: number;
+  height: number;
+}
 export interface DragUpdate {
   combine: null;
   destination: {
@@ -24,28 +29,28 @@ export interface DragUpdate {
 }
 
 export interface DragEndColumn {
-    requested: {
-        name: string;
-        items: [],
-        bottomButton: {
-          icon:React.ReactNode,
-          buttonLabel:string,
-        },
-      },
-      inProgress: {
-        name: string;
-        items: [],
-        bottomButton: {
-          icon:React.ReactNode,
-          buttonLabel:string,
-        },
-      },
-      done: {
-        name: string;
-        items: [],
-        bottomButton: {
-          icon:React.ReactNode,
-          buttonLabel:string,
-        },
-      },    
+  requested: {
+    name: string;
+    items: [];
+    bottomButton: {
+      icon: React.ReactNode;
+      buttonLabel: string;
+    };
+  };
+  inProgress: {
+    name: string;
+    items: [];
+    bottomButton: {
+      icon: React.ReactNode;
+      buttonLabel: string;
+    };
+  };
+  done: {
+    name: string;
+    items: [];
+    bottomButton: {
+      icon: React.ReactNode;
+      buttonLabel: string;
+    };
+  };
 }
