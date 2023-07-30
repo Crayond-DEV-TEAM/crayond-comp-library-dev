@@ -202,7 +202,6 @@ const DragDropProvider: React.FC<{ data: ColumnType[] }> = ({
   };
 
   const handleDragStart = (event: any) => {
-    console.log(event);
     setDraggedStartId(event?.draggableId)
     const { index } = event.source;
     if (event.type === 'column') {

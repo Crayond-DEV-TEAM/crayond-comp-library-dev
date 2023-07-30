@@ -3,7 +3,12 @@ import DragDropProvider from './DragDropProvider'
 import { Board } from './Board'
 import { api } from './api'
 
-const DragAndDrops = () => {
+const DragAndDrop = (props:any) => {
+  const {}=props;
+
+
+
+
    return (
       <div>
          <DragDropProvider data={api.columns}>
@@ -12,4 +17,12 @@ const DragAndDrops = () => {
       </div>
    )
 }
-export default DragAndDrops
+ 
+DragAndDrop.defaultProps={
+
+
+
+}
+
+
+export default DragAndDrop

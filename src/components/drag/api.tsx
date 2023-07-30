@@ -21,6 +21,7 @@ export interface cardItemProp {
 
   images: { img: string; height: number; width: number }[];
   created_at: string;
+  component?:React.ReactNode;
 }
 [];
 
@@ -44,7 +45,6 @@ export interface TaskBoardType {
 
 const card1 = [
   {
-    content: 'Henry Dyson J',
     id: "1",
     title: 'title1',
     status: 'Progress',
@@ -52,6 +52,7 @@ const card1 = [
     isActive: true,
     notifyIcon: <ActiveNotification />,
     moreIcon: <MoreIcon />,
+    component: '',
     subTitles: [
       {
         label: '# design',
@@ -80,6 +81,7 @@ const card1 = [
     isActive: true,
     notifyIcon: <NormalNotification />,
     moreIcon: <MoreIcon />,
+    component: '',
     subTitles: [
       {
         label: '# design',
@@ -108,6 +110,7 @@ const card1 = [
     isActive: true,
     notifyIcon: <NormalNotification />,
     moreIcon: <MoreIcon />,
+    component: '',
     subTitles: [
       {
         label: '# design',
@@ -158,6 +161,7 @@ const card2 =[
       { img: '/sample.jpg', height: '', width: '' },
     ],
     created_at: 'On 17 Mar, 23',
+    component: '',
   },
   {
     id: "5",
@@ -186,6 +190,7 @@ const card2 =[
       { img: '/sample.jpg', height: '', width: '' },
     ],
     created_at: 'On 17 Mar, 23',
+    component: '',
   },
   {
     id:"6",
@@ -214,6 +219,7 @@ const card2 =[
       { img: '/sample.jpg', height: '', width: '' },
     ],
     created_at: 'On 17 Mar, 23',
+    component: '',
   },
 ]
 
@@ -245,6 +251,7 @@ const card3 =[
       { img: '/sample.jpg', height: '', width: '' },
     ],
     created_at: 'On 17 Mar, 23',
+    component: '',
   },
   {
     id: "8",
@@ -273,6 +280,7 @@ const card3 =[
       { img: '/sample.jpg', height: '', width: '' },
     ],
     created_at: 'On 17 Mar, 23',
+    component: '',
   },
   {
     id: "9",
@@ -301,6 +309,7 @@ const card3 =[
       { img: '/sample.jpg', height: '', width: '' },
     ],
     created_at: 'On 17 Mar, 23',
+    component: '',
   },
 ]
 
