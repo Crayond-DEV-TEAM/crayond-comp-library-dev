@@ -1,160 +1,152 @@
-import { Language } from "./components/language";
-import React, { useState } from 'react';
-
+import '@fontsource/poppins/400.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
+import { Stack, Typography } from '@mui/material';
+import { ChatBox } from './components/chatBox';
 
 function App() {
-  interface languageProps {
-    langName: string,
-    langText: string
-  }
-
-  interface FilmOptionType {
-    title: string | number;
-    year: string | number; 
-  }
-
-  const data = {
-    allData: [
+  const chatData = {
+    chatType: 'group',
+    loginUser: 'user_1',
+    participants: [
       {
-        langName: 'Hindi',
-        langText: 'हिन्दी',
+        userId: 'user_1',
+        username: 'Hari',
+        profileImage: '',
       },
       {
-        langName: 'Tamil',
-        langText: 'தமிழ்'
+        userId: 'user_2',
+        username: 'Henry',
+        profileImage: '',
       },
-      {
-        langName: 'Malayalam',
-        langText: 'മലയാളം'
-      },
-      {
-        langName: 'English',
-        langText: 'English'
-      },
-      {
-        langName: 'Arabic',
-        langText: 'اَلْعَرَبِيَّةُ'
-      },
-      {
-        langName: 'Sanskrit',
-        langText: 'संस्कृत '
-      },
-      {
-        langName: 'Greek',
-        langText: 'Ελληνικά'
-      },
-      {
-        langName: 'Chinese',
-        langText: '中國人'
-      },
-      {
-        langName: 'Russian',
-        langText: 'французский'
-      },
-      {
-        langName: 'Marathi',
-        langText: 'मराठी'
-      }
     ],
-    suggestionData: [
+    messages: [
       {
-        langName: 'Hindi',
-        langText: 'हिन्दी'
+        messageId: 'msg_1',
+        senderId: 'user_1',
+        content: "Hey everyone, how's it going?",
+        timestamp: '2023-06-28T10:00:00Z',
+        reactions: [{ id: '+1', emoji: '👍', senderId: ['user_2'], count: 1 }],
       },
       {
-        langName: 'Tamil',
-        langText: 'தமிழ்'
+        messageId: 'msg_2',
+        senderId: 'user_2',
+        content: 'Hi John! Things are great here. How about you?',
+        timestamp: '2023-06-28T10:05:00Z',
+        reactions: [{ id: '+1', emoji: '👍', senderId: ['user_1'], count: 1 }],
       },
       {
-        langName: 'Malayalam',
-        langText: 'മലയാളം'
+        messageId: 'msg_3',
+        senderId: 'user_2',
+        content: "Hey guys! I'm doing well too. Any exciting news?",
+        timestamp: '2023-06-28T10:10:00Z',
+        reactions: [{ id: '+1', emoji: '👍', senderId: ['user_1'], count: 1 }],
       },
       {
-        langName: 'English',
-        langText: 'English'
+        messageId: 'msg_4',
+        senderId: 'user_1',
+        content:
+          'Not much, just enjoying the weekend. How about we plan a meetup?',
+        timestamp: '2023-06-19T10:15:00Z',
+        reactions: [{ id: '+1', emoji: '👍', senderId: ['user_2'], count: 1 }],
       },
       {
-        langName: 'Arabic',
-        langText: 'اَلْعَرَبِيَّةُ'
-      }
-    ]
-  }
-  interface SelectedLangState {
-    allData: {
-      langName: string;
-      langText: string;
-    };
-    suggestionData: {
-      langName: string;
-      langText: string;
-    };
-  }
-
-  const [selectedLang, setSelectedLang] = useState<SelectedLangState>({
-    allData: {
-      langName: '',
-      langText: ''
+        messageId: 'msg_5',
+        senderId: 'user_2',
+        content:
+          "That's a great idea! I'm available next week. What about you, Alex?",
+        timestamp: '2023-07-11T12:00:00Z',
+        reactions: [{ id: '+1', senderId: ['user_1'], emoji: '👍', count: 1 }],
+      },
+    ],
+    styles: {
+      chatContainerStyle: {},
+      chatScrollStyle: {},
+      chatListStyle: {},
+      messageContainerStyle: {},
+      messageProfileStyle: {},
+      chatDetailsStyle: {},
+      massagerNameStyle: {},
+      massageTimeStyles: {},
+      senderMessageStyle: {},
+      receiverMessageStyle: {},
+      messageTextStyle: {},
     },
-    suggestionData: {
-      langName: '',
-      langText: ''
-    }
-  })
+    functions: {
+      onClickMassagerProfile: undefined,
+      onClickMassagerContent: undefined,
+    },
+  };
 
-  const [optionValue, setOptionValue] = useState()
+  const headerData = {
+    chatName: 'New Group',
+    profileImage: '',
+    status: '2 Members',
+    customComponent: null,
+    functions: {
+      onClickProfile: undefined,
+      onClickMore: undefined,
+      onClickMinimize: undefined,
+      onClickClose: undefined,
+    },
+    styles: {
+      headerRootStyle: {},
+      profileIconStyle: {},
+      titleStyle: {},
+      subTitleStyle: {},
+    },
+  };
 
-
-  const handleClick = (val: languageProps, index: number, parent: string) => {
-    if (parent === 'allData') {
-      setSelectedLang({
-        ...selectedLang, allData: val
-      })
-    } else {
-      setSelectedLang({
-        ...selectedLang, suggestionData: val
-      })
-    }
-  }
-
-  const options = data?.allData?.map((val: languageProps) => {
-    return {
-      title: val?.langName,
-      year: val?.langText
-    }
-  })
-
-  const handleDefaultChange = (e: React.SyntheticEvent, val: FilmOptionType) => {
-    setOptionValue(val as never)
-    setSelectedLang({
-      ...selectedLang, allData: {
-        langName: val?.title as string,
-        langText: val?.year as string,
-      }
-    })
-  }
-
-  console.log(selectedLang);
+  const editorData = {
+    inputProps: {
+      onChange: (e: any) => {},
+    },
+    styles: {
+      textEditorStyle: {},
+      iconContainerStyle: {},
+      iconStyle: {},
+      inputStyle: {},
+    },
+    icons: {
+      emojiIcon: undefined,
+      micIcon: undefined,
+      typographyIcon: undefined,
+      attachFileIcon: undefined,
+    },
+    functions: {
+      onClickEmojiIcon: undefined,
+      onClickMicIcon: undefined,
+      onClickTypographyIcon: undefined,
+      onClickAttachFileIcon: undefined,
+    },
+  };
+  const onEnterMessage = (data: any) => {
+    console.log('🚀 ~ file: App.tsx:144 ~ onEnterMessage ~ data:', data);
+  };
   return (
-    <div className="App" style={{ width: '100%', background: '#F5F5F5', padding: '12px' }}>
-      <Language
-        cardStyle={{}}
-        unselectedCardStyle={{}}
-        cardTitleStyle={{}}
-        cardSubtitleStyle={{}}
-        languagesBoxStyle={{}}
-        value={optionValue}
-        selectedLang={selectedLang}
-        options={options}
-        handleDefaultChange={handleDefaultChange}
-        data={
-          {
-          suggestionData:data?.suggestionData,
-          allData:data?.allData
-        }}
-        handleClick={handleClick}
-      />
+    <div
+      className="App"
+      style={{ width: '100vw', height: '100vh', backgroundColor: '#F5F5F5' }}
+    >
+      <Typography variant="h4" mb={4}>
+        Chat Box
+      </Typography>
+      <Stack direction={'row'} justifyContent={'center'}>
+        <ChatBox
+          chatId={'chat_1'}
+          chatBoxRootStyle={{}}
+          headerData={headerData}
+          chatData={chatData}
+          editorData={editorData}
+          onEnterMessage={onEnterMessage}
+          onReactionChange={console.log}
+          reactionEnable={true}
+          emojiPickerProps={{}}
+        />
+      </Stack>
     </div>
-  )
+  );
 }
 
 export default App;
