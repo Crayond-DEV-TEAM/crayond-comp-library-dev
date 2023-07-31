@@ -37,8 +37,7 @@ import moment from 'moment';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import CloseIcon from '@mui/icons-material/Close';
-import './customCalenderStyle.css';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
+import  './style.css';
 import { customCalenderStyle } from './style';
 import { useRef, useState } from 'react';
 
@@ -229,7 +228,7 @@ export function CustomCalender(props: CalenderProps) {
     seteditdata({});
   };
 
-  // Fint the  National Leave
+  // Find the  National Leave
   const eventsleave: LeaveEvent[] = nationalLeaves.map(
     (leave: NationalLeave) =>
       ({
@@ -364,48 +363,7 @@ export function CustomCalender(props: CalenderProps) {
     }
     return {};
   };
-
-  // Styled Props for Calender Style
-  const defaultStyleProps = {
-    layoutBorderStyle: {
-      borderColor: '#000',
-      ...(styleProps?.layoutBorderStyle ?? {}),
-    },
-    beforeMonthStyle: {
-      backgroundColor: '#000',
-      ...(styleProps?.beforeMonthStyle ?? {}),
-    },
-    todayDateStyle: {
-      backgroundColor: '#000',
-      ...(styleProps?.todayDateStyle ?? {}),
-    },
-    addEventStyle: {
-      color: 'red',
-      ...(styleProps?.addEventStyle ?? {}),
-    },
-    tabStyle: {
-      backgroundColor: '#665cd7',
-      color: '#fff',
-      borderColor: '##665cd7',
-      fontSize: '14px',
-      fontWeight: 600,
-      ...(styleProps?.tabStyle ?? {}),
-    },
-    headStyle: {
-      color: '#000',
-      fontSize: '14px',
-      fontWeight: '500',
-      ...(styleProps?.headStyle ?? {}),
-    },
-    fontFamily: {
-      fontFamily: 'Poppins, sans-serif',
-      ...(styleProps?.fontFamily ?? {}),
-    },
-    dragandDropStyle: {
-      dragAndSelectBg: '#EFEEFB',
-      ...(styleProps?.dragAndSelectBg ?? {}),
-    },
-  };
+  
 
   const convertTo24HourFormat = (time12Hour: any) => {
     const [time, modifier] = time12Hour.split(' ');
@@ -765,9 +723,51 @@ export function CustomCalender(props: CalenderProps) {
     return hr + ':' + min + ' ' + ampm;
   };
 
+  // Styled Props for Calender Style
+  const defaultStyleProps = {
+    layoutBorderStyle: {
+      borderColor: '#000',
+      ...(styleProps?.layoutBorderStyle ?? {}),
+    },
+    beforeMonthStyle: {
+      backgroundColor: '#000',
+      ...(styleProps?.beforeMonthStyle ?? {}),
+    },
+    todayDateStyle: {
+      backgroundColor: '#000',
+      ...(styleProps?.todayDateStyle ?? {}),
+    },
+    addEventStyle: {
+      color: 'red',
+      ...(styleProps?.addEventStyle ?? {}),
+    },
+    tabStyle: {
+      backgroundColor: '#665cd7',
+      color: '#fff',
+      borderColor: '##665cd7',
+      fontSize: '14px',
+      fontWeight: 600,
+      ...(styleProps?.tabStyle ?? {}),
+    },
+    headStyle: {
+      color: '#000',
+      fontSize: '14px',
+      fontWeight: '500',
+      ...(styleProps?.headStyle ?? {}),
+    },
+    fontFamily: {
+      fontFamily: 'Poppins, sans-serif',
+      ...(styleProps?.fontFamily ?? {}),
+    },
+    dragandDropStyle: {
+      dragAndSelectBg: '#EFEEFB',
+      ...(styleProps?.dragAndSelectBg ?? {}),
+    },
+  };
+
   // Can Control the Inline style For Calender
   const inlineStyles = {
-    '--date-cell-borderColumn': `1px solid ${defaultStyleProps?.layoutBorderStyle?.borderColor} `,
+    '--date-cell-borderColumn': `1px solid ${defaultStyleProps?.layoutBorderStyle?.borderColor}`,
     '--date-cell-borderRow': `1px solid ${defaultStyleProps?.layoutBorderStyle?.borderColor}`,
     '--date-borderOverallCalender': `1px solid ${defaultStyleProps?.layoutBorderStyle?.borderColor}`,
     '--date-head-borderbottom': `1px solid ${defaultStyleProps?.layoutBorderStyle?.borderColor}`,
