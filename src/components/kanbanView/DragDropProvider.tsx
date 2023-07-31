@@ -28,16 +28,16 @@ interface DragDropContextProps  {
   setColumns: React.Dispatch<React.SetStateAction<ColumnType[]>>;
   // children: any;
   columnData: TaskBoardType;
-  columnContainerRootStyle: CSSStyleSheet;
-  columnTitleBoxStyle: CSSStyleSheet;
-  columnTitleStyle: CSSStyleSheet;
+  columnContainerRootStyle: React.CSSProperties | object;
+  columnTitleBoxStyle: React.CSSProperties | undefined;
+  columnTitleStyle: React.CSSProperties | undefined;
 
-  rowDropShadowPropsStyle: CSSStyleSheet;
-  rowChildItemRootStyle: CSSStyleSheet;
-  rowChildItemComponentRootStyle: CSSStyleSheet;
+  rowDropShadowPropsStyle: React.CSSProperties | undefined;
+  rowChildItemRootStyle: React.CSSProperties | undefined;
+  rowChildItemComponentRootStyle: React.CSSProperties | undefined;
 
-  addTodoButtonRootStyle: CSSStyleSheet;
-  addButtonLabelStyle: CSSStyleSheet;
+  addTodoButtonRootStyle: React.CSSProperties | undefined;
+  addButtonLabelStyle: React.CSSProperties | undefined;
 };
 
 const DragDropContext = React.createContext<DragDropContextProps | undefined>(
@@ -225,7 +225,7 @@ export function useDragDrop() {
 }
 
 DragDropProvider.defaultProps = {
-  columnData: api?.columns,
+  columnData:[],
   columnContainerRootStyle: {},
   columnTitleBoxStyle: {},
   columnTitleStyle: {},
