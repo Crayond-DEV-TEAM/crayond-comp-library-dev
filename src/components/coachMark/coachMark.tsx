@@ -3,6 +3,7 @@ import React, { useRef, useState } from "react";
 import Box from '@mui/material/Box';
 import { Stack , Typography } from '@mui/material';
 import Joyride, { STATUS } from "react-joyride";
+import { VariantOne } from './variantOne';
 
 export default function CoachMarkComponent(props: any) {
 
@@ -10,56 +11,64 @@ export default function CoachMarkComponent(props: any) {
     run: true,
     steps: [
       {
-        content: <h2>Let's begin our journey!</h2>,
-        locale: { skip: <strong>SKIP</strong> },
-        placement: "center",
-        target: "body"
-      },
-      {
-        content: <h2>Here is first step!</h2>,
+        content: <h2>Tap to "Back" pages</h2>,
+        // locale: { skip: <strong>SKIP</strong> },
         placement: "bottom",
         target: "#step-1",
-        title: "First step"
+        disableBeacon: false,
+        // title: "First step"
       },
       {
-        content: <h2>Here is second step!</h2>,
+        content: <h2>Add "Bookmark" here</h2>,
         placement: "bottom",
+        disableBeacon: true,
         target: "#step-2",
-        title: "Second step"
+        // title: "Second step"
       },
       {
-        content: <h2>Here is third step!</h2>,
+        content: <h2>"Menus" to navigate</h2>,
         placement: "bottom",
+        target: "body",
+        disableBeacon: true,
+        // title: "Second step"
+      },
+      {
+        content: <h2>Here is 'Home' menu!</h2>,
+        placement: "bottom",
+        disableBeacon: true,
         target: "#step-3",
-        title: "Third step"
       },
       {
-        content: <h2>Here is fourth step!</h2>,
+        content: <h2>Here is 'Clinical' menu!</h2>,
         placement: "bottom",
+        disableBeacon: true,
         target: "#step-4",
-        title: "Fourth step"
       },
       {
-        content: <h2>Here is fifth step!</h2>,
+        content: <h2>Here is 'MBF' menu!</h2>,
         placement: "bottom",
+        disableBeacon: true,
         target: "#step-5",
-        title: "Fifth step"
       },
       {
-        content: <h2>Here is six step!</h2>,
+        content: <h2>Here is 'Masters' menu!</h2>,
         placement: "bottom",
+        disableBeacon: true,
         target: "#step-6",
-        title: "Six step"
+      },
+      {
+        content: <h2>Here is 'Profile' menu!</h2>,
+        placement: "bottom",
+        disableBeacon: true,
+        target: "#step-7",
       },
     ]
   });
   return (
     <div style={{
-      background: "#797979",
+      // background: "#797979",
       height: "100vh",
       display: "flex",
-      gap: "8px",
-      padding: 10,
       color: "white",
       justifyContent: "center",
       alignItems: "center"
@@ -68,77 +77,51 @@ export default function CoachMarkComponent(props: any) {
         continuous
         callback={() => {}}
         run={run}
-        steps={[
-          {
-            content: <h2>Let's begin our journey!</h2>,
-            locale: { skip: <strong>SKIP</strong> },
-            placement: "center",
-            target: "body"
-          },
-          {
-            content: <h2>Here is first step!</h2>,
-            placement: "bottom",
-            target: "#step-1",
-            title: "First step"
-          },
-          {
-            content: <h2>Here is second step!</h2>,
-            placement: "bottom",
-            target: "#step-2",
-            title: "Second step"
-          },
-          {
-            content: <h2>Here is third step!</h2>,
-            placement: "bottom",
-            target: "#step-3",
-            title: "Third step"
-          },
-          {
-            content: <h2>Here is fourth step!</h2>,
-            placement: "bottom",
-            target: "#step-4",
-            title: "Fourth step"
-          },
-          {
-            content: <h2>Here is fifth step!</h2>,
-            placement: "bottom",
-            target: "#step-5",
-            title: "Fifth step"
-          },
-          {
-            content: <h2>Here is six step!</h2>,
-            placement: "bottom",
-            target: "#step-6",
-            title: "Six step"
-          },
-        ]}
+        steps={steps}
         hideCloseButton
         scrollToFirstStep
+        spotlightClicks={false}
         showSkipButton
         showProgress
+        spotlightPadding={1}
+        styles={{
+          tooltipContainer:{
+            lineHeight:'inherit'
+          },
+          tooltipContent:{
+            padding:'0 !important'
+          },
+          tooltip:{
+            // width:'30px'
+          },
+
+          options: {
+            arrowColor: '#e3ffeb',
+            // backgroundColor: '#e3ffeb',
+            // overlayColor: 'rgba(79, 26, 0, 0.4)',
+            // primaryColor: '#000',
+            textColor: '#004a14',
+            // width: 900,
+            // zIndex: 1000,
+            
+          }
+        }}
+        // floaterProps={{
+        //   styles:{
+        //     options: {
+        //       arrowColor: '#e3ffeb',
+        //       backgroundColor: '#e3ffeb',
+        //       overlayColor: 'rgba(79, 26, 0, 0.4)',
+        //       primaryColor: '#000',
+        //       textColor: '#004a14',
+        //       width: 900,
+        //       zIndex: 1000,
+        //     }
+        //   }
+        // }}
+      
       />
-      {
-        [1, 2, 3, 4, 5, 6].map((item) => {
-          return (
-            <div
-              key={item}
-              id={`step-${item}`}
-              style={{
-                border: "1px solid white",
-                width: "100px",
-                height: "100px",
-                background: "#0c1d2b",
-                borderRadius: "8px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              {item}
-            </div>
-          )
-        })
-      }
+     <VariantOne />
     </div>
   );
 }
