@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { DraggableLocation, DropResult } from 'react-beautiful-dnd';
+import { DraggableLocation, DropResult } from '@hello-pangea/dnd';
 import { ColumnType, api } from './api';
 
 type DragDropProps = (
