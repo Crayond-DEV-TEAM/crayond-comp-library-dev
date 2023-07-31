@@ -16,6 +16,7 @@ export { Sidebar } from './sidebar';
 export { Footer } from './footer';
 export { MobileNavbar } from './mobileNavbar';
 export { TimeLine } from './timeLine';
+export { TimeLineV2 } from './timelineV2';
 export { ErrorModal } from './errorModal';
 export { PageNotFound } from './errorPageNotFound';
 export { EmptyPages } from './emptyPages';

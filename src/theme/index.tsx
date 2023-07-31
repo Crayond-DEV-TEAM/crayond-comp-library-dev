@@ -5,7 +5,6 @@ import {
 import lightTheme from "./lightTheme";
 import { useMemo } from "react";
 
-
 export default function Theme({ children, mode }:any) {
   const muiTheme = useMemo(() =>
   createTheme({
