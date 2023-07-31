@@ -50,7 +50,6 @@ export default function TextArea(props: TextAreaProps) {
   useEffect(() =>{
     const filteredArray = formats.filter((val) => 
     formatButtons?.formats?.includes(val?.className as QuillEditorFormat))
-    console.log(filteredArray, 'tempArray');
     
     setState(filteredArray)
     set_is_loading(false)

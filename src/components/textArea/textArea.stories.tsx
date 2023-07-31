@@ -41,11 +41,11 @@ const Template: ComponentStory<typeof TextArea> = (args) => {
     setText(html);
   };
 
-  console.log(args);
 
   return (
     <TextArea
       handleChange={handleChange}
+      reactQuillProps={{}}
       value={text}
       inputHeight=''
       minWidth=''

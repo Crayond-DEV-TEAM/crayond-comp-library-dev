@@ -9,28 +9,12 @@ function App() {
 
   const [text, setText] = useState("");
 
-  const formatButtons = {
-    formats: [
-      'ql-font',
-      'ql-size',
-      'ql-bold',
-      'ql-italic',
-      'ql-underline',
-      'ql-strike',
-      // 'ql-color',
-      // 'ql-background',
-      'ql-script',
-      'ql-list',
-    ]
-  }
-
   const handleChange = (html: React.SetStateAction<string>) => {
     setText(html);
   };
 
   return (
     <div className="App" style={{ width: '100vw', height: '100vh' }}>
-      <h1>{text}</h1>
       <TextArea
         reactQuillProps={{}}
         handleChange={handleChange}
@@ -42,7 +26,20 @@ function App() {
         minWidth='80%'
         maxWidth='80%'
         reverseToolbarSx={false}
-        formatButtons={formatButtons}
+        formatButtons={{
+          formats: [
+            'ql-font',
+            'ql-size',
+            'ql-bold',
+            'ql-italic',
+            'ql-underline',
+            'ql-strike',
+            // 'ql-color',
+            // 'ql-background',
+            'ql-script',
+            'ql-list',
+          ]
+        }}
         border=''
         borderRadius='' />
     </div>

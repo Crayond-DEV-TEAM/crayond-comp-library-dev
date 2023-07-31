@@ -10,7 +10,6 @@ import SubscriptIcon from '@mui/icons-material/Subscript';
 
 const renderOptions = (formatData: { options: any; className?: any; }) => {
     const { className, options } = formatData;
-    // debugger
     return (
         <select className={className}>
             <option selected={true}></option>
@@ -59,14 +58,12 @@ const formatsSvg = (key: string | undefined, value: string | undefined) => {
 }
 const renderSingle = (formatData: { className?: string; value?: string; }) => {
     const { className, value } = formatData;
-    debugger
     return <ToolBox type="button" className={className} value={value}>
         {formatsSvg(className, value)}
     </ToolBox>
 };
 
 const CustomToolbar = (props: any) => {
-    console.log(props?.state, 'props?.state');
     
     return (
         <div id="toolbar" style={{
