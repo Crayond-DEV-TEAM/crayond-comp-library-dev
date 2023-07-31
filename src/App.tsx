@@ -28,16 +28,14 @@ function App() {
         reverseToolbarSx={false}
         formatButtons={{
           formats: [
-            'ql-font',
-            'ql-size',
             'ql-bold',
             'ql-italic',
             'ql-underline',
             'ql-strike',
             // 'ql-color',
             // 'ql-background',
-            'ql-script',
             'ql-list',
+            'ql-script',
           ]
         }}
         border=''
