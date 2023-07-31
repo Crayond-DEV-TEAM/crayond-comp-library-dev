@@ -84,4 +84,14 @@ export default function TextArea(props: TextAreaProps) {
 
 TextArea.defaultProps = {
   value: "",
+  reactQuillProps: {},
+  handleChange: () => null,
+  parentSx:{},
+  inputHeight: '',
+  maxWidth: '',
+  minWidth: '',
+  reverseToolbarSx: false,
+  formatButtons: {},
+  border: '',
+  borderRadius: ''
 };
