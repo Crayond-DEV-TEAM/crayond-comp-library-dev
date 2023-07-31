@@ -4,12 +4,11 @@ import {
   AvatarGroup,
   Box,
   IconButton,
-  Typography
+  Typography,
 } from '@mui/material';
 import React from 'react';
 import { useDragDrop } from '../DragDropProvider';
 import { styles } from '../styles';
-
 
 type Props = {
   task: any;
@@ -18,11 +17,8 @@ type Props = {
 };
 
 const Row: React.FC<Props> = ({ task, index, isDraggingStart }) => {
-  const { 
-    rowChildItemRootStyle,
-    rowChildItemComponentRootStyle,
-  
-  } = useDragDrop();
+  const { rowChildItemRootStyle, rowChildItemComponentRootStyle } =
+    useDragDrop();
 
   return (
     <Draggable draggableId={task.id} index={index}>
@@ -36,7 +32,9 @@ const Row: React.FC<Props> = ({ task, index, isDraggingStart }) => {
                 {...provided.dragHandleProps}
                 ref={provided.innerRef}
               >
-                <Box sx={{p:"12px",...rowChildItemComponentRootStyle}}>{task?.component}</Box>
+                <Box sx={{ p: '12px', ...rowChildItemComponentRootStyle }}>
+                  {task?.component}
+                </Box>
               </Box>
             </>
           ) : (
@@ -46,7 +44,7 @@ const Row: React.FC<Props> = ({ task, index, isDraggingStart }) => {
               {...provided.dragHandleProps}
               ref={provided.innerRef}
             >
-              <Box sx={{p:"12px",...rowChildItemRootStyle}}>
+              <Box sx={{ p: '12px', ...rowChildItemRootStyle }}>
                 <Box sx={{ ...styles.childTitleContainer }}>
                   <Box>
                     <Typography sx={{ ...styles.titleStyle }}>

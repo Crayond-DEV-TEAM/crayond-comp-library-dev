@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { DraggableLocation, DropResult } from 'react-beautiful-dnd';
-import { v4 } from 'uuid';
 import { ColumnType, api } from './api';
 
 type DragDropProps = (
@@ -21,19 +20,12 @@ type ColumnDropshadowProps = (
 ) => void;
 
 type RowDropshadow = { marginTop: number; height: number };
-type ColDropshadow = { marginLeft: number; height: number };
 
 type DragDropContextProps = {
-  onSubmit: (newRow: string, colIndex: number) => void;
-  handleDuplicateTask: (rowIndex: number, colIndex: number) => void;
-  handleNewColumn: (newName: string) => void;
-  handleRemoveTask: (rowIndex: number, colIndex: number) => void;
-  handleDeleteColumn: (colIndex: number) => void;
   handleDragEnd: (result: DropResult) => void;
   handleDragStart: (event: any) => void;
   handleDragUpdate: (event: any) => void;
   rowDropshadowProps: RowDropshadow;
-  colDropshadowProps: ColDropshadow;
   draggedStartID: number;
   columns: ColumnType[];
   setColumns: React.Dispatch<React.SetStateAction<ColumnType[]>>;
@@ -80,7 +72,7 @@ const getUpdatedChildrenArray = (
 const getStyle = (
   updatedChildrenArray: Element[],
   destinationIndex: number,
-  property: string,
+  property: any,
   clientDirection: 'clientHeight' | 'clientWidth',
 ) =>
   updatedChildrenArray.slice(0, destinationIndex).reduce((total, curr) => {
@@ -105,10 +97,7 @@ const DragDropProvider = ({
 }: DragDropContextProps | any) => {
   const [draggedStartID, setDraggedStartId] = useState(0);
   const [columns, setColumns] = useState<ColumnType[]>(columnData);
-  const [colDropshadowProps, setColDropshadowProps] = useState<ColDropshadow>({
-    marginLeft: 0,
-    height: 0,
-  });
+
   const [rowDropshadowProps, setRowDropshadowProps] = useState<RowDropshadow>({
     marginTop: 0,
     height: 0,
@@ -152,41 +141,6 @@ const DragDropProvider = ({
     }
   };
 
-  const handleColumnMove: DragDropProps = (source, destination) =>
-    setColumns((prev) => {
-      const updated = [...prev];
-      const [removed] = updated.splice(source.index, 1);
-      updated.splice(destination.index, 0, removed);
-      return updated;
-    });
-
-  const handleDropshadowColumn: ColumnDropshadowProps = (
-    event,
-    destinationIndex,
-    sourceIndex,
-  ) => {
-    const draggedElement: Element | Node | null = getDraggedElement(
-      event.draggableId,
-    )!.parentNode!.parentNode;
-    if (!draggedElement) return;
-    const { clientHeight } = draggedElement as Element;
-    const updatedChildrenArray: Element[] = getUpdatedChildrenArray(
-      draggedElement as Element,
-      destinationIndex,
-      sourceIndex,
-    );
-    const marginLeft = getStyle(
-      updatedChildrenArray,
-      destinationIndex,
-      'marginRight',
-      'clientWidth',
-    );
-    setColDropshadowProps({
-      height: clientHeight,
-      marginLeft,
-    });
-  };
-
   const handleDropShadow = (
     event: any,
     destinationIndex: number,
@@ -217,95 +171,31 @@ const DragDropProvider = ({
     const { source, destination } = event;
 
     if (!destination) return;
-    if (event.type === 'column') {
-      handleDropshadowColumn(event, destination.index, source.index);
-    } else {
-      handleDropShadow(event, destination.index, source.index);
-    }
+
+    handleDropShadow(event, destination.index, source.index);
   };
 
   const handleDragStart = (event: any) => {
     setDraggedStartId(event?.draggableId);
     const { index } = event.source;
-    if (event.type === 'column') {
-      handleDropshadowColumn(event, index, index);
-    } else {
-      handleDropShadow(event, index, index);
-    }
+
+    handleDropShadow(event, index, index);
   };
 
   const handleDragEnd = (result: DropResult) => {
     if (!result.destination) return;
     const { source, destination } = result;
 
-    if (source.droppableId === 'all-columns') {
-      handleColumnMove(source, destination);
-    } else {
-      handleRowMove(source, destination);
-    }
-  };
-
-  const handleDeleteColumn = (colIndex: number) =>
-    setColumns((prev) => {
-      const updated = [...prev];
-      updated.filter((dat, rowIndex) => rowIndex !== colIndex);
-      return updated;
-    });
-
-  const onSubmit = (newRow: string, colIndex: number) => {
-    setColumns((prev) => {
-      const updated = [...prev];
-      updated[colIndex].tasks.push({ content: newRow, id: v4() });
-      return updated;
-    });
-  };
-
-  const handleRemoveTask = (rowIndex: number, colIndex: number) => {
-    setColumns((prev) => {
-      const updated = [...prev];
-      updated[colIndex].tasks.splice(rowIndex, 1);
-      return updated;
-    });
-  };
-
-  const handleDuplicateTask = (rowIndex: number, colIndex: number) => {
-    setColumns((prev) => {
-      const updated = [...prev];
-      updated[colIndex].tasks.push({
-        content: updated[colIndex].tasks[rowIndex].content,
-        id: v4(),
-      });
-      return updated;
-    });
-  };
-
-  const handleNewColumn = (newName: string) => {
-    setColumns((prev: any) => {
-      const updated = [...prev];
-      return [
-        ...updated,
-        {
-          id: v4(),
-          title: newName,
-          tasks: [],
-        },
-      ];
-    });
+    handleRowMove(source, destination);
   };
 
   return (
     <DragDropContext.Provider
       value={{
-        onSubmit,
-        handleDuplicateTask,
-        handleNewColumn,
-        handleRemoveTask,
-        handleDeleteColumn,
         handleDragEnd,
         handleDragStart,
         handleDragUpdate,
         rowDropshadowProps,
-        colDropshadowProps,
         draggedStartID,
         columns,
         setColumns,
@@ -343,8 +233,8 @@ DragDropProvider.defaultProps = {
   columnTitleBoxStyle: {},
   columnTitleStyle: {},
 
-  rowChildItemRootStyle:{},
-  rowChildItemComponentRootStyle:{},
+  rowChildItemRootStyle: {},
+  rowChildItemComponentRootStyle: {},
   rowDropShadowPropsStyle: {},
 
   addTodoButtonRootStyle: {},

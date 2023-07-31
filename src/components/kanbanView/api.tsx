@@ -21,7 +21,7 @@ export interface cardItemProp {
 
   images: { img: string; height: number; width: number }[];
   created_at: string;
-  component?:React.ReactNode;
+  component?: React.ReactNode;
 }
 [];
 
@@ -35,8 +35,7 @@ export interface ColumnType {
   bottomButton: {
     buttonLabel: string;
     icon: any;
-    onClick:()=>void;
-
+    onClick: () => void;
   };
   tasks: any[];
 }
@@ -47,7 +46,7 @@ export interface TaskBoardType {
 
 const card1 = [
   {
-    id: "1",
+    id: '1',
     title: 'title1',
     status: 'Progress',
     cardTitle: 'Progress Create Components',
@@ -76,7 +75,7 @@ const card1 = [
     created_at: 'On 17 Mar, 23',
   },
   {
-    id: "2",
+    id: '2',
     title: 'title2',
     status: 'Progress',
     cardTitle: 'Progress Create Components',
@@ -105,7 +104,7 @@ const card1 = [
     created_at: 'On 17 Mar, 23',
   },
   {
-    id: "3",
+    id: '3',
     title: 'title3',
     status: 'Progress',
     cardTitle: 'Progress Create Components',
@@ -135,9 +134,9 @@ const card1 = [
   },
 ];
 
-const card2 =[
+const card2 = [
   {
-    id:"4",
+    id: '4',
     title: 'title4',
     status: 'Pending',
     cardTitle: 'Pending Create Components',
@@ -166,7 +165,7 @@ const card2 =[
     component: '',
   },
   {
-    id: "5",
+    id: '5',
     title: 'title5',
     status: 'Pending',
     cardTitle: 'Pending Create Components',
@@ -195,7 +194,7 @@ const card2 =[
     component: '',
   },
   {
-    id:"6",
+    id: '6',
     title: 'title3',
     status: 'Completed',
     cardTitle: ' Completed Create Components',
@@ -223,11 +222,11 @@ const card2 =[
     created_at: 'On 17 Mar, 23',
     component: '',
   },
-]
+];
 
-const card3 =[
+const card3 = [
   {
-    id: "7",
+    id: '7',
     title: 'title3',
     status: 'Completed',
     cardTitle: 'Completed Create Components',
@@ -256,7 +255,7 @@ const card3 =[
     component: '',
   },
   {
-    id: "8",
+    id: '8',
     title: 'title3',
     status: 'Completed',
     cardTitle: 'Completed Create Components',
@@ -285,7 +284,7 @@ const card3 =[
     component: '',
   },
   {
-    id: "9",
+    id: '9',
     title: 'title3',
     status: 'Pending',
     cardTitle: 'Pending Create Components',
@@ -313,41 +312,39 @@ const card3 =[
     created_at: 'On 17 Mar, 23',
     component: '',
   },
-]
+];
 
 export const api: TaskBoardType = {
   columns: [
     {
-      id:"1",
+      id: '1',
       title: 'Processing',
       bottomButton: {
         buttonLabel: 'string',
         icon: <AddNewButtonIcon />,
-        onClick:()=>{}
+        onClick: () => {},
       },
       tasks: card1,
     },
     {
-      id: "2",
+      id: '2',
       title: 'Pending',
       bottomButton: {
         buttonLabel: 'string',
         icon: <AddNewButtonIcon />,
-        onClick:()=>{},
-
+        onClick: () => {},
       },
-      tasks:card2,
+      tasks: card2,
     },
     {
-      id: "3",
+      id: '3',
       title: 'Completed',
       bottomButton: {
         buttonLabel: 'string',
         icon: <AddNewButtonIcon />,
-        onClick:()=>{},
+        onClick: () => {},
       },
-      tasks:card3,
+      tasks: card3,
     },
-   
   ],
 };

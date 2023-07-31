@@ -1,40 +1,39 @@
-import styled from '@emotion/styled'
-import { Dropshadow } from '../Board/Board.styled'
+import styled from '@emotion/styled';
+import { Dropshadow } from '../Board/Board.styled';
 
 export const RowContainer = styled.div`
-   display: flex;
-   align-items: center;
-   justify-content: flex-start;
-   flex-direction: column;
-   width: 360px;
-   height: 100%;
-
-`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 360px;
+  height: 100%;
+`;
 
 export const TitleContainer = styled.div`
-   display: flex;
-   justify-content: space-between;
-   align-items: center;
-   width: 100%;
-   border: none;
-   background-color: transparent;
-   margin-bottom: 10px;
-`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  margin-bottom: 10px;
+`;
 export const Container = styled.div<{ isDragging?: boolean }>`
-   display: flex;
-   justify-content: flex-start;
-   align-items: center;
-   flex-direction: column;
-   max-width: 360px;
-   // min-width: 350px;
-   margin-right: 20px;
-   flex: 1 0 auto;
-   position: relative;
-   ${({ isDragging }) => isDragging && 'opacity: 0.6;'}
-   border-radius:12px;
-   background:#F1F1F1;
-   padding:16px;
-`
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  max-width: 360px;
+  // min-width: 350px;
+  margin-right: 20px;
+  flex: 1 0 auto;
+  position: relative;
+  ${({ isDragging }) => isDragging && 'opacity: 0.6;'}
+  border-radius:12px;
+  background: #f1f1f1;
+  padding: 16px;
+`;
 
 export const Title = styled.div`
    display: flex;
@@ -50,24 +49,24 @@ export const Title = styled.div`
    &:hover {
       color: #428bca;
    }
-`
+`;
 
 export const Row = styled.div`
-   width: 100%;
-   height: 50px;
-   margin-bottom: 10px;
-`
+  width: 100%;
+  height: 50px;
+  margin-bottom: 10px;
+`;
 
 type RowDropshadowProps = {
-   marginTop: number
-}
+  marginTop: number;
+};
 
 export const RowDropshadow = styled(Dropshadow)<RowDropshadowProps>`
-   margin-top: ${({ marginTop }) => `${marginTop}px`};
-   background:lightgreen;
-   border:2px dashed green;
-`
+  margin-top: ${({ marginTop }) => `${marginTop}px`};
+  background: lightgreen;
+  border: 2px dashed green;
+`;
 export const DropshadowContainer = styled(RowContainer)`
-   width: auto;
-   position: absolute;
-`
+  width: auto;
+  position: absolute;
+`;
