@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { DraggableLocation, DropResult } from '@hello-pangea/dnd';
-import { ColumnType, api } from './api';
+import { ColumnType, TaskBoardType, api } from './api';
 
 type DragDropProps = (
   source: DraggableLocation,
@@ -13,15 +13,12 @@ type RowDropshadowProps = (
   sourceIndex: number,
 ) => void;
 
-type ColumnDropshadowProps = (
-  event: any,
-  destinationIndex: number,
-  sourceIndex: number,
-) => void;
+interface RowDropshadow {
+  marginTop: number;
+  height: number;
+}
 
-type RowDropshadow = { marginTop: number; height: number };
-
-type DragDropContextProps = {
+interface DragDropContextProps  {
   handleDragEnd: (result: DropResult) => void;
   handleDragStart: (event: any) => void;
   handleDragUpdate: (event: any) => void;
@@ -30,17 +27,17 @@ type DragDropContextProps = {
   columns: ColumnType[];
   setColumns: React.Dispatch<React.SetStateAction<ColumnType[]>>;
   // children: any;
-  columnData: any;
-  columnContainerRootStyle: object;
-  columnTitleBoxStyle: object;
-  columnTitleStyle: object;
+  columnData: TaskBoardType;
+  columnContainerRootStyle: CSSStyleSheet;
+  columnTitleBoxStyle: CSSStyleSheet;
+  columnTitleStyle: CSSStyleSheet;
 
-  rowDropShadowPropsStyle: object;
-  rowChildItemRootStyle: object;
-  rowChildItemComponentRootStyle: object;
+  rowDropShadowPropsStyle: CSSStyleSheet;
+  rowChildItemRootStyle: CSSStyleSheet;
+  rowChildItemComponentRootStyle: CSSStyleSheet;
 
-  addTodoButtonRootStyle: object;
-  addButtonLabelStyle: object;
+  addTodoButtonRootStyle: CSSStyleSheet;
+  addButtonLabelStyle: CSSStyleSheet;
 };
 
 const DragDropContext = React.createContext<DragDropContextProps | undefined>(
