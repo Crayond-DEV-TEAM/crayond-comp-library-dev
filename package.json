@@ -13,7 +13,6 @@
       "import": "./dist/style.css"
     }
   },
-  
   "files": [
     "dist"
   ],
