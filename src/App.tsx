@@ -124,7 +124,6 @@ function App() {
   })
 
   const handleDefaultChange = (e: React.SyntheticEvent, val: FilmOptionType) => {
-    debugger
     setOptionValue(val as never)
     setSelectedLang({
       ...selectedLang, allData: {

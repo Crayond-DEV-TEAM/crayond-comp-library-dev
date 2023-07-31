@@ -222,8 +222,9 @@ const SelectBox = (props: SelectBoxProps) => {
               multiple={multiple}
               groupBy={(option: FilmOptionType) => option.title as string}
               getOptionLabel={(option: FilmOptionType) => option.title as string}
-              onChange={(event, newValue) =>
-                groupingProps?.handleGroupChange && groupingProps?.handleGroupChange(event, newValue as FilmOptionType)}
+              onChange={(event, newValue) => {
+                return groupingProps?.handleGroupChange && groupingProps?.handleGroupChange(event, newValue as FilmOptionType)
+              }}
               sx={{
                 height: '100%',
                 minWidth: groupingProps?.input?.minWidth ? groupingProps?.input?.minWidth : '400px',

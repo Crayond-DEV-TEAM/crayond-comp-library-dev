@@ -37,9 +37,6 @@ export default function Language(props: languageInterface) {
     langText: string
   }
 
-
-  console.log(data, 'data');
-
   return (
     <Box>
       <Box py={2}>

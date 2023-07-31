@@ -16,7 +16,7 @@ export interface SelectBoxProps {
     groupingProps?: {
         isCloseIcon?: boolean,
         isSearch?: boolean,
-        handleGroupChange?: (e: any,
+        handleGroupChange?: (e: React.SyntheticEvent,
             val: FilmOptionType
         ) => void,
         groupedData?: FilmOptionType[],
