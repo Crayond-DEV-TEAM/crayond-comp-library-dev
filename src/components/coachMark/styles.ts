@@ -57,5 +57,13 @@ export const styles = {
         color:'#FFFFFF',
         padding:'4px 12px',
         marginTop:'16px'
+    },
+    skip:{
+        color:'#666666',
+        fontWeight:'500',
+    },
+    stepTitle:{
+        color:'#262626',
+        fontWeight:'500'
     }
 };

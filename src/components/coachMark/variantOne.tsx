@@ -9,7 +9,6 @@ import MBFIcon from './../../assets/MBF'
 import ClinicalIcon from './../../assets/clinical'
 
 
-
 export const VariantOne = () => {
 
     const MenuItems = [
@@ -48,7 +47,7 @@ export const VariantOne = () => {
                         <Button sx={styles?.addBtn} id='step-2'>Add Now</Button>
                     </Box>
                 </Box>
-                <Stack sx={styles?.MenuIconStack} direction='row' px={1}>
+                <Stack sx={styles?.MenuIconStack} direction='row' px={1} id="step-10" >
                     {
                         MenuItems?.map((e:any, i: number) =>{
                             console.log(`step-${3 + i}`);

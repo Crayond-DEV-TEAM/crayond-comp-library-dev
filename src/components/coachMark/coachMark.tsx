@@ -1,72 +1,94 @@
 import { styles } from './styles';
 import React, { useRef, useState } from "react";
-import Box from '@mui/material/Box';
-import { Stack , Typography } from '@mui/material';
-import Joyride, { STATUS } from "react-joyride";
+import { Stack, Typography } from '@mui/material';
+import Joyride from "react-joyride";
 import { VariantOne } from './variantOne';
+import { CoachMarkProps, Step } from './props';
 
-export default function CoachMarkComponent(props: any) {
 
-  const [{ run, steps }, setState] = useState({
-    run: true,
-    steps: [
-      {
-        content: <h2>Tap to "Back" pages</h2>,
-        // locale: { skip: <strong>SKIP</strong> },
-        placement: "bottom",
-        target: "#step-1",
-        disableBeacon: false,
-        // title: "First step"
+export default function CoachMarkComponent(props: CoachMarkProps) {
+
+  const {
+    renderingComponent,
+    stepsProps,
+    styleProps,
+    HandleCallBack,
+    hideCloseButton = false,
+    scrollToFirstStep = false,
+    spotlightClicks = false,
+    showSkipButton = false,
+    showProgress = false,
+    run= false,
+    continuous =  false,
+    floaterProps,
+    spotlightPadding
+  } = props
+
+  const step: Step[] = [
+    {
+      content: '',
+      locale: {
+        skip: <Typography sx={styles.skip}>Skip</Typography>,
+        next: <strong>Next</strong>
       },
-      {
-        content: <h2>Add "Bookmark" here</h2>,
-        placement: "bottom",
-        disableBeacon: true,
-        target: "#step-2",
-        // title: "Second step"
-      },
-      {
-        content: <h2>"Menus" to navigate</h2>,
-        placement: "bottom",
-        target: "body",
-        disableBeacon: true,
-        // title: "Second step"
-      },
-      {
-        content: <h2>Here is 'Home' menu!</h2>,
-        placement: "bottom",
-        disableBeacon: true,
-        target: "#step-3",
-      },
-      {
-        content: <h2>Here is 'Clinical' menu!</h2>,
-        placement: "bottom",
-        disableBeacon: true,
-        target: "#step-4",
-      },
-      {
-        content: <h2>Here is 'MBF' menu!</h2>,
-        placement: "bottom",
-        disableBeacon: true,
-        target: "#step-5",
-      },
-      {
-        content: <h2>Here is 'Masters' menu!</h2>,
-        placement: "bottom",
-        disableBeacon: true,
-        target: "#step-6",
-      },
-      {
-        content: <h2>Here is 'Profile' menu!</h2>,
-        placement: "bottom",
-        disableBeacon: true,
-        target: "#step-7",
-      },
-    ]
-  });
+      placement: "bottom",
+      target: "#step-1",
+      disableBeacon: false,
+      title: <Typography sx={styles?.stepTitle}>Tap to "Back" pages</Typography>
+    },
+    {
+      content: '',
+      placement: "bottom",
+      disableBeacon: true,
+      target: "#step-2",
+      title: <Typography sx={styles?.stepTitle}> Add "Bookmark" here</Typography>
+    },
+    {
+      content: '',
+      placement: "bottom",
+      disableBeacon: true,
+      target: '#step-10',
+      title: <Typography sx={styles?.stepTitle}> "Menus" to navigate!</Typography>
+    },
+    {
+      content: '',
+      placement: "bottom",
+      disableBeacon: true,
+      target: "#step-3",
+      title: <Typography sx={styles?.stepTitle}> Here is 'Home' menu!</Typography>
+    },
+    {
+      content: '',
+      placement: "bottom",
+      disableBeacon: true,
+      target: "#step-4",
+      title: <Typography sx={styles?.stepTitle}> Here is 'Clinical' menu!</Typography>
+    },
+    {
+      content: '',
+      placement: "bottom",
+      disableBeacon: true,
+      target: "#step-5",
+      title: <Typography sx={styles?.stepTitle}> Here is 'MBF' menu!</Typography>
+    },
+    {
+      content: '',
+      placement: "bottom",
+      disableBeacon: true,
+      target: "#step-6",
+      title: <Typography sx={styles?.stepTitle}>  Here is 'Masters' menu!</Typography>
+    },
+    {
+      content: '',
+      placement: "bottom",
+      disableBeacon: true,
+      target: "#step-7",
+      title: <Typography sx={styles?.stepTitle}>  Here is 'Profile' menu!</Typography>
+    },
+  ]
+
   return (
     <div style={{
-      // background: "#797979",
       height: "100vh",
       display: "flex",
       color: "white",
@@ -74,54 +96,66 @@ export default function CoachMarkComponent(props: any) {
       alignItems: "center"
     }}>
       <Joyride
-        continuous
-        callback={() => {}}
-        run={run}
-        steps={steps}
-        hideCloseButton
-        scrollToFirstStep
-        spotlightClicks={false}
-        showSkipButton
-        showProgress
-        spotlightPadding={1}
+        continuous={ continuous ? continuous : true}
+        callback={HandleCallBack}
+        run={ run ? run : true}
+        steps={stepsProps ? stepsProps : step}
+        hideCloseButton={hideCloseButton ? hideCloseButton : false}
+        scrollToFirstStep={scrollToFirstStep ? scrollToFirstStep : false}
+        spotlightClicks={spotlightClicks ? spotlightClicks : false}
+        showSkipButton={showSkipButton ? showSkipButton : false}
+        showProgress={showProgress ? showProgress : false}
+        spotlightPadding={spotlightPadding ? spotlightPadding : 1}
+        floaterProps={{
+          ...{
+          hideArrow: true
+        },
+      ...floaterProps}}
         styles={{
-          tooltipContainer:{
-            lineHeight:'inherit'
-          },
-          tooltipContent:{
-            padding:'0 !important'
-          },
-          tooltip:{
-            // width:'30px'
-          },
+          ...{
+            buttonSkip: {
+              background: 'transparent'
+            },
+            buttonNext: {
+              outline: 'none'
+            },
+            buttonBack: {
+              background: '#E9E9E9',
+              borderRadius: '4px',
+              color: '#666666',
+              marginRight: '8px'
+            },
+            tooltipContainer: {
+              lineHeight: 'inherit'
+            },
+            tooltipContent: {
+              padding: '0 !important'
+            },
+            tooltip: {
+              // width:'30px'
+            },
+            tooltipFooter: {
+              // background:'red',
+            },
+            options: {
+              arrowColor: '#ffffff',
+              backgroundColor: '#ffffff',
+              // overlayColor: 'rgba(79, 26, 0, 0.4)',
+              primaryColor: '#665CD7',
+              // textColor: '#004a14',
+              // width: 900,
+              // zIndex: 1000,
 
-          options: {
-            arrowColor: '#e3ffeb',
-            // backgroundColor: '#e3ffeb',
-            // overlayColor: 'rgba(79, 26, 0, 0.4)',
-            // primaryColor: '#000',
-            textColor: '#004a14',
-            // width: 900,
-            // zIndex: 1000,
-            
-          }
-        }}
-        // floaterProps={{
-        //   styles:{
-        //     options: {
-        //       arrowColor: '#e3ffeb',
-        //       backgroundColor: '#e3ffeb',
-        //       overlayColor: 'rgba(79, 26, 0, 0.4)',
-        //       primaryColor: '#000',
-        //       textColor: '#004a14',
-        //       width: 900,
-        //       zIndex: 1000,
-        //     }
-        //   }
-        // }}
-      
+            }
+          },
+          ...styleProps
+        }
+        }
+
       />
-     <VariantOne />
+      {
+        renderingComponent ? renderingComponent : <VariantOne />
+      }
     </div>
   );
 }
