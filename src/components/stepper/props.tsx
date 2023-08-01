@@ -2,7 +2,7 @@ import { SxProps } from "@mui/material";
 
 export interface StepData {
   label: string;
-  status: string;
+  status: 'start' | 'inprogress' | 'completed' | 'rejected';
   content?: string | React.ReactNode;
   color?: string;
   icon?: string | React.ReactNode | SVGRectElement;
@@ -39,15 +39,11 @@ export interface CustomStepperProps {
     btnStyle?: SxProps;
     rootStyle?: SxProps;
     contentStyle?: SxProps;
-    buttonsContainerMob?: SxProps;
     stepperParent?: SxProps;
   };
-  mobileButtons?: ButtonProps[];
   buttons?: ButtonProps[];
   resetBtn?: ButtonProps[];
   activeStep?: number;
-  activeStepMobile?: number;
-  handleSubmit?: () => void;
 }
 export interface ButtonProps {
   label: string;

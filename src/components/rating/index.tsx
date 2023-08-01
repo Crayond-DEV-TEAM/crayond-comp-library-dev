@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import Rating from '@mui/material/Rating';
 import { Box, Typography } from '@mui/material';
 import { RadioGroupRatingProps } from './props';
+import SmilyHeart from '../../assets/smily_heart';
+import SmilyHeartDisabled from '../../assets/smily_heart_disabled';
+
 
 export const CustomRating: React.FC<RadioGroupRatingProps> = ({
   customIcons,
@@ -142,7 +145,14 @@ export const CustomRating: React.FC<RadioGroupRatingProps> = ({
 };
 
 CustomRating.defaultProps = {
-  customIcons: [],
+  customIcons: [
+    {
+      SelectIcon: <SmilyHeart />,
+      unSelectIcon: <SmilyHeartDisabled />,
+      label: 'Totally wrong',
+      value: 0,
+    },
+  ],
   variant: 'emoji',
   styledRating: [],
   remarkStyle: {},
