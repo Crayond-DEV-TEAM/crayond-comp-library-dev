@@ -12,7 +12,7 @@ export default function CoachMarkComponent(props: CoachMarkProps) {
     renderingComponent,
     stepsProps,
     styleProps,
-    HandleCallBack,
+    HandleCallBack : handleCall,
     hideCloseButton = false,
     scrollToFirstStep = false,
     spotlightClicks = false,
@@ -97,7 +97,7 @@ export default function CoachMarkComponent(props: CoachMarkProps) {
     }}>
       <Joyride
         continuous={ continuous ? continuous : true}
-        callback={HandleCallBack}
+        callback={handleCall}
         run={ run ? run : true}
         steps={stepsProps ? stepsProps : step}
         hideCloseButton={hideCloseButton ? hideCloseButton : false}

@@ -50,7 +50,6 @@ export const VariantOne = () => {
                 <Stack sx={styles?.MenuIconStack} direction='row' px={1} id="step-10" >
                     {
                         MenuItems?.map((e:any, i: number) =>{
-                            console.log(`step-${3 + i}`);
                             
                             return (
                                 <Box p={2} id={`step-${3 + i}`}>

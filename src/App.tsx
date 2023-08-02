@@ -38,7 +38,7 @@ function App() {
       hideCloseButton={false}
       scrollToFirstStep={false}
       spotlightClicks={false}
-      showSkipButton={false}  
+      showSkipButton={true}  
       showProgress={false}
       spotlightPadding={1}
      />
