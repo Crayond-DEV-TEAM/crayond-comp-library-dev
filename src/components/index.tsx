@@ -1,4 +1,4 @@
-export { BasicButtons } from './button';;
+export { BasicButtons } from './button';
 export { CommonTable } from './table';
 export { Switch } from './switch';
 export { LinearProcess } from './linearProgress';
@@ -32,4 +32,3 @@ export { TimeLine } from './timeLine';
 export { CustomButtonGroup } from './buttonGroup';
 export { MapComponent } from './customMap';
 export { CircleProgress } from './circleBar';
-export { DragAndDrop } from './DragAndDrop';

@@ -1,14 +1,8 @@
 import { Draggable, DraggableProvided } from '@hello-pangea/dnd';
-import {
-  Avatar,
-  AvatarGroup,
-  Box,
-  IconButton,
-  Typography,
-} from '@mui/material';
 import React from 'react';
 import { useDragDrop } from '../DragDropProvider';
 import { styles } from '../styles';
+import { Avatar, AvatarGroup, Box, IconButton, SxProps, Typography } from '@mui/material';
 
 type Props = {
   task: any;
@@ -16,7 +10,7 @@ type Props = {
   isDraggingStart: boolean;
 };
 
-const Row: React.FC<Props> = ({ task, index, isDraggingStart }) => {
+const Row: React.FC<Props> = ({ task, index }) => {
   const { rowChildItemRootStyle, rowChildItemComponentRootStyle } =
     useDragDrop();
 
@@ -53,22 +47,23 @@ const Row: React.FC<Props> = ({ task, index, isDraggingStart }) => {
                   </Box>
 
                   <Box sx={{ display: 'flex', columnGap: '12px' }}>
-                    <IconButton onClick={() => {}}>
+                    <IconButton onClick={() => false}>
                       {task?.notifyIcon}
                     </IconButton>
-                    <IconButton onClick={() => {}}>{task?.moreIcon}</IconButton>
+                    <IconButton onClick={() => false}>{task?.moreIcon}</IconButton>
                   </Box>
                 </Box>
                 <Box sx={{ ...styles.designBlock }}>
                   {task?.subTitles?.map((value: any) => (
                     <Box
+                    key={value?.id}
                       sx={{
                         ...styles.designBox,
                         background: value?.bgColor ?? '#DEE6F9',
                         border: value?.borderColor
                           ? `1px solid ${value?.borderColor}`
                           : '',
-                      }}
+                      } as SxProps}
                     >
                       <Typography
                         sx={{
@@ -77,7 +72,7 @@ const Row: React.FC<Props> = ({ task, index, isDraggingStart }) => {
                           color: value?.textColor
                             ? value?.textColor
                             : '#929292',
-                        }}
+                        } as SxProps}
                       >
                         {value?.label}
                       </Typography>
@@ -86,8 +81,9 @@ const Row: React.FC<Props> = ({ task, index, isDraggingStart }) => {
                 </Box>
                 <Box sx={{ ...styles.childTitleContainer }}>
                   <AvatarGroup>
-                    {task?.images?.map((val: any) => (
+                    {task?.images?.map((val: any,i:number) => (
                       <Avatar
+                        key={i}
                         alt="Rem Sharp"
                         src={val?.img}
                         sx={{ width: 24, height: 24 }}
@@ -102,7 +98,7 @@ const Row: React.FC<Props> = ({ task, index, isDraggingStart }) => {
                       mb: '0px',
                     }}
                   >
-                    {task?.created_at}
+                    {task?.createdAt}
                   </Typography>
                 </Box>
               </Box>

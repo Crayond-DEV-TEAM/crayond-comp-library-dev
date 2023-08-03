@@ -20,7 +20,7 @@ export interface cardItemProp {
   }[];
 
   images: { img: string; height: number; width: number }[];
-  created_at: string;
+  createdAt: string;
   component?: React.ReactNode;
 }
 [];
@@ -72,7 +72,7 @@ const card1 = [
       { img: '/sample.jpg', height: '', width: '' },
       { img: '/sample.jpg', height: '', width: '' },
     ],
-    created_at: 'On 17 Mar, 23',
+    createdAt: 'On 17 Mar, 23',
   },
   {
     id: '2',
@@ -101,7 +101,7 @@ const card1 = [
       { img: '/sample.jpg', height: '', width: '' },
       { img: '/sample.jpg', height: '', width: '' },
     ],
-    created_at: 'On 17 Mar, 23',
+    createdAt: 'On 17 Mar, 23',
   },
   {
     id: '3',
@@ -130,7 +130,7 @@ const card1 = [
       { img: '/sample.jpg', height: '', width: '' },
       { img: '/sample.jpg', height: '', width: '' },
     ],
-    created_at: 'On 17 Mar, 23',
+    createdAt: 'On 17 Mar, 23',
   },
 ];
 
@@ -161,7 +161,7 @@ const card2 = [
       { img: '/sample.jpg', height: '', width: '' },
       { img: '/sample.jpg', height: '', width: '' },
     ],
-    created_at: 'On 17 Mar, 23',
+    createdAt: 'On 17 Mar, 23',
     component: '',
   },
   {
@@ -190,7 +190,7 @@ const card2 = [
       { img: '/sample.jpg', height: '', width: '' },
       { img: '/sample.jpg', height: '', width: '' },
     ],
-    created_at: 'On 17 Mar, 23',
+    createdAt: 'On 17 Mar, 23',
     component: '',
   },
   {
@@ -219,7 +219,7 @@ const card2 = [
       { img: '/sample.jpg', height: '', width: '' },
       { img: '/sample.jpg', height: '', width: '' },
     ],
-    created_at: 'On 17 Mar, 23',
+    createdAt: 'On 17 Mar, 23',
     component: '',
   },
 ];
@@ -251,7 +251,7 @@ const card3 = [
       { img: '/sample.jpg', height: '', width: '' },
       { img: '/sample.jpg', height: '', width: '' },
     ],
-    created_at: 'On 17 Mar, 23',
+    createdAt: 'On 17 Mar, 23',
     component: '',
   },
   {
@@ -280,7 +280,7 @@ const card3 = [
       { img: '/sample.jpg', height: '', width: '' },
       { img: '/sample.jpg', height: '', width: '' },
     ],
-    created_at: 'On 17 Mar, 23',
+    createdAt: 'On 17 Mar, 23',
     component: '',
   },
   {
@@ -309,7 +309,7 @@ const card3 = [
       { img: '/sample.jpg', height: '', width: '' },
       { img: '/sample.jpg', height: '', width: '' },
     ],
-    created_at: 'On 17 Mar, 23',
+    createdAt: 'On 17 Mar, 23',
     component: '',
   },
 ];
@@ -322,7 +322,7 @@ export const api: TaskBoardType = {
       bottomButton: {
         buttonLabel: 'string',
         icon: <AddNewButtonIcon />,
-        onClick: () => {},
+        onClick: () => false,
       },
       tasks: card1,
     },
@@ -332,7 +332,7 @@ export const api: TaskBoardType = {
       bottomButton: {
         buttonLabel: 'string',
         icon: <AddNewButtonIcon />,
-        onClick: () => {},
+        onClick: () => false,
       },
       tasks: card2,
     },
@@ -342,7 +342,7 @@ export const api: TaskBoardType = {
       bottomButton: {
         buttonLabel: 'string',
         icon: <AddNewButtonIcon />,
-        onClick: () => {},
+        onClick: () => false,
       },
       tasks: card3,
     },

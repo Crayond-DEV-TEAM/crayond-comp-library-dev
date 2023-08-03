@@ -1,16 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { DraggableLocation, DropResult } from '@hello-pangea/dnd';
-import { ColumnType, TaskBoardType, api } from './api';
+import { ColumnType, TaskBoardType, api} from './api';
 
 type DragDropProps = (
   source: DraggableLocation,
   destination: DraggableLocation,
-) => void;
-
-type RowDropshadowProps = (
-  event: any,
-  destinationIndex: number,
-  sourceIndex: number,
 ) => void;
 
 interface RowDropshadow {
@@ -38,7 +32,7 @@ interface DragDropContextProps  {
 
   addTodoButtonRootStyle: React.CSSProperties | undefined;
   addButtonLabelStyle: React.CSSProperties | undefined;
-};
+}
 
 const DragDropContext = React.createContext<DragDropContextProps | undefined>(
   undefined,
@@ -225,7 +219,7 @@ export function useDragDrop() {
 }
 
 DragDropProvider.defaultProps = {
-  columnData:[],
+  columnData:api?.columns,
   columnContainerRootStyle: {},
   columnTitleBoxStyle: {},
   columnTitleStyle: {},
