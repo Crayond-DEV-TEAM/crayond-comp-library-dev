@@ -31,7 +31,7 @@ const KanbanView = (props: DragProps) => {
   };
 
   const filterCardStatus = (array: any, key: string) => {
-    let status = array.filter((val: any) => val?.status === key);
+    const status = array.filter((val: any) => val?.status === key);
     return status;
   };
 
@@ -39,14 +39,11 @@ const KanbanView = (props: DragProps) => {
     return create?.filter((data: any) => data?.status === type);
   };
 
-  const handleOnDragLeave = (event: React.MouseEvent, id: number | string) => {
+  const handleOnDragLeave = () => {
     setHoverId(0);
   };
 
-  const handleOnDragEnter = (
-    evt: React.DragEvent<HTMLDivElement>,
-    id: string | number
-  ) => {};
+  const handleOnDragEnter = () => {console.log("")};
 
   const onDragOver = (
     evt: React.DragEvent<HTMLDivElement>,
@@ -74,8 +71,8 @@ const KanbanView = (props: DragProps) => {
     evt.dataTransfer.setData('listId', id);
     evt.dataTransfer.effectAllowed = 'move';
     evt.currentTarget.classList.add('dragged');
-    let styles = evt.currentTarget.style;
-    let childStyles = evt.target.children[0];
+    const styles = evt.currentTarget.style;
+    const childStyles = evt.target.children[0];
     styles.opacity=1;
     styles.backgroundColor="#FFFF"
     styles.width="250px !important"
@@ -97,13 +94,13 @@ const KanbanView = (props: DragProps) => {
   ) => {
     evt.currentTarget.classList.remove('dragged');
     evt.dataTransfer.clearData('listId');
-    let styles = evt.currentTarget.style;
-    let childStyles = evt.target.children[0];
+    const styles = evt.currentTarget.style;
+    const childStyles = evt.target.children[0];
     const statusKey = items.status;
 
-    let filterContainerData = filterCardStatus(create, statusKey);
+    const filterContainerData = filterCardStatus(create, statusKey);
 
-    let changeIndex = moveElement(filterContainerData, index, fromIndex);
+    const changeIndex = moveElement(filterContainerData, index, fromIndex);
 
     const ids = changeIndex?.map((val) => val.id);
 
@@ -127,9 +124,9 @@ const KanbanView = (props: DragProps) => {
     title: string
   ) => {
     evt.preventDefault();
-    let dataId = evt.dataTransfer.getData('listId');
-    let tasks = create;
-    let updated = tasks?.map((task: cardDataProp) => {
+    const dataId = evt.dataTransfer.getData('listId');
+    const tasks = create;
+    const updated = tasks?.map((task: cardDataProp) => {
       if (task?.id.toString() === dataId.toString()) {
         task.status = title;
       }
@@ -150,7 +147,7 @@ const KanbanView = (props: DragProps) => {
         sx={{ ...view_styles.rootStyle, ...cardRootStyle }}
       >
         {cardContainerData.map((container) => (
-          <Grid item order ={container?.orderNumber}>
+          <Grid item order ={container?.orderNumber} key={container?.title}>
             <CardContainer
               childItems={getChildItemUsingType(container?.title)}
               containerData={container}
@@ -188,9 +185,9 @@ KanbanView.defaultProps = {
   containerTitleStyle: {},
   bottomButtonStyle: {},
   childCardComponentStyle: {},
-  handleClickNotifyIcon: () => {},
-  handleClickMoreIcon: () => {},
-  handleAddNewButton: () => {},
+  handleClickNotifyIcon: () => false,
+  handleClickMoreIcon: () => false,
+  handleAddNewButton: () => false,
   cardContainerData: { title: 'string', buttonName: '' },
   cardData: {
     id: 0,
