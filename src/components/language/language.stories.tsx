@@ -130,7 +130,7 @@ const Template: ComponentStory<typeof Language> = () => {
     };
   });
 
-  const handleDefaultChange = (e: any, val: FilmOptionType | FilmOptionType[]) => {
+  const handleDefaultChange = (e: any, val: FilmOptionType) => {
     const newValue = val as FilmOptionType 
     setOptionValue(val as never);
     setSelectedLang({
