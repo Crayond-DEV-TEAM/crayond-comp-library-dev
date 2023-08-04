@@ -1,3 +1,5 @@
+import { SxProps } from "@mui/material";
+
 interface languageProps {
     langName: string,
     langText: string
@@ -30,15 +32,50 @@ interface SelectedLangState {
     }[];
 }
 export interface languageInterface {
-    cardStyle: object,
-    unselectedCardStyle: object,
-    cardTitleStyle: object,
-    cardSubtitleStyle: object,
-    languagesBoxStyle: object,
-    value: FilmOptionType[] | undefined,
-    options: { title: string, year: string }[],
-    handleDefaultChange: (event: React.SyntheticEvent, val: FilmOptionType) => void,
-    data:SelectedLangState,
-    selectedLang: selectedLanguageObject,
-    handleClick: (val: languageProps, index: number, parent: string) => void
+    subTitle?: string,
+    titleLabel?: string,
+    allLaguageLabel?: string,
+    subTitleStyle: SxProps,
+    titleLabelStyle: SxProps,
+    cardStyle?: SxProps,
+    unselectedCardStyle?: SxProps,
+    cardTitleStyle?: SxProps,
+    cardSubtitleStyle?: SxProps,
+    languagesBoxStyle?: SxProps,
+    value?: FilmOptionType[] | undefined,
+    options: FilmOptionType[],
+    handleDefaultChange?: (event: React.SyntheticEvent, val: FilmOptionType) => void,
+    data?:SelectedLangState,
+    selectedLang?: selectedLanguageObject,
+    handleClick: (val: languageProps, index: number, parent: string) => void,
+    selectProps?: {
+        isCloseIcon?: boolean,
+        isSearch?: boolean,
+        defaultValue: FilmOptionType[],
+        label?: string,
+        labelPropsSx?: object,
+        islabel: boolean,
+        dropdown?: {
+            minHeight?: string,
+            maxWidth?: string,
+            minWidth?: string,
+            maxHeight?: string,
+            backgroundColor?: string,
+            color?: string
+        },
+        input?: {
+            minHeight?: string,
+            maxWidth?: string,
+            minWidth?: string,
+            maxHeight?: string,
+            backgroundColor?: string,
+            color?: string,
+            border?: string,
+            borderRadius?: string,
+            inputPropsSx?: object,
+            isStartIcon?: boolean,
+            startEndornment: JSX.Element,
+            endEndornment: JSX.Element,
+      }
+    }
 }

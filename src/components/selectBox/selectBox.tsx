@@ -622,7 +622,7 @@ const SelectBox = (props: SelectBoxProps) => {
         )
       case 'default':
 
-        console.log(defaultProps?.dropdown?.minWidth);
+        console.log(defaultProps?.defaultValue, '1234');
 
         return (
           <Box>
@@ -683,7 +683,7 @@ const SelectBox = (props: SelectBoxProps) => {
                   }
                 }
               }}
-              options={defaultProps?.arrData || []}
+              options={defaultProps?.arrData}
               value={
                 Array.isArray(defaultProps?.defaultData) ?
                   defaultProps?.defaultData?.length > 0 ?

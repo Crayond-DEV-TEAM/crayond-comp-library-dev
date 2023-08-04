@@ -55,8 +55,8 @@ export interface SelectBoxProps {
             val: FilmOptionType
         ) => void,
         defaultData?: FilmOptionType[],
-        arrData?: FilmOptionType[],
-        defaultValue?: FilmOptionType[],
+        arrData: FilmOptionType[],
+        defaultValue: FilmOptionType[],
         label?: string,
         labelPropsSx?: object,
         islabel: boolean,
