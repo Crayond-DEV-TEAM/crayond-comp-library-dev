@@ -7,6 +7,8 @@ import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import FormatListNumberedIcon from '@mui/icons-material/FormatListNumbered';
 import SuperscriptIcon from '@mui/icons-material/Superscript';
 import SubscriptIcon from '@mui/icons-material/Subscript';
+import { TextAreaProps } from '../props';
+import { Box } from '@mui/material';
 
 const renderOptions = (formatData: { options: any; className?: any; }) => {
     const { className, options } = formatData;
@@ -63,16 +65,18 @@ const renderSingle = (formatData: { className?: string; value?: string; }) => {
     </ToolBox>
 };
 
-const CustomToolbar = (props: any) => {
+const CustomToolbar = (props: TextAreaProps) => {
     
     return (
-        <div id="toolbar" style={{
+        <Box id="toolbar" sx={
+           { ...{
             border: '1px solid #E9E9E9',
             borderRadius: '4px'
-        }}>
+        },
+        ...props?.formatButtonStyleProps}}>
             <span className="ql-formats" >
             {props?.state?.map((classes: any, index: number) => {
-                return (<span>
+                return (<span key={index}>
                     {
                       classes?.options ? renderOptions(classes) : renderSingle(classes)
                     }
@@ -81,7 +85,7 @@ const CustomToolbar = (props: any) => {
                 }
                 </span>
     
-        </div>
+        </Box>
     )
 };
 export default CustomToolbar;

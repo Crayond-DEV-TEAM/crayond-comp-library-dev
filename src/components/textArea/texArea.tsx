@@ -37,9 +37,10 @@ export default function TextArea(props: TextAreaProps) {
     border,
     borderRadius,
     placeholder,
-    background,
-    parentSx,
     reactQuillProps,
+    editorStyleProps,
+    formatButtonStyleProps,
+    parentStyleProps,
     formatButtons
   } = props;
 
@@ -57,13 +58,8 @@ export default function TextArea(props: TextAreaProps) {
 
   return (
     <>
-    {is_loading?<h1>Loading</h1>:
-    <Box sx={{
-      ...{background: background ? background : '#fff',
-      width: '100%',
-      height: '100%'},
-      ...parentSx
-    }}>
+    {is_loading ? <h1>Loading</h1> :
+    <Box>
         <Editor
         value={value}
         minWidth={minWidth}
@@ -75,6 +71,9 @@ export default function TextArea(props: TextAreaProps) {
         inputHeight={inputHeight}
         placeholder={placeholder} 
         reactQuillProps={reactQuillProps}
+        editorStyleProps={editorStyleProps}
+        parentStyleProps={parentStyleProps}
+        formatButtonStyleProps={formatButtonStyleProps}
         state={state} 
            />
     </Box>}

@@ -5,18 +5,19 @@ interface EditorFormatButtons {
 }
 
 export interface TextAreaProps {
-    value: string,
-    handleChange: (html: string) => void,
+    value?: string,
+    handleChange?: (html: string) => void,
     inputHeight?: string,
     reverseToolbarSx?: boolean
     minWidth?: string;
     maxWidth?: string;
     border?: string;
     borderRadius?: string;
-    placeholder?:  string;
-    background?: string;
-    parentSx?: SxProps;
-    reactQuillProps: ReactQuillProps;
+    placeholder?: string;
+    formatButtonStyleProps?: SxProps,
+    parentStyleProps?: SxProps,
+    editorStyleProps?: SxProps,
+    reactQuillProps?: ReactQuillProps;
     formatButtons?: EditorFormatButtons;
     state?: ({
         className: string;
@@ -32,7 +33,7 @@ export interface TextAreaProps {
         value?: undefined;
     })[]
 }
- interface RangeStatic {
+interface RangeStatic {
     index: number;
     length: number;
 }
@@ -70,21 +71,4 @@ interface UnprivilegedEditor {
     // getBounds(index: number, length?: number): BoundsStatic;
     // getSelection(focus?: boolean): RangeStatic;
     // getContents(index?: number, length?: number): DeltaStatic;
-}
-
-export interface formatButtons {
-    format: [
-    {
-        className?: "ql-bold",
-        value?: "bol"
-    },
-    {
-        className?: "ql-italic",
-        value?: "ital"
-    },
-    {
-        className?: "ql-underline",
-        value?: "under"
-    },
-]
 }

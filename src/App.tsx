@@ -14,18 +14,20 @@ function App() {
   };
 
   return (
-    <div className="App" style={{ width: '100vw', height: '100vh' }}>
+    <div className="App" style={{ width: '100vw', height: '100vh', background:'#fff', padding:'40px 0' }}>
       <TextArea
         reactQuillProps={{}}
         handleChange={handleChange}
-        parentSx={{
-          padding:'40px 0'
-        }}
         value={text}
         inputHeight=''
         minWidth='80%'
         maxWidth='80%'
         reverseToolbarSx={false}
+        parentStyleProps={{}}
+        editorStyleProps={{
+          height:'200px'
+        }}
+        formatButtonStyleProps={{}}
         formatButtons={{
           formats: [
             'ql-bold',

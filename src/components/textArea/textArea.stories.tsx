@@ -29,11 +29,23 @@ export default {
     },
     borderRadius: {
       description: 'border radius of the parent as props'
+    },
+    parentStyleProps: {
+      description: 'parent style as props'
+    },
+    editorStyleProps: {
+      description: 'editor style as props'
+    },
+    formatButtonStyleProps: {
+      description: 'format button div as props'
+    },
+    placeholder:{
+      description:'placeholder for text editor as props'
     }
   }
 } as ComponentMeta<typeof TextArea>;
-  
-const Template: ComponentStory<typeof TextArea> = (args) => {
+
+const Template: ComponentStory<typeof TextArea> = () => {
 
   const [text, setText] = useState("");
 
@@ -44,22 +56,40 @@ const Template: ComponentStory<typeof TextArea> = (args) => {
 
   return (
     <TextArea
+      placeholder=''
       handleChange={handleChange}
       reactQuillProps={{}}
       value={text}
-      inputHeight=''
-      minWidth=''
-      maxWidth=''
       reverseToolbarSx={false}
       border=''
       borderRadius=''
+      inputHeight=''
+      minWidth='80%'
+      maxWidth='80%'
+      parentStyleProps={{}}
+      editorStyleProps={{
+        height: '200px'
+      }}
+      formatButtonStyleProps={{}}
+      formatButtons={{
+        formats: [
+          'ql-bold',
+          'ql-italic',
+          'ql-underline',
+          'ql-strike',
+          // 'ql-color',
+          // 'ql-background',
+          'ql-list',
+          'ql-script',
+        ]
+      }}
     />
   );
 };
 
 export const Primary = Template.bind({});
 Primary.args = {
-  value: "Text Here",
+  value: "",
   handleChange: (html: SetStateAction<string>) => {
     console.log(html)
   },
@@ -68,5 +98,9 @@ Primary.args = {
   maxWidth: '',
   reverseToolbarSx: false,
   border: '',
-  borderRadius: ''
+  borderRadius: '',
+  parentStyleProps: {},
+  editorStyleProps: {},
+  formatButtonStyleProps: {},
+  placeholder: ''
 };
