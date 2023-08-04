@@ -91,6 +91,7 @@ export interface StylesProps {
 export interface CoachMarkProps {
     floaterProps?: FloaterType;
     renderingComponent?: any;
+    tooltipComponent?: any;
     stepsProps?: Step[];
     styleProps?:StylesProps;
     continuous?: boolean;

@@ -1,15 +1,17 @@
 import { styles } from './styles';
-import React, { useRef, useState } from "react";
-import { Stack, Typography } from '@mui/material';
+// import React, { useRef, useState } from "react";
+import { Typography } from '@mui/material';
 import Joyride from "react-joyride";
 import { VariantOne } from './variantOne';
 import { CoachMarkProps, Step } from './props';
+import { Tooltip } from './tooltipComp';
 
 
 export default function CoachMarkComponent(props: CoachMarkProps) {
 
   const {
     renderingComponent,
+    tooltipComponent,
     stepsProps,
     styleProps,
     HandleCallBack : handleCall,
@@ -34,56 +36,56 @@ export default function CoachMarkComponent(props: CoachMarkProps) {
       placement: "bottom",
       target: "#step-1",
       disableBeacon: false,
-      title: <Typography sx={styles?.stepTitle}>Tap to "Back" pages</Typography>
+      title: <Typography sx={styles?.stepTitle}>Tap to `Back` pages</Typography>
     },
     {
       content: '',
       placement: "bottom",
       disableBeacon: true,
       target: "#step-2",
-      title: <Typography sx={styles?.stepTitle}> Add "Bookmark" here</Typography>
+      title: <Typography sx={styles?.stepTitle}> Add `Bookmark` here</Typography>
     },
     {
       content: '',
       placement: "bottom",
       disableBeacon: true,
       target: '#step-10',
-      title: <Typography sx={styles?.stepTitle}> "Menus" to navigate!</Typography>
+      title: <Typography sx={styles?.stepTitle}>`Menus` to navigate!</Typography>
     },
     {
       content: '',
       placement: "bottom",
       disableBeacon: true,
       target: "#step-3",
-      title: <Typography sx={styles?.stepTitle}> Here is 'Home' menu!</Typography>
+      title: <Typography sx={styles?.stepTitle}> Here is `Home` menu!</Typography>
     },
     {
       content: '',
       placement: "bottom",
       disableBeacon: true,
       target: "#step-4",
-      title: <Typography sx={styles?.stepTitle}> Here is 'Clinical' menu!</Typography>
+      title: <Typography sx={styles?.stepTitle}> Here is `Clinical` menu!</Typography>
     },
     {
       content: '',
       placement: "bottom",
       disableBeacon: true,
       target: "#step-5",
-      title: <Typography sx={styles?.stepTitle}> Here is 'MBF' menu!</Typography>
+      title: <Typography sx={styles?.stepTitle}> Here is `MBF`` menu!</Typography>
     },
     {
       content: '',
       placement: "bottom",
       disableBeacon: true,
       target: "#step-6",
-      title: <Typography sx={styles?.stepTitle}>  Here is 'Masters' menu!</Typography>
+      title: <Typography sx={styles?.stepTitle}>  Here is `Masters` menu!</Typography>
     },
     {
       content: '',
       placement: "bottom",
       disableBeacon: true,
       target: "#step-7",
-      title: <Typography sx={styles?.stepTitle}>  Here is 'Profile' menu!</Typography>
+      title: <Typography sx={styles?.stepTitle}>  Here is `Profile` menu!</Typography>
     },
   ]
 
@@ -105,6 +107,7 @@ export default function CoachMarkComponent(props: CoachMarkProps) {
         spotlightClicks={spotlightClicks ? spotlightClicks : false}
         showSkipButton={showSkipButton ? showSkipButton : false}
         showProgress={showProgress ? showProgress : false}
+        tooltipComponent={Tooltip}
         spotlightPadding={spotlightPadding ? spotlightPadding : 1}
         floaterProps={{
           ...{
@@ -149,9 +152,8 @@ export default function CoachMarkComponent(props: CoachMarkProps) {
             }
           },
           ...styleProps
-        }
-        }
-
+        }}
+        
       />
       {
         renderingComponent ? renderingComponent : <VariantOne />
@@ -160,4 +162,6 @@ export default function CoachMarkComponent(props: CoachMarkProps) {
   );
 }
 
-CoachMarkComponent.defaultProps = {};
+CoachMarkComponent.defaultProps = {
+
+};
