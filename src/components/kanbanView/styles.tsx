@@ -54,11 +54,10 @@ export const styles = {
       border: '1px solid #665CD7',
       boxShadow: '2px 2px 8px  #00000029 ',
     },
-      
-    '&:active':{
+
+    '&:active': {
       border: '1px solid #665CD7',
     },
-    
   },
 
   childOnDraggedBox: {

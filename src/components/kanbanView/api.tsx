@@ -10,8 +10,8 @@ export interface cardItemProp {
   status: string;
   cardTitle: string;
   isActive: boolean;
-  notifyIcon: any;
-  moreIcon: any;
+  notifyIcon: React.ReactNode;
+  moreIcon: React.ReactNode;
   subTitles: {
     label: string;
     bgColor: string;
@@ -34,7 +34,7 @@ export interface ColumnType {
   title: string;
   bottomButton: {
     buttonLabel: string;
-    icon: any;
+    icon: React.ReactNode;
     onClick: () => void;
   };
   tasks: any[];

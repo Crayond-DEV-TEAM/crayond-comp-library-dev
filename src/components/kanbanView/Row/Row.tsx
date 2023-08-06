@@ -1,18 +1,53 @@
 import { Draggable, DraggableProvided } from '@hello-pangea/dnd';
 import React from 'react';
-import { useDragDrop } from '../DragDropProvider';
 import { styles } from '../styles';
-import { Avatar, AvatarGroup, Box, IconButton, SxProps, Typography } from '@mui/material';
+import {
+  Avatar,
+  AvatarGroup,
+  Box,
+  IconButton,
+  SxProps,
+  Typography,
+} from '@mui/material';
 
-type Props = {
+interface RowProps {
   task: any;
   index: number;
-  isDraggingStart: boolean;
-};
+  rowChildItemRootStyle?: SxProps;
+  childItemBgColor?: string;
+  childItemComponentBgColor?: string;
+  rowChildItemComponentRootStyle?: SxProps;
 
-const Row: React.FC<Props> = ({ task, index }) => {
-  const { rowChildItemRootStyle, rowChildItemComponentRootStyle } =
-    useDragDrop();
+  childItemHoverBorderColor?: string;
+  childItemHoverRootStyle?: SxProps;
+  childItemActiveBorderColor?: string;
+  childItemActiveRootStyle?: SxProps;
+
+  childItemComponentHoverBorderColor?: string;
+  childItemComponentHoverRootStyle?: SxProps;
+  childItemComponentActiveBorderColor?: string;
+  childItemComponentActiveRootStyle?: SxProps;
+}
+
+const Row = (props: RowProps) => {
+  const {
+    task,
+    index,
+    rowChildItemRootStyle,
+    childItemBgColor,
+    rowChildItemComponentRootStyle,
+    childItemComponentBgColor,
+
+    childItemHoverBorderColor,
+    childItemHoverRootStyle,
+    childItemActiveBorderColor,
+    childItemActiveRootStyle,
+
+    childItemComponentHoverBorderColor,
+    childItemComponentHoverRootStyle,
+    childItemComponentActiveBorderColor,
+    childItemComponentActiveRootStyle,
+  } = props;
 
   return (
     <Draggable draggableId={task.id} index={index}>
@@ -21,7 +56,21 @@ const Row: React.FC<Props> = ({ task, index }) => {
           {task?.component ? (
             <>
               <Box
-                sx={{ ...styles.childBoxContainer }}
+                sx={
+                  {
+                    ...styles.childBoxContainer,
+                    ...rowChildItemComponentRootStyle,
+                    backgroundColor: childItemComponentBgColor,
+                    '&:hover': {
+                      border: `1px solid ${childItemComponentHoverBorderColor}`,
+                      ...childItemComponentHoverRootStyle,
+                    },
+                    '&:active': {
+                      border: `1px solid ${childItemComponentActiveBorderColor}`,
+                      ...childItemComponentActiveRootStyle,
+                    },
+                  } as SxProps
+                }
                 {...provided.draggableProps}
                 {...provided.dragHandleProps}
                 ref={provided.innerRef}
@@ -33,12 +82,26 @@ const Row: React.FC<Props> = ({ task, index }) => {
             </>
           ) : (
             <Box
-              sx={{ ...styles.childBoxContainer }}
+              sx={
+                {
+                  ...styles.childBoxContainer,
+                  ...rowChildItemRootStyle,
+                  backgroundColor: childItemBgColor,
+                  '&:hover': {
+                    border: `1px solid ${childItemHoverBorderColor}`,
+                    ...childItemHoverRootStyle,
+                  },
+                  '&:active': {
+                    border: `1px solid ${childItemActiveBorderColor}`,
+                    ...childItemActiveRootStyle,
+                  },
+                } as SxProps
+              }
               {...provided.draggableProps}
               {...provided.dragHandleProps}
               ref={provided.innerRef}
             >
-              <Box sx={{ p: '12px', ...rowChildItemRootStyle }}>
+              <Box sx={{ p: '12px' }}>
                 <Box sx={{ ...styles.childTitleContainer }}>
                   <Box>
                     <Typography sx={{ ...styles.titleStyle }}>
@@ -50,29 +113,35 @@ const Row: React.FC<Props> = ({ task, index }) => {
                     <IconButton onClick={() => false}>
                       {task?.notifyIcon}
                     </IconButton>
-                    <IconButton onClick={() => false}>{task?.moreIcon}</IconButton>
+                    <IconButton onClick={() => false}>
+                      {task?.moreIcon}
+                    </IconButton>
                   </Box>
                 </Box>
                 <Box sx={{ ...styles.designBlock }}>
                   {task?.subTitles?.map((value: any) => (
                     <Box
-                    key={value?.id}
-                      sx={{
-                        ...styles.designBox,
-                        background: value?.bgColor ?? '#DEE6F9',
-                        border: value?.borderColor
-                          ? `1px solid ${value?.borderColor}`
-                          : '',
-                      } as SxProps}
+                      key={value?.id}
+                      sx={
+                        {
+                          ...styles.designBox,
+                          background: value?.bgColor ?? '#DEE6F9',
+                          border: value?.borderColor
+                            ? `1px solid ${value?.borderColor}`
+                            : '',
+                        } as SxProps
+                      }
                     >
                       <Typography
-                        sx={{
-                          ...styles.titleStyle,
-                          marginBottom: '0px',
-                          color: value?.textColor
-                            ? value?.textColor
-                            : '#929292',
-                        } as SxProps}
+                        sx={
+                          {
+                            ...styles.titleStyle,
+                            marginBottom: '0px',
+                            color: value?.textColor
+                              ? value?.textColor
+                              : '#929292',
+                          } as SxProps
+                        }
                       >
                         {value?.label}
                       </Typography>
@@ -81,7 +150,7 @@ const Row: React.FC<Props> = ({ task, index }) => {
                 </Box>
                 <Box sx={{ ...styles.childTitleContainer }}>
                   <AvatarGroup>
-                    {task?.images?.map((val: any,i:number) => (
+                    {task?.images?.map((val: any, i: number) => (
                       <Avatar
                         key={i}
                         alt="Rem Sharp"
