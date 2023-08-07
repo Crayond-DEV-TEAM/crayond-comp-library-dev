@@ -78,7 +78,7 @@ export default function Language(props: languageInterface) {
   return (
     <Box sx={{background:"#F5F5F5", padding:'8px'}}>
       <Box py={2} >
-        <SelectBoxComponent
+        {/* <SelectBoxComponent
           SelectDropdownSx={{
             padding: '0',
             display: 'flex',
@@ -127,7 +127,7 @@ export default function Language(props: languageInterface) {
               maxWidth: '200px ',
             },
           }}
-        />
+        /> */}
       </Box>
       <Box sx={{ ...Styles?.parentBox, ...languagesBoxStyle }}>
         <Typography sx={{...Styles?.title, ...titleLabelStyle}}>{titleLabel}</Typography>
