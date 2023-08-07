@@ -18,6 +18,7 @@ export interface MapMainComponent {
     destination?: latLAng;
     isSearchRequired?: boolean;
     fullscreenControl?: boolean;
+    totalSearchBox?:SxProps;
     zoomControl?: boolean;
     center?: latLAng | any;
     streetViewControl?: boolean;
@@ -25,6 +26,7 @@ export interface MapMainComponent {
     setDefaultRoute?: boolean;
     searchBoxRootsx?:SxProps;
     calculatebtnStyle?:SxProps;
+    nearBtnSx?:SxProps;
     onMarkerMouseOver?: (marker: any) => void;
     onMarkerClustererClick?: (e: unknown) => void;
     onClearRoute ?:()=> void;

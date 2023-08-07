@@ -3,6 +3,7 @@ import {
   Autocomplete,
   DirectionsRenderer,
   GoogleMap,
+  Libraries,
   LoadScript,
   Marker,
   MarkerClusterer,
@@ -10,9 +11,8 @@ import {
   OverlayView,
   OverlayViewF,
 } from '@react-google-maps/api';
-import { Box, Typography, IconButton, TextField } from '@mui/material';
+import { Box, Typography, IconButton, TextField, SxProps } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import mapCircle from '../../assets/mapCircle.png';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import { customMapStyle } from './style';
 import { BasicButtons } from '../button';
@@ -34,6 +34,8 @@ export const MapComponent = (props: MapMainComponent) => {
     deatilsCardCustomizes = false,
     deatilsCardCustomize,
     customCardLocation,
+    totalSearchBox={},
+    nearBtnSx={},
     origin,
     center,
     destination,
@@ -54,6 +56,7 @@ export const MapComponent = (props: MapMainComponent) => {
     onMarkerMouseOut = () => false,
   } = props;
 
+  
   const [hoveredMarker, setHoveredMarker] = useState<locationsData | null>(
     null,
   );
@@ -70,6 +73,8 @@ export const MapComponent = (props: MapMainComponent) => {
   const originRef = useRef<any>();
   const destiantionRef = useRef<any>();
   const isSmallScreen = window.innerWidth <= 500;
+
+  const googleMapsLibraries: Libraries | undefined = ['places'];
 
   const getDistance = (location1: latLAng, location2: latLAng) => {
     const rad = (x: number) => (x * Math.PI) / 180;
@@ -154,7 +159,6 @@ export const MapComponent = (props: MapMainComponent) => {
     if (!origin || !destination) {
       return;
     }
-
     const directionsService = new google.maps.DirectionsService();
     try {
       const results = await directionsService.route({
@@ -192,25 +196,27 @@ export const MapComponent = (props: MapMainComponent) => {
   };
 
   const initalRender = async () => {
-    if (center) {
+    if (center && center.lat !== null && center.lng !== null) {
       setCurrentLocation(center);
-    } else if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setCurrentLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          });
-        },
-        (error) => {
-          console.log('Error getting current location:', error);
-        },
-      );
     } else {
-      console.log('Geolocation is not supported by this browser.');
-    }
-    if (setDefaultRoute && origin && destination && filteredLocations) {
-      await defaultRoute(origin, destination);
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            setCurrentLocation({
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            });
+          },
+          (error) => {
+            console.log('Error getting current location:', error);
+          }
+        );
+      } else {
+        console.log('Geolocation is not supported by this browser.');
+      }
+      if (googleMapApiKey?.length > 0 && setDefaultRoute && origin && destination && filteredLocations) {
+        await defaultRoute(origin, destination);
+      }
     }
   };
 
@@ -231,16 +237,20 @@ export const MapComponent = (props: MapMainComponent) => {
   }, [currentLocation, locations]);
 
   return (
-    <LoadScript googleMapsApiKey={googleMapApiKey} libraries={['places']}>
+  <div style={{width:'100%',height:'100vh'}}>
+      <LoadScript googleMapsApiKey={googleMapApiKey} libraries={googleMapsLibraries}>
       {isSearchRequired && (
+        <>
+        
         <Box
           sx={{
             ...customMapStyle.totalBoxSx,
+            ...totalSearchBox,
             '@media (max-width: 806px) ': {
               top: mapTypeControl ? '50px' : '0px',
               left: mapTypeControl ? '11px' : '0px',
             },
-          }}
+          } as SxProps}
         >
           <Box sx={{ ...customMapStyle.totalSearchBoxSx, ...searchBoxRootsx }}>
             <Box sx={{ ...customMapStyle.searchBox }}>
@@ -296,20 +306,22 @@ export const MapComponent = (props: MapMainComponent) => {
             )}
           </Box>
         </Box>
-      )}
       <IconButton
-        sx={{ ...customMapStyle.nearSx }}
+        sx={{ ...customMapStyle.nearSx, ...nearBtnSx }as SxProps}
         onClick={() => {
           map?.panTo(currentLocation);
           map?.setZoom(15);
-        }}
+        }} 
       >
         <NearMeIcon />
       </IconButton>
+        </>
+      )}
+
       <GoogleMap
         mapContainerStyle={mapStyles}
         zoom={zoom}
-        center={currentLocation || center}
+        center={currentLocation}
         options={{
           zoomControl: zoomControl,
           streetViewControl: streetViewControl,
@@ -335,7 +347,7 @@ export const MapComponent = (props: MapMainComponent) => {
               styles: [
                 {
                   textColor: '#fff',
-                  url: mapRadiusIcon,
+                  url: mapRadiusIcon ||  'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png',
                   height: 30,
                   width: 30,
                   ...RadiusStyle,
@@ -355,7 +367,7 @@ export const MapComponent = (props: MapMainComponent) => {
                     },
                     label: {
                       text: item.name,
-                      color: '#4e4e4e',
+                      color: googleMapApiKey ? '#4e4e4e' : '#ffffff',
                       fontSize: '12px',
                       fontWeight: '500',
                       ...markerLabelStyle,
@@ -474,6 +486,7 @@ export const MapComponent = (props: MapMainComponent) => {
         )}
       </GoogleMap>
     </LoadScript>
+  </div>
   );
 };
 
@@ -488,7 +501,7 @@ MapComponent.defaultProps = {
   },
   radiusDistance: 1200000000,
   locations: [],
-  mapRadiusIcon: mapCircle,
+  mapRadiusIcon:  'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m1.png',
   origin: { lat: 0, lng: 0 },
   destination: { lat: 0, lng:0 },
   setDefaultRoute: true,

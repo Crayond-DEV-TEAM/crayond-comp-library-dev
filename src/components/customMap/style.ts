@@ -99,6 +99,9 @@ zIndex:1,
     top:'62px',
     backgroundColor:'#fff',
     borderRadius:'1px',
+    '&:hover': {
+      backgroundColor: '#fff',
+    },
     
     // backgroundColor:'#eaeaea'
   },inputSx:{
