@@ -683,17 +683,17 @@ const SelectBox = (props: SelectBoxProps) => {
                   }
                 }
               }}
-              options={defaultProps?.arrData}
-              value={
+              options={defaultProps?.arrData || []}
+              value={ 
                 Array.isArray(defaultProps?.defaultData) ?
                   defaultProps?.defaultData?.length > 0 ?
                     defaultProps?.defaultData : multiple ? [] : null :
                   (defaultProps?.defaultData ?? null)
               }
               onChange={(event, newValue) => {
-                defaultProps?.handleDefaultChange && defaultProps?.handleDefaultChange(event, newValue as FilmOptionType)
+                defaultProps?.handleDefaultChange && defaultProps?.handleDefaultChange(event, newValue as unknown as FilmOptionType)
               }}
-              getOptionLabel={(option) => option.title as string}
+              getOptionLabel={(option) => option?.title as string}
               multiple={multiple}
               renderInput={(params) =>
                 <Stack direction={'row'} alignItems={'center'}
@@ -746,7 +746,7 @@ const SelectBox = (props: SelectBoxProps) => {
                 return (
 
                   <Typography {...props}
-                    sx={hovered === option?.title || (
+                    sx={hovered === option.title || (
                       (Array.isArray(defaultProps?.defaultData) ? defaultProps?.defaultData : [defaultProps?.defaultData]).map(e => e?.title).includes(option.title))
                       ? {
                         background: '#E9E9E9',

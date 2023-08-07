@@ -12,7 +12,7 @@ export default {
 const Template: ComponentStory<typeof Language> = () => {
   interface languageProps {
     langName: string;
-    langText: string;
+    langText: string; 
   }
 
   interface FilmOptionType {
@@ -130,7 +130,7 @@ const Template: ComponentStory<typeof Language> = () => {
     };
   });
 
-  const handleDefaultChange = (e: any, val: FilmOptionType) => {
+  const handleDefaultChange = (e: any, val: FilmOptionType[] | FilmOptionType) => {
     const newValue = val as FilmOptionType 
     setOptionValue(val as never);
     setSelectedLang({
