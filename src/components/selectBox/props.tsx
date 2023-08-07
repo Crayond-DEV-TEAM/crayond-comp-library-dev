@@ -19,9 +19,9 @@ export interface SelectBoxProps {
         handleGroupChange?: (e: React.SyntheticEvent,
             val: FilmOptionType
         ) => void,
-        groupedData?: FilmOptionType[],
+        groupedData?: FilmOptionType | FilmOptionType[],
         arrData?: FilmOptionType[],
-        defaultValue?: FilmOptionType[],
+        defaultValue?: FilmOptionType | FilmOptionType[],
         label?: string,
         labelPropsSx?: object,
         islabel: boolean,
@@ -54,7 +54,7 @@ export interface SelectBoxProps {
         handleDefaultChange?: (e: React.SyntheticEvent,
             val: FilmOptionType
         ) => void,
-        defaultData?: FilmOptionType[],
+        defaultData?: FilmOptionType | FilmOptionType[] ,
         arrData: FilmOptionType[],
         defaultValue: FilmOptionType[],
         label?: string,
@@ -89,9 +89,9 @@ export interface SelectBoxProps {
         handleChipChange?: (e: any,
             val: FilmOptionType
         ) => void,
-        chipData?: FilmOptionType[],
+        chipData?: FilmOptionType | FilmOptionType[],
         arrData?: FilmOptionType[],
-        defaultValue?: FilmOptionType[],
+        defaultValue?: FilmOptionType | FilmOptionType[],
         label?: string,
         labelPropsSx?: object,
         islabel: boolean,

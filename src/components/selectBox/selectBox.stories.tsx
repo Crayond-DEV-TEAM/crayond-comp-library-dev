@@ -91,9 +91,9 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
   ];
 
   const [checked, setChecked] = useState([])
-  const [defaultData, setDefaultData] = useState([])
+  const [defaultData, setDefaultData] = useState<FilmOptionType | FilmOptionType[]>([])
   const [groupedData, setGroupedData] = useState([])
-  const [chipData, setChipData] = useState([])
+  const [chipData, setChipData] = useState<FilmOptionType | FilmOptionType[]>([])
 
   const handleCheckedItem = (event: object, newValue: CheckedOption[]) => {
     const slicedData = newValue.filter((item: CheckedOption, index: number) =>
@@ -104,11 +104,11 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
   }
 
   const handleDefaultChange = (val: any, newValue: FilmOptionType[] | FilmOptionType) => {
-    const slicedData = (newValue as FilmOptionType[]).filter((item: FilmOptionType, index: number) =>
-      (newValue as FilmOptionType[]).findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index)
-    const convertedValue = slicedData as never[];
-    setDefaultData(convertedValue)
+    if(Array.isArray(newValue)) {
+    setDefaultData(newValue as FilmOptionType[])
+    } else {
+      setDefaultData(newValue as FilmOptionType)
+    }
   }
   const handleGroupChange = (event: any, newValue: FilmOptionType[] | FilmOptionType) => {
     const slicedData = (newValue as FilmOptionType[]).filter((item: FilmOptionType, index: number) =>
@@ -119,12 +119,16 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
   }
 
   const handleChipChange = (val: any, newValue: FilmOptionType[] | FilmOptionType) => {
-    const slicedData = (newValue as FilmOptionType[]).filter((item: FilmOptionType, index: number) =>
-      (newValue as FilmOptionType[]).findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index)
-    const convertedValue = slicedData as never[];
-    setChipData(convertedValue)
+    if(Array.isArray(newValue)) {
+    setChipData(newValue as FilmOptionType[])
+    } else {
+      setChipData(newValue as FilmOptionType)
+    }
+    
   }
+
+  console.log(defaultData, '00');
+  
   return (
     <SelectBoxComponent
       limitTags={2}
@@ -192,7 +196,7 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
         handleChipChange: handleChipChange,
         chipData: chipData,
         arrData: top100Films,
-        defaultValue: chipData?.[0],
+        defaultValue: [],
         dropdown: {
           minHeight: '',
           maxHeight: '',
