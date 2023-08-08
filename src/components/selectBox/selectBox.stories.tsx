@@ -90,17 +90,18 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
 
   ];
 
-  const [checked, setChecked] = useState([])
+  const [checked, setChecked] = useState<CheckedOption | CheckedOption[]>([])
   const [defaultData, setDefaultData] = useState<FilmOptionType | FilmOptionType[]>([])
-  const [groupedData, setGroupedData] = useState([])
+  const [groupedData, setGroupedData] = useState<FilmOptionType | FilmOptionType[]>([])
   const [chipData, setChipData] = useState<FilmOptionType | FilmOptionType[]>([])
 
-  const handleCheckedItem = (event: object, newValue: CheckedOption[]) => {
-    const slicedData = newValue.filter((item: CheckedOption, index: number) =>
-      newValue.findIndex((obj: CheckedOption) =>
-        obj.title === item.title && obj.isChecked === item.isChecked) === index)
-    const convertedValue = slicedData as never[];
-    setChecked(convertedValue)
+  const handleCheckedItem = (event: object, newValue: CheckedOption[] | CheckedOption) => {
+    if(Array.isArray(newValue)) {
+      setChecked(newValue as CheckedOption[])
+      } else {
+        setChecked(newValue as CheckedOption)
+      }
+    
   }
 
   const handleDefaultChange = (val: any, newValue: FilmOptionType[] | FilmOptionType) => {
@@ -111,11 +112,12 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
     }
   }
   const handleGroupChange = (event: any, newValue: FilmOptionType[] | FilmOptionType) => {
-    const slicedData = (newValue as FilmOptionType[]).filter((item: FilmOptionType, index: number) =>
-      (newValue as FilmOptionType[]).findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index)
-    const convertedValue = slicedData as never[];
-    setGroupedData(convertedValue)
+
+    if(Array.isArray(newValue)) {
+      setGroupedData(newValue as FilmOptionType[])
+      } else {
+        setGroupedData(newValue as FilmOptionType)
+      }
   }
 
   const handleChipChange = (val: any, newValue: FilmOptionType[] | FilmOptionType) => {

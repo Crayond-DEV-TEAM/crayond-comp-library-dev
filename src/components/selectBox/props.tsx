@@ -123,7 +123,7 @@ export interface SelectBoxProps {
         isSearch?: boolean,
         handleCheckedItem?: (e: any,
             val: CheckedOption[]) => void,
-        CheckableData: CheckedOption[],
+        CheckableData: CheckedOption[] | CheckedOption,
         arrData?: CheckedOption[],
         label?: string,
         labelPropsSx?: object,
