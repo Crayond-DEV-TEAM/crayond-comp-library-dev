@@ -3,8 +3,7 @@ import { styles } from './styles';
 import { Typography } from '@mui/material';
 import Joyride from "react-joyride";
 import { VariantOne } from './variantOne';
-import { CoachMarkProps, Step } from './props';
-import { Tooltip } from './tooltipComp';
+import { CallBackProps, CoachMarkProps, Step } from './props';
 
 
 export default function CoachMarkComponent(props: CoachMarkProps) {
@@ -14,7 +13,7 @@ export default function CoachMarkComponent(props: CoachMarkProps) {
     tooltipComponent,
     stepsProps,
     styleProps,
-    HandleCallBack : handleCall,
+    HandleCallBack,
     hideCloseButton = false,
     scrollToFirstStep = false,
     spotlightClicks = false,
@@ -99,7 +98,7 @@ export default function CoachMarkComponent(props: CoachMarkProps) {
     }}>
       <Joyride
         continuous={ continuous ? continuous : true}
-        callback={handleCall}
+        callback={(e: any)=> HandleCallBack(e)}
         run={ run ? run : true}
         steps={stepsProps ? stepsProps : step}
         hideCloseButton={hideCloseButton ? hideCloseButton : false}
@@ -107,7 +106,7 @@ export default function CoachMarkComponent(props: CoachMarkProps) {
         spotlightClicks={spotlightClicks ? spotlightClicks : false}
         showSkipButton={showSkipButton ? showSkipButton : false}
         showProgress={showProgress ? showProgress : false}
-        tooltipComponent={Tooltip}
+        tooltipComponent={tooltipComponent ? tooltipComponent : null}
         spotlightPadding={spotlightPadding ? spotlightPadding : 1}
         floaterProps={{
           ...{
@@ -163,5 +162,5 @@ export default function CoachMarkComponent(props: CoachMarkProps) {
 }
 
 CoachMarkComponent.defaultProps = {
-
+  
 };

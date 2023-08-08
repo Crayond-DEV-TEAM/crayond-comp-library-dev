@@ -102,7 +102,7 @@ export interface CoachMarkProps {
     showSkipButton?: boolean;
     showProgress?: boolean;
     spotlightPadding?: number;
-    HandleCallBack?: (data: CallBackProps) => void 
+    HandleCallBack: (data: CallBackProps) => void 
 }
 
 export type FloaterProps = FloaterType;

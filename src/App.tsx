@@ -2,7 +2,6 @@ import '@fontsource/poppins/400.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';
-import { useState } from 'react';
 import { CoachMark } from './components/coachMark';
 import { Box } from '@mui/material';
 import { Step, status } from './components/coachMark/props';
@@ -24,6 +23,7 @@ function App() {
 
   const HandleCallBack = (data: CallBackProps) => {
     debugger
+    console.log(data, 'e')
   }
 
   return (
