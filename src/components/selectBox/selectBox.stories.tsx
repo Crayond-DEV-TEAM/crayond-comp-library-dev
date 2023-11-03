@@ -3,6 +3,16 @@ import SelectBox from './selectBox';
 import React, { useState } from 'react';
 import { SelectBoxComponent } from '.';
 
+interface FilmOptionType {
+  title: string | number;
+  year: number | string;
+}
+
+interface CheckedOption {
+  title: string;
+  isChecked: boolean;
+}
+
 export default {
   title: 'Components/selectBox',
   component: SelectBox,
@@ -32,15 +42,7 @@ export default {
 } as ComponentMeta<typeof SelectBox>;
 
 const Template: ComponentStory<typeof SelectBox> = (args) => {
-  interface FilmOptionType {
-    title: string;
-    year: number;
-  }
-
-  interface CheckedOption {
-    title: string;
-    isChecked: boolean;
-  }
+ 
 
   const top100Films = [
     { title: 'Option 1', year: 1994 },
@@ -88,41 +90,47 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
 
   ];
 
-  const [checked, setChecked] = useState([])
-  const [defaultData, setDefaultData] = useState([])
-  const [groupedData, setGroupedData] = useState([])
-  const [chipData, setChipData] = useState([])
+  const [checked, setChecked] = useState<CheckedOption | CheckedOption[]>([])
+  const [defaultData, setDefaultData] = useState<FilmOptionType | FilmOptionType[]>([])
+  const [groupedData, setGroupedData] = useState<FilmOptionType | FilmOptionType[]>([])
+  const [chipData, setChipData] = useState<FilmOptionType | FilmOptionType[]>([])
 
-  const handleCheckedItem = (event: object, newValue: CheckedOption[]) => {
-    const slicedData = newValue.filter((item: CheckedOption, index: number) =>
-      newValue.findIndex((obj: CheckedOption) =>
-        obj.title === item.title && obj.isChecked === item.isChecked) === index)
-    const convertedValue = slicedData as never[];
-    setChecked(convertedValue)
-  }
-
-  const handleDefaultChange = (val: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.filter((item: FilmOptionType, index: number) =>
-      newValue.findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index)
-    const convertedValue = slicedData as never[];
-    setDefaultData(convertedValue)
-  }
-  const handleGroupChange = (event: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.filter((item: FilmOptionType, index: number) =>
-      newValue.findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index)
-    const convertedValue = slicedData as never[];
-    setGroupedData(convertedValue)
+  const handleCheckedItem = (event: object, newValue: CheckedOption[] | CheckedOption) => {
+    if(Array.isArray(newValue)) {
+      setChecked(newValue as CheckedOption[])
+      } else {
+        setChecked(newValue as CheckedOption)
+      }
+    
   }
 
-  const handleChipChange = (val: any, newValue: FilmOptionType[]) => {
-    const slicedData = newValue.filter((item: FilmOptionType, index: number) =>
-      newValue.findIndex((obj: FilmOptionType) =>
-        obj.title === item.title && obj.year === item.year) === index)
-    const convertedValue = slicedData as never[];
-    setChipData(convertedValue)
+  const handleDefaultChange = (val: any, newValue: FilmOptionType[] | FilmOptionType) => {
+    if(Array.isArray(newValue)) {
+    setDefaultData(newValue as FilmOptionType[])
+    } else {
+      setDefaultData(newValue as FilmOptionType)
+    }
   }
+  const handleGroupChange = (event: any, newValue: FilmOptionType[] | FilmOptionType) => {
+
+    if(Array.isArray(newValue)) {
+      setGroupedData(newValue as FilmOptionType[])
+      } else {
+        setGroupedData(newValue as FilmOptionType)
+      }
+  }
+
+  const handleChipChange = (val: any, newValue: FilmOptionType[] | FilmOptionType) => {
+    if(Array.isArray(newValue)) {
+    setChipData(newValue as FilmOptionType[])
+    } else {
+      setChipData(newValue as FilmOptionType)
+    }
+    
+  }
+
+  console.log(defaultData, '00');
+  
   return (
     <SelectBoxComponent
       limitTags={2}
@@ -133,6 +141,7 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
         handleGroupChange: handleGroupChange,
         groupedData: groupedData,
         arrData: top100Films,
+        islabel:false,
         label: '',
         dropdown: {
           minHeight: '',
@@ -160,6 +169,7 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
         defaultData: defaultData,
         arrData: top100Films,
         defaultValue: [],
+        islabel: false,
         label: '',
         dropdown: {
           minHeight: '',
@@ -183,6 +193,7 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
       chipProps={{
         isCloseIcon: true,
         label: '',
+        islabel: false,
         isSearch: true,
         handleChipChange: handleChipChange,
         chipData: chipData,
@@ -212,6 +223,7 @@ const Template: ComponentStory<typeof SelectBox> = (args) => {
         isSearch: true,
         defaultValue: [],
         label: '',
+        islabel: false,
         handleCheckedItem: handleCheckedItem,
         CheckableData: checked,
         arrData: CheckBoxData,
@@ -247,8 +259,9 @@ Primary.args = {
     isCloseIcon: true,
     isSearch: true,
     label: '',
+    islabel: false,
     handleGroupChange:
-      (e: any, val: object[]) => {
+      (e: any, val: FilmOptionType[] | FilmOptionType) => {
         console.log(val, 'groupDropDown')
       },
     groupedData: [],
@@ -286,8 +299,9 @@ Primary.args = {
     isCloseIcon: true,
     defaultValue: [],
     isSearch: true,
+    islabel:false,
     label: '',
-    handleDefaultChange: (e: any, val: object[]) => {
+    handleDefaultChange: (e: any, val: FilmOptionType[] | FilmOptionType) => {
       console.log(val, 'defaultDropdown')
     },
     defaultData: [],
@@ -323,8 +337,9 @@ Primary.args = {
   chipProps: {
     isCloseIcon: true,
     label: '',
+    islabel:false,
     isSearch: true,
-    handleChipChange: (e: any, val: object[]) => {
+    handleChipChange: (e: any, val: FilmOptionType[] | FilmOptionType) => {
       console.log(val, 'chipDropDown')
     },
     chipData: [],
@@ -365,6 +380,7 @@ Primary.args = {
     },
     defaultValue: [],
     label: '',
+    islabel:false,
     CheckableData: [],
     arrData: [
       { title: 'The Shawshank Redemption', isChecked: false },

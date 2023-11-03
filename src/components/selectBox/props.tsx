@@ -1,6 +1,7 @@
+
 interface FilmOptionType {
-    title: string;
-    year: number;
+    title: string | number;
+    year: string | number;
 }
 
 interface CheckedOption {
@@ -10,18 +11,20 @@ interface CheckedOption {
 
 export interface SelectBoxProps {
     multiple?: boolean,
-    // rootStyleSx: object,
+    SelectDropdownSx?: object,
     limitTags?: number;
     groupingProps?: {
         isCloseIcon?: boolean,
         isSearch?: boolean,
-        handleGroupChange?: (e: any,
-            val: FilmOptionType[]
+        handleGroupChange?: (e: React.SyntheticEvent,
+            val: FilmOptionType
         ) => void,
-        groupedData?: FilmOptionType[],
+        groupedData?: FilmOptionType | FilmOptionType[],
         arrData?: FilmOptionType[],
-        defaultValue?: FilmOptionType[],
+        defaultValue?: FilmOptionType | FilmOptionType[],
         label?: string,
+        labelPropsSx?: object,
+        islabel: boolean,
         dropdown?: {
             minHeight?: string,
             maxWidth?: string,
@@ -38,19 +41,25 @@ export interface SelectBoxProps {
             backgroundColor?: string,
             color?: string,
             border?: string,
-            borderRadius?: string
+            borderRadius?: string,
+            inputPropsSx?: object,
+            isStartIcon?: boolean,
+            startEndornment?: JSX.Element,
+            endEndornment?: JSX.Element,
         }
     }
     defaultProps?: {
         isCloseIcon?: boolean,
         isSearch?: boolean,
-        handleDefaultChange?: (e: any,
-            val: FilmOptionType[]
+        handleDefaultChange?: (e: React.SyntheticEvent,
+            val: FilmOptionType
         ) => void,
-        defaultData?: FilmOptionType[],
-        arrData?: FilmOptionType[],
-        defaultValue?: FilmOptionType[],
+        defaultData?: FilmOptionType | FilmOptionType[] ,
+        arrData: FilmOptionType[],
+        defaultValue: FilmOptionType[],
         label?: string,
+        labelPropsSx?: object,
+        islabel: boolean,
         dropdown?: {
             minHeight?: string,
             maxWidth?: string,
@@ -67,19 +76,25 @@ export interface SelectBoxProps {
             backgroundColor?: string,
             color?: string,
             border?: string,
-            borderRadius?: string
+            borderRadius?: string,
+            inputPropsSx?: object,
+            isStartIcon?: boolean,
+            startEndornment?: JSX.Element,
+            endEndornment?: JSX.Element,
         }
     }
     chipProps?: {
         isCloseIcon?: boolean,
         isSearch?: boolean,
         handleChipChange?: (e: any,
-            val: FilmOptionType[]
+            val: FilmOptionType
         ) => void,
-        chipData?: FilmOptionType[],
+        chipData?: FilmOptionType | FilmOptionType[],
         arrData?: FilmOptionType[],
-        defaultValue?: FilmOptionType[],
+        defaultValue?: FilmOptionType | FilmOptionType[],
         label?: string,
+        labelPropsSx?: object,
+        islabel: boolean,
         dropdown?: {
             minHeight?: string,
             maxWidth?: string,
@@ -96,7 +111,11 @@ export interface SelectBoxProps {
             backgroundColor?: string,
             color?: string,
             border?: string,
-            borderRadius?: string
+            borderRadius?: string,
+            inputPropsSx?: object,
+            isStartIcon?: boolean,
+            endEndornment?: JSX.Element,
+            startEndornment?: JSX.Element,
         }
     }
     checkboxProps?: {
@@ -104,9 +123,11 @@ export interface SelectBoxProps {
         isSearch?: boolean,
         handleCheckedItem?: (e: any,
             val: CheckedOption[]) => void,
-        CheckableData: CheckedOption[],
+        CheckableData: CheckedOption[] | CheckedOption,
         arrData?: CheckedOption[],
         label?: string,
+        labelPropsSx?: object,
+        islabel: boolean,
         defaultValue?: CheckedOption[],
         dropdown?: {
             minHeight?: string,
@@ -124,7 +145,11 @@ export interface SelectBoxProps {
             backgroundColor?: string,
             color?: string,
             border?: string,
-            borderRadius?: string
+            borderRadius?: string,
+            inputPropsSx?: object,
+            isStartIcon?: boolean,
+            endEndornment?: JSX.Element,
+            startEndornment?: JSX.Element,
         }
     },
     selectType: 'default' | 'chip' | 'checkbox' | 'grouping'

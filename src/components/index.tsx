@@ -3,6 +3,7 @@ export { CommonTable } from './table';
 export { Switch } from './switch';
 export { LinearProcess } from './linearProgress';
 export { Progress } from './progress';
+export { Language } from './language';
 export { ChatBox } from './chatBox';
 export { TreeComponent } from './treeComp';
 export { TreeView } from './treeView';
